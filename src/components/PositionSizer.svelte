@@ -323,7 +323,7 @@
     <!-- Footer -->
     <div class="text-center mt-6 pb-4">
       <p class="text-gray-500 text-xs">
-        FTMO-Style Position Sizing • Trade Smart, Risk Less
+        PRO Position Sizing • Trade Smart, Risk Less
       </p>
     </div>
   </div>
