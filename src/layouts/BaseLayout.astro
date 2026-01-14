@@ -1,0 +1,27 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | TRADE90</title>
+
+    <script 
+      defer 
+      src="https://cdn.jsdelivr.net/ghost/portal@~2.43/main.js" 
+      data-ghost="https://tradeninety.ghost.io" 
+      data-api="https://tradeninety.ghost.io/ghost/api/content/" 
+      data-key="YOUR_CONTENT_API_KEY">
+    </script>
+  </head>
+  <body class="min-h-screen bg-slate-950 flex flex-col">
+    <Header />
+    <slot /> <Footer />
+  </body>
+</html>
