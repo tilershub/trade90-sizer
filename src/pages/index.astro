@@ -1,14 +1,18 @@
 ---
 import Header from '../components/Header.astro';
 import PositionSizer from '../components/PositionSizer.svelte';
+import BlogCard from '../components/BlogCard.astro';
 import Footer from '../components/Footer.astro';
 import { ghostClient } from '../lib/ghost';
 
-// Fetch posts for the list below the calculator
+// Fetch posts for the grid below the calculator
 const posts = await ghostClient.posts.browse({ 
-  limit: 5,
+  limit: 6, // Increased to 6 to keep the 2-column grid balanced
   include: ['tags'] 
-}).catch(() => []);
+}).catch((err) => {
+  console.error("Ghost Fetch Error:", err);
+  return [];
+});
 ---
 
 <!DOCTYPE html>
@@ -30,23 +34,28 @@ const posts = await ghostClient.posts.browse({
         </div>
       </section>
 
-      <section class="max-w-4xl mx-auto py-16 px-6">
-        <h2 class="text-lg font-bold border-l-4 border-green-500 pl-4 uppercase mb-12">Latest Analysis</h2>
+      <section class="max-w-5xl mx-auto py-20 px-6">
+        <div class="flex items-center justify-between mb-12">
+          <h2 class="text-xl font-bold border-l-4 border-green-500 pl-4 uppercase tracking-tighter text-slate-200">
+            Latest Analysis
+          </h2>
+          <a href="/blog" class="text-[10px] font-bold text-green-500 uppercase tracking-widest hover:text-white transition-colors">
+            View All →
+          </a>
+        </div>
         
-        <div class="grid gap-16">
-          {posts.map((post) => (
-            <article class="group">
-              <time class="text-[10px] text-slate-500 font-mono uppercase tracking-widest">
-                {new Date(post.published_at).toLocaleDateString()}
-              </time>
-              <h3 class="text-xl font-bold mt-2 group-hover:text-green-500 transition-colors">
-                <a href={`/blog/${post.slug}`}>{post.title}</a>
-              </h3>
-              <p class="text-slate-400 text-sm mt-3 line-clamp-2 italic">
-                {post.excerpt}
-              </p>
-            </article>
-          ))}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {posts.length > 0 ? posts.map((post) => (
+            <BlogCard 
+              title={post.title}
+              excerpt={post.excerpt}
+              image={post.feature_image}
+              slug={post.slug}
+              date={post.published_at}
+            />
+          )) : (
+            <p class="text-slate-600 italic text-sm py-10">Syncing with Ghost API...</p>
+          )}
         </div>
       </section>
     </main>
