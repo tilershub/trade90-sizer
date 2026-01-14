@@ -120,9 +120,9 @@
     <div class="text-center mb-6 pt-4">
       <div class="flex items-center justify-center gap-2 mb-2">
         <Target class="w-8 h-8 text-emerald-400" />
-        <h1 class="text-2xl font-bold text-white">TRADE90</h1>
+        <h1 class="text-2xl font-bold text-white">POSITON SIZER</h1>
       </div>
-      <p class="text-gray-400 text-sm">Position Sizer</p>
+      <p class="text-gray-400 text-sm">Risk Analyzer</p>
     </div>
 
     <!-- Pair Selector -->
