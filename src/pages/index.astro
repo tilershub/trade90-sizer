@@ -4,13 +4,11 @@ import PositionSizer from '../components/PositionSizer.svelte';
 import Footer from '../components/Footer.astro';
 import { ghostClient } from '../lib/ghost';
 
+// Fetch posts for the list below the calculator
 const posts = await ghostClient.posts.browse({ 
   limit: 5,
-  include: ['tags', 'authors'] 
-}).catch((err) => {
-  console.error("Ghost Fetch Error:", err);
-  return [];
-});
+  include: ['tags'] 
+}).catch(() => []);
 ---
 
 <!DOCTYPE html>
@@ -18,14 +16,13 @@ const posts = await ghostClient.posts.browse({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TRADE90 | Professional Position Sizing</title>
+    <title>TRADE90 | Position Sizing & Strategy</title>
   </head>
   <body class="min-h-screen bg-slate-950 flex flex-col">
-    
     <Header />
 
-    <main class="flex-grow w-full">
-      <section class="pb-10 pt-4 px-4 border-b border-slate-900">
+    <main class="flex-grow">
+      <section class="py-10 px-4 border-b border-slate-900">
         <div class="max-w-2xl mx-auto">
           <div class="bg-slate-900/40 rounded-xl border border-slate-800 p-2 shadow-2xl">
             <PositionSizer client:load />
@@ -34,31 +31,22 @@ const posts = await ghostClient.posts.browse({
       </section>
 
       <section class="max-w-4xl mx-auto py-16 px-6">
-        <div class="flex items-center justify-between mb-12">
-          <h2 class="text-lg font-bold border-l-4 border-green-500 pl-4 uppercase tracking-tighter text-slate-200">
-            Latest Analysis
-          </h2>
-          <a href="/blog" class="text-[10px] font-bold text-green-500 uppercase tracking-widest hover:text-white transition-colors">
-            Archives →
-          </a>
-        </div>
-
+        <h2 class="text-lg font-bold border-l-4 border-green-500 pl-4 uppercase mb-12">Latest Analysis</h2>
+        
         <div class="grid gap-16">
-          {posts.length > 0 ? posts.map((post) => (
+          {posts.map((post) => (
             <article class="group">
-              <time class="text-[9px] text-slate-500 font-mono uppercase tracking-widest">
-                {new Date(post.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+              <time class="text-[10px] text-slate-500 font-mono uppercase tracking-widest">
+                {new Date(post.published_at).toLocaleDateString()}
               </time>
-              <h3 class="text-xl font-bold mt-2 group-hover:text-green-400 transition-colors leading-tight">
+              <h3 class="text-xl font-bold mt-2 group-hover:text-green-500 transition-colors">
                 <a href={`/blog/${post.slug}`}>{post.title}</a>
               </h3>
-              <p class="mt-3 text-slate-400 leading-relaxed text-sm line-clamp-3">
+              <p class="text-slate-400 text-sm mt-3 line-clamp-2 italic">
                 {post.excerpt}
               </p>
             </article>
-          )) : (
-            <p class="text-slate-600 italic text-sm text-center py-10">Fetching veteran insights...</p>
-          )}
+          ))}
         </div>
       </section>
     </main>
