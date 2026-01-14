@@ -1,0 +1,57 @@
+---
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { ghostClient } from '../../lib/ghost';
+
+// 1. Tell Astro which pages to build based on your Ghost posts
+export async function getStaticPaths() {
+  const posts = await ghostClient.posts.browse({ limit: 'all' });
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+// 2. Get the post data for this specific page
+const { post } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{post.title} | TRADE90</title>
+  </head>
+  <body class="min-h-screen bg-slate-950 flex flex-col">
+    <Header />
+
+    <main class="max-w-3xl mx-auto py-16 px-6 flex-grow">
+      <article class="prose prose-invert prose-green max-w-none">
+        <time class="text-xs text-green-500 font-mono uppercase tracking-widest">
+          {new Date(post.published_at).toLocaleDateString()}
+        </time>
+        
+        <h1 class="text-4xl font-black mt-2 mb-8 tracking-tighter uppercase leading-tight">
+          {post.title}
+        </h1>
+
+        {post.feature_image && (
+          <img src={post.feature_image} alt={post.title} class="rounded-xl border border-slate-800 mb-10 w-full" />
+        )}
+
+        <div class="ghost-content text-slate-300 leading-relaxed space-y-6" set:html={post.html} />
+      </article>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  /* Basic styling for the content coming from Ghost */
+  .ghost-content h2 { @apply text-2xl font-bold text-white mt-10 mb-4; }
+  .ghost-content p { @apply text-slate-300 text-lg; }
+  .ghost-content img { @apply rounded-lg my-8; }
+  .ghost-content a { @apply text-green-500 underline; }
+</style>
