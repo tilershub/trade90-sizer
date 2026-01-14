@@ -24,20 +24,25 @@ const posts = await ghostClient.posts.browse({
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TRADE90 | Professional Position Sizing & Logic</title>
-  </head>
-  <body class="min-h-screen bg-slate-950 flex flex-col">
-    <header class="py-12 px-4 border-b border-slate-900 bg-black/50">
-      <div class="max-w-4xl mx-auto text-center mb-10">
-        <h1 class="text-4xl font-black text-green-500 tracking-tighter mb-2 uppercase">
-          TRADE90 PROTOCOL
-        </h1>
-        <p class="text-slate-400 uppercase text-[10px] tracking-[0.3em] font-bold">
-          Precision Risk Logic for Funded Traders
-        </p>
-      </div>
+<header class="py-10 px-4 border-b border-slate-900 bg-black/40 backdrop-blur-sm sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto flex flex-col items-center">
+    
+    <div class="flex items-center gap-3 mb-2">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-green-500">
+        <path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21 7V13M21 7H15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
       
-      <PositionSizer client:load />
-    </header>
+      <h1 class="text-2xl font-black text-white tracking-[0.15em] uppercase">
+        TRADE<span class="text-green-500">90</span>
+      </h1>
+    </div>
+
+    <p class="text-slate-500 uppercase text-[9px] tracking-[0.4em] font-bold">
+      Professional Risk Framework
+    </p>
+  </div>
+</header>
 
     <main class="max-w-4xl mx-auto py-16 px-4 flex-grow">
       <div class="flex items-center justify-between mb-10">
