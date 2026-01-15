@@ -1,5 +1,4 @@
 ---
-// This script section defines the "Props" the component expects
 interface Props {
   title: string;
   excerpt: string;
@@ -9,36 +8,51 @@ interface Props {
 }
 
 const { title, excerpt, image, slug, date } = Astro.props;
+
+// VETERAN FIX: Ensure images load on tradeninety.com by pointing to the Ghost source
+const ghostSource = "https://trade90.ghost.io";
+const finalImageUrl = image && !image.startsWith('http') 
+  ? `${ghostSource}${image}` 
+  : image;
 ---
 
-<article class="group flex flex-col bg-slate-900/20 rounded-2xl overflow-hidden border border-slate-900 hover:border-green-500/30 transition-all duration-300">
+<article class="group flex flex-col bg-slate-900/40 rounded-2xl overflow-hidden border border-slate-900 hover:border-green-500/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(34,197,94,0.2)]">
+  
   {image && (
-    <a href={`/blog/${slug}`} class="block aspect-video overflow-hidden">
+    <a href={`/blog/${slug}`} class="block aspect-video overflow-hidden border-b border-slate-900">
       <img 
-        src={image} 
+        src={finalImageUrl} 
         alt={title}
         loading="lazy" 
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
       />
     </a>
   )}
 
-  <div class="p-6">
-    <time class="text-[9px] text-green-500 font-mono uppercase tracking-[0.2em]">
-      {new Date(date).toLocaleDateString()}
-    </time>
+  <div class="p-6 flex flex-col flex-grow">
+    <div class="flex items-center justify-between mb-3">
+        <time class="text-[10px] text-green-500 font-mono uppercase tracking-[0.2em] font-bold">
+          {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+        </time>
+        <span class="text-[9px] text-slate-600 uppercase tracking-widest border border-slate-800 px-2 py-0.5 rounded">Analysis</span>
+    </div>
     
-    <h3 class="text-lg font-bold mt-3 text-white group-hover:text-green-400 transition-colors leading-snug">
+    <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition-colors leading-tight mb-3">
       <a href={`/blog/${slug}`}>{title}</a>
     </h3>
     
-    <p class="mt-3 text-slate-400 text-sm line-clamp-2 leading-relaxed">
+    <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-6 italic">
       {excerpt}
     </p>
 
-    <div class="mt-6 flex items-center gap-2">
-       <span class="w-8 h-[1px] bg-slate-800"></span>
-       <span class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Read Analysis</span>
+    <div class="mt-auto pt-4 border-t border-slate-800/50 flex items-center justify-between">
+       <div class="flex items-center gap-2">
+          <span class="w-4 h-[1px] bg-green-500/50"></span>
+          <span class="text-[10px] text-slate-500 uppercase tracking-widest font-bold group-hover:text-slate-300 transition-colors">Read Analysis</span>
+       </div>
+       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-slate-700 group-hover:text-green-500 group-hover:translate-x-1 transition-all">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+       </svg>
     </div>
   </div>
 </article>
