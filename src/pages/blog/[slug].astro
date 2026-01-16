@@ -12,56 +12,46 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const ghostSource = "https://trade90.ghost.io";
+const assetOrigin = "https://trade90.ghost.io";
 
-// Fix for Featured Image
-const finalFeatureImage = post.feature_image && !post.feature_image.startsWith('http') 
-  ? `${ghostSource}${post.feature_image}` 
-  : post.feature_image;
+// Fix Featured Image
+const cleanFeatureImage = post.feature_image?.startsWith('http')
+  ? post.feature_image.replace('https://tradeninety.com', assetOrigin).replace('https://www.tradeninety.com', assetOrigin)
+  : `${assetOrigin}${post.feature_image}`;
 
-// Fix for images INSIDE the content (replaces relative paths with absolute ones)
-const fixedHtml = post.html?.replaceAll('src="/content/images/', `src="${ghostSource}/content/images/`);
+// Fix all images inside the content
+const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOrigin}/content/images/`)
+                           .replaceAll('https://tradeninety.com/content/images/', `${assetOrigin}/content/images/`)
+                           .replaceAll('https://www.tradeninety.com/content/images/', `${assetOrigin}/content/images/`);
 ---
 
 <BaseLayout title={post.title}>
   <main class="max-w-3xl mx-auto py-16 px-6 flex-grow">
     <article class="prose prose-invert prose-green max-w-none">
+      <time class="text-[10px] text-green-500 font-mono uppercase tracking-[0.2em] font-bold mb-4 block">
+        {new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+      </time>
       
-      <div class="flex items-center gap-4 mb-4">
-        <time class="text-[10px] text-green-500 font-mono uppercase tracking-[0.2em] font-bold">
-          {new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-        </time>
-        <span class="h-[1px] w-8 bg-slate-800"></span>
-        <span class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Analysis</span>
-      </div>
-      
-      <h1 class="text-3xl md:text-5xl font-black mt-2 mb-10 tracking-tighter uppercase leading-[1.1] text-white">
+      <h1 class="text-3xl md:text-5xl font-black mt-2 mb-10 tracking-tighter uppercase text-white">
         {post.title}
       </h1>
 
       {post.feature_image && (
-        <div class="relative group mb-12">
-          <div class="absolute -inset-1 bg-gradient-to-r from-green-500/20 to-transparent rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-          <img 
-            src={finalFeatureImage} 
-            alt={post.title} 
-            class="relative rounded-xl border border-slate-800 w-full shadow-2xl" 
-          />
-        </div>
+        <img src={cleanFeatureImage} alt={post.title} class="rounded-xl border border-slate-800 w-full mb-12" />
       )}
 
-      <div class="ghost-content text-slate-300 leading-relaxed" set:html={fixedHtml} />
+      <div class="ghost-content text-slate-300 leading-relaxed" set:html={cleanHtml} />
     </article>
 
-    <div class="mt-24 pt-12 border-t border-slate-900">
+    <div class="mt-20">
       <FAQ />
     </div>
   </main>
 </BaseLayout>
 
 <style is:global>
-  .ghost-content h2 { @apply text-2xl md:text-3xl font-black text-white mt-16 mb-6 uppercase tracking-tight border-l-4 border-green-500 pl-5; }
-  .ghost-content p { @apply mb-8 text-slate-400 leading-[1.8] text-base md:text-lg; }
-  .ghost-content img { @apply rounded-xl border border-slate-800 my-12 shadow-lg; }
-  .ghost-content a { @apply text-green-500 font-bold underline decoration-green-500/30 underline-offset-4 hover:text-white transition-colors; }
+  .ghost-content h2 { @apply text-2xl font-black text-white mt-12 mb-6 border-l-4 border-green-500 pl-4 uppercase; }
+  .ghost-content p { @apply mb-6 text-slate-400 leading-[1.8]; }
+  .ghost-content img { @apply rounded-xl border border-slate-800 my-8; }
+  .ghost-content a { @apply text-green-500 font-bold underline; }
 </style>
