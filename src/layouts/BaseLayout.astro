@@ -23,19 +23,21 @@ const { title, description = "Professional trading tools and risk management ana
     ></script>
     
     <style is:global>
-      /* This CSS only affects the Header, leaving the Position Sizer alone */
-      [data-members-show="true"] { display: none !important; }
-      [data-members-show="false"] { display: flex !important; }
+      /* FIX: We only target elements with these specific data attributes */
+      /* This prevents the CSS from touching your Position Sizer */
+      
+      header [data-members-show="true"] { display: none !important; }
+      header [data-members-show="false"] { display: flex !important; }
 
-      .gh-portal-authenticated [data-members-show="true"] { display: flex !important; }
-      .gh-portal-authenticated [data-members-show="false"] { display: none !important; }
+      .gh-portal-authenticated header [data-members-show="true"] { display: flex !important; }
+      .gh-portal-authenticated header [data-members-show="false"] { display: none !important; }
 
       #ghost-portal-root { z-index: 9999999 !important; }
     </style>
   </head>
-  <body class="min-h-screen bg-slate-950 flex flex-col antialiased">
+  <body class="min-h-screen bg-slate-950 flex flex-col">
     <Header />
-    <main class="flex-grow w-full">
+    <main id="main-content" class="flex-grow">
       <slot />
     </main>
     <Footer />
