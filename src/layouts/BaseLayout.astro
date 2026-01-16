@@ -1,22 +1,56 @@
-<head>
-  <script 
-    defer 
-    src="https://cdn.jsdelivr.net/ghost/portal@~2.43/main.js" 
-    data-ghost="https://trade90.ghost.io" 
-    data-api="https://trade90.ghost.io/ghost/api/content/" 
-    data-key={ghostKey}
-  ></script>
-  
-  <style is:global>
-    /* 1. Prevent overlapping elements */
-    [data-members-show="true"] { display: none; }
-    [data-members-show="false"] { display: flex; }
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-    /* 2. Switch states once Ghost script detects a user */
-    .gh-portal-authenticated [data-members-show="true"] { display: flex; }
-    .gh-portal-authenticated [data-members-show="false"] { display: none; }
+// This fixes the "ghostKey is not defined" error in your build logs
+const ghostKey = import.meta.env.GHOST_CONTENT_API_KEY;
 
-    /* 3. Ensure the Signup popup is on top */
-    #ghost-portal-root { z-index: 9999999 !important; }
-  </style>
-</head>
+const { title, description = "Professional trading tools and risk management analysis." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | TRADE90</title>
+    <meta name="description" content={description} />
+
+    <script 
+      defer 
+      src="https://cdn.jsdelivr.net/ghost/portal@~2.43/main.js" 
+      data-ghost="https://trade90.ghost.io" 
+      data-api="https://trade90.ghost.io/ghost/api/content/" 
+      data-key={ghostKey}
+    ></script>
+    
+    <style is:global>
+      /* 1. Member/Visitor state logic: Prevents header overlap */
+      [data-members-show="true"] { display: none; }
+      [data-members-show="false"] { display: flex; }
+
+      /* When Ghost confirms user is logged in, swap the elements */
+      .gh-portal-authenticated [data-members-show="true"] { display: flex; }
+      .gh-portal-authenticated [data-members-show="false"] { display: none; }
+
+      /* 2. Force the Membership Popup to be on the very top layer */
+      #ghost-portal-root { 
+        z-index: 9999999 !important; 
+        position: relative; 
+      }
+      
+      /* 3. Global font smoothing for a premium look */
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 flex flex-col">
+    <Header />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
