@@ -6,43 +6,43 @@
       TRADE<span class="text-emerald-500">90</span>
     </a>
 
-    <nav class="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em]">
+    <nav data-members-show="false" class="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em]">
       <a href="/" class="text-slate-400 hover:text-white transition-colors">Calculator</a>
       <a href="/blog" class="text-slate-400 hover:text-white transition-colors">Analysis</a>
-      <a href="#portal/signin" class="text-slate-400 hover:text-white transition-colors">Login</a>
-      <a href="#portal/signup" class="bg-emerald-500 text-black px-5 py-2 rounded-full hover:bg-emerald-400 transition-all">Join Now</a>
+      <a href="#/portal/signin" class="text-slate-400 hover:text-white transition-colors">Login</a>
+      <a href="#/portal/signup" class="bg-emerald-500 text-black px-5 py-2 rounded-full hover:bg-emerald-400 transition-all">Join Now</a>
     </nav>
 
-    <button id="menu-toggle" class="md:hidden text-white p-2" aria-label="Toggle Menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
-    </button>
+    <div data-members-show="true" class="flex items-center gap-4">
+       <span class="hidden md:block text-[10px] text-slate-500 uppercase font-bold">Member Access</span>
+       <button id="menu-toggle" class="text-white p-2 hover:bg-slate-900 rounded-lg transition-colors" aria-label="Open Menu">
+         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+       </button>
+    </div>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden bg-slate-950 border-b border-slate-900 absolute w-full left-0 p-6 space-y-6 shadow-2xl">
-    <nav class="flex flex-col gap-6 text-sm font-bold uppercase tracking-widest">
-      <a href="/" class="text-slate-300">Calculator</a>
-      <a href="/blog" class="text-slate-300">Analysis</a>
-      <hr class="border-slate-900" />
-      <a href="#portal/signin" class="text-emerald-500">Login</a>
-      <a href="#portal/signup" class="bg-emerald-500 text-black text-center py-4 rounded-xl font-black">Join Now</a>
+  <div id="mobile-menu" class="hidden absolute top-20 right-0 w-64 bg-slate-900 border-l border-b border-slate-800 shadow-2xl p-6 z-50 rounded-bl-2xl">
+    <nav class="flex flex-col gap-6 text-[10px] font-black uppercase tracking-widest">
+      <a href="#/portal/account" class="text-white hover:text-emerald-500">My Account</a>
+      <a href="/blog" class="text-white hover:text-emerald-500">Market Analysis</a>
+      <hr class="border-slate-800" />
+      <button data-members-signout class="text-rose-500 text-left uppercase font-black cursor-pointer">Sign Out</button>
     </nav>
   </div>
 </header>
 
 <script>
-  // Mobile Menu Logic
+  // Script to handle the Hamburger toggle
   const btn = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
 
-  btn?.addEventListener('click', () => {
+  btn?.addEventListener('click', (e) => {
+    e.stopPropagation();
     menu?.classList.toggle('hidden');
   });
 
-  // Close menu when a link is clicked
-  const links = menu?.querySelectorAll('a');
-  links?.forEach(link => {
-    link.addEventListener('click', () => {
-      menu?.classList.add('hidden');
-    });
+  // Close menu if clicking outside
+  document.addEventListener('click', () => {
+    menu?.classList.add('hidden');
   });
 </script>
