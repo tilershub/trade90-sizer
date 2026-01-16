@@ -3,17 +3,16 @@
 <header class="border-b border-slate-900 bg-black/50 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
     
-    <a href="/" class="text-xl font-black tracking-tighter text-white">
+    <a href="/" class="text-xl font-black tracking-tighter text-white shrink-0">
       TRADE<span class="text-emerald-500">90</span>
     </a>
 
-    <nav class="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em]">
-      <a href="/" class="text-slate-400 hover:text-white transition-colors">Calculator</a>
-      <a href="/blog" class="text-slate-400 hover:text-white transition-colors">Analysis</a>
-    </nav>
+    <div class="flex items-center gap-6">
+      <nav class="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em]">
+        <a href="/" class="text-slate-400 hover:text-white transition-colors">Calculator</a>
+        <a href="/blog" class="text-slate-400 hover:text-white transition-colors">Analysis</a>
+      </nav>
 
-    <div class="flex items-center gap-4">
-      
       <div data-members-show="false" class="flex items-center gap-4">
         <button data-portal="signin" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white cursor-pointer bg-transparent border-none">
           Login
@@ -27,12 +26,11 @@
         <button id="menu-toggle" class="text-white p-2 hover:bg-slate-900 rounded-lg cursor-pointer bg-transparent border-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
         </button>
-        <div id="mobile-menu" class="hidden absolute top-12 right-0 w-48 bg-slate-900 border border-slate-800 shadow-2xl rounded-xl py-2">
-          <button data-portal="account" class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-800 cursor-pointer">Account</button>
-          <button data-members-signout class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-slate-800 cursor-pointer">Sign Out</button>
+        <div id="mobile-menu" class="hidden absolute top-12 right-0 w-48 bg-slate-900 border border-slate-800 shadow-2xl rounded-xl py-2 z-50">
+          <button data-portal="account" class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-800 cursor-pointer border-none bg-transparent">Account</button>
+          <button data-members-signout class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-slate-800 cursor-pointer border-none bg-transparent">Sign Out</button>
         </div>
       </div>
-
     </div>
   </div>
 </header>
