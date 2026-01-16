@@ -8,15 +8,15 @@
   ></script>
   
   <style is:global>
-    /* Force the Ghost Portal to be visible and on top */
-    #ghost-portal-root { 
-      z-index: 2147483647 !important; 
-      position: relative; 
-      display: block !important;
-    }
-    /* Ensures the iframe created by Ghost has size */
-    iframe[title="portal-popup"] {
-      z-index: 2147483647 !important;
-    }
+    /* 1. Prevent overlapping elements */
+    [data-members-show="true"] { display: none; }
+    [data-members-show="false"] { display: flex; }
+
+    /* 2. Switch states once Ghost script detects a user */
+    .gh-portal-authenticated [data-members-show="true"] { display: flex; }
+    .gh-portal-authenticated [data-members-show="false"] { display: none; }
+
+    /* 3. Ensure the Signup popup is on top */
+    #ghost-portal-root { z-index: 9999999 !important; }
   </style>
 </head>
