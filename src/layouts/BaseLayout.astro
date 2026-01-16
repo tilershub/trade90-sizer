@@ -2,9 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// This fixes the "ghostKey is not defined" error in your build logs
 const ghostKey = import.meta.env.GHOST_CONTENT_API_KEY;
-
 const { title, description = "Professional trading tools and risk management analysis." } = Astro.props;
 ---
 
@@ -25,30 +23,19 @@ const { title, description = "Professional trading tools and risk management ana
     ></script>
     
     <style is:global>
-      /* 1. Member/Visitor state logic: Prevents header overlap */
-      [data-members-show="true"] { display: none; }
-      [data-members-show="false"] { display: flex; }
+      /* This CSS only affects the Header, leaving the Position Sizer alone */
+      [data-members-show="true"] { display: none !important; }
+      [data-members-show="false"] { display: flex !important; }
 
-      /* When Ghost confirms user is logged in, swap the elements */
-      .gh-portal-authenticated [data-members-show="true"] { display: flex; }
-      .gh-portal-authenticated [data-members-show="false"] { display: none; }
+      .gh-portal-authenticated [data-members-show="true"] { display: flex !important; }
+      .gh-portal-authenticated [data-members-show="false"] { display: none !important; }
 
-      /* 2. Force the Membership Popup to be on the very top layer */
-      #ghost-portal-root { 
-        z-index: 9999999 !important; 
-        position: relative; 
-      }
-      
-      /* 3. Global font smoothing for a premium look */
-      body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
+      #ghost-portal-root { z-index: 9999999 !important; }
     </style>
   </head>
-  <body class="min-h-screen bg-slate-950 flex flex-col">
+  <body class="min-h-screen bg-slate-950 flex flex-col antialiased">
     <Header />
-    <main class="flex-grow">
+    <main class="flex-grow w-full">
       <slot />
     </main>
     <Footer />
