@@ -1,8 +1,7 @@
 import GhostContentAPI from '@tryghost/content-api';
 
-// This logic automatically strips any accidental trailing slashes
-const rawUrl = import.meta.env.GHOST_API_URL || 'https://tradeninety.ghost.io';
-const cleanUrl = rawUrl.replace(/\/+$/, ''); // This is the "Surgical Fix"
+// Using the URL you confirmed: trade90.ghost.io
+const cleanUrl = 'https://trade90.ghost.io';
 
 export const ghostClient = new GhostContentAPI({
   url: cleanUrl,
