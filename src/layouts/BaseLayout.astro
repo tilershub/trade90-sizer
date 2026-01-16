@@ -2,9 +2,8 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// Use this to pull the private variable during the build
 const ghostKey = import.meta.env.GHOST_CONTENT_API_KEY;
-const { title } = Astro.props;
+const { title, description = "Professional trading tools and risk management analysis. Optimize your funded trading strategy with the TRADE90 Position Sizer." } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -13,12 +12,16 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | TRADE90</title>
+    
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0f172a" />
 
     <script 
       defer 
       src="https://cdn.jsdelivr.net/ghost/portal@~2.43/main.js" 
-      data-ghost="https://tradeninety.ghost.io" 
-      data-api="https://tradeninety.ghost.io/ghost/api/content/" 
+      data-ghost="https://trade90.ghost.io" 
+      data-api="https://trade90.ghost.io/ghost/api/content/" 
       data-key={ghostKey} 
     ></script>
   </head>
