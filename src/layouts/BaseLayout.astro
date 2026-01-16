@@ -21,6 +21,11 @@ const { title, description = "Professional trading tools and risk management ana
       data-api="https://trade90.ghost.io/ghost/api/content/" 
       data-key={ghostKey}
     ></script>
+    
+    <style is:global>
+      /* This ensures the Ghost Portal popup sits on top of your Astro header */
+      #ghost-portal-root { z-index: 999999; position: relative; }
+    </style>
   </head>
   <body class="min-h-screen bg-slate-950 flex flex-col">
     <Header />
