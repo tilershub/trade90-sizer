@@ -9,7 +9,7 @@ interface Props {
 
 const { title, excerpt, image, slug, date } = Astro.props;
 
-// VETERAN FIX: Ensure images load on tradeninety.com by pointing to the Ghost source
+// VETERAN FIX: Use the specific Ghost source for images
 const ghostSource = "https://trade90.ghost.io";
 const finalImageUrl = image && !image.startsWith('http') 
   ? `${ghostSource}${image}` 
