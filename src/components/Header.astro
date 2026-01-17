@@ -1,5 +1,5 @@
 ---
-// Header version 1.2 - Simplified Analysis Routing
+// Header version 1.3 - Production Ready
 ---
 <header class="border-b border-slate-900 bg-black/50 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -15,7 +15,7 @@
       </nav>
 
       <div class="relative">
-        <button id="menu-toggle" class="text-white p-2 hover:bg-slate-900 rounded-lg cursor-pointer bg-transparent border-none outline-none">
+        <button id="menu-toggle" aria-label="Toggle Menu" class="text-white p-2 hover:bg-slate-900 rounded-lg cursor-pointer bg-transparent border-none outline-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" x2="21" y1="12" y2="12"></line>
             <line x1="3" x2="21" y1="6" y2="6"></line>
@@ -26,8 +26,8 @@
         <div id="mobile-menu" class="hidden absolute top-14 right-0 w-56 bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl py-3 z-50 overflow-hidden">
           <a href="/" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition-colors border-b border-slate-900/50">Calculator</a>
           <a href="/blog" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition-colors border-b border-slate-900/50">Analysis</a>
-          <a href="/about" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900">About Framework</a>
-          <a href="/contact" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900">Contact Support</a>
+          <a href="/about" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition-colors">About Framework</a>
+          <a href="/contact" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition-colors">Contact Support</a>
         </div>
       </div>
     </div>
@@ -38,11 +38,13 @@
   const btn = document.getElementById("menu-toggle");
   const menu = document.getElementById("mobile-menu");
 
+  // Toggle menu on button click
   btn?.addEventListener("click", (e) => {
     e.stopPropagation();
     menu?.classList.toggle("hidden");
   });
 
+  // Close menu when clicking anywhere else on the page
   document.addEventListener("click", () => {
     menu?.classList.add("hidden");
   });
