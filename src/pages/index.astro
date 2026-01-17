@@ -4,7 +4,7 @@ import PositionSizer from '../components/PositionSizer.svelte';
 import BlogCard from '../components/BlogCard.astro';
 import { ghostClient } from '../lib/ghost';
 
-// Fetching institutional analysis posts from Ghost
+// Fetch the 6 latest institutional analysis posts from Ghost
 const posts = await ghostClient.posts.browse({ 
   limit: 6, 
   include: ['tags'] 
@@ -13,17 +13,18 @@ const posts = await ghostClient.posts.browse({
   return [];
 });
 
-// Optimized SEO Constants
+// SEO Constants for TRADE90
 const seoTitle = "Master Institutional Volatility-Adjusted Risk Tools";
-const seoDescription = "Professional ADR-based position sizing tool for Forex, Gold, Stocks, and Crypto. Trade with veteran risk management logic.";
+const seoDescription = "Professional ADR-based position sizing tool for Forex, Gold, and Crypto. Trade with veteran risk management logic and institutional precision.";
 ---
 
 <BaseLayout title={seoTitle} description={seoDescription}>
+  
   <section class="py-12 px-4 border-b border-slate-900/50 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
     <div class="max-w-2xl mx-auto">
       <h1 class="sr-only">TRADE90 | Institutional Position Sizer & Volatility Analyzer</h1>
       
-      <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm">
+      <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-500/20">
         <PositionSizer client:load />
       </div>
     </div>
@@ -49,7 +50,7 @@ const seoDescription = "Professional ADR-based position sizing tool for Forex, G
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
       {posts.length > 0 ? posts.map((post) => (
-        <article>
+        <article class="transition-transform duration-300 hover:-translate-y-1">
           <BlogCard 
             title={post.title}
             excerpt={post.excerpt}
@@ -59,12 +60,13 @@ const seoDescription = "Professional ADR-based position sizing tool for Forex, G
           />
         </article>
       )) : (
-        <div class="col-span-full py-20 text-center border border-dashed border-slate-800 rounded-3xl">
-          <p class="text-slate-600 italic text-sm">
+        <div class="col-span-full py-20 text-center border border-dashed border-slate-800 rounded-3xl bg-slate-900/10">
+          <p class="text-slate-600 italic text-sm font-medium">
             Synchronizing with TRADE90 Intelligence... Check back shortly.
           </p>
         </div>
       )}
     </div>
   </section>
+
 </BaseLayout>
