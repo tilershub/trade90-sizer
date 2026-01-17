@@ -14,44 +14,72 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const assetOrigin = "https://trade90.ghost.io";
 
-// Fix Featured Image
+// Fix Featured Image Paths
 const cleanFeatureImage = post.feature_image?.startsWith('http')
-  ? post.feature_image.replace('https://tradeninety.com', assetOrigin).replace('https://www.tradeninety.com', assetOrigin)
+  ? post.feature_image.replace(/https:\/\/(www\.)?tradeninety\.com/, assetOrigin)
   : `${assetOrigin}${post.feature_image}`;
 
-// Fix all images inside the content
+// Fix content image paths
 const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOrigin}/content/images/`)
-                           .replaceAll('https://tradeninety.com/content/images/', `${assetOrigin}/content/images/`)
-                           .replaceAll('https://www.tradeninety.com/content/images/', `${assetOrigin}/content/images/`);
+                           .replaceAll(/https:\/\/(www\.)?tradeninety\.com\/content\/images\//g, `${assetOrigin}/content/images/`);
 ---
 
-<BaseLayout title={post.title}>
-  <main class="max-w-3xl mx-auto py-16 px-6 flex-grow">
-    <article class="prose prose-invert prose-green max-w-none">
-      <time class="text-[10px] text-green-500 font-mono uppercase tracking-[0.2em] font-bold mb-4 block">
+<BaseLayout title={post.title} description={post.excerpt}>
+  <article class="max-w-3xl mx-auto py-16 px-6">
+    <header class="mb-12">
+      <time class="text-[10px] text-emerald-500 font-black uppercase tracking-[0.3em] mb-4 block">
         {new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
       </time>
       
-      <h1 class="text-3xl md:text-5xl font-black mt-2 mb-10 tracking-tighter uppercase text-white">
+      <h1 class="text-3xl md:text-5xl font-black mt-2 mb-8 tracking-tighter uppercase text-white leading-[0.95]">
         {post.title}
       </h1>
-
-      {post.feature_image && (
-        <img src={cleanFeatureImage} alt={post.title} class="rounded-xl border border-slate-800 w-full mb-12" />
+      
+      {post.excerpt && (
+        <p class="text-slate-500 text-lg leading-relaxed font-medium italic border-l-2 border-slate-800 pl-6">
+          {post.excerpt}
+        </p>
       )}
+    </header>
 
-      <div class="ghost-content text-slate-300 leading-relaxed" set:html={cleanHtml} />
-    </article>
+    {post.feature_image && (
+      <img 
+        src={cleanFeatureImage} 
+        alt={post.title} 
+        class="rounded-2xl border border-slate-800 w-full mb-12 shadow-2xl" 
+      />
+    )}
 
-    <div class="mt-20">
+    <div class="ghost-content" set:html={cleanHtml} />
+
+    <div class="mt-24 pt-12 border-t border-slate-900">
       <FAQ />
     </div>
-  </main>
+  </article>
 </BaseLayout>
 
 <style is:global>
-  .ghost-content h2 { @apply text-2xl font-black text-white mt-12 mb-6 border-l-4 border-green-500 pl-4 uppercase; }
-  .ghost-content p { @apply mb-6 text-slate-400 leading-[1.8]; }
-  .ghost-content img { @apply rounded-xl border border-slate-800 my-8; }
-  .ghost-content a { @apply text-green-500 font-bold underline; }
+  /* Professional Typography for Trading Analysis */
+  .ghost-content h2 { 
+    @apply text-2xl font-black text-white mt-16 mb-6 border-l-4 border-emerald-500 pl-4 uppercase tracking-tight; 
+  }
+  .ghost-content h3 { 
+    @apply text-xl font-bold text-slate-200 mt-10 mb-4 uppercase tracking-wide; 
+  }
+  .ghost-content p { 
+    @apply mb-6 text-slate-400 text-base leading-[1.8]; 
+  }
+  .ghost-content ul {
+    @apply mb-8 space-y-3 text-slate-400 list-disc pl-6;
+  }
+  .ghost-content img { 
+    @apply rounded-xl border border-slate-800 my-10 shadow-lg hover:border-emerald-500/50 transition-colors; 
+  }
+  .ghost-content a { 
+    @apply text-emerald-500 font-bold underline decoration-emerald-500/30 hover:decoration-emerald-500 transition-all; 
+  }
+  /* Formatting for code/math snippets if you use them in Ghost */
+  .ghost-content code {
+    @apply bg-slate-900 text-emerald-400 px-1.5 py-0.5 rounded font-mono text-sm border border-slate-800;
+  }
 </style>
