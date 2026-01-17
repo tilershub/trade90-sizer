@@ -43,13 +43,12 @@ const GHOST_URL = import.meta.env.PUBLIC_GHOST_URL || ‘https://your-site.ghost
 
 <!-- Ghost Members Script - THIS IS WHAT'S MISSING -->
 
-<script is:inline define:vars={{ GHOST_URL }}>
-  (function(g,h,o,s,t){
-    g.GhostContentAPI=g.GhostContentAPI||{};
-    t=h.createElement(o);t.async=1;
-    t.src=s+'/public/members.min.js?v='+Math.random();
-    h.head.appendChild(t);
-  })(window,document,'script',GHOST_URL);
+<script is:inline data-ghost-url={GHOST_URL}>
+  const ghostUrl = document.currentScript.getAttribute('data-ghost-url');
+  const script = document.createElement('script');
+  script.src = ghostUrl + '/public/members.min.js?v=' + Date.now();
+  script.async = true;
+  document.head.appendChild(script);
 </script>
 
 <script>
