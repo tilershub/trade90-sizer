@@ -14,72 +14,115 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const assetOrigin = "https://trade90.ghost.io";
 
-// Fix Featured Image Paths
 const cleanFeatureImage = post.feature_image?.startsWith('http')
   ? post.feature_image.replace(/https:\/\/(www\.)?tradeninety\.com/, assetOrigin)
   : `${assetOrigin}${post.feature_image}`;
 
-// Fix content image paths
 const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOrigin}/content/images/`)
                            .replaceAll(/https:\/\/(www\.)?tradeninety\.com\/content\/images\//g, `${assetOrigin}/content/images/`);
 ---
 
 <BaseLayout title={post.title} description={post.excerpt}>
   <article class="max-w-3xl mx-auto py-16 px-6">
-    <header class="mb-12">
-      <time class="text-[10px] text-emerald-500 font-black uppercase tracking-[0.3em] mb-4 block">
+    <header class="mb-16">
+      <time class="text-[10px] text-emerald-500 font-black uppercase tracking-[0.4em] mb-6 block">
         {new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
       </time>
       
-      <h1 class="text-3xl md:text-5xl font-black mt-2 mb-8 tracking-tighter uppercase text-white leading-[0.95]">
+      <h1 class="text-4xl md:text-6xl font-black mt-2 mb-10 tracking-tighter uppercase text-white leading-[0.9] lg:text-7xl">
         {post.title}
       </h1>
       
       {post.excerpt && (
-        <p class="text-slate-500 text-lg leading-relaxed font-medium italic border-l-2 border-slate-800 pl-6">
-          {post.excerpt}
-        </p>
+        <div class="relative">
+          <p class="text-slate-300 text-xl leading-relaxed font-medium border-l-4 border-emerald-500/50 pl-8 py-2 italic">
+            {post.excerpt}
+          </p>
+        </div>
       )}
     </header>
 
     {post.feature_image && (
-      <img 
-        src={cleanFeatureImage} 
-        alt={post.title} 
-        class="rounded-2xl border border-slate-800 w-full mb-12 shadow-2xl" 
-      />
+      <figure class="mb-16">
+        <img 
+          src={cleanFeatureImage} 
+          alt={post.title} 
+          class="rounded-3xl border border-slate-800 w-full shadow-2xl shadow-emerald-900/10" 
+        />
+        {post.feature_image_caption && (
+           <figcaption class="text-center text-xs text-slate-500 mt-4 italic" set:html={post.feature_image_caption} />
+        )}
+      </figure>
     )}
 
-    <div class="ghost-content" set:html={cleanHtml} />
+    <div class="ghost-content selection:bg-emerald-500/30" set:html={cleanHtml} />
 
-    <div class="mt-24 pt-12 border-t border-slate-900">
+    <div class="mt-32 pt-16 border-t border-slate-900">
       <FAQ />
     </div>
   </article>
 </BaseLayout>
 
 <style is:global>
-  /* Professional Typography for Trading Analysis */
+  /* 1. Root Content Layout */
+  .ghost-content {
+    @apply text-slate-400 text-[17px] md:text-[18px] leading-[1.85] font-normal;
+  }
+
+  /* 2. Enhanced Headings for Scannability */
   .ghost-content h2 { 
-    @apply text-2xl font-black text-white mt-16 mb-6 border-l-4 border-emerald-500 pl-4 uppercase tracking-tight; 
+    @apply text-3xl md:text-4xl font-black text-white mt-20 mb-8 uppercase tracking-tighter leading-tight pt-4 border-t border-slate-900; 
   }
+
+  /* H2 Accent Bar: Adds a visual "anchor" for scanners */
+  .ghost-content h2::before {
+    content: '';
+    @apply block w-12 h-1.5 bg-emerald-500 mb-6;
+  }
+
   .ghost-content h3 { 
-    @apply text-xl font-bold text-slate-200 mt-10 mb-4 uppercase tracking-wide; 
+    @apply text-xl md:text-2xl font-black text-slate-100 mt-12 mb-6 uppercase tracking-tight; 
   }
+
+  /* 3. Text Block Improvements */
   .ghost-content p { 
-    @apply mb-6 text-slate-400 text-base leading-[1.8]; 
+    @apply mb-8; 
   }
-  .ghost-content ul {
-    @apply mb-8 space-y-3 text-slate-400 list-disc pl-6;
+
+  /* Highlight first letter or lead text for institutional feel */
+  .ghost-content p:first-of-type {
+    @apply text-slate-200 text-lg md:text-xl font-light leading-relaxed mb-10;
   }
+
+  /* 4. Lists and Bullet Points */
+  .ghost-content ul, .ghost-content ol {
+    @apply mb-10 space-y-4 pl-6;
+  }
+
+  .ghost-content li {
+    @apply relative pl-2;
+  }
+
+  /* Custom Emerald Bullets */
+  .ghost-content ul li::marker {
+    @apply text-emerald-500 content-['▹'];
+  }
+
+  /* 5. Visual "Pattern Interrupts" (Images & Quotes) */
   .ghost-content img { 
-    @apply rounded-xl border border-slate-800 my-10 shadow-lg hover:border-emerald-500/50 transition-colors; 
+    @apply rounded-2xl border border-slate-800 my-12 shadow-xl hover:border-emerald-500/30 transition-all duration-500; 
   }
+
+  .ghost-content blockquote {
+    @apply border-l-4 border-emerald-500 bg-slate-900/50 py-8 px-10 my-12 italic text-slate-200 text-xl rounded-r-2xl;
+  }
+
   .ghost-content a { 
-    @apply text-emerald-500 font-bold underline decoration-emerald-500/30 hover:decoration-emerald-500 transition-all; 
+    @apply text-emerald-400 font-bold underline decoration-emerald-500/20 underline-offset-4 hover:decoration-emerald-500 transition-all; 
   }
-  /* Formatting for code/math snippets if you use them in Ghost */
+
+  /* 6. Technical Snippets */
   .ghost-content code {
-    @apply bg-slate-900 text-emerald-400 px-1.5 py-0.5 rounded font-mono text-sm border border-slate-800;
+    @apply bg-slate-900 text-emerald-400 px-2 py-1 rounded font-mono text-sm border border-slate-800 mx-1;
   }
 </style>
