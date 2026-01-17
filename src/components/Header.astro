@@ -1,7 +1,6 @@
 -----
 
-## // Add your Ghost URL as an environment variable
-const GHOST_URL = import.meta.env.PUBLIC_GHOST_URL || ‘https://your-site.ghost.io’;
+## const GHOST_URL = import.meta.env.PUBLIC_GHOST_URL || ‘https://your-site.ghost.io’;
 
 <header class="border-b border-slate-900 bg-black/50 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -40,8 +39,6 @@ const GHOST_URL = import.meta.env.PUBLIC_GHOST_URL || ‘https://your-site.ghost
 
   </div>
 </header>
-
-<!-- Ghost Members Script - THIS IS WHAT'S MISSING -->
 
 <script is:inline data-ghost-url={GHOST_URL}>
   const ghostUrl = document.currentScript.getAttribute('data-ghost-url');
