@@ -5,5 +5,5 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://tradeninety.com', 
   integrations: [svelte(), tailwind()],
-  output: 'static'
+  output: 'static',
 });
