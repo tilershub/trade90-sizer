@@ -17,10 +17,10 @@
   </nav>
 
   <div data-members-show="false" class="flex items-center gap-4">
-    <button data-portal="signin" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white cursor-pointer bg-transparent border-none">
+    <button id="ghost-signin" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white cursor-pointer bg-transparent border-none">
       Login
     </button>
-    <button data-portal="signup" class="bg-emerald-500 text-black px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest cursor-pointer border-none font-bold">
+    <button id="ghost-signup" class="bg-emerald-500 text-black px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest cursor-pointer border-none font-bold">
       Join Now
     </button>
   </div>
@@ -30,8 +30,8 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
     </button>
     <div id="mobile-menu" class="hidden absolute top-12 right-0 w-48 bg-slate-900 border border-slate-800 shadow-2xl rounded-xl py-2 z-50">
-      <button data-portal="account" class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-800 cursor-pointer border-none bg-transparent">Account</button>
-      <button data-members-signout class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-slate-800 cursor-pointer border-none bg-transparent">Sign Out</button>
+      <button id="ghost-account" class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-800 cursor-pointer border-none bg-transparent">Account</button>
+      <button id="ghost-signout" class="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-slate-800 cursor-pointer border-none bg-transparent">Sign Out</button>
     </div>
   </div>
 </div>
@@ -40,12 +40,22 @@
   </div>
 </header>
 
-<script is:inline data-ghost-url={GHOST_URL}>
-  const ghostUrl = document.currentScript.getAttribute('data-ghost-url');
-  const script = document.createElement('script');
-  script.src = ghostUrl + '/public/members.min.js?v=' + Date.now();
-  script.async = true;
-  document.head.appendChild(script);
+<script define:vars={{ GHOST_URL }}>
+  (function() {
+    const s = document.createElement('script');
+    s.src = GHOST_URL + '/public/members.min.js';
+    s.async = true;
+    document.head.appendChild(s);
+    
+    s.onload = function() {
+      if (window.GhostMembers) {
+        document.getElementById('ghost-signin')?.addEventListener('click', () => window.GhostMembers.portal.open());
+        document.getElementById('ghost-signup')?.addEventListener('click', () => window.GhostMembers.portal.open());
+        document.getElementById('ghost-account')?.addEventListener('click', () => window.GhostMembers.portal.open());
+        document.getElementById('ghost-signout')?.addEventListener('click', () => window.GhostMembers.signout());
+      }
+    };
+  })();
 </script>
 
 <script>
