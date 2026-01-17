@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { ghostClient } from '../lib/ghost';
+
+const posts = await ghostClient.posts.browse({ 
+  limit: 'all', 
+  include: ['tags'] 
+}).catch(() => []);
+
+const seoTitle = "Market Analysis & Volatility Reports";
+---
+
+<BaseLayout title={seoTitle}>
+  <section class="max-w-6xl mx-auto py-20 px-6">
+    <header class="mb-16">
+      <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
+        Market <span class="text-emerald-500">Analysis</span>
+      </h1>
+      <p class="text-slate-500 max-w-xl text-sm uppercase tracking-widest font-bold">
+        Institutional Intelligence & Risk Framework Reports
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map((post) => (
+        <BlogCard 
+          title={post.title}
+          excerpt={post.excerpt}
+          image={post.feature_image}
+          slug={post.slug}
+          date={post.published_at}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
