@@ -2,40 +2,25 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-const ghostKey = import.meta.env.GHOST_CONTENT_API_KEY;
 const { title, description = "Professional trading tools and risk management analysis." } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="bg-black text-white">
+<html lang="en" class="bg-black text-white scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | TRADE90</title>
     <meta name="description" content={description} />
-
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
     <script 
       defer 
       src="https://cdn.jsdelivr.net/ghost/portal@~2.43/main.js" 
       data-ghost="https://trade90.ghost.io" 
-      data-api="https://trade90.ghost.io/ghost/api/content/" 
-      data-key={ghostKey}
     ></script>
-    
-    <style is:global>
-      /* FIX: We only target elements with these specific data attributes */
-      /* This prevents the CSS from touching your Position Sizer */
-      
-      header [data-members-show="true"] { display: none !important; }
-      header [data-members-show="false"] { display: flex !important; }
-
-      .gh-portal-authenticated header [data-members-show="true"] { display: flex !important; }
-      .gh-portal-authenticated header [data-members-show="false"] { display: none !important; }
-
-      #ghost-portal-root { z-index: 9999999 !important; }
-    </style>
   </head>
-  <body class="min-h-screen bg-slate-950 flex flex-col">
+  <body class="min-h-screen bg-slate-950 flex flex-col selection:bg-emerald-500/30">
     <Header />
     <main id="main-content" class="flex-grow">
       <slot />
