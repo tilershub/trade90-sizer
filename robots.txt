@@ -1,0 +1,8 @@
+# TRADE90 Robots.txt
+User-agent: *
+Allow: /
+Disallow: /ghost/
+Disallow: /p/
+
+# Sitemap location
+Sitemap: https://tradeninety.com/sitemap-index.xml
