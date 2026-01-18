@@ -1,30 +1,34 @@
 ---
 // TickerTape.astro
 ---
-<div class="ticker-wrapper border-b border-slate-900/50 bg-black/40 backdrop-blur-md overflow-hidden">
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-  {
-    "symbols": [
-      { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
-      { "proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100" },
-      { "proName": "FOREXCOM:DJI", "title": "Dow 30" },
-      { "proName": "FX:EURUSD", "title": "EUR/USD" },
-      { "proName": "BITSTAMP:BTCUSD", "title": "BTC" },
-      { "proName": "CMCMARKETS:GOLD", "title": "GOLD" }
-    ],
-    "showSymbolLogo": true,
-    "colorTheme": "dark",
-    "isTransparent": true,
-    "displayMode": "adaptive",
-    "locale": "en",
-    "height": 72  /* Increased from standard 40 for better visibility */
-  }
-  </script>
+<div class="ticker-container border-b border-white/5 bg-[#0a0a0a]">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
+        { "proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100" },
+        { "proName": "FX:EURUSD", "title": "EUR/USD" },
+        { "proName": "BITSTAMP:BTCUSD", "title": "BTC/USD" },
+        { "proName": "BITSTAMP:ETHUSD", "title": "ETH/USD" },
+        { "proName": "OANDA:XAUUSD", "title": "Gold" }
+      ],
+      "showSymbolLogo": true,
+      "colorTheme": "dark",
+      "isTransparent": false,
+      "largeChartUrl": "",
+      "displayMode": "adaptive",
+      "locale": "en",
+      "height": 72
+    }
+    </script>
+  </div>
 </div>
 
 <style>
-  .ticker-wrapper {
-    height: 72px; /* Matches the widget height */
-    width: 100%;
+  .ticker-container {
+    height: 72px; /* Fixed height prevents layout shift for PageSpeed score */
+    overflow: hidden;
   }
 </style>
