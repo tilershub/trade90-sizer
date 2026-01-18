@@ -34,11 +34,11 @@
     container.appendChild(script);
   }
 
-  // Performance Optimization: Load on Idle or Intersection
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(() => loadTradingView());
+  // Use a safer loading trigger for Astro
+  if (document.readyState === 'complete') {
+    loadTradingView();
   } else {
-    setTimeout(loadTradingView, 2000);
+    window.addEventListener('load', loadTradingView);
   }
 </script>
 
@@ -46,6 +46,8 @@
   .ticker-container {
     height: 72px;
     overflow: hidden;
-    contain: strict; /* Helps browser layout performance */
+    /* This ensures CSS parser stays in its lane */
+    display: block;
+    width: 100%;
   }
-</script>
+</style>
