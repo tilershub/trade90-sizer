@@ -1,11 +1,21 @@
 ---
 // TickerTape.astro
 ---
-<div class="ticker-container border-b border-white/5 bg-[#0a0a0a]">
-  <div class="tradingview-widget-container">
-    <div class="tradingview-widget-container__widget"></div>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-    {
+<div id="ticker-viewport" class="ticker-container border-b border-white/5 bg-[#0a0a0a] min-h-[72px]">
+  <div id="tradingview-ticker-wrapper">
+    </div>
+</div>
+
+<script is:inline>
+  function loadTradingView() {
+    const container = document.getElementById('tradingview-ticker-wrapper');
+    if (!container || container.querySelector('script')) return;
+
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
+    script.async = true;
+    script.innerHTML = JSON.stringify({
       "symbols": [
         { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
         { "proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100" },
@@ -17,18 +27,25 @@
       "showSymbolLogo": true,
       "colorTheme": "dark",
       "isTransparent": false,
-      "largeChartUrl": "",
       "displayMode": "adaptive",
       "locale": "en",
       "height": 72
-    }
-    </script>
-  </div>
-</div>
+    });
+    container.appendChild(script);
+  }
+
+  // Performance Optimization: Load on Idle or Intersection
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => loadTradingView());
+  } else {
+    setTimeout(loadTradingView, 2000);
+  }
+</script>
 
 <style>
   .ticker-container {
-    height: 72px; /* Fixed height prevents layout shift for PageSpeed score */
+    height: 72px;
     overflow: hidden;
+    contain: strict; /* Helps browser layout performance */
   }
-</style>
+</script>
