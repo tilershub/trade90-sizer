@@ -15,7 +15,6 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const assetOrigin = "https://trade90.ghost.io";
 
-// Fetch Related Articles: Filter by primary tag, exclude current post
 const relatedPosts = await ghostClient.posts.browse({
   filter: `tag:${post.primary_tag?.slug}+id:-${post.id}`,
   limit: 3,
@@ -52,42 +51,32 @@ const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOr
 
     {post.feature_image && (
       <figure class="mb-16">
-        <img 
-          src={cleanFeatureImage} 
-          alt={post.title} 
-          class="rounded-3xl border border-slate-800 w-full shadow-2xl shadow-emerald-900/10" 
-        />
+        <img src={cleanFeatureImage} alt={post.title} class="rounded-3xl border border-slate-800 w-full shadow-2xl shadow-emerald-900/10" />
       </figure>
     )}
 
     <div class="ghost-content selection:bg-emerald-500/30" set:html={cleanHtml} />
 
     {relatedPosts.length > 0 && (
-      <section class="mt-32 border-t border-slate-900 pt-16">
-        <header class="mb-12">
+      <section class="mt-12 border-t border-slate-900/50 pt-12">
+        <header class="mb-8">
           <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-2 border-none p-0 before:hidden">
             Continue Analysis
           </h2>
-          <h3 class="text-3xl font-black text-white uppercase tracking-tighter">
+          <h3 class="text-2xl font-black text-white uppercase tracking-tighter">
             Related Intelligence
           </h3>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {relatedPosts.map((p) => (
-            <BlogCard 
-              title={p.title}
-              excerpt={p.excerpt}
-              image={p.feature_image}
-              slug={p.slug}
-              date={p.published_at}
-            />
+            <BlogCard title={p.title} excerpt={p.excerpt} image={p.feature_image} slug={p.slug} date={p.published_at} />
           ))}
         </div>
       </section>
     )}
 
-    <div class="mt-32 pt-16 border-t border-slate-900">
+    <div class="mt-12 pt-12 border-t border-slate-900/50">
       <FAQ />
     </div>
   </article>
@@ -98,8 +87,13 @@ const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOr
     @apply text-slate-400 text-[17px] md:text-[18px] leading-[1.85] font-normal;
   }
 
+  /* FIX: Ensure the final paragraph doesn't add extra bottom margin */
+  .ghost-content p:last-child {
+    @apply mb-0;
+  }
+
   .ghost-content h2 { 
-    @apply text-3xl md:text-4xl font-black text-white mt-20 mb-8 uppercase tracking-tighter leading-tight pt-4 border-t border-slate-900; 
+    @apply text-3xl md:text-4xl font-black text-white mt-16 mb-8 uppercase tracking-tighter leading-tight pt-4 border-t border-slate-900; 
   }
 
   .ghost-content h2::before {
@@ -107,33 +101,17 @@ const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOr
     @apply block w-12 h-1.5 bg-emerald-500 mb-6;
   }
 
-  .ghost-content h3 { 
-    @apply text-xl md:text-2xl font-black text-slate-100 mt-12 mb-6 uppercase tracking-tight; 
-  }
-
+  .ghost-content h3 { @apply text-xl font-black text-slate-100 mt-10 mb-6 uppercase tracking-tight; }
   .ghost-content p { @apply mb-8; }
-
-  .ghost-content p:first-of-type {
-    @apply text-slate-200 text-lg md:text-xl font-light leading-relaxed mb-10;
-  }
-
   .ghost-content ul, .ghost-content ol { @apply mb-10 space-y-4 pl-6; }
   .ghost-content li { @apply relative pl-2; }
   .ghost-content ul li::marker { @apply text-emerald-500 content-['▹']; }
 
-  .ghost-content img { 
-    @apply rounded-2xl border border-slate-800 my-12 shadow-xl hover:border-emerald-500/30 transition-all duration-500; 
-  }
+  .ghost-content img { @apply rounded-2xl border border-slate-800 my-10 shadow-xl; }
 
   .ghost-content blockquote {
-    @apply border-l-4 border-emerald-500 bg-slate-900/50 py-8 px-10 my-12 italic text-slate-200 text-xl rounded-r-2xl;
+    @apply border-l-4 border-emerald-500 bg-slate-900/50 py-8 px-10 my-10 italic text-slate-200 text-xl rounded-r-2xl;
   }
 
-  .ghost-content a { 
-    @apply text-emerald-400 font-bold underline decoration-emerald-500/20 underline-offset-4 hover:decoration-emerald-500 transition-all; 
-  }
-
-  .ghost-content code {
-    @apply bg-slate-900 text-emerald-400 px-2 py-1 rounded font-mono text-sm border border-slate-800 mx-1;
-  }
+  .ghost-content a { @apply text-emerald-400 font-bold underline decoration-emerald-500/20 underline-offset-4 hover:decoration-emerald-500 transition-all; }
 </style>
