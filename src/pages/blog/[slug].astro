@@ -87,11 +87,12 @@ const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOr
     @apply text-slate-400 text-[17px] md:text-[18px] leading-[1.85] font-normal;
   }
 
-  /* FIX: Ensure the final paragraph doesn't add extra bottom margin */
+  /* FIX: Removes extra space from the end of article content */
   .ghost-content p:last-child {
     @apply mb-0;
   }
 
+  /* H2: Set to White and adjusted margin */
   .ghost-content h2 { 
     @apply text-3xl md:text-4xl font-black text-white mt-16 mb-8 uppercase tracking-tighter leading-tight pt-4 border-t border-slate-900; 
   }
@@ -101,7 +102,11 @@ const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOr
     @apply block w-12 h-1.5 bg-emerald-500 mb-6;
   }
 
-  .ghost-content h3 { @apply text-xl font-black text-slate-100 mt-10 mb-6 uppercase tracking-tight; }
+  /* H3: Set to White */
+  .ghost-content h3 { 
+    @apply text-xl md:text-2xl font-black text-white mt-10 mb-6 uppercase tracking-tight; 
+  }
+
   .ghost-content p { @apply mb-8; }
   .ghost-content ul, .ghost-content ol { @apply mb-10 space-y-4 pl-6; }
   .ghost-content li { @apply relative pl-2; }
@@ -110,7 +115,7 @@ const cleanHtml = post.html?.replaceAll('src="/content/images/', `src="${assetOr
   .ghost-content img { @apply rounded-2xl border border-slate-800 my-10 shadow-xl; }
 
   .ghost-content blockquote {
-    @apply border-l-4 border-emerald-500 bg-slate-900/50 py-8 px-10 my-10 italic text-slate-200 text-xl rounded-r-2xl;
+    @apply border-l-4 border-emerald-500 bg-slate-900/50 py-8 px-10 my-10 italic text-white text-xl rounded-r-2xl;
   }
 
   .ghost-content a { @apply text-emerald-400 font-bold underline decoration-emerald-500/20 underline-offset-4 hover:decoration-emerald-500 transition-all; }
