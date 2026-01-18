@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { ghostClient } from '../../lib/ghost';
+
+export async function getStaticPaths() {
+  const tags = await ghostClient.tags.browse();
+  return tags.map((tag) => ({
+    params: { tag: tag.slug },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const posts = await ghostClient.posts.browse({ 
+  filter: `tag:${tag.slug}`,
+  include: 'tags' 
+});
+---
+
+<BaseLayout title={`${tag.name} Analysis`}>
+  <section class="max-w-6xl mx-auto py-20 px-6">
+    <header class="mb-12 border-l-4 border-emerald-500 pl-6">
+      <h1 class="text-4xl font-black uppercase text-white">{tag.name}</h1>
+      <p class="text-slate-500 uppercase tracking-widest text-[10px]">Filtered Intelligence Feed</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {posts.map(post => <BlogCard {...post} />)}
+    </div>
+  </section>
+</BaseLayout>
