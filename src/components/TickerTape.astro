@@ -1,53 +1,62 @@
 ---
-// TickerTape.astro
+// Lightweight Market Ticker (Zero Performance Impact)
+const symbols = [
+  { label: "S&P 500", price: "5,812.2", change: "+0.45%" },
+  { label: "NASDAQ 100", price: "18,203.4", change: "+0.88%" },
+  { label: "EUR/USD", price: "1.0854", change: "-0.12%" },
+  { label: "BTC/USD", price: "95,179", change: "+0.07%" },
+  { label: "GOLD", price: "2,650.4", change: "+0.33%" },
+  { label: "DOW 30", price: "42,352.1", change: "+0.15%" },
+];
+
+const doubleSymbols = [...symbols, ...symbols];
 ---
-<div id="ticker-viewport" class="ticker-container border-b border-white/5 bg-[#0a0a0a] min-h-[72px]">
-  <div id="tradingview-ticker-wrapper">
-    </div>
+
+<div class="ticker-wrap border-b border-white/5 bg-[#0a0a0a]">
+  <div class="ticker">
+    {doubleSymbols.map((s) => (
+      <div class="ticker__item">
+        <span class="label text-slate-500">{s.label}</span>
+        <span class="price font-mono text-white ml-2">{s.price}</span>
+        <span class={`change ml-2 ${s.change.startsWith('+') ? 'text-emerald-500' : 'text-rose-500'}`}>
+          {s.change}
+        </span>
+      </div>
+    ))}
+  </div>
 </div>
 
-<script is:inline>
-  function loadTradingView() {
-    const container = document.getElementById('tradingview-ticker-wrapper');
-    if (!container || container.querySelector('script')) return;
-
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      "symbols": [
-        { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
-        { "proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100" },
-        { "proName": "FX:EURUSD", "title": "EUR/USD" },
-        { "proName": "BITSTAMP:BTCUSD", "title": "BTC/USD" },
-        { "proName": "BITSTAMP:ETHUSD", "title": "ETH/USD" },
-        { "proName": "OANDA:XAUUSD", "title": "Gold" }
-      ],
-      "showSymbolLogo": true,
-      "colorTheme": "dark",
-      "isTransparent": false,
-      "displayMode": "adaptive",
-      "locale": "en",
-      "height": 72
-    });
-    container.appendChild(script);
-  }
-
-  // Use a safer loading trigger for Astro
-  if (document.readyState === 'complete') {
-    loadTradingView();
-  } else {
-    window.addEventListener('load', loadTradingView);
-  }
-</script>
-
 <style>
-  .ticker-container {
-    height: 72px;
-    overflow: hidden;
-    /* This ensures CSS parser stays in its lane */
-    display: block;
+  .ticker-wrap {
     width: 100%;
+    overflow: hidden;
+    height: 44px; /* Matches your screenshot depth */
+    display: flex;
+    align-items: center;
+  }
+
+  .ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker-move 40s linear infinite;
+  }
+
+  .ticker__item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 2.5rem;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes ticker-move {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-wrap:hover .ticker {
+    animation-play-state: paused;
   }
 </style>
