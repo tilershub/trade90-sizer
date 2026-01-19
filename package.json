@@ -3,11 +3,11 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
-  },
+  "dev": "astro dev",
+  "start": "astro dev",
+  "build": "astro build && node scripts/generate-sitemap.mjs",
+  "preview": "astro preview"
+},
   "dependencies": {
     "astro": "^4.0.0",
     "@astrojs/svelte": "^5.0.0",
