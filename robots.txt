@@ -5,4 +5,5 @@ Disallow: /ghost/
 Disallow: /p/
 
 # Use absolute URL to fix the 26 syntax errors
-Sitemap: https://tradeninety.com/sitemap.xml
+Sitemap: https://tradeninety.com/sitemap-index.xml
+
