@@ -10,7 +10,8 @@ export default defineConfig({
     svelte(),
     tailwind(),
     sitemap({
-      format: 'xml',   // 🔥 FORCE XML OUTPUT
+      // prevents sitemap from choking + keeps SEO clean
+      filter: (page) => !page.pathname.startsWith('/category/')
     }),
   ],
 });
