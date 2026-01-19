@@ -9,6 +9,8 @@ export default defineConfig({
   integrations: [
     svelte(),
     tailwind(),
-    sitemap(),
+    sitemap({
+      format: 'xml',   // 🔥 FORCE XML OUTPUT
+    }),
   ],
 });
