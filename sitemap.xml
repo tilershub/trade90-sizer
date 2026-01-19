@@ -1,62 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                      http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
+  <url>
+    <loc>https://tradeninety.com/</loc>
+    <lastmod>2026-01-19T03:04:23+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
 
-<url>
-  <loc>https://tradeninety.com/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/blog/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/about/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/contact/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/blog/forex-trading-in-the-usa-a-beginners-guide-to-the-worlds-largest-financial-market/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/blog/what-is-leverage-in-forex-trading-explained-simply-for-beginners/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/disclaimer/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/privacy/</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/blog/what-is-risk-to-reward-ratio</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://tradeninety.com/blog/funded-trading-strategies</loc>
-  <lastmod>2026-01-19T03:04:23+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+  <url>
+    <loc>https://tradeninety.com/blog/</loc>
+    <lastmod>2026-01-19T03:04:23+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 
+  <url>
+    <loc>https://tradeninety.com/about/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tradeninety.com/contact/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tradeninety.com/disclaimer/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tradeninety.com/privacy/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tradeninety.com/blog/forex-trading-in-the-usa-a-beginners-guide-to-the-worlds-largest-financial-market/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tradeninety.com/blog/what-is-leverage-in-forex-trading-explained-simply-for-beginners/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tradeninety.com/blog/what-is-risk-to-reward-ratio/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.64</priority>
+  </url>
+
+  <url>
+    <loc>https://tradeninety.com/blog/funded-trading-strategies/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.64</priority>
+  </url>
 
 </urlset>
