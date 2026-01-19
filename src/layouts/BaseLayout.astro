@@ -1,10 +1,10 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import TickerTape from '../components/TickerTape.astro';
 
 const { title, description = "Professional trading tools and risk management analysis." } = Astro.props;
-// Fixes "Redirect" and "Indexing" audit issues
+
+// Fixes indexing issues by defining the master version of the URL
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tradeninety.com');
 ---
 
@@ -13,10 +13,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tradenin
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>{title} | TRADE90</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
     <script 
       defer 
@@ -26,10 +27,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tradenin
   </head>
   <body class="min-h-screen bg-slate-950 flex flex-col selection:bg-emerald-500/30">
     <Header />
-    <TickerTape /> 
+    
     <main id="main-content" class="flex-grow">
       <slot />
     </main>
+
     <Footer />
   </body>
 </html>
