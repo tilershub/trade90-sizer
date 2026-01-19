@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /ghost/
 Disallow: /p/
 
-Sitemap: https://tradeninety.com/sitemap-index.xml
+Sitemap: https://tradeninety.com/sitemap.xml
