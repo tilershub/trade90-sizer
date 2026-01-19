@@ -1,9 +1,15 @@
-import { defineConfig } from 'astro/config';
-import svelte from '@astrojs/svelte';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import robotsTxt from "astro-robots-txt";
 
 export default defineConfig({
-  site: 'https://tradeninety.com',
-  output: 'static',
-  integrations: [svelte(), tailwind()],
+  site: "https://tradeninety.com",
+  integrations: [
+    sitemap(),
+    robotsTxt({
+      policy: [
+        { userAgent: "*", allow: "/" },
+      ],
+    }),
+  ],
 });
