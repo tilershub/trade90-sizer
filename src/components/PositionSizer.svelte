@@ -122,7 +122,7 @@
         <Target class="w-8 h-8 text-emerald-400" />
         <h1 class="text-2xl font-bold text-white">POSITION SIZER</h1>
       </div>
-      <p class="text-gray-400 text-sm">Risk Analyzer</p>
+      <p class="text-gray-400 text-sm">Risk Framework</p>
     </div>
 
     <!-- Pair Selector -->
