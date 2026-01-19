@@ -114,217 +114,125 @@
   })();
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4 font-sans">
+<div class="min-h-screen bg-gray-950 p-4 font-sans selection:bg-emerald-500/30">
   <div class="max-w-md mx-auto">
-    <!-- Header -->
-    <div class="text-center mb-6 pt-4">
+    <header class="text-center mb-6 pt-4">
       <div class="flex items-center justify-center gap-2 mb-2">
         <Target class="w-8 h-8 text-emerald-400" />
-        <h1 class="text-2xl font-bold text-white">POSITION SIZER</h1>
+        <h1 class="text-2xl font-black text-white tracking-tighter uppercase">POSITION SIZER</h1>
       </div>
-      <p class="text-gray-400 text-sm">Risk Framework</p>
-    </div>
+      <p class="text-gray-200 text-xs font-bold tracking-[0.2em] uppercase">Risk Framework</p>
+    </header>
 
-    <!-- Pair Selector -->
-    <div class="bg-gray-800 rounded-2xl p-4 mb-4 shadow-xl border border-gray-700">
-      <label class="block text-gray-300 text-sm font-semibold mb-2">
-        Pair
+    <div class="bg-gray-900 rounded-2xl p-4 mb-4 border border-white/5 shadow-2xl">
+      <label for="asset-pair" class="block text-gray-200 text-sm font-bold mb-2">
+        Trading Asset
       </label>
       <select
+        id="asset-pair"
         bind:value={pair}
-        class="w-full bg-gray-700 text-white rounded-xl px-4 py-3.5 text-base border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        class="w-full bg-gray-800 text-white rounded-xl px-4 py-3.5 text-base border border-white/10 focus:ring-2 focus:ring-emerald-500 appearance-none cursor-pointer"
       >
         <optgroup label="Forex Majors">
           {#each Object.entries(ASSET_CONFIGS).filter(([k, v]) => v.category === 'Forex Majors') as [key, cfg]}
             <option value={key}>{cfg.name}</option>
           {/each}
         </optgroup>
-        
-        <optgroup label="Forex Crosses">
-          {#each Object.entries(ASSET_CONFIGS).filter(([k, v]) => v.category === 'Forex Crosses') as [key, cfg]}
-            <option value={key}>{cfg.name}</option>
-          {/each}
-        </optgroup>
-        
-        <optgroup label="Metals">
-          {#each Object.entries(ASSET_CONFIGS).filter(([k, v]) => v.category === 'Metals') as [key, cfg]}
-            <option value={key}>{cfg.name}</option>
-          {/each}
-        </optgroup>
-        
-        <optgroup label="Indices">
-          {#each Object.entries(ASSET_CONFIGS).filter(([k, v]) => v.category === 'Indices') as [key, cfg]}
-            <option value={key}>{cfg.name}</option>
-          {/each}
-        </optgroup>
-        
-        <optgroup label="Crypto">
-          {#each Object.entries(ASSET_CONFIGS).filter(([k, v]) => v.category === 'Crypto') as [key, cfg]}
-            <option value={key}>{cfg.name}</option>
-          {/each}
-        </optgroup>
-        
-        <optgroup label="Commodities">
-          {#each Object.entries(ASSET_CONFIGS).filter(([k, v]) => v.category === 'Commodities') as [key, cfg]}
-            <option value={key}>{cfg.name}</option>
-          {/each}
-        </optgroup>
-      </select>
+        </select>
     </div>
 
-    <!-- Direction Toggle -->
-    <div class="bg-gray-800 rounded-2xl p-4 mb-4 shadow-xl border border-gray-700">
-      <label class="block text-gray-300 text-sm font-semibold mb-3">
-        Direction
-      </label>
+    <div class="bg-gray-900 rounded-2xl p-4 mb-4 border border-white/5 shadow-2xl">
+      <span class="block text-gray-200 text-sm font-bold mb-3">Direction</span>
       <div class="grid grid-cols-2 gap-3">
         <button
+          type="button"
           on:click={() => direction = 'buy'}
-          class={`py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
-            direction === 'buy'
-              ? 'bg-emerald-600 text-white shadow-lg'
-              : 'bg-gray-700 text-gray-400 border border-gray-600'
+          class={`py-3 rounded-xl font-black transition-all flex items-center justify-center gap-2 ${
+            direction === 'buy' ? 'bg-emerald-500 text-black' : 'bg-gray-800 text-gray-200 border border-white/5'
           }`}
         >
-          <TrendingUp class="w-5 h-5" />
-          BUY
+          <TrendingUp class="w-5 h-5" /> BUY
         </button>
         <button
+          type="button"
           on:click={() => direction = 'sell'}
-          class={`py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
-            direction === 'sell'
-              ? 'bg-rose-600 text-white shadow-lg'
-              : 'bg-gray-700 text-gray-400 border border-gray-600'
+          class={`py-3 rounded-xl font-black transition-all flex items-center justify-center gap-2 ${
+            direction === 'sell' ? 'bg-rose-500 text-white' : 'bg-gray-800 text-gray-200 border border-white/5'
           }`}
         >
-          <TrendingDown class="w-5 h-5" />
-          SELL
+          <TrendingDown class="w-5 h-5" /> SELL
         </button>
       </div>
     </div>
 
-    <!-- Account Settings -->
-    <div class="bg-gray-800 rounded-2xl p-4 mb-4 shadow-xl border border-gray-700 space-y-4">
+    <div class="bg-gray-900 rounded-2xl p-4 mb-4 border border-white/5 shadow-2xl space-y-4">
       <div>
-        <label class="block text-gray-300 text-sm font-semibold mb-2">
-          Account Balance ($)
-        </label>
+        <label for="acc-balance" class="block text-gray-200 text-sm font-bold mb-2">Account Balance ($)</label>
         <input
+          id="acc-balance"
           type="number"
           bind:value={balance}
-          class="w-full bg-gray-700 text-white rounded-xl px-4 py-3 text-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          placeholder="100000"
-          step="1000"
+          class="w-full bg-gray-800 text-white rounded-xl px-4 py-3 text-lg border border-white/10 focus:ring-2 focus:ring-emerald-500"
         />
       </div>
 
       <div>
-        <label class="block text-gray-300 text-sm font-semibold mb-2">
-          Risk (%)
-        </label>
+        <label for="risk-percent" class="block text-gray-200 text-sm font-bold mb-2">Risk (%)</label>
         <input
+          id="risk-percent"
           type="number"
           bind:value={riskPercent}
-          class="w-full bg-gray-700 text-white rounded-xl px-4 py-3 text-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          placeholder="0.5"
-          step="0.1"
+          class="w-full bg-gray-800 text-white rounded-xl px-4 py-3 text-lg border border-white/10 focus:ring-2 focus:ring-emerald-500"
         />
         {#if calculations}
-          <div class="mt-1 text-xs text-emerald-400">
-            Risk Amount: ${calculations.riskAmount}
-          </div>
+          <div class="mt-2 text-xs font-bold text-emerald-400">Risk Amount: ${calculations.riskAmount}</div>
         {/if}
       </div>
     </div>
 
-    <!-- Trade Levels -->
-    <div class="bg-gray-800 rounded-2xl p-4 mb-4 shadow-xl border border-gray-700 space-y-4">
+    <div class="bg-gray-900 rounded-2xl p-4 mb-4 border border-white/5 shadow-2xl space-y-4">
       <div>
-        <label class="block text-gray-300 text-sm font-semibold mb-2">
-          Entry Price
-        </label>
-        <input
-          type="number"
-          bind:value={entryPrice}
-          class="w-full bg-gray-700 text-white rounded-xl px-4 py-3 text-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="1.0850"
-          step={config.pipValue}
-        />
+        <label for="entry-price" class="block text-gray-200 text-sm font-bold mb-2">Entry Price</label>
+        <input id="entry-price" type="number" bind:value={entryPrice} class="w-full bg-gray-800 text-white rounded-xl px-4 py-3 border border-white/10" />
       </div>
 
-      <div>
-        <label class="block text-gray-300 text-sm font-semibold mb-2">
-          Stop Loss Price
-        </label>
-        <input
-          type="number"
-          bind:value={stopLoss}
-          class="w-full bg-gray-700 text-white rounded-xl px-4 py-3 text-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-rose-500"
-          placeholder="1.0825"
-          step={config.pipValue}
-        />
-        {#if calculations}
-          <div class="mt-1 text-xs text-rose-400">
-            {calculations.slPips} pips
-          </div>
-        {/if}
-      </div>
-
-      <div>
-        <label class="block text-gray-300 text-sm font-semibold mb-2">
-          Take Profit Price
-        </label>
-        <input
-          type="number"
-          bind:value={takeProfit}
-          class="w-full bg-gray-700 text-white rounded-xl px-4 py-3 text-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          placeholder="1.0900"
-          step={config.pipValue}
-        />
-        {#if calculations}
-          <div class="mt-1 text-xs text-emerald-400">
-            {calculations.tpPips} pips
-          </div>
-        {/if}
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="stop-loss" class="block text-rose-400 text-sm font-bold mb-2">Stop Loss</label>
+          <input id="stop-loss" type="number" bind:value={stopLoss} class="w-full bg-gray-800 text-white rounded-xl px-4 py-3 border border-white/10" />
+        </div>
+        <div>
+          <label for="take-profit" class="block text-emerald-400 text-sm font-bold mb-2">Take Profit</label>
+          <input id="take-profit" type="number" bind:value={takeProfit} class="w-full bg-gray-800 text-white rounded-xl px-4 py-3 border border-white/10" />
+        </div>
       </div>
     </div>
 
-    <!-- Results -->
-    {#if calculations}
-      <!-- Lot Size -->
-      <div class="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-2xl p-6 mb-4 shadow-xl">
-        <div class="text-emerald-100 text-sm font-semibold mb-2">
-          Position Size
+    <div class="min-h-[220px]"> 
+      {#if calculations}
+        <div class="bg-emerald-500 rounded-2xl p-6 mb-4 shadow-xl">
+          <div class="text-black text-[10px] font-black uppercase tracking-widest mb-1 opacity-80">Position Size</div>
+          <div class="text-6xl font-black text-black tracking-tighter">{calculations.lotSize}</div>
+          <div class="text-black text-xs font-bold uppercase mt-1">Standard Lots</div>
         </div>
-        <div class="text-5xl font-bold text-white mb-1">
-          {calculations.lotSize}
-        </div>
-        <div class="text-emerald-100 text-xs">
-          Lots (Standard)
-        </div>
-      </div>
 
-      <!-- Stats -->
-      <div class="bg-gray-800 rounded-2xl p-4 shadow-xl border border-gray-700">
         <div class="grid grid-cols-2 gap-3">
-          <div class="bg-gray-700 rounded-xl p-3">
-            <div class="text-gray-400 text-xs mb-1">Risk:Reward</div>
-            <div class="text-white text-xl font-bold">1:{calculations.rrRatio}</div>
+          <div class="bg-gray-900 border border-white/5 rounded-xl p-4">
+            <div class="text-gray-200 text-[10px] font-bold uppercase mb-1">R:R Ratio</div>
+            <div class="text-white text-xl font-black">1:{calculations.rrRatio}</div>
           </div>
-          
-          <div class="bg-gray-700 rounded-xl p-3">
-            <div class="text-gray-400 text-xs mb-1">Potential Profit</div>
-            <div class="text-emerald-400 text-xl font-bold">${calculations.potentialProfit}</div>
+          <div class="bg-gray-900 border border-white/5 rounded-xl p-4">
+            <div class="text-gray-200 text-[10px] font-bold uppercase mb-1">Potential</div>
+            <div class="text-emerald-400 text-xl font-black">${calculations.potentialProfit}</div>
           </div>
         </div>
-      </div>
-    {/if}
-
-    <!-- Footer -->
-    <div class="text-center mt-6 pb-4">
-      <p class="text-gray-500 text-xs">
-        PRO Position Sizing • Trade Smart, Risk Less
-      </p>
+      {/if}
     </div>
+
+    <footer class="text-center mt-6 pb-4">
+      <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">
+        Veteran Position Sizing • Trade Smart, Risk Less
+      </p>
+    </footer>
   </div>
 </div>
