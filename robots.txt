@@ -4,5 +4,5 @@ Allow: /
 Disallow: /ghost/
 Disallow: /p/
 
-# Sitemap location
+# Use absolute URL to fix the 26 syntax errors
 Sitemap: https://tradeninety.com/sitemap-index.xml
