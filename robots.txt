@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /ghost/
-Disallow: /p/
-
-Sitemap: https://tradeninety.com/sitemap.xml
