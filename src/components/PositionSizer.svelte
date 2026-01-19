@@ -65,7 +65,7 @@
   let balance = '100000';
   let riskPercent = '0.5';
   let entryPrice = '1.0850';
-  let stopLoss = '1.0825';
+  let stopLoss = '1.0800';
   let takeProfit = '1.0900';
   let direction = 'buy';
 
