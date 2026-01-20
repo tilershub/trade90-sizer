@@ -88,29 +88,38 @@
 
 <!-- Safer, scoped script (prevents timing issues) -->
 <script is:inline>
-  const header = document.currentScript.closest("header");
+  const header = document.getElementById("site-header");
   const btn = header?.querySelector("#menu-toggle");
   const menu = header?.querySelector("#mobile-menu");
 
-  if (btn && menu) {
-    btn.addEventListener("click", (e) => {
+  if (btn && menu && header) {
+    const toggleMenu = (e) => {
+      e.preventDefault();
       e.stopPropagation();
       menu.classList.toggle("hidden");
+    };
+
+    // Better for iPhone/Android touch
+    btn.addEventListener("pointerdown", toggleMenu);
+    btn.addEventListener("click", toggleMenu);
+
+    // Prevent taps inside menu from closing it immediately
+    menu.addEventListener("pointerdown", (e) => e.stopPropagation());
+    menu.addEventListener("click", (e) => e.stopPropagation());
+
+    // Close when tapping outside
+    document.addEventListener("pointerdown", (e) => {
+      if (!header.contains(e.target)) menu.classList.add("hidden");
     });
 
-    // Close menu if clicking outside
-    document.addEventListener("click", () => {
-      menu.classList.add("hidden");
-    });
-
-    // Close menu when clicking any menu link/button
-    menu.querySelectorAll("a, button").forEach((el) => {
-      el.addEventListener("click", () => menu.classList.add("hidden"));
-    });
-
-    // Close on ESC
+    // Close on ESC (desktop)
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") menu.classList.add("hidden");
+    });
+
+    // Close when clicking a link
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => menu.classList.add("hidden"));
     });
   }
 </script>
