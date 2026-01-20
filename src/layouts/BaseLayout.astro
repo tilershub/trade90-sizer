@@ -1,33 +1,42 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
-const { title, description = "Professional trading tools and risk management analysis." } = Astro.props;
+const {
+  title,
+  description = "Professional trading tools and risk management analysis."
+} = Astro.props;
 
-// Fixes indexing issues by defining the master version of the URL
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tradeninety.com');
+// Canonical URL (SEO-safe)
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site || "https://tradeninety.com"
+);
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="bg-black text-white scroll-smooth">
   <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>{title} | TRADE90</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalURL} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | TRADE90</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- ✅ Ghost Portal (CORRECT) -->
-  <script
-    defer
-    src="https://trade90.ghost.io/members/portal.min.js">
-  </script>
-</head>
+    <!-- ✅ Ghost Portal (ONLY correct version) -->
+    <script
+      defer
+      src="https://trade90.ghost.io/portal.min.js"
+      data-ghost="https://trade90.ghost.io"
+      crossorigin="anonymous">
+    </script>
+  </head>
+
   <body class="min-h-screen bg-slate-950 flex flex-col selection:bg-emerald-500/30">
     <Header />
-    
+
     <main id="main-content" class="flex-grow">
       <slot />
     </main>
