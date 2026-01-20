@@ -13,14 +13,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tradenin
   <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <title>{title} | TRADE90</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Ghost Portal (fixed) -->
-  <script defer src="https://trade90.ghost.io/members/portal.min.js"></script>
+  <!-- ✅ Ghost Portal (CORRECT) -->
+  <script
+    defer
+    src="https://trade90.ghost.io/members/portal.min.js">
+  </script>
 </head>
   <body class="min-h-screen bg-slate-950 flex flex-col selection:bg-emerald-500/30">
     <Header />
