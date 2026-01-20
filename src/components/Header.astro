@@ -1,9 +1,10 @@
 ---
-// Header version 1.3 - Production Ready
+// Header version 1.4 - Join/Login + safer toggle script
 ---
+
 <header class="border-b border-slate-900 bg-black/50 backdrop-blur-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-    
+
     <a href="/" class="text-xl font-black tracking-tighter text-white shrink-0">
       TRADE<span class="text-emerald-500">90</span>
     </a>
@@ -14,19 +15,70 @@
         <a href="/blog" class="text-slate-400 hover:text-white transition-colors">Analysis</a>
       </nav>
 
+      <!-- Desktop Join/Login -->
+      <div class="hidden md:flex items-center gap-3">
+        <a
+          href="#"
+          data-portal="signup"
+          class="px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest
+                 bg-emerald-500 text-black hover:bg-emerald-400 transition"
+        >
+          Join Now
+        </a>
+
+        <a
+          href="#"
+          data-portal="signin"
+          class="px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest
+                 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition"
+        >
+          Login
+        </a>
+      </div>
+
       <div class="relative">
-        <button id="menu-toggle" aria-label="Toggle Menu" class="text-white p-2 hover:bg-slate-900 rounded-lg cursor-pointer bg-transparent border-none outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button
+          id="menu-toggle"
+          aria-label="Toggle Menu"
+          class="text-white p-2 hover:bg-slate-900 rounded-lg cursor-pointer bg-transparent border-none outline-none"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" x2="21" y1="12" y2="12"></line>
             <line x1="3" x2="21" y1="6" y2="6"></line>
             <line x1="3" x2="21" y1="18" y2="18"></line>
           </svg>
         </button>
 
-        <div id="mobile-menu" class="hidden absolute top-14 right-0 w-56 bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl py-3 z-50 overflow-hidden">
+        <div
+          id="mobile-menu"
+          class="hidden absolute top-14 right-0 w-72 bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl py-3 z-50 overflow-hidden"
+        >
+          <!-- Mobile Join/Login -->
+          <div class="px-4 py-3 border-b border-slate-900/50 space-y-2">
+            <a
+              href="#"
+              data-portal="signup"
+              class="block w-full text-center px-4 py-3 rounded-xl
+                     bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition"
+            >
+              Join Now
+            </a>
+
+            <a
+              href="#"
+              data-portal="signin"
+              class="block w-full text-center px-4 py-3 rounded-xl
+                     border border-slate-700 text-slate-300 text-[10px] font-black uppercase tracking-widest hover:text-white hover:border-slate-500 transition"
+            >
+              Login
+            </a>
+          </div>
+
           <a href="/" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition-colors border-b border-slate-900/50">Calculator</a>
           <a href="/blog" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition-colors border-b border-slate-900/50">Analysis</a>
-          <a href="/about" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition-colors">About Framework</a>
+          <a href="/about" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition-colors border-b border-slate-900/50">About Framework</a>
           <a href="/contact" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition-colors">Contact Support</a>
         </div>
       </div>
@@ -34,18 +86,31 @@
   </div>
 </header>
 
-<script>
-  const btn = document.getElementById("menu-toggle");
-  const menu = document.getElementById("mobile-menu");
+<!-- Safer, scoped script (prevents timing issues) -->
+<script is:inline>
+  const header = document.currentScript.closest("header");
+  const btn = header?.querySelector("#menu-toggle");
+  const menu = header?.querySelector("#mobile-menu");
 
-  // Toggle menu on button click
-  btn?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    menu?.classList.toggle("hidden");
-  });
+  if (btn && menu) {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      menu.classList.toggle("hidden");
+    });
 
-  // Close menu when clicking anywhere else on the page
-  document.addEventListener("click", () => {
-    menu?.classList.add("hidden");
-  });
+    // Close menu if clicking outside
+    document.addEventListener("click", () => {
+      menu.classList.add("hidden");
+    });
+
+    // Close menu when clicking any menu link/button
+    menu.querySelectorAll("a, button").forEach((el) => {
+      el.addEventListener("click", () => menu.classList.add("hidden"));
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") menu.classList.add("hidden");
+    });
+  }
 </script>
