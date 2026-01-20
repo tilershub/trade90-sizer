@@ -1,5 +1,5 @@
 ---
-// Header v1.7 - Mobile menu works + Join/Login stable Ghost links (no Ghost JS needed)
+// Header v1.9 - Mobile menu works + Join/Login via Astro redirects (/join, /login)
 ---
 
 <header id="site-header" class="border-b border-slate-900 bg-black/50 backdrop-blur-md sticky top-0 z-50">
@@ -15,12 +15,10 @@
         <a href="/blog" class="text-slate-400 hover:text-white transition-colors">Analysis</a>
       </nav>
 
-      <!-- Desktop Join/Login (DIRECT LINKS) -->
+      <!-- Desktop Join/Login (YOUR DOMAIN LINKS) -->
       <div class="hidden md:flex items-center gap-3">
         <a
-          href="https://trade90.ghost.io/signup"
-          target="_blank"
-          rel="noopener"
+          href="/join"
           class="px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest
                  bg-emerald-500 text-black hover:bg-emerald-400 transition"
         >
@@ -28,9 +26,7 @@
         </a>
 
         <a
-          href="https://trade90.ghost.io/signin"
-          target="_blank"
-          rel="noopener"
+          href="/login"
           class="px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest
                  border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition"
         >
@@ -58,12 +54,10 @@
           id="mobile-menu"
           class="hidden absolute top-14 right-0 w-72 bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl py-3 z-50 overflow-hidden"
         >
-          <!-- Mobile Join/Login (DIRECT LINKS) -->
+          <!-- Mobile Join/Login (YOUR DOMAIN LINKS) -->
           <div class="px-4 py-3 border-b border-slate-900/50 space-y-2">
             <a
-              href="https://trade90.ghost.io/signup"
-              target="_blank"
-              rel="noopener"
+              href="/join"
               class="block w-full text-center px-4 py-3 rounded-xl
                      bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition"
             >
@@ -71,9 +65,7 @@
             </a>
 
             <a
-              href="https://trade90.ghost.io/signin"
-              target="_blank"
-              rel="noopener"
+              href="/login"
               class="block w-full text-center px-4 py-3 rounded-xl
                      border border-slate-700 text-slate-300 text-[10px] font-black uppercase tracking-widest hover:text-white hover:border-slate-500 transition"
             >
@@ -117,7 +109,6 @@
       if (e.key === "Escape") menu.classList.add("hidden");
     });
 
-    // Close menu when clicking any link in mobile menu
     menu.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => menu.classList.add("hidden"));
     });
