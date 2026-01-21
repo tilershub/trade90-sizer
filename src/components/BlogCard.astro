@@ -40,7 +40,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
   <div class="p-7 flex flex-col flex-grow">
     <div class="flex items-center gap-2 mb-4">
       <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-      <time class="text-[10px] text-emerald-500 font-black uppercase tracking-widest">
+      <time class="text-xs text-emerald-500 font-black uppercase tracking-widest">
         {formattedDate}
       </time>
     </div>
@@ -54,7 +54,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
     </p>
 
     <div class="mt-auto pt-5 border-t border-slate-800/50 flex justify-between items-center">
-       <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest group-hover:text-white transition-colors">
+       <span class="text-xs text-slate-400 uppercase font-black tracking-widest group-hover:text-white transition-colors">
          Full Analysis
        </span>
        <div class="text-emerald-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
