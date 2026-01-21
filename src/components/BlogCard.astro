@@ -2,7 +2,7 @@
 interface Props {
   title: string;
   excerpt: string;
-  image: string;
+  image?: string;
   slug: string;
   date: string;
 }
@@ -11,27 +11,35 @@ const { title, excerpt, image, slug, date } = Astro.props;
 
 // Logic to ensure images serve correctly regardless of Ghost domain setup
 const assetOrigin = "https://trade90.ghost.io";
-const cleanImage = image?.startsWith('http') 
-  ? image.replace('https://tradeninety.com', assetOrigin).replace('https://www.tradeninety.com', assetOrigin)
-  : `${assetOrigin}${image}`;
+const cleanImage = image?.startsWith("http")
+  ? image
+      .replace("https://tradeninety.com", assetOrigin)
+      .replace("https://www.tradeninety.com", assetOrigin)
+  : image
+    ? `${assetOrigin}${image}`
+    : "";
 
 // Format date for the institutional look
-const formattedDate = new Date(date).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
+const formattedDate = new Date(date).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
 });
 ---
 
 <article class="group flex flex-col bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-900 hover:border-emerald-500/40 hover:bg-slate-900/60 transition-all duration-500 shadow-lg">
   {image && (
     <a href={`/blog/${slug}`} class="block aspect-video overflow-hidden border-b border-slate-900/50">
-      <img 
-        src={cleanImage} 
+      <img
+        src={`${cleanImage}?w=800`}
+        srcset={`${cleanImage}?w=480 480w, ${cleanImage}?w=800 800w, ${cleanImage}?w=1200 1200w`}
+        sizes="(max-width: 768px) 100vw, 50vw"
         alt={title}
         width="800"
         height="450"
-        loading="lazy" 
+        loading="lazy"
+        decoding="async"
+        fetchpriority="low"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
       />
     </a>
@@ -44,22 +52,25 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
         {formattedDate}
       </time>
     </div>
-    
+
     <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition-colors mb-4 leading-tight tracking-tighter">
       <a href={`/blog/${slug}`}>{title}</a>
     </h3>
-    
+
     <p class="text-slate-400 text-sm line-clamp-2 italic mb-8 leading-relaxed">
       {excerpt}
     </p>
 
     <div class="mt-auto pt-5 border-t border-slate-800/50 flex justify-between items-center">
-       <span class="text-xs text-slate-400 uppercase font-black tracking-widest group-hover:text-white transition-colors">
-         Full Analysis
-       </span>
-       <div class="text-emerald-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-       </div>
+      <span class="text-xs text-slate-400 uppercase font-black tracking-widest group-hover:text-white transition-colors">
+        Full Analysis
+      </span>
+      <div class="text-emerald-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </div>
     </div>
   </div>
 </article>
