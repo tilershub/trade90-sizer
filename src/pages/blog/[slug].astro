@@ -1,11 +1,11 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import FAQ from '../../components/FAQ.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import { ghostClient } from '../../lib/ghost';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FAQ from "../../components/FAQ.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import { ghostClient } from "../../lib/ghost";
 
 export async function getStaticPaths() {
-  const posts = await ghostClient.posts.browse({ limit: 'all', include: 'tags' });
+  const posts = await ghostClient.posts.browse({ limit: "all", include: "tags" });
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
@@ -17,8 +17,8 @@ const { post } = Astro.props;
 const site = Astro.site?.toString() || "https://tradeninety.com";
 const assetOrigin = "https://trade90.ghost.io";
 
-// --------- Clean image + html (your original logic) ----------
-const cleanFeatureImage = post.feature_image?.startsWith('http')
+// --------- Clean image + html ----------
+const cleanFeatureImage = post.feature_image?.startsWith("http")
   ? post.feature_image.replace(/https:\/\/(www\.)?tradeninety\.com/, assetOrigin)
   : post.feature_image
     ? `${assetOrigin}${post.feature_image}`
@@ -27,86 +27,87 @@ const cleanFeatureImage = post.feature_image?.startsWith('http')
 const cleanHtml =
   post.html
     ?.replaceAll('src="/content/images/', `src="${assetOrigin}/content/images/`)
-    .replaceAll(/https:\/\/(www\.)?tradeninety\.com\/content\/images\//g, `${assetOrigin}/content/images/`);
+    .replaceAll(
+      /https:\/\/(www\.)?tradeninety\.com\/content\/images\//g,
+      `${assetOrigin}/content/images/`
+    );
 
 // --------- Related posts ----------
-const relatedPosts = await ghostClient.posts.browse({
-  filter: `tag:${post.primary_tag?.slug}+id:-${post.id}`,
-  limit: 3,
-  include: 'tags'
-}).catch(() => []);
+const relatedPosts = await ghostClient.posts
+  .browse({
+    filter: `tag:${post.primary_tag?.slug}+id:-${post.id}`,
+    limit: 3,
+    include: "tags",
+  })
+  .catch(() => []);
 
 // --------- URLs + dates ----------
 const canonicalURL = new URL(`/blog/${post.slug}/`, site).toString();
-const ogImage = cleanFeatureImage || "/og-image.jpg";
-const ogImageURL = new URL(ogImage, site).toString();
+
+// OG image URL: handle absolute Ghost URLs correctly
+const ogImageRaw = cleanFeatureImage || "/og-image.jpg";
+const ogImageURL = ogImageRaw.startsWith("http")
+  ? ogImageRaw
+  : new URL(ogImageRaw, site).toString();
 
 const publishedISO = post.published_at ? new Date(post.published_at).toISOString() : undefined;
 const modifiedISO = post.updated_at ? new Date(post.updated_at).toISOString() : publishedISO;
 
-// --------- Tags as keywords ----------
-const keywords = (post.tags || [])
-  .map((t) => t.name)
-  .filter(Boolean)
-  .slice(0, 10);
+// --------- Keywords / section ----------
+const tagNames = (post.tags || []).map((t) => t.name).filter(Boolean);
+const keywords = tagNames.slice(0, 12);
+const primarySection = post.primary_tag?.name || "Market Analysis";
 
-// --------- BlogPosting schema ----------
-const blogPostingSchema = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": canonicalURL
-  },
-  "headline": post.title,
-  "description": post.excerpt || "TRADE90 institutional market analysis.",
-  "image": [ogImageURL],
-  "datePublished": publishedISO,
-  "dateModified": modifiedISO,
-  "inLanguage": "en",
-  "isAccessibleForFree": true,
-  "author": {
-    "@type": "Organization",
-    "name": "TRADE90"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "TRADE90",
-    "logo": {
-      "@type": "ImageObject",
-      "url": new URL("/logo.png", site).toString()
-    }
-  },
-  ...(keywords.length ? { "keywords": keywords.join(", ") } : {})
-};
+// --------- Word count (helps article richness) ----------
+const wordCount = post.html
+  ? post.html.replace(/<[^>]*>/g, " ").trim().split(/\s+/).filter(Boolean).length
+  : undefined;
 
-// --------- Breadcrumb schema ----------
+// ✅ IMPORTANT: BaseLayout already outputs Article schema when articlePublishedTime exists.
+// So here we ONLY output Breadcrumb schema (and optional extras) to avoid duplicates.
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${site}/` },
-    { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${site}/blog/` },
-    { "@type": "ListItem", "position": 3, "name": post.title, "item": canonicalURL }
-  ]
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Blog", item: `${site}/blog/` },
+    { "@type": "ListItem", position: 3, name: post.title, item: canonicalURL },
+  ],
+};
+
+// Optional: Tell Google your page is a “ReadAction”
+const webPageActionsSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": canonicalURL,
+  potentialAction: {
+    "@type": "ReadAction",
+    target: [canonicalURL],
+  },
 };
 ---
 
 <BaseLayout
   title={post.title}
   description={post.excerpt}
-  ogImage={ogImage}
+  ogImage={ogImageRaw.startsWith("http") ? ogImageRaw : ogImageRaw}
   articlePublishedTime={publishedISO}
   articleModifiedTime={modifiedISO}
 >
-  <!-- ✅ CTR Schema (BlogPosting + Breadcrumbs) -->
-  <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)}></script>
+  <!-- ✅ Breadcrumbs (good for SERP) -->
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+
+  <!-- ✅ Optional: ReadAction -->
+  <script type="application/ld+json" set:html={JSON.stringify(webPageActionsSchema)}></script>
 
   <article class="max-w-3xl mx-auto py-16 px-6">
     <header class="mb-16">
       <time class="text-[10px] text-emerald-500 font-black uppercase tracking-[0.4em] mb-6 block">
-        {new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+        {new Date(post.published_at).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}
       </time>
 
       <h1 class="text-4xl md:text-6xl font-black mt-2 mb-10 tracking-tighter uppercase text-white leading-[0.9] lg:text-7xl">
@@ -149,14 +150,21 @@ const breadcrumbSchema = {
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {relatedPosts.map((p) => (
-            <BlogCard title={p.title} excerpt={p.excerpt} image={p.feature_image} slug={p.slug} date={p.published_at} />
+            <BlogCard
+              title={p.title}
+              excerpt={p.excerpt}
+              image={p.feature_image}
+              slug={p.slug}
+              date={p.published_at}
+            />
           ))}
         </div>
       </section>
     )}
 
     <div class="mt-12 pt-12 border-t border-slate-900/50">
-      <FAQ />
+      {/* ✅ FAQ schema only on blog pages */}
+      <FAQ showSchema={true} />
     </div>
   </article>
 
