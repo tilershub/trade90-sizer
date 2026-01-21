@@ -303,4 +303,38 @@ const breadcrumbSchema = {
   html.light body {
     background-color: #f1f5f9;
   }
+
+  /* ===========================
+     ACCESSIBILITY CONTRAST FIX
+     =========================== */
+
+  .bg-black .text-slate-300,
+  .bg-black .text-slate-400,
+  .bg-black .text-slate-500,
+  .bg-black .text-slate-600,
+  .bg-slate-800 .text-slate-300,
+  .bg-slate-800 .text-slate-400,
+  .bg-slate-800 .text-slate-500,
+  .bg-slate-800 .text-slate-600,
+  .bg-slate-900 .text-slate-300,
+  .bg-slate-900 .text-slate-400,
+  .bg-slate-900 .text-slate-500,
+  .bg-slate-900 .text-slate-600 {
+    color: #e5e7eb !important; /* slate-200 */
+  }
+
+  footer .text-slate-300,
+  footer .text-slate-500,
+  footer .text-slate-600 {
+    color: #e5e7eb !important;
+  }
+
+  #cookie-banner .text-slate-300 {
+    color: #f1f5f9 !important; /* slate-100 */
+  }
+
+  #cookie-banner a,
+  footer a {
+    color: #86efac !important; /* emerald-300 */
+  }
 </style>
