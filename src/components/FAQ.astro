@@ -1,57 +1,53 @@
 ---
-// Define the FAQ data with internal links to your Ghost articles
+// Define the FAQ data with internal links
 const faqs = [
   {
     question: "Which is the best Risk-to-Reward Ratio (RRR) for day trading?",
-    answer: "Most professional day traders aim for a minimum of 1:2 RRR. This ensures that even with a 50% win rate, your account remains profitable. To understand the foundational math behind this, check our detailed guide.",
+    answer:
+      "Most professional day traders aim for a minimum of 1:2 RRR. This ensures that even with a 50% win rate, your account remains profitable. To understand the foundational math behind this, check our detailed guide.",
     linkText: "Mastering RRR: The Math of Trading",
-    linkHref: "/blog/what-is-risk-to-reward-ratio"
+    linkHref: "/blog/what-is-risk-to-reward-ratio",
   },
   {
     question: "Does RRR matter for passing FTMO or other funding challenges?",
-    answer: "Yes, RRR is the backbone of funded trading. High RRR strategies allow you to hit profit targets while maintaining strict drawdown limits. We break this down in our funded trading framework.",
+    answer:
+      "Yes, RRR is the backbone of funded trading. High RRR strategies allow you to hit profit targets while maintaining strict drawdown limits. We break this down in our funded trading framework.",
     linkText: "Funded Trading: Strategy & Risk",
-    linkHref: "/blog/funded-trading-strategies"
+    linkHref: "/blog/funded-trading-strategies",
   },
   {
     question: "How accurate is the TRADE90 Position Sizer?",
-    answer: "The calculator uses standardized mathematical formulas based on your account equity and stop-loss pips. It is designed for mathematical precision to remove human error from your execution.",
+    answer:
+      "The calculator uses standardized mathematical formulas based on your account equity and stop-loss pips. It is designed for mathematical precision to remove human error from your execution.",
     linkText: "Back to Calculator",
-    linkHref: "/"
+    linkHref: "/",
   },
   {
     question: "Is the TRADE90 Framework financial advice?",
-    answer: "No. TRADE90 provides mathematical tools and educational market analysis for disciplined traders. We do not manage funds or provide personalized financial recommendations.",
+    answer:
+      "No. TRADE90 provides mathematical tools and educational market analysis for disciplined traders. We do not manage funds or provide personalized financial recommendations.",
     linkText: "Read Risk Disclaimer",
-    linkHref: "/disclaimer"
-  }
+    linkHref: "/disclaimer",
+  },
 ];
----
 
-<script type="application/ld+json" is:inline>
-{
+// ✅ Auto-generate FAQ schema from the same data used in UI
+const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Which is the best Risk-to-Reward Ratio (RRR) for day trading?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most professional day traders aim for a minimum of 1:2 RRR to ensure long-term profitability even with a 50% win rate."
-      }
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.answer,
     },
-    {
-      "@type": "Question",
-      "name": "Does RRR matter for passing FTMO challenges?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, RRR allows traders to hit profit targets while staying within strict drawdown limits required by prop firms."
-      }
-    }
-  ]
-}
-</script>
+  })),
+};
+---
+
+<!-- ✅ FAQ Rich Results schema -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
 
 <section class="w-full max-w-3xl mx-auto py-16 px-4">
   <div class="mb-10 text-center md:text-left">
@@ -62,7 +58,7 @@ const faqs = [
       Disciplined Risk Analysis & Strategy
     </p>
   </div>
-  
+
   <div class="space-y-4">
     {faqs.map((faq) => (
       <details class="group bg-slate-900/20 border border-slate-900 rounded-2xl overflow-hidden transition-all duration-500 hover:border-green-500/30">
@@ -75,20 +71,20 @@ const faqs = [
             <div class="absolute w-[2px] h-full bg-slate-700 group-open:rotate-90 transition-all duration-500 group-open:opacity-0"></div>
           </div>
         </summary>
-        
+
         <div class="px-6 pb-8 text-sm text-slate-400 leading-relaxed border-t border-slate-800/50 pt-6 animate-fade-in">
           <p class="mb-6">{faq.answer}</p>
-          
+
           {faq.linkHref && (
-            <a 
-              href={faq.linkHref} 
+            <a
+              href={faq.linkHref}
               class="inline-flex items-center gap-2 text-[10px] text-green-500 font-black uppercase tracking-widest hover:text-white transition-colors group/link"
             >
               <span class="border-b border-green-500/30 group-hover/link:border-white pb-0.5">
                 {faq.linkText}
               </span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="group-hover/link:translate-x-1 transition-transform">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
           )}
@@ -99,12 +95,10 @@ const faqs = [
 </section>
 
 <style>
-  /* Hides default Safari/Chrome summary arrow */
   summary::-webkit-details-marker {
     display: none;
   }
 
-  /* Custom animation for opening the FAQ */
   .animate-fade-in {
     animation: fadeIn 0.4s ease-out forwards;
   }
