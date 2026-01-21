@@ -121,9 +121,11 @@ const breadcrumbSchema = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Performance optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous" />
+    <!-- Performance optimizations (Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
     <!-- Theme color -->
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
@@ -138,16 +140,38 @@ const breadcrumbSchema = {
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
     ) : null}
 
-    <!-- Google Analytics (replace ID) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google Analytics (loads only after cookie consent) -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX', {
-        anonymize_ip: true,
-        cookie_flags: 'SameSite=None;Secure'
-      });
+      (function () {
+        const GA_ID = "G-XXXXXXXXXX";
+
+        function loadGA() {
+          if (window.__gaLoaded) return;
+          window.__gaLoaded = true;
+
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+          document.head.appendChild(s);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+
+          gtag("js", new Date());
+          gtag("config", GA_ID, {
+            anonymize_ip: true,
+            cookie_flags: "SameSite=None;Secure"
+          });
+        }
+
+        // Load immediately only if user already accepted earlier
+        const consent = localStorage.getItem("cookieConsent");
+        if (consent === "accepted") loadGA();
+
+        // If user accepts now, load right away
+        window.addEventListener("cookie-accepted", loadGA);
+      })();
     </script>
   </head>
 
@@ -206,21 +230,24 @@ const breadcrumbSchema = {
 
     <script is:inline>
       (function () {
-        const banner = document.getElementById('cookie-banner');
-        const acceptBtn = document.getElementById('accept-cookies');
-        const declineBtn = document.getElementById('decline-cookies');
+        const banner = document.getElementById("cookie-banner");
+        const acceptBtn = document.getElementById("accept-cookies");
+        const declineBtn = document.getElementById("decline-cookies");
 
-        const consent = localStorage.getItem('cookieConsent');
-        if (!consent) banner?.classList.remove('hidden');
+        const consent = localStorage.getItem("cookieConsent");
+        if (!consent) banner?.classList.remove("hidden");
 
-        acceptBtn?.addEventListener('click', function () {
-          localStorage.setItem('cookieConsent', 'accepted');
-          banner?.classList.add('hidden');
+        acceptBtn?.addEventListener("click", function () {
+          localStorage.setItem("cookieConsent", "accepted");
+          banner?.classList.add("hidden");
+
+          // Notify GA loader
+          window.dispatchEvent(new Event("cookie-accepted"));
         });
 
-        declineBtn?.addEventListener('click', function () {
-          localStorage.setItem('cookieConsent', 'declined');
-          banner?.classList.add('hidden');
+        declineBtn?.addEventListener("click", function () {
+          localStorage.setItem("cookieConsent", "declined");
+          banner?.classList.add("hidden");
         });
       })();
     </script>
@@ -233,7 +260,7 @@ const breadcrumbSchema = {
     width: 1px;
     height: 1px;
     padding: 0;
-    margin: -1px;
+    margin: 0;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
