@@ -199,7 +199,7 @@
     </div>
 
     <footer class="text-center mt-8 pb-6">
-      <p class="text-gray-600 text-[10px] font-bold uppercase tracking-[0.4em]">Trade Smart • Veteran Owned</p>
+      <p class="text-gray-200 text-[10px] font-bold uppercase tracking-[0.4em]">Trade Smart • Veteran Owned</p>
     </footer>
   </div>
 </div>
