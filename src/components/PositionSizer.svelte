@@ -89,7 +89,7 @@
 
   $: config = ASSET_CONFIGS[pair];
 
-  // ✅ Debounced calculations (reduces CPU while typing → better mobile Lighthouse)
+  // ✅ Debounced calculations (reduces CPU while typing)
   let calculations = null;
   let _t;
 
@@ -137,21 +137,19 @@
   $: recompute();
 </script>
 
-<!-- ✅ Removed min-h-screen to reduce layout/paint cost -->
 <div class="bg-gray-950 p-4 font-sans selection:bg-emerald-500/30">
   <div class="max-w-md mx-auto">
     <header class="text-center mb-6 pt-4">
       <div class="flex items-center justify-center gap-2 mb-2">
-        <span class="text-emerald-400" aria-hidden="true" {@html IconTarget()}></span>
+        <!-- ✅ FIXED: {@html ...} must be inside element -->
+        <span class="text-emerald-400" aria-hidden="true">{@html IconTarget()}</span>
         <h1 class="text-2xl font-black text-white tracking-tighter uppercase">POSITION SIZER</h1>
       </div>
       <p class="text-gray-200 text-xs font-bold tracking-[0.2em] uppercase">Risk Framework</p>
     </header>
 
     <div class="bg-gray-900 rounded-2xl p-4 mb-4 border border-white/5 shadow-2xl">
-      <label for="asset-pair" class="block text-gray-200 text-sm font-bold mb-2">
-        Trading Asset
-      </label>
+      <label for="asset-pair" class="block text-gray-200 text-sm font-bold mb-2">Trading Asset</label>
 
       <select
         id="asset-pair"
@@ -206,7 +204,9 @@
             direction === 'buy' ? 'bg-emerald-500 text-black' : 'bg-gray-800 text-gray-200 border border-white/5'
           }`}
         >
-          <span aria-hidden="true" {@html IconUp()}></span> BUY
+          <!-- ✅ FIXED -->
+          <span aria-hidden="true">{@html IconUp()}</span>
+          BUY
         </button>
 
         <button
@@ -216,7 +216,9 @@
             direction === 'sell' ? 'bg-rose-500 text-white' : 'bg-gray-800 text-gray-200 border border-white/5'
           }`}
         >
-          <span aria-hidden="true" {@html IconDown()}></span> SELL
+          <!-- ✅ FIXED -->
+          <span aria-hidden="true">{@html IconDown()}</span>
+          SELL
         </button>
       </div>
     </div>
