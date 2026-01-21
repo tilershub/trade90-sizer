@@ -192,13 +192,13 @@ const breadcrumbSchema = {
   aria-describedby="cookie-banner-description"
 >
       <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="text-sm text-slate-300">
+        <div class="text-sm text-slate-100">
           <span id="cookie-banner-title" class="sr-only">Cookie Consent</span>
           <p id="cookie-banner-description">
             We use cookies to enhance your experience. By continuing you agree to our use of cookies.
             <a
               href="/privacy"
-              class="text-emerald-400 hover:text-emerald-300 underline ml-1"
+              class="text-emerald-300 hover:text-emerald-200 underline ml-1"
               aria-label="Read the TRADE90 Privacy Policy"
             >
               Privacy Policy
@@ -226,27 +226,42 @@ const breadcrumbSchema = {
     </div>
 
     <script is:inline>
-      (function () {
-        const banner = document.getElementById("cookie-banner");
-        const acceptBtn = document.getElementById("accept-cookies");
-        const declineBtn = document.getElementById("decline-cookies");
+  (function () {
+    const banner = document.getElementById("cookie-banner");
+    const acceptBtn = document.getElementById("accept-cookies");
+    const declineBtn = document.getElementById("decline-cookies");
 
-        const consent = localStorage.getItem("cookieConsent");
-        if (!consent) banner?.classList.remove("hidden");
+    const consent = localStorage.getItem("cookieConsent");
 
-        acceptBtn?.addEventListener("click", function () {
-          localStorage.setItem("cookieConsent", "accepted");
-          banner?.classList.add("hidden");
+    // Show banner + move keyboard focus into the dialog
+    if (!consent) {
+      banner?.classList.remove("hidden");
+      acceptBtn?.focus();
+    }
 
-          window.dispatchEvent(new Event("cookie-accepted"));
-        });
+    function hideBanner() {
+      banner?.classList.add("hidden");
+    }
 
-        declineBtn?.addEventListener("click", function () {
-          localStorage.setItem("cookieConsent", "declined");
-          banner?.classList.add("hidden");
-        });
-      })();
-    </script>
+    acceptBtn?.addEventListener("click", function () {
+      localStorage.setItem("cookieConsent", "accepted");
+      hideBanner();
+      window.dispatchEvent(new Event("cookie-accepted"));
+    });
+
+    declineBtn?.addEventListener("click", function () {
+      localStorage.setItem("cookieConsent", "declined");
+      hideBanner();
+    });
+
+    // Allow ESC key to close the banner (accessibility)
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && banner && !banner.classList.contains("hidden")) {
+        hideBanner();
+      }
+    });
+  })();
+</script>
   </body>
 </html>
 
