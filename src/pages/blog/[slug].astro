@@ -44,27 +44,14 @@ const relatedPosts = await ghostClient.posts
 // --------- URLs + dates ----------
 const canonicalURL = new URL(`/blog/${post.slug}/`, site).toString();
 
-// OG image URL: handle absolute Ghost URLs correctly
-const ogImageRaw = cleanFeatureImage || "/og-image.jpg";
-const ogImageURL = ogImageRaw.startsWith("http")
-  ? ogImageRaw
-  : new URL(ogImageRaw, site).toString();
-
 const publishedISO = post.published_at ? new Date(post.published_at).toISOString() : undefined;
 const modifiedISO = post.updated_at ? new Date(post.updated_at).toISOString() : publishedISO;
 
-// --------- Keywords / section ----------
+// --------- Keywords ----------
 const tagNames = (post.tags || []).map((t) => t.name).filter(Boolean);
 const keywords = tagNames.slice(0, 12);
-const primarySection = post.primary_tag?.name || "Market Analysis";
 
-// --------- Word count (helps article richness) ----------
-const wordCount = post.html
-  ? post.html.replace(/<[^>]*>/g, " ").trim().split(/\s+/).filter(Boolean).length
-  : undefined;
-
-// ✅ IMPORTANT: BaseLayout already outputs Article schema when articlePublishedTime exists.
-// So here we ONLY output Breadcrumb schema (and optional extras) to avoid duplicates.
+// --------- Breadcrumb schema ----------
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -75,30 +62,21 @@ const breadcrumbSchema = {
   ],
 };
 
-// Optional: Tell Google your page is a “ReadAction”
-const webPageActionsSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": canonicalURL,
-  potentialAction: {
-    "@type": "ReadAction",
-    target: [canonicalURL],
-  },
-};
+// OG image raw (BaseLayout will convert to absolute correctly if you updated it)
+const ogImageRaw = cleanFeatureImage || "/og-image.jpg";
 ---
 
 <BaseLayout
   title={post.title}
   description={post.excerpt}
-  ogImage={ogImageRaw.startsWith("http") ? ogImageRaw : ogImageRaw}
+  ogImage={ogImageRaw}
   articlePublishedTime={publishedISO}
   articleModifiedTime={modifiedISO}
+  keywords={keywords}
+  breadcrumbName={post.title}
 >
-  <!-- ✅ Breadcrumbs (good for SERP) -->
+  <!-- ✅ Breadcrumbs -->
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
-
-  <!-- ✅ Optional: ReadAction -->
-  <script type="application/ld+json" set:html={JSON.stringify(webPageActionsSchema)}></script>
 
   <article class="max-w-3xl mx-auto py-16 px-6">
     <header class="mb-16">
@@ -163,7 +141,6 @@ const webPageActionsSchema = {
     )}
 
     <div class="mt-12 pt-12 border-t border-slate-900/50">
-      {/* ✅ FAQ schema only on blog pages */}
       <FAQ showSchema={true} />
     </div>
   </article>
