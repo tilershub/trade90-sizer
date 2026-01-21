@@ -5,19 +5,15 @@ import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
 
 export default defineConfig({
-  site: "https://tradeninety.com",
+  site: "https://tradeninety.com", // MUST be absolute, no trailing slash
   integrations: [
     tailwind(),
     svelte(),
 
-    // ✅ Sitemap: exclude utility/auth redirect pages
     sitemap({
-      filter: (page) => {
-        return !["/join", "/login", "/logout"].some((p) => page.endsWith(p));
-      },
+      canonicalURL: true,
     }),
 
-    // ✅ Robots: allow everything but block utility/auth routes + include sitemap URL
     robotsTxt({
       policy: [
         {
