@@ -4,28 +4,33 @@ import PositionSizer from '../components/PositionSizer.svelte';
 import BlogCard from '../components/BlogCard.astro';
 import { ghostClient } from '../lib/ghost';
 
-// Fetch the 6 latest institutional analysis posts from Ghost
-const posts = await ghostClient.posts.browse({ 
-  limit: 6, 
-  include: ['tags'] 
+const posts = await ghostClient.posts.browse({
+  limit: 6,
+  include: ['tags']
 }).catch((err) => {
   console.error("Ghost Fetch Error:", err);
   return [];
 });
 
-// SEO Constants for TRADE90
 const seoTitle = "Master Institutional Volatility-Adjusted Risk Tools";
 const seoDescription = "Professional ADR-based position sizing tool for Forex, Gold, and Crypto. Trade with veteran risk management logic and institutional precision.";
 ---
 
 <BaseLayout title={seoTitle} description={seoDescription}>
-  
+
   <section class="py-12 px-4 border-b border-slate-900/50 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
     <div class="max-w-2xl mx-auto">
       <h1 class="sr-only">TRADE90 | Institutional Position Sizer & Volatility Analyzer</h1>
-      
+
       <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-500/20">
-        <PositionSizer client:load />
+        <noscript>
+          <p class="p-6 text-sm text-slate-400">
+            Enable JavaScript to use the Position Sizer.
+          </p>
+        </noscript>
+
+        <!-- CHANGED: client:load -> client:idle -->
+        <PositionSizer client:idle />
       </div>
     </div>
   </section>
@@ -40,18 +45,18 @@ const seoDescription = "Professional ADR-based position sizing tool for Forex, G
           Volatility & Trend Reports
         </p>
       </header>
-      
+
       <nav>
         <a href="/blog" class="group flex items-center gap-2 text-[10px] font-black text-emerald-500 uppercase tracking-widest hover:text-white transition-all">
           Explore All <span class="group-hover:translate-x-1 transition-transform">→</span>
         </a>
       </nav>
     </div>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
       {posts.length > 0 ? posts.map((post) => (
         <article class="transition-transform duration-300 hover:-translate-y-1">
-          <BlogCard 
+          <BlogCard
             title={post.title}
             excerpt={post.excerpt}
             image={post.feature_image}
