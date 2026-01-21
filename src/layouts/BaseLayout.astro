@@ -20,7 +20,9 @@ const site = Astro.site?.toString() || "https://tradeninety.com";
 const canonicalURL = new URL(Astro.url.pathname, site).toString();
 
 // Absolute URL for OG image
-const ogImageURL = new URL(ogImage, site).toString();
+const ogImageURL = ogImage?.startsWith("http")
+  ? ogImage
+  : new URL(ogImage, site).toString();
 
 // ISO dates for schema (if provided)
 const publishedISO = articlePublishedTime ? new Date(articlePublishedTime).toISOString() : undefined;
