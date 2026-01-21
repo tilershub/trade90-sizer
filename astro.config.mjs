@@ -9,9 +9,24 @@ export default defineConfig({
   integrations: [
     tailwind(),
     svelte(),
-    sitemap(),
+
+    // ✅ Sitemap: exclude utility/auth redirect pages
+    sitemap({
+      filter: (page) => {
+        return !["/join", "/login", "/logout"].some((p) => page.endsWith(p));
+      },
+    }),
+
+    // ✅ Robots: allow everything but block utility/auth routes + include sitemap URL
     robotsTxt({
-      policy: [{ userAgent: "*", allow: "/" }],
+      policy: [
+        {
+          userAgent: "*",
+          allow: "/",
+          disallow: ["/join", "/login", "/logout"],
+        },
+      ],
+      sitemap: "https://tradeninety.com/sitemap-index.xml",
     }),
   ],
 });
