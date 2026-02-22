@@ -54,7 +54,7 @@ const seoDescription = "Professional ADR-based position sizing tool for Forex, G
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-      {posts.length > 0 ? posts.map((post) => (
+      {posts.length > 0 ? posts.map((post, i) => (
         <article class="transition-transform duration-300 hover:-translate-y-1">
           <BlogCard
             title={post.title}
@@ -62,6 +62,7 @@ const seoDescription = "Professional ADR-based position sizing tool for Forex, G
             image={post.feature_image}
             slug={post.slug}
             date={post.published_at}
+            index={i}
           />
         </article>
       )) : (
