@@ -16,10 +16,10 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const posts = await ghostClient.posts.browse({ 
+const posts = await ghostClient.posts.browse({
   filter: `tag:${tag.slug}`,
-  include: 'tags' 
-});
+  include: 'tags'
+}).catch(() => []);
 ---
 
 <BaseLayout title={`${tag.name} Analysis`}>
