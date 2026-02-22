@@ -122,6 +122,34 @@ const breadcrumbSchema = {
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
     ) : null}
 
+    <!-- Google Analytics 4 (loads only after cookie consent) -->
+    <script is:inline>
+      (function () {
+        const GA_ID = "G-EBLQLRSZZL";
+
+        function loadGA() {
+          if (window.__gaLoaded) return;
+          window.__gaLoaded = true;
+
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+          document.head.appendChild(s);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag("js", new Date());
+          gtag("config", GA_ID);
+        }
+
+        const consent = localStorage.getItem("cookieConsent");
+        if (consent === "accepted") loadGA();
+
+        window.addEventListener("cookie-accepted", loadGA);
+      })();
+    </script>
+
     <!-- Google Tag Manager (loads only after cookie consent) -->
     <script is:inline>
       (function () {
