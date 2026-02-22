@@ -4,7 +4,7 @@ import BlogCard from '../../components/BlogCard.astro';
 import { ghostClient } from '../../lib/ghost';
 
 export async function getStaticPaths() {
-  const tags = await ghostClient.tags.browse();
+  const tags = await ghostClient.tags.browse().catch(() => []);
   return tags.map((tag) => ({
     params: { tag: tag.slug },
     props: { tag },
