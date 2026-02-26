@@ -5,9 +5,11 @@ interface Props {
   image?: string;
   slug: string;
   date: string;
+  index?: number;
 }
 
-const { title, excerpt, image, slug, date } = Astro.props;
+const { title, excerpt, image, slug, date, index = 99 } = Astro.props;
+const isAboveFold = index === 0;
 
 // Logic to ensure images serve correctly regardless of Ghost domain setup
 const assetOrigin = "https://trade90.ghost.io";
@@ -37,9 +39,9 @@ const formattedDate = new Date(date).toLocaleDateString("en-US", {
         alt={title}
         width="800"
         height="450"
-        loading="lazy"
-        decoding="async"
-        fetchpriority="low"
+        loading={isAboveFold ? "eager" : "lazy"}
+        decoding={isAboveFold ? "sync" : "async"}
+        fetchpriority={isAboveFold ? "high" : "low"}
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
       />
     </a>
