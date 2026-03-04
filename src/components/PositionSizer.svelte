@@ -63,7 +63,8 @@
     'LINKUSD': { name: 'LINK/USD', pip: 0.01, cat: 'Crypto' }
   };
 
-  let pair = 'EURUSD';
+  export let initialPair: string = 'EURUSD';
+  let pair = initialPair;
   let balance = 100000;
   let riskPercent = 0.5;
   let entryPrice = 1.08500;

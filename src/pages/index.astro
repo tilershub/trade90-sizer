@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PositionSizer from '../components/PositionSizer.svelte';
 import BlogCard from '../components/BlogCard.astro';
+import FAQ from '../components/FAQ.astro';
 import { ghostClient } from '../lib/ghost';
 
 const posts = await ghostClient.posts.browse({
@@ -12,15 +13,42 @@ const posts = await ghostClient.posts.browse({
   return [];
 });
 
-const seoTitle = "Master Institutional Volatility-Adjusted Risk Tools";
-const seoDescription = "Professional ADR-based position sizing tool for Forex, Gold, and Crypto. Trade with veteran risk management logic and institutional precision.";
+const seoTitle = "Position Size Calculator — Forex, Gold & Crypto";
+const seoDescription = "Free position size calculator for Forex, Gold, Indices and Crypto. Enter your account balance, risk %, stop loss and take profit to get the exact lot size instantly. Built by a veteran FTMO-funded trader.";
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "TRADE90 Position Size Calculator",
+  description: seoDescription,
+  url: site,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  featureList: [
+    "Multi-asset support: Forex, Metals, Indices, Crypto, Commodities",
+    "60+ trading pairs including EUR/USD, XAU/USD, BTC/USD",
+    "Automatic pip value calculation for all asset types",
+    "R:R ratio output",
+    "Stop loss and take profit in pips",
+  ],
+  creator: {
+    "@type": "Organization",
+    name: "TRADE90",
+    url: site,
+  },
+};
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription}>
+<BaseLayout title={seoTitle} description={seoDescription} keywords={["position size calculator", "lot size calculator", "forex position calculator", "gold lot size calculator", "crypto position sizer", "ftmo position calculator", "risk management trading", "stop loss calculator"]}>
+  <script type="application/ld+json" set:html={JSON.stringify(toolSchema)} slot="head-extra" />
 
   <section class="py-12 px-4 border-b border-slate-900/50 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
     <div class="max-w-2xl mx-auto">
-      <h1 class="sr-only">TRADE90 | Institutional Position Sizer & Volatility Analyzer</h1>
+      <h1 class="text-center text-sm font-black uppercase tracking-widest text-slate-500 mb-4">
+        Forex, Gold &amp; Crypto — <span class="text-emerald-400">Position Size Calculator</span>
+      </h1>
 
       <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-500/20">
         <noscript>
@@ -29,8 +57,29 @@ const seoDescription = "Professional ADR-based position sizing tool for Forex, G
           </p>
         </noscript>
 
-        <!-- CHANGED: client:load -> client:idle -->
         <PositionSizer client:idle />
+      </div>
+
+      <!-- Quick links to per-instrument pages -->
+      <div class="mt-8 text-center">
+        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-3">Dedicated calculators</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          {[
+            ['EUR/USD', '/calculator/eurusd/'],
+            ['Gold', '/calculator/xauusd/'],
+            ['GBP/USD', '/calculator/gbpusd/'],
+            ['NAS100', '/calculator/nas100/'],
+            ['BTC/USD', '/calculator/btcusd/'],
+            ['USD/JPY', '/calculator/usdjpy/'],
+          ].map(([label, href]) => (
+            <a href={href} class="text-[10px] font-black uppercase tracking-widest text-emerald-500 border border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/10 px-3 py-1.5 rounded-full transition-all">
+              {label}
+            </a>
+          ))}
+          <a href="/calculator/" class="text-[10px] font-black uppercase tracking-widest text-slate-400 border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded-full transition-all">
+            All 45+ →
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -74,5 +123,7 @@ const seoDescription = "Professional ADR-based position sizing tool for Forex, G
       )}
     </div>
   </section>
+
+  <FAQ showSchema={true} />
 
 </BaseLayout>
