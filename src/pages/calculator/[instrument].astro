@@ -1,0 +1,264 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PositionSizer from '../../components/PositionSizer.svelte';
+import {
+  INSTRUMENTS,
+  getSlug,
+  getRelatedInstruments,
+  CATEGORY_LABELS,
+  type InstrumentConfig,
+} from '../../lib/instruments';
+
+export function getStaticPaths() {
+  return Object.values(INSTRUMENTS).map((inst) => ({
+    params: { instrument: getSlug(inst.symbol) },
+    props: { inst },
+  }));
+}
+
+const { inst } = Astro.props as { inst: InstrumentConfig };
+const related = getRelatedInstruments(inst.symbol);
+
+const site = Astro.site?.toString() || 'https://tradeninety.com';
+const canonicalURL = new URL(Astro.url.pathname, site).toString();
+
+const title = `${inst.name} Position Size Calculator`;
+const keywords = [
+  `${inst.symbol.toLowerCase()} position size calculator`,
+  `${inst.symbol.toLowerCase()} lot size calculator`,
+  `${inst.name.replace('/', '')} position sizer`,
+  `${inst.symbol.toLowerCase()} risk calculator`,
+  `${inst.name} lot size`,
+  `how to calculate ${inst.symbol.toLowerCase()} position size`,
+  `${inst.cat.toLowerCase()} position size calculator`,
+  'forex position size calculator',
+  'lot size calculator',
+  'risk management trading',
+];
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: `${inst.name} Position Size Calculator`,
+  description: inst.metaDescription,
+  url: canonicalURL,
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  creator: {
+    '@type': 'Organization',
+    name: 'TRADE90',
+    url: site,
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `How do I calculate position size for ${inst.name}?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Enter your account balance, risk percentage (typically 0.5%–2%), entry price, and stop loss level. The TRADE90 calculator divides your dollar risk by the stop loss distance in pips multiplied by the pip value to give you the exact lot size for ${inst.name}.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: `What is the pip value for ${inst.name}?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: inst.facts[0],
+      },
+    },
+    {
+      '@type': 'Question',
+      name: `What is a good risk percentage for ${inst.name} trades?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Most professional and FTMO-funded traders risk 0.5%–1% of their account per trade on ${inst.name}. Risking more than 2% per trade dramatically increases the probability of drawdowns that are psychologically difficult to recover from.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: `What is the average daily range for ${inst.name}?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: inst.facts[2],
+      },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Calculators', item: `${site}/calculator/` },
+    { '@type': 'ListItem', position: 3, name: `${inst.name} Calculator`, item: canonicalURL },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={inst.metaDescription}
+  keywords={keywords}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(toolSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <!-- ── Hero ────────────────────────────────────────────────────────────── -->
+  <section class="py-10 px-4 border-b border-slate-800/50 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-5xl mx-auto">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-6 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span>/</span>
+        <a href="/calculator/" class="hover:text-emerald-400 transition-colors">Calculators</a>
+        <span>/</span>
+        <span class="text-slate-300">{inst.name}</span>
+      </nav>
+
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+
+        <!-- Left: heading + info -->
+        <div>
+          <div class="inline-block text-[10px] font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded-full mb-4">
+            {CATEGORY_LABELS[inst.cat]}
+          </div>
+          <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+            {inst.name} <span class="text-emerald-400">Position</span> Size Calculator
+          </h1>
+          <p class="text-slate-300 text-base leading-relaxed mb-6">
+            {inst.intro}
+          </p>
+
+          <!-- Key Facts -->
+          <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-3">
+            <h2 class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Key Facts</h2>
+            {inst.facts.map((fact) => (
+              <div class="flex items-start gap-3 text-sm text-slate-300">
+                <span class="text-emerald-500 mt-0.5 shrink-0">▸</span>
+                <span>{fact}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: Calculator -->
+        <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-500/20">
+          <noscript>
+            <p class="p-6 text-sm text-slate-400">Enable JavaScript to use the Position Sizer.</p>
+          </noscript>
+          <PositionSizer client:load initialPair={inst.symbol} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How to Use ───────────────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto py-16 px-6">
+    <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-8 border-l-4 border-emerald-500 pl-4">
+      How to Calculate {inst.name} Position Size
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      {[
+        {
+          step: '01',
+          title: 'Set Your Account Risk',
+          body: `Enter your account balance and maximum risk per trade (0.5%–2% recommended). For a $10,000 account risking 1%, your dollar risk is $100.`,
+        },
+        {
+          step: '02',
+          title: 'Define Your Stop Loss',
+          body: `Enter your entry price and stop loss level. The calculator measures the distance in pips and applies the correct pip value for ${inst.name} automatically.`,
+        },
+        {
+          step: '03',
+          title: 'Read Your Lot Size',
+          body: `The calculator outputs your exact lot size in standard lots, your R:R ratio, and your total risk amount. Adjust stop distance until the numbers fit your plan.`,
+        },
+      ].map(({ step, title, body }) => (
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-4xl font-black text-emerald-500/30 mb-3">{step}</div>
+          <h3 class="text-white font-black uppercase text-sm tracking-tight mb-2">{title}</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">{body}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Formula box -->
+    <div class="bg-slate-900 border border-emerald-500/20 rounded-2xl p-6 mb-12">
+      <h3 class="text-emerald-400 font-black uppercase text-xs tracking-widest mb-4">Position Size Formula</h3>
+      <div class="font-mono text-sm text-slate-200 space-y-2">
+        <p><span class="text-slate-500">Risk Amount ($)</span> = Account Balance × (Risk % ÷ 100)</p>
+        <p><span class="text-slate-500">SL Pips</span> = |Entry – Stop Loss| ÷ Pip Size ({inst.pip})</p>
+        <p><span class="text-slate-500">Lot Size</span> = Risk Amount ÷ (SL Pips × Pip Value per Lot)</p>
+      </div>
+      <p class="text-slate-500 text-xs mt-4">
+        The TRADE90 calculator applies the correct pip value for {inst.name} including JPY and exotic conversions automatically.
+      </p>
+    </div>
+
+    <!-- FAQ -->
+    <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+      {inst.name} Position Sizing — FAQ
+    </h2>
+    <div class="space-y-4 mb-16">
+      {[
+        {
+          q: `How do I calculate position size for ${inst.name}?`,
+          a: `Enter your account balance, risk percentage (0.5%–2%), entry price, and stop loss. The calculator divides your dollar risk by the SL distance in pips × pip value to give you the exact lot size.`,
+        },
+        {
+          q: `What is the pip value for ${inst.name}?`,
+          a: inst.facts[0],
+        },
+        {
+          q: `How much should I risk per ${inst.name} trade?`,
+          a: `Professional and FTMO-funded traders typically risk 0.5%–1% per trade. Exceeding 2% per trade significantly increases drawdown severity and the psychological difficulty of recovery.`,
+        },
+        {
+          q: `What is the average daily range for ${inst.name}?`,
+          a: inst.facts[2],
+        },
+      ].map(({ q, a }) => (
+        <details class="group bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden">
+          <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-200 text-sm uppercase tracking-tight hover:text-white transition-colors list-none">
+            {q}
+            <span class="text-emerald-500 group-open:rotate-45 transition-transform text-xl leading-none">+</span>
+          </summary>
+          <div class="px-5 pb-5 text-slate-400 text-sm leading-relaxed">
+            {a}
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <!-- Related calculators -->
+    {related.length > 0 && (
+      <div>
+        <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+          Related Calculators
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {related.map((r) => (
+            <a
+              href={`/calculator/${getSlug(r.symbol)}/`}
+              class="block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-all group"
+            >
+              <div class="text-emerald-400 font-black text-sm uppercase tracking-tight group-hover:text-emerald-300">{r.name}</div>
+              <div class="text-slate-500 text-[10px] uppercase tracking-widest mt-1">{r.cat}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </section>
+</BaseLayout>

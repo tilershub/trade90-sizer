@@ -9,9 +9,10 @@ const posts = await ghostClient.posts.browse({
 }).catch(() => []);
 
 const seoTitle = "Market Analysis & Volatility Reports";
+const seoDescription = "Institutional Forex, Gold and Crypto market analysis from a veteran FTMO-funded trader. Volatility reports, trend breakdowns, and risk framework guides.";
 ---
 
-<BaseLayout title={seoTitle}>
+<BaseLayout title={seoTitle} description={seoDescription}>
   <section class="max-w-6xl mx-auto py-20 px-6">
     <header class="mb-16">
       <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
