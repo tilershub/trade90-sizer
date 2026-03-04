@@ -69,7 +69,7 @@
   let riskPercent = 0.5;
   let entryPrice = 1.08500;
   let stopLoss = 1.08000;
-  let takeProfit = 1.09500;
+  let takeProfit = 1.09000;
   let direction = 'buy';
 
   $: config = ASSET_CONFIGS[pair];
