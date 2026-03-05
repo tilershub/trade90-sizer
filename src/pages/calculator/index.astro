@@ -28,6 +28,22 @@ const breadcrumbSchema = {
     { "@type": "ListItem", position: 2, name: "Calculators", item: canonicalURL },
   ],
 };
+
+const allInstruments = Object.values(INSTRUMENTS);
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Position Size Calculators — All Instruments",
+  description: description,
+  url: canonicalURL,
+  numberOfItems: allInstruments.length,
+  itemListElement: allInstruments.map((inst, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    name: `${inst.name} Position Size Calculator`,
+    url: new URL(`/calculator/${getSlug(inst.symbol)}/`, site).toString(),
+  })),
+};
 ---
 
 <BaseLayout
@@ -36,6 +52,7 @@ const breadcrumbSchema = {
   keywords={["position size calculator", "lot size calculator", "forex calculator", "gold position calculator", "crypto lot size", "risk calculator trading", "ftmo position sizer"]}
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head-extra" />
 
   <!-- Hero -->
   <section class="py-16 px-4 border-b border-slate-800/50 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
