@@ -13,6 +13,7 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !['/join/', '/login/', '/logout/'].includes(new URL(page).pathname),
+      lastmod: new Date(),
     }),
 
     robotsTxt({
