@@ -63,13 +63,70 @@
     'LINKUSD': { name: 'LINK/USD', pip: 0.01, cat: 'Crypto' }
   };
 
+  const DEFAULTS = {
+    // Forex Majors
+    'EURUSD': { entry: 1.0850, sl: 1.0800, tp: 1.0950 },
+    'GBPUSD': { entry: 1.2650, sl: 1.2590, tp: 1.2770 },
+    'USDJPY': { entry: 149.50, sl: 148.80, tp: 150.90 },
+    'USDCHF': { entry: 0.8950, sl: 0.8900, tp: 0.9050 },
+    'AUDUSD': { entry: 0.6350, sl: 0.6300, tp: 0.6450 },
+    'USDCAD': { entry: 1.3650, sl: 1.3590, tp: 1.3770 },
+    'NZDUSD': { entry: 0.5950, sl: 0.5900, tp: 0.6050 },
+    // Forex Crosses
+    'EURGBP': { entry: 0.8560, sl: 0.8510, tp: 0.8660 },
+    'EURJPY': { entry: 162.00, sl: 161.20, tp: 163.60 },
+    'EURAUD': { entry: 1.7100, sl: 1.7020, tp: 1.7260 },
+    'EURNZD': { entry: 1.8200, sl: 1.8110, tp: 1.8380 },
+    'EURCAD': { entry: 1.4800, sl: 1.4720, tp: 1.4960 },
+    'EURCHF': { entry: 0.9700, sl: 0.9640, tp: 0.9820 },
+    'GBPJPY': { entry: 189.00, sl: 188.00, tp: 191.00 },
+    'GBPAUD': { entry: 1.9900, sl: 1.9800, tp: 2.0100 },
+    'GBPNZD': { entry: 2.1200, sl: 2.1090, tp: 2.1420 },
+    'GBPCAD': { entry: 1.7200, sl: 1.7110, tp: 1.7420 },
+    'GBPCHF': { entry: 1.1300, sl: 1.1230, tp: 1.1440 },
+    'AUDJPY': { entry: 94.80,  sl: 94.20,  tp: 96.00  },
+    'AUDNZD': { entry: 1.0700, sl: 1.0650, tp: 1.0800 },
+    'AUDCAD': { entry: 0.8700, sl: 0.8650, tp: 0.8800 },
+    'AUDCHF': { entry: 0.5680, sl: 0.5640, tp: 0.5760 },
+    'NZDJPY': { entry: 89.50,  sl: 88.90,  tp: 90.70  },
+    'NZDCAD': { entry: 0.8120, sl: 0.8070, tp: 0.8220 },
+    'NZDCHF': { entry: 0.5300, sl: 0.5260, tp: 0.5380 },
+    'CADJPY': { entry: 109.50, sl: 108.80, tp: 111.00 },
+    'CADCHF': { entry: 0.6550, sl: 0.6510, tp: 0.6650 },
+    'CHFJPY': { entry: 167.00, sl: 166.20, tp: 168.60 },
+    // Metals & Commodities
+    'XAUUSD': { entry: 2950.00, sl: 2935.00, tp: 2980.00 },
+    'XAGUSD': { entry: 33.50,   sl: 33.00,   tp: 34.50  },
+    'USOIL':  { entry: 72.00,   sl: 71.00,   tp: 74.00  },
+    'UKOIL':  { entry: 76.00,   sl: 75.00,   tp: 78.00  },
+    // Indices
+    'US30':   { entry: 43500, sl: 43300, tp: 43900 },
+    'NAS100': { entry: 21500, sl: 21350, tp: 21800 },
+    'SPX500': { entry: 5900,  sl: 5860,  tp: 5980  },
+    'GER40':  { entry: 22000, sl: 21850, tp: 22300 },
+    'UK100':  { entry: 8700,  sl: 8650,  tp: 8800  },
+    'FRA40':  { entry: 8100,  sl: 8050,  tp: 8200  },
+    'JPN225': { entry: 38500, sl: 38200, tp: 39100 },
+    'HK50':   { entry: 21000, sl: 20800, tp: 21400 },
+    // Crypto
+    'BTCUSD': { entry: 95000, sl: 93500, tp: 98000 },
+    'ETHUSD': { entry: 3400,  sl: 3300,  tp: 3600  },
+    'SOLUSD': { entry: 185.00, sl: 180.00, tp: 195.00 },
+    'XRPUSD': { entry: 2.5000, sl: 2.4000, tp: 2.7000 },
+    'ADAUSD': { entry: 0.9500, sl: 0.9100, tp: 1.0300 },
+    'DOTUSD': { entry: 8.50,   sl: 8.20,   tp: 9.10  },
+    'LINKUSD': { entry: 18.00, sl: 17.20,  tp: 19.60 },
+  };
+
   export let initialPair = 'EURUSD';
   let pair = initialPair;
   let balance = 100000;
   let riskPercent = 0.5;
-  let entryPrice = 1.08500;
-  let stopLoss = 1.08000;
-  let takeProfit = 1.09000;
+
+  const d = DEFAULTS[initialPair] ?? DEFAULTS['EURUSD'];
+  let entryPrice = d.entry;
+  let stopLoss   = d.sl;
+  let takeProfit = d.tp;
   let direction = 'buy';
 
   $: config = ASSET_CONFIGS[pair];
