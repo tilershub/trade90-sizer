@@ -12,7 +12,7 @@
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/svelte": "^7.2.5",
     "@astrojs/tailwind": "^5.0.0",
-    "@tryghost/content-api": "latest",
+    "@supabase/supabase-js": "^2.99.1",
     "astro": "^5.16.11",
     "astro-robots-txt": "^1.0.0",
     "astro-seo": "^1.1.0",

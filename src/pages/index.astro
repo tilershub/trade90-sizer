@@ -3,15 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PositionSizer from '../components/PositionSizer.svelte';
 import BlogCard from '../components/BlogCard.astro';
 import FAQ from '../components/FAQ.astro';
-import { ghostClient } from '../lib/ghost';
+import { getPosts } from '../lib/blog';
 
-const posts = await ghostClient.posts.browse({
-  limit: 6,
-  include: ['tags']
-}).catch((err) => {
-  console.error("Ghost Fetch Error:", err);
-  return [];
-});
+const posts = await getPosts({ limit: 6 });
 
 const seoTitle = "Position Size Calculator — Forex, Gold & Crypto";
 const seoDescription = "Free position size calculator for Forex, Gold, Indices and Crypto. Enter your account balance, risk %, stop loss and take profit to get the exact lot size instantly. Built by a veteran FTMO-funded trader.";
@@ -110,10 +104,12 @@ const toolSchema = {
         <article class="transition-transform duration-300 hover:-translate-y-1">
           <BlogCard
             title={post.title}
-            excerpt={post.excerpt}
-            image={post.feature_image}
+            excerpt={post.excerpt ?? ''}
+            image={post.feature_image ?? undefined}
             slug={post.slug}
             date={post.published_at}
+            readingTime={post.reading_time ?? undefined}
+            tags={post.tags}
             index={i}
           />
         </article>
