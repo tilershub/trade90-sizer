@@ -1,3 +1,27 @@
 ---
-return Astro.redirect("https://trade90.ghost.io/#/portal/signup", 302);
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
+<BaseLayout
+  title="Subscribe to TRADE90"
+  description="Get TRADE90 market intelligence, risk framework updates and tool announcements."
+  noIndex={true}
+>
+  <section class="min-h-[60vh] flex items-center justify-center px-6 py-20">
+    <div class="max-w-md w-full text-center">
+      <p class="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-4">Coming Soon</p>
+      <h1 class="text-4xl font-black uppercase tracking-tighter text-white mb-4">
+        Member Access
+      </h1>
+      <p class="text-slate-400 text-sm leading-relaxed mb-8">
+        Premium market intelligence and risk framework reports are launching soon.
+        In the meantime, use the free position size calculator below.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-widest px-6 py-3 rounded-xl transition-colors"
+      >
+        Open Calculator →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

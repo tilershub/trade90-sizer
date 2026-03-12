@@ -22,7 +22,7 @@ const related = getRelatedInstruments(inst.symbol);
 const site = Astro.site?.toString() || 'https://tradeninety.com';
 const canonicalURL = new URL(Astro.url.pathname, site).toString();
 
-const title = `${inst.name} Position Size Calculator`;
+const title = `${inst.name} Position Size Calculator — Free Lot Size Tool`;
 const keywords = [
   `${inst.symbol.toLowerCase()} position size calculator`,
   `${inst.symbol.toLowerCase()} lot size calculator`,
@@ -34,7 +34,40 @@ const keywords = [
   'forex position size calculator',
   'lot size calculator',
   'risk management trading',
+  'ftmo position size calculator',
+  'prop firm lot size',
 ];
+
+// ── Static example calculation (crawlable without JS) ─────────────────────
+const pipValUsd =
+  inst.symbol === 'XAUUSD' ? 10 :
+  inst.symbol === 'XAGUSD' ? 5 :
+  inst.symbol.endsWith('JPY') ? 6.7 :
+  ['NAS100','US30','SPX500','BTCUSD','USOIL','UKOIL'].includes(inst.symbol) ? 1 :
+  ['GER40','UK100','FRA40'].includes(inst.symbol) ? 0.12 :
+  inst.symbol === 'JPN225' ? 0.07 :
+  inst.symbol === 'HK50' ? 0.13 :
+  inst.symbol === 'ETHUSD' ? 0.1 :
+  ['SOLUSD','XRPUSD','ADAUSD','DOTUSD','LINKUSD'].includes(inst.symbol) ? 0.5 :
+  inst.cat === 'Forex Crosses' ? 6.5 : 10;
+
+const exStop =
+  inst.cat === 'Forex Majors' ? 30 :
+  inst.cat === 'Forex Crosses' ? 40 :
+  inst.symbol === 'XAUUSD' ? 100 :
+  inst.symbol === 'XAGUSD' ? 200 :
+  ['NAS100','US30'].includes(inst.symbol) ? 100 :
+  inst.symbol === 'SPX500' ? 20 :
+  ['GER40','UK100','FRA40'].includes(inst.symbol) ? 50 :
+  inst.symbol === 'JPN225' ? 200 :
+  inst.symbol === 'BTCUSD' ? 1000 :
+  inst.symbol === 'ETHUSD' ? 100 :
+  inst.cat === 'Crypto' ? 200 :
+  inst.cat === 'Indices' ? 50 :
+  inst.cat === 'Commodities' ? 100 : 30;
+
+const exLot = (100 / (exStop * pipValUsd)).toFixed(2);
+const exUnit = ['Indices','Crypto','Commodities'].includes(inst.cat) ? 'points' : 'pips';
 
 const toolSchema = {
   '@context': 'https://schema.org',
@@ -203,6 +236,42 @@ const breadcrumbSchema = {
       </div>
       <p class="text-slate-500 text-xs mt-4">
         The TRADE90 calculator applies the correct pip value for {inst.name} including JPY and exotic conversions automatically.
+      </p>
+    </div>
+
+
+    <!-- Static example calculation — crawlable by Google without JS -->
+    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-12">
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <h3 class="text-white font-black uppercase text-sm tracking-tighter">
+          Worked Example — {inst.name} at $10,000 Account, 1% Risk
+        </h3>
+        <span class="text-[9px] font-bold uppercase tracking-widest text-slate-600">Static Preview</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <tbody>
+            {[
+              ['Account Balance',         '$10,000'],
+              ['Risk Percentage',         '1%'],
+              ['Dollar Risk Amount',      '$100'],
+              ['Stop Loss Distance',      `${exStop} ${exUnit}`],
+              [`${inst.name} Pip Value`,  `≈ $${pipValUsd.toFixed(2)} per standard lot`],
+              ['Calculation',            `$100 ÷ (${exStop} × $${pipValUsd})`],
+              ['Lot Size',               `≈ ${exLot} standard lots`],
+            ].map(([label, value], i) => (
+              <tr class={i % 2 === 0 ? 'bg-slate-950/30' : ''}>
+                <td class="px-6 py-3 text-slate-400 font-medium">{label}</td>
+                <td class={`px-6 py-3 font-mono font-bold ${label === 'Lot Size' ? 'text-emerald-400 text-base' : 'text-slate-200'}`}>
+                  {value}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="px-6 py-3 text-[10px] text-slate-600 border-t border-slate-800/50">
+        Approximate values. Actual pip value varies by broker contract. Use the interactive calculator above for exact figures.
       </p>
     </div>
 
