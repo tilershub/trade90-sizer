@@ -2,60 +2,49 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FAQ from "../../components/FAQ.astro";
 import BlogCard from "../../components/BlogCard.astro";
-import { ghostClient } from "../../lib/ghost";
+import { getAllSlugs, getPost, getRelatedPosts, calcReadingTime } from "../../lib/blog";
 
 export async function getStaticPaths() {
-  try {
-    const posts = await ghostClient.posts.browse({ limit: "all", include: "tags" });
-    return posts.map((post) => ({
-      params: { slug: post.slug },
-      props: { post },
-    }));
-  } catch {
-    return [];
-  }
+  const slugs = await getAllSlugs();
+  return slugs.map((slug) => ({ params: { slug } }));
 }
 
-const { post } = Astro.props;
+const { slug } = Astro.params;
+const post = await getPost(slug);
+
+if (!post) return Astro.redirect("/blog/", 307);
 
 const site = Astro.site?.toString() || "https://tradeninety.com";
-const assetOrigin = "https://trade90.ghost.io";
-
-// --------- Clean image + html ----------
-const cleanFeatureImage = post.feature_image?.startsWith("http")
-  ? post.feature_image.replace(/https:\/\/(www\.)?tradeninety\.com/, assetOrigin)
-  : post.feature_image
-    ? `${assetOrigin}${post.feature_image}`
-    : undefined;
-
-const cleanHtml =
-  post.html
-    ?.replaceAll('src="/content/images/', `src="${assetOrigin}/content/images/`)
-    .replaceAll(
-      /https:\/\/(www\.)?tradeninety\.com\/content\/images\//g,
-      `${assetOrigin}/content/images/`
-    );
-
-// --------- Related posts ----------
-const relatedPosts = await ghostClient.posts
-  .browse({
-    filter: `tag:${post.primary_tag?.slug}+id:-${post.id}`,
-    limit: 3,
-    include: "tags",
-  })
-  .catch(() => []);
-
-// --------- URLs + dates ----------
 const canonicalURL = new URL(`/blog/${post.slug}/`, site).toString();
 
+const readingTime = post.reading_time ?? (post.content ? calcReadingTime(post.content) : 1);
+
+// Dates
 const publishedISO = post.published_at ? new Date(post.published_at).toISOString() : undefined;
 const modifiedISO = post.updated_at ? new Date(post.updated_at).toISOString() : publishedISO;
+const formattedDate = post.published_at
+  ? new Date(post.published_at).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  : "";
 
-// --------- Keywords ----------
-const tagNames = (post.tags || []).map((t) => t.name).filter(Boolean);
-const keywords = tagNames.slice(0, 12);
+// SEO
+const seoTitle = post.meta_title || post.title;
+const seoDescription =
+  post.meta_description ||
+  post.excerpt ||
+  `${post.title} — Market analysis and risk framework intelligence from TRADE90.`;
+const ogImage = post.feature_image || "/og-image.jpg";
+const keywords = post.tags.slice(0, 10);
 
-// --------- Breadcrumb schema ----------
+// Related posts
+const relatedPosts = post.primary_tag
+  ? await getRelatedPosts(post.primary_tag, post.id)
+  : [];
+
+// JSON-LD schemas
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -66,73 +55,136 @@ const breadcrumbSchema = {
   ],
 };
 
-// OG image raw (BaseLayout will convert to absolute correctly if you updated it)
-const ogImageRaw = cleanFeatureImage || "/og-image.jpg";
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  mainEntityOfPage: { "@type": "WebPage", "@id": canonicalURL },
+  headline: seoTitle,
+  description: seoDescription,
+  image: ogImage.startsWith("http") ? ogImage : new URL(ogImage, site).toString(),
+  datePublished: publishedISO,
+  dateModified: modifiedISO,
+  inLanguage: "en",
+  timeRequired: `PT${readingTime}M`,
+  isAccessibleForFree: true,
+  author: {
+    "@type": "Organization",
+    name: "TRADE90",
+    url: site,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "TRADE90",
+    url: site,
+    logo: { "@type": "ImageObject", url: `${site}favicon.svg` },
+  },
+  ...(keywords.length ? { keywords: keywords.join(", ") } : {}),
+};
 ---
 
 <BaseLayout
-  title={post.title}
-  description={post.excerpt}
-  ogImage={ogImageRaw}
+  title={seoTitle}
+  description={seoDescription}
+  ogImage={ogImage}
   articlePublishedTime={publishedISO}
   articleModifiedTime={modifiedISO}
   keywords={keywords}
   breadcrumbName={post.title}
 >
-  <!-- ✅ Breadcrumbs -->
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head-extra" />
 
-  <article class="max-w-3xl mx-auto py-16 px-6">
+  <article class="max-w-3xl mx-auto py-16 px-6" itemscope itemtype="https://schema.org/BlogPosting">
+    <meta itemprop="datePublished" content={publishedISO} />
+    <meta itemprop="dateModified" content={modifiedISO} />
+
     <header class="mb-16">
-      <time class="text-[10px] text-emerald-500 font-black uppercase tracking-[0.4em] mb-6 block">
-        {new Date(post.published_at).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}
+      <!-- Breadcrumb nav for UX -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600">
+          <li><a href="/" class="hover:text-emerald-500 transition-colors">Home</a></li>
+          <li class="text-slate-800">/</li>
+          <li><a href="/blog/" class="hover:text-emerald-500 transition-colors">Blog</a></li>
+          <li class="text-slate-800">/</li>
+          <li class="text-slate-500 truncate max-w-[200px]" aria-current="page">{post.title}</li>
+        </ol>
+      </nav>
+
+      <!-- Tags -->
+      {post.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-6">
+          {post.tags.slice(0, 4).map((tag) => (
+            <a
+              href={`/category/${tag.toLowerCase().replace(/\s+/g, '-')}/`}
+              class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-500 border border-emerald-500/30 px-2.5 py-1 rounded-full hover:border-emerald-500 transition-colors"
+            >
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
+
+      <time
+        class="text-[10px] text-slate-500 font-black uppercase tracking-[0.4em] mb-4 block"
+        datetime={publishedISO}
+      >
+        {formattedDate} &nbsp;·&nbsp; {readingTime} min read
       </time>
 
-      <h1 class="text-4xl md:text-6xl font-black mt-2 mb-10 tracking-tighter uppercase text-white leading-[0.9] lg:text-7xl">
+      <h1
+        class="text-4xl md:text-6xl font-black mt-2 mb-10 tracking-tighter uppercase text-white leading-[0.9] lg:text-7xl"
+        itemprop="headline"
+      >
         {post.title}
       </h1>
 
       {post.excerpt && (
-        <div class="relative">
-          <p class="text-slate-300 text-xl leading-relaxed font-medium border-l-4 border-emerald-500/50 pl-8 py-2 italic">
-            {post.excerpt}
-          </p>
-        </div>
+        <p class="text-slate-300 text-xl leading-relaxed font-medium border-l-4 border-emerald-500/50 pl-8 py-2 italic">
+          {post.excerpt}
+        </p>
       )}
     </header>
 
-    {cleanFeatureImage && (
+    {post.feature_image && (
       <figure class="mb-16">
         <img
-          src={cleanFeatureImage}
+          src={post.feature_image}
           alt={post.title}
           class="rounded-3xl border border-slate-800 w-full shadow-2xl shadow-emerald-900/10"
-          loading="lazy"
-          decoding="async"
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high"
+          itemprop="image"
         />
       </figure>
     )}
 
-    <div class="ghost-content selection:bg-emerald-500/30" set:html={cleanHtml} />
+    <div
+      class="prose-blog selection:bg-emerald-500/30"
+      itemprop="articleBody"
+      set:html={post.content}
+    />
 
     <!-- Calculator CTA -->
-    <aside class="mt-12 bg-slate-900/70 border border-emerald-500/20 rounded-2xl p-6">
+    <aside class="mt-16 bg-slate-900/70 border border-emerald-500/20 rounded-2xl p-6">
       <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-2">Free Tool</p>
       <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-2">
         Calculate Your Position Size
       </h2>
       <p class="text-slate-400 text-sm mb-5 leading-relaxed">
-        Use the TRADE90 Position Size Calculator to find the exact lot size for any trade — Forex, Gold, Indices, or Crypto — based on your account balance and stop loss.
+        Use the TRADE90 Position Size Calculator to find the exact lot size for any trade — Forex, Gold, Indices, or Crypto — based on your account balance and stop loss. Used by funded traders across the US and Europe.
       </p>
       <div class="flex flex-wrap gap-3">
-        <a href="/" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl transition-colors">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl transition-colors"
+        >
           Open Calculator →
         </a>
-        <a href="/calculator/" class="inline-flex items-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-300 text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl transition-colors">
+        <a
+          href="/calculator/"
+          class="inline-flex items-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-300 text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl transition-colors"
+        >
           All 45+ Instruments
         </a>
       </div>
@@ -141,22 +193,23 @@ const ogImageRaw = cleanFeatureImage || "/og-image.jpg";
     {relatedPosts.length > 0 && (
       <section class="mt-12 border-t border-slate-900/50 pt-12">
         <header class="mb-8">
-          <h2 class="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-2 border-none p-0 before:hidden">
+          <p class="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-2">
             Continue Analysis
-          </h2>
-          <h3 class="text-2xl font-black text-white uppercase tracking-tighter">
+          </p>
+          <h2 class="text-2xl font-black text-white uppercase tracking-tighter">
             Related Intelligence
-          </h3>
+          </h2>
         </header>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {relatedPosts.map((p) => (
             <BlogCard
               title={p.title}
-              excerpt={p.excerpt}
-              image={p.feature_image}
+              excerpt={p.excerpt ?? ''}
+              image={p.feature_image ?? undefined}
               slug={p.slug}
               date={p.published_at}
+              readingTime={p.reading_time ?? undefined}
+              tags={p.tags}
             />
           ))}
         </div>
@@ -167,8 +220,172 @@ const ogImageRaw = cleanFeatureImage || "/og-image.jpg";
       <FAQ showSchema={true} />
     </div>
   </article>
-
-  <style is:global>
-    /* keep your existing styles here (unchanged) */
-  </style>
 </BaseLayout>
+
+<style is:global>
+  /* Blog post body styles */
+  .prose-blog {
+    color: #cbd5e1; /* slate-300 */
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .prose-blog h2 {
+    font-size: 1.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    padding-left: 1rem;
+    border-left: 4px solid #10b981;
+  }
+  .prose-blog h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .prose-blog h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #10b981;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-blog p {
+    margin-bottom: 1.25rem;
+  }
+  .prose-blog strong, .prose-blog b {
+    color: #f1f5f9;
+    font-weight: 700;
+  }
+  .prose-blog em {
+    color: #94a3b8;
+    font-style: italic;
+  }
+  .prose-blog a {
+    color: #10b981;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(16, 185, 129, 0.4);
+    transition: color 0.2s;
+  }
+  .prose-blog a:hover {
+    color: #ffffff;
+    text-decoration-color: rgba(255,255,255,0.4);
+  }
+  .prose-blog ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0;
+  }
+  .prose-blog ul li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .prose-blog ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+  }
+  .prose-blog ol {
+    counter-reset: list;
+    padding: 0;
+    margin: 1.25rem 0;
+  }
+  .prose-blog ol li {
+    counter-increment: list;
+    padding-left: 2rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .prose-blog ol li::before {
+    content: counter(list) '.';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: 800;
+    font-size: 0.85em;
+  }
+  .prose-blog blockquote {
+    border-left: 4px solid rgba(16, 185, 129, 0.5);
+    padding: 0.75rem 1.5rem;
+    margin: 2rem 0;
+    color: #94a3b8;
+    font-style: italic;
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 0 1rem 1rem 0;
+  }
+  .prose-blog hr {
+    border: none;
+    border-top: 1px solid rgba(30, 41, 59, 0.8);
+    margin: 2.5rem 0;
+  }
+  .prose-blog table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+  }
+  .prose-blog th {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border: 1px solid rgba(30, 41, 59, 0.8);
+  }
+  .prose-blog td {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(30, 41, 59, 0.8);
+    color: #cbd5e1;
+  }
+  .prose-blog tr:nth-child(even) td {
+    background: rgba(15, 23, 42, 0.3);
+  }
+  .prose-blog code {
+    background: rgba(15, 23, 42, 0.8);
+    color: #10b981;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.875em;
+    font-family: monospace;
+  }
+  .prose-blog pre {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(30, 41, 59, 0.8);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  .prose-blog pre code {
+    background: none;
+    padding: 0;
+  }
+  .prose-blog img {
+    border-radius: 1rem;
+    border: 1px solid rgba(30, 41, 59, 0.6);
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+  }
+  /* Markdown checkbox items (task lists) */
+  .prose-blog input[type="checkbox"] {
+    accent-color: #10b981;
+    margin-right: 0.5rem;
+  }
+</style>
