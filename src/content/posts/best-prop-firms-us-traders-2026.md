@@ -1,4 +1,23 @@
-# Best Prop Firms for US Traders 2026 — Pass the Funded Challenge With the 1% Rule
+---
+title: "Best Prop Firms for US Traders 2026 — Pass the Funded Challenge With the 1% Rule"
+excerpt: "The US funded trading landscape shifted in 2023–2024. Which prop firms still accept American traders — and how do you pass with the 1% rule? The complete framework for US-based funded traders."
+published_at: "2026-03-20"
+updated_at: "2026-03-20"
+tags:
+  - "Funded Trading"
+  - "US Traders"
+  - "Prop Firms"
+  - "Risk Management"
+  - "1% Rule"
+  - "FTMO"
+  - "Position Sizing"
+  - "Challenge Strategy"
+primary_tag: "Funded Trading"
+meta_title: "Best Prop Firms for US Traders 2026 — Pass the Challenge With the 1% Rule | TRADE90"
+meta_description: "Which prop firms accept US traders in 2026? Full guide on FTMO alternatives, the 1% rule, and the exact risk framework that passes funded trading challenges. Free position sizing calculator included."
+reading_time: 12
+author: "TRADE90"
+---
 
 The US funded trading landscape shifted dramatically in 2023 and 2024. Several major prop firms — including MyForexFunds and others — exited the US market or restricted American traders following regulatory pressure. That left thousands of US-based traders asking the same question: which prop firms still accept American traders, and how do you actually pass one?
 
@@ -93,11 +112,11 @@ Lot Size = (Account Balance × Risk%) ÷ (Stop Loss in Pips × Pip Value per Lot
 
 - Account: $100,000
 - Risk: 0.5% = $500
-- Stop loss: 8 points ($0.80 per 0.1 lot)
-- Gold pip value: $10 per 0.01 move per lot ($1.00/pip)
+- Stop loss: 80 points
+- Gold pip value: $1.00 per point per lot
 - **Lot size = $500 ÷ (80 × $1.00) = 0.625 lots → round to 0.62 lots**
 
-Do this calculation before every trade — not after you enter. TRADE90's position sizer handles this instantly across all 45+ instruments including forex, gold, indices, and crypto.
+Do this calculation before every trade — not after you enter. [TRADE90's position sizer](/) handles this instantly across all 45+ instruments including forex, gold, indices, and crypto.
 
 ---
 
@@ -105,7 +124,7 @@ Do this calculation before every trade — not after you enter. TRADE90's positi
 
 ### Step 1 — Choose the Right Challenge Size for Your Skill Level
 
-Most prop firms offer challenge accounts from $10,000 to $200,000. The temptation is to go large — a $200,000 funded account sounds life-changing. The risk is that larger accounts require larger pip movements to hit targets, and a $200,000 account with a 10% max drawdown means $20,000 in drawdown headroom that can disappear faster than you expect.
+Most prop firms offer challenge accounts from $10,000 to $200,000. The temptation is to go large. The risk is that a $200,000 account with a 10% max drawdown means $20,000 in drawdown headroom that can disappear faster than you expect.
 
 **Recommended starting point for US traders:**
 
@@ -127,7 +146,7 @@ Over-trading is the most common cause of challenge failure after oversizing. Two
 
 **Rule 3 — Check the ADR before every entry**
 
-The Average Daily Range (ADR) tells you how much room the pair has left to move. If a currency pair has already consumed 75% of its average daily range before you enter, the trade is high-risk by definition — price is statistically likely to stall, reverse, or chop within the remaining range.
+The Average Daily Range (ADR) tells you how much room the pair has left to move. If a currency pair has already consumed 75% of its average daily range before you enter, the trade is high-risk by definition.
 
 Calculate: **Daily Range Consumed = (Today's High − Today's Low) ÷ ADR × 100**
 
@@ -135,19 +154,13 @@ If the result is above 70%, pass on the trade.
 
 **Rule 4 — Stop outside the volatility noise, target inside the remaining range**
 
-Your stop loss should be placed at a level where, if hit, the original trade idea is genuinely wrong — not just shaken by normal intraday price noise. Your target should be achievable within the remaining daily range. Targeting 150% of the ADR in a single trade is not a strategy; it is a lottery ticket.
+Your stop loss should be placed at a level where, if hit, the original trade idea is genuinely wrong — not just shaken by normal intraday price noise. Your target should be achievable within the remaining daily range.
 
 ---
 
 ### Step 3 — Track Your Daily Loss in Real Time
 
-Every funded challenge has a daily loss limit, typically 4–5%. Most traders who fail challenges do not blow through their daily limit in one trade — they accumulate three or four moderate losses across several trades and hit the limit without realizing how close they were.
-
-**Daily loss tracking process:**
-1. Before opening the platform, note your starting balance for the day
-2. After each trade, update your running P&L
-3. Set a personal daily stop at 2–3% — half the firm's daily limit
-4. When you hit your personal stop, close the platform for the day
+Every funded challenge has a daily loss limit, typically 4–5%. Set a personal daily stop at 2–3% — half the firm's daily limit. When you hit your personal stop, close the platform for the day.
 
 This gives you a buffer. If your personal stop is 2.5% and the firm's limit is 5%, you have room to recover over the following days without being at constant risk of hitting the hard limit.
 
@@ -160,58 +173,54 @@ A $100,000 FTMO challenge requires a 10% profit target — $10,000 in net profit
 At 0.5% risk per trade with a 1:1.5 average risk-to-reward and a 55% win rate:
 - Average winning trade: +$750 (1.5 × $500 risk)
 - Average losing trade: -$500
-- Expected value per trade: (0.55 × $750) − (0.45 × $500) = $412.50 − $225 = +$187.50
+- Expected value per trade: (0.55 × $750) − (0.45 × $500) = +$187.50
 - Trades to hit $10,000 target: ~53 trades at 2 per day = 27 trading days
 
-That is achievable within a standard 30-day evaluation — but only if you stay consistent, do not revenge trade after losses, and keep your drawdown clean.
+That is achievable within a standard 30-day evaluation — but only if you stay consistent and keep your drawdown clean.
 
 ---
 
 ## Instruments US Funded Traders Favor in 2026
 
-Different instruments suit different trading styles. Here is a breakdown of the most commonly traded instruments among US-based funded traders, with their key characteristics:
-
 ### Forex Majors
 
-**EUR/USD** — The most liquid pair in the world. ADR of 60–90 pips. Tight spreads, predictable volatility patterns during London and New York overlap. Best for traders who prefer technical analysis and structured price action.
+**EUR/USD** — The most liquid pair. ADR of 60–90 pips. Tight spreads, predictable volatility patterns during London and New York overlap. Best for traders who prefer technical analysis and structured price action.
 
-**GBP/USD** — Higher ADR (80–120 pips) and more volatile. Better reward potential per trade but requires wider stops, which means fewer lots at the same risk percentage.
+**GBP/USD** — Higher ADR (80–120 pips) and more volatile. Better reward potential per trade but requires wider stops.
 
-**USD/JPY** — Highly sensitive to US interest rate news and risk-on/risk-off sentiment. Favored by traders who follow macro themes. ADR of 70–100 pips.
+**USD/JPY** — Highly sensitive to US interest rate news and risk-on/risk-off sentiment. ADR of 70–100 pips.
 
 ### Gold (XAU/USD)
 
-Gold remains the most popular instrument among US funded traders in 2026. Its $10 pip value per lot means tight stops translate to meaningful lot sizes on evaluation accounts. ADR of 1,500–2,500 points. Highly liquid during both London and New York sessions. Requires understanding of both technical structure and macro drivers (Fed policy, dollar strength, risk sentiment).
+Gold remains the most popular instrument among US funded traders in 2026. Its pip value means tight stops translate to meaningful lot sizes on evaluation accounts. ADR of 1,500–2,500 points. Requires understanding of both technical structure and macro drivers (Fed policy, dollar strength, risk sentiment).
 
-Use the TRADE90 gold position size calculator to confirm your lot size before every entry — gold's pip value calculation differs significantly from forex pairs.
+Use the [TRADE90 gold position size calculator](/calculator/) to confirm your lot size before every entry.
 
 ### US Indices
 
-**NAS100 (Nasdaq)** — Highly correlated with tech sector earnings and Fed rate expectations. ADR of 150–300 points at $1 per point. Popular among US traders who follow domestic equity news and understand sector rotation.
+**NAS100 (Nasdaq)** — Highly correlated with tech sector earnings and Fed rate expectations. ADR of 150–300 points at $1 per point. Popular among US traders who follow domestic equity news.
 
-**US30 (Dow Jones)** — Lower volatility than NAS100 but strong intraday trends. ADR of 200–400 points at $1 per point. Easier to manage from a stop placement perspective.
-
-Indices have a $1 per point pip value, making position sizing straightforward: 1 lot moves $1 per point, so a 100-point stop on a $500 risk = 5 lots.
+**US30 (Dow Jones)** — Lower volatility than NAS100 but strong intraday trends. ADR of 200–400 points at $1 per point.
 
 ---
 
 ## The Mindset Gap Between Traders Who Pass and Traders Who Fail
 
-Most traders who fail funded challenges are technically competent. They understand support and resistance, they know how to read a chart, and they can identify valid setups. The failure is almost always psychological — specifically, the inability to accept slow progress.
+Most traders who fail funded challenges are technically competent. The failure is almost always psychological — the inability to accept slow progress.
 
-**The traders who consistently pass funded challenges share three traits:**
+**The three traits of traders who consistently pass:**
 
 **1. They treat the evaluation as a process, not an event.**
 
-A 30-day evaluation is not a sprint. It is a sample of your trading behavior under controlled conditions. Firms want to see consistency — not a single explosive week followed by a catastrophic drawdown. A trader who returns +0.8% per week for four weeks is more fundable than one who returns +6% in week one and -5% in week two.
+A 30-day evaluation is a sample of your trading behavior under controlled conditions. Firms want consistency — not a single explosive week followed by a catastrophic drawdown. A trader who returns +0.8% per week for four weeks is more fundable than one who returns +6% in week one and -5% in week two.
 
 **2. They do not chase the profit target.**
 
-When you are 7% toward a 10% profit target with 10 days remaining, the temptation is to push — to take larger risk, trade more instruments, or enter setups that do not fully meet your criteria. This is where most challenges fail in the final third of the evaluation period. Stay at your standard risk. The target will come if the edge is real.
+When close to the target with days remaining, the temptation to push — to take larger risk, trade more instruments, or enter suboptimal setups — is where most challenges fail in the final third of the evaluation.
 
 **3. They have a pre-defined response to losing days.**
 
-Not a reaction — a response. Before the trading day begins, they know exactly what they will do if they hit their personal daily loss limit. The answer is always: close the platform, review what happened, and return tomorrow. No exceptions.
+Before the trading day begins, they know exactly what they will do if they hit their personal daily loss limit. The answer is always: close the platform, review what happened, return tomorrow. No exceptions.
 
 ---
 
@@ -219,15 +228,15 @@ Not a reaction — a response. Before the trading day begins, they know exactly 
 
 Before entering any trade during a funded evaluation, run through this list:
 
-- [ ] Which prop firm's rules apply today — have I reviewed the daily and max DD limits?
-- [ ] What is the ADR for this instrument today?
-- [ ] How much of the daily range has already been consumed?
-- [ ] Is my risk within 0.5% of the challenge account balance?
-- [ ] Have I calculated the exact lot size using the position sizer?
-- [ ] Is my stop loss outside the intraday volatility noise?
-- [ ] Is my target within the remaining daily range?
-- [ ] Is this my first or second trade today?
-- [ ] What is my one-sentence reason this setup should work?
+- Which prop firm's rules apply today — have I reviewed the daily and max DD limits?
+- What is the ADR for this instrument today?
+- How much of the daily range has already been consumed?
+- Is my risk within 0.5% of the challenge account balance?
+- Have I calculated the exact lot size using the [TRADE90 position sizer](/)?
+- Is my stop loss outside the intraday volatility noise?
+- Is my target within the remaining daily range?
+- Is this my first or second trade today?
+- What is my one-sentence reason this setup should work?
 
 If you cannot answer every item on that list with confidence, do not enter the trade. There will be another setup tomorrow.
 
@@ -237,9 +246,9 @@ If you cannot answer every item on that list with confidence, do not enter the t
 
 Passing a funded trading challenge as a US trader in 2026 requires three things: choosing a reputable prop firm that accepts US traders, applying institutional risk management on every trade, and having the psychological discipline to execute consistently over 30 days.
 
-The 1% rule — more precisely, the 0.5% institutional standard — is the framework that keeps your drawdown clean while your edge accumulates into a passing result. Calculate your position size before every trade. Respect the ADR. Limit yourself to two trades per day. Accept that slow is fast when your funded account is at stake.
+The 1% rule — more precisely, the **0.5% institutional standard** — is the framework that keeps your drawdown clean while your edge accumulates into a passing result. Calculate your position size before every trade. Respect the ADR. Limit yourself to two trades per day. Accept that slow is fast when your funded account is at stake.
 
-Use TRADE90's free position size calculator to verify your lot size across all 45+ instruments — forex, gold, indices, and crypto — before every entry. The math protects your evaluation so your emotions do not have to.
+Use [TRADE90's free position size calculator](/) to verify your lot size across all 45+ instruments — forex, gold, indices, and crypto — before every entry. The math protects your evaluation so your emotions do not have to.
 
 ---
 

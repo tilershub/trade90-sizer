@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 export interface BlogPost {
   id: string;
@@ -18,44 +18,57 @@ export interface BlogPost {
   author: string;
 }
 
-// Selected columns for list views (excludes heavy content field)
-const LIST_COLS = 'id,title,slug,excerpt,feature_image,published_at,updated_at,tags,primary_tag,reading_time,author';
+function entrySlug(entry: CollectionEntry<'posts'>): string {
+  return entry.id.replace(/\.mdx?$/, '');
+}
+
+function entryToPost(entry: CollectionEntry<'posts'>): BlogPost {
+  const d = entry.data;
+  return {
+    id: entry.id,
+    title: d.title,
+    slug: entrySlug(entry),
+    excerpt: d.excerpt ?? null,
+    content: null,
+    feature_image: d.feature_image ?? null,
+    published_at: d.published_at,
+    updated_at: d.updated_at ?? d.published_at,
+    status: 'published',
+    tags: d.tags ?? [],
+    primary_tag: d.primary_tag ?? null,
+    meta_title: d.meta_title ?? null,
+    meta_description: d.meta_description ?? null,
+    reading_time: d.reading_time ?? null,
+    author: d.author ?? 'TRADE90',
+  };
+}
 
 export async function getPosts(options: { limit?: number; tag?: string } = {}): Promise<BlogPost[]> {
-  let query = supabase
-    .from('blog_posts')
-    .select(LIST_COLS)
-    .eq('status', 'published')
-    .order('published_at', { ascending: false });
+  let entries = await getCollection('posts');
 
   if (options.tag) {
-    query = query.contains('tags', [options.tag]);
-  }
-  if (options.limit) {
-    query = query.limit(options.limit);
+    entries = entries.filter((e) => e.data.tags?.includes(options.tag!));
   }
 
-  const { data, error } = await query;
-  if (error) {
-    console.error('[blog] getPosts error:', error.message);
-    return [];
-  }
-  return (data ?? []) as BlogPost[];
+  entries.sort(
+    (a, b) =>
+      new Date(b.data.published_at).getTime() - new Date(a.data.published_at).getTime()
+  );
+
+  if (options.limit) entries = entries.slice(0, options.limit);
+
+  return entries.map(entryToPost);
 }
 
 export async function getPost(slug: string): Promise<BlogPost | null> {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single();
+  const entries = await getCollection('posts');
+  const entry = entries.find((e) => entrySlug(e) === slug);
+  return entry ? entryToPost(entry) : null;
+}
 
-  if (error) {
-    if (error.code !== 'PGRST116') console.error('[blog] getPost error:', error.message);
-    return null;
-  }
-  return data as BlogPost;
+export async function getPostEntry(slug: string): Promise<CollectionEntry<'posts'> | null> {
+  const entries = await getCollection('posts');
+  return entries.find((e) => entrySlug(e) === slug) ?? null;
 }
 
 export async function getRelatedPosts(
@@ -63,46 +76,27 @@ export async function getRelatedPosts(
   excludeId: string,
   limit = 3
 ): Promise<BlogPost[]> {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select(LIST_COLS)
-    .eq('status', 'published')
-    .contains('tags', [primaryTag])
-    .neq('id', excludeId)
-    .order('published_at', { ascending: false })
-    .limit(limit);
-
-  if (error) {
-    console.error('[blog] getRelatedPosts error:', error.message);
-    return [];
-  }
-  return (data ?? []) as BlogPost[];
+  let entries = await getCollection('posts');
+  entries = entries.filter(
+    (e) => entrySlug(e) !== excludeId && e.data.tags?.includes(primaryTag)
+  );
+  entries.sort(
+    (a, b) =>
+      new Date(b.data.published_at).getTime() - new Date(a.data.published_at).getTime()
+  );
+  return entries.slice(0, limit).map(entryToPost);
 }
 
 export async function getAllSlugs(): Promise<string[]> {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('slug')
-    .eq('status', 'published');
-
-  if (error) {
-    console.error('[blog] getAllSlugs error:', error.message);
-    return [];
-  }
-  return (data ?? []).map((row) => row.slug as string);
+  const entries = await getCollection('posts');
+  return entries.map((e) => entrySlug(e));
 }
 
 export async function getAllTags(): Promise<string[]> {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('tags')
-    .eq('status', 'published');
-
-  if (error) return [];
-
+  const entries = await getCollection('posts');
   const seen = new Set<string>();
-  for (const row of data ?? []) {
-    for (const tag of (row.tags as string[]) ?? []) seen.add(tag);
+  for (const entry of entries) {
+    for (const tag of entry.data.tags ?? []) seen.add(tag);
   }
   return [...seen].sort();
 }

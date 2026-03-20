@@ -1,8 +1,9 @@
 ---
+import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FAQ from "../../components/FAQ.astro";
 import BlogCard from "../../components/BlogCard.astro";
-import { getAllSlugs, getPost, getRelatedPosts, calcReadingTime } from "../../lib/blog";
+import { getAllSlugs, getPost, getPostEntry, getRelatedPosts, calcReadingTime } from "../../lib/blog";
 
 export async function getStaticPaths() {
   const slugs = await getAllSlugs();
@@ -11,8 +12,11 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const post = await getPost(slug);
+const entry = await getPostEntry(slug);
 
-if (!post) return Astro.redirect("/blog/", 307);
+if (!post || !entry) return Astro.redirect("/blog/", 307);
+
+const { Content } = await render(entry);
 
 const site = Astro.site?.toString() || "https://tradeninety.com";
 const canonicalURL = new URL(`/blog/${post.slug}/`, site).toString();
@@ -162,8 +166,9 @@ const articleSchema = {
     <div
       class="prose-blog selection:bg-emerald-500/30"
       itemprop="articleBody"
-      set:html={post.content}
-    />
+    >
+      <Content />
+    </div>
 
     <!-- Calculator CTA -->
     <aside class="mt-16 bg-slate-900/70 border border-emerald-500/20 rounded-2xl p-6">
