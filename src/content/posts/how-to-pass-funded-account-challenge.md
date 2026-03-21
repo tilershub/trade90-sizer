@@ -1,4 +1,20 @@
-# How US Forex Traders Pass Funded Account Challenges: The Volatility-Adjusted Risk Blueprint
+---
+title: "How US Forex Traders Pass Funded Account Challenges: The Volatility-Adjusted Risk Blueprint"
+excerpt: "Most funded account challenges are not won by finding better trades. They are won by surviving long enough to let the edge play out. Here is the complete volatility-adjusted risk framework for US-based forex traders."
+published_at: "2025-01-15"
+updated_at: "2025-01-15"
+tags:
+  - "Funded Trading"
+  - "Risk Management"
+  - "Position Sizing"
+  - "Challenge Strategy"
+  - "US Traders"
+primary_tag: "Funded Trading"
+meta_title: "How US Forex Traders Pass Funded Account Challenges | TRADE90"
+meta_description: "The volatility-adjusted risk blueprint for US forex traders: 0.5% risk rule, ADR calibration, 2-trades-per-day discipline, and the pre-trade checklist that keeps your drawdown clean."
+reading_time: 8
+author: "TRADE90"
+---
 
 Most funded account challenges are not won by finding better trades. They are won by surviving long enough to let the edge play out. The majority of traders fail in the first two weeks — not because the market beat them, but because their own position sizing did.
 
@@ -128,14 +144,14 @@ Now compare to the trader taking 2% risk per trade, hitting 3 winners and 3 lose
 
 Before entering any trade during a funded challenge, run through this list:
 
-- [ ] What is the ADR for this pair today?
-- [ ] How much of the daily range has already been consumed?
-- [ ] Is there enough range remaining to justify the target?
-- [ ] Is my risk within 0.1%–0.5% of account balance?
-- [ ] Is my stop loss placed outside normal intraday volatility?
-- [ ] Is my target within the remaining daily range?
-- [ ] Is this my first or second trade today?
-- [ ] What is the one sentence reason this trade should work?
+- What is the ADR for this pair today?
+- How much of the daily range has already been consumed?
+- Is there enough range remaining to justify the target?
+- Is my risk within 0.1%–0.5% of account balance?
+- Is my stop loss placed outside normal intraday volatility?
+- Is my target within the remaining daily range?
+- Is this my first or second trade today?
+- What is the one sentence reason this trade should work?
 
 If you cannot answer every item on that list confidently, do not enter the trade. Wait for the next session. There will always be another setup.
 
@@ -152,7 +168,7 @@ Passing a funded account challenge as a US forex trader is a process, not an eve
 - **Places stops outside the volatility noise** — where the thesis is genuinely wrong
 - **Accepts that returns accumulate slowly** — 1–2% per week compounds to life-changing capital when managed consistently
 
-Use the TRADE90 position sizer before every trade to confirm your lot size, check the ADR consumption, and validate that your risk exposure stays within challenge limits. The math does the discipline so your emotions do not have to.
+Use the [TRADE90 position sizer](/) before every trade to confirm your lot size, check the ADR consumption, and validate that your risk exposure stays within challenge limits. The math does the discipline so your emotions do not have to.
 
 ---
 
