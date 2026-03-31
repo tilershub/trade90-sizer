@@ -2,22 +2,132 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout
-  title="About Us | Veteran & FTMO Funded"
-  description="TRADE90 was built by a 10-year military veteran and FTMO-funded trader to bring institutional-grade risk management to retail Forex, Gold, and Crypto traders."
+  title="About TRADE90 — Veteran-Built Risk Tools for US Funded Traders"
+  description="TRADE90 was built by a 10-year military veteran and FTMO-funded trader. Learn the mission, the framework, and why institutional risk management is the only way to pass a funded account challenge."
+  keywords={["TRADE90", "funded trader", "FTMO funded", "US forex trader", "position sizing", "1% rule", "veteran trader"]}
 >
   <main class="max-w-3xl mx-auto py-20 px-6">
-    <h1 class="text-4xl font-black text-green-500 uppercase mb-8">The TRADE90 Mission</h1>
-    <div class="prose prose-invert text-slate-300 space-y-6">
-      <p class="text-xl text-white font-medium">Built by a Veteran. Tested by FTMO.</p>
-      <p>TRADE90 was founded to bring military-grade risk discipline to the retail trading world. After 10 years of service and passing the FTMO funding challenge, I realized that most traders fail not because of their strategy, but because of their math.</p>
-      
-      <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 my-10">
-        <h2 class="text-white mt-0">Verified Credentials</h2>
-        <ul class="list-none p-0">
-          <li class="flex items-center gap-2 mb-2">✅ FTMO Funded Trader Certificate</li>
-          <li class="flex items-center gap-2">✅ 10-Year Veteran Status</li>
+
+    <nav aria-label="Breadcrumb" class="mb-10">
+      <ol class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600">
+        <li><a href="/" class="hover:text-emerald-500 transition-colors">Home</a></li>
+        <li class="text-slate-800">/</li>
+        <li class="text-slate-500" aria-current="page">About</li>
+      </ol>
+    </nav>
+
+    <h1 class="text-4xl font-black text-emerald-500 uppercase tracking-tighter mb-4">The TRADE90 Mission</h1>
+    <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] mb-12">Built by a Veteran. Tested by FTMO. Used by US Funded Traders.</p>
+
+    <div class="space-y-10 text-slate-300 leading-relaxed">
+
+      <p class="text-xl text-white font-medium leading-snug">
+        Most traders fail not because their strategy is wrong. They fail because their math is wrong.
+      </p>
+
+      <p>
+        TRADE90 was founded after passing the FTMO funded trading evaluation and realizing that the single hardest part of the process was not finding setups — it was sizing them correctly under psychological pressure. A calculator that runs the math before every trade removes that pressure entirely.
+      </p>
+
+      <p>
+        The result is a free institutional-grade position sizing tool that works across 45+ instruments — Forex, Gold (XAU/USD), US Indices (NAS100, US30), and Crypto — calibrated to the exact pip values and contract specifications of every major prop firm evaluation environment.
+      </p>
+
+      <!-- Credentials -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 my-10">
+        <h2 class="text-white text-xl font-black uppercase tracking-tighter mt-0 mb-6">Verified Background</h2>
+        <ul class="space-y-4 list-none p-0">
+          <li class="flex items-start gap-3">
+            <span class="text-emerald-500 text-lg mt-0.5">✔</span>
+            <div>
+              <strong class="text-white block text-sm">FTMO Funded Trader</strong>
+              <span class="text-slate-400 text-sm">Passed the FTMO 2-phase evaluation. 10% profit target reached within 28 trading days at 0.5% risk per trade.</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-emerald-500 text-lg mt-0.5">✔</span>
+            <div>
+              <strong class="text-white block text-sm">10-Year US Military Veteran</strong>
+              <span class="text-slate-400 text-sm">Decade of service instilled the discipline framework that underlies the TRADE90 risk management system: defined rules, no deviations, consistent execution.</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-emerald-500 text-lg mt-0.5">✔</span>
+            <div>
+              <strong class="text-white block text-sm">Active US-Based Trader</strong>
+              <span class="text-slate-400 text-sm">Trading Forex, Gold, and US indices from the United States since 2015. Understands the specific regulatory constraints, tax implications, and prop firm access issues that affect American traders.</span>
+            </div>
+          </li>
         </ul>
       </div>
+
+      <!-- The Framework -->
+      <h2 class="text-2xl font-black text-white uppercase tracking-tighter mt-12 mb-4">The Risk Framework Behind Every Tool</h2>
+
+      <p>
+        Every calculator and every piece of analysis on TRADE90 is built around the same core principle: <strong class="text-white">the 1% rule</strong> — specifically, the institutional standard of risking 0.5% or less per trade.
+      </p>
+
+      <p>
+        This is not an arbitrary number. It is derived from the maximum drawdown rules of every major prop firm evaluation. FTMO's 10% maximum drawdown means that at 0.5% risk per trade, you can absorb 20 consecutive losses before failing — a statistical near-impossibility that gives your edge enough room to work.
+      </p>
+
+      <div class="bg-slate-900/60 border border-emerald-500/20 rounded-2xl p-6 my-8">
+        <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">The Core Equation</p>
+        <code class="block text-white font-mono text-sm leading-relaxed bg-black/40 p-4 rounded-xl">
+          Lot Size = (Account Balance × Risk%) ÷ (Stop Loss in Pips × Pip Value per Lot)
+        </code>
+        <p class="text-slate-400 text-sm mt-4">
+          That formula is what every professional trader runs before every trade. TRADE90 automates it for every instrument, account size, and stop distance — so you spend your time analyzing setups, not doing arithmetic.
+        </p>
+      </div>
+
+      <!-- What the site covers -->
+      <h2 class="text-2xl font-black text-white uppercase tracking-tighter mt-12 mb-4">What TRADE90 Covers</h2>
+
+      <ul class="space-y-3 list-none p-0">
+        <li class="flex items-start gap-3">
+          <span class="text-emerald-500 font-black text-sm mt-0.5">→</span>
+          <span><strong class="text-white">Position size calculators</strong> for 45+ instruments — Forex majors/minors, Gold, Silver, US/EU/UK indices, Bitcoin, Ethereum, and more</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-emerald-500 font-black text-sm mt-0.5">→</span>
+          <span><strong class="text-white">Pip value calculator</strong> — know exactly what each pip is worth in your account currency before sizing</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-emerald-500 font-black text-sm mt-0.5">→</span>
+          <span><strong class="text-white">Risk-to-reward calculator</strong> — validate that every setup has the minimum asymmetry before entering</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-emerald-500 font-black text-sm mt-0.5">→</span>
+          <span><strong class="text-white">Weekly XAUUSD analysis</strong> — day-by-day price breakdowns, ADR data, and funded trader position sizing for gold</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-emerald-500 font-black text-sm mt-0.5">→</span>
+          <span><strong class="text-white">Funded trading guides</strong> — which prop firms accept US traders, how to pass evaluations, and the exact risk rules that separate passes from failures</span>
+        </li>
+      </ul>
+
+      <!-- Recent guides -->
+      <h2 class="text-2xl font-black text-white uppercase tracking-tighter mt-12 mb-6">Start Here</h2>
+      <div class="grid grid-cols-1 gap-4">
+        <a href="/blog/best-prop-firms-us-traders-2026/" class="block bg-slate-900 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-5 transition-colors group">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Funded Trading</p>
+          <p class="text-white font-black text-base group-hover:text-emerald-400 transition-colors">Best Prop Firms for US Traders 2026</p>
+          <p class="text-slate-400 text-sm mt-1">Which firms still accept American traders and how to pass with the 1% rule.</p>
+        </a>
+        <a href="/blog/how-to-pass-funded-account-challenge/" class="block bg-slate-900 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-5 transition-colors group">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Risk Management</p>
+          <p class="text-white font-black text-base group-hover:text-emerald-400 transition-colors">How to Pass a Funded Account Challenge</p>
+          <p class="text-slate-400 text-sm mt-1">The volatility-adjusted risk blueprint: 0.5% rule, ADR calibration, and the pre-trade checklist.</p>
+        </a>
+        <a href="/blog/xauusd-weekly-analysis-march-2026/" class="block bg-slate-900 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-5 transition-colors group">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Gold Analysis</p>
+          <p class="text-white font-black text-base group-hover:text-emerald-400 transition-colors">XAUUSD Weekly Analysis — March 2026</p>
+          <p class="text-slate-400 text-sm mt-1">Day-by-day XAUUSD breakdown with ADR data, key levels, and funded trader position sizing.</p>
+        </a>
+      </div>
+
     </div>
   </main>
 </BaseLayout>
