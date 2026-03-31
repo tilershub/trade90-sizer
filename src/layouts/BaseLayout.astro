@@ -140,31 +140,41 @@ const breadcrumbSchema = {
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
     ) : null}
 
-    <!-- Google Analytics 4 (loads only after cookie consent) -->
+    <!-- Google Analytics 4 — Consent Mode v2 -->
+    <!-- Fires immediately in denied mode (anonymized measurement) and upgrades to full tracking on cookie accept -->
     <script is:inline>
       (function () {
         const GA_ID = "G-EBLQLRSZZL";
 
-        function loadGA() {
-          if (window.__gaLoaded) return;
-          window.__gaLoaded = true;
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
 
-          const s = document.createElement("script");
-          s.async = true;
-          s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
-          document.head.appendChild(s);
+        // Set default consent state — denied until user accepts
+        gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          wait_for_update: 500
+        });
 
-          window.dataLayer = window.dataLayer || [];
-          function gtag() { dataLayer.push(arguments); }
-          window.gtag = gtag;
-          gtag("js", new Date());
-          gtag("config", GA_ID);
+        // Load the GA4 script immediately (fires in cookieless/anonymized mode)
+        const s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+        document.head.appendChild(s);
+
+        gtag("js", new Date());
+        gtag("config", GA_ID, { anonymize_ip: true });
+
+        // If user already accepted in a prior session, upgrade immediately
+        if (localStorage.getItem("cookieConsent") === "accepted") {
+          gtag("consent", "update", { analytics_storage: "granted" });
         }
 
-        const consent = localStorage.getItem("cookieConsent");
-        if (consent === "accepted") loadGA();
-
-        window.addEventListener("cookie-accepted", loadGA);
+        // Upgrade consent when user clicks Accept
+        window.addEventListener("cookie-accepted", function () {
+          gtag("consent", "update", { analytics_storage: "granted" });
+        });
       })();
     </script>
 

@@ -47,6 +47,8 @@ At 0.5% risk, even five consecutive losses only cost you 2.5%. Your drawdown rem
 
 **For a single trade idea — one setup, one entry — your maximum exposure is 0.5%.** Do not add to a losing position. Do not pyramid beyond one entry per idea. One idea, one entry, 0.5% maximum.
 
+If you are still evaluating which prop firm to use, see the full [best prop firms for US traders in 2026](/blog/best-prop-firms-us-traders-2026/) guide — it covers which firms still accept American traders, payout structures, and how the 1% rule maps to each firm's drawdown rules.
+
 ---
 
 ## Rule 2 — Maximum Two Trades Per Day
@@ -91,6 +93,8 @@ If EUR/USD has already traveled 67 pips of its 85-pip average range, entering a 
 **Lower daily range consumption = more room to run = higher probability trade.**
 
 Use TRADE90's position sizer to check ADR before every trade. Make it a pre-trade checklist item, not an afterthought.
+
+For a practical week-by-week example of ADR calibration on the most popular funded trading instrument, see the [XAUUSD weekly analysis for March 2026](/blog/xauusd-weekly-analysis-march-2026/) — it shows exactly how daily range consumption drove entry decisions across every session of the week.
 
 ---
 

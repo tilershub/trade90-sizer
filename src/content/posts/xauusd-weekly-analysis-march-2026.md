@@ -128,7 +128,7 @@ Entering the week of March 24, the **operating assumption for funded traders sho
 
 ## Position Sizing for XAUUSD — The Full Framework for US Funded Traders
 
-Gold's high pip value makes position sizing the single most important variable for funded traders. An oversized lot on a 300-point adverse move can violate a daily drawdown limit before the stop is even hit.
+Gold's high pip value makes position sizing the single most important variable for funded traders. An oversized lot on a 300-point adverse move can violate a daily drawdown limit before the stop is even hit. If you are new to the funded account risk framework, the [volatility-adjusted challenge blueprint](/blog/how-to-pass-funded-account-challenge/) covers the complete 0.5% rule, ADR calibration, and daily trade limits in detail.
 
 **Gold pip value:** $1.00 per point per 0.01 lot (or $10 per point per 0.1 lot, $100 per point per 1.0 lot)
 
@@ -234,7 +234,7 @@ If any item on this list cannot be confirmed, stand aside. Gold's high pip value
 
 ## Summary
 
-Gold delivered a high-volatility, macro-driven week with the XAUUSD weekly range extending to 2,330 points — 28% above the 14-day ADR. The FOMC minutes on Wednesday provided the primary catalyst, and Thursday's trend day was the clearest opportunity of the week for funded traders.
+Gold delivered a high-volatility, macro-driven week with the XAUUSD weekly range extending to 2,330 points — 28% above the 14-day ADR. The FOMC minutes on Wednesday provided the primary catalyst, and Thursday's trend day was the clearest opportunity of the week for funded traders. For a full overview of which prop firms accept US traders and how to structure your evaluation, see the [best prop firms for US traders 2026](/blog/best-prop-firms-us-traders-2026/) guide.
 
 Heading into the week of March 24:
 - **Bullish bias** holds while price remains above $3,055

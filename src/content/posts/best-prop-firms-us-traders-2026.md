@@ -144,6 +144,8 @@ Never exceed 0.5% per trade during any evaluation. This is not about being timid
 
 Over-trading is the most common cause of challenge failure after oversizing. Two trades per day forces selectivity. After two trades — win, lose, or draw — close the platform. Come back tomorrow.
 
+We cover all four rules in full detail — with the exact ADR calibration method and psychology behind each one — in the [volatility-adjusted risk blueprint for US funded traders](/blog/how-to-pass-funded-account-challenge/).
+
 **Rule 3 — Check the ADR before every entry**
 
 The Average Daily Range (ADR) tells you how much room the pair has left to move. If a currency pair has already consumed 75% of its average daily range before you enter, the trade is high-risk by definition.
@@ -194,7 +196,7 @@ That is achievable within a standard 30-day evaluation — but only if you stay 
 
 Gold remains the most popular instrument among US funded traders in 2026. Its pip value means tight stops translate to meaningful lot sizes on evaluation accounts. ADR of 1,500–2,500 points. Requires understanding of both technical structure and macro drivers (Fed policy, dollar strength, risk sentiment).
 
-Use the [TRADE90 gold position size calculator](/calculator/) to confirm your lot size before every entry.
+Use the [TRADE90 gold position size calculator](/calculator/) to confirm your lot size before every entry. For the current XAUUSD technical setup, key support and resistance levels, and day-by-day funded trader guidance, see the [XAUUSD weekly analysis for March 2026](/blog/xauusd-weekly-analysis-march-2026/).
 
 ### US Indices
 
