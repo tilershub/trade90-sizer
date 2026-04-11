@@ -55,8 +55,24 @@ const organizationSchema = {
     "@type": "ImageObject",
     url: new URL("/favicon.svg", site).toString(),
   },
-  description: "Veteran-built institutional position sizing tools for Forex, Gold, Indices and Crypto traders.",
+  description: "Veteran-built position sizing and risk management tools for US-based funded traders. The Trade90 Safety System enforces 0.5% max risk per trade and 1% daily risk target.",
   foundingDate: "2023",
+  areaServed: {
+    "@type": "Country",
+    name: "United States",
+  },
+  audience: {
+    "@type": "Audience",
+    audienceType: "Funded Traders, Prop Firm Traders, US Forex Traders",
+  },
+  knowsAbout: [
+    "Position Sizing",
+    "Funded Trading",
+    "Prop Firm Challenge",
+    "Forex Risk Management",
+    "FTMO",
+    "Lot Size Calculator",
+  ],
   sameAs: [],
 };
 
@@ -128,6 +144,16 @@ const breadcrumbSchema = {
 
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <!-- US geo-targeting -->
+    <meta name="geo.region" content="US" />
+    <meta name="geo.placename" content="United States" />
+    <meta name="language" content="English" />
+    <meta name="target" content="funded traders, prop firm traders, US forex traders" />
+
+    <!-- hreflang: English (US) -->
+    <link rel="alternate" hreflang="en-us" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={canonicalURL} />
 
     <slot name="head-extra" />
 

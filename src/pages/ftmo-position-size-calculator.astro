@@ -1,0 +1,390 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PositionSizer from '../components/PositionSizer.svelte';
+
+const title = "FTMO Position Size Calculator — Lot Size for FTMO Challenges";
+const description = "Calculate the exact lot size for your FTMO challenge account. Enforces FTMO-compatible 0.5% risk per trade and 1% daily limits. Works for Phase 1, Phase 2, and FTMO Swing. Free.";
+const keywords = [
+  "ftmo position size calculator",
+  "ftmo lot size calculator",
+  "ftmo challenge risk management",
+  "ftmo funded trader calculator",
+  "ftmo position sizing",
+  "ftmo 0.5% rule",
+];
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const canonicalURL = new URL(Astro.url.pathname, site).toString();
+
+const ftmoChallengeData = [
+  { size: "$10,000",  target: "$1,000",   daily: "$500/day",    maxDD: "$1,000 total" },
+  { size: "$25,000",  target: "$2,500",   daily: "$1,250/day",  maxDD: "$2,500 total" },
+  { size: "$50,000",  target: "$5,000",   daily: "$2,500/day",  maxDD: "$5,000 total" },
+  { size: "$100,000", target: "$10,000",  daily: "$5,000/day",  maxDD: "$10,000 total" },
+  { size: "$200,000", target: "$20,000",  daily: "$10,000/day", maxDD: "$20,000 total" },
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "FTMO Position Size Calculator", item: canonicalURL },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What FTMO account sizes does this calculator work for?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The Trade90 position size calculator works for all FTMO account sizes: $10,000, $25,000, $50,000, $100,000, and $200,000. Simply enter your current FTMO account equity into the calculator and it will compute the correct lot size based on your chosen risk percentage and stop loss distance.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Should I use starting balance or current equity for FTMO position sizing?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Always use your current account equity, not the starting balance. FTMO's maximum drawdown limit is typically calculated from the starting balance or the highest equity reached (depending on the account type), but your risk percentage should always be calculated from your live current equity. This ensures your position sizes automatically scale down as you lose and scale up proportionally as you profit.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What if I trade multiple instruments on FTMO at the same time?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "When trading multiple instruments simultaneously on FTMO, you must track your total daily risk exposure across all open and pending positions. If you risk 0.5% on EUR/USD and 0.5% on Gold, you've used your full 1% daily budget for the day. The Trade90 rule is simple: never let your combined open risk exceed 1% of account equity at any one time.",
+      },
+    },
+  ],
+};
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Trade90 FTMO Position Size Calculator",
+  description,
+  url: canonicalURL,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  creator: { "@type": "Organization", name: "TRADE90", url: site },
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  breadcrumbName="FTMO Position Size Calculator"
+>
+  <Fragment slot="head-extra">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(toolSchema)}></script>
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="bg-black border-b border-slate-800">
+    <div class="max-w-4xl mx-auto py-16 px-6">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-slate-500">
+          <li><a href="/" class="hover:text-emerald-400 transition-colors">Home</a></li>
+          <li class="text-slate-700" aria-hidden="true">/</li>
+          <li class="text-emerald-400" aria-current="page">FTMO Position Size Calculator</li>
+        </ol>
+      </nav>
+
+      <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Challenge Compatible</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-white mb-4">
+        FTMO Position<br class="hidden sm:block" /> Size Calculator
+      </h1>
+      <p class="text-lg text-slate-400 max-w-2xl">
+        The lot size calculator built for FTMO Phase 1, Phase 2, and Funded accounts — with real-time risk alerts before you place the trade.
+      </p>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-slate-400 bg-slate-900 border border-slate-800 rounded-full px-3 py-1">
+          <span class="text-emerald-400">✓</span> Phase 1 & Phase 2
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-slate-400 bg-slate-900 border border-slate-800 rounded-full px-3 py-1">
+          <span class="text-emerald-400">✓</span> FTMO Swing
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-slate-400 bg-slate-900 border border-slate-800 rounded-full px-3 py-1">
+          <span class="text-emerald-400">✓</span> Live Funded Accounts
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-slate-400 bg-slate-900 border border-slate-800 rounded-full px-3 py-1">
+          <span class="text-emerald-400">✓</span> Free
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FTMO Challenge Reference Table -->
+  <section class="bg-slate-950 border-b border-slate-800 py-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Quick Reference</p>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-2">FTMO Challenge Limits by Account Size</h2>
+      <p class="text-slate-400 text-sm mb-6">Use this table to check your profit target and drawdown boundaries before every trading session.</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-700">
+              <th class="text-left py-3 px-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Account Size</th>
+              <th class="text-right py-3 px-4 text-[10px] font-black uppercase tracking-widest text-slate-500">10% Target</th>
+              <th class="text-right py-3 px-4 text-[10px] font-black uppercase tracking-widest text-slate-500">5% Daily Limit</th>
+              <th class="text-right py-3 px-4 text-[10px] font-black uppercase tracking-widest text-slate-500">10% Max Drawdown</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ftmoChallengeData.map((row, i) => (
+              <tr class={`border-b border-slate-800/50 ${i % 2 === 0 ? '' : 'bg-slate-900/20'}`}>
+                <td class="py-4 px-4 font-black text-white">{row.size}</td>
+                <td class="py-4 px-4 text-right text-emerald-400 font-black">{row.target}</td>
+                <td class="py-4 px-4 text-right text-slate-300">{row.daily}</td>
+                <td class="py-4 px-4 text-right text-slate-300">{row.maxDD}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-slate-500 text-xs mt-4">Based on standard FTMO challenge rules as of 2024. Verify current terms at <strong class="text-slate-400">ftmo.com</strong> before trading. TRADE90 is not affiliated with FTMO.</p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="bg-slate-950 py-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Position Size Calculator</p>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6">Calculate Your FTMO Lot Size</h2>
+      <PositionSizer client:load />
+    </div>
+  </section>
+
+  <!-- How to Use -->
+  <section class="bg-black border-t border-slate-800 py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Step-by-Step</p>
+      <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-10">
+        How to Use This Calculator for FTMO
+      </h2>
+
+      <div class="space-y-4">
+        <div class="flex gap-4 bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <span class="text-emerald-400 font-black text-sm">1</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black uppercase tracking-widest text-white mb-2">Enter Your Current FTMO Account Equity</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Use your live account equity — not the starting challenge balance. If you started with $100,000 and are now at $98,500, enter $98,500. Your position size should always be based on what's actually in the account right now.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <span class="text-emerald-400 font-black text-sm">2</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black uppercase tracking-widest text-white mb-2">Set Risk to 0.5% (Trade90 Recommended) or Max 1%</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Trade90 recommends 0.5% as your default risk per trade on funded challenges. If you have a very high-conviction setup and are well inside your drawdown limits, you may go up to 1% — but never more than 1% on any single trade while on a funded account.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <span class="text-emerald-400 font-black text-sm">3</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black uppercase tracking-widest text-white mb-2">Enter Your Exact Entry and Stop Loss Levels</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Use your actual planned entry price and stop loss price — not approximate levels. A 5-pip error on a 30-pip stop is a 17% sizing error. Be precise: the calculator converts the pip distance to dollars automatically for all 45+ supported instruments.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <span class="text-emerald-400 font-black text-sm">4</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-black uppercase tracking-widest text-white mb-2">Check the Lot Size and Confirm Your Plan</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Review the calculated lot size before placing the order. Confirm it aligns with your daily risk budget — if you've already placed a trade today, add the new risk to your existing exposure and ensure the combined total stays below 1% of account equity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Worked Examples -->
+  <section class="bg-slate-950 border-t border-slate-800 py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Worked Examples</p>
+      <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-4">
+        FTMO Position Sizing Examples
+      </h2>
+      <p class="text-slate-400 mb-10 max-w-2xl">
+        Real calculations for the most commonly traded instruments on FTMO challenges. These examples use 0.5% risk as the default.
+      </p>
+
+      <div class="grid sm:grid-cols-3 gap-6">
+        <!-- Example 1: EUR/USD -->
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Example 1</div>
+          <h3 class="text-base font-black uppercase tracking-tighter text-white mb-4">EUR/USD — $100k Account</h3>
+          <div class="space-y-2 text-sm font-mono mb-4">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Account:</span>
+              <span class="text-slate-200">$100,000</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Risk:</span>
+              <span class="text-slate-200">0.5% = $500</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Stop Loss:</span>
+              <span class="text-slate-200">30 pips</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Pip Value:</span>
+              <span class="text-slate-200">$10/std lot</span>
+            </div>
+            <div class="border-t border-slate-700 pt-2 flex justify-between">
+              <span class="text-slate-500">Lot Size:</span>
+              <span class="text-emerald-400 font-black">1.67 lots</span>
+            </div>
+          </div>
+          <p class="text-slate-500 text-xs">$500 ÷ (30 × $10) = 1.67</p>
+        </div>
+
+        <!-- Example 2: Gold -->
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Example 2</div>
+          <h3 class="text-base font-black uppercase tracking-tighter text-white mb-4">Gold (XAU/USD) — $50k Account</h3>
+          <div class="space-y-2 text-sm font-mono mb-4">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Account:</span>
+              <span class="text-slate-200">$50,000</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Risk:</span>
+              <span class="text-slate-200">0.5% = $250</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Stop Loss:</span>
+              <span class="text-slate-200">200 points</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Pip Value:</span>
+              <span class="text-slate-200">$20/std lot</span>
+            </div>
+            <div class="border-t border-slate-700 pt-2 flex justify-between">
+              <span class="text-slate-500">Lot Size:</span>
+              <span class="text-emerald-400 font-black">0.0625 lots</span>
+            </div>
+          </div>
+          <p class="text-slate-500 text-xs">$250 ÷ (200 × $20) = 0.0625</p>
+        </div>
+
+        <!-- Example 3: NAS100 -->
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Example 3</div>
+          <h3 class="text-base font-black uppercase tracking-tighter text-white mb-4">NAS100 — $25k Account</h3>
+          <div class="space-y-2 text-sm font-mono mb-4">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Account:</span>
+              <span class="text-slate-200">$25,000</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Risk:</span>
+              <span class="text-slate-200">0.5% = $125</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Stop Loss:</span>
+              <span class="text-slate-200">100 points</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Pip Value:</span>
+              <span class="text-slate-200">~$1/std lot</span>
+            </div>
+            <div class="border-t border-slate-700 pt-2 flex justify-between">
+              <span class="text-slate-500">Lot Size:</span>
+              <span class="text-emerald-400 font-black">1.25 lots</span>
+            </div>
+          </div>
+          <p class="text-slate-500 text-xs">$125 ÷ (100 × $1) = 1.25</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disclaimer + FAQ -->
+  <section class="bg-black border-t border-slate-800 py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- Disclaimer -->
+      <div class="bg-slate-900/50 border border-yellow-500/20 rounded-2xl p-6 mb-10">
+        <p class="text-[10px] font-black uppercase tracking-widest text-yellow-400 mb-2">Important Disclaimer</p>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          TRADE90 is not affiliated with FTMO or any other prop firm. This calculator is a general-purpose position sizing tool that works for all funded account programs including The Funded Trader, E8 Funding, Apex Trader Funding, MyForexFunds alternatives, and others. Always verify the specific rules of your challenge at the prop firm's official website before trading.
+        </p>
+      </div>
+
+      <!-- FAQ -->
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">FAQ</p>
+      <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-8">Frequently Asked Questions</h2>
+
+      <div class="space-y-4">
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-base font-black uppercase tracking-tighter text-white mb-3">What FTMO account sizes does this work for?</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">All of them. Enter any account size — $10,000, $25,000, $50,000, $100,000, or $200,000 — and the calculator will compute the correct lot size for your chosen risk percentage and stop loss distance. There are no presets or restrictions on account size input.</p>
+        </div>
+
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-base font-black uppercase tracking-tighter text-white mb-3">Should I use starting balance or current equity?</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Always use your current account equity. If you started with $100,000 and have grown to $104,500, enter $104,500 — your risk dollar amount scales up proportionally. If you're down to $96,000, enter $96,000 — your risk dollar amount scales down, naturally protecting your remaining drawdown buffer.</p>
+        </div>
+
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-base font-black uppercase tracking-tighter text-white mb-3">What if I trade multiple instruments on FTMO?</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Track your daily risk exposure across all open and pending positions. Using 0.5% on EUR/USD and 0.5% on Gold simultaneously means you've consumed your full 1% daily risk budget. The Trade90 guideline is clear: combined open risk should never exceed 1% of account equity at any point during the trading day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Internal Links & CTA -->
+  <section class="bg-slate-950 border-t border-slate-800 py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid sm:grid-cols-2 gap-6 mb-10">
+        <a href="/funded-trader-risk-calculator" class="group bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 rounded-2xl p-6 transition-colors">
+          <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-2">Related Tool</p>
+          <h3 class="text-base font-black uppercase tracking-tighter text-white group-hover:text-emerald-400 transition-colors mb-2">Funded Trader Risk Calculator</h3>
+          <p class="text-slate-400 text-sm">The Trade90 Safety System explained — 0.5% rule, 1% daily budget, and survival table across all prop firms.</p>
+        </a>
+
+        <a href="/prop-firm-risk-management" class="group bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 rounded-2xl p-6 transition-colors">
+          <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-2">Learn More</p>
+          <h3 class="text-base font-black uppercase tracking-tighter text-white group-hover:text-emerald-400 transition-colors mb-2">Prop Firm Risk Management Guide</h3>
+          <p class="text-slate-400 text-sm">Complete risk management guide for funded traders — daily limits, drawdown math, survival mode, and common mistakes.</p>
+        </a>
+      </div>
+
+      <div class="text-center">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors"
+        >
+          Open the Full Position Size Calculator →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
