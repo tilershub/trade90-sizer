@@ -7,53 +7,50 @@ import { getSlug } from '../lib/instruments';
 
 const posts = await getPosts({ limit: 3 });
 
-const seoTitle = "Free Forex Position Size Calculator — Lot Size & Risk Tool";
-const seoDescription = "Calculate the exact lot size for any forex trade in seconds. Free position size calculator for EUR/USD, Gold, NAS100, BTC and 45+ instruments. Used by FTMO-funded and prop firm traders worldwide.";
+const seoTitle = "Position Size Calculator for Funded Traders — Trade90 Safety System";
+const seoDescription = "The risk discipline calculator built for US funded traders. Enforces the 0.5% per-trade limit and 1% daily risk target. Works for FTMO, E8, The Funded Trader, and all prop firm challenges. Free.";
 const keywords = [
-  "forex position size calculator",
-  "lot size calculator forex",
-  "position sizing calculator",
-  "forex risk calculator",
-  "lot size calculator",
-  "how to calculate position size forex",
+  "position size calculator funded traders",
+  "funded trader risk calculator",
+  "prop firm position sizing calculator",
   "ftmo position size calculator",
-  "prop firm lot size calculator",
-  "gold position size calculator",
-  "crypto lot size calculator",
+  "funded account lot size calculator",
+  "forex position size calculator",
+  "lot size calculator prop firm",
+  "funded trader risk management",
+  "0.5 percent rule prop firm",
+  "prop firm challenge calculator",
 ];
 
 const site = Astro.site?.toString() || "https://tradeninety.com";
 
 const featuredCalcs = [
-  { symbol: 'EURUSD',  name: 'EUR/USD',          label: 'Most Liquid Pair' },
-  { symbol: 'XAUUSD',  name: 'Gold (XAU/USD)',   label: 'Metals' },
-  { symbol: 'GBPUSD',  name: 'GBP/USD',          label: 'Cable' },
+  { symbol: 'XAUUSD',  name: 'Gold (XAU/USD)',   label: '#1 Funded Instrument' },
   { symbol: 'NAS100',  name: 'NAS100',            label: 'US Tech Index' },
+  { symbol: 'EURUSD',  name: 'EUR/USD',           label: 'Most Liquid Pair' },
+  { symbol: 'US30',    name: 'Dow Jones (US30)',  label: 'US Indices' },
+  { symbol: 'GBPUSD',  name: 'GBP/USD',          label: 'High Volatility' },
+  { symbol: 'SPX500',  name: 'S&P 500',           label: 'Broad Market' },
   { symbol: 'BTCUSD',  name: 'Bitcoin',           label: 'Crypto' },
   { symbol: 'USDJPY',  name: 'USD/JPY',           label: 'Yen Pair' },
-  { symbol: 'US30',    name: 'Dow Jones (US30)',  label: 'US Indices' },
-  { symbol: 'GBPJPY',  name: 'GBP/JPY',          label: 'High Volatility' },
-  { symbol: 'SPX500',  name: 'S&P 500',           label: 'Broad Market' },
-  { symbol: 'ETHUSD',  name: 'Ethereum',          label: 'Crypto' },
-  { symbol: 'XAGUSD',  name: 'Silver (XAG/USD)', label: 'Metals' },
-  { symbol: 'USOIL',   name: 'WTI Crude Oil',    label: 'Commodities' },
 ];
 
 const toolSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "TRADE90 Forex Position Size Calculator",
+  name: "TRADE90 Position Size Calculator for Funded Traders",
   description: seoDescription,
   url: site,
   applicationCategory: "FinanceApplication",
   operatingSystem: "Web",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   featureList: [
+    "Funded Account mode with Trade90 Safety System (0.5% per trade, 1% daily)",
+    "Real Account mode with flexible risk guidance",
+    "Risk state display: Safe, Caution, Aggressive, Dangerous",
+    "Daily risk budget tracker with safe trades remaining",
     "45+ instruments: Forex, Gold, Indices, Crypto, Commodities",
-    "Automatic pip value calculation for every asset class",
-    "Lot size, risk amount, and R:R ratio output",
-    "FTMO and prop firm challenge compatible",
-    "Multi-currency account support (USD, GBP, EUR)",
+    "Live warning when trade exceeds Trade90 Safety System limits",
   ],
   creator: { "@type": "Organization", name: "TRADE90", url: site },
 };
@@ -64,50 +61,50 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What is a forex position size calculator?",
+      name: "What is the Trade90 Safety System for funded traders?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "A forex position size calculator determines how many lots to trade based on your account balance, risk percentage, and stop loss distance. It prevents over-leveraging by computing the exact lot size so a losing trade costs exactly your planned risk amount — for example, 1% of a $10,000 account.",
+        text: "The Trade90 Safety System is TRADE90's internal risk framework for funded account traders. It sets two hard limits: 0.5% maximum risk per single trade, and a 1% daily risk target. These are not official prop firm rules — they are conservative guidelines designed to protect your challenge from drawdown breaches through losing streaks. The calculator shows a real-time risk state (Safe, Caution, Aggressive, Dangerous) and alerts you before you exceed the limits.",
       },
     },
     {
       "@type": "Question",
-      name: "How do I calculate lot size in forex?",
+      name: "How do I calculate position size for a funded account challenge?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Lot Size = (Account Balance × Risk%) ÷ (Stop Loss in Pips × Pip Value per Lot). Example: $10,000 account, 1% risk ($100), 30-pip stop on EUR/USD (pip value $10/lot) = $100 ÷ (30 × $10) = 0.33 lots. The TRADE90 calculator handles all pip value conversions automatically.",
+        text: "Position Size = (Account Balance × Risk%) ÷ (Stop Loss Distance × Pip Value per Lot). For a $100,000 FTMO challenge at 0.5% risk with a 25-pip stop on EUR/USD: $500 ÷ (25 × $10) = 2.00 lots. The TRADE90 calculator handles all pip value conversions automatically for 45+ instruments and warns you when your risk exceeds safe funded account thresholds.",
       },
     },
     {
       "@type": "Question",
-      name: "What percentage should I risk per trade?",
+      name: "What percentage should I risk per trade on a funded account?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Most professional forex traders and FTMO-funded accounts risk 0.5%–1% per trade. Risking 2% is the absolute maximum most prop firms allow. At 1% risk, five consecutive losses only reduce your account by 4.9%, keeping you within challenge limits and psychologically stable.",
+        text: "The Trade90 Safety System recommends a maximum of 0.5% per trade on funded accounts. At 0.5% risk, five consecutive losses only cost 2.5% — well within most prop firm daily drawdown limits of 4-5%. Risking 1% or more per trade on a funded challenge significantly increases the probability of a drawdown breach during a normal losing streak.",
       },
     },
     {
       "@type": "Question",
-      name: "What is a standard lot in forex?",
+      name: "Which prop firms does this calculator work for?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "A standard lot is 100,000 units of the base currency. On EUR/USD, 1 standard lot controls €100,000. A mini lot is 0.10 lots (10,000 units) and a micro lot is 0.01 lots (1,000 units). Position size calculators output in standard lots — 0.33 lots means 33,000 units.",
+        text: "The TRADE90 calculator works for all major prop firms that accept US traders, including FTMO, E8 Funding, The Funded Trader, MyFundedFX, Apex Trader Funding, and Topstep. The risk limits are designed to be compatible with the standard 4-5% daily drawdown and 8-10% maximum drawdown rules used across the industry.",
       },
     },
     {
       "@type": "Question",
-      name: "How does FTMO position sizing work?",
+      name: "What is the 1% daily risk rule for funded traders?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "FTMO challenges set daily loss limits (4–5%) and max drawdown limits (8–10%). Sizing at 0.5%–1% per trade ensures even five consecutive losses stay within limits. Use your current challenge balance when calculating, as drawdown limits apply to real-time equity, not the starting balance.",
+        text: "The Trade90 Safety System sets a 1% daily risk target — meaning the total risk across all trades in a single trading day should not exceed 1% of your account balance. This is half of the typical 4-5% daily drawdown limit, giving you a recovery buffer. At 0.5% per trade, this allows a maximum of 2 trades per day, which aligns with the discipline framework used by consistently funded traders.",
       },
     },
     {
       "@type": "Question",
-      name: "Does position sizing differ for gold and index CFDs?",
+      name: "Does position sizing differ for gold and indices on prop firm challenges?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Gold (XAU/USD) has a pip value of $1 per standard lot per pip, where 1 pip = $0.01. A $10 move on gold equals 1,000 pips and $1,000 per standard lot. For NAS100 and US30, the value is per point and depends on broker contract size. The TRADE90 calculator pre-configures all values for every instrument.",
+        text: "Yes. Gold (XAU/USD) has a $1 pip value per 0.01 lot (or $10 per 0.1 lot). Indices like NAS100, US30, and SPX500 use a $1 per point per 0.1 lot structure. Because gold and indices have wider natural ranges than forex pairs, the correct lot size is typically much smaller. The TRADE90 calculator pre-configures all pip and point values so you always get the right lot size without manual conversion.",
       },
     },
   ],
@@ -118,40 +115,55 @@ const faqSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(toolSchema)} slot="head-extra" />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
 
-  <!-- ── Hero + Calculator ───────────────────────────────────────── -->
-  <section class="py-12 px-4 border-b border-slate-900/50 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
-    <div class="max-w-2xl mx-auto">
-      <p class="text-center text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-3">
-        Free Tool — No Sign-up Required
-      </p>
-      <h1 class="text-center text-3xl md:text-5xl font-black uppercase tracking-tighter text-white mb-3">
-        Forex Position <span class="text-emerald-400">Size Calculator</span>
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="relative py-14 px-4 border-b border-slate-900/50 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/15 via-slate-950 to-slate-950">
+    <div class="max-w-2xl mx-auto text-center">
+
+      <!-- Mode badge -->
+      <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/25 rounded-full px-4 py-1.5 mb-6">
+        <svg class="text-emerald-400 w-3.5 h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="text-emerald-400 text-[10px] font-black uppercase tracking-[0.25em]">Trade90 Safety System — Built for US Funded Traders</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4 leading-[0.9]">
+        The Risk Discipline<br/><span class="text-emerald-400">Calculator</span> for<br/>Funded Traders
       </h1>
-      <p class="text-center text-slate-400 text-sm leading-relaxed mb-8 max-w-xl mx-auto">
-        Enter your account balance, risk %, and stop loss to get the exact lot size for any trade — Forex, Gold, Indices, or Crypto.
+
+      <p class="text-slate-400 text-base leading-relaxed mb-8 max-w-lg mx-auto">
+        Calculate the exact lot size for every trade. Enforces the <strong class="text-white">0.5% per-trade limit</strong> and <strong class="text-white">1% daily risk target</strong> so your challenge drawdown stays clean.
       </p>
 
+      <!-- Proof bar -->
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-10 text-[10px] font-black uppercase tracking-widest text-slate-500">
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>FTMO Compatible</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>E8 Compatible</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>45+ Instruments</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Free Forever</span>
+      </div>
+
+      <!-- Calculator -->
       <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-500/20">
         <noscript>
           <div class="p-6 text-center">
             <p class="text-slate-300 text-sm font-bold mb-3">Enable JavaScript to use the interactive calculator.</p>
             <p class="text-slate-400 text-sm">Formula: <strong class="text-white">Lot Size = (Balance × Risk%) ÷ (SL Pips × Pip Value)</strong></p>
-            <p class="text-slate-400 text-xs mt-2">Example: $10,000 × 1% ÷ (30 pips × $10) = <strong class="text-emerald-400">0.33 lots</strong> on EUR/USD</p>
+            <p class="text-slate-400 text-xs mt-2">Example: $100,000 × 0.5% ÷ (25 pips × $10) = <strong class="text-emerald-400">2.00 lots</strong> on EUR/USD</p>
           </div>
         </noscript>
         <PositionSizer client:idle />
       </div>
 
-      <div class="mt-8 text-center">
-        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-3">Dedicated calculators</p>
+      <!-- Quick instrument links -->
+      <div class="mt-8">
+        <p class="text-[10px] uppercase tracking-widest text-slate-600 font-bold mb-3">Dedicated Calculators</p>
         <div class="flex flex-wrap justify-center gap-2">
           {[
-            ['EUR/USD', '/calculator/eurusd/'],
             ['Gold',    '/calculator/xauusd/'],
-            ['GBP/USD', '/calculator/gbpusd/'],
             ['NAS100',  '/calculator/nas100/'],
+            ['EUR/USD', '/calculator/eurusd/'],
+            ['US30',    '/calculator/us30/'],
             ['BTC/USD', '/calculator/btcusd/'],
-            ['USD/JPY', '/calculator/usdjpy/'],
+            ['GBP/USD', '/calculator/gbpusd/'],
           ].map(([label, href]) => (
             <a href={href} class="text-[10px] font-black uppercase tracking-widest text-emerald-500 border border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/10 px-3 py-1.5 rounded-full transition-all">
               {label}
@@ -165,141 +177,156 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- ── How to Calculate Position Size ─────────────────────────── -->
-  <section class="max-w-5xl mx-auto py-20 px-6" id="how-to-calculate">
+  <!-- ── Trade90 Safety System Explainer ──────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto py-20 px-6" id="safety-system">
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-3">
-        How to Calculate <span class="text-emerald-400">Position Size</span> in Forex
+      <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-3">Internal Risk Framework</p>
+      <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-4">
+        The Trade90 <span class="text-emerald-400">Safety System</span>
       </h2>
       <p class="text-slate-400 max-w-2xl mx-auto text-sm leading-relaxed">
-        Position sizing determines how many lots to trade so that a losing trade costs exactly your planned risk — no more. Every professional trader uses a position size calculator before every entry.
+        Most funded traders fail not from bad entries — from bad sizing. The Trade90 Safety System is a two-rule risk framework that keeps your challenge drawdown clean through every losing streak.
+      </p>
+      <p class="text-slate-600 text-[10px] uppercase tracking-widest font-bold mt-3">
+        Not an official prop firm rule — Trade90's internal discipline standard
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6 mb-12">
-      {[
-        {
-          n: '01',
-          title: 'Set Your Account Risk',
-          body: 'Decide what percentage of your account you will risk per trade. Professional traders use 0.5%–1%. On a $10,000 account at 1% risk, your maximum loss per trade is $100.',
-        },
-        {
-          n: '02',
-          title: 'Measure Your Stop Loss',
-          body: 'Place your stop loss at a level that truly invalidates your setup — outside normal market noise. Measure the distance between entry and stop in pips or points.',
-        },
-        {
-          n: '03',
-          title: 'Divide by Pip Value',
-          body: 'Divide your dollar risk by the stop loss distance multiplied by the pip value for your instrument. The result is your lot size in standard lots.',
-        },
-      ].map(({ n, title, body }) => (
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-          <div class="text-4xl font-black text-emerald-500/30 mb-4">{n}</div>
-          <h3 class="text-white font-black uppercase text-sm tracking-tighter mb-3">{title}</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">{body}</p>
+    <div class="grid md:grid-cols-2 gap-6 mb-14">
+
+      <!-- Rule 1 -->
+      <div class="relative bg-slate-900/60 border border-emerald-500/25 rounded-2xl p-8 overflow-hidden">
+        <div class="absolute top-0 right-0 text-[120px] font-black text-emerald-500/5 leading-none -mt-4 -mr-2 select-none">1</div>
+        <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1 mb-4">
+          <span class="text-emerald-400 text-[9px] font-black uppercase tracking-widest">Rule 1</span>
         </div>
-      ))}
+        <h3 class="text-white font-black uppercase text-xl tracking-tighter mb-3">0.5% Max Per Trade</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-5">
+          On a $100,000 challenge, that is $500 maximum risk per trade. Five consecutive losses cost only 2.5% — comfortably inside every prop firm's 4–5% daily drawdown limit.
+        </p>
+        <div class="bg-slate-950/60 rounded-xl p-4 font-mono text-xs space-y-1">
+          <p class="text-slate-500">5 losses at 2.0% → <span class="text-rose-400 font-bold">−10% (FAIL)</span></p>
+          <p class="text-slate-500">5 losses at 1.0% → <span class="text-amber-400 font-bold">−5% (borderline)</span></p>
+          <p class="text-slate-500">5 losses at 0.5% → <span class="text-emerald-400 font-bold">−2.5% (SAFE)</span></p>
+        </div>
+      </div>
+
+      <!-- Rule 2 -->
+      <div class="relative bg-slate-900/60 border border-slate-800 rounded-2xl p-8 overflow-hidden">
+        <div class="absolute top-0 right-0 text-[120px] font-black text-slate-700/20 leading-none -mt-4 -mr-2 select-none">2</div>
+        <div class="inline-flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-full px-3 py-1 mb-4">
+          <span class="text-slate-400 text-[9px] font-black uppercase tracking-widest">Rule 2</span>
+        </div>
+        <h3 class="text-white font-black uppercase text-xl tracking-tighter mb-3">1% Daily Risk Target</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-5">
+          Total risk across all trades in a single day should not exceed 1% of your account. This is half the typical 4–5% daily limit — giving you a safety buffer even on your worst session.
+        </p>
+        <div class="bg-slate-950/60 rounded-xl p-4 font-mono text-xs space-y-1">
+          <p class="text-slate-500">2 trades at 0.5% = <span class="text-emerald-400 font-bold">1.0% daily (target hit)</span></p>
+          <p class="text-slate-500">3 trades at 0.5% = <span class="text-amber-400 font-bold">1.5% daily (over target)</span></p>
+          <p class="text-slate-500">Firm limit typically = <span class="text-rose-400 font-bold">4–5% (danger zone)</span></p>
+        </div>
+      </div>
     </div>
 
-    <!-- Formula -->
-    <div class="bg-slate-900 border border-emerald-500/20 rounded-2xl p-6 mb-12">
-      <h3 class="text-emerald-400 font-black uppercase text-xs tracking-widest mb-4">
-        Position Size Formula
+    <!-- 4 Risk States -->
+    <div class="mb-12">
+      <h3 class="text-center text-white font-black uppercase text-lg tracking-tighter mb-6">
+        Calculator Risk States — Instant Feedback on Every Trade
       </h3>
-      <div class="font-mono text-sm text-slate-200 space-y-2">
-        <p><span class="text-slate-500">Risk Amount ($)  </span> = Account Balance × (Risk % ÷ 100)</p>
-        <p><span class="text-slate-500">Pip Distance     </span> = |Entry Price − Stop Loss| ÷ Pip Size</p>
-        <p><span class="text-slate-500">Lot Size         </span> = Risk Amount ÷ (Pip Distance × Pip Value per Lot)</p>
-      </div>
-    </div>
-
-    <!-- Static example trade table — crawlable by Google without JS -->
-    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-12">
-      <div class="px-6 py-4 border-b border-slate-800">
-        <h3 class="text-white font-black uppercase text-sm tracking-tighter">
-          Worked Example — EUR/USD, $10,000 Account
-        </h3>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <tbody>
-            {[
-              ['Account Balance',     '$10,000'],
-              ['Risk Percentage',     '1%'],
-              ['Dollar Risk',         '$100'],
-              ['Entry Price',         '1.08500'],
-              ['Stop Loss Price',     '1.08200'],
-              ['Stop Loss Distance',  '30 pips'],
-              ['EUR/USD Pip Value',   '$10.00 per standard lot'],
-              ['Calculation',         '$100 ÷ (30 pips × $10.00)'],
-              ['Lot Size',            '0.33 standard lots'],
-            ].map(([label, value], i) => (
-              <tr class={i % 2 === 0 ? 'bg-slate-950/30' : ''}>
-                <td class="px-6 py-3 text-slate-400 font-medium">{label}</td>
-                <td class={`px-6 py-3 font-mono font-bold ${label === 'Lot Size' ? 'text-emerald-400 text-base' : 'text-slate-200'}`}>
-                  {value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Why it matters + pip value reference -->
-    <div class="grid md:grid-cols-2 gap-10 items-start">
-      <div>
-        <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-4 border-l-4 border-emerald-500 pl-4">
-          Why Position Sizing Matters
-        </h2>
-        <div class="space-y-3 text-slate-400 text-sm leading-relaxed">
-          <p>
-            Most retail traders lose accounts not from bad entries but from incorrect position sizing. One oversized trade can erase weeks of consistent gains in a single session.
-          </p>
-          <p>
-            Professional forex traders — especially those funded through FTMO, MyForexFunds, The5ers, and similar prop firms — treat position sizing as the non-negotiable foundation of every trade. The lot size is what determines your actual dollar risk, regardless of what percentage you intend to risk.
-          </p>
-          <p>
-            For prop firm challenges with 4–5% daily loss limits and 8–10% max drawdown rules, a single over-sized losing trade can end your evaluation on day one. Risk 0.5%–1% per trade and protect the account at all costs.
-          </p>
-        </div>
-      </div>
-      <div>
-        <h3 class="text-white font-black uppercase text-sm tracking-tighter mb-4">
-          Pip Values by Instrument
-        </h3>
-        <div class="space-y-0 divide-y divide-slate-800/50">
-          {[
-            { inst: 'EUR/USD, GBP/USD, AUD/USD', pip: '$10.00 / lot / pip' },
-            { inst: 'USD/JPY',                    pip: '~$6.70 / lot / pip' },
-            { inst: 'USD/CHF',                    pip: '~$10.50 / lot / pip' },
-            { inst: 'Gold (XAU/USD)',             pip: '$1.00 / lot / pip' },
-            { inst: 'Silver (XAG/USD)',           pip: '$0.50 / lot / pip' },
-            { inst: 'NAS100 / US30 / SPX500',    pip: '$1.00 / lot / point' },
-            { inst: 'BTC/USD, ETH/USD',           pip: '$1.00 / lot / point' },
-          ].map(({ inst, pip }) => (
-            <div class="flex justify-between items-center py-3 text-xs">
-              <span class="text-slate-300 font-bold">{inst}</span>
-              <span class="text-emerald-400 font-mono font-bold">{pip}</span>
-            </div>
-          ))}
-        </div>
-        <a href="/calculator/" class="mt-4 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">
-          Full instrument list →
-        </a>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {[
+          { state: 'SAFE',       range: '≤ 0.5% funded / ≤ 1% real', color: 'border-emerald-500/40 bg-emerald-500/5',  label: 'text-emerald-400', desc: 'Within Trade90 limits. Proceed.' },
+          { state: 'CAUTION',    range: '0.5–0.75% funded',           color: 'border-amber-500/40 bg-amber-500/5',     label: 'text-amber-400',   desc: 'Slightly above the 0.5% target.' },
+          { state: 'AGGRESSIVE', range: '0.75–1% funded',             color: 'border-orange-500/40 bg-orange-500/5',  label: 'text-orange-400',  desc: 'High risk. Drawdown builds fast.' },
+          { state: 'DANGEROUS',  range: '> 1% funded',                color: 'border-rose-500/40 bg-rose-500/5',      label: 'text-rose-400',    desc: 'Challenge at risk. Reduce size.' },
+        ].map(({ state, range, color, label, desc }) => (
+          <div class={`border ${color} rounded-xl p-4`}>
+            <p class={`${label} font-black text-[10px] uppercase tracking-widest mb-1`}>{state}</p>
+            <p class="text-slate-500 text-[9px] font-bold uppercase tracking-wider mb-2">{range}</p>
+            <p class="text-slate-400 text-xs leading-snug">{desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ── All Calculators Grid ────────────────────────────────────── -->
-  <section class="max-w-5xl mx-auto pb-12 px-6">
+  <!-- ── Position Sizing Formula (SEO crawlable) ───────────────────────────── -->
+  <section class="max-w-5xl mx-auto pb-10 px-6" id="how-to-calculate">
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+
+      <div>
+        <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-4 border-l-4 border-emerald-500 pl-4">
+          How Position Sizing Works for Funded Accounts
+        </h2>
+        <div class="space-y-3 text-slate-400 text-sm leading-relaxed">
+          <p>
+            Every funded challenge has a maximum daily drawdown (typically 4–5%) and a maximum total drawdown (typically 8–10%). The lot size you trade determines whether a losing trade costs $100 or $5,000 — regardless of what percentage you think you're risking.
+          </p>
+          <p>
+            The formula is simple. The discipline to use it on every trade is not. The TRADE90 calculator removes the discipline barrier — it does the math instantly so you never enter a trade without knowing the exact dollar cost of being wrong.
+          </p>
+          <p>
+            US-based funded traders specifically benefit from the calculator's <strong class="text-white">Funded Account mode</strong>, which enforces the Trade90 Safety System limits automatically and shows your remaining daily budget in real time.
+          </p>
+        </div>
+        <a href="/funded-trader-risk-calculator/" class="mt-6 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">
+          Funded Trader Risk Calculator →
+        </a>
+      </div>
+
+      <div>
+        <!-- Formula box -->
+        <div class="bg-slate-900 border border-emerald-500/20 rounded-2xl p-6 mb-6">
+          <h3 class="text-emerald-400 font-black uppercase text-[10px] tracking-widest mb-4">Position Size Formula</h3>
+          <div class="font-mono text-sm text-slate-200 space-y-2">
+            <p><span class="text-slate-500">Risk $ = </span>Account Balance × (Risk% ÷ 100)</p>
+            <p><span class="text-slate-500">Pips   = </span>|Entry − Stop Loss| ÷ Pip Size</p>
+            <p><span class="text-slate-500">Lots   = </span>Risk $ ÷ (Pips × Pip Value/Lot)</p>
+          </div>
+        </div>
+
+        <!-- Worked example -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-800 bg-slate-900/80">
+            <h3 class="text-white font-black uppercase text-xs tracking-tighter">Example — EUR/USD, $100k Challenge</h3>
+          </div>
+          <table class="w-full text-xs">
+            <tbody>
+              {[
+                ['Account Balance',    '$100,000'],
+                ['Risk (Trade90 max)', '0.5% = $500'],
+                ['Entry Price',        '1.08500'],
+                ['Stop Loss',          '1.08250 (25 pips)'],
+                ['EUR/USD Pip Value',  '$10.00 per lot'],
+                ['Calculation',        '$500 ÷ (25 × $10)'],
+                ['Lot Size',           '2.00 lots'],
+              ].map(([label, value], i) => (
+                <tr class={i % 2 === 0 ? 'bg-slate-950/30' : ''}>
+                  <td class="px-5 py-2.5 text-slate-400 font-medium">{label}</td>
+                  <td class={`px-5 py-2.5 font-mono font-bold ${label === 'Lot Size' ? 'text-emerald-400' : 'text-slate-200'}`}>{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Instruments US Funded Traders Use ────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto py-14 px-6 border-t border-slate-900/50">
     <div class="flex items-center justify-between mb-8">
-      <h2 class="text-2xl font-black uppercase tracking-tighter text-white border-l-4 border-emerald-500 pl-4">
-        45+ Instrument Calculators
-      </h2>
+      <div>
+        <h2 class="text-2xl font-black uppercase tracking-tighter text-white border-l-4 border-emerald-500 pl-4">
+          Instruments US Funded Traders Use
+        </h2>
+        <p class="text-slate-500 text-[10px] uppercase tracking-widest font-bold pl-5 mt-1">
+          Dedicated calculators with pre-configured pip values
+        </p>
+      </div>
       <a href="/calculator/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">
-        View All →
+        All 45+ →
       </a>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -318,18 +345,19 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- ── Trust bar ───────────────────────────────────────────────── -->
+  <!-- ── Trust + Social Proof bar ─────────────────────────────────────────── -->
   <section class="border-y border-slate-800/50 bg-slate-950/50">
     <div class="max-w-5xl mx-auto py-12 px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
         {[
-          { value: '45+',  label: 'Instruments Supported', sub: 'Forex, Gold, Indices, Crypto' },
-          { value: '100',  label: 'PageSpeed Score',        sub: 'Fastest calculator available' },
-          { value: 'Free', label: 'No Cost, Ever',          sub: 'No account or sign-up needed' },
+          { value: '0.5%',  label: 'Max Risk Per Trade',   sub: 'Trade90 Safety System' },
+          { value: '1%',    label: 'Daily Risk Target',    sub: 'Funded account discipline' },
+          { value: '45+',   label: 'Instruments',          sub: 'Forex, Gold, Indices, Crypto' },
+          { value: 'Free',  label: 'No Cost, Ever',        sub: 'No login required' },
         ].map(({ value, label, sub }) => (
           <div>
-            <div class="text-4xl font-black text-emerald-400 mb-1">{value}</div>
-            <div class="text-white font-black uppercase text-xs tracking-widest">{label}</div>
+            <div class="text-3xl md:text-4xl font-black text-emerald-400 mb-1">{value}</div>
+            <div class="text-white font-black uppercase text-[10px] tracking-widest">{label}</div>
             <div class="text-slate-500 text-[10px] mt-1">{sub}</div>
           </div>
         ))}
@@ -337,42 +365,95 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- ── FAQ ─────────────────────────────────────────────────────── -->
-  <section class="max-w-3xl mx-auto py-20 px-6">
+  <!-- ── SEO Resource Links ────────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto py-14 px-6">
+    <h2 class="text-2xl font-black uppercase tracking-tighter text-white border-l-4 border-emerald-500 pl-4 mb-8">
+      Funded Trader Resources
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {[
+        {
+          href: '/funded-trader-risk-calculator/',
+          tag: 'Calculator',
+          title: 'Funded Trader Risk Calculator',
+          desc: 'Trade90 Safety System enforced. 0.5% per trade, 1% daily target, real-time risk states.',
+        },
+        {
+          href: '/ftmo-position-size-calculator/',
+          tag: 'Calculator',
+          title: 'FTMO Position Size Calculator',
+          desc: 'Lot sizing for FTMO Phase 1 and Phase 2. Calibrated to FTMO drawdown limits.',
+        },
+        {
+          href: '/prop-firm-risk-management/',
+          tag: 'Guide',
+          title: 'Prop Firm Risk Management',
+          desc: 'The complete risk management framework for US traders on funded challenges.',
+        },
+        {
+          href: '/how-to-calculate-position-size/',
+          tag: 'Guide',
+          title: 'How to Calculate Position Size',
+          desc: 'Step-by-step formula guide for forex, gold, indices, and crypto position sizing.',
+        },
+        {
+          href: '/blog/best-prop-firms-us-traders-2026/',
+          tag: 'Analysis',
+          title: 'Best Prop Firms for US Traders 2026',
+          desc: 'Which prop firms accept American traders and how to pass with the 1% rule.',
+        },
+        {
+          href: '/blog/how-to-pass-funded-account-challenge/',
+          tag: 'Analysis',
+          title: 'How to Pass a Funded Challenge',
+          desc: 'The volatility-adjusted risk blueprint: 0.5% rule, ADR calibration, and checklists.',
+        },
+      ].map(({ href, tag, title, desc }) => (
+        <a href={href} class="group block bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">{tag}</p>
+          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">{title}</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">{desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto py-16 px-6">
     <div class="text-center mb-10">
       <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-2">
-        Position Sizing <span class="text-emerald-400">FAQ</span>
+        Funded Trader <span class="text-emerald-400">FAQ</span>
       </h2>
       <p class="text-slate-500 text-xs uppercase tracking-widest font-bold">
-        Lot Size, Risk Management & Forex Calculator Questions
+        Trade90 Safety System · Position Sizing · Prop Firm Risk Management
       </p>
     </div>
 
     <div class="space-y-3">
       {[
         {
-          q: "What is a forex position size calculator?",
-          a: "A forex position size calculator determines how many lots to trade based on your account balance, risk percentage, and stop loss distance. It ensures your worst-case loss equals your planned risk — for example, 1% of a $10,000 account is $100 risk, no matter how far away the stop is.",
+          q: "What is the Trade90 Safety System?",
+          a: "The Trade90 Safety System is TRADE90's internal risk framework for funded account traders. It sets two limits: 0.5% maximum risk per trade and a 1% daily risk target. These are not official prop firm rules — they are conservative guidelines that keep you well inside challenge drawdown limits through losing streaks. The calculator shows your real-time risk state (Safe / Caution / Aggressive / Dangerous) and warns you before you breach the limits.",
         },
         {
-          q: "How do I calculate lot size in forex?",
-          a: "Lot Size = (Account Balance × Risk%) ÷ (Stop Loss in Pips × Pip Value per Lot). Example: $10,000 × 1% = $100 ÷ (30 pips × $10) = 0.33 lots on EUR/USD. The TRADE90 calculator handles all pip value conversions automatically for all 45+ instruments.",
+          q: "How do I calculate lot size for a funded account challenge?",
+          a: "Lot Size = (Account Balance × Risk%) ÷ (Stop Loss Pips × Pip Value per Lot). For a $100,000 FTMO account at 0.5% risk with a 25-pip stop on EUR/USD: $500 ÷ (25 × $10) = 2.00 lots. Select Funded Account mode in the TRADE90 calculator and it applies the Trade90 Safety System limits automatically.",
         },
         {
-          q: "What percentage should I risk per forex trade?",
-          a: "Professional traders and FTMO-funded accounts use 0.5%–1% per trade. At 1% risk, five consecutive losses reduce the account by only 4.9% — well within most prop firm drawdown limits. Risking more than 2% per trade is considered reckless by institutional standards.",
+          q: "What percentage should I risk per trade on a funded challenge?",
+          a: "The Trade90 Safety System recommends a maximum of 0.5% per trade. At 0.5%, five consecutive losses only cost 2.5% — well inside most prop firms' 4–5% daily drawdown limits. Traders who risk 1–2% per trade are frequently stopped out by normal losing streaks before their edge has time to work.",
         },
         {
-          q: "What is a standard lot in forex?",
-          a: "A standard lot is 100,000 units of the base currency. On EUR/USD, 1 standard lot = €100,000. A mini lot is 0.10 lots and a micro lot is 0.01 lots. Position size calculators output in standard lots — 0.33 lots means 33,000 units of the base currency.",
+          q: "Which prop firms does this calculator work for?",
+          a: "The TRADE90 calculator works for all major prop firms accepting US traders: FTMO, E8 Funding, The Funded Trader, MyFundedFX, Apex Trader Funding, Topstep, and others. The risk limits are designed to stay inside the standard 4–5% daily and 8–10% max drawdown structure used across the industry.",
         },
         {
-          q: "How do FTMO and prop firms calculate position size?",
-          a: "FTMO challenges use a 4–5% daily loss limit and 8–10% max drawdown. Sizing at 0.5%–1% per trade keeps you inside those limits even through losing streaks. Always use your current account equity (not starting balance) when calculating, since drawdown limits are applied to real-time equity.",
+          q: "What is the 1% daily risk rule for funded traders?",
+          a: "The Trade90 Safety System caps total daily risk at 1% of account balance. At 0.5% per trade, this means a maximum of 2 trades per day — which aligns with the discipline framework of consistently funded traders. This 1% target is not an official prop firm rule. It is half the typical daily limit, creating a recovery buffer.",
         },
         {
           q: "Does position sizing work differently for gold and indices?",
-          a: "Yes. Gold (XAU/USD) uses $1 pip value per standard lot (1 pip = $0.01). A $10 move = 1,000 pips = $1,000 per lot. Indices like NAS100, US30, and SPX500 use points, with values varying by broker contract. The TRADE90 calculator pre-configures the correct pip/point values for all 45+ instruments automatically.",
+          a: "Yes. Gold (XAU/USD) uses a $1 pip value per 0.01 lot (or $10 per 0.1 lot). Indices like NAS100, US30, and SPX500 use $1 per point per 0.1 lot. Because gold and index moves are larger in raw terms, the correct lot size is typically much smaller than forex. The TRADE90 calculator pre-configures every instrument automatically so you always get the right number.",
         },
       ].map(({ q, a }) => (
         <details class="group bg-slate-900/40 border border-slate-800 hover:border-emerald-500/30 rounded-2xl overflow-hidden transition-colors">
@@ -388,7 +469,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- ── Latest Analysis ─────────────────────────────────────────── -->
+  <!-- ── Latest Analysis ───────────────────────────────────────────────────── -->
   <section class="max-w-5xl mx-auto pb-20 px-6">
     <div class="flex items-center justify-between mb-10">
       <header>
@@ -396,7 +477,7 @@ const faqSchema = {
           Latest Analysis
         </h2>
         <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest pl-5 mt-1">
-          Volatility & Risk Framework Reports
+          Weekly Market Reports for US Funded Traders
         </p>
       </header>
       <a href="/blog/" class="group flex items-center gap-2 text-[10px] font-black text-emerald-500 uppercase tracking-widest hover:text-white transition-all">
@@ -422,14 +503,14 @@ const faqSchema = {
     ) : (
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          { href: '/calculator/xauusd/', title: 'Gold (XAU/USD) Position Size Calculator', desc: 'Exact lot size for gold CFD trades. Uses $1/pip gold pip value formula with automatic conversion.' },
-          { href: '/calculator/nas100/', title: 'NAS100 Position Size Calculator', desc: 'Nasdaq 100 index CFD lot size with automatic point value calculation for prop firm traders.' },
-          { href: '/calculator/btcusd/', title: 'Bitcoin (BTC/USD) Lot Size Calculator', desc: 'Risk-managed Bitcoin position sizing for crypto CFD traders using institutional risk formulas.' },
+          { href: '/blog/best-prop-firms-us-traders-2026/', title: 'Best Prop Firms for US Traders 2026', desc: 'Which firms accept American traders and how to pass with the 1% rule. Full comparison with drawdown structures.' },
+          { href: '/blog/how-to-pass-funded-account-challenge/', title: 'How to Pass a Funded Challenge', desc: 'The volatility-adjusted risk blueprint for US funded traders — 0.5% rule, ADR calibration, daily limits.' },
+          { href: '/blog/xauusd-weekly-analysis-march-2026/', title: 'XAUUSD Weekly Analysis', desc: 'Day-by-day gold price breakdown with funded trader position sizing and risk scenarios for the week ahead.' },
         ].map(({ href, title, desc }) => (
           <a href={href} class="group block bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-6 transition-all">
             <h3 class="text-white font-black uppercase tracking-tighter text-base mb-2 group-hover:text-emerald-400 transition-colors">{title}</h3>
             <p class="text-slate-400 text-sm leading-relaxed">{desc}</p>
-            <span class="mt-4 inline-block text-[10px] font-black uppercase tracking-widest text-emerald-500">Open Calculator →</span>
+            <span class="mt-4 inline-block text-[10px] font-black uppercase tracking-widest text-emerald-500">Read →</span>
           </a>
         ))}
       </div>

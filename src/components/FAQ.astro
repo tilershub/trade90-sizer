@@ -3,30 +3,37 @@ const { showSchema = false } = Astro.props;
 
 const faqs = [
   {
-    question: "Which is the best Risk-to-Reward Ratio (RRR) for day trading?",
+    question: "What is the Trade90 Safety System?",
     answer:
-      "A 1:1 RRR is the preferred setup for disciplined day trading. It keeps your targets realistic, increases your probability of being filled, and only requires a win rate above 50% to remain profitable. Chasing higher ratios like 1:2 often leads to missed targets and premature stop-outs. Consistency beats optimism every time.",
-    linkText: "Mastering RRR: The Math of Trading",
-    linkHref: "/blog/what-is-risk-to-reward-ratio",
+      "The Trade90 Safety System is TRADE90's internal risk framework for funded account traders. It enforces two limits: 0.5% maximum risk per trade and 1% maximum daily risk target. These are not official prop firm rules — they are conservative guidelines designed to keep you inside challenge drawdown limits through losing streaks. The calculator alerts you in real time when a trade enters Caution, Aggressive, or Dangerous territory.",
+    linkText: "Open the Calculator",
+    linkHref: "/",
   },
   {
-    question: "Does RRR matter for passing FTMO or other funding challenges?",
+    question: "What risk percentage should funded traders use?",
     answer:
-      "Absolutely. A 1:1 RRR is actually ideal for FTMO and most prop firm challenges because it produces more frequent wins, smoother equity curves, and avoids the extended drawdown periods that kill challenge accounts. You only need to win slightly more than half your trades to pass — precision over aggression.",
-    linkText: "Funded Trading: Strategy & Risk",
-    linkHref: "/blog/funded-trading-strategies",
+      "TRADE90 recommends 0.5% risk per trade for funded account challenges. At 0.5%, ten consecutive losses reduce your account by only 4.9% — well inside most prop firm maximum drawdown limits of 8–10%. Risking 1% per trade is acceptable during strong market conditions. Exceeding 1% per trade during an evaluation introduces unnecessary drawdown risk that can end the challenge before your edge has time to compound.",
+    linkText: "See funded trader risk framework →",
+    linkHref: "/funded-trader-risk-calculator/",
+  },
+  {
+    question: "Which R:R ratio is best for funded account challenges?",
+    answer:
+      "A 1:1 to 1:1.5 R:R ratio is optimal for funded challenges because it produces more frequent wins, a smoother equity curve, and avoids the extended drawdown periods that end evaluations. Chasing 1:3 or higher ratios often leads to missed targets and losses while waiting. Consistency and capital preservation matter more than maximizing reward on any individual trade.",
+    linkText: "Risk-Reward Calculator →",
+    linkHref: "/risk-reward-calculator/",
   },
   {
     question: "How accurate is the TRADE90 Position Sizer?",
     answer:
-      "The calculator uses standardized mathematical formulas based on your account equity and stop-loss pips. It is designed for mathematical precision to remove human error from your execution.",
-    linkText: "Back to Calculator",
+      "The calculator uses standardized pip value formulas for all 45+ instruments — Forex, Gold, Indices, Crypto, and Commodities. It handles JPY pairs, XAU/USD, index point values, and crypto correctly. The math is deterministic: given your balance, risk %, and stop loss, the lot size output is the only mathematically correct answer.",
+    linkText: "Open the Calculator",
     linkHref: "/",
   },
   {
-    question: "Is the TRADE90 Framework financial advice?",
+    question: "Is TRADE90 financial advice?",
     answer:
-      "No. TRADE90 provides mathematical tools and educational market analysis for disciplined traders. We do not manage funds or provide personalized financial recommendations.",
+      "No. TRADE90 provides free mathematical tools and educational market analysis for independent traders. We do not manage funds or provide personalized financial advice. All position sizing outputs are mathematical calculations based on inputs you provide — always validate against your broker's specifications before placing trades.",
     linkText: "Read Risk Disclaimer",
     linkHref: "/disclaimer",
   },

@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PositionSizer from '../components/PositionSizer.svelte';
+
+const title = "How to Calculate Position Size in Forex — Step-by-Step Guide for Funded Traders";
+const description = "Learn how to calculate position size for forex, gold, indices, and crypto. Includes the complete formula, worked examples for funded account challenges, pip value reference, and a free calculator.";
+const keywords = [
+  "how to calculate position size",
+  "position size formula forex",
+  "how to calculate lot size forex",
+  "position sizing for funded traders",
+  "forex position size formula",
+  "how to calculate lot size prop firm",
+  "position sizing formula gold",
+  "how to size a trade forex",
+];
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home",       item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "How to Calculate Position Size", item: `${site}/how-to-calculate-position-size/` },
+  ],
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Calculate Position Size in Forex Trading",
+  description: "Step-by-step guide to calculating the correct lot size for any forex, gold, index, or crypto trade based on account balance, risk percentage, and stop loss distance.",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Define your dollar risk",
+      text: "Multiply your account balance by your risk percentage. For a $100,000 account at 0.5% risk, dollar risk = $500.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Measure your stop loss distance in pips",
+      text: "Calculate |Entry Price − Stop Loss Price| ÷ Pip Size. For EUR/USD with entry 1.08500 and stop 1.08250, that is 0.00250 ÷ 0.0001 = 25 pips.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Find the pip value for your instrument",
+      text: "EUR/USD pip value = $10 per standard lot. Gold = $10 per 0.1 lot per pip. NAS100 = $1 per point per 0.1 lot.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Calculate lot size",
+      text: "Lot Size = Dollar Risk ÷ (Stop Pips × Pip Value per Lot). Example: $500 ÷ (25 × $10) = 2.00 lots on EUR/USD.",
+    },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is the position size formula in forex?",
+      acceptedAnswer: { "@type": "Answer", text: "Lot Size = (Account Balance × Risk%) ÷ (Stop Loss in Pips × Pip Value per Lot). This formula calculates how many standard lots to trade so that a losing trade costs exactly your planned risk amount. For example: $100,000 × 0.5% = $500 ÷ (25 pips × $10) = 2.00 lots on EUR/USD." },
+    },
+    {
+      "@type": "Question",
+      name: "How do I calculate lot size for gold (XAU/USD)?",
+      acceptedAnswer: { "@type": "Answer", text: "Gold uses $10 per pip per 0.1 lot (or $1 per pip per 0.01 lot). Formula: Lot Size = Dollar Risk ÷ (Stop Pips × $10 per 0.1 lot). Example: $500 risk, 150-pip stop on gold → $500 ÷ (150 × $10) = 0.033 lots → round to 0.03 lots." },
+    },
+    {
+      "@type": "Question",
+      name: "What percentage should I risk per trade on a funded account?",
+      acceptedAnswer: { "@type": "Answer", text: "The Trade90 Safety System recommends 0.5% maximum per trade on funded accounts. Five losses at 0.5% = 2.5% drawdown — well inside the 4-5% daily limit used by most prop firms. Professional traders rarely exceed 1% per trade." },
+    },
+    {
+      "@type": "Question",
+      name: "How does position sizing differ between forex and indices?",
+      acceptedAnswer: { "@type": "Answer", text: "Forex pairs use pips (e.g. EUR/USD 1 pip = 0.0001). Indices use points (e.g. NAS100 1 point = 1.0). Pip values also differ: EUR/USD is $10/lot/pip while NAS100 is $1/lot/point. Always check the pip/point value before calculating lot size for a new instrument." },
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+
+  <article class="max-w-3xl mx-auto py-16 px-6">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-10">
+      <ol class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600">
+        <li><a href="/" class="hover:text-emerald-500 transition-colors">Home</a></li>
+        <li class="text-slate-800">/</li>
+        <li class="text-slate-500" aria-current="page">How to Calculate Position Size</li>
+      </ol>
+    </nav>
+
+    <!-- Hero -->
+    <header class="mb-14">
+      <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-3">Step-by-Step Guide</p>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-5 leading-[0.9]">
+        How to Calculate<br/><span class="text-emerald-400">Position Size</span><br/>in Forex
+      </h1>
+      <p class="text-slate-400 text-lg leading-relaxed">
+        Position sizing determines how many lots you trade so that a losing trade costs exactly your planned risk — no more. This is the single most important calculation in funded account trading.
+      </p>
+    </header>
+
+    <!-- Calculator -->
+    <div class="bg-slate-900/40 rounded-[2rem] border border-slate-800/50 p-2 shadow-2xl mb-16">
+      <PositionSizer client:idle />
+    </div>
+
+    <!-- Step 1 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-4xl font-black text-emerald-500/30 leading-none">01</span>
+        <h2 class="text-2xl font-black uppercase tracking-tighter text-white">Define Your Dollar Risk</h2>
+      </div>
+      <p class="text-slate-400 text-sm leading-relaxed mb-4">
+        Before you calculate a lot size, decide what percentage of your account you are willing to lose on this trade. This is your risk per trade.
+      </p>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 font-mono text-sm">
+        <p class="text-slate-400 mb-2">Dollar Risk = Account Balance × (Risk% ÷ 100)</p>
+        <p class="text-white">$100,000 × (0.5 ÷ 100) = <span class="text-emerald-400 font-bold">$500</span></p>
+      </div>
+      <div class="mt-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+        <p class="text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-1">Trade90 Safety System</p>
+        <p class="text-slate-300 text-sm">For funded account challenges, cap your risk at <strong>0.5% per trade</strong>. At 0.5%, five consecutive losses only cost 2.5% — within every major prop firm's daily drawdown limit.</p>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-4xl font-black text-emerald-500/30 leading-none">02</span>
+        <h2 class="text-2xl font-black uppercase tracking-tighter text-white">Measure Your Stop Loss in Pips</h2>
+      </div>
+      <p class="text-slate-400 text-sm leading-relaxed mb-4">
+        Place your stop loss at the level where your trade idea is genuinely wrong — outside normal intraday noise. Then measure the distance from entry to stop in pips.
+      </p>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 font-mono text-sm space-y-2">
+        <p class="text-slate-400">Stop Pips = |Entry − Stop Loss| ÷ Pip Size</p>
+        <p class="text-white">|1.08500 − 1.08250| ÷ 0.0001 = <span class="text-emerald-400 font-bold">25 pips</span></p>
+      </div>
+      <div class="mt-5 overflow-x-auto">
+        <table class="w-full text-xs border border-slate-800 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-900 border-b border-slate-800">
+              <th class="px-4 py-3 text-left text-emerald-500 font-black uppercase tracking-wide">Instrument</th>
+              <th class="px-4 py-3 text-left text-emerald-500 font-black uppercase tracking-wide">Pip Size</th>
+              <th class="px-4 py-3 text-left text-emerald-500 font-black uppercase tracking-wide">Example 25-pip stop</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60">
+            {[
+              ['EUR/USD, GBP/USD, AUD/USD', '0.0001', '0.0025 price distance'],
+              ['USD/JPY, EUR/JPY',           '0.01',   '0.25 price distance'],
+              ['Gold (XAU/USD)',             '0.1',    '2.5 price distance'],
+              ['NAS100 / US30',              '1.0',    '25 point distance'],
+              ['Bitcoin (BTC/USD)',          '1.0',    '25 point distance'],
+            ].map(([inst, pip, ex], i) => (
+              <tr class={i % 2 === 0 ? 'bg-slate-950/30' : ''}>
+                <td class="px-4 py-2.5 text-slate-300 font-medium">{inst}</td>
+                <td class="px-4 py-2.5 text-slate-400 font-mono">{pip}</td>
+                <td class="px-4 py-2.5 text-slate-400 font-mono">{ex}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-4xl font-black text-emerald-500/30 leading-none">03</span>
+        <h2 class="text-2xl font-black uppercase tracking-tighter text-white">Find the Pip Value for Your Instrument</h2>
+      </div>
+      <p class="text-slate-400 text-sm leading-relaxed mb-4">
+        Pip value is how much one pip of movement is worth in dollars per standard lot. It varies by instrument and determines the dollar cost of your stop loss distance.
+      </p>
+      <div class="space-y-0 divide-y divide-slate-800/50 border border-slate-800 rounded-2xl overflow-hidden">
+        {[
+          { inst: 'EUR/USD, GBP/USD, AUD/USD, NZD/USD', pip: '$10.00 / standard lot / pip' },
+          { inst: 'USD/JPY (at ~150)',                   pip: '~$6.67 / standard lot / pip' },
+          { inst: 'USD/CHF (at ~0.90)',                  pip: '~$11.11 / standard lot / pip' },
+          { inst: 'Gold (XAU/USD)',                      pip: '$10.00 / 0.1 lot / pip' },
+          { inst: 'NAS100, US30, SPX500',                pip: '$1.00 / 0.1 lot / point' },
+          { inst: 'BTC/USD',                             pip: '$1.00 / 0.1 lot / point' },
+        ].map(({ inst, pip }) => (
+          <div class="flex justify-between items-center px-5 py-3 bg-slate-900/40 text-xs">
+            <span class="text-slate-300 font-bold">{inst}</span>
+            <span class="text-emerald-400 font-mono font-bold">{pip}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Step 4 — Final calculation -->
+    <section class="mb-14">
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-4xl font-black text-emerald-500/30 leading-none">04</span>
+        <h2 class="text-2xl font-black uppercase tracking-tighter text-white">Calculate Your Lot Size</h2>
+      </div>
+      <p class="text-slate-400 text-sm leading-relaxed mb-4">
+        Divide your dollar risk by the stop loss distance multiplied by the pip value. The result is your position size in standard lots.
+      </p>
+      <div class="bg-slate-900 border border-emerald-500/20 rounded-2xl p-6 font-mono text-sm space-y-2 mb-6">
+        <p class="text-slate-400">Lot Size = Dollar Risk ÷ (Stop Pips × Pip Value per Lot)</p>
+        <p class="text-white">$500 ÷ (25 × $10) = <span class="text-emerald-400 font-bold text-xl">2.00 lots</span></p>
+      </div>
+
+      <!-- 4-instrument examples -->
+      <div class="grid sm:grid-cols-2 gap-4">
+        {[
+          { inst: 'EUR/USD', bal: '$100,000', risk: '0.5%', stop: '25 pips', pipVal: '$10/lot', lots: '2.00 lots' },
+          { inst: 'Gold (XAU/USD)', bal: '$100,000', risk: '0.5%', stop: '150 pips', pipVal: '$10/0.1 lot', lots: '0.33 lots' },
+          { inst: 'NAS100', bal: '$100,000', risk: '0.5%', stop: '50 pts', pipVal: '$1/0.1 lot', lots: '1.00 lots' },
+          { inst: 'GBP/USD', bal: '$50,000', risk: '0.5%', stop: '30 pips', pipVal: '$10/lot', lots: '0.83 lots' },
+        ].map(({ inst, bal, risk, stop, pipVal, lots }) => (
+          <div class="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden">
+            <div class="px-4 py-2 bg-slate-900 border-b border-slate-800">
+              <p class="text-emerald-400 font-black text-xs uppercase tracking-tight">{inst}</p>
+            </div>
+            <table class="w-full text-xs">
+              <tbody>
+                {[['Balance', bal], ['Risk', risk], ['Stop', stop], ['Pip Value', pipVal], ['Result', lots]].map(([k, v], i) => (
+                  <tr class={i % 2 === 0 ? 'bg-slate-950/20' : ''}>
+                    <td class="px-4 py-2 text-slate-500">{k}</td>
+                    <td class={`px-4 py-2 font-mono font-bold ${k === 'Result' ? 'text-emerald-400' : 'text-slate-300'}`}>{v}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <aside class="bg-slate-900/70 border border-emerald-500/20 rounded-2xl p-6 mb-14">
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-2">Free Tool</p>
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-2">Calculate Your Position Size Now</h2>
+      <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+        The TRADE90 calculator does steps 1–4 instantly. Select Funded Account mode for Trade90 Safety System enforcement — real-time risk state display and daily budget tracking included.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl transition-colors">Open Calculator →</a>
+        <a href="/funded-trader-risk-calculator/" class="inline-flex items-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-300 text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl transition-colors">Funded Trader Mode →</a>
+      </div>
+    </aside>
+
+    <!-- FAQ -->
+    <section>
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-6">Common Questions</h2>
+      <div class="space-y-3">
+        {[
+          { q: "What is the position size formula in forex?", a: "Lot Size = (Account Balance × Risk%) ÷ (Stop Loss in Pips × Pip Value per Lot). This calculates how many standard lots to trade so a losing trade costs exactly your planned risk amount. The TRADE90 calculator applies this formula automatically across 45+ instruments." },
+          { q: "How do I calculate lot size for gold?", a: "Gold pip value is $10 per 0.1 lot (or $100 per 1 lot) per pip. Formula: Lot Size = Dollar Risk ÷ (Stop Pips × $10 per 0.1 lot). Example: $500 risk, 150-pip stop → $500 ÷ (150 × $10) = 0.033 → round to 0.03 lots." },
+          { q: "What percentage should I risk on a funded challenge?", a: "The Trade90 Safety System recommends 0.5% maximum per trade. At this level, five losses cost only 2.5% — well inside the 4–5% daily drawdown limits of most prop firms. Risking more than 1% per trade increases the probability of a drawdown breach during a normal losing streak." },
+          { q: "How is lot sizing different for indices vs forex?", a: "Forex pairs like EUR/USD have a fixed pip size (0.0001) and pip value (~$10/lot). Indices like NAS100 use points (pip size = 1.0) with a $1/point/0.1 lot value. The raw price move for a 25-point stop on NAS100 is 25, while a 25-pip stop on EUR/USD is 0.0025 — very different amounts despite being the same number of pips." },
+        ].map(({ q, a }) => (
+          <details class="group bg-slate-900/40 border border-slate-800 hover:border-emerald-500/30 rounded-2xl overflow-hidden transition-colors">
+            <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-200 text-sm uppercase tracking-tight hover:text-white list-none">
+              {q}
+              <span class="text-emerald-500 group-open:rotate-45 transition-transform text-xl leading-none shrink-0 ml-4">+</span>
+            </summary>
+            <div class="px-5 pb-5 text-slate-400 text-sm leading-relaxed border-t border-slate-800/50 pt-4">{a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Internal links -->
+    <nav class="mt-14 pt-10 border-t border-slate-900/50">
+      <p class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4">Related Guides</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {[
+          { href: '/funded-trader-risk-calculator/',    label: 'Funded Trader Risk Calculator' },
+          { href: '/ftmo-position-size-calculator/',    label: 'FTMO Position Size Calculator' },
+          { href: '/prop-firm-risk-management/',        label: 'Prop Firm Risk Management' },
+          { href: '/pip-value-calculator/',             label: 'Pip Value Calculator' },
+          { href: '/risk-reward-calculator/',           label: 'Risk:Reward Ratio Calculator' },
+          { href: '/calculator/',                       label: 'All 45+ Instrument Calculators' },
+        ].map(({ href, label }) => (
+          <a href={href} class="flex items-center justify-between bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-xl px-4 py-3 transition-all group">
+            <span class="text-slate-300 text-xs font-bold group-hover:text-white transition-colors">{label}</span>
+            <span class="text-emerald-500 text-xs">→</span>
+          </a>
+        ))}
+      </div>
+    </nav>
+  </article>
+</BaseLayout>
