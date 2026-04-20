@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PositionSizer from '../components/PositionSizer.svelte';
+import FtmoCta from '../components/FtmoCta.astro';
 
 const title = "Funded Trader Risk Calculator — Trade90 Safety System";
 const description = "The position size calculator designed for funded account challenges. Enforces the 0.5% per-trade risk limit and 1% daily risk target. Works for FTMO, E8, The Funded Trader, and all prop firms. Free.";
@@ -355,6 +356,9 @@ const toolSchema = {
         >
           Read the Trade90 Blog →
         </a>
+      </div>
+      <div class="mt-10">
+        <FtmoCta variant="banner" />
       </div>
     </div>
   </section>

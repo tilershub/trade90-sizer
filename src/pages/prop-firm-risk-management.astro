@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PositionSizer from '../components/PositionSizer.svelte';
+import FtmoCta from '../components/FtmoCta.astro';
 
 const title = "Prop Firm Risk Management — Complete Framework for US Funded Traders";
 const description = "Master prop firm risk management with the Trade90 Safety System. 0.5% per trade, 1% daily cap, real-time risk states. The complete position sizing framework for passing FTMO, Apex, The5ers, and E8 evaluations.";
@@ -217,11 +218,14 @@ const faqSchema = {
         <p class="text-white font-black text-sm group-hover:text-emerald-400 transition-colors">FTMO Position Size Calculator</p>
         <p class="text-slate-500 text-xs mt-1">Sized for FTMO's 4% daily / 10% max drawdown →</p>
       </a>
-      <a href="/blog/best-prop-firms-us-traders-2026/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+      <a href="/best-prop-firms-usa/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
         <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Guide</p>
         <p class="text-white font-black text-sm group-hover:text-emerald-400 transition-colors">Best Prop Firms for US Traders 2026</p>
-        <p class="text-slate-500 text-xs mt-1">Which firms accept US traders and how to pass →</p>
+        <p class="text-slate-500 text-xs mt-1">Compare FTMO, Apex, Topstep, E8, Funded Next →</p>
       </a>
+    </div>
+    <div class="mt-8">
+      <FtmoCta variant="banner" />
     </div>
   </section>
 </BaseLayout>

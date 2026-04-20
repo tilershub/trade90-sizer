@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FtmoCta from '../components/FtmoCta.astro';
+
+const FTMO_AFFILIATE = "https://trader.ftmo.com/?affiliates=ePACbqdYAbKwZHXxkICk";
 
 const seoTitle = "Best Prop Firms for US Traders 2026 — Comparison & Position Sizing";
 const seoDescription = "Top prop trading firms that accept US traders in 2026. Compare FTMO, Apex Trader Funding, Topstep, E8 Funding, Funded Next and MyFundedFX: account sizes, drawdown rules, payouts and position sizing tips.";
@@ -34,7 +37,9 @@ const firms = [
     usAccess: true,
     highlight: true,
     note: "Industry gold standard. Strict evaluation but reliable payouts.",
-    calcPath: "/ftmo-position-size-calculator/",
+    calcPath: FTMO_AFFILIATE,
+    calcLabel: "Start Challenge →",
+    isAffiliate: true,
   },
   {
     name: "Apex Trader Funding",
@@ -235,9 +240,19 @@ const faqSchema = {
               </div>
               <p class="text-slate-500 text-xs">{firm.origin}</p>
             </div>
-            <a href={firm.calcPath} class="text-[10px] font-black uppercase tracking-widest text-emerald-500 border border-emerald-500/40 hover:bg-emerald-500/10 px-4 py-2 rounded-xl transition-colors shrink-0">
-              Size a Trade →
-            </a>
+            {firm.isAffiliate ? (
+              <div class="flex flex-col items-end gap-0.5 shrink-0">
+                <a href={firm.calcPath} target="_blank" rel="noopener sponsored"
+                  class="text-[10px] font-black uppercase tracking-widest text-black bg-emerald-500 hover:bg-emerald-400 px-4 py-2 rounded-xl transition-colors">
+                  Start Challenge →
+                </a>
+                <span class="text-[8px] text-slate-600 uppercase tracking-widest">affiliate link</span>
+              </div>
+            ) : (
+              <a href={firm.calcPath} class="text-[10px] font-black uppercase tracking-widest text-emerald-500 border border-emerald-500/40 hover:bg-emerald-500/10 px-4 py-2 rounded-xl transition-colors shrink-0">
+                Size a Trade →
+              </a>
+            )}
           </div>
 
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-5">
@@ -389,6 +404,11 @@ const faqSchema = {
         </div>
       ))}
     </div>
+  </section>
+
+  <!-- ── FTMO Affiliate CTA ───────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto pb-12 px-6">
+    <FtmoCta variant="banner" />
   </section>
 
   <!-- ── Related Tools ─────────────────────────────────────────────────────── -->
