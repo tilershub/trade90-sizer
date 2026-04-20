@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PositionSizer from '../components/PositionSizer.svelte';
 import BlogCard from '../components/BlogCard.astro';
+import FtmoCta from '../components/FtmoCta.astro';
 import { getPosts } from '../lib/blog';
 import { getSlug } from '../lib/instruments';
 
@@ -20,6 +21,10 @@ const keywords = [
   "funded trader risk management",
   "0.5 percent rule prop firm",
   "prop firm challenge calculator",
+  "apex trader funding position size calculator",
+  "topstep position size calculator",
+  "best prop firms for US traders",
+  "funded trading usa",
 ];
 
 const site = Astro.site?.toString() || "https://tradeninety.com";
@@ -136,7 +141,10 @@ const faqSchema = {
       <!-- Proof bar -->
       <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-10 text-[10px] font-black uppercase tracking-widest text-slate-500">
         <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>FTMO Compatible</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Apex Trader Funding</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Topstep</span>
         <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>E8 Compatible</span>
+        <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Funded Next</span>
         <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>45+ Instruments</span>
         <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Free Forever</span>
       </div>
@@ -249,6 +257,11 @@ const faqSchema = {
         ))}
       </div>
     </div>
+  </section>
+
+  <!-- ── FTMO Affiliate CTA ───────────────────────────────────────────────── -->
+  <section class="max-w-5xl mx-auto pb-6 px-6">
+    <FtmoCta variant="banner" />
   </section>
 
   <!-- ── Position Sizing Formula (SEO crawlable) ───────────────────────────── -->

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PositionSizer from '../components/PositionSizer.svelte';
+import FtmoCta from '../components/FtmoCta.astro';
 
 const title = "FTMO Position Size Calculator — Lot Size for FTMO Challenges";
 const description = "Calculate the exact lot size for your FTMO challenge account. Enforces FTMO-compatible 0.5% risk per trade and 1% daily limits. Works for Phase 1, Phase 2, and FTMO Swing. Free.";
@@ -159,7 +160,7 @@ const toolSchema = {
           </tbody>
         </table>
       </div>
-      <p class="text-slate-500 text-xs mt-4">Based on standard FTMO challenge rules as of 2024. Verify current terms at <strong class="text-slate-400">ftmo.com</strong> before trading. TRADE90 is not affiliated with FTMO.</p>
+      <p class="text-slate-500 text-xs mt-4">Based on standard FTMO challenge rules as of 2026. Verify current terms at <strong class="text-slate-400">ftmo.com</strong> before trading. <span class="text-slate-600">TRADE90 is an affiliate partner of FTMO — we may earn a commission if you purchase a challenge via our link, at no extra cost to you.</span></p>
     </div>
   </section>
 
@@ -169,6 +170,13 @@ const toolSchema = {
       <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Position Size Calculator</p>
       <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6">Calculate Your FTMO Lot Size</h2>
       <PositionSizer client:load />
+    </div>
+  </section>
+
+  <!-- FTMO Affiliate CTA -->
+  <section class="bg-black border-t border-slate-800 py-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      <FtmoCta variant="banner" />
     </div>
   </section>
 
@@ -331,9 +339,9 @@ const toolSchema = {
     <div class="max-w-4xl mx-auto">
       <!-- Disclaimer -->
       <div class="bg-slate-900/50 border border-yellow-500/20 rounded-2xl p-6 mb-10">
-        <p class="text-[10px] font-black uppercase tracking-widest text-yellow-400 mb-2">Important Disclaimer</p>
+        <p class="text-[10px] font-black uppercase tracking-widest text-yellow-400 mb-2">Affiliate & Risk Disclosure</p>
         <p class="text-slate-400 text-sm leading-relaxed">
-          TRADE90 is not affiliated with FTMO or any other prop firm. This calculator is a general-purpose position sizing tool that works for all funded account programs including The Funded Trader, E8 Funding, Apex Trader Funding, MyForexFunds alternatives, and others. Always verify the specific rules of your challenge at the prop firm's official website before trading.
+          TRADE90 is an affiliate partner of FTMO. If you purchase an FTMO challenge through links on this page, TRADE90 may earn a commission at no extra cost to you. This calculator is a general-purpose position sizing tool that also works for E8 Funding, Apex Trader Funding, Funded Next, and all other prop firms. Always verify the specific rules of your challenge at the prop firm's official website before trading.
         </p>
       </div>
 
@@ -377,14 +385,10 @@ const toolSchema = {
         </a>
       </div>
 
-      <div class="text-center">
-        <a
-          href="/"
-          class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors"
-        >
-          Open the Full Position Size Calculator →
-        </a>
-      </div>
+      <FtmoCta variant="banner" />
+      <p class="text-center text-slate-600 text-xs mt-4">
+        Or use the <a href="/" class="underline hover:text-emerald-500 transition-colors">full position size calculator →</a>
+      </p>
     </div>
   </section>
 </BaseLayout>

@@ -1,0 +1,430 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FtmoCta from '../components/FtmoCta.astro';
+
+const FTMO_AFFILIATE = "https://trader.ftmo.com/?affiliates=ePACbqdYAbKwZHXxkICk";
+
+const seoTitle = "Best Prop Firms for US Traders 2026 — Comparison & Position Sizing";
+const seoDescription = "Top prop trading firms that accept US traders in 2026. Compare FTMO, Apex Trader Funding, Topstep, E8 Funding, Funded Next and MyFundedFX: account sizes, drawdown rules, payouts and position sizing tips.";
+const keywords = [
+  "best prop firms for US traders",
+  "prop firms that accept US traders",
+  "funded trading USA 2026",
+  "apex trader funding review",
+  "topstep review",
+  "ftmo for US traders",
+  "funded next review",
+  "e8 funding review",
+  "prop firm comparison USA",
+  "best prop trading firm united states",
+  "how to get funded trading USA",
+  "prop firm position size calculator",
+];
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const canonicalURL = new URL(Astro.url.pathname, site).toString();
+
+const firms = [
+  {
+    name: "FTMO",
+    origin: "Czech Republic (accepts US traders)",
+    accounts: "$10k – $200k",
+    profitTarget: "10% Phase 1 / 5% Phase 2",
+    dailyDD: "5% per day",
+    maxDD: "10% total",
+    payout: "Up to 90% split",
+    instruments: "Forex, Gold, Indices, Crypto, Commodities",
+    usAccess: true,
+    highlight: true,
+    note: "Industry gold standard. Strict evaluation but reliable payouts.",
+    calcPath: FTMO_AFFILIATE,
+    calcLabel: "Start Challenge →",
+    isAffiliate: true,
+  },
+  {
+    name: "Apex Trader Funding",
+    origin: "USA (Texas-based)",
+    accounts: "$25k – $300k",
+    profitTarget: "6% Phase 1 only (single-phase)",
+    dailyDD: "3% trailing drawdown",
+    maxDD: "6% (trailing from peak)",
+    payout: "Up to 90% split",
+    instruments: "Futures (ES, NQ, CL, GC, YM)",
+    usAccess: true,
+    highlight: true,
+    note: "Best for US futures traders. No Phase 2. Trailing drawdown requires tighter sizing.",
+    calcPath: "/",
+  },
+  {
+    name: "Topstep",
+    origin: "USA (Chicago-based)",
+    accounts: "$50k – $150k",
+    profitTarget: "$3k–$9k fixed dollar targets",
+    dailyDD: "$1,000–$3,000 daily loss limit",
+    maxDD: "$2,000–$6,000 trailing",
+    payout: "90% after first $10k, 100% after",
+    instruments: "CME Futures (ES, NQ, 6E, CL, ZN)",
+    usAccess: true,
+    highlight: false,
+    note: "US-based, regulated environment. Best for CME futures traders.",
+    calcPath: "/",
+  },
+  {
+    name: "E8 Funding",
+    origin: "International (accepts US traders)",
+    accounts: "$25k – $400k",
+    profitTarget: "8% Phase 1 / 5% Phase 2",
+    dailyDD: "5% per day",
+    maxDD: "8% total",
+    payout: "Up to 85% split",
+    instruments: "Forex, Gold, Indices, Crypto",
+    usAccess: true,
+    highlight: false,
+    note: "Higher account sizes available. Competitive for traders scaling to $400k.",
+    calcPath: "/",
+  },
+  {
+    name: "Funded Next",
+    origin: "International (accepts US traders)",
+    accounts: "$6k – $200k",
+    profitTarget: "10% Phase 1 / 5% Phase 2",
+    dailyDD: "5% per day",
+    maxDD: "10% total",
+    payout: "Up to 90% split",
+    instruments: "Forex, Gold, Indices, Crypto",
+    usAccess: true,
+    highlight: false,
+    note: "Budget entry points at $6k. Good for first-time challenge traders.",
+    calcPath: "/",
+  },
+  {
+    name: "MyFundedFX",
+    origin: "International (accepts US traders)",
+    accounts: "$10k – $200k",
+    profitTarget: "8% Phase 1 / 5% Phase 2",
+    dailyDD: "4% per day",
+    maxDD: "8% total",
+    payout: "Up to 85% split",
+    instruments: "Forex, Metals, Indices",
+    usAccess: true,
+    highlight: false,
+    note: "Slightly tighter daily drawdown (4%) — use 0.35% risk per trade.",
+    calcPath: "/",
+  },
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Best Prop Firms for US Traders", item: canonicalURL },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Which prop firms accept US traders in 2026?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The top prop firms accepting US traders in 2026 are FTMO, Apex Trader Funding, Topstep, E8 Funding, Funded Next, and MyFundedFX. US-based firms include Apex Trader Funding (Texas) and Topstep (Chicago), which trade CME futures rather than CFDs — an important distinction for CFTC-regulated US traders. FTMO and E8 Funding are internationally based but openly accept US clients for forex and metals trading.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can US traders trade Forex through prop firms?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, US traders can trade forex through prop firms. FTMO, E8 Funding, Funded Next, and MyFundedFX all accept US clients for forex (EUR/USD, GBP/USD, USD/JPY, etc.), gold, and indices. These firms are not CFTC-regulated brokers — they offer funded trading evaluations, which operates differently under US law. Apex Trader Funding and Topstep focus on CME futures, which are directly regulated by the CFTC.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the best position sizing strategy for FTMO and prop firm challenges?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The Trade90 Safety System recommends 0.5% maximum risk per trade for all funded account challenges. At 0.5%, five consecutive losing trades cost only 2.5% — well inside the 4–5% daily drawdown limits used by FTMO, E8, and most other firms. The formula is: Lot Size = (Account Balance × 0.005) ÷ (Stop Loss Pips × Pip Value per Lot). Use the free TRADE90 position size calculator to compute this instantly.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is Apex Trader Funding good for US traders?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Apex Trader Funding is one of the best prop firm options for US-based traders because it is a US company (based in Texas) that offers futures evaluations on CME instruments — ES (S&P 500), NQ (Nasdaq), CL (crude oil), and GC (gold futures). The single-phase evaluation with a 6% profit target is more achievable than two-phase programs. However, the trailing drawdown model requires tighter position sizing — use 0.35–0.5% risk per trade to protect the trailing threshold.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How much can you make as a funded trader in the USA?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "US funded traders on a $100,000 account earning 5% per month at 80% payout would gross $4,000/month. In practice, consistent funded traders average 3–7% monthly on their funded accounts, with the majority of income coming from scaling. The Trade90 Safety System (0.5% per trade) is designed to build a consistent track record that prop firms reward with scaling to $200k–$400k accounts, multiplying monthly earnings proportionally.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the difference between Topstep and FTMO for US traders?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Topstep is a US-regulated futures prop firm trading CME contracts (ES, NQ, crude oil). FTMO is a Czech-based firm offering forex, metals, and CFD indices. For US traders, Topstep operates in a clearer regulatory framework under CFTC oversight but is limited to futures instruments. FTMO offers more instrument variety including spot forex and gold. Choose Topstep if you trade US futures; choose FTMO if you trade forex pairs or gold.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} keywords={keywords}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto py-16 px-6">
+
+    <nav aria-label="Breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600">
+        <li><a href="/" class="hover:text-emerald-500 transition-colors">Home</a></li>
+        <li class="text-slate-800">/</li>
+        <li class="text-slate-500" aria-current="page">Best Prop Firms for US Traders</li>
+      </ol>
+    </nav>
+
+    <p class="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-3">USA Funded Trading Guide — 2026</p>
+    <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-[0.95]">
+      Best Prop Firms<br/>for <span class="text-emerald-400">US Traders</span>
+    </h1>
+    <p class="text-slate-400 text-base leading-relaxed mb-6 max-w-2xl">
+      Comparison of the top funded trading firms that accept United States clients in 2026. Account sizes, drawdown rules, profit splits, and position sizing strategy for each firm.
+    </p>
+
+    <div class="flex flex-wrap gap-3 mb-12">
+      <a href="/" class="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-xl transition-colors">
+        Position Size Calculator →
+      </a>
+      <a href="/prop-firm-risk-management/" class="border border-slate-700 hover:border-emerald-500 text-slate-300 hover:text-white text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-xl transition-colors">
+        Risk Management Guide
+      </a>
+    </div>
+
+    <!-- ── Quick Compatibility Summary ─────────────────────────────────────── -->
+    <div class="bg-emerald-500/10 border border-emerald-500/25 rounded-2xl p-6 mb-12">
+      <h2 class="text-white font-black uppercase text-sm tracking-widest mb-4">US Trader Access — Quick Reference</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        {firms.map(f => (
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+            <span class="text-slate-300 text-xs font-bold">{f.name}</span>
+            <span class="text-emerald-500 text-[9px] font-black uppercase">✓ US OK</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Firm Comparison Cards ─────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto pb-8 px-6">
+    <div class="space-y-6">
+      {firms.map(firm => (
+        <div class={`border rounded-2xl p-6 md:p-8 ${firm.highlight ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-slate-800 bg-slate-900/40'}`}>
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+            <div>
+              <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-white font-black uppercase text-xl tracking-tighter">{firm.name}</h2>
+                {firm.highlight && (
+                  <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded-full">Top Pick</span>
+                )}
+              </div>
+              <p class="text-slate-500 text-xs">{firm.origin}</p>
+            </div>
+            {firm.isAffiliate ? (
+              <div class="flex flex-col items-end gap-0.5 shrink-0">
+                <a href={firm.calcPath} target="_blank" rel="noopener sponsored"
+                  class="text-[10px] font-black uppercase tracking-widest text-black bg-emerald-500 hover:bg-emerald-400 px-4 py-2 rounded-xl transition-colors">
+                  Start Challenge →
+                </a>
+                <span class="text-[8px] text-slate-600 uppercase tracking-widest">affiliate link</span>
+              </div>
+            ) : (
+              <a href={firm.calcPath} class="text-[10px] font-black uppercase tracking-widest text-emerald-500 border border-emerald-500/40 hover:bg-emerald-500/10 px-4 py-2 rounded-xl transition-colors shrink-0">
+                Size a Trade →
+              </a>
+            )}
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+            <div>
+              <p class="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Account Sizes</p>
+              <p class="text-white text-sm font-bold">{firm.accounts}</p>
+            </div>
+            <div>
+              <p class="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Profit Target</p>
+              <p class="text-white text-sm font-bold">{firm.profitTarget}</p>
+            </div>
+            <div>
+              <p class="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Daily Drawdown</p>
+              <p class="text-rose-400 text-sm font-bold">{firm.dailyDD}</p>
+            </div>
+            <div>
+              <p class="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Max Drawdown</p>
+              <p class="text-rose-400 text-sm font-bold">{firm.maxDD}</p>
+            </div>
+            <div>
+              <p class="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Profit Split</p>
+              <p class="text-emerald-400 text-sm font-bold">{firm.payout}</p>
+            </div>
+            <div>
+              <p class="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Instruments</p>
+              <p class="text-slate-300 text-sm font-bold">{firm.instruments}</p>
+            </div>
+          </div>
+
+          <p class="text-slate-400 text-sm border-t border-slate-800 pt-4">{firm.note}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Comparison Table ──────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto py-16 px-6">
+    <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-2 border-l-4 border-emerald-500 pl-4">
+      Side-by-Side Comparison
+    </h2>
+    <p class="text-slate-400 text-sm mb-8 pl-5">All values as of April 2026. Verify current rules on each firm's website before purchasing.</p>
+
+    <div class="overflow-x-auto rounded-xl border border-slate-800">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-slate-900 border-b border-slate-800">
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">Firm</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">Max Account</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">Phases</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">Daily DD</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">Max DD</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-emerald-500 px-4 py-3">Split</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-900">
+          {firms.map((f, i) => (
+            <tr class={i % 2 === 0 ? 'bg-slate-950' : 'bg-slate-900/40'}>
+              <td class="px-4 py-3 font-bold text-white">{f.name}</td>
+              <td class="px-4 py-3 text-slate-300">{f.accounts.split('–')[1]?.trim() || f.accounts}</td>
+              <td class="px-4 py-3 text-slate-300">{f.name === 'Apex Trader Funding' || f.name === 'Topstep' ? '1 Phase' : '2 Phase'}</td>
+              <td class="px-4 py-3 text-rose-400 font-bold">{f.dailyDD}</td>
+              <td class="px-4 py-3 text-rose-400 font-bold">{f.maxDD}</td>
+              <td class="px-4 py-3 text-emerald-400 font-bold">{f.payout.split(' ')[2]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Position Sizing per Firm ──────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto pb-16 px-6">
+    <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+      Position Sizing Calculator — By Firm
+    </h2>
+    <p class="text-slate-400 text-sm leading-relaxed mb-8">
+      The correct lot size depends on your prop firm's daily drawdown limit. Use the Trade90 Safety System: risk 50% of the daily drawdown limit per day, split across a maximum of 2 trades.
+    </p>
+
+    <div class="overflow-x-auto rounded-xl border border-slate-800 mb-8">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-slate-900 border-b border-slate-800">
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">Firm</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">$100k Account</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">Daily DD Limit</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-3">T90 Daily Budget</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-emerald-500 px-4 py-3">Risk Per Trade</th>
+            <th class="text-left text-[10px] font-black uppercase tracking-widest text-emerald-500 px-4 py-3">EUR/USD @ 25-pip SL</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-900">
+          <tr class="bg-slate-950">
+            <td class="px-4 py-3 font-bold text-white">FTMO</td>
+            <td class="px-4 py-3 text-slate-300">$100,000</td>
+            <td class="px-4 py-3 text-rose-400 font-bold">$5,000 (5%)</td>
+            <td class="px-4 py-3 text-amber-400 font-bold">$1,000 (1%)</td>
+            <td class="px-4 py-3 text-emerald-400 font-bold">$500 (0.5%)</td>
+            <td class="px-4 py-3 text-emerald-300 font-bold">2.00 lots</td>
+          </tr>
+          <tr class="bg-slate-900/40">
+            <td class="px-4 py-3 font-bold text-white">E8 Funding</td>
+            <td class="px-4 py-3 text-slate-300">$100,000</td>
+            <td class="px-4 py-3 text-rose-400 font-bold">$5,000 (5%)</td>
+            <td class="px-4 py-3 text-amber-400 font-bold">$1,000 (1%)</td>
+            <td class="px-4 py-3 text-emerald-400 font-bold">$500 (0.5%)</td>
+            <td class="px-4 py-3 text-emerald-300 font-bold">2.00 lots</td>
+          </tr>
+          <tr class="bg-slate-950">
+            <td class="px-4 py-3 font-bold text-white">Funded Next</td>
+            <td class="px-4 py-3 text-slate-300">$100,000</td>
+            <td class="px-4 py-3 text-rose-400 font-bold">$5,000 (5%)</td>
+            <td class="px-4 py-3 text-amber-400 font-bold">$1,000 (1%)</td>
+            <td class="px-4 py-3 text-emerald-400 font-bold">$500 (0.5%)</td>
+            <td class="px-4 py-3 text-emerald-300 font-bold">2.00 lots</td>
+          </tr>
+          <tr class="bg-slate-900/40">
+            <td class="px-4 py-3 font-bold text-white">MyFundedFX</td>
+            <td class="px-4 py-3 text-slate-300">$100,000</td>
+            <td class="px-4 py-3 text-rose-400 font-bold">$4,000 (4%)</td>
+            <td class="px-4 py-3 text-amber-400 font-bold">$700 (0.7%)</td>
+            <td class="px-4 py-3 text-emerald-400 font-bold">$350 (0.35%)</td>
+            <td class="px-4 py-3 text-emerald-300 font-bold">1.40 lots</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6">
+      <p class="text-slate-400 text-sm leading-relaxed mb-4">
+        <strong class="text-white">Trade90 Safety System formula:</strong> Risk per trade = 50% of daily drawdown limit ÷ 2 trades. This keeps your total daily exposure at half the firm's hard limit, giving you a recovery buffer even on back-to-back losses.
+      </p>
+      <a href="/" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">
+        Open Position Size Calculator →
+      </a>
+    </div>
+  </section>
+
+  <!-- ── US Trader FAQ ─────────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto pb-20 px-6">
+    <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-8 border-l-4 border-emerald-500 pl-4">
+      US Funded Trader FAQ
+    </h2>
+    <div class="space-y-6">
+      {faqSchema.mainEntity.map(q => (
+        <div class="border border-slate-800 rounded-xl p-6">
+          <h3 class="text-white font-black text-base mb-3">{q.name}</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">{q.acceptedAnswer.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FTMO Affiliate CTA ───────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto pb-12 px-6">
+    <FtmoCta variant="banner" />
+  </section>
+
+  <!-- ── Related Tools ─────────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto pb-20 px-6 border-t border-slate-900 pt-12">
+    <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Related Tools for US Funded Traders</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      {[
+        { href: '/', label: 'Position Size Calculator', desc: 'FTMO, Apex, Topstep-compatible. Enforces 0.5% rule.' },
+        { href: '/prop-firm-risk-management/', label: 'Risk Management Guide', desc: 'Complete framework for passing any prop firm challenge.' },
+        { href: '/ftmo-position-size-calculator/', label: 'FTMO Calculator', desc: 'Dedicated calculator for FTMO Phase 1 & 2 accounts.' },
+      ].map(t => (
+        <a href={t.href} class="block bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-5 transition-colors group">
+          <p class="text-white font-black text-sm uppercase tracking-tight mb-2 group-hover:text-emerald-400 transition-colors">{t.label}</p>
+          <p class="text-slate-400 text-xs leading-relaxed">{t.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
