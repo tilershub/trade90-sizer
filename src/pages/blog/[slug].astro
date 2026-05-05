@@ -51,13 +51,17 @@ const relatedPosts = post.primary_tag
 // Extract FAQ Q&As from raw markdown to build FAQPage schema
 function extractFAQSchema(body: string) {
   const faqSection = body.match(/##\s+Frequently Asked Questions\s*\n+([\s\S]+?)(?:\n---\s*\n|\n##\s[^#]|$)/);
-  if (!faqSection) return null;
+  const faqContent = faqSection?.[1];
+  if (!faqContent) return null;
   const items: { question: string; answer: string }[] = [];
   const re = /\*\*([^*]+?\?[^*]*)\*\*\s*\n+((?:(?!\*\*)[^\n].+\n?)+)/g;
   let m;
-  while ((m = re.exec(faqSection[1])) !== null) {
-    const question = m[1].trim();
-    const answer = m[2]
+  while ((m = re.exec(faqContent)) !== null) {
+    const raw1 = m[1];
+    const raw2 = m[2];
+    if (!raw1 || !raw2) continue;
+    const question = raw1.trim();
+    const answer = raw2
       .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
       .replace(/\*\*([^*]+)\*\*/g, "$1")
       .replace(/\n+/g, " ")

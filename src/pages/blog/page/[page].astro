@@ -60,7 +60,7 @@ const nextPage = page < totalPages ? `/blog/page/${page + 1}/` : null;
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map((post: any, i: number) => (
+      {posts.map((post, i) => (
         <BlogCard
           title={post.title}
           excerpt={post.excerpt ?? ''}
