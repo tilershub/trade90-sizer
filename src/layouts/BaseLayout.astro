@@ -55,15 +55,22 @@ const organizationSchema = {
     "@type": "ImageObject",
     url: new URL("/favicon.svg", site).toString(),
   },
-  description: "Veteran-built position sizing and risk management tools for US-based funded traders. The Trade90 Safety System enforces 0.5% max risk per trade and 1% daily risk target.",
+  description: "Professional position sizing and risk management tools for funded traders worldwide. The Trade90 Safety System enforces 0.5% max risk per trade and 1% daily risk target — used by traders in the USA, UK, Europe, and Australia.",
   foundingDate: "2023",
-  areaServed: {
-    "@type": "Country",
-    name: "United States",
-  },
+  areaServed: [
+    { "@type": "Country", name: "United States" },
+    { "@type": "Country", name: "United Kingdom" },
+    { "@type": "Country", name: "Australia" },
+    { "@type": "Country", name: "Canada" },
+    { "@type": "Country", name: "Germany" },
+    { "@type": "Country", name: "Netherlands" },
+    { "@type": "Country", name: "France" },
+    { "@type": "Country", name: "Ireland" },
+    { "@type": "Country", name: "New Zealand" },
+  ],
   audience: {
     "@type": "Audience",
-    audienceType: "Funded Traders, Prop Firm Traders, US Forex Traders",
+    audienceType: "Funded Traders, Prop Firm Traders, Forex Traders, US Forex Traders, UK Forex Traders, Australian Forex Traders, European Traders",
   },
   knowsAbout: [
     "Position Sizing",
@@ -146,15 +153,18 @@ const breadcrumbSchema = {
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
-    <!-- US geo-targeting -->
-    <meta name="geo.region" content="US" />
-    <meta name="geo.placename" content="United States" />
+    <!-- Geo-targeting: English-language markets -->
     <meta name="language" content="English" />
-    <meta name="target" content="funded traders, prop firm traders, US forex traders" />
+    <meta name="target" content="funded traders, prop firm traders, forex traders, US traders, UK traders, Australian traders, European traders" />
 
-    <!-- hreflang: English (US) -->
-    <link rel="alternate" hreflang="en-us" href={canonicalURL} />
+    <!-- hreflang: serve all English-speaking markets from same URL -->
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
     <link rel="alternate" hreflang="en" href={canonicalURL} />
+    <link rel="alternate" hreflang="en-us" href={canonicalURL} />
+    <link rel="alternate" hreflang="en-gb" href={canonicalURL} />
+    <link rel="alternate" hreflang="en-au" href={canonicalURL} />
+    <link rel="alternate" hreflang="en-ca" href={canonicalURL} />
+    <link rel="alternate" hreflang="en-nz" href={canonicalURL} />
 
     <slot name="head-extra" />
 
