@@ -3,9 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogCard from '../../../components/BlogCard.astro';
 import { getPosts } from '../../../lib/blog';
 
-const POSTS_PER_PAGE = 20;
-
 export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 20;
   const allPosts = await getPosts();
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 
