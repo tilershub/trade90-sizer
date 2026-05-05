@@ -3,7 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogCard from '../components/BlogCard.astro';
 import { getPosts } from '../lib/blog';
 
-const posts = await getPosts();
+const POSTS_PER_PAGE = 20;
+const allPosts = await getPosts();
+const posts = allPosts.slice(0, POSTS_PER_PAGE);
+const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+const hasNextPage = totalPages > 1;
 
 const seoTitle = "Forex & Trading Market Analysis — TRADE90";
 const seoDescription = "Institutional-grade Forex, Gold and Crypto market analysis for USA and European traders. Volatility reports, risk framework guides, prop firm strategy, and funded account intelligence from a veteran FTMO-funded trader.";
@@ -66,20 +70,34 @@ const blogSchema = {
     </header>
 
     {posts.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post, i) => (
-          <BlogCard
-            title={post.title}
-            excerpt={post.excerpt ?? ''}
-            image={post.feature_image ?? undefined}
-            slug={post.slug}
-            date={post.published_at}
-            readingTime={post.reading_time ?? undefined}
-            tags={post.tags}
-            index={i}
-          />
-        ))}
-      </div>
+      <>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post, i) => (
+            <BlogCard
+              title={post.title}
+              excerpt={post.excerpt ?? ''}
+              image={post.feature_image ?? undefined}
+              slug={post.slug}
+              date={post.published_at}
+              readingTime={post.reading_time ?? undefined}
+              tags={post.tags}
+              index={i}
+            />
+          ))}
+        </div>
+
+        {hasNextPage && (
+          <nav class="mt-16 flex items-center justify-center gap-4" aria-label="Blog pagination">
+            <span class="text-slate-600 text-xs font-black uppercase tracking-widest">Page 1 of {totalPages}</span>
+            <a
+              href="/blog/page/2/"
+              class="inline-flex items-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 text-xs font-black uppercase tracking-widest px-5 py-2.5 rounded-xl transition-colors"
+            >
+              Next Page →
+            </a>
+          </nav>
+        )}
+      </>
     ) : (
       <div class="py-32 text-center border border-dashed border-slate-800 rounded-3xl">
         <p class="text-slate-600 text-sm italic">

@@ -40,13 +40,43 @@ const seoDescription =
   post.meta_description ||
   post.excerpt ||
   `${post.title} — Market analysis and risk framework intelligence from TRADE90.`;
-const ogImage = post.feature_image || "/og-image.jpg";
+const ogImage = post.feature_image || "/og-image.svg";
 const keywords = post.tags.slice(0, 10);
 
 // Related posts
 const relatedPosts = post.primary_tag
   ? await getRelatedPosts(post.primary_tag, post.id)
   : [];
+
+// Extract FAQ Q&As from raw markdown to build FAQPage schema
+function extractFAQSchema(body: string) {
+  const faqSection = body.match(/##\s+Frequently Asked Questions\s*\n+([\s\S]+?)(?:\n---\s*\n|\n##\s[^#]|$)/);
+  if (!faqSection) return null;
+  const items: { question: string; answer: string }[] = [];
+  const re = /\*\*([^*]+?\?[^*]*)\*\*\s*\n+((?:(?!\*\*)[^\n].+\n?)+)/g;
+  let m;
+  while ((m = re.exec(faqSection[1])) !== null) {
+    const question = m[1].trim();
+    const answer = m[2]
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .replace(/\*\*([^*]+)\*\*/g, "$1")
+      .replace(/\n+/g, " ")
+      .trim();
+    if (question && answer) items.push({ question, answer });
+  }
+  if (!items.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+}
+
+const faqSchema = entry.body ? extractFAQSchema(entry.body) : null;
 
 // JSON-LD schemas
 const breadcrumbSchema = {
@@ -72,9 +102,11 @@ const articleSchema = {
   timeRequired: `PT${readingTime}M`,
   isAccessibleForFree: true,
   author: {
-    "@type": "Organization",
+    "@type": "Person",
     name: "TRADE90",
     url: site,
+    description: "US Military Veteran, FTMO-funded trader. 10 years trading experience.",
+    knowsAbout: ["Position Sizing", "Forex Trading", "Funded Trading", "Risk Management", "Prop Firm Challenges"],
   },
   publisher: {
     "@type": "Organization",
@@ -97,6 +129,9 @@ const articleSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head-extra" />
+  {faqSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+  )}
 
   <article class="max-w-3xl mx-auto py-16 px-6" itemscope itemtype="https://schema.org/BlogPosting">
     <meta itemprop="datePublished" content={publishedISO} />
