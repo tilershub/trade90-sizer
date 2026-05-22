@@ -173,39 +173,6 @@ const faqSchema = {
       <p class="text-slate-600 text-xs mt-3 pl-1">Compound drawdown calculated on rolling equity. Most prop firms use 10% maximum total drawdown and 4–5% daily loss limit.</p>
     </div>
 
-    <!-- Step by step -->
-    <div class="mb-16">
-      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
-        Position Sizing Step by Step
-      </h2>
-      <div class="bg-slate-900 border border-emerald-500/20 rounded-2xl p-6 mb-6">
-        <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Formula</p>
-        <div class="font-mono text-sm text-slate-200 space-y-2">
-          <p><span class="text-slate-500">Risk Amount ($)  </span> = Account Balance × (Risk % ÷ 100)</p>
-          <p><span class="text-slate-500">Pip Distance     </span> = |Entry Price − Stop Loss| ÷ Pip Size</p>
-          <p><span class="text-slate-500">Lot Size         </span> = Risk Amount ÷ (Pip Distance × Pip Value per Lot)</p>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-4">
-        {[
-          { inst: 'EUR/USD', account: '$100,000', risk: '0.5% = $500', stop: '20 pips × $10/pip', result: '2.50 lots' },
-          { inst: 'Gold (XAU/USD)', account: '$100,000', risk: '0.5% = $500', stop: '200 pts × $10/pt', result: '0.25 lots' },
-          { inst: 'NAS100', account: '$50,000', risk: '0.5% = $250', stop: '60 pts × $1/pt', result: '4.17 lots' },
-        ].map(({ inst, account, risk, stop, result }) => (
-          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-5">
-            <p class="text-emerald-400 font-black text-xs uppercase tracking-widest mb-3">{inst}</p>
-            <div class="space-y-1.5 text-xs">
-              <div class="flex justify-between"><span class="text-slate-500">Account</span><span class="text-slate-300 font-mono">{account}</span></div>
-              <div class="flex justify-between"><span class="text-slate-500">Risk</span><span class="text-slate-300 font-mono">{risk}</span></div>
-              <div class="flex justify-between"><span class="text-slate-500">SL × Pip Val</span><span class="text-slate-300 font-mono">{stop}</span></div>
-              <div class="flex justify-between pt-2 border-t border-slate-800"><span class="text-white font-black">Lot Size</span><span class="text-emerald-400 font-black font-mono">{result}</span></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
     <!-- Internal links -->
     <div class="grid md:grid-cols-3 gap-4">
       <a href="/funded-trader-risk-calculator/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">

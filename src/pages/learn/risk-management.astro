@@ -1,0 +1,349 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Risk Management for Funded Traders — The 0.5% Rule and Daily Loss Framework";
+const description = "The complete risk management framework for prop firm traders. The 0.5% rule explained, daily loss limits, drawdown survival math, and the four rules every funded trader must follow.";
+const keywords = [
+  "funded trader risk management",
+  "prop firm risk management",
+  "0.5 percent rule funded trading",
+  "daily loss limit prop firm",
+  "how to manage risk funded account",
+  "prop firm drawdown rules",
+  "funded trading risk framework",
+  "position sizing risk management",
+];
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is the best risk percentage for a prop firm challenge?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "0.5% per trade is the recommended maximum for funded account challenges. At 0.5%, you can absorb 20 consecutive losses before reaching a typical 10% maximum drawdown. Risking 1% per trade is the absolute ceiling for a funded account — exceeding it places the challenge at serious risk from any normal losing streak.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the 0.5% rule in funded trading?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The 0.5% rule means you risk no more than 0.5% of your current account equity on any single trade. On a $100,000 funded account that equals $500 maximum risk per trade. At 0.5% per trade, you need 8–10 consecutive losses before approaching a typical 4–5% daily loss limit — giving you significant protection against normal variance.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is a daily loss limit on a prop firm challenge?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Most prop firms set a daily loss limit of 4–5% of account balance. The Trade90 Safety System recommends a personal daily cap of 1% — well inside the firm's limit — to preserve a buffer against intraday volatility and prevent hitting the hard limit from a single bad session.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How many trades per day should a funded trader take?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Two trades per day is the recommended maximum during funded evaluations. At 0.5% risk per trade, two trades equals 1% maximum daily exposure. Two trades forces selectivity and eliminates over-trading from boredom or frustration.",
+      },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Learn", item: `${site}/learn/` },
+    { "@type": "ListItem", position: 3, name: "Risk Management Guide", item: `${site}/learn/risk-management/` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <!-- Hero -->
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span>/</span>
+        <a href="/learn/" class="hover:text-emerald-400 transition-colors">Learn</a>
+        <span>/</span>
+        <span class="text-slate-300">Risk Management</span>
+      </nav>
+
+      <span class="text-[9px] font-black uppercase tracking-widest text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full mb-4 inline-block">Framework Guide</span>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+        Risk Management<br/><span class="text-emerald-400">for Funded Traders</span>
+      </h1>
+      <p class="text-slate-400 text-base leading-relaxed max-w-2xl mb-4">
+        The framework used by consistently profitable prop firm traders. Four rules that keep your challenge drawdown clean through any losing streak — not marketing promises, just math.
+      </p>
+      <p class="text-slate-600 text-[10px] uppercase tracking-widest font-bold">
+        Trade90 Safety System — Internal discipline guidelines, not official prop firm rules
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-16 px-6 space-y-16">
+
+    <!-- Why risk management matters -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Why Most Funded Traders Fail
+      </h2>
+      <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+        <p>
+          The most common reason funded account challenges fail is not a bad strategy. It is <strong class="text-slate-200">oversized positions during losing streaks</strong>. A trader with a winning edge can still blow a challenge by risking 2% per trade and hitting five consecutive losses — a statistically normal event that costs 10% of the account.
+        </p>
+        <p>
+          Risk management for funded accounts is not the same as risk management for retail accounts. The consequences of breaching a daily or total drawdown limit are immediate and final: the challenge is failed, the fee is lost, and the process starts again.
+        </p>
+        <p>
+          The framework below is designed around one goal: <strong class="text-slate-200">keeping your funded challenge alive long enough for your strategy to work</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- The Four Rules -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-2 border-l-4 border-emerald-500 pl-4">
+        The Four Rules
+      </h2>
+      <p class="text-slate-500 text-xs uppercase tracking-widest font-bold pl-5 mb-8">
+        Trade90 Safety System — applies to all prop firms
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {[
+          {
+            n: "01",
+            title: "0.5% Maximum Risk Per Trade",
+            body: "Never risk more than 0.5% of your current account balance on any single trade idea. Use your current equity, not your starting balance. As drawdown accumulates, the dollar amount per trade shrinks automatically — which is correct behavior. On a $100,000 account: maximum $500 risk per trade.",
+            code: [
+              "5 losses at 0.5% → −2.5%  (SAFE)",
+              "5 losses at 1.0% → −4.9%  (borderline)",
+              "5 losses at 2.0% → −9.6%  (challenge at risk)",
+            ],
+          },
+          {
+            n: "02",
+            title: "1% Personal Daily Risk Cap",
+            body: "Set your personal daily stop at 1% of account equity — half the typical prop firm daily limit of 4–5%. When your total risk across all trades reaches 1%, stop trading for the day. This buffer means you can have two back-to-back bad sessions before approaching the firm's hard limit.",
+            code: [
+              "Trade 1:  0.5% risk  →  $500 used",
+              "Trade 2:  0.5% risk  →  $500 used",
+              "Budget:   1.0% hit  →  Stop trading",
+            ],
+          },
+          {
+            n: "03",
+            title: "Two Trades Per Day Maximum",
+            body: "At 0.5% risk per trade, two trades equals exactly 1% maximum daily exposure — the daily cap. Two trades forces selectivity: you wait for the clearest setups, not the first opportunity. After two trades — win, lose, or break even — close the platform. Over-trading is the second most common cause of funded account failures.",
+            code: [
+              "2 trades × 0.5% = 1.0% daily",
+              "Firm limit:       4–5% daily",
+              "Your buffer:      3–4% intact",
+            ],
+          },
+          {
+            n: "04",
+            title: "Check ADR Before Entry",
+            body: "Verify the Average Daily Range before every trade. If the instrument has already consumed more than 70% of its ADR before your setup triggers, the trade carries disproportionate stop-hunt risk — the remaining range is thin and the market is prone to reversals. Use ADR consumption as a final gate: high ADR remaining = room to run = higher probability.",
+            code: [
+              "ADR 70% consumed → pass the trade",
+              "ADR 30% consumed → full range intact",
+              "Low ADR left = stop-hunt risk ↑",
+            ],
+          },
+        ].map(({ n, title, body, code }) => (
+          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+            <div class="text-4xl font-black text-emerald-500/20 mb-3">{n}</div>
+            <h3 class="text-white font-black uppercase text-sm tracking-tighter mb-3">{title}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">{body}</p>
+            <div class="bg-slate-950/60 rounded-xl p-4 font-mono text-xs space-y-1">
+              {code.map((line) => (
+                <p class="text-slate-500">{line}</p>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Risk States -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Risk States — What the Calculator Shows You
+      </h2>
+      <p class="text-slate-400 text-sm leading-relaxed mb-8">
+        The TRADE90 calculator shows a real-time risk state for every trade input. These states are based on your risk percentage relative to the Trade90 framework limits:
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        {[
+          { state: "SAFE",       range: "≤ 0.5% (funded)\n≤ 1% (real)",  color: "border-emerald-500/40 bg-emerald-500/5", label: "text-emerald-400", desc: "Within Trade90 limits. Proceed." },
+          { state: "CAUTION",   range: "0.5–0.75% (funded)",              color: "border-amber-500/40 bg-amber-500/5",    label: "text-amber-400",   desc: "Slightly above the 0.5% target." },
+          { state: "AGGRESSIVE", range: "0.75–1% (funded)",               color: "border-orange-500/40 bg-orange-500/5", label: "text-orange-400",  desc: "Drawdown builds fast." },
+          { state: "DANGEROUS",  range: "> 1% (funded)",                  color: "border-rose-500/40 bg-rose-500/5",     label: "text-rose-400",    desc: "Challenge at risk. Reduce size." },
+        ].map(({ state, range, color, label, desc }) => (
+          <div class={`border ${color} rounded-xl p-4`}>
+            <p class={`${label} font-black text-[10px] uppercase tracking-widest mb-1`}>{state}</p>
+            <p class="text-slate-500 text-[9px] font-bold uppercase tracking-wider mb-2 whitespace-pre-line">{range}</p>
+            <p class="text-slate-400 text-xs leading-snug">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Drawdown Survival Table -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-4 border-l-4 border-emerald-500 pl-4">
+        Drawdown Survival Analysis — $100,000 Account
+      </h2>
+      <p class="text-slate-400 text-sm leading-relaxed mb-6">
+        This table shows account drawdown after consecutive losses at different risk levels, compared to standard prop firm limits.
+      </p>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-4">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-800">
+              <th class="px-5 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Risk / Trade</th>
+              <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">5 Losses</th>
+              <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">10 Losses</th>
+              <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">15 Losses</th>
+              <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">$100k Challenge Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/50">
+            {[
+              { risk: "0.5%", l5: "−$2,500 (2.5%)",  l10: "−$4,878 (4.9%)",  l15: "−$7,143 (7.1%)",   status: "Safe — inside all limits",    statusColor: "text-emerald-400" },
+              { risk: "1.0%", l5: "−$4,878 (4.9%)",  l10: "−$9,562 (9.6%)",  l15: "−$14,012 (14.0%)", status: "Borderline — near 10% max DD", statusColor: "text-amber-400" },
+              { risk: "1.5%", l5: "−$7,143 (7.1%)",  l10: "−$13,786 (13.8%)",l15: "−$19,955 (20.0%)", status: "Dangerous — exceeds max DD",    statusColor: "text-orange-400" },
+              { risk: "2.0%", l5: "−$9,231 (9.2%)",  l10: "−$17,627 (17.6%)",l15: "−$25,282 (25.3%)", status: "Challenge failed (5 losses)",  statusColor: "text-rose-400" },
+            ].map(({ risk, l5, l10, l15, status, statusColor }) => (
+              <tr>
+                <td class={`px-5 py-3 font-black font-mono ${statusColor}`}>{risk}</td>
+                <td class="px-5 py-3 text-right text-slate-300 font-mono text-xs">{l5}</td>
+                <td class="px-5 py-3 text-right text-slate-300 font-mono text-xs">{l10}</td>
+                <td class="px-5 py-3 text-right text-slate-300 font-mono text-xs">{l15}</td>
+                <td class={`px-5 py-3 text-right font-black text-xs uppercase ${statusColor}`}>{status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-slate-500 text-xs">Compound drawdown on rolling equity. Most prop firms use 10% max total drawdown and 4–5% daily loss limit.</p>
+    </section>
+
+    <!-- Why Standard Calculators Fail -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Why Generic Calculators Fail Funded Traders
+      </h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        {[
+          {
+            title: "No Risk Guardrails",
+            body: "Generic calculators will output a position size at 5% risk without any warning. One stop-out and your daily limit is gone. A funded account calculator must enforce limits, not just calculate numbers.",
+          },
+          {
+            title: "No Daily Budget Tracking",
+            body: "Retail tools don't track how much risk you've used today. You can unknowingly stack multiple trades and blow through your daily drawdown allowance across two or three positions.",
+          },
+          {
+            title: "Wrong Pip Values",
+            body: "Many generic tools use approximate pip values or don't differentiate between instrument types. Gold, indices, and JPY pairs all have different pip value structures that must be calculated correctly.",
+          },
+        ].map(({ title, body }) => (
+          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+            <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-4">
+              <span class="text-rose-400 font-black text-sm">✗</span>
+            </div>
+            <h3 class="text-sm font-black uppercase tracking-tight text-white mb-2">{title}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">{body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Calculator CTA -->
+    <section class="bg-slate-900/40 border border-emerald-500/20 rounded-2xl p-8 text-center">
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-3">
+        Apply the Framework Now
+      </h2>
+      <p class="text-slate-400 text-sm mb-6 max-w-lg mx-auto">
+        The TRADE90 calculator enforces Trade90 Safety System limits in real time — showing your risk state, daily budget remaining, and safe trades left.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors"
+      >
+        Open Position Size Calculator →
+      </a>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Risk Management FAQ
+      </h2>
+      <div class="space-y-3">
+        {[
+          {
+            q: "What is the best risk percentage for a prop firm challenge?",
+            a: "0.5% per trade is the recommended maximum for funded challenges. At 0.5%, you can absorb 20 consecutive losses before reaching a typical 10% maximum drawdown — giving your edge enough runway to work. 1% is the absolute ceiling. Risking 2% or more places the evaluation at serious risk from any normal losing streak.",
+          },
+          {
+            q: "What is the 0.5% rule in funded trading?",
+            a: "You risk no more than 0.5% of your current account equity per trade. On a $100,000 account: $500 maximum per trade. At this level, you need 8–10 consecutive losses before approaching a typical 4–5% daily loss limit — that's a massive buffer against variance.",
+          },
+          {
+            q: "What is the daily loss limit for most prop firms?",
+            a: "Most prop firms set a daily loss limit of 4–5% of account balance. The Trade90 Safety System targets a personal daily cap of 1% — well inside that limit — to preserve a buffer against intraday volatility and prevent hitting the firm's hard limit from a single bad session.",
+          },
+          {
+            q: "How many trades per day should a funded trader take?",
+            a: "Two is the recommended maximum during evaluations. Two trades at 0.5% each equals 1% daily exposure — the daily cap. Two trades forces selectivity, eliminates over-trading, and keeps you well inside the firm's daily drawdown boundary.",
+          },
+        ].map(({ q, a }) => (
+          <details class="group bg-slate-900/40 border border-slate-800 hover:border-emerald-500/30 rounded-2xl overflow-hidden transition-colors">
+            <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-200 text-sm uppercase tracking-tight hover:text-white list-none">
+              {q}
+              <span class="text-emerald-500 group-open:rotate-45 transition-transform text-xl leading-none shrink-0 ml-4">+</span>
+            </summary>
+            <div class="px-5 pb-5 text-slate-400 text-sm leading-relaxed border-t border-slate-800/50 pt-4">{a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Next guides -->
+    <section class="border-t border-slate-800 pt-12">
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Continue Learning</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/learn/position-sizing/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Foundation</p>
+          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Position Sizing: The Complete Guide →</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">The formula, pip values, worked examples, and common mistakes.</p>
+        </a>
+        <a href="/learn/funded-accounts/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Prop Firms</p>
+          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Funded Account Trading Guide →</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">Challenge rules, FTMO account sizes, and passing strategies.</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

@@ -1,0 +1,461 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PositionSizer from '../../components/PositionSizer.svelte';
+
+const title = "Position Sizing: The Complete Guide — Formula, Examples, and Common Mistakes";
+const description = "How to calculate position size in forex, gold, indices, and crypto. The complete formula, worked examples across all instrument types, and the mistakes that blow trading accounts.";
+const keywords = [
+  "how to calculate position size",
+  "position sizing formula",
+  "position size calculator guide",
+  "lot size formula forex",
+  "position sizing gold indices crypto",
+  "how to size a trade",
+  "position sizing funded traders",
+];
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Calculate Position Size in Trading",
+  description: "Step-by-step guide to calculating the correct lot size for any forex, gold, index, or crypto trade.",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Define your dollar risk",
+      text: "Multiply your account balance by your risk percentage. $100,000 account at 0.5% risk = $500 dollar risk.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Measure stop loss distance in pips",
+      text: "Calculate |Entry − Stop Loss| ÷ Pip Size. EUR/USD with entry 1.08500 and stop 1.08250 = 0.0025 ÷ 0.0001 = 25 pips.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Find pip value for your instrument",
+      text: "Forex majors: $10 per pip per standard lot. Gold: $10 per point per 0.1 lot. Indices: $1 per point per 0.1 lot. JPY pairs: ~$6.70 per pip per lot.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Calculate lot size",
+      text: "Lot Size = Dollar Risk ÷ (Stop Loss Pips × Pip Value per Lot). Example: $500 ÷ (25 × $10) = 2.00 lots on EUR/USD.",
+    },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is the position sizing formula?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Dollar Risk = Account Balance × (Risk % ÷ 100). Lot Size = Dollar Risk ÷ (Stop Loss Pips × Pip Value per Lot). For a $50,000 account at 1% risk with a 40-pip stop on EUR/USD: $500 ÷ (40 × $10) = 1.25 lots.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I calculate position size for gold (XAU/USD)?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Gold uses $10 per point per 0.1 lot. Dollar Risk ÷ (Stop Distance in points × $10 × lots). Example: $500 risk, 200-point stop: $500 ÷ (200 × $10) = 0.25 lots. The TRADE90 calculator handles this conversion automatically.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I calculate position size for NAS100 or US30?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Indices like NAS100 and US30 use $1 per point per 0.1 lot. Dollar Risk ÷ (Stop Distance in points × $1). Example: $250 risk, 100-point stop on NAS100: $250 ÷ (100 × $1) = 2.50 lots.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What percentage should I risk per trade?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "0.5%–1% is the professional standard. Funded traders on prop firm challenges typically use 0.5% maximum to stay well inside daily drawdown limits. Retail traders with tested strategies use 1%. Exceeding 2% per trade dramatically increases the probability of drawdowns that are mathematically difficult to recover from.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is position sizing the same as lot size?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. Lot size is the unit your broker uses. Position sizing is the process of calculating which lot size gives you the correct dollar risk. The lot size is the output of position sizing — it changes on every trade based on your stop distance, account balance, and risk percentage.",
+      },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Learn", item: `${site}/learn/` },
+    { "@type": "ListItem", position: 3, name: "Position Sizing Guide", item: `${site}/learn/position-sizing/` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+  <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <!-- Hero -->
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span>/</span>
+        <a href="/learn/" class="hover:text-emerald-400 transition-colors">Learn</a>
+        <span>/</span>
+        <span class="text-slate-300">Position Sizing</span>
+      </nav>
+
+      <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full mb-4 inline-block">Foundation Guide</span>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+        Position Sizing:<br/><span class="text-emerald-400">The Complete Guide</span>
+      </h1>
+      <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
+        How to calculate the exact lot size for any trade — forex, gold, indices, or crypto — so a losing trade costs a known, controlled percentage of your account. One formula, explained completely.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-16 px-6 space-y-16">
+
+    <!-- What is position sizing -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        What Is Position Sizing?
+      </h2>
+      <div class="prose-style space-y-4 text-slate-400 text-sm leading-relaxed">
+        <p>
+          Position sizing is the process of calculating how large a trade to take — expressed in lots or contracts — so that if the trade hits your stop loss, you lose a predetermined, acceptable amount of your account.
+        </p>
+        <p>
+          It answers the question: <strong class="text-slate-200">"How many lots should I trade on this setup, given my account size and where my stop loss is?"</strong>
+        </p>
+        <p>
+          The key insight is that position sizing separates the <em>size of a trade</em> from the <em>size of the risk</em>. Without it, traders default to a fixed lot size regardless of stop distance — meaning the actual dollar risk per trade varies unpredictably. With proper position sizing, a 20-pip stop and a 100-pip stop can carry identical dollar risk.
+        </p>
+      </div>
+    </section>
+
+    <!-- The Formula -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        The Position Sizing Formula
+      </h2>
+
+      <div class="bg-slate-900 border border-emerald-500/20 rounded-2xl p-6 mb-8">
+        <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-4">Formula</p>
+        <div class="font-mono text-sm text-slate-200 space-y-2">
+          <p><span class="text-slate-500">Dollar Risk    = </span>Account Balance × (Risk % ÷ 100)</p>
+          <p><span class="text-slate-500">Stop Pips      = </span>|Entry Price − Stop Loss| ÷ Pip Size</p>
+          <p><span class="text-slate-500">Lot Size       = </span>Dollar Risk ÷ (Stop Pips × Pip Value per Lot)</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-6">
+        <div class="px-6 py-4 border-b border-slate-800">
+          <h3 class="text-white font-black uppercase text-sm tracking-tighter">Example — EUR/USD, $100,000 Account</h3>
+        </div>
+        <table class="w-full text-sm">
+          <tbody>
+            {[
+              ["Account Balance",    "$100,000"],
+              ["Risk Percentage",    "0.5%"],
+              ["Dollar Risk",        "$500"],
+              ["Entry Price",        "1.08500"],
+              ["Stop Loss",          "1.08250  →  25 pips"],
+              ["EUR/USD Pip Value",  "$10.00 per standard lot"],
+              ["Calculation",        "$500 ÷ (25 × $10)"],
+              ["Lot Size",           "2.00 lots"],
+            ].map(([label, value], i) => (
+              <tr class={i % 2 === 0 ? "bg-slate-950/30" : ""}>
+                <td class="px-6 py-3 text-slate-400 font-medium">{label}</td>
+                <td class={`px-6 py-3 font-mono font-bold ${label === "Lot Size" ? "text-emerald-400 text-base" : "text-slate-200"}`}>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Pip Values by Instrument -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Pip Values by Instrument Type
+      </h2>
+      <p class="text-slate-400 text-sm leading-relaxed mb-6">
+        The pip value is what makes position sizing different across instruments. Here are the standard values used by most brokers:
+      </p>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-8">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-800">
+              <th class="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Instrument</th>
+              <th class="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Pip / Point Size</th>
+              <th class="px-6 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Value per Standard Lot</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/50">
+            {[
+              ["EUR/USD, GBP/USD, AUD/USD", "0.0001", "$10.00 per pip"],
+              ["USD/JPY, EUR/JPY, GBP/JPY", "0.01",   "≈ $6.70 per pip"],
+              ["Gold (XAU/USD)",             "0.1",    "$10.00 per point"],
+              ["Silver (XAG/USD)",           "0.01",   "$5.00 per point"],
+              ["NAS100, SPX500",             "1",      "$1.00 per point"],
+              ["US30 (Dow Jones)",           "1",      "$1.00 per point"],
+              ["GER40, UK100",               "1",      "≈ $0.12 per point"],
+              ["BTC/USD",                    "1",      "$1.00 per point"],
+              ["EUR/GBP, GBP/CHF (crosses)","0.0001", "≈ $6.50 per pip"],
+            ].map(([inst, pip, val], i) => (
+              <tr class={i % 2 === 0 ? "bg-slate-950/20" : ""}>
+                <td class="px-6 py-3 text-slate-200 font-medium">{inst}</td>
+                <td class="px-6 py-3 text-slate-400 font-mono">{pip}</td>
+                <td class="px-6 py-3 text-emerald-400 font-mono font-bold">{val}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-slate-500 text-xs">Pip values are approximate and vary slightly by broker contract. The TRADE90 calculator applies the correct value for each of 45+ instruments automatically.</p>
+    </section>
+
+    <!-- Worked examples across instruments -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Worked Examples Across Instruments
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {[
+          {
+            label: "GBP/USD — $50,000 Account",
+            rows: [
+              ["Account",    "$50,000"],
+              ["Risk",       "1% = $500"],
+              ["Stop Loss",  "40 pips"],
+              ["Pip Value",  "$10.00/lot"],
+              ["Lot Size",   "$500 ÷ (40 × $10) = 1.25 lots"],
+            ],
+          },
+          {
+            label: "Gold (XAU/USD) — $100,000 Account",
+            rows: [
+              ["Account",    "$100,000"],
+              ["Risk",       "0.5% = $500"],
+              ["Stop Loss",  "200 points"],
+              ["Pip Value",  "$10.00/lot (per 0.1 lot)"],
+              ["Lot Size",   "$500 ÷ (200 × $10) = 0.25 lots"],
+            ],
+          },
+          {
+            label: "NAS100 — $25,000 Account",
+            rows: [
+              ["Account",    "$25,000"],
+              ["Risk",       "0.5% = $125"],
+              ["Stop Loss",  "100 points"],
+              ["Pip Value",  "$1.00/lot"],
+              ["Lot Size",   "$125 ÷ (100 × $1) = 1.25 lots"],
+            ],
+          },
+          {
+            label: "USD/JPY — $10,000 Account",
+            rows: [
+              ["Account",    "$10,000"],
+              ["Risk",       "1% = $100"],
+              ["Stop Loss",  "30 pips"],
+              ["Pip Value",  "≈ $6.70/lot"],
+              ["Lot Size",   "$100 ÷ (30 × $6.70) ≈ 0.50 lots"],
+            ],
+          },
+        ].map(({ label, rows }) => (
+          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden">
+            <div class="px-5 py-3 border-b border-slate-800 bg-slate-900/60">
+              <h3 class="text-white font-black uppercase text-xs tracking-tighter">{label}</h3>
+            </div>
+            {rows.map(([k, v], i) => (
+              <div class={`flex justify-between px-5 py-2.5 text-xs ${i % 2 === 0 ? "bg-slate-950/20" : ""}`}>
+                <span class="text-slate-400">{k}</span>
+                <span class={`font-mono font-bold ${k === "Lot Size" ? "text-emerald-400" : "text-slate-200"}`}>{v}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Drawdown math -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-4 border-l-4 border-emerald-500 pl-4">
+        Why Risk Percentage Changes Everything
+      </h2>
+      <p class="text-slate-400 text-sm leading-relaxed mb-6">
+        Consecutive losing trades are statistically inevitable for any strategy. The question is whether your account survives them. This table shows account drawdown after losing streaks at different risk levels.
+      </p>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-4">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-800">
+              <th class="px-5 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Risk / Trade</th>
+              <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">5 Losses</th>
+              <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">10 Losses</th>
+              <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">15 Losses</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/50">
+            {[
+              { risk: "0.5%", l5: "−2.5%",  l10: "−4.9%",  l15: "−7.1%",  color: "text-emerald-400" },
+              { risk: "1.0%", l5: "−4.9%",  l10: "−9.6%",  l15: "−14.0%", color: "text-amber-400" },
+              { risk: "2.0%", l5: "−9.6%",  l10: "−18.3%", l15: "−26.0%", color: "text-orange-400" },
+              { risk: "5.0%", l5: "−22.6%", l10: "−40.1%", l15: "−53.7%", color: "text-rose-400" },
+            ].map(({ risk, l5, l10, l15, color }) => (
+              <tr>
+                <td class={`px-5 py-3 font-black font-mono ${color}`}>{risk}</td>
+                <td class="px-5 py-3 text-right text-slate-300 font-mono text-xs">{l5}</td>
+                <td class="px-5 py-3 text-right text-slate-300 font-mono text-xs">{l10}</td>
+                <td class="px-5 py-3 text-right text-slate-300 font-mono text-xs">{l15}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-slate-500 text-xs">Compound drawdown calculated on rolling equity. A 10-loss streak is statistically normal for any strategy with a 50% win rate.</p>
+    </section>
+
+    <!-- Common Mistakes -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        5 Position Sizing Mistakes That Blow Accounts
+      </h2>
+
+      <div class="space-y-4">
+        {[
+          {
+            n: "01",
+            title: "Fixed lot size on every trade",
+            body: "Trading 0.10 lots regardless of stop distance means your dollar risk per trade varies by 5× or more. A 20-pip stop at 0.10 lots risks $20. A 150-pip stop at 0.10 lots risks $150. Your account equity cannot be managed if your risk per trade is unknown.",
+          },
+          {
+            n: "02",
+            title: "Deciding lot size before stop placement",
+            body: "Correct sequence: (1) identify entry and stop based on market structure, (2) calculate lot size. Reversing this — choosing lots first, then finding a stop — produces stops placed at arbitrary distances that don't reflect trade invalidation levels.",
+          },
+          {
+            n: "03",
+            title: "Using starting balance instead of current equity",
+            body: "Position size should always be calculated on your current live equity, not your starting balance. If you've had losses and your account is down, your dollar risk should scale down automatically. Using starting balance inflates risk during drawdowns.",
+          },
+          {
+            n: "04",
+            title: "Ignoring pip value differences across instruments",
+            body: "Gold's $10 per point per 0.1 lot and NAS100's $1 per point per 0.1 lot require completely different lot sizes for the same dollar risk. Applying a forex formula to gold or indices without adjusting pip values produces wrong results — often dramatically over-sized positions.",
+          },
+          {
+            n: "05",
+            title: "Using the same risk % for all instruments",
+            body: "Volatile instruments like XAU/USD and NAS100 have wider average daily ranges and larger gap risk than major forex pairs. Consider reducing to 0.5% per trade on these instruments even if you normally trade 1% on EUR/USD.",
+          },
+        ].map(({ n, title, body }) => (
+          <div class="flex gap-5 bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+            <div class="text-3xl font-black text-emerald-500/20 shrink-0 leading-none">{n}</div>
+            <div>
+              <h3 class="text-white font-black uppercase text-sm tracking-tighter mb-2">{title}</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">{body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Calculator CTA -->
+    <section class="bg-slate-900/40 border border-emerald-500/20 rounded-2xl p-8 text-center">
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-3">
+        Calculate Your Position Size Now
+      </h2>
+      <p class="text-slate-400 text-sm mb-6 max-w-lg mx-auto">
+        The TRADE90 calculator applies the correct pip value for 45+ instruments automatically. Enter your balance, risk %, and stop loss — get your exact lot size instantly.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors"
+      >
+        Open Position Size Calculator →
+      </a>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Position Sizing FAQ
+      </h2>
+      <div class="space-y-3">
+        {[
+          {
+            q: "What is the position sizing formula?",
+            a: "Dollar Risk = Account Balance × (Risk % ÷ 100). Lot Size = Dollar Risk ÷ (Stop Loss Pips × Pip Value per Lot). For a $50,000 account at 1% risk with a 40-pip stop on EUR/USD: $500 ÷ (40 × $10) = 1.25 lots.",
+          },
+          {
+            q: "How do I calculate position size for gold (XAU/USD)?",
+            a: "Gold uses $10 per point per 0.1 lot (or $100 per standard lot). Dollar Risk ÷ (Stop Distance in points × $10). Example: $500 risk, 200-point stop: $500 ÷ (200 × $10) = 0.25 lots.",
+          },
+          {
+            q: "How do I calculate position size for NAS100 or US30?",
+            a: "Indices use $1 per point per 0.1 lot. Dollar Risk ÷ (Stop Distance × $1). Example: $250 risk, 100-point stop: $250 ÷ (100 × $1) = 2.50 lots.",
+          },
+          {
+            q: "What percentage should I risk per trade?",
+            a: "0.5%–1% is the professional standard. Funded traders on prop firm challenges use 0.5% maximum to stay inside daily drawdown limits. Retail traders with tested strategies use 1%. Exceeding 2% per trade dramatically increases drawdown severity.",
+          },
+          {
+            q: "Is position sizing the same as lot size?",
+            a: "No. Lot size is the unit your broker uses. Position sizing is the process of calculating which lot size gives you the correct dollar risk. The lot size is the output of position sizing — it changes on every trade.",
+          },
+        ].map(({ q, a }) => (
+          <details class="group bg-slate-900/40 border border-slate-800 hover:border-emerald-500/30 rounded-2xl overflow-hidden transition-colors">
+            <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-200 text-sm uppercase tracking-tight hover:text-white list-none">
+              {q}
+              <span class="text-emerald-500 group-open:rotate-45 transition-transform text-xl leading-none shrink-0 ml-4">+</span>
+            </summary>
+            <div class="px-5 pb-5 text-slate-400 text-sm leading-relaxed border-t border-slate-800/50 pt-4">{a}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Next guides -->
+    <section class="border-t border-slate-800 pt-12">
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Continue Learning</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <a href="/learn/risk-management/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Next Guide</p>
+          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Risk Management for Funded Traders →</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">The 0.5% rule, daily loss limits, drawdown survival analysis, and the four-rule framework.</p>
+        </a>
+        <a href="/learn/funded-accounts/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Also Read</p>
+          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Funded Account Trading Guide →</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">Challenge rules, drawdown structures, and the exact sizing strategy for FTMO, E8, Apex, and Topstep.</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

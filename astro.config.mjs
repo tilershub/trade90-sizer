@@ -15,18 +15,18 @@ export default defineConfig({
         !['/join/', '/login/', '/logout/'].includes(new URL(page).pathname),
       lastmod: new Date(),
       serialize(item) {
-        // Priority mapping — highest priority for funded-trader conversion pages
+        // Priority mapping
         const highPriority = [
           '/',
-          '/funded-trader-risk-calculator/',
-          '/ftmo-position-size-calculator/',
-          '/prop-firm-risk-management/',
-          '/how-to-calculate-position-size/',
           '/calculator/',
           '/pip-value-calculator/',
           '/risk-reward-calculator/',
+          '/learn/',
+          '/learn/position-sizing/',
+          '/learn/risk-management/',
+          '/learn/funded-accounts/',
+          '/best-prop-firms-usa/',
         ];
-        const medPriority = ['/about/', '/blog/', '/calculator/'];
         const url = new URL(item.url);
         const path = url.pathname;
 
@@ -39,7 +39,10 @@ export default defineConfig({
         if (path.startsWith('/calculator/') && path !== '/calculator/') {
           return { ...item, priority: 0.7, changefreq: 'monthly' };
         }
-        return { ...item, priority: 0.6, changefreq: 'monthly' };
+        if (['/funded-trader-risk-calculator/', '/ftmo-position-size-calculator/', '/prop-firm-risk-management/', '/how-to-calculate-position-size/'].includes(path)) {
+          return { ...item, priority: 0.6, changefreq: 'monthly' };
+        }
+        return { ...item, priority: 0.5, changefreq: 'monthly' };
       },
     }),
 
