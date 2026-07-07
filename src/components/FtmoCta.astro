@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant?: 'banner' | 'card' | 'inline';
+  variant?: 'banner' | 'card' | 'inline' | 'recommendation';
   accountSize?: string;
 }
 
@@ -9,19 +9,44 @@ const { variant = 'banner', accountSize = '$100,000' } = Astro.props;
 const AFFILIATE_URL = "https://trader.ftmo.com/?affiliates=ePACbqdYAbKwZHXxkICk";
 ---
 
+{variant === 'recommendation' && (
+  <aside class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 md:p-7">
+    <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-3">A Note on Choosing a Firm</p>
+    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+      Once you understand the rules and have a written trading plan and risk framework in place, you may consider attempting a funded challenge. <a href="https://ftmo.com" target="_blank" rel="noopener" class="text-emerald-400 hover:text-white underline decoration-emerald-500/40 underline-offset-2 transition-colors">FTMO</a> is one long-established, widely reviewed option, but it is not the only reputable firm — compare drawdown models, instruments, and payout terms against your own approach before deciding.
+    </p>
+    <div class="flex flex-wrap items-center gap-4">
+      <a
+        href={AFFILIATE_URL}
+        target="_blank"
+        rel="noopener sponsored"
+        class="inline-flex items-center gap-2 border border-emerald-500/40 hover:border-emerald-500 hover:bg-emerald-500/10 text-emerald-400 font-black uppercase tracking-widest text-xs px-5 py-2.5 rounded-xl transition-colors"
+      >
+        Visit FTMO →
+      </a>
+      <a href="/prop-firms/how-to-choose-a-prop-firm/" class="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-400 transition-colors">
+        How to choose a firm
+      </a>
+    </div>
+    <p class="text-slate-600 text-[9px] uppercase tracking-widest font-bold mt-4">
+      Affiliate link — TRADE90 may earn a commission at no extra cost to you. Not financial advice.
+    </p>
+  </aside>
+)}
+
 {variant === 'banner' && (
   <div class="bg-gradient-to-r from-emerald-900/30 to-slate-950 border border-emerald-500/30 rounded-2xl p-6 md:p-8">
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
       <div>
-        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-2">FTMO — Official Partner</p>
+        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-2">Prop Firm Resource</p>
         <h3 class="text-xl md:text-2xl font-black uppercase tracking-tighter text-white mb-2">
-          Ready to Trade a Funded Account?
+          Considering a Funded Challenge?
         </h3>
         <p class="text-slate-400 text-sm leading-relaxed max-w-lg">
-          FTMO is the world's most recognized prop firm. Start with a {accountSize} challenge — use this calculator to size every trade before you place it.
+          FTMO is one long-established, widely reviewed prop firm offering evaluations up to {accountSize}. Understand the rules and build your risk plan first — then decide if a challenge fits your approach.
         </p>
         <p class="text-slate-600 text-[9px] uppercase tracking-widest font-bold mt-3">
-          ★ Affiliate link — TRADE90 earns a commission at no extra cost to you
+          Affiliate link — TRADE90 may earn a commission at no extra cost to you
         </p>
       </div>
       <div class="flex flex-col gap-3 shrink-0">
@@ -29,15 +54,15 @@ const AFFILIATE_URL = "https://trader.ftmo.com/?affiliates=ePACbqdYAbKwZHXxkICk"
           href={AFFILIATE_URL}
           target="_blank"
           rel="noopener sponsored"
-          class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors whitespace-nowrap"
+          class="inline-flex items-center gap-2 border border-emerald-500/50 hover:border-emerald-400 hover:bg-emerald-500/10 text-emerald-400 font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors whitespace-nowrap"
         >
-          Start FTMO Challenge →
+          Visit FTMO →
         </a>
         <a
-          href="/ftmo-position-size-calculator/"
+          href="/prop-firms/"
           class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-emerald-500 text-center transition-colors"
         >
-          FTMO Position Size Calculator
+          Read the Prop Firm Guides
         </a>
       </div>
     </div>

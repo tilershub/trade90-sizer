@@ -11,6 +11,8 @@ const {
   articleModifiedTime,
   keywords = [],
   breadcrumbName,
+  breadcrumbParentName = "Blog",
+  breadcrumbParentPath = "/blog/",
 } = Astro.props;
 
 const site = Astro.site?.toString() || "https://tradeninety.com";
@@ -55,30 +57,19 @@ const organizationSchema = {
     "@type": "ImageObject",
     url: new URL("/favicon.svg", site).toString(),
   },
-  description: "Professional position sizing and risk management tools for funded traders worldwide. The Trade90 Safety System enforces 0.5% max risk per trade and 1% daily risk target — used by traders in the USA, UK, Europe, and Australia.",
+  description: "Educational platform for funded traders. Practical education on trading psychology, risk management, and disciplined execution — with free professional tools and prop firm resources.",
   foundingDate: "2023",
-  areaServed: [
-    { "@type": "Country", name: "United States" },
-    { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Country", name: "Australia" },
-    { "@type": "Country", name: "Canada" },
-    { "@type": "Country", name: "Germany" },
-    { "@type": "Country", name: "Netherlands" },
-    { "@type": "Country", name: "France" },
-    { "@type": "Country", name: "Ireland" },
-    { "@type": "Country", name: "New Zealand" },
-  ],
   audience: {
     "@type": "Audience",
-    audienceType: "Funded Traders, Prop Firm Traders, Forex Traders, US Forex Traders, UK Forex Traders, Australian Forex Traders, European Traders",
+    audienceType: "Funded Traders, Prop Firm Traders",
   },
   knowsAbout: [
+    "Trading Psychology",
+    "Risk Management",
     "Position Sizing",
-    "Funded Trading",
-    "Prop Firm Challenge",
-    "Forex Risk Management",
-    "FTMO",
-    "Lot Size Calculator",
+    "Trading Plans",
+    "Prop Firm Evaluations",
+    "Trading Performance Analysis",
   ],
   sameAs: [],
 };
@@ -108,7 +99,7 @@ const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
-    { "@type": "ListItem", position: 2, name: "Blog", item: `${site}/blog/` },
+    { "@type": "ListItem", position: 2, name: breadcrumbParentName, item: `${site}${breadcrumbParentPath}` },
     { "@type": "ListItem", position: 3, name: breadcrumbName || title, item: canonicalURL },
   ],
 };

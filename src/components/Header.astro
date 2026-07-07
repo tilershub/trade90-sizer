@@ -1,81 +1,104 @@
 ---
-// Header v2.0 – Stable auth links via Astro redirects
+// Header v3 — knowledge-architecture navigation
+const hubs = [
+  { href: '/psychology/', name: 'Psychology', desc: 'Discipline & mindset', accent: 'text-sky-400' },
+  { href: '/risk-management/', name: 'Risk Management', desc: 'Sizing, limits, drawdown', accent: 'text-emerald-400' },
+  { href: '/trading-plans/', name: 'Trading Plans', desc: 'Plans & routines', accent: 'text-amber-400' },
+  { href: '/prop-firms/', name: 'Prop Firms', desc: 'Evaluations & funded accounts', accent: 'text-purple-400' },
+  { href: '/performance/', name: 'Performance', desc: 'Journals & metrics', accent: 'text-rose-400' },
+];
 ---
 
-<header id="site-header" class="border-b border-slate-900 bg-black/50 backdrop-blur-md sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<header id="site-header" class="border-b border-slate-900 bg-black/60 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
-    <!-- Logo -->
-    <a href="/" class="text-xl font-black tracking-tighter text-white shrink-0">
+    <a href="/" class="text-lg font-black tracking-tighter text-white shrink-0">
       TRADE<span class="text-emerald-500">90</span>
     </a>
 
     <div class="flex items-center gap-4">
 
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] mr-4">
-        <a href="/" class="text-slate-400 hover:text-white transition-colors">Calculator</a>
-        <a href="/funded-trader-risk-calculator/" class="text-emerald-500 hover:text-emerald-400 transition-colors">Funded Traders</a>
-        <a href="/calculator/" class="text-slate-400 hover:text-white transition-colors">All Instruments</a>
-        <a href="/pip-value-calculator/" class="text-slate-400 hover:text-white transition-colors">Pip Value</a>
-        <a href="/blog" class="text-slate-400 hover:text-white transition-colors">Analysis</a>
+      <nav class="hidden md:flex items-center gap-7 text-[11px] font-black uppercase tracking-[0.15em]">
+        <!-- Learn dropdown -->
+        <div class="relative group" id="learn-menu">
+          <button
+            type="button"
+            id="learn-toggle"
+            aria-haspopup="true"
+            aria-expanded="false"
+            class="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors cursor-pointer bg-transparent border-none p-0"
+          >
+            Learn
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="mt-0.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div
+            id="learn-panel"
+            class="hidden absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[30rem]"
+          >
+            <div class="bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl p-3 grid grid-cols-2 gap-1">
+              {hubs.map((h) => (
+                <a href={h.href} class="block px-4 py-3 rounded-xl hover:bg-slate-900 transition-colors">
+                  <span class={`block text-[11px] font-black uppercase tracking-wide ${h.accent}`}>{h.name}</span>
+                  <span class="block text-[10px] text-slate-500 tracking-normal font-medium normal-case mt-0.5">{h.desc}</span>
+                </a>
+              ))}
+              <a href="/risk-management/position-sizing/" class="block px-4 py-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition-colors">
+                <span class="block text-[11px] font-black uppercase tracking-wide text-emerald-400">Start Here →</span>
+                <span class="block text-[10px] text-slate-500 tracking-normal font-medium normal-case mt-0.5">Position sizing guide</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="/tools/" class="text-slate-300 hover:text-white transition-colors">Tools</a>
+        <a href="/prop-firms/" class="text-slate-300 hover:text-white transition-colors">Prop Firms</a>
+        <a href="/blog" class="text-slate-300 hover:text-white transition-colors">Blog</a>
       </nav>
 
-      <!-- Desktop Auth -->
-      <div class="hidden md:flex items-center gap-3">
-        <a
-          href="/join"
-          class="px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest
-                 bg-emerald-500 text-black hover:bg-emerald-400 transition"
-        >
-          Subscribe
-        </a>
-      </div>
+      <!-- Desktop CTA -->
+      <a
+        href="/risk-management/position-sizing/"
+        class="hidden md:inline-flex px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest bg-emerald-500 text-black hover:bg-emerald-400 transition"
+      >
+        Start Learning
+      </a>
 
       <!-- Mobile Menu -->
-      <div class="relative">
+      <div class="relative md:hidden">
         <button
           id="menu-toggle"
           aria-label="Toggle Menu"
           type="button"
           class="text-white p-2 hover:bg-slate-900 rounded-lg cursor-pointer bg-transparent border-none outline-none"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-               viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" x2="21" y1="12" y2="12"></line>
             <line x1="3" x2="21" y1="6" y2="6"></line>
             <line x1="3" x2="21" y1="18" y2="18"></line>
           </svg>
         </button>
 
-        <div
-          id="mobile-menu"
-          class="hidden absolute top-14 right-0 w-72 bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl py-3 z-50 overflow-hidden"
-        >
-          <!-- Mobile Auth -->
-          <div class="px-4 py-3 border-b border-slate-900/50 space-y-2">
-            <a
-              href="/join"
-              class="block w-full text-center px-4 py-3 rounded-xl
-                     bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition"
-            >
-              Subscribe
+        <div id="mobile-menu" class="hidden absolute top-14 right-0 w-72 bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl py-3 z-50 overflow-hidden max-h-[80vh] overflow-y-auto">
+          <div class="px-4 py-2 border-b border-slate-900/50">
+            <a href="/risk-management/position-sizing/" class="block w-full text-center px-4 py-3 rounded-xl bg-emerald-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-emerald-400 transition">
+              Start Learning
             </a>
-
           </div>
-
-          <!-- Mobile Nav -->
-          <a href="/" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition border-b border-slate-900/50">Calculator</a>
-          <a href="/funded-trader-risk-calculator/" class="block px-6 py-4 text-[10px] font-black uppercase text-emerald-500 hover:bg-slate-900 hover:text-emerald-400 transition border-b border-slate-900/50">Funded Traders</a>
-          <a href="/calculator/" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition border-b border-slate-900/50">All Instruments</a>
-          <a href="/pip-value-calculator/" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition border-b border-slate-900/50">Pip Value</a>
-          <a href="/risk-reward-calculator/" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition border-b border-slate-900/50">R:R Ratio</a>
-          <a href="/prop-firm-risk-management/" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition border-b border-slate-900/50">Risk Guide</a>
-          <a href="/blog" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition border-b border-slate-900/50">Analysis</a>
-          <a href="/best-prop-firms-usa/" class="block px-6 py-4 text-[10px] font-black uppercase text-emerald-500 hover:bg-slate-900 hover:text-emerald-400 transition border-b border-slate-900/50">Best Prop Firms — USA</a>
-          <a href="/about" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition border-b border-slate-900/50">About Framework</a>
-          <a href="/contact" class="block px-6 py-4 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition">Contact Support</a>
+          <p class="px-6 pt-4 pb-2 text-[9px] font-black uppercase tracking-[0.3em] text-slate-600">Learn</p>
+          <a href="/psychology/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-sky-400 transition">Psychology</a>
+          <a href="/risk-management/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-400 transition">Risk Management</a>
+          <a href="/trading-plans/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-amber-400 transition">Trading Plans</a>
+          <a href="/prop-firms/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-purple-400 transition">Prop Firms</a>
+          <a href="/performance/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-rose-400 transition">Performance</a>
+          <p class="px-6 pt-4 pb-2 text-[9px] font-black uppercase tracking-[0.3em] text-slate-600 border-t border-slate-900/50 mt-2">Tools</p>
+          <a href="/tools/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">All Tools</a>
+          <a href="/tools/position-size-calculator/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">Position Size Calculator</a>
+          <a href="/calculator/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">Instrument Calculators</a>
+          <p class="px-6 pt-4 pb-2 text-[9px] font-black uppercase tracking-[0.3em] text-slate-600 border-t border-slate-900/50 mt-2">More</p>
+          <a href="/blog" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">Blog</a>
+          <a href="/about" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition">About</a>
+          <a href="/contact" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-400 hover:bg-slate-900 transition">Contact</a>
         </div>
       </div>
     </div>
@@ -83,33 +106,32 @@
 </header>
 
 <script is:inline>
+  // Mobile menu
   const header = document.getElementById("site-header");
   const btn = header?.querySelector("#menu-toggle");
   const menu = header?.querySelector("#mobile-menu");
-
   if (btn && menu && header) {
-    const toggleMenu = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      menu.classList.toggle("hidden");
-    };
-
-    btn.addEventListener("pointerdown", toggleMenu);
+    const toggleMenu = (e) => { e.preventDefault(); e.stopPropagation(); menu.classList.toggle("hidden"); };
     btn.addEventListener("click", toggleMenu);
+    document.addEventListener("click", (e) => { if (!header.contains(e.target)) menu.classList.add("hidden"); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") menu.classList.add("hidden"); });
+    menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => menu.classList.add("hidden")));
+  }
 
-    menu.addEventListener("pointerdown", (e) => e.stopPropagation());
-    menu.addEventListener("click", (e) => e.stopPropagation());
-
-    document.addEventListener("pointerdown", (e) => {
-      if (!header.contains(e.target)) menu.classList.add("hidden");
+  // Desktop "Learn" dropdown — click + hover
+  const learnMenu = document.getElementById("learn-menu");
+  const learnToggle = document.getElementById("learn-toggle");
+  const learnPanel = document.getElementById("learn-panel");
+  if (learnMenu && learnToggle && learnPanel) {
+    const open = () => { learnPanel.classList.remove("hidden"); learnToggle.setAttribute("aria-expanded", "true"); };
+    const close = () => { learnPanel.classList.add("hidden"); learnToggle.setAttribute("aria-expanded", "false"); };
+    learnToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      learnPanel.classList.contains("hidden") ? open() : close();
     });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") menu.classList.add("hidden");
-    });
-
-    menu.querySelectorAll("a").forEach((a) => {
-      a.addEventListener("click", () => menu.classList.add("hidden"));
-    });
+    learnMenu.addEventListener("mouseenter", open);
+    learnMenu.addEventListener("mouseleave", close);
+    document.addEventListener("click", (e) => { if (!learnMenu.contains(e.target)) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 </script>

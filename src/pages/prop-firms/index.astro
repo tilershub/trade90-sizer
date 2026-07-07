@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubArticleList from '../../components/HubArticleList.astro';
+import FtmoCta from '../../components/FtmoCta.astro';
+
+const title = "Prop Firms — Evaluations, Rules, and Funded Accounts";
+const description = "How prop firm challenges actually work: rule structures, drawdown models, FTMO account sizes, firm comparison for US and European traders, and what changes once you're funded.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const ftmoAccounts = [
+  { size: "$10,000",  target: "$1,000",   daily: "$500",     maxDD: "$1,000" },
+  { size: "$25,000",  target: "$2,500",   daily: "$1,250",   maxDD: "$2,500" },
+  { size: "$50,000",  target: "$5,000",   daily: "$2,500",   maxDD: "$5,000" },
+  { size: "$100,000", target: "$10,000",  daily: "$5,000",   maxDD: "$10,000" },
+  { size: "$200,000", target: "$20,000",  daily: "$10,000",  maxDD: "$20,000" },
+];
+
+const propFirms = [
+  { name: "FTMO",                usAccess: "Yes", daily: "5%", maxDD: "10%", model: "Phase 1 → Phase 2 → Funded", note: "Czech firm, global access" },
+  { name: "E8 Funding",          usAccess: "Yes", daily: "5%", maxDD: "8%",  model: "Phase 1 → Phase 2 → Funded", note: "US-friendly" },
+  { name: "Apex Trader Funding", usAccess: "Yes", daily: "—",  maxDD: "6%",  model: "1-step evaluation",          note: "Futures-focused" },
+  { name: "Topstep",             usAccess: "Yes", daily: "2%", maxDD: "6%",  model: "Step 1 → Step 2 → Funded",   note: "Futures, tight daily limit" },
+  { name: "The Funded Trader",   usAccess: "Yes", daily: "5%", maxDD: "10%", model: "Phase 1 → Phase 2 → Funded", note: "Forex + indices" },
+  { name: "FundedNext",          usAccess: "Yes", daily: "5%", maxDD: "10%", model: "1-step or 2-step",           note: "EU/US access" },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How do prop firm challenges work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A prop firm evaluation is a paid assessment where you trade a simulated account according to specific rules. Most run in two phases: Phase 1 requires a higher profit target (typically 8–10%), Phase 2 a lower one (4–5%). Both enforce the same drawdown limits. Pass both and the firm funds you with an account, typically splitting profits 80/20 or 90/10 in your favor.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the difference between daily loss limit and maximum drawdown?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The daily loss limit (typically 4–5%) is the most you can lose in one trading day, measured from the start-of-day balance. The maximum drawdown (typically 8–10%) is the cumulative loss limit from the starting balance or highest equity. Breaching either ends the challenge — and most failures come from these rules, not from missing profit targets.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Should I use starting balance or current equity for position sizing?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Always use current equity. If your $100,000 challenge is at $96,000, calculate risk from $96,000. Position sizes then scale down automatically as losses accumulate — reducing risk precisely when your account is most vulnerable.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I trade multiple instruments simultaneously on a funded account?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, but combined exposure counts. If you risk 0.5% on EUR/USD and 0.5% on gold simultaneously, your total exposure is 1% of account equity. Never let combined open risk exceed your personal daily cap.",
+      },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Prop Firms", item: `${site}/prop-firms/` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <!-- Hero -->
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-purple-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Prop Firms</span>
+      </nav>
+
+      <span class="text-[9px] font-black uppercase tracking-widest text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full mb-4 inline-block">Knowledge Hub</span>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+        Prop <span class="text-emerald-400">Firms</span>
+      </h1>
+      <p class="text-slate-400 text-base leading-relaxed max-w-2xl mb-4">
+        How evaluations actually work, why drawdown rules — not profit targets — end most challenges, and what changes once you're funded. Education first; firm recommendations only where they belong.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-16 px-6 space-y-16">
+
+    <!-- How Funded Accounts Work -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        How Prop Firm Challenges Work
+      </h2>
+      <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+        <p>
+          A prop firm evaluation (or "challenge") is a paid assessment where you trade a simulated account according to specific rules. If you meet the profit target without breaching the drawdown limits, the firm funds you with an account — typically keeping 10–20% of your profits as their fee.
+        </p>
+        <p>
+          Most challenges run in two phases: Phase 1 requires hitting a higher profit target (typically 8–10%), Phase 2 requires a lower target (4–5%). Both phases enforce the same drawdown limits. Once funded, you trade with a profit split — commonly 80/20 or 90/10 in your favor.
+        </p>
+        <p>
+          The challenge fee is non-refundable if you fail, though many firms refund it with your first payout. Fees range from around $50 for small accounts to $1,000+ for $200,000 accounts.
+        </p>
+      </div>
+    </section>
+
+    <!-- Drawdown rules explained -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        The Two Rules That End Most Challenges
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-white font-black uppercase text-sm tracking-tighter mb-3">Daily Loss Limit (Typically 4–5%)</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            The maximum you can lose in a single trading day, measured from the start-of-day balance. On a $100,000 account with a 5% daily limit, losing more than $5,000 in one session ends the challenge — regardless of how many trades it took.
+          </p>
+          <div class="bg-slate-950/60 rounded-xl p-4 font-mono text-xs space-y-1">
+            <p class="text-slate-500">$100k account, 5% daily limit</p>
+            <p class="text-slate-200">Max daily loss = <span class="text-rose-400">$5,000</span></p>
+            <p class="text-slate-200">At 0.5%/trade = <span class="text-emerald-400">10 losses to hit limit</span></p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-white font-black uppercase text-sm tracking-tighter mb-3">Maximum Drawdown (Typically 8–10%)</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            The cumulative loss limit from your starting balance — or, at some firms, from your highest equity (a "trailing" drawdown). Once your account drops by this amount, the challenge ends. This is the harder constraint to manage.
+          </p>
+          <div class="bg-slate-950/60 rounded-xl p-4 font-mono text-xs space-y-1">
+            <p class="text-slate-500">$100k account, 10% max DD</p>
+            <p class="text-slate-200">Max total loss = <span class="text-rose-400">$10,000</span></p>
+            <p class="text-slate-200">At 0.5%/trade = <span class="text-emerald-400">20 losses to hit limit</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/40 border border-amber-500/20 rounded-2xl p-5">
+        <p class="text-amber-400 font-black text-[10px] uppercase tracking-widest mb-2">Important</p>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Some firms calculate maximum drawdown from your <em>highest equity reached</em>, not your starting balance. Grow the account to $110,000 with a 10% trailing drawdown and your new floor is $99,000 — lower than many traders expect. The <a href="/prop-firms/prop-firm-rules-explained/" class="text-emerald-400 hover:text-white transition-colors">rules guide</a> covers every rule type; always verify the calculation method with your firm before trading.
+        </p>
+      </div>
+    </section>
+
+    <!-- Article list -->
+    <HubArticleList hub="prop-firms" heading="Prop Firm Guides" />
+
+    <!-- FTMO Account Sizes Table -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-2 border-l-4 border-emerald-500 pl-4">
+        Reference: FTMO Challenge Account Sizes
+      </h2>
+      <p class="text-slate-500 text-xs uppercase tracking-widest font-bold pl-5 mb-6">
+        Standard FTMO Challenge rules as of 2026 — verify current terms at ftmo.com
+      </p>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-4">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-800">
+                <th class="px-5 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Account Size</th>
+                <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">10% Profit Target</th>
+                <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">5% Daily Limit</th>
+                <th class="px-5 py-4 text-right text-[10px] font-black uppercase tracking-widest text-slate-500">10% Max Drawdown</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ftmoAccounts.map((row, i) => (
+                <tr class={`border-b border-slate-800/50 ${i % 2 === 0 ? "" : "bg-slate-900/20"}`}>
+                  <td class="py-4 px-5 font-black text-white">{row.size}</td>
+                  <td class="py-4 px-5 text-right text-emerald-400 font-black">{row.target}</td>
+                  <td class="py-4 px-5 text-right text-slate-300">{row.daily}/day</td>
+                  <td class="py-4 px-5 text-right text-slate-300">{row.maxDD} total</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prop Firm Comparison -->
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-2 border-l-4 border-emerald-500 pl-4">
+        Firm Comparison — US & Europe Access
+      </h2>
+      <p class="text-slate-500 text-xs uppercase tracking-widest font-bold pl-5 mb-6">
+        Typical structures as of 2026 — rules change; verify at each firm's official site
+      </p>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden mb-4">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="border-b border-slate-800">
+                <th class="px-5 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Firm</th>
+                <th class="px-5 py-4 text-center text-[10px] font-black uppercase tracking-widest text-slate-500">US Access</th>
+                <th class="px-5 py-4 text-center text-[10px] font-black uppercase tracking-widest text-slate-500">Daily Limit</th>
+                <th class="px-5 py-4 text-center text-[10px] font-black uppercase tracking-widest text-slate-500">Max DD</th>
+                <th class="px-5 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Model</th>
+                <th class="px-5 py-4 text-left text-[10px] font-black uppercase tracking-widest text-slate-500">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {propFirms.map((firm, i) => (
+                <tr class={`border-b border-slate-800/50 ${i % 2 === 0 ? "" : "bg-slate-900/20"}`}>
+                  <td class="py-4 px-5 font-black text-white">{firm.name}</td>
+                  <td class="py-4 px-5 text-center"><span class="text-emerald-400 font-black text-xs">{firm.usAccess}</span></td>
+                  <td class="py-4 px-5 text-center text-slate-300 font-mono">{firm.daily}</td>
+                  <td class="py-4 px-5 text-center text-slate-300 font-mono">{firm.maxDD}</td>
+                  <td class="py-4 px-5 text-slate-400">{firm.model}</td>
+                  <td class="py-4 px-5 text-slate-500">{firm.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="text-slate-600 text-xs">See <a href="/prop-firms/how-to-choose-a-prop-firm/" class="text-emerald-400 hover:text-white transition-colors">how to choose a prop firm</a> for the full decision framework.</p>
+    </section>
+
+    <!-- Recommendation (calm, after education) -->
+    <FtmoCta variant="recommendation" />
+
+    <!-- Continue -->
+    <section class="border-t border-slate-800 pt-12">
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Before You Attempt a Challenge</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/risk-management/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-400 mb-1">Risk Management</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">The framework that keeps challenges alive →</p>
+        </a>
+        <a href="/trading-plans/how-to-build-a-trading-plan/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-amber-400 mb-1">Trading Plans</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Build a written plan first →</p>
+        </a>
+        <a href="/tools/position-size-calculator/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-400 mb-1">Free Tool</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Position size calculator →</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

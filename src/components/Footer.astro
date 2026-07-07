@@ -1,72 +1,78 @@
 ---
 const currentYear = new Date().getFullYear();
+
+const columns = [
+  {
+    heading: 'Learn',
+    links: [
+      { href: '/psychology/', label: 'Trading Psychology' },
+      { href: '/risk-management/', label: 'Risk Management' },
+      { href: '/trading-plans/', label: 'Trading Plans' },
+      { href: '/prop-firms/', label: 'Prop Firms' },
+      { href: '/performance/', label: 'Performance' },
+    ],
+  },
+  {
+    heading: 'Tools',
+    links: [
+      { href: '/tools/position-size-calculator/', label: 'Position Size Calculator' },
+      { href: '/risk-reward-calculator/', label: 'Risk / Reward Calculator' },
+      { href: '/tools/drawdown-calculator/', label: 'Drawdown Calculator' },
+      { href: '/pip-value-calculator/', label: 'Pip Value Calculator' },
+      { href: '/tools/', label: 'All Tools' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { href: '/about/', label: 'About TRADE90' },
+      { href: '/editorial-policy/', label: 'Editorial Policy' },
+      { href: '/blog/', label: 'Blog' },
+      { href: '/contact/', label: 'Contact' },
+    ],
+  },
+];
 ---
 
-<footer class="bg-black border-t border-slate-900 py-16 px-6 mt-20">
-  <div class="max-w-4xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-      
-      <div class="space-y-4">
-        <h3 class="text-xl font-black text-white tracking-widest uppercase">
+<footer class="bg-black border-t border-slate-900 py-16 px-6 mt-12">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+
+      <div class="col-span-2 md:col-span-1 space-y-4 max-w-xs">
+        <h3 class="text-lg font-black text-white tracking-widest uppercase">
           TRADE<span class="text-emerald-500">90</span>
         </h3>
         <p class="text-slate-400 text-xs leading-relaxed">
-          Position size calculator and risk discipline system built for US funded traders.
-          The Trade90 Safety System: 0.5% max per trade, 1% daily cap — designed to protect your
-          prop firm challenge from oversizing and cascade drawdowns.
+          An education platform for funded traders. Practical guidance on psychology, risk management, and disciplined execution — with free professional tools and honest prop firm resources.
         </p>
-        <div class="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          <span class="text-emerald-400 text-[9px] font-black uppercase tracking-widest">Safety System Active</span>
+      </div>
+
+      {columns.map((col) => (
+        <div class="space-y-4">
+          <h4 class="text-white font-bold text-[11px] uppercase tracking-[0.2em]">{col.heading}</h4>
+          <nav class="flex flex-col gap-3">
+            {col.links.map((link) => (
+              <a href={link.href} class="text-slate-400 hover:text-emerald-400 text-xs font-medium transition-colors">{link.label}</a>
+            ))}
+          </nav>
         </div>
-      </div>
-
-      <div class="space-y-4">
-        <h4 class="text-white font-bold text-xs uppercase tracking-[0.2em]">Funded Traders</h4>
-        <nav class="flex flex-col gap-3">
-          <a href="/best-prop-firms-usa/" class="text-emerald-500 hover:text-white text-xs uppercase font-black transition-colors">Best Prop Firms — USA</a>
-          <a href="/funded-trader-risk-calculator/" class="text-slate-400 hover:text-emerald-500 text-xs uppercase font-bold transition-colors">Funded Risk Calculator</a>
-          <a href="/ftmo-position-size-calculator/" class="text-slate-400 hover:text-emerald-500 text-xs uppercase font-bold transition-colors">FTMO Calculator</a>
-          <a href="/prop-firm-risk-management/" class="text-slate-400 hover:text-emerald-500 text-xs uppercase font-bold transition-colors">Prop Firm Risk Guide</a>
-          <a href="/how-to-calculate-position-size/" class="text-slate-400 hover:text-emerald-500 text-xs uppercase font-bold transition-colors">How to Size Positions</a>
-          <a href="/blog" class="text-slate-400 hover:text-emerald-500 text-xs uppercase font-bold transition-colors">Market Analysis</a>
-          <a href="/about" class="text-slate-400 hover:text-emerald-500 text-xs uppercase font-bold transition-colors">About</a>
-        </nav>
-      </div>
-
-      <div class="space-y-4">
-        <h4 class="text-white font-bold text-xs uppercase tracking-[0.2em]">Calculators</h4>
-        <nav class="flex flex-col gap-3">
-          <a href="/calculator/eurusd/" class="text-slate-400 hover:text-green-500 text-xs uppercase font-bold transition-colors">EUR/USD Calculator</a>
-          <a href="/calculator/xauusd/" class="text-slate-400 hover:text-green-500 text-xs uppercase font-bold transition-colors">Gold (XAU/USD) Calculator</a>
-          <a href="/calculator/gbpusd/" class="text-slate-400 hover:text-green-500 text-xs uppercase font-bold transition-colors">GBP/USD Calculator</a>
-          <a href="/calculator/nas100/" class="text-slate-400 hover:text-green-500 text-xs uppercase font-bold transition-colors">NAS100 Calculator</a>
-          <a href="/pip-value-calculator/" class="text-slate-400 hover:text-green-500 text-xs uppercase font-bold transition-colors">Pip Value Calculator</a>
-          <a href="/risk-reward-calculator/" class="text-slate-400 hover:text-green-500 text-xs uppercase font-bold transition-colors">Risk Reward Calculator</a>
-          <a href="/calculator/" class="text-green-500 hover:text-white text-xs uppercase font-black transition-colors">All 45+ Instruments →</a>
-        </nav>
-      </div>
-
-      <div class="space-y-4">
-        <h4 class="text-slate-300 font-bold text-xs uppercase tracking-widest">Risk Disclosure</h4>
-        <p class="text-slate-500 text-xs leading-tight italic">
-          Trading involves significant risk of loss and is not suitable for all investors.
-          The Trade90 Safety System (0.5% per trade / 1% daily) is TRADE90's internal risk
-          discipline framework — not an official prop firm rule. Always verify your firm's
-          specific drawdown rules. TRADE90 provides tools and education, not financial advice.
-        </p>
-      </div>
+      ))}
     </div>
 
-    <div class="pt-8 border-t border-slate-900/50 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="flex flex-wrap justify-center gap-6">
-        <a href="/disclaimer" class="text-slate-500 hover:text-slate-300 text-[10px] uppercase font-bold transition-colors underline decoration-slate-800 underline-offset-4">Legal Disclaimer</a>
-        <a href="/privacy" class="text-slate-500 hover:text-slate-300 text-[10px] uppercase font-bold transition-colors underline decoration-slate-800 underline-offset-4">Privacy Policy</a>
-      </div>
-      
-      <p class="text-slate-600 text-[10px] uppercase tracking-[0.3em] font-mono">
-        &copy; {currentYear} TRADE90 — RISK DISCIPLINE FOR US FUNDED TRADERS
+    <div class="border-t border-slate-900/60 pt-8">
+      <p class="text-slate-500 text-[11px] leading-relaxed max-w-3xl mb-6">
+        <strong class="text-slate-400">Risk disclosure.</strong> Trading involves substantial risk of loss and is not suitable for every investor. All content on TRADE90 is for educational purposes only and does not constitute financial, investment, or trading advice. Prop firm rules referenced on this site are typical structures that change frequently — always verify current terms on the firm's official website. Some links to prop firms are affiliate links; TRADE90 may earn a commission at no additional cost to you.
       </p>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="flex flex-wrap gap-6">
+          <a href="/disclaimer/" class="text-slate-500 hover:text-slate-300 text-[10px] uppercase font-bold transition-colors">Disclaimer</a>
+          <a href="/privacy/" class="text-slate-500 hover:text-slate-300 text-[10px] uppercase font-bold transition-colors">Privacy Policy</a>
+          <a href="/editorial-policy/" class="text-slate-500 hover:text-slate-300 text-[10px] uppercase font-bold transition-colors">Editorial Policy</a>
+        </div>
+        <p class="text-slate-600 text-[10px] uppercase tracking-[0.25em] font-mono">
+          &copy; {currentYear} TRADE90
+        </p>
+      </div>
     </div>
   </div>
 </footer>

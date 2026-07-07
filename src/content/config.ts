@@ -17,4 +17,19 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const articles = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    hub: z.enum(['psychology', 'risk-management', 'trading-plans', 'prop-firms', 'performance']),
+    updated: z.string(),
+    reading_time: z.number(),
+    order: z.number().default(99),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    related: z.array(z.object({ title: z.string(), href: z.string() })).default([]),
+    author: z.string().default('TRADE90'),
+  }),
+});
+
+export const collections = { posts, articles };

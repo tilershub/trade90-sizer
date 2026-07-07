@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubArticleList from '../../components/HubArticleList.astro';
+
+const title = "Trading Performance — Journals, Expectancy, Win Rate, and Reviews";
+const description = "Measure and improve your trading: how to keep a professional journal, calculate expectancy, understand win rate and profit factor, and run a monthly review.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Performance", item: `${site}/performance/` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-rose-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Performance</span>
+      </nav>
+      <span class="text-[9px] font-black uppercase tracking-widest text-rose-400 bg-rose-500/10 px-3 py-1 rounded-full mb-4 inline-block">Knowledge Hub</span>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+        Trading <span class="text-emerald-400">Performance</span>
+      </h1>
+      <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
+        You cannot improve what you do not measure. This hub covers the metrics that actually matter — expectancy, win rate, profit factor — and the journaling and review process that turns raw trade data into a compounding edge.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-16 px-6 space-y-16">
+
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Measure Process, Not Just P&amp;L
+      </h2>
+      <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+        <p>
+          A losing trade that followed your plan is a good trade. A winning trade that broke every rule is a warning. Profit and loss alone is a noisy, misleading signal in the short run — the traders who improve fastest track <strong class="text-slate-200">plan adherence separately from outcome</strong>, and judge their edge over samples large enough to trust.
+        </p>
+        <p>
+          The guides below build up from a professional journal to the core metrics — expectancy, win rate, and profit factor — and finish with a structured monthly review process designed to protect a funded account over the long term.
+        </p>
+      </div>
+    </section>
+
+    <HubArticleList hub="performance" heading="Performance Guides" />
+
+    <section class="border-t border-slate-800 pt-12">
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Related</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/psychology/trading-discipline/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-sky-400 mb-1">Psychology</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Building discipline →</p>
+        </a>
+        <a href="/risk-management/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-400 mb-1">Risk</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Risk management framework →</p>
+        </a>
+        <a href="/prop-firms/managing-a-funded-account/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-purple-400 mb-1">Prop Firms</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Managing a funded account →</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>
