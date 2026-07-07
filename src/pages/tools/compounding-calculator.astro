@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Compounding Calculator — Trading Account Growth Projection";
+const description = "Project how a trading account grows at a steady monthly return. Free compounding calculator for traders — with a realistic view of what consistent returns actually produce.";
+const keywords = [
+  "compounding calculator",
+  "trading compounding calculator",
+  "account growth calculator",
+  "compound interest trading",
+  "monthly return calculator",
+];
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const canonicalURL = new URL(Astro.url.pathname, site).toString();
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "TRADE90 Compounding Calculator",
+  description,
+  url: canonicalURL,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  creator: { "@type": "Organization", name: "TRADE90", url: site },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Tools", item: `${site}/tools/` },
+    { "@type": "ListItem", position: 3, name: "Compounding Calculator", item: canonicalURL },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+  <script type="application/ld+json" set:html={JSON.stringify(toolSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-12 px-4 border-b border-slate-800 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/12 via-slate-950 to-slate-950">
+    <div class="max-w-2xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-6 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="/tools/" class="hover:text-emerald-400 transition-colors">Tools</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Compounding Calculator</span>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-3 text-center">
+        Compounding <span class="text-emerald-400">Calculator</span>
+      </h1>
+      <p class="text-slate-400 text-sm leading-relaxed mb-8 max-w-lg mx-auto text-center">
+        Project account growth at a steady monthly return. Use it to set realistic expectations — consistent, modest compounding outperforms the pursuit of large, erratic gains.
+      </p>
+
+      <div class="bg-slate-900/40 rounded-3xl border border-slate-800/60 p-6 md:p-8">
+        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label for="c-start" class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Starting Balance ($)</label>
+            <input id="c-start" type="number" inputmode="decimal" value="10000" min="1" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-4 py-3 text-white font-mono text-sm outline-none transition-colors" />
+          </div>
+          <div>
+            <label for="c-rate" class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Monthly Return (%)</label>
+            <input id="c-rate" type="number" inputmode="decimal" value="4" step="0.5" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-4 py-3 text-white font-mono text-sm outline-none transition-colors" />
+          </div>
+          <div>
+            <label for="c-months" class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Months</label>
+            <input id="c-months" type="number" inputmode="numeric" value="12" step="1" min="1" max="600" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-4 py-3 text-white font-mono text-sm outline-none transition-colors" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 mb-6">
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 text-center">
+            <p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Final Balance</p>
+            <p id="c-out-final" class="text-xl font-black text-emerald-400 font-mono">—</p>
+          </div>
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 text-center">
+            <p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Total Gain</p>
+            <p id="c-out-gain" class="text-xl font-black text-slate-200 font-mono">—</p>
+          </div>
+          <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 text-center">
+            <p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Growth</p>
+            <p id="c-out-mult" class="text-xl font-black text-slate-200 font-mono">—</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/40 border border-slate-800 rounded-xl overflow-hidden">
+          <div class="overflow-x-auto max-h-64">
+            <table class="w-full text-xs">
+              <thead class="sticky top-0 bg-slate-900">
+                <tr class="border-b border-slate-800">
+                  <th class="px-4 py-2.5 text-left text-[9px] font-black uppercase tracking-widest text-slate-500">Month</th>
+                  <th class="px-4 py-2.5 text-right text-[9px] font-black uppercase tracking-widest text-slate-500">Balance</th>
+                  <th class="px-4 py-2.5 text-right text-[9px] font-black uppercase tracking-widest text-slate-500">Gain That Month</th>
+                </tr>
+              </thead>
+              <tbody id="c-table" class="divide-y divide-slate-800/50 font-mono"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-slate-600 text-[11px] leading-relaxed mt-4 text-center max-w-lg mx-auto">
+        Projections assume a constant return with no losing months — real trading returns vary and include drawdowns. Treat this as a planning illustration, not a forecast.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto py-14 px-6 space-y-10">
+    <section>
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-4 border-l-4 border-emerald-500 pl-4">
+        A Realistic Perspective
+      </h2>
+      <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+        <p>
+          Compounding math is seductive: a steady few percent per month becomes a large number over a few years. The catch is the word <em>steady</em>. Real returns are lumpy — winning months, losing months, and drawdowns that reset the curve. A single bad month at high risk can undo many good ones.
+        </p>
+        <p>
+          The practical takeaway is not "aim for a high monthly return." It is "protect the downside so compounding has a chance to work." That is what <a href="/risk-management/">risk management</a> and <a href="/performance/expectancy-explained/">positive expectancy</a> actually buy you.
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-2">Related</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/performance/expectancy-explained/" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-xs px-4 py-2.5 rounded-xl transition-colors">Expectancy Explained →</a>
+        <a href="/tools/drawdown-calculator/" class="inline-flex items-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-300 font-black uppercase tracking-widest text-xs px-4 py-2.5 rounded-xl transition-colors">Drawdown Calculator</a>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+      const start = $("c-start"), rate = $("c-rate"), months = $("c-months");
+      const outFinal = $("c-out-final"), outGain = $("c-out-gain"), outMult = $("c-out-mult"), tbody = $("c-table");
+      const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
+
+      function compute() {
+        const s = parseFloat(start.value) || 0;
+        const r = (parseFloat(rate.value) || 0) / 100;
+        const m = Math.max(1, Math.min(600, parseInt(months.value) || 1));
+        if (s <= 0) {
+          outFinal.textContent = outGain.textContent = outMult.textContent = "—";
+          tbody.innerHTML = "";
+          return;
+        }
+        let bal = s;
+        let rows = "";
+        for (let i = 1; i <= m; i++) {
+          const gain = bal * r;
+          bal += gain;
+          rows += '<tr><td class="px-4 py-2 text-slate-400">' + i +
+            '</td><td class="px-4 py-2 text-right text-slate-200">' + usd(bal) +
+            '</td><td class="px-4 py-2 text-right ' + (gain >= 0 ? "text-emerald-400" : "text-rose-400") + '">' +
+            (gain >= 0 ? "+" : "−") + usd(Math.abs(gain)) + "</td></tr>";
+        }
+        outFinal.textContent = usd(bal);
+        outGain.textContent = (bal - s >= 0 ? "+" : "−") + usd(Math.abs(bal - s));
+        outMult.textContent = (bal / s).toFixed(2) + "×";
+        tbody.innerHTML = rows;
+      }
+
+      [start, rate, months].forEach((el) => el.addEventListener("input", compute));
+      compute();
+    })();
+  </script>
+</BaseLayout>

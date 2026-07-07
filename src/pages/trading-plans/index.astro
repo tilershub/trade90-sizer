@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubArticleList from '../../components/HubArticleList.astro';
+
+const title = "Trading Plans — Build a Written Plan, Routine, and Instrument Frameworks";
+const description = "How to build a written trading plan, a professional daily routine, and plan frameworks for NASDAQ and gold. Structure before execution — the foundation of consistency.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Trading Plans", item: `${site}/trading-plans/` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-amber-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Trading Plans</span>
+      </nav>
+      <span class="text-[9px] font-black uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full mb-4 inline-block">Knowledge Hub</span>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+        Trading <span class="text-emerald-400">Plans</span>
+      </h1>
+      <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
+        A plan is only a plan if it is written and specific enough that another trader could execute it. This hub covers the full structure — from a complete written plan to a professional daily routine to instrument-specific frameworks for indices and gold.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-16 px-6 space-y-16">
+
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Why a Written Plan Changes Everything
+      </h2>
+      <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+        <p>
+          Traders who "keep the plan in their head" are improvising. Under pressure, an unwritten plan bends to whatever the market and your emotions want in the moment. A written plan is a fixed reference you can hold your execution against — and grade yourself on afterward.
+        </p>
+        <p>
+          The most useful plans are boring and specific: which instruments, which sessions, what a valid setup looks like, exact risk parameters, and how you review. Start with the complete plan guide, then layer in a daily routine and instrument-specific rules.
+        </p>
+      </div>
+    </section>
+
+    <HubArticleList hub="trading-plans" heading="Trading Plan Guides" />
+
+    <section class="border-t border-slate-800 pt-12">
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Put the Plan Into Practice</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/risk-management/position-sizing/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-400 mb-1">Risk</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Position sizing guide →</p>
+        </a>
+        <a href="/performance/trading-journal-guide/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-rose-400 mb-1">Performance</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Trading journal guide →</p>
+        </a>
+        <a href="/tools/position-size-calculator/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-400 mb-1">Tool</p>
+          <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">Position size calculator →</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

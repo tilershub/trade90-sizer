@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubArticleList from '../../components/HubArticleList.astro';
+
+const title = "Trading Psychology for Funded Traders — Discipline, Fear, and Losing Streaks";
+const description = "Why disciplined traders keep funded accounts and talented ones lose them. Practical frameworks for discipline, revenge trading, losing streaks, and emotional control.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Trading Psychology", item: `${site}/psychology/` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-sky-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Trading Psychology</span>
+      </nav>
+      <span class="text-[9px] font-black uppercase tracking-widest text-sky-400 bg-sky-500/10 px-3 py-1 rounded-full mb-4 inline-block">Knowledge Hub</span>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4 leading-tight">
+        Trading <span class="text-emerald-400">Psychology</span>
+      </h1>
+      <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
+        Most funded accounts are lost to behavior, not strategy: oversizing after a loss, chasing a bad session, abandoning the plan under pressure. This hub treats psychology as a system you can engineer — not a personality trait you either have or don't.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-16 px-6 space-y-16">
+
+    <section>
+      <h2 class="text-2xl font-black uppercase tracking-tighter text-white mb-6 border-l-4 border-emerald-500 pl-4">
+        Discipline Is a System, Not Willpower
+      </h2>
+      <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+        <p>
+          The traders who pass evaluations and keep funded accounts rarely have more self-control than those who fail. What they have is <strong class="text-slate-200">structure that removes decisions from the moment of pressure</strong>: a written plan, a fixed risk per trade, a hard daily stop, and a pre-committed trade count.
+        </p>
+        <p>
+          Willpower is a finite resource that collapses exactly when you need it most — after a loss, during a drawdown, near a deadline. A system does not. The articles below turn the abstract advice of "be disciplined" into concrete mechanisms you can put in place before the market opens.
+        </p>
+      </div>
+    </section>
+
+    <HubArticleList hub="psychology" heading="Psychology Guides" />
+
+    <section class="bg-slate-900/40 border border-emerald-500/20 rounded-2xl p-8">
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-3">The Discipline Stack</h2>
+      <p class="text-slate-400 text-sm mb-6 max-w-2xl leading-relaxed">
+        Psychology connects to everything else on this site. Emotional control is easiest when the mechanics are already decided for you:
+      </p>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <a href="/risk-management/" class="group block bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-400 mb-1">1. Risk Management</p>
+          <p class="text-slate-300 text-xs leading-relaxed">Fixed risk per trade removes sizing decisions under pressure.</p>
+        </a>
+        <a href="/trading-plans/how-to-build-a-trading-plan/" class="group block bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-amber-400 mb-1">2. Trading Plan</p>
+          <p class="text-slate-300 text-xs leading-relaxed">A written plan decides your actions before emotion arrives.</p>
+        </a>
+        <a href="/performance/monthly-trading-review/" class="group block bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-rose-400 mb-1">3. Review</p>
+          <p class="text-slate-300 text-xs leading-relaxed">Reviewing process, not P&amp;L, keeps confidence grounded in evidence.</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

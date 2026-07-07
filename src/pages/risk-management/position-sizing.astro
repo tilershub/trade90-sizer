@@ -101,8 +101,8 @@ const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
-    { "@type": "ListItem", position: 2, name: "Learn", item: `${site}/learn/` },
-    { "@type": "ListItem", position: 3, name: "Position Sizing Guide", item: `${site}/learn/position-sizing/` },
+    { "@type": "ListItem", position: 2, name: "Risk Management", item: `${site}/risk-management/` },
+    { "@type": "ListItem", position: 3, name: "Position Sizing Guide", item: `${site}/risk-management/position-sizing/` },
   ],
 };
 ---
@@ -118,7 +118,7 @@ const breadcrumbSchema = {
       <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
         <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
         <span>/</span>
-        <a href="/learn/" class="hover:text-emerald-400 transition-colors">Learn</a>
+        <a href="/risk-management/" class="hover:text-emerald-400 transition-colors">Risk Management</a>
         <span>/</span>
         <span class="text-slate-300">Position Sizing</span>
       </nav>
@@ -394,7 +394,7 @@ const breadcrumbSchema = {
         The TRADE90 calculator applies the correct pip value for 45+ instruments automatically. Enter your balance, risk %, and stop loss — get your exact lot size instantly.
       </p>
       <a
-        href="/"
+        href="/tools/position-size-calculator/"
         class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors"
       >
         Open Position Size Calculator →
@@ -442,17 +442,17 @@ const breadcrumbSchema = {
 
     <!-- Next guides -->
     <section class="border-t border-slate-800 pt-12">
-      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Continue Learning</h2>
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Continue Reading</h2>
       <div class="grid md:grid-cols-2 gap-4">
-        <a href="/learn/risk-management/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
-          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Next Guide</p>
-          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Risk Management for Funded Traders →</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">The 0.5% rule, daily loss limits, drawdown survival analysis, and the four-rule framework.</p>
+        <a href="/risk-management/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Hub</p>
+          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Risk Management Framework →</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">The four rules, daily loss limits, drawdown survival analysis, and risk of ruin.</p>
         </a>
-        <a href="/learn/funded-accounts/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+        <a href="/prop-firms/" class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
           <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Also Read</p>
-          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Funded Account Trading Guide →</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">Challenge rules, drawdown structures, and the exact sizing strategy for FTMO, E8, Apex, and Topstep.</p>
+          <h3 class="text-white font-black uppercase tracking-tighter text-sm mb-2 group-hover:text-emerald-400 transition-colors">Prop Firm Hub →</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">Challenge rules, drawdown structures, firm comparison, and the sizing strategy to pass.</p>
         </a>
       </div>
     </section>

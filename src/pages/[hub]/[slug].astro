@@ -1,0 +1,187 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { HUBS, getHub } from '../../lib/hubs';
+import '../../styles/prose.css';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('articles');
+  return entries.map((entry) => {
+    const [hub, slug] = entry.id.replace(/\.mdx?$/, '').split('/');
+    return { params: { hub, slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
+const hub = getHub(data.hub);
+
+const site = Astro.site?.toString() || 'https://tradeninety.com';
+const canonicalURL = new URL(Astro.url.pathname, site).toString();
+const updatedISO = new Date(data.updated).toISOString();
+const formattedDate = new Date(data.updated).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+// Next article in the same hub (by order)
+const siblings = (await getCollection('articles', (e) => e.data.hub === data.hub))
+  .sort((a, b) => a.data.order - b.data.order);
+const currentIdx = siblings.findIndex((e) => e.id === entry.id);
+const next = siblings[currentIdx + 1] ?? null;
+const nextSlug = next ? next.id.replace(/\.mdx?$/, '').split('/')[1] : null;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+  headline: data.title,
+  description: data.description,
+  dateModified: updatedISO,
+  datePublished: updatedISO,
+  inLanguage: 'en',
+  timeRequired: `PT${data.reading_time}M`,
+  isAccessibleForFree: true,
+  author: { '@type': 'Organization', name: 'TRADE90', url: site },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TRADE90',
+    url: site,
+    logo: { '@type': 'ImageObject', url: `${site}/favicon.svg` },
+  },
+  articleSection: hub.name,
+};
+
+const faqSchema = data.faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: data.faq.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    }
+  : null;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  articlePublishedTime={updatedISO}
+  articleModifiedTime={updatedISO}
+  breadcrumbName={data.title}
+  breadcrumbParentName={hub.name}
+  breadcrumbParentPath={`/${hub.slug}/`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head-extra" />
+  {faqSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head-extra" />
+  )}
+
+  <article class="max-w-3xl mx-auto py-14 px-6">
+    <header class="mb-12">
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600">
+          <li><a href="/" class="hover:text-emerald-500 transition-colors">Home</a></li>
+          <li class="text-slate-800" aria-hidden="true">/</li>
+          <li><a href={`/${hub.slug}/`} class="hover:text-emerald-500 transition-colors">{hub.name}</a></li>
+          <li class="text-slate-800" aria-hidden="true">/</li>
+          <li class="text-slate-500 truncate max-w-[220px]" aria-current="page">{data.title}</li>
+        </ol>
+      </nav>
+
+      <a
+        href={`/${hub.slug}/`}
+        class={`inline-block text-[9px] font-black uppercase tracking-[0.3em] ${hub.accent} border border-slate-700 px-3 py-1 rounded-full mb-5 hover:border-slate-500 transition-colors`}
+      >
+        {hub.name}
+      </a>
+
+      <h1 class="text-3xl md:text-5xl font-black tracking-tighter uppercase text-white leading-[0.95] mb-6">
+        {data.title}
+      </h1>
+
+      <p class="text-slate-300 text-lg leading-relaxed border-l-4 border-emerald-500/50 pl-6 py-1 mb-6">
+        {data.description}
+      </p>
+
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+        <span>By {data.author}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={updatedISO}>Updated {formattedDate}</time>
+        <span aria-hidden="true">·</span>
+        <span>{data.reading_time} min read</span>
+      </div>
+    </header>
+
+    <div class="prose-t90">
+      <Content />
+    </div>
+
+    {data.faq.length > 0 && (
+      <section class="mt-14 border-t border-slate-900/50 pt-10">
+        <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-6">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3">
+          {data.faq.map(({ q, a }) => (
+            <details class="group bg-slate-900/40 border border-slate-800 hover:border-emerald-500/30 rounded-2xl overflow-hidden transition-colors">
+              <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-200 text-sm tracking-tight hover:text-white list-none">
+                {q}
+                <span class="text-emerald-500 group-open:rotate-45 transition-transform text-xl leading-none shrink-0 ml-4">+</span>
+              </summary>
+              <div class="px-5 pb-5 text-slate-400 text-sm leading-relaxed border-t border-slate-800/50 pt-4">{a}</div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Author -->
+    <aside class="mt-12 border-t border-slate-900/50 pt-8">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full bg-emerald-900/40 border-2 border-emerald-500/40 flex items-center justify-center shrink-0 text-emerald-400 font-black text-sm select-none">
+          T90
+        </div>
+        <div>
+          <p class="text-white font-black text-sm uppercase tracking-wide mb-0.5">TRADE90 Research</p>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Written and reviewed by the TRADE90 team — funded traders with live evaluation experience.
+            See our <a href="/editorial-policy/" class="text-emerald-400 hover:text-white transition-colors">editorial policy</a> and
+            <a href="/about/" class="text-emerald-400 hover:text-white transition-colors">about page</a>.
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Related + Next -->
+    {(data.related.length > 0 || next) && (
+      <section class="mt-12 border-t border-slate-900/50 pt-10">
+        <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-6">Continue Reading</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {next && nextSlug && (
+            <a
+              href={`/${hub.slug}/${nextSlug}/`}
+              class="group block bg-slate-900/50 border border-emerald-500/25 hover:border-emerald-500/60 rounded-2xl p-5 transition-all"
+            >
+              <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Next in {hub.name}</p>
+              <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">{next.data.title} →</p>
+            </a>
+          )}
+          {data.related.map(({ title, href }) => (
+            <a
+              href={href}
+              class="group block bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all"
+            >
+              <p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Related</p>
+              <p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">{title} →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </article>
+</BaseLayout>

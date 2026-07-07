@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Editorial Policy & Methodology";
+const description = "How TRADE90 researches, writes, and reviews its trading education — our standards on accuracy, affiliate disclosure, calculator assumptions, and corrections.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Editorial Policy", item: `${site}/editorial-policy/` },
+  ],
+};
+
+const sections = [
+  {
+    h: "Our Mission",
+    p: [
+      "TRADE90 exists to help traders become consistently profitable before asking them to join a prop firm. Every guide, tool, and resource is built to answer a real question a funded trader has before, during, or after a trade.",
+      "We are an education platform first. Calculators support the education; affiliate recommendations appear only after substantial educational value has been delivered — never before.",
+    ],
+  },
+  {
+    h: "How We Write",
+    p: [
+      "Articles are researched and written by traders with live evaluation and funded-account experience, then reviewed for accuracy before publication. We prioritise clarity and correctness over volume.",
+      "We do not publish hype, guaranteed-return claims, or fabricated income screenshots. Where we cite numbers, we use verifiable mathematics — compound drawdown, break-even win rates, expectancy — rather than invented statistics or unsourced survey figures.",
+    ],
+  },
+  {
+    h: "Accuracy & Corrections",
+    p: [
+      "Every article carries a visible 'last updated' date. Prop firm rules change frequently; we describe them as typical structures and consistently advise verifying current terms on each firm's official website.",
+      "If you find an error, contact us and we will correct it promptly. Material corrections are reflected in the update date.",
+    ],
+  },
+  {
+    h: "Calculator Assumptions",
+    p: [
+      "Our calculators use standard, widely-published pip and point values (for example, $10 per pip per standard lot on most USD-quoted forex majors, $10 per point per 0.1 lot on gold, and $1 per point per 0.1 lot on major indices). Actual values vary by broker and contract specification.",
+      "Drawdown and compounding tools use exact arithmetic on the inputs you provide. They are planning illustrations, not predictions — real trading results include variance, spread, commissions, and slippage that a calculator cannot model.",
+    ],
+  },
+  {
+    h: "Affiliate Disclosure",
+    p: [
+      "Some links to prop firms are affiliate links. If you sign up through one, TRADE90 may earn a commission at no additional cost to you. This never changes what we write: firm coverage is intended to be balanced, rules-focused, and free of pressure tactics.",
+      "We recommend at most one or two firms per relevant article, and only after the educational content stands on its own. We do not rank firms in exchange for higher commissions.",
+    ],
+  },
+  {
+    h: "Not Financial Advice",
+    p: [
+      "Nothing on TRADE90 is financial, investment, or trading advice, and nothing should be treated as a recommendation to buy or sell any instrument. Trading carries substantial risk of loss. You are responsible for your own decisions; consider consulting a licensed professional for advice specific to your situation.",
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbName="Editorial Policy" breadcrumbParentName="Home" breadcrumbParentPath="/">
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-slate-800/20 via-slate-950 to-slate-950">
+    <div class="max-w-3xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Editorial Policy</span>
+      </nav>
+      <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4">
+        Editorial Policy &amp; <span class="text-emerald-400">Methodology</span>
+      </h1>
+      <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
+        The standards behind everything we publish — how we research, write, disclose, and correct.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto py-16 px-6 space-y-12">
+    {sections.map(({ h, p }) => (
+      <section>
+        <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-4 border-l-4 border-emerald-500 pl-4">{h}</h2>
+        <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+          {p.map((para) => <p>{para}</p>)}
+        </div>
+      </section>
+    ))}
+
+    <section class="border-t border-slate-800 pt-10">
+      <p class="text-slate-400 text-sm leading-relaxed">
+        Questions about our editorial standards? <a href="/contact/" class="text-emerald-400 hover:text-white transition-colors">Contact us</a> — or read
+        <a href="/about/" class="text-emerald-400 hover:text-white transition-colors">about TRADE90</a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

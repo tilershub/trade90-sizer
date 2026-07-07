@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PositionSizer from '../../components/PositionSizer.svelte';
+
+const title = "Position Size Calculator — Free Lot Size Tool for Funded Traders";
+const description = "Calculate the exact lot size for any trade across 45+ instruments. Funded-account mode enforces the 0.5% per-trade and 1% daily risk limits. Free, no login.";
+const keywords = [
+  "position size calculator",
+  "lot size calculator",
+  "forex position size calculator",
+  "funded trader position sizing",
+  "risk calculator trading",
+];
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const canonicalURL = new URL(Astro.url.pathname, site).toString();
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "TRADE90 Position Size Calculator",
+  description,
+  url: canonicalURL,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  creator: { "@type": "Organization", name: "TRADE90", url: site },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Tools", item: `${site}/tools/` },
+    { "@type": "ListItem", position: 3, name: "Position Size Calculator", item: canonicalURL },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+  <script type="application/ld+json" set:html={JSON.stringify(toolSchema)} slot="head-extra" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-12 px-4 border-b border-slate-800 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/12 via-slate-950 to-slate-950">
+    <div class="max-w-2xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-6 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="/tools/" class="hover:text-emerald-400 transition-colors">Tools</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Position Size Calculator</span>
+      </nav>
+
+      <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-3 text-center">
+        Position Size <span class="text-emerald-400">Calculator</span>
+      </h1>
+      <p class="text-slate-400 text-sm leading-relaxed mb-8 max-w-lg mx-auto text-center">
+        Enter your account balance, risk %, and stop loss to get the exact lot size. Funded-account mode enforces the 0.5% per-trade and 1% daily limits automatically.
+      </p>
+
+      <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm">
+        <noscript>
+          <div class="p-6 text-center">
+            <p class="text-slate-300 text-sm font-bold mb-3">Enable JavaScript to use the interactive calculator.</p>
+            <p class="text-slate-400 text-sm">Formula: <strong class="text-white">Lot Size = (Balance × Risk%) ÷ (SL Pips × Pip Value)</strong></p>
+          </div>
+        </noscript>
+        <PositionSizer client:idle />
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto py-14 px-6 space-y-10">
+    <!-- Learning path: tool → guides → firm resource -->
+    <section>
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-2 border-l-4 border-emerald-500 pl-4">
+        Understand the Number
+      </h2>
+      <p class="text-slate-400 text-sm leading-relaxed pl-5 mb-6">
+        A calculator is only useful if you understand what it's telling you. These guides explain the concepts behind the output — in order.
+      </p>
+      <div class="space-y-3">
+        {[
+          { step: "1", href: "/risk-management/position-sizing/", title: "Position Sizing: The Complete Guide", desc: "The formula, pip values by instrument, and worked examples." },
+          { step: "2", href: "/risk-management/", title: "Risk Management Framework", desc: "The 0.5% rule, daily loss limits, and drawdown survival math." },
+          { step: "3", href: "/prop-firms/", title: "Prop Firm Hub", desc: "How challenge rules work and how to size trades to pass them." },
+        ].map(({ step, href, title, desc }) => (
+          <a href={href} class="group flex items-center gap-5 bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400 font-black text-sm">{step}</div>
+            <div>
+              <h3 class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">{title}</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mt-0.5">{desc}</p>
+            </div>
+            <span class="ml-auto text-emerald-500 text-lg shrink-0">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-black uppercase tracking-tighter text-white mb-4 border-l-4 border-emerald-500 pl-4">
+        Other Tools
+      </h2>
+      <div class="grid sm:grid-cols-3 gap-3">
+        {[
+          { href: "/tools/drawdown-calculator/", label: "Drawdown Calculator" },
+          { href: "/risk-reward-calculator/", label: "Risk / Reward Calculator" },
+          { href: "/pip-value-calculator/", label: "Pip Value Calculator" },
+        ].map(({ href, label }) => (
+          <a href={href} class="text-center bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 text-[11px] font-black uppercase tracking-widest text-slate-300 hover:text-emerald-400 transition-all">
+            {label}
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
