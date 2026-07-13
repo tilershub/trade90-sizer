@@ -13,8 +13,9 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const data = entry.data;
+const toc = headings.filter((h) => h.depth === 2);
 const hub = getHub(data.hub);
 
 const site = Astro.site?.toString() || 'https://tradeninety.com';
@@ -116,6 +117,22 @@ const faqSchema = data.faq.length
         <span>{data.reading_time} min read</span>
       </div>
     </header>
+
+    {toc.length >= 3 && (
+      <nav aria-label="Table of contents" class="mb-10 bg-slate-900/40 border border-slate-800 rounded-2xl p-5">
+        <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-3">On This Page</p>
+        <ol class="space-y-2">
+          {toc.map((h, i) => (
+            <li>
+              <a href={`#${h.slug}`} class="group flex items-baseline gap-3 text-sm text-slate-300 hover:text-emerald-400 transition-colors">
+                <span class="text-emerald-500/50 font-mono text-xs shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                <span>{h.text}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
 
     <div class="prose-t90">
       <Content />

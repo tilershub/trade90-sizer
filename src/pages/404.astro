@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Page Not Found";
+const description = "The page you're looking for doesn't exist. Search TRADE90 or browse the knowledge hubs.";
+
+const hubs = [
+  { href: '/psychology/', name: 'Trading Psychology' },
+  { href: '/risk-management/', name: 'Risk Management' },
+  { href: '/trading-plans/', name: 'Trading Plans' },
+  { href: '/prop-firms/', name: 'Prop Firms' },
+  { href: '/performance/', name: 'Performance' },
+  { href: '/tools/', name: 'Free Tools' },
+];
+---
+
+<BaseLayout title={title} description={description} noIndex={true}>
+  <section class="min-h-[65vh] flex items-center justify-center px-6 py-20">
+    <div class="max-w-lg w-full text-center">
+      <p class="text-7xl font-black text-emerald-500/20 mb-4 select-none">404</p>
+      <h1 class="text-3xl font-black uppercase tracking-tighter text-white mb-3">
+        Page Not Found
+      </h1>
+      <p class="text-slate-400 text-sm leading-relaxed mb-8">
+        This page doesn't exist — it may have moved during our restructure. Try searching, or jump into a knowledge hub below.
+      </p>
+
+      <a
+        href="/search/"
+        class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-6 py-3 rounded-xl transition-colors mb-10"
+      >
+        Search the Site →
+      </a>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {hubs.map(({ href, name }) => (
+          <a
+            href={href}
+            class="bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-emerald-400 transition-all"
+          >
+            {name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
