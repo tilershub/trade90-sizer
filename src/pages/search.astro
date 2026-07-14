@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Search";
+const description = "Search TRADE90 guides, tools, and analysis — trading psychology, risk management, trading plans, prop firms, and performance.";
+---
+
+<BaseLayout title={title} description={description} noIndex={false}>
+  <section class="py-14 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-slate-800/20 via-slate-950 to-slate-950">
+    <div class="max-w-2xl mx-auto text-center">
+      <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-3">
+        Search <span class="text-emerald-400">TRADE90</span>
+      </h1>
+      <p class="text-slate-400 text-sm leading-relaxed mb-8">
+        Guides, tools, and analysis — start typing to filter.
+      </p>
+      <label for="search-input" class="sr-only">Search query</label>
+      <input
+        id="search-input"
+        type="search"
+        placeholder="e.g. drawdown, revenge trading, FTMO rules…"
+        autocomplete="off"
+        class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-2xl px-6 py-4 text-white text-base outline-none transition-colors"
+      />
+    </div>
+  </section>
+
+  <div class="max-w-2xl mx-auto py-10 px-6">
+    <p id="search-status" class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-6" role="status" aria-live="polite">Type to search</p>
+    <div id="search-results" class="space-y-3"></div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const input = document.getElementById("search-input");
+      const results = document.getElementById("search-results");
+      const status = document.getElementById("search-status");
+      let index = null;
+
+      function esc(s) {
+        return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      }
+
+      function load() {
+        if (index) return Promise.resolve(index);
+        return fetch("/search-index.json")
+          .then((r) => r.json())
+          .then((data) => { index = data; return data; });
+      }
+
+      function score(item, terms) {
+        const title = item.title.toLowerCase();
+        const desc = (item.desc || "").toLowerCase();
+        const section = item.section.toLowerCase();
+        let s = 0;
+        for (const t of terms) {
+          if (title.includes(t)) s += title.startsWith(t) ? 5 : 3;
+          else if (desc.includes(t)) s += 1;
+          else if (section.includes(t)) s += 1;
+          else return 0; // every term must match somewhere
+        }
+        return s;
+      }
+
+      function render(items) {
+        results.innerHTML = items
+          .map(
+            (it) =>
+              '<a href="' + esc(it.url) + '" class="block bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 transition-all group">' +
+              '<div class="flex items-center justify-between mb-1.5">' +
+              '<span class="text-[9px] font-black uppercase tracking-widest text-emerald-500">' + esc(it.section) + "</span>" +
+              '<span class="text-[9px] font-bold uppercase tracking-widest text-slate-600">' + esc(it.type) + "</span></div>" +
+              '<p class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">' + esc(it.title) + "</p>" +
+              (it.desc ? '<p class="text-slate-400 text-xs leading-relaxed mt-1">' + esc(it.desc) + "</p>" : "") +
+              "</a>"
+          )
+          .join("");
+      }
+
+      let timer;
+      function onInput() {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          const q = input.value.trim().toLowerCase();
+          if (q.length < 2) {
+            results.innerHTML = "";
+            status.textContent = "Type to search";
+            return;
+          }
+          load().then((data) => {
+            const terms = q.split(/\s+/).filter(Boolean);
+            const hits = data
+              .map((it) => ({ it, s: score(it, terms) }))
+              .filter((x) => x.s > 0)
+              .sort((a, b) => b.s - a.s)
+              .slice(0, 20)
+              .map((x) => x.it);
+            status.textContent = hits.length ? hits.length + " result" + (hits.length === 1 ? "" : "s") : "No results — try a different term";
+            render(hits);
+          });
+        }, 120);
+      }
+
+      input.addEventListener("input", onInput);
+      // Support /search/?q=… deep links
+      const q = new URLSearchParams(location.search).get("q");
+      if (q) { input.value = q; onInput(); }
+      input.focus();
+    })();
+  </script>
+</BaseLayout>

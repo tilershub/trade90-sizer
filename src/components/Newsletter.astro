@@ -1,7 +1,8 @@
 ---
-// Newsletter signup. Uses Netlify Forms (auto-detected from the static HTML at
-// deploy time). Progressive enhancement shows an inline success state; if JS is
-// off, the native POST still submits to Netlify.
+// Newsletter signup. Posts to /api/subscribe (a Cloudflare Pages Function
+// that forwards to Brevo). Progressive enhancement: with JS, the form
+// submits via fetch and shows an inline status; without JS, it falls back
+// to a normal POST and the Function returns a full HTML confirmation page.
 ---
 
 <section class="max-w-3xl mx-auto py-20 px-6">
@@ -14,19 +15,11 @@
       Practical notes on trading psychology, risk management, and disciplined execution — written for funded traders. No signals, no hype, no income claims. Unsubscribe anytime.
     </p>
 
-    <form
-      id="newsletter-form"
-      name="newsletter"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      class="max-w-md mx-auto"
-    >
-      <input type="hidden" name="form-name" value="newsletter" />
-      <p class="hidden">
-        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+    <form id="newsletter-form" method="POST" action="/api/subscribe" class="max-w-md mx-auto" novalidate>
+      <p class="absolute -left-[9999px]" aria-hidden="true">
+        <label>Leave this field empty: <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
       </p>
-      <div class="flex flex-col sm:flex-row gap-3">
+      <div id="newsletter-fields" class="flex flex-col sm:flex-row gap-3">
         <label for="newsletter-email" class="sr-only">Email address</label>
         <input
           id="newsletter-email"
@@ -37,15 +30,14 @@
           class="flex-grow bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors"
         />
         <button
+          id="newsletter-submit"
           type="submit"
-          class="shrink-0 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-xs px-6 py-3 rounded-xl transition-colors"
+          class="shrink-0 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-black font-black uppercase tracking-widest text-xs px-6 py-3 rounded-xl transition-colors"
         >
           Subscribe
         </button>
       </div>
-      <p id="newsletter-msg" class="text-emerald-400 text-xs font-bold mt-4 hidden" role="status" aria-live="polite">
-        You're on the list. Check your inbox to confirm.
-      </p>
+      <p id="newsletter-msg" class="text-xs font-bold mt-4 hidden" role="status" aria-live="polite"></p>
     </form>
 
     <p class="text-slate-600 text-[10px] leading-relaxed mt-6">
@@ -58,18 +50,45 @@
 <script is:inline>
   (function () {
     const form = document.getElementById("newsletter-form");
+    const fields = document.getElementById("newsletter-fields");
+    const submitBtn = document.getElementById("newsletter-submit");
     const msg = document.getElementById("newsletter-msg");
     if (!form) return;
+
+    function showMsg(text, ok) {
+      msg.textContent = text;
+      msg.classList.remove("hidden", "text-emerald-400", "text-rose-400");
+      msg.classList.add(ok ? "text-emerald-400" : "text-rose-400");
+    }
+
     form.addEventListener("submit", function (e) {
       const email = form.querySelector('input[name="email"]');
-      if (!email || !email.value || !email.checkValidity()) return; // let native validation handle it
+      if (!email || !email.checkValidity()) return; // let native validation show its own message
+
       e.preventDefault();
-      const body = new URLSearchParams(new FormData(form)).toString();
-      fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body })
-        .catch(function () {})
-        .finally(function () {
-          form.querySelector(".flex").classList.add("opacity-40", "pointer-events-none");
-          if (msg) msg.classList.remove("hidden");
+      submitBtn.disabled = true;
+
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          email: email.value,
+          website: form.querySelector('input[name="website"]').value,
+        }),
+      })
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (result) {
+          if (result.ok && result.data.ok) {
+            fields.classList.add("opacity-40", "pointer-events-none");
+            showMsg("You're on the list. Check your inbox to confirm.", true);
+          } else {
+            showMsg((result.data && result.data.error) || "Something went wrong. Please try again.", false);
+            submitBtn.disabled = false;
+          }
+        })
+        .catch(function () {
+          showMsg("Something went wrong. Please try again.", false);
+          submitBtn.disabled = false;
         });
     });
   })();

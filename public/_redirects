@@ -1,0 +1,16 @@
+# Cloudflare Pages redirects — real 301s (evaluated at the edge, before static files).
+# Mirrors the fallback `redirects` map in astro.config.mjs (which still emits
+# meta-refresh HTML pages as a safety net for any host that ignores this file).
+
+/learn /risk-management/ 301
+/learn/ /risk-management/ 301
+/learn/position-sizing /risk-management/position-sizing/ 301
+/learn/position-sizing/ /risk-management/position-sizing/ 301
+/learn/risk-management /risk-management/ 301
+/learn/risk-management/ /risk-management/ 301
+/learn/funded-accounts /prop-firms/ 301
+/learn/funded-accounts/ /prop-firms/ 301
+/how-to-calculate-position-size /risk-management/position-sizing/ 301
+/how-to-calculate-position-size/ /risk-management/position-sizing/ 301
+/prop-firm-risk-management /risk-management/ 301
+/prop-firm-risk-management/ /risk-management/ 301

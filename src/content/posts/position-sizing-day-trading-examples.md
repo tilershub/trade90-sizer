@@ -197,7 +197,7 @@ Complete this sequence before the market opens:
 
 This 10-minute routine means you never open a trade without knowing the exact dollar risk in advance. Use the [TRADE90 position size calculator](/) to complete steps 3–6 in one session, covering all instruments you plan to trade.
 
-For a full breakdown of how much starting capital you need for day trading to make it statistically viable, see the companion post on [how much capital to start day trading](/blog/how-much-capital-to-start-day-trading/).
+For guidance on sizing trades relative to your account, see the [position sizing guide](/risk-management/position-sizing/).
 
 ---
 
