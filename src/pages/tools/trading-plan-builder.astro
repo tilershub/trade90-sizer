@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Trading Plan Builder — Create a Written Trading Plan";
+const description = "Build a complete written trading plan in 10 minutes: instruments, sessions, setups, risk parameters, trade management, and review process. Saves privately in your browser, exports to Markdown.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Tools", item: `${site}/tools/` },
+    { "@type": "ListItem", position: 3, name: "Trading Plan Builder", item: `${site}/tools/trading-plan-builder/` },
+  ],
+};
+
+const sections = [
+  {
+    id: "markets",
+    n: "01",
+    title: "Markets & Instruments",
+    hint: "Which instruments will you trade — and only these? e.g. EURUSD, XAUUSD, NAS100",
+    placeholder: "EURUSD and XAUUSD only. No crypto, no exotics.",
+  },
+  {
+    id: "sessions",
+    n: "02",
+    title: "Sessions & Schedule",
+    hint: "When are you at the screen? Which session windows do you trade?",
+    placeholder: "London open 08:00–11:00 local. No trades in the last hour of NY. No Friday afternoons.",
+  },
+  {
+    id: "setups",
+    n: "03",
+    title: "Setup Definition",
+    hint: "Entry criteria specific enough that another trader could execute them.",
+    placeholder: "A+ setup: break and retest of a 4H level with a 15m confirmation candle. No entry without both conditions.",
+  },
+  {
+    id: "risk",
+    n: "04",
+    title: "Risk Parameters",
+    hint: "Risk per trade, daily cap, max trades per day, max drawdown response.",
+    placeholder: "0.5% per trade. 1% daily cap. Max 2 trades/day. After 3 losing days in a row: half size for a week.",
+  },
+  {
+    id: "management",
+    n: "05",
+    title: "Trade Management",
+    hint: "Stop placement, targets, partials, break-even rules.",
+    placeholder: "Stop below structure, never widened. TP at 2R. Move to break-even at 1R. No adding to losers.",
+  },
+  {
+    id: "review",
+    n: "06",
+    title: "Review Process",
+    hint: "When and how you review — journaling cadence, weekly and monthly reviews.",
+    placeholder: "Journal every trade same day. Weekly review Sunday: adherence %, best/worst trade. Monthly: full stats.",
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-12 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-amber-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-3xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-6 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="/tools/" class="hover:text-emerald-400 transition-colors">Tools</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Trading Plan Builder</span>
+      </nav>
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-2">
+            Trading Plan <span class="text-emerald-400">Builder</span>
+          </h1>
+          <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+            A plan is only a plan if it's written. Fill in the six sections — your answers save automatically in this browser and export to a file you can keep beside your platform.
+          </p>
+        </div>
+        <a href="/trading-plans/how-to-build-a-trading-plan/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors shrink-0">
+          Read the guide first →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto py-10 px-6">
+    <div class="flex items-center justify-between mb-6">
+      <p class="text-[10px] font-black uppercase tracking-widest text-slate-500"><span id="p-progress">0</span> / 6 sections written</p>
+      <p id="p-saved" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 opacity-0 transition-opacity">Saved ✓</p>
+    </div>
+
+    <div class="space-y-5">
+      {sections.map((s) => (
+        <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+          <div class="flex items-start gap-4 mb-3">
+            <span class="text-2xl font-black text-emerald-500/25 leading-none">{s.n}</span>
+            <div>
+              <h2 class="text-white font-black uppercase tracking-tighter text-base">{s.title}</h2>
+              <p class="text-slate-500 text-xs leading-relaxed mt-0.5">{s.hint}</p>
+            </div>
+          </div>
+          <textarea
+            id={`p-${s.id}`}
+            data-plan-field={s.id}
+            rows="3"
+            placeholder={s.placeholder}
+            class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-4 py-3 text-white text-sm leading-relaxed outline-none transition-colors resize-y"
+          ></textarea>
+        </section>
+      ))}
+    </div>
+
+    <div class="flex flex-wrap gap-3 mt-8">
+      <button id="p-export" type="button" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-xs px-5 py-3 rounded-xl transition-colors">
+        Download Plan (.md) →
+      </button>
+      <button id="p-print" type="button" class="inline-flex items-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-300 font-black uppercase tracking-widest text-xs px-5 py-3 rounded-xl transition-colors">
+        Print
+      </button>
+      <button id="p-clear" type="button" class="inline-flex items-center gap-2 border border-slate-800 hover:border-rose-500/50 text-slate-500 hover:text-rose-400 font-black uppercase tracking-widest text-xs px-5 py-3 rounded-xl transition-colors">
+        Clear
+      </button>
+    </div>
+
+    <p class="text-slate-600 text-[11px] mt-4">
+      Stored only in this browser. Download a copy — a plan you can't see while trading is a plan you won't follow.
+    </p>
+
+    <!-- Next steps -->
+    <section class="grid sm:grid-cols-3 gap-3 border-t border-slate-800 pt-8 mt-10">
+      {[
+        { href: "/today/", tag: "Trade", label: "Run it daily on Today →" },
+        { href: "/journal/", tag: "Review", label: "Grade adherence in the Journal →" },
+        { href: "/trading-plans/daily-trading-routine/", tag: "Learn", label: "Build the daily routine →" },
+      ].map(({ href, tag, label }) => (
+        <a href={href} class="group block bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">{tag}</p>
+          <p class="text-white font-black uppercase tracking-tighter text-xs group-hover:text-emerald-400 transition-colors">{label}</p>
+        </a>
+      ))}
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const KEY = "t90.plan";
+      const fields = Array.from(document.querySelectorAll("[data-plan-field]"));
+      const progress = document.getElementById("p-progress");
+      const savedBadge = document.getElementById("p-saved");
+
+      const TITLES = {
+        markets: "Markets & Instruments",
+        sessions: "Sessions & Schedule",
+        setups: "Setup Definition",
+        risk: "Risk Parameters",
+        management: "Trade Management",
+        review: "Review Process",
+      };
+
+      function load() {
+        try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
+      }
+      function updateProgress() {
+        progress.textContent = fields.filter((f) => f.value.trim()).length;
+      }
+
+      // Init
+      const data = load();
+      fields.forEach((f) => { f.value = data[f.dataset.planField] || ""; });
+      updateProgress();
+
+      let saveTimer, badgeTimer;
+      fields.forEach((f) =>
+        f.addEventListener("input", function () {
+          clearTimeout(saveTimer);
+          saveTimer = setTimeout(function () {
+            const out = {};
+            fields.forEach((x) => { out[x.dataset.planField] = x.value; });
+            localStorage.setItem(KEY, JSON.stringify(out));
+            updateProgress();
+            savedBadge.style.opacity = "1";
+            clearTimeout(badgeTimer);
+            badgeTimer = setTimeout(() => { savedBadge.style.opacity = "0"; }, 1200);
+          }, 400);
+        })
+      );
+
+      function toMarkdown() {
+        const lines = ["# My Trading Plan", "", "_Built with TRADE90 — tradeninety.com. Updated " + new Date().toISOString().slice(0, 10) + "_", ""];
+        fields.forEach((f) => {
+          lines.push("## " + TITLES[f.dataset.planField]);
+          lines.push("");
+          lines.push(f.value.trim() || "_Not defined yet._");
+          lines.push("");
+        });
+        return lines.join("\n");
+      }
+
+      document.getElementById("p-export").addEventListener("click", function () {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([toMarkdown()], { type: "text/markdown" }));
+        a.download = "my-trading-plan.md";
+        a.click();
+      });
+
+      document.getElementById("p-print").addEventListener("click", () => window.print());
+
+      document.getElementById("p-clear").addEventListener("click", function () {
+        if (!confirm("Clear the entire plan? This cannot be undone.")) return;
+        localStorage.removeItem(KEY);
+        fields.forEach((f) => { f.value = ""; });
+        updateProgress();
+      });
+    })();
+  </script>
+</BaseLayout>
