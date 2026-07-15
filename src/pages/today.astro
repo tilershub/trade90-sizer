@@ -1,0 +1,238 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Today — Daily Trading Dashboard for Funded Traders";
+const description = "Your trading day in one place: market session clock, daily risk budget, pre-session checklist, and journal snapshot. The first tab a funded trader opens each morning.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Today", item: `${site}/today/` },
+  ],
+};
+
+const checklist = {
+  pre: [
+    "Checked the economic calendar for high-impact news",
+    "Marked key levels on my instruments",
+    "Confirmed my risk per trade (0.5% default) and daily budget",
+    "Reviewed my trading plan setups — I know what I'm looking for",
+    "I am rested and not trading to recover yesterday",
+  ],
+  during: [
+    "Position sized every trade with the calculator before entry",
+    "Respected my maximum trade count",
+    "No entries after my daily risk budget was spent",
+  ],
+  post: [
+    "Logged every trade in the journal (including skipped setups worth noting)",
+    "Graded plan adherence honestly",
+    "Closed the platform — no revenge session",
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-12 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-6 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Today</span>
+      </nav>
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-2">
+            <span id="t-greeting">Today</span>
+          </h1>
+          <p id="t-date" class="text-slate-400 text-sm font-mono"></p>
+        </div>
+        <div class="text-right">
+          <p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-0.5">Local Time</p>
+          <p id="t-clock" class="text-2xl font-black font-mono text-emerald-400">--:--</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-10 px-6 space-y-10">
+
+    <!-- Sessions -->
+    <section>
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-4">Market Sessions</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="t-sessions"></div>
+      <p class="text-slate-600 text-[11px] mt-3">Session windows in your local time, converted from standard UTC hours. Liquidity peaks in the London–New York overlap.</p>
+    </section>
+
+    <!-- Risk budget -->
+    <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <h2 class="text-lg font-black uppercase tracking-tighter text-white">Daily Risk Budget</h2>
+        <a href="/risk-management/daily-loss-limits/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">Why 1% →</a>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-4 items-center">
+        <div>
+          <p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Risk Used Today</p>
+          <p id="t-risk-used" class="text-3xl font-black font-mono text-slate-200">0.0%</p>
+          <p class="text-slate-600 text-[10px] mt-1">from trades logged in the <a href="/journal/" class="text-emerald-500 hover:text-white transition-colors">journal</a> today</p>
+        </div>
+        <div class="sm:col-span-2">
+          <div class="flex justify-between text-[9px] font-black uppercase tracking-widest text-slate-500 mb-2">
+            <span>0%</span><span>Target: 1.0%</span>
+          </div>
+          <div class="h-3 bg-slate-950 border border-slate-800 rounded-full overflow-hidden">
+            <div id="t-risk-bar" class="h-full bg-emerald-500 rounded-full transition-all" style="width:0%"></div>
+          </div>
+          <p id="t-risk-msg" class="text-xs font-bold mt-3 text-slate-400">No risk used yet — full budget available.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section>
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 class="text-lg font-black uppercase tracking-tighter text-white">Daily Checklist</h2>
+        <p class="text-[10px] font-black uppercase tracking-widest text-slate-500"><span id="t-check-count">0</span> / <span id="t-check-total">0</span> complete · resets daily</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        {Object.entries({ "Pre-Session": checklist.pre, "In Session": checklist.during, "Post-Session": checklist.post }).map(([phase, items]) => (
+          <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-5">
+            <p class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-500 mb-4">{phase}</p>
+            <div class="space-y-3">
+              {items.map((item) => (
+                <label class="flex items-start gap-3 cursor-pointer group">
+                  <input type="checkbox" data-check={item} class="t90-check mt-0.5 w-4 h-4 rounded accent-emerald-500 shrink-0" />
+                  <span class="text-slate-300 text-xs leading-relaxed group-hover:text-white transition-colors">{item}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Journal snapshot + quick links -->
+    <section class="grid md:grid-cols-2 gap-4">
+      <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-sm font-black uppercase tracking-tighter text-white">Journal Snapshot</h2>
+          <a href="/journal/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">Open →</a>
+        </div>
+        <div class="grid grid-cols-3 gap-3 text-center" id="t-journal-stats">
+          <div><p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Trades Today</p><p id="t-j-today" class="text-xl font-black font-mono text-slate-200">0</p></div>
+          <div><p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">Net R Today</p><p id="t-j-netr" class="text-xl font-black font-mono text-slate-200">—</p></div>
+          <div><p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">All-Time R</p><p id="t-j-alltime" class="text-xl font-black font-mono text-slate-200">—</p></div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+        <h2 class="text-sm font-black uppercase tracking-tighter text-white mb-4">Quick Actions</h2>
+        <div class="grid grid-cols-2 gap-2">
+          {[
+            ["/tools/position-size-calculator/", "Size a Trade"],
+            ["/journal/", "Log a Trade"],
+            ["/tools/trading-plan-builder/", "My Trading Plan"],
+            ["/tools/drawdown-calculator/", "Check Drawdown"],
+          ].map(([href, label]) => (
+            <a href={href} class="text-center bg-slate-950/60 border border-slate-800 hover:border-emerald-500/40 rounded-lg px-3 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-emerald-400 transition-all">{label}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+      const today = new Date().toISOString().slice(0, 10);
+      const CHECK_KEY = "t90.checklist." + today;
+
+      // Header: greeting, date, clock
+      const h = new Date().getHours();
+      $("t-greeting").textContent = h < 12 ? "Good Morning" : h < 18 ? "Good Afternoon" : "Good Evening";
+      $("t-date").textContent = new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+      function tick() {
+        $("t-clock").textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }
+      tick(); setInterval(tick, 15000);
+
+      // Sessions (UTC hours)
+      const SESSIONS = [
+        { name: "Sydney", open: 21, close: 6 },
+        { name: "Tokyo", open: 0, close: 9 },
+        { name: "London", open: 7, close: 16 },
+        { name: "New York", open: 12, close: 21 },
+      ];
+      function fmtLocal(utcHour) {
+        const d = new Date();
+        d.setUTCHours(utcHour, 0, 0, 0);
+        return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }
+      function renderSessions() {
+        const nowUtc = new Date().getUTCHours() + new Date().getUTCMinutes() / 60;
+        $("t-sessions").innerHTML = SESSIONS.map((s) => {
+          const isOpen = s.open < s.close ? nowUtc >= s.open && nowUtc < s.close : nowUtc >= s.open || nowUtc < s.close;
+          return (
+            '<div class="bg-slate-900/40 border ' + (isOpen ? "border-emerald-500/40" : "border-slate-800") + ' rounded-xl p-4">' +
+            '<div class="flex items-center justify-between mb-2">' +
+            '<p class="text-white font-black uppercase tracking-tighter text-sm">' + s.name + "</p>" +
+            '<span class="w-2 h-2 rounded-full ' + (isOpen ? "bg-emerald-500" : "bg-slate-700") + '"></span></div>' +
+            '<p class="text-[10px] font-bold uppercase tracking-widest ' + (isOpen ? "text-emerald-400" : "text-slate-600") + '">' + (isOpen ? "Open" : "Closed") + "</p>" +
+            '<p class="text-slate-500 text-[10px] font-mono mt-1">' + fmtLocal(s.open) + " – " + fmtLocal(s.close) + "</p>" +
+            "</div>"
+          );
+        }).join("");
+      }
+      renderSessions(); setInterval(renderSessions, 60000);
+
+      // Checklist (persisted per day)
+      const boxes = Array.from(document.querySelectorAll(".t90-check"));
+      $("t-check-total").textContent = boxes.length;
+      let checked = [];
+      try { checked = JSON.parse(localStorage.getItem(CHECK_KEY)) || []; } catch {}
+      boxes.forEach((b) => { b.checked = checked.includes(b.dataset.check); });
+      function updateCount() {
+        const done = boxes.filter((b) => b.checked);
+        $("t-check-count").textContent = done.length;
+        localStorage.setItem(CHECK_KEY, JSON.stringify(done.map((b) => b.dataset.check)));
+      }
+      boxes.forEach((b) => b.addEventListener("change", updateCount));
+      updateCount();
+      // Clean old checklist keys (keep last 7 days)
+      Object.keys(localStorage).filter((k) => k.startsWith("t90.checklist.")).sort().slice(0, -7).forEach((k) => localStorage.removeItem(k));
+
+      // Risk budget + journal snapshot (reads t90.journal)
+      let trades = [];
+      try { trades = JSON.parse(localStorage.getItem("t90.journal")) || []; } catch {}
+      const todays = trades.filter((t) => t.date === today);
+      const riskUsed = todays.reduce((s, t) => s + (t.riskPct || 0), 0);
+      const pct = Math.min(100, (riskUsed / 1.0) * 100);
+      $("t-risk-used").textContent = riskUsed.toFixed(1) + "%";
+      $("t-risk-bar").style.width = pct + "%";
+      $("t-risk-bar").style.background = riskUsed < 1 ? "#10b981" : riskUsed <= 1.001 ? "#f59e0b" : "#f43f5e";
+      $("t-risk-msg").textContent =
+        riskUsed === 0 ? "No risk used yet — full budget available." :
+        riskUsed < 1 ? (1 - riskUsed).toFixed(1) + "% of your daily budget remains." :
+        riskUsed <= 1.001 ? "Daily budget spent — per the framework, you're done for today." :
+        "Over the 1% daily target — stop trading and review.";
+
+      $("t-j-today").textContent = todays.length;
+      if (todays.length) {
+        const netToday = todays.reduce((s, t) => s + t.r, 0);
+        $("t-j-netr").textContent = (netToday >= 0 ? "+" : "") + netToday.toFixed(1) + "R";
+        $("t-j-netr").style.color = netToday >= 0 ? "#34d399" : "#fb7185";
+      }
+      if (trades.length) {
+        const netAll = trades.reduce((s, t) => s + t.r, 0);
+        $("t-j-alltime").textContent = (netAll >= 0 ? "+" : "") + netAll.toFixed(1) + "R";
+        $("t-j-alltime").style.color = netAll >= 0 ? "#34d399" : "#fb7185";
+      }
+    })();
+  </script>
+</BaseLayout>

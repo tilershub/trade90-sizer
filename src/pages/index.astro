@@ -108,8 +108,53 @@ const orgSchema = {
     </div>
   </section>
 
-  <!-- ── Featured Guides ──────────────────────────────────────────────────── -->
+  <!-- ── The Funded Trader Workflow ───────────────────────────────────────── -->
   <section class="border-y border-slate-900/60 bg-slate-950/40">
+    <div class="max-w-5xl mx-auto py-16 px-6">
+      <div class="text-center mb-10">
+        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-3">The Platform</p>
+        <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-3">Your Daily Workflow</h2>
+        <p class="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
+          Not just articles — a working system. Prepare with a written plan, run your day from one dashboard, and review with real statistics. Free, private, no login.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4">
+        {[
+          {
+            href: '/tools/trading-plan-builder/',
+            step: 'Prepare',
+            name: 'Trading Plan Builder',
+            desc: 'Write the six sections of a complete plan — saved in your browser, exported to a file.',
+          },
+          {
+            href: '/today/',
+            step: 'Trade',
+            name: "Today's Dashboard",
+            desc: 'Session clock, daily risk budget, and your pre/in/post-session checklist. The first tab of the day.',
+          },
+          {
+            href: '/journal/',
+            step: 'Review',
+            name: 'Trading Journal',
+            desc: 'Log trades in R-multiples and watch win rate, expectancy, and plan adherence build.',
+          },
+        ].map(({ href, step, name, desc }, i) => (
+          <a href={href} class="group relative block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-6 transition-all hover:-translate-y-0.5">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 font-black text-xs">{i + 1}</span>
+              <span class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-500">{step}</span>
+            </div>
+            <h3 class="text-white font-black uppercase tracking-tighter text-base mb-2 group-hover:text-emerald-400 transition-colors">{name}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">{desc}</p>
+            <span class="mt-4 inline-block text-[10px] font-black uppercase tracking-widest text-emerald-500">Open →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured Guides ──────────────────────────────────────────────────── -->
+  <section>
     <div class="max-w-5xl mx-auto py-20 px-6">
       <div class="flex items-end justify-between mb-10">
         <div>

@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Trading Journal — Track Trades, Expectancy & Plan Adherence";
+const description = "Free private trading journal for funded traders. Log trades in R-multiples, track plan adherence, and see your win rate, expectancy, and profit factor update live. Data stays in your browser.";
+
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Journal", item: `${site}/journal/` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
+
+  <section class="py-12 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-rose-900/10 via-slate-950 to-slate-950">
+    <div class="max-w-4xl mx-auto">
+      <nav aria-label="Breadcrumb" class="mb-6 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-300">Journal</span>
+      </nav>
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-2">
+            Trading <span class="text-emerald-400">Journal</span>
+          </h1>
+          <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+            Log every trade in R-multiples, grade plan adherence, and watch your real statistics build. Private by design — everything stays in this browser.
+          </p>
+        </div>
+        <a href="/performance/trading-journal-guide/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors shrink-0">
+          How to journal →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-4xl mx-auto py-10 px-6 space-y-10">
+
+    <!-- Stats -->
+    <section>
+      <h2 class="sr-only">Statistics</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="j-stats">
+        {[
+          ["Trades", "j-s-trades"],
+          ["Win Rate", "j-s-winrate"],
+          ["Expectancy", "j-s-expectancy"],
+          ["Profit Factor", "j-s-pf"],
+          ["Net R", "j-s-netr"],
+          ["Adherence", "j-s-adherence"],
+        ].map(([label, id]) => (
+          <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 text-center">
+            <p class="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-1">{label}</p>
+            <p id={id} class="text-xl font-black font-mono text-slate-200">—</p>
+          </div>
+        ))}
+      </div>
+      <p id="j-sample-note" class="text-slate-600 text-[11px] mt-3 hidden">
+        Statistics stabilise with sample size — treat anything under ~30 trades as provisional. See <a href="/performance/expectancy-explained/" class="text-emerald-500 hover:text-white transition-colors">expectancy explained</a>.
+      </p>
+    </section>
+
+    <!-- Add trade -->
+    <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-5">Log a Trade</h2>
+      <form id="j-form" class="grid grid-cols-2 md:grid-cols-6 gap-3 items-end">
+        <div class="col-span-1">
+          <label for="j-date" class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Date</label>
+          <input id="j-date" type="date" required class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-lg px-3 py-2.5 text-white font-mono text-xs outline-none" />
+        </div>
+        <div class="col-span-1">
+          <label for="j-symbol" class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Instrument</label>
+          <input id="j-symbol" type="text" required placeholder="EURUSD" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-lg px-3 py-2.5 text-white font-mono text-xs uppercase outline-none" />
+        </div>
+        <div class="col-span-1">
+          <label for="j-dir" class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Direction</label>
+          <select id="j-dir" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-lg px-3 py-2.5 text-white font-mono text-xs outline-none">
+            <option value="long">Long</option>
+            <option value="short">Short</option>
+          </select>
+        </div>
+        <div class="col-span-1">
+          <label for="j-risk" class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Risk %</label>
+          <input id="j-risk" type="number" step="0.05" min="0" value="0.5" required class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-lg px-3 py-2.5 text-white font-mono text-xs outline-none" />
+        </div>
+        <div class="col-span-1">
+          <label for="j-r" class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Result (R)</label>
+          <input id="j-r" type="number" step="0.1" required placeholder="+2 / −1" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-lg px-3 py-2.5 text-white font-mono text-xs outline-none" />
+        </div>
+        <div class="col-span-1">
+          <label for="j-adhered" class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Followed Plan?</label>
+          <select id="j-adhered" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-lg px-3 py-2.5 text-white font-mono text-xs outline-none">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="col-span-2 md:col-span-5">
+          <label for="j-note" class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Note (setup, mistake, lesson)</label>
+          <input id="j-note" type="text" placeholder="e.g. London breakout, moved stop too early" class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-lg px-3 py-2.5 text-white text-xs outline-none" />
+        </div>
+        <button type="submit" class="col-span-2 md:col-span-1 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-[10px] px-4 py-3 rounded-lg transition-colors">
+          Add Trade
+        </button>
+      </form>
+    </section>
+
+    <!-- Trade list -->
+    <section>
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 class="text-lg font-black uppercase tracking-tighter text-white">Trade Log</h2>
+        <div class="flex gap-2">
+          <button id="j-export-csv" type="button" class="border border-slate-700 hover:border-emerald-500/50 text-slate-300 font-black uppercase tracking-widest text-[9px] px-3 py-2 rounded-lg transition-colors">Export CSV</button>
+          <button id="j-export-json" type="button" class="border border-slate-700 hover:border-emerald-500/50 text-slate-300 font-black uppercase tracking-widest text-[9px] px-3 py-2 rounded-lg transition-colors">Backup JSON</button>
+          <label class="border border-slate-700 hover:border-emerald-500/50 text-slate-300 font-black uppercase tracking-widest text-[9px] px-3 py-2 rounded-lg transition-colors cursor-pointer">
+            Restore<input id="j-import" type="file" accept=".json" class="hidden" />
+          </label>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="border-b border-slate-800">
+                {["Date", "Instrument", "Dir", "Risk %", "R", "Plan", "Note", ""].map((h) => (
+                  <th class="px-4 py-3 text-left text-[9px] font-black uppercase tracking-widest text-slate-500 whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody id="j-rows" class="divide-y divide-slate-800/50 font-mono"></tbody>
+          </table>
+        </div>
+        <p id="j-empty" class="text-slate-500 text-sm text-center py-10">No trades logged yet. Add your first trade above — it takes 15 seconds.</p>
+      </div>
+      <p class="text-slate-600 text-[11px] mt-3">
+        Data is stored only in this browser (localStorage). Use <strong class="text-slate-400">Backup JSON</strong> to keep a copy — clearing browser data erases the journal.
+      </p>
+    </section>
+
+    <!-- Related -->
+    <section class="grid sm:grid-cols-3 gap-3 border-t border-slate-800 pt-8">
+      {[
+        { href: "/today/", tag: "Trade", label: "Today's Dashboard →" },
+        { href: "/performance/monthly-trading-review/", tag: "Review", label: "Monthly Review Process →" },
+        { href: "/performance/win-rate-and-profit-factor/", tag: "Learn", label: "Win Rate & Profit Factor →" },
+      ].map(({ href, tag, label }) => (
+        <a href={href} class="group block bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-all">
+          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">{tag}</p>
+          <p class="text-white font-black uppercase tracking-tighter text-xs group-hover:text-emerald-400 transition-colors">{label}</p>
+        </a>
+      ))}
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const KEY = "t90.journal";
+      const $ = (id) => document.getElementById(id);
+
+      function load() {
+        try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
+      }
+      function save(trades) { localStorage.setItem(KEY, JSON.stringify(trades)); }
+      function esc(s) { return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+      function stats(trades) {
+        const n = trades.length;
+        if (!n) return null;
+        const wins = trades.filter((t) => t.r > 0);
+        const losses = trades.filter((t) => t.r < 0);
+        const netR = trades.reduce((s, t) => s + t.r, 0);
+        const grossWin = wins.reduce((s, t) => s + t.r, 0);
+        const grossLoss = Math.abs(losses.reduce((s, t) => s + t.r, 0));
+        const adhered = trades.filter((t) => t.adhered).length;
+        return {
+          n,
+          winRate: (wins.length / n) * 100,
+          expectancy: netR / n,
+          pf: grossLoss > 0 ? grossWin / grossLoss : (grossWin > 0 ? Infinity : 0),
+          netR,
+          adherence: (adhered / n) * 100,
+        };
+      }
+
+      function renderStats(trades) {
+        const s = stats(trades);
+        const set = (id, v) => { $(id).textContent = v; };
+        if (!s) {
+          ["j-s-trades","j-s-winrate","j-s-expectancy","j-s-pf","j-s-netr","j-s-adherence"].forEach((id) => set(id, "—"));
+          $("j-sample-note").classList.add("hidden");
+          return;
+        }
+        set("j-s-trades", s.n);
+        set("j-s-winrate", s.winRate.toFixed(0) + "%");
+        set("j-s-expectancy", (s.expectancy >= 0 ? "+" : "") + s.expectancy.toFixed(2) + "R");
+        $("j-s-expectancy").style.color = s.expectancy >= 0 ? "#34d399" : "#fb7185";
+        set("j-s-pf", isFinite(s.pf) ? s.pf.toFixed(2) : "∞");
+        set("j-s-netr", (s.netR >= 0 ? "+" : "") + s.netR.toFixed(1) + "R");
+        $("j-s-netr").style.color = s.netR >= 0 ? "#34d399" : "#fb7185";
+        set("j-s-adherence", s.adherence.toFixed(0) + "%");
+        $("j-sample-note").classList.toggle("hidden", s.n >= 30);
+      }
+
+      function renderRows(trades) {
+        const tbody = $("j-rows");
+        const sorted = trades.slice().sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+        tbody.innerHTML = sorted
+          .map(
+            (t) =>
+              "<tr>" +
+              '<td class="px-4 py-2.5 text-slate-400 whitespace-nowrap">' + esc(t.date) + "</td>" +
+              '<td class="px-4 py-2.5 text-slate-200 font-bold">' + esc(t.symbol) + "</td>" +
+              '<td class="px-4 py-2.5 ' + (t.dir === "long" ? "text-emerald-400" : "text-rose-400") + '">' + (t.dir === "long" ? "▲" : "▼") + "</td>" +
+              '<td class="px-4 py-2.5 text-slate-400">' + t.riskPct + "%</td>" +
+              '<td class="px-4 py-2.5 font-bold ' + (t.r > 0 ? "text-emerald-400" : t.r < 0 ? "text-rose-400" : "text-slate-400") + '">' + (t.r > 0 ? "+" : "") + t.r + "R</td>" +
+              '<td class="px-4 py-2.5">' + (t.adhered ? '<span class="text-emerald-400">✓</span>' : '<span class="text-rose-400">✗</span>') + "</td>" +
+              '<td class="px-4 py-2.5 text-slate-500 font-sans max-w-[16rem] truncate" title="' + esc(t.note || "") + '">' + esc(t.note || "") + "</td>" +
+              '<td class="px-4 py-2.5"><button data-del="' + t.id + '" class="text-slate-600 hover:text-rose-400 transition-colors" aria-label="Delete trade">✕</button></td>' +
+              "</tr>"
+          )
+          .join("");
+        $("j-empty").style.display = trades.length ? "none" : "";
+      }
+
+      function refresh() {
+        const trades = load();
+        renderStats(trades);
+        renderRows(trades);
+      }
+
+      // Add
+      $("j-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const trades = load();
+        trades.push({
+          id: (trades.reduce((m, t) => Math.max(m, t.id || 0), 0) + 1),
+          date: $("j-date").value,
+          symbol: $("j-symbol").value.trim().toUpperCase(),
+          dir: $("j-dir").value,
+          riskPct: parseFloat($("j-risk").value) || 0,
+          r: parseFloat($("j-r").value) || 0,
+          adhered: $("j-adhered").value === "yes",
+          note: $("j-note").value.trim(),
+        });
+        save(trades);
+        $("j-symbol").value = ""; $("j-r").value = ""; $("j-note").value = "";
+        refresh();
+      });
+
+      // Delete
+      $("j-rows").addEventListener("click", function (e) {
+        const btn = e.target.closest("[data-del]");
+        if (!btn) return;
+        const id = Number(btn.dataset.del);
+        save(load().filter((t) => t.id !== id));
+        refresh();
+      });
+
+      // Export CSV
+      $("j-export-csv").addEventListener("click", function () {
+        const trades = load();
+        const rows = [["date","instrument","direction","risk_pct","result_r","followed_plan","note"]]
+          .concat(trades.map((t) => [t.date, t.symbol, t.dir, t.riskPct, t.r, t.adhered ? "yes" : "no", (t.note || "").replace(/"/g, '""')]));
+        const csv = rows.map((r) => r.map((c) => '"' + c + '"').join(",")).join("\n");
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+        a.download = "trade90-journal.csv";
+        a.click();
+      });
+
+      // Backup / restore JSON
+      $("j-export-json").addEventListener("click", function () {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(load(), null, 2)], { type: "application/json" }));
+        a.download = "trade90-journal-backup.json";
+        a.click();
+      });
+      $("j-import").addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function () {
+          try {
+            const data = JSON.parse(reader.result);
+            if (!Array.isArray(data)) throw new Error();
+            if (load().length && !confirm("Replace the current journal with the backup?")) return;
+            save(data);
+            refresh();
+          } catch {
+            alert("That file doesn't look like a TRADE90 journal backup.");
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = "";
+      });
+
+      // Init
+      $("j-date").value = new Date().toISOString().slice(0, 10);
+      refresh();
+    })();
+  </script>
+</BaseLayout>

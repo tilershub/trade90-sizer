@@ -32,6 +32,9 @@ export const GET: APIRoute = async () => {
     { title: 'Pip Value Calculator', desc: 'Pip and point values for forex, gold, indices, and crypto.', url: '/pip-value-calculator/', section: 'Tools', type: 'tool' },
     { title: 'Profit / Loss Calculator', desc: 'Dollar result of a trade from instrument, lot size, and pip movement.', url: '/tools/profit-calculator/', section: 'Tools', type: 'tool' },
     { title: 'Compounding Calculator', desc: 'Project account growth at a steady monthly return.', url: '/tools/compounding-calculator/', section: 'Tools', type: 'tool' },
+    { title: "Today's Dashboard", desc: 'Session clock, daily risk budget, and daily checklist — your trading day in one place.', url: '/today/', section: 'Platform', type: 'tool' },
+    { title: 'Trading Journal', desc: 'Log trades in R-multiples and track win rate, expectancy, and plan adherence.', url: '/journal/', section: 'Platform', type: 'tool' },
+    { title: 'Trading Plan Builder', desc: 'Write a complete six-section trading plan and export it.', url: '/tools/trading-plan-builder/', section: 'Platform', type: 'tool' },
   ];
 
   return new Response(JSON.stringify(items), {
