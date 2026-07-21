@@ -28,7 +28,7 @@ const softwareSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} slot="head-extra" />
 
-  <div class="bg-white text-slate-900">
+  <div id="usdjpy-light" class="bg-white text-slate-900">
     <section class="relative py-14 px-4 border-b border-slate-200 overflow-hidden bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-100 via-white to-white">
       <div class="max-w-6xl mx-auto">
         <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
@@ -109,3 +109,20 @@ const softwareSchema = {
     </section>
   </div>
 </BaseLayout>
+
+
+<style is:global>
+  /* This page is intentionally light. These ID-scoped rules outrank the
+     dark-shell contrast helpers in BaseLayout without changing other pages. */
+  #usdjpy-light { background: #ffffff !important; color: #0f172a !important; }
+  #usdjpy-light .text-slate-950 { color: #020617 !important; }
+  #usdjpy-light .text-slate-900 { color: #0f172a !important; }
+  #usdjpy-light .text-slate-800 { color: #1e293b !important; }
+  #usdjpy-light .text-slate-700 { color: #334155 !important; }
+  #usdjpy-light .text-slate-600 { color: #475569 !important; }
+  #usdjpy-light .text-slate-500 { color: #64748b !important; }
+  #usdjpy-light .text-emerald-700 { color: #047857 !important; }
+  #usdjpy-light .text-emerald-800 { color: #065f46 !important; }
+  #usdjpy-light .text-amber-900 { color: #78350f !important; }
+  #usdjpy-light p { opacity: 1 !important; }
+</style>
