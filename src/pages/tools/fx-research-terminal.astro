@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FxResearchTerminal from '../../components/FxResearchTerminal.svelte';
+
+const title = "TRADE90 FX Research Terminal — Major-Pair Macro & Risk Intelligence";
+const description = "Compare seven major FX pairs using transparent macro, technical, positioning, event-risk and out-of-sample research from TRADE90.";
+const advancedUrl = "https://usdjpy-research-lab-f8nkfpp3xx4tgonywqxappk.streamlit.app/";
+const site = Astro.site?.toString() || "https://tradeninety.com";
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "TRADE90 FX Research Terminal",
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  url: new URL("/tools/fx-research-terminal/", site).toString(),
+  description,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbName="FX Research Terminal"
+  breadcrumbParentName="Tools"
+  breadcrumbParentPath="/tools/"
+  keywords={["FX research terminal", "major currency pairs", "forex macro analysis", "funded trader research", "currency pair scanner"]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} slot="head-extra" />
+
+  <main id="fx-terminal-light" class="bg-white text-slate-900">
+    <section class="relative py-14 px-4 border-b border-slate-200 overflow-hidden bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-100 via-white to-white">
+      <div class="max-w-6xl mx-auto">
+        <nav aria-label="Breadcrumb" class="mb-8 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
+          <a href="/" class="hover:text-emerald-700">Home</a><span>/</span>
+          <a href="/tools/" class="hover:text-emerald-700">Tools</a><span>/</span>
+          <span class="text-slate-800">FX Terminal</span>
+        </nav>
+        <span class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-800 bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-full mb-5 inline-block">Native TRADE90 Terminal · Beta</span>
+        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5 leading-[0.95]">
+          FX Research <span class="text-emerald-700">Terminal</span>
+        </h1>
+        <p class="text-slate-600 text-base md:text-lg leading-relaxed max-w-3xl">
+          Scan seven major currency pairs, separate market facts from model interpretation, and inspect calibrated scenarios without leaving TRADE90.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto py-9 px-3 md:px-6">
+      <div class="grid md:grid-cols-3 gap-4 mb-7">
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Seven major pairs</strong><p class="text-slate-600 text-sm">Pair-specific macro and cross-asset models ranked by evidence strength.</p></div>
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Evidence separated</strong><p class="text-slate-600 text-sm">Observed facts, interpretation, probabilities and planning levels remain distinct.</p></div>
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Freshness controlled</strong><p class="text-slate-600 text-sm">Delayed or stale inputs are disclosed and excluded from the active score.</p></div>
+      </div>
+
+      <FxResearchTerminal client:load />
+
+      <div class="mt-7 bg-amber-50 border border-amber-200 rounded-2xl p-5">
+        <h2 class="text-amber-900 font-black uppercase tracking-widest text-xs mb-2">Research, not a trade signal</h2>
+        <p class="text-slate-700 text-sm leading-relaxed">
+          TRADE90 provides educational research tools, not individualized financial advice. Public feeds can be delayed or revised. Confirm prices and event data with your broker, respect funded-account limits, and make your own trading decisions.
+        </p>
+        <a href={advancedUrl} target="_blank" rel="noopener noreferrer" class="inline-block mt-3 text-emerald-700 font-black uppercase tracking-widest text-xs">Open advanced validation workspace ↗</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  #fx-terminal-light { background:#fff!important;color:#0f172a!important }
+  #fx-terminal-light .text-slate-950{color:#020617!important}
+  #fx-terminal-light .text-slate-900{color:#0f172a!important}
+  #fx-terminal-light .text-slate-800{color:#1e293b!important}
+  #fx-terminal-light .text-slate-700{color:#334155!important}
+  #fx-terminal-light .text-slate-600{color:#475569!important}
+  #fx-terminal-light .text-slate-500{color:#64748b!important}
+  #fx-terminal-light .text-emerald-700{color:#047857!important}
+  #fx-terminal-light .text-emerald-800{color:#065f46!important}
+  #fx-terminal-light .text-amber-900{color:#78350f!important}
+  #fx-terminal-light p{opacity:1!important}
+</style>
