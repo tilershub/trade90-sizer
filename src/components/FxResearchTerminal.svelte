@@ -43,8 +43,8 @@
 <div class="terminal">
   <header class="terminal-bar">
     <div>
-      <span class="eyebrow">TRADE90 · FX intelligence</span>
-      <h2>Major-pair terminal</h2>
+      <span class="eyebrow">TRADE90 · Multi-asset intelligence</span>
+      <h2>FX, gold &amp; Bitcoin terminal</h2>
     </div>
     <div class="status">
       <span class:live={!error}></span>
@@ -64,7 +64,7 @@
       </div>
     </div>
   {:else if active}
-    <div class="pair-tabs" role="tablist" aria-label="Currency pairs">
+    <div class="pair-tabs" role="tablist" aria-label="Markets">
       {#each pairs as pair}
         <button class:active={pair.symbol === active.symbol} on:click={() => selected = pair.symbol}>
           {pair.symbol}
@@ -72,9 +72,9 @@
       {/each}
     </div>
 
-    <section class="scanner" aria-label="Major pair scanner">
+    <section class="scanner" aria-label="Multi-asset market scanner">
       <div class="scanner-head">
-        <span>Pair</span><span>Price</span><span>Score</span><span>Bias</span><span>Quality</span>
+        <span>Market</span><span>Price</span><span>Score</span><span>Bias</span><span>Quality</span>
       </div>
       {#each pairs as pair}
         <button class:chosen={pair.symbol === active.symbol} on:click={() => selected = pair.symbol}>
@@ -97,7 +97,7 @@
 
     <section class="facts">
       <article><span>Observed close</span><strong>{num(active.price, active.decimals)}</strong></article>
-      <article><span>10Y yield spread</span><strong>{signed(active.market.yield_spread, 2)} pp</strong></article>
+      <article><span>{active.market.macro_label ?? '10Y yield spread'}</span><strong>{signed(active.market.yield_spread, 2)} pp</strong></article>
       <article><span>20D volatility</span><strong>{pct(active.market.volatility)}</strong></article>
       <article><span>Market regime</span><strong>{active.market.regime}</strong></article>
       <article><span>Data quality</span><strong>Grade {active.quality.grade}</strong><small>{pct(active.quality.completeness)} usable</small></article>
@@ -111,7 +111,8 @@
           <span>{active.bias} evidence</span>
         </div>
         <p>{active.model.thesis}</p>
-        <small>Transparent pair-specific model. A score is interpretation, not an observed fact.</small>
+        <small>{active.asset_class ?? 'FX'} · {active.model.price_note ?? 'End-of-day public market data'}</small><br />
+        <small>Transparent instrument-specific model. A score is interpretation, not an observed fact.</small>
       </article>
 
       <article>
