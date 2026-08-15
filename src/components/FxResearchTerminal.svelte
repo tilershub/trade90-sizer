@@ -16,6 +16,7 @@
   const num = (value, digits = 2) => value == null ? '—' : Number(value).toFixed(digits);
   const signed = (value, digits = 1) => value == null ? '—' : `${value >= 0 ? '+' : ''}${Number(value).toFixed(digits)}`;
   const scoreClass = (value) => value > 18 ? 'positive' : value < -18 ? 'negative' : 'neutral';
+  const scoreLabel = (value) => value > 18 ? 'Bullish' : value < -18 ? 'Bearish' : 'Neutral';
 
   async function load() {
     try {
@@ -46,27 +47,33 @@
       <span class="eyebrow">TRADE90 · Multi-asset intelligence</span>
       <h2>FX, gold &amp; Bitcoin terminal</h2>
     </div>
-    <div class="status">
+    <div class="status" role="status" aria-live="polite">
       <span class:live={!error}></span>
       {error ? 'Data interrupted' : snapshot ? 'Snapshot online' : 'Connecting'}
     </div>
   </header>
 
   {#if loading}
-    <div class="notice">Loading the latest research snapshot…</div>
+    <div class="notice" role="status" aria-live="polite">Loading the latest research snapshot…</div>
   {:else if error}
     <div class="error">
       <strong>Native terminal data is temporarily unavailable.</strong>
       <span>{error}. The advanced workspace remains available during this migration.</span>
       <div class="actions">
-        <button on:click={load}>Retry</button>
+        <button type="button" on:click={load}>Retry</button>
         <a href={ADVANCED_URL} target="_blank" rel="noopener noreferrer">Open advanced workspace ↗</a>
       </div>
     </div>
   {:else if active}
     <div class="pair-tabs" role="tablist" aria-label="Markets">
       {#each pairs as pair}
-        <button class:active={pair.symbol === active.symbol} on:click={() => selected = pair.symbol}>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={pair.symbol === active.symbol}
+          class:active={pair.symbol === active.symbol}
+          on:click={() => selected = pair.symbol}
+        >
           {pair.symbol}
         </button>
       {/each}
@@ -74,10 +81,16 @@
 
     <section class="scanner" aria-label="Multi-asset market scanner">
       <div class="scanner-head">
-        <span>Market</span><span>Price</span><span>Score</span><span>Bias</span><span>Quality</span>
+        <span>Market</span><span>Price</span><span>Score</span><span>Scenario</span><span>Quality</span>
       </div>
       {#each pairs as pair}
-        <button class:chosen={pair.symbol === active.symbol} on:click={() => selected = pair.symbol}>
+        <button
+          type="button"
+          aria-label={`Open ${pair.symbol} research: score ${signed(pair.score)}, ${pair.bias} five-day scenario, quality grade ${pair.quality.grade}`}
+          aria-pressed={pair.symbol === active.symbol}
+          class:chosen={pair.symbol === active.symbol}
+          on:click={() => selected = pair.symbol}
+        >
           <strong>{pair.symbol}</strong>
           <span>{num(pair.price, pair.decimals)}</span>
           <span class={scoreClass(pair.score)}>{signed(pair.score)}</span>
@@ -108,7 +121,7 @@
         <span class="step">01 · Model interpretation</span>
         <div class="score-row">
           <strong class={scoreClass(active.score)}>{signed(active.score)}</strong>
-          <span>{active.bias} evidence</span>
+          <span>{scoreLabel(active.score)} model evidence</span>
         </div>
         <p>{active.model.thesis}</p>
         <small>{active.asset_class ?? 'FX'} · {active.model.price_note ?? 'End-of-day public market data'}</small><br />

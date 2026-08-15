@@ -15,6 +15,7 @@ export default defineConfig({
     '/learn/funded-accounts/': '/prop-firms/',
     '/how-to-calculate-position-size/': '/risk-management/position-sizing/',
     '/prop-firm-risk-management/': '/risk-management/',
+    '/terminal/': '/tools/fx-research-terminal/',
   },
 
   integrations: [
@@ -39,6 +40,7 @@ export default defineConfig({
           '/prop-firms/',
           '/performance/',
           '/tools/',
+          '/tools/fx-research-terminal/',
           '/tools/position-size-calculator/',
         ];
         if (highPriority.includes(path)) {

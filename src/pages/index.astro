@@ -1,233 +1,296 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FxResearchTerminal from '../components/FxResearchTerminal.svelte';
 import Newsletter from '../components/Newsletter.astro';
 import { getCollection } from 'astro:content';
-import { HUB_ORDER, HUBS } from '../lib/hubs';
+import { HUBS } from '../lib/hubs';
 
-const seoTitle = "TRADE90 — Become a Consistently Funded Trader";
-const seoDescription = "Master risk management, trading psychology, and disciplined execution with practical education, professional tools, and prop firm resources. Built for funded traders.";
-
+const seoTitle = "Research Terminal for FX, Gold & Bitcoin";
+const seoDescription = "Use the free TRADE90 research terminal to compare seven major FX pairs, XAU/USD and BTC/USD with transparent market evidence, probabilities and planning levels.";
 const site = Astro.site?.toString() || "https://tradeninety.com";
+const advancedUrl = "https://usdjpy-research-lab-f8nkfpp3xx4tgonywqxappk.streamlit.app/";
 
-// Featured guides — a curated cross-hub selection of the strongest articles
 const featuredSlugs = [
-  'psychology/why-traders-fail',
   'risk-management/risk-of-ruin',
   'trading-plans/how-to-build-a-trading-plan',
-  'prop-firms/prop-firm-rules-explained',
-  'performance/trading-journal-guide',
-  'psychology/revenge-trading',
+  'psychology/why-traders-fail',
 ];
 const allArticles = await getCollection('articles');
-const byId = new Map(allArticles.map((a) => [a.id.replace(/\.mdx?$/, ''), a]));
-const featured = featuredSlugs.map((s) => byId.get(s)).filter(Boolean);
+const byId = new Map(allArticles.map((article) => [article.id.replace(/\.mdx?$/, ''), article]));
+const featured = featuredSlugs.map((slug) => byId.get(slug)).filter(Boolean);
 
-// Learning paths — the five hubs plus the position sizing foundation guide
-const learningPaths = [
-  { href: '/psychology/', name: 'Trading Psychology', desc: 'Discipline, losing streaks, and emotional control.', accent: 'text-sky-400', ring: 'hover:border-sky-500/40' },
-  { href: '/risk-management/', name: 'Risk Management', desc: 'Position sizing, daily limits, and drawdown.', accent: 'text-emerald-400', ring: 'hover:border-emerald-500/40' },
-  { href: '/trading-plans/', name: 'Trading Plans', desc: 'Written plans, routines, and instrument frameworks.', accent: 'text-amber-400', ring: 'hover:border-amber-500/40' },
-  { href: '/prop-firms/', name: 'Prop Firms', desc: 'Evaluations, rules, and funded accounts.', accent: 'text-purple-400', ring: 'hover:border-purple-500/40' },
-  { href: '/performance/', name: 'Performance', desc: 'Journals, expectancy, and monthly reviews.', accent: 'text-rose-400', ring: 'hover:border-rose-500/40' },
-  { href: '/risk-management/position-sizing/', name: 'Position Sizing Guide', desc: 'Start here — the foundation of it all.', accent: 'text-emerald-400', ring: 'hover:border-emerald-500/40' },
+const researchLayers = [
+  {
+    number: '01',
+    title: 'Market facts',
+    text: 'Price, volatility, market regime and cross-asset drivers are shown before any model interpretation.',
+  },
+  {
+    number: '02',
+    title: 'Evidence score',
+    text: 'A comparable composite score helps you scan raw model evidence across nine markets before checking the calibrated scenarios.',
+  },
+  {
+    number: '03',
+    title: 'Scenario probabilities',
+    text: 'Five-day bullish, range and bearish frequencies are displayed with sample size and confidence.',
+  },
+  {
+    number: '04',
+    title: 'Planning levels',
+    text: 'Support, resistance and typical range provide context for planning—not instructions to enter a trade.',
+  },
 ];
 
-const tools = [
-  { href: '/tools/position-size-calculator/', name: 'Position Size' },
-  { href: '/risk-reward-calculator/', name: 'Risk / Reward' },
-  { href: '/tools/drawdown-calculator/', name: 'Drawdown' },
-  { href: '/pip-value-calculator/', name: 'Pip Value' },
-  { href: '/tools/profit-calculator/', name: 'Profit / Loss' },
-  { href: '/tools/compounding-calculator/', name: 'Compounding' },
+const workflow = [
+  {
+    step: 'Scan',
+    title: 'Find the clearest evidence',
+    text: 'Compare all nine markets from one table, then select the instrument that deserves deeper research.',
+    href: '#terminal',
+    link: 'Use the terminal',
+  },
+  {
+    step: 'Plan',
+    title: 'Define risk before entry',
+    text: 'Turn your thesis into invalidation, risk percentage and position size before you place an order.',
+    href: '/tools/position-size-calculator/',
+    link: 'Size the position',
+  },
+  {
+    step: 'Review',
+    title: 'Measure the decision',
+    text: 'Record the trade in R-multiples and review whether you followed the plan—not only whether it won.',
+    href: '/journal/',
+    link: 'Open the journal',
+  },
 ];
 
-const propFirmResources = [
-  { href: '/prop-firms/prop-firm-rules-explained/', name: 'Prop Firm Rules Explained', desc: 'Every rule type and what triggers a breach.' },
-  { href: '/prop-firms/how-to-choose-a-prop-firm/', name: 'How to Choose a Prop Firm', desc: 'A calm decision framework — drawdown model first.' },
-  { href: '/prop-firms/ftmo-vs-fundednext/', name: 'FTMO vs FundedNext', desc: 'A balanced structural comparison.' },
-  { href: '/prop-firms/', name: 'Prop Firm Hub', desc: 'Challenge mechanics, firm comparison, funded-account management.' },
+const supportingTools = [
+  { href: '/tools/position-size-calculator/', name: 'Position Size', desc: 'Calculate risk-based size' },
+  { href: '/risk-reward-calculator/', name: 'Risk / Reward', desc: 'Map reward against risk' },
+  { href: '/tools/trading-plan-builder/', name: 'Plan Builder', desc: 'Write your execution rules' },
+  { href: '/today/', name: "Today's Desk", desc: 'Run the session checklist' },
 ];
 
-const orgSchema = {
+const softwareSchema = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "TRADE90",
+  "@type": "SoftwareApplication",
+  name: "TRADE90 Multi-Asset Research Terminal",
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
   url: site,
   description: seoDescription,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 };
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription}>
-  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} slot="head-extra" />
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  keywords={["market research terminal", "forex research", "XAUUSD research", "BTCUSD research", "FX market scanner"]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} slot="head-extra" />
 
-  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
-  <section class="relative py-24 md:py-32 px-6 border-b border-slate-900/60 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/12 via-slate-950 to-slate-950">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 bg-slate-900/60 border border-slate-800 rounded-full px-4 py-1.5 mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-        <span class="text-slate-400 text-[10px] font-black uppercase tracking-[0.25em]">Education · Tools · Prop Firm Resources</span>
-      </div>
-
-      <h1 class="text-4xl md:text-6xl font-black tracking-tighter text-white mb-6 leading-[0.95]">
-        Become a Consistently<br/><span class="text-emerald-400">Funded Trader</span>
-      </h1>
-
-      <p class="text-slate-400 text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-        Master risk management, trading psychology, and disciplined execution — with practical education, professional tools, and honest prop firm resources.
-      </p>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="/risk-management/position-sizing/" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-sm px-8 py-4 rounded-xl transition-colors">
-          Start Learning →
-        </a>
-        <a href="/tools/" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-200 font-black uppercase tracking-widest text-sm px-8 py-4 rounded-xl transition-colors">
-          Explore Tools
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Learning Paths ───────────────────────────────────────────────────── -->
-  <section class="max-w-5xl mx-auto py-20 px-6">
-    <div class="text-center mb-12">
-      <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-3">Learning Paths</p>
-      <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-3">Where Do You Want to Improve?</h2>
-      <p class="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-        Five knowledge hubs covering the full discipline of funded trading. Each is a structured path, not a pile of articles.
-      </p>
-    </div>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {learningPaths.map(({ href, name, desc, accent, ring }) => (
-        <a href={href} class={`group block bg-slate-900/40 border border-slate-800 ${ring} rounded-2xl p-6 transition-all hover:-translate-y-0.5`}>
-          <h3 class={`font-black uppercase tracking-tighter text-base mb-2 ${accent}`}>{name}</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">{desc}</p>
-          <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-emerald-400 transition-colors">Explore →</span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <!-- ── The Funded Trader Workflow ───────────────────────────────────────── -->
-  <section class="border-y border-slate-900/60 bg-slate-950/40">
-    <div class="max-w-5xl mx-auto py-16 px-6">
-      <div class="text-center mb-10">
-        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-3">The Platform</p>
-        <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-3">Your Daily Workflow</h2>
-        <p class="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-          Not just articles — a working system. Prepare with a written plan, run your day from one dashboard, and review with real statistics. Free, private, no login.
-        </p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-4">
-        {[
-          {
-            href: '/tools/trading-plan-builder/',
-            step: 'Prepare',
-            name: 'Trading Plan Builder',
-            desc: 'Write the six sections of a complete plan — saved in your browser, exported to a file.',
-          },
-          {
-            href: '/today/',
-            step: 'Trade',
-            name: "Today's Dashboard",
-            desc: 'Session clock, daily risk budget, and your pre/in/post-session checklist. The first tab of the day.',
-          },
-          {
-            href: '/journal/',
-            step: 'Review',
-            name: 'Trading Journal',
-            desc: 'Log trades in R-multiples and watch win rate, expectancy, and plan adherence build.',
-          },
-        ].map(({ href, step, name, desc }, i) => (
-          <a href={href} class="group relative block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-6 transition-all hover:-translate-y-0.5">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 font-black text-xs">{i + 1}</span>
-              <span class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-500">{step}</span>
+  <div id="trade90-home" class="bg-white text-slate-950">
+    <!-- Terminal-first hero -->
+    <section class="relative overflow-hidden border-b border-emerald-100 bg-[radial-gradient(circle_at_80%_0%,_rgba(16,185,129,0.16),_transparent_34%),linear-gradient(180deg,#f8fffc_0%,#ffffff_100%)]">
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent"></div>
+      <div class="max-w-7xl mx-auto px-5 sm:px-6 pt-14 pb-12 md:pt-20 md:pb-16">
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_21rem] gap-10 lg:gap-14 items-end">
+          <div class="max-w-4xl">
+            <div class="inline-flex items-center gap-2.5 rounded-full border border-emerald-200 bg-white/80 px-3.5 py-2 shadow-sm mb-6">
+              <span class="relative flex h-2 w-2" aria-hidden="true">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-600"></span>
+              </span>
+              <span class="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.22em] text-emerald-900">Free multi-asset research workspace</span>
             </div>
-            <h3 class="text-white font-black uppercase tracking-tighter text-base mb-2 group-hover:text-emerald-400 transition-colors">{name}</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">{desc}</p>
-            <span class="mt-4 inline-block text-[10px] font-black uppercase tracking-widest text-emerald-500">Open →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
 
-  <!-- ── Featured Guides ──────────────────────────────────────────────────── -->
-  <section>
-    <div class="max-w-5xl mx-auto py-20 px-6">
-      <div class="flex items-end justify-between mb-10">
-        <div>
-          <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-3">Featured Guides</p>
-          <h2 class="text-3xl font-black uppercase tracking-tighter text-white">Read These First</h2>
-        </div>
-        <a href="/risk-management/" class="hidden sm:inline text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">All Guides →</a>
-      </div>
+            <h1 class="text-[2.75rem] sm:text-6xl lg:text-7xl font-black tracking-[-0.055em] leading-[0.9] text-slate-950 mb-6">
+              See the market.<br />
+              <span class="text-emerald-700">Then plan the trade.</span>
+            </h1>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {featured.map((a) => {
-          const path = a.id.replace(/\.mdx?$/, '');
-          const hub = HUBS[a.data.hub];
-          return (
-            <a href={`/${path}/`} class="group block bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-6 transition-all">
-              <div class="flex items-center justify-between mb-3">
-                <span class={`text-[9px] font-black uppercase tracking-widest ${hub.accent}`}>{hub.shortName}</span>
-                <span class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">{a.data.reading_time} min</span>
+            <p class="max-w-2xl text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
+              One clear research terminal for seven major FX pairs, gold and Bitcoin. Compare the evidence, inspect the scenarios and define your risk—without confusing a model with a signal.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+              <a href="#terminal" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-6 py-3.5 text-xs font-black uppercase tracking-[0.15em] text-white shadow-lg shadow-emerald-900/10 transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-200">
+                Open the terminal <span aria-hidden="true">↓</span>
+              </a>
+              <a href="#how-it-works" class="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-xs font-black uppercase tracking-[0.15em] text-slate-700 transition hover:border-emerald-500 hover:text-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-100">
+                See how to use it
+              </a>
+            </div>
+          </div>
+
+          <aside class="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-xl shadow-slate-900/5" aria-label="Terminal coverage">
+            <p class="text-[10px] font-black uppercase tracking-[0.25em] text-emerald-700 mb-4">Inside the terminal</p>
+            <dl class="grid grid-cols-3 lg:grid-cols-1 gap-3 lg:gap-0">
+              <div class="lg:flex lg:items-center lg:justify-between lg:border-b lg:border-slate-100 lg:pb-3">
+                <dt class="text-xs text-slate-500">Markets</dt>
+                <dd class="text-xl font-black text-slate-950">9</dd>
               </div>
-              <h3 class="text-white font-black uppercase tracking-tighter text-base mb-2 group-hover:text-emerald-400 transition-colors leading-snug">{a.data.title}</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">{a.data.description}</p>
-            </a>
-          );
-        })}
+              <div class="lg:flex lg:items-center lg:justify-between lg:border-b lg:border-slate-100 lg:py-3">
+                <dt class="text-xs text-slate-500">Scenario window</dt>
+                <dd class="text-xl font-black text-slate-950">5D</dd>
+              </div>
+              <div class="lg:flex lg:items-center lg:justify-between lg:pt-3">
+                <dt class="text-xs text-slate-500">Access</dt>
+                <dd class="text-xl font-black text-emerald-700">Free</dd>
+              </div>
+            </dl>
+            <p class="mt-4 border-t border-slate-100 pt-4 text-xs leading-relaxed text-slate-500">
+              No account required. The terminal checks for a newer research snapshot every five minutes while open.
+            </p>
+          </aside>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ── Free Tools (after education) ─────────────────────────────────────── -->
-  <section class="max-w-5xl mx-auto py-20 px-6">
-    <div class="text-center mb-12">
-      <p class="text-[10px] font-black uppercase tracking-[0.35em] text-emerald-500 mb-3">Free Tools</p>
-      <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-3">Professional Calculators</h2>
-      <p class="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-        Supporting tools, not the main event. Each one is paired with the guide that explains the concept behind it. No login required.
-      </p>
-    </div>
+    <!-- The product -->
+    <section id="terminal" class="scroll-mt-24 bg-slate-50 px-3 py-8 sm:px-6 sm:py-12 md:py-16">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-6 flex flex-col gap-4 px-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700">TRADE90 Terminal</p>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-[-0.035em] text-slate-950">The research is the homepage.</h2>
+          </div>
+          <p class="max-w-xl text-sm leading-relaxed text-slate-600 md:text-right">
+            Start with the scanner. Select a market to reveal its facts, model thesis, five-day probabilities and planning levels.
+          </p>
+        </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-      {tools.map(({ href, name }) => (
-        <a href={href} class="group flex items-center justify-between bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-2xl px-5 py-4 transition-all">
-          <span class="text-white font-black uppercase tracking-tighter text-sm group-hover:text-emerald-400 transition-colors">{name}</span>
-          <span class="text-emerald-500 text-lg">→</span>
-        </a>
-      ))}
-    </div>
-    <p class="text-center mt-8">
-      <a href="/tools/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">All Tools &amp; 45+ Instrument Calculators →</a>
-    </p>
-  </section>
+        <FxResearchTerminal client:load />
 
-  <!-- ── Prop Firm Resources ──────────────────────────────────────────────── -->
-  <section class="border-y border-slate-900/60 bg-slate-950/40">
-    <div class="max-w-5xl mx-auto py-20 px-6">
-      <div class="text-center mb-12">
-        <p class="text-[10px] font-black uppercase tracking-[0.35em] text-purple-400 mb-3">Prop Firm Resources</p>
-        <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-3">Understand the Rules Before You Pay</h2>
-        <p class="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-          Honest, education-first coverage of prop firm evaluations — reviews and comparisons without the hard sell.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-4">
-        {propFirmResources.map(({ href, name, desc }) => (
-          <a href={href} class="group block bg-slate-900/50 border border-slate-800 hover:border-purple-500/40 rounded-2xl p-6 transition-all">
-            <h3 class="text-white font-black uppercase tracking-tighter text-base mb-2 group-hover:text-purple-300 transition-colors">{name}</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">{desc}</p>
+        <div class="mt-5 flex flex-col gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-sm leading-relaxed text-amber-950">
+            <strong>Research, not a trade signal.</strong> Confirm current prices and event data with your broker, then apply your own risk limits.
+          </p>
+          <a href={advancedUrl} target="_blank" rel="noopener noreferrer" class="shrink-0 text-xs font-black uppercase tracking-[0.12em] text-emerald-800 hover:text-emerald-950">
+            Advanced validation <span aria-hidden="true">↗</span>
           </a>
-        ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ── Newsletter ───────────────────────────────────────────────────────── -->
-  <Newsletter />
+    <!-- Explain the evidence -->
+    <section id="how-it-works" class="scroll-mt-24 border-y border-slate-200 bg-white px-5 py-16 sm:px-6 md:py-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div class="lg:sticky lg:top-28 lg:self-start">
+            <p class="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700">Transparent by design</p>
+            <h2 class="mb-5 text-3xl sm:text-4xl font-black tracking-[-0.045em] leading-tight text-slate-950">Know what is data—and what is interpretation.</h2>
+            <p class="text-base leading-relaxed text-slate-600">
+              TRADE90 keeps observed facts, model judgement, historical frequencies and trade-planning context separate. That makes the terminal useful without pretending uncertainty has disappeared.
+            </p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            {researchLayers.map((layer) => (
+              <article class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                <span class="mb-8 block text-xs font-black text-emerald-700">{layer.number}</span>
+                <h3 class="mb-2 text-lg font-black tracking-tight text-slate-950">{layer.title}</h3>
+                <p class="text-sm leading-relaxed text-slate-600">{layer.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow -->
+    <section class="bg-slate-950 px-5 py-16 text-white sm:px-6 md:py-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-10 max-w-2xl">
+          <p class="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">One disciplined workflow</p>
+          <h2 class="mb-4 text-3xl sm:text-4xl font-black tracking-[-0.045em]">Research is only useful when it improves the decision.</h2>
+          <p class="text-sm sm:text-base leading-relaxed text-slate-400">Move from evidence to a written risk plan, then review your execution with the same discipline.</p>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+          {workflow.map((item, index) => (
+            <article class="group rounded-2xl border border-slate-800 bg-slate-900/65 p-6 transition hover:border-emerald-500/50">
+              <div class="mb-8 flex items-center justify-between">
+                <span class="text-[10px] font-black uppercase tracking-[0.25em] text-emerald-400">{item.step}</span>
+                <span class="text-sm font-black text-slate-600">0{index + 1}</span>
+              </div>
+              <h3 class="mb-3 text-xl font-black tracking-tight text-white">{item.title}</h3>
+              <p class="mb-6 text-sm leading-relaxed text-slate-400">{item.text}</p>
+              <a href={item.href} class="text-xs font-black uppercase tracking-[0.12em] text-emerald-400 transition group-hover:text-emerald-300">{item.link} <span aria-hidden="true">→</span></a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Supporting tools -->
+    <section class="bg-slate-50 px-5 py-16 sm:px-6 md:py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700">Supporting tools</p>
+            <h2 class="text-3xl font-black tracking-[-0.04em] text-slate-950">Complete the process.</h2>
+          </div>
+          <a href="/tools/" class="text-xs font-black uppercase tracking-[0.12em] text-emerald-800 hover:text-emerald-950">View all tools <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {supportingTools.map((tool) => (
+            <a href={tool.href} class="group flex min-h-36 flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-lg hover:shadow-slate-900/5">
+              <span class="text-2xl text-emerald-600 transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+              <span>
+                <strong class="block text-base font-black text-slate-950">{tool.name}</strong>
+                <span class="mt-1 block text-xs text-slate-500">{tool.desc}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Education is now supporting content -->
+    <section class="border-t border-slate-200 bg-white px-5 py-16 sm:px-6 md:py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-10 max-w-2xl">
+          <p class="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700">Build the judgement behind the tool</p>
+          <h2 class="mb-3 text-3xl font-black tracking-[-0.04em] text-slate-950">Start with these three guides.</h2>
+          <p class="text-sm leading-relaxed text-slate-600">The terminal organizes evidence. These guides help you decide how much risk that evidence deserves.</p>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-3">
+          {featured.map((article) => {
+            const path = article.id.replace(/\.mdx?$/, '');
+            const hub = HUBS[article.data.hub];
+            return (
+              <a href={`/${path}/`} class="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-emerald-400 hover:shadow-lg hover:shadow-slate-900/5">
+                <div class="mb-6 flex items-center justify-between">
+                  <span class={`text-[9px] font-black uppercase tracking-[0.16em] ${hub.accent}`}>{hub.shortName}</span>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">{article.data.reading_time} min</span>
+                </div>
+                <h3 class="mb-3 text-lg font-black leading-snug tracking-tight text-slate-950 transition group-hover:text-emerald-800">{article.data.title}</h3>
+                <p class="text-sm leading-relaxed text-slate-600">{article.data.description}</p>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <Newsletter />
+  </div>
 </BaseLayout>
+
+<style is:global>
+  #trade90-home p { opacity: 1; }
+  #trade90-home .text-slate-950 { color: #020617; }
+  #trade90-home .text-slate-600 { color: #475569; }
+  #trade90-home .text-slate-500 { color: #64748b; }
+  #trade90-home .text-emerald-700 { color: #047857; }
+  #trade90-home .text-emerald-800 { color: #065f46; }
+  @media (prefers-reduced-motion: reduce) {
+    #trade90-home .animate-ping { animation: none; }
+  }
+</style>
