@@ -3,8 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FxResearchTerminal from '../../components/FxResearchTerminal.svelte';
 
 const title = "TRADE90 Research Terminal — FX, Gold & Bitcoin Intelligence";
-const description = "Compare seven major FX pairs, XAU/USD and BTC/USD using transparent macro, technical, cross-market and out-of-sample research from TRADE90.";
-const advancedUrl = "https://usdjpy-research-lab-f8nkfpp3xx4tgonywqxappk.streamlit.app/";
+const description = "Compare live indicative prices, charts, event risk, positioning, probabilities and model validation for seven major FX pairs, XAU/USD and BTC/USD.";
 const site = Astro.site?.toString() || "https://tradeninety.com";
 const softwareSchema = {
   "@context": "https://schema.org",
@@ -36,12 +35,12 @@ const softwareSchema = {
           <a href="/tools/" class="hover:text-emerald-700">Tools</a><span>/</span>
           <span class="text-slate-800">FX Terminal</span>
         </nav>
-        <span class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-800 bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-full mb-5 inline-block">Native TRADE90 Terminal · Beta</span>
+        <span class="text-[9px] font-black uppercase tracking-[0.3em] text-emerald-800 bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-full mb-5 inline-block">Native TRADE90 Terminal</span>
         <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-slate-950 mb-5 leading-[0.95]">
           Research <span class="text-emerald-700">Terminal</span>
         </h1>
         <p class="text-slate-600 text-base md:text-lg leading-relaxed max-w-3xl">
-          Scan seven major FX pairs, gold and Bitcoin; separate market facts from model interpretation; and inspect calibrated scenarios without leaving TRADE90.
+          Scan seven major FX pairs, gold and Bitcoin; inspect live indicative prices, charts, event risk, positioning and calibrated scenarios without leaving TRADE90.
         </p>
       </div>
     </section>
@@ -60,7 +59,7 @@ const softwareSchema = {
         <p class="text-slate-700 text-sm leading-relaxed">
           TRADE90 provides educational research tools, not individualized financial advice. Public feeds can be delayed or revised. Confirm prices and event data with your broker, respect funded-account limits, and make your own trading decisions.
         </p>
-        <a href={advancedUrl} target="_blank" rel="noopener noreferrer" class="inline-block mt-3 text-emerald-700 font-black uppercase tracking-widest text-xs">Open advanced validation workspace ↗</a>
+        <p class="mt-3 text-emerald-800 font-black uppercase tracking-widest text-xs">All research layers are integrated above.</p>
       </div>
     </section>
   </main>
