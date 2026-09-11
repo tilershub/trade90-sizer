@@ -24,8 +24,12 @@ export default defineConfig({
 
     sitemap({
       filter: (page) =>
-        !['/join/', '/login/', '/logout/'].includes(new URL(page).pathname),
-      lastmod: new Date(),
+        !['/join/', '/login/', '/logout/', '/learn/', '/learn/position-sizing/',
+          '/learn/risk-management/', '/learn/funded-accounts/',
+          '/how-to-calculate-position-size/', '/prop-firm-risk-management/',
+          '/terminal/'].includes(new URL(page).pathname.replace(/\/?$/, '/')),
+      // Omit lastmod until real per-page modification dates are available.
+      // A deployment does not mean every page's content changed.
       serialize(item) {
         const url = new URL(item.url);
         const path = url.pathname;
