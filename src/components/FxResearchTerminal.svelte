@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
 
   const SNAPSHOT_URL = '/api/terminal-snapshot';
-  const STORAGE_KEY = 'trade90-terminal-snapshot-v2';
+  const STORAGE_KEY = 'trade90-terminal-snapshot-v3';
   const PANELS = [
     ['overview', 'Overview'],
     ['charts', 'Charts'],
@@ -22,7 +22,12 @@
 
   $: pairs = snapshot?.pairs ?? [];
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
-  $: currentPrice = active?.live?.price ?? active?.price;
+  $: currentPrice = indicativePrice(active);
+
+  function indicativePrice(pair) {
+    // Gold's research close may be futures-based; it is never a spot fallback.
+    return pair?.live?.price ?? (pair?.symbol === 'XAU/USD' ? null : pair?.price);
+  }
   $: intradayChart = buildChart(active?.live?.intraday ?? [], ['close']);
   $: historyChart = buildChart(active?.history ?? [], ['close', 'ema_fast', 'ema_slow']);
   $: auditMax = Math.max(1, ...(active?.model?.audit ?? []).map((item) => Math.abs(Number(item.contribution) || 0)));
@@ -213,13 +218,13 @@
       {#each pairs as pair}
         <button
           type="button"
-          aria-label={`Open ${pair.symbol}: price ${num(pair.live?.price ?? pair.price, pair.decimals)}, model score ${signed(pair.score)}, ${pair.bias} five-day scenario`}
+          aria-label={`Open ${pair.symbol}: price ${num(indicativePrice(pair), pair.decimals)}, model score ${signed(pair.score)}, ${pair.bias} five-day scenario`}
           aria-pressed={pair.symbol === active.symbol}
           class:chosen={pair.symbol === active.symbol}
           on:click={() => chooseMarket(pair.symbol)}
         >
           <strong>{pair.symbol}</strong>
-          <span>{num(pair.live?.price ?? pair.price, pair.decimals)}</span>
+          <span>{num(indicativePrice(pair), pair.decimals)}</span>
           <span class={changeClass(pair.live?.change_pct)}>{signedPct(pair.live?.change_pct)}</span>
           <span class={scoreClass(pair.score)}>{signed(pair.score)}</span>
           <span>{pair.bias}</span>
@@ -235,9 +240,13 @@
         <p>{active.asset_class ?? 'FX'} · {active.model.price_note}</p>
       </div>
       <div class="headline-price">
-        <span>{active.live ? 'Indicative price' : 'Observed close'}</span>
+        <span>{active.symbol === 'XAU/USD' ? (active.live ? 'Gold · USD per troy ounce' : 'Gold quote unavailable') : (active.live ? 'Indicative price' : 'Observed close')}</span>
         <strong>{num(currentPrice, active.decimals)}</strong>
-        <small class={changeClass(active.live?.change_pct)}>{signedPct(active.live?.change_pct)} today</small>
+        {#if active.symbol === 'XAU/USD'}
+          <small>{active.live ? `${active.live.provider} · ${formatDate(active.live.updated_at)}` : 'No fresh spot quote available'}</small>
+        {:else}
+          <small class={changeClass(active.live?.change_pct)}>{signedPct(active.live?.change_pct)} today</small>
+        {/if}
       </div>
     </div>
 
@@ -313,9 +322,9 @@
             </div>
             <div class="chart-dates"><span>{formatDate(intradayChart.first)}</span><span>{formatDate(intradayChart.last)}</span></div>
           {:else}
-            <div class="empty-state">The current-session chart is unavailable while this market is closed or the quote provider is delayed.</div>
+            <div class="empty-state">{active.symbol === 'XAU/USD' ? 'This gold feed supplies the latest quote only; intraday history and daily change are unavailable.' : 'The current-session chart is unavailable while this market is closed or the quote provider is delayed.'}</div>
           {/if}
-          <p class="source-note">Indicative 5-minute data from {active.live?.provider ?? 'the public market feed'}. Confirm executable prices with your broker.</p>
+          <p class="source-note">{active.symbol === 'XAU/USD' ? 'Gold quote in USD per troy ounce' : 'Indicative 5-minute data'} from {active.live?.provider ?? 'the public market feed'}. Confirm executable prices with your broker.</p>
         </article>
 
         <article class="chart-card">
