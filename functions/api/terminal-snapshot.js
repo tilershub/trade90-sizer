@@ -9,7 +9,6 @@ const LIVE_TICKERS = {
   "USD/CAD": "CAD=X",
   "AUD/USD": "AUDUSD=X",
   "NZD/USD": "NZDUSD=X",
-  "XAU/USD": "GC=F",
   "BTC/USD": "BTC-USD",
 };
 
@@ -92,6 +91,24 @@ async function loadQuote(symbol, ticker) {
   return normalizeQuote(symbol, payload);
 }
 
+
+async function loadGoldQuote() {
+  // GC=F is a futures contract, not XAU/USD. Never use it as a spot fallback.
+  const payload = await fetchJson("https://api.gold-api.com/price/XAU/USD", 30);
+  const price = payload?.price;
+  const timestamp = typeof payload?.updatedAt === "string" ? Date.parse(payload.updatedAt) : NaN;
+  const age = Date.now() - timestamp;
+  if (payload?.symbol !== "XAU" || payload?.currency !== "USD" ||
+      typeof price !== "number" || !Number.isFinite(price) || price <= 0 ||
+      !Number.isFinite(timestamp) || age > 15 * 60_000 || age < -60_000) return null;
+  return {
+    symbol: "XAU/USD", price, updated_at: new Date(timestamp).toISOString(),
+    provider: "Gold API", instrument_type: "spot", currency: "USD",
+    unit: "troy ounce", previous_close: null, change: null, change_pct: null,
+    day_high: null, day_low: null, interval: null, intraday: [],
+  };
+}
+
 export async function onRequestGet() {
   let snapshot;
   try {
@@ -109,7 +126,7 @@ export async function onRequestGet() {
   }
 
   const results = await Promise.allSettled(
-    Object.entries(LIVE_TICKERS).map(([symbol, ticker]) => loadQuote(symbol, ticker))
+    [...Object.entries(LIVE_TICKERS).map(([symbol, ticker]) => loadQuote(symbol, ticker)), loadGoldQuote()]
   );
   const quotes = new Map();
   for (const result of results) {
