@@ -1,5 +1,9 @@
 <script>
   import { onMount } from 'svelte';
+  import ResearchOverview from './ResearchOverview.svelte';
+  export let initialSymbol = 'USD/JPY';
+  let previousSnapshot = null;
+  let clock = Date.now();
 
   const SNAPSHOT_URL = '/api/terminal-snapshot';
   const STORAGE_KEY = 'trade90-terminal-snapshot-v3';
@@ -12,7 +16,7 @@
   ];
 
   let snapshot = null;
-  let selected = 'USD/JPY';
+  let selected = initialSymbol;
   let activePanel = 'overview';
   let loading = true;
   let refreshing = false;
@@ -22,11 +26,12 @@
 
   $: pairs = snapshot?.pairs ?? [];
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
-  $: currentPrice = indicativePrice(active);
+  $: currentPrice = indicativePrice(active, clock);
 
-  function indicativePrice(pair) {
-    // Gold's research close may be futures-based; it is never a spot fallback.
-    return pair?.live?.price ?? (pair?.symbol === 'XAU/USD' ? null : pair?.price);
+  function indicativePrice(pair, now) {
+    const price = pair?.live?.price;
+    const age = now - Date.parse(pair?.live?.updated_at);
+    return typeof price === 'number' && Number.isFinite(price) && price > 0 && Number.isFinite(age) && age >= -60000 && age <= 900000 ? price : null;
   }
   $: intradayChart = buildChart(active?.live?.intraday ?? [], ['close']);
   $: historyChart = buildChart(active?.history ?? [], ['close', 'ema_fast', 'ema_slow']);
@@ -111,10 +116,12 @@
       if (data.schema_version !== 1 || !Array.isArray(data.pairs) || data.pairs.length === 0) {
         throw new Error('Unsupported terminal data');
       }
+      const prior = snapshot ?? savedSnapshot();
+      if (prior?.generated_at && Date.parse(prior.generated_at) < Date.parse(data.generated_at)) previousSnapshot = prior;
       snapshot = data;
       error = '';
       usingSavedSnapshot = false;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* Research remains usable when storage is blocked. */ }
       if (!data.pairs.some((pair) => pair.symbol === selected)) selected = data.pairs[0]?.symbol;
     } catch (err) {
       const saved = snapshot ?? savedSnapshot();
@@ -132,7 +139,14 @@
     }
   }
 
+  function trackResearch(event, values) {
+    try {
+      if (localStorage.getItem('cookieConsent') === 'accepted' && typeof window.gtag === 'function') window.gtag('event', event, values);
+    } catch { /* Analytics never blocks research. */ }
+  }
+
   function chooseMarket(symbol) {
+    trackResearch('research_market_selected', { instrument: symbol });
     selected = symbol;
     activePanel = 'overview';
   }
@@ -140,12 +154,14 @@
   onMount(() => {
     load();
     const timer = setInterval(() => load(true), 300000);
+    const clockTimer = setInterval(() => { clock = Date.now(); }, 60000);
     const refreshWhenVisible = () => {
       if (document.visibilityState === 'visible') load(true);
     };
     document.addEventListener('visibilitychange', refreshWhenVisible);
     return () => {
       clearInterval(timer);
+      clearInterval(clockTimer);
       document.removeEventListener('visibilitychange', refreshWhenVisible);
     };
   });
@@ -218,13 +234,13 @@
       {#each pairs as pair}
         <button
           type="button"
-          aria-label={`Open ${pair.symbol}: price ${num(indicativePrice(pair), pair.decimals)}, model score ${signed(pair.score)}, ${pair.bias} five-day scenario`}
+          aria-label={`Open ${pair.symbol}: price ${num(indicativePrice(pair, clock), pair.decimals)}, model score ${signed(pair.score)}, ${pair.bias} five-day scenario`}
           aria-pressed={pair.symbol === active.symbol}
           class:chosen={pair.symbol === active.symbol}
           on:click={() => chooseMarket(pair.symbol)}
         >
           <strong>{pair.symbol}</strong>
-          <span>{num(indicativePrice(pair), pair.decimals)}</span>
+          <span>{num(indicativePrice(pair, clock), pair.decimals)}</span>
           <span class={changeClass(pair.live?.change_pct)}>{signedPct(pair.live?.change_pct)}</span>
           <span class={scoreClass(pair.score)}>{signed(pair.score)}</span>
           <span>{pair.bias}</span>
@@ -237,10 +253,10 @@
       <div>
         <span class="eyebrow">Selected market</span>
         <h3>{active.symbol}</h3>
-        <p>{active.asset_class ?? 'FX'} · {active.model.price_note}</p>
+        <p>{active.asset_class ?? 'FX'} · {active.symbol === 'XAU/USD' ? 'Spot quote; futures-based historical research. Their price levels are not interchangeable.' : active.model.price_note}</p>
       </div>
       <div class="headline-price">
-        <span>{active.symbol === 'XAU/USD' ? (active.live ? 'Gold · USD per troy ounce' : 'Gold quote unavailable') : (active.live ? 'Indicative price' : 'Observed close')}</span>
+        <span>{active.symbol === 'XAU/USD' ? (currentPrice !== null ? 'Gold · USD per troy ounce' : 'Gold quote unavailable') : (currentPrice !== null ? 'Indicative price' : 'Quote unavailable')}</span>
         <strong>{num(currentPrice, active.decimals)}</strong>
         {#if active.symbol === 'XAU/USD'}
           <small>{active.live ? `${active.live.provider} · ${formatDate(active.live.updated_at)}` : 'No fresh spot quote available'}</small>
@@ -250,13 +266,15 @@
       </div>
     </div>
 
+    <ResearchOverview pair={active} generatedAt={snapshot.generated_at} previous={previousSnapshot?.pairs?.find(pair => pair.symbol === active.symbol)} previousAt={previousSnapshot?.generated_at} now={clock} />
+
     <nav class="panel-tabs" aria-label={`${active.symbol} research sections`}>
       {#each PANELS as panel}
         <button
           type="button"
           aria-current={activePanel === panel[0] ? 'page' : undefined}
           class:active={activePanel === panel[0]}
-          on:click={() => activePanel = panel[0]}
+          on:click={() => { activePanel = panel[0]; trackResearch('research_panel_opened', { instrument: selected, panel: panel[0] }); }}
         >{panel[1]}</button>
       {/each}
     </nav>
@@ -265,7 +283,7 @@
       <section class="panel" aria-label={`${active.symbol} overview`}>
         <div class="facts">
           <article><span>Indicative price</span><strong>{num(currentPrice, active.decimals)}</strong><small>{active.live ? formatDate(active.live.updated_at) : 'Live quote unavailable'}</small></article>
-          <article><span>Model close</span><strong>{num(active.price, active.decimals)}</strong><small>{formatDate(active.quality.last_price, false)}</small></article>
+          <article><span>{active.symbol === 'XAU/USD' ? 'Futures model close' : 'Model close'}</span><strong>{num(active.price, active.decimals)}</strong><small>{formatDate(active.quality.last_price, false)}</small></article>
           <article><span>{active.market.macro_label ?? '10Y yield spread'}</span><strong>{signed(active.market.yield_spread, 2)} pp</strong></article>
           <article><span>20D volatility</span><strong>{pct(active.market.volatility)}</strong><small>{active.market.regime}</small></article>
           <article><span>Event risk</span><strong class={eventClass(active.events?.risk?.level)}>{active.events?.risk?.level ?? 'Unknown'}</strong><small>{active.events?.risk?.next_event ?? 'No supported event due'}</small></article>
@@ -295,8 +313,8 @@
         </div>
 
         <div class="planning">
-          <div><span>20D support</span><strong>{num(active.market.support20, active.decimals)}</strong></div>
-          <div><span>20D resistance</span><strong>{num(active.market.resistance20, active.decimals)}</strong></div>
+          <div><span>{active.symbol === 'XAU/USD' ? 'Futures 20D support' : '20D support'}</span><strong>{num(active.market.support20, active.decimals)}</strong></div>
+          <div><span>{active.symbol === 'XAU/USD' ? 'Futures 20D resistance' : '20D resistance'}</span><strong>{num(active.market.resistance20, active.decimals)}</strong></div>
           <div><span>ATR-style range</span><strong>{num(active.market.atr20, active.decimals)}</strong></div>
           <div><span>Cross-asset driver</span><strong>{active.market.driver}</strong></div>
         </div>
@@ -329,7 +347,7 @@
 
         <article class="chart-card">
           <div class="card-head">
-            <div><span class="step">Research structure</span><h4>120-session price and moving averages</h4></div>
+            <div><span class="step">Research structure</span><h4>{active.symbol === 'XAU/USD' ? '120-session futures history and moving averages' : '120-session price and moving averages'}</h4></div>
             <div class="legend"><span class="legend-close">Close</span><span class="legend-fast">EMA 20</span><span class="legend-slow">EMA 50</span></div>
           </div>
           {#if historyChart}
