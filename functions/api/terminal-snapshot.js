@@ -24,6 +24,7 @@ function jsonResponse(status, data) {
 
 async function fetchJson(url, cacheTtl) {
   const response = await fetch(url, {
+    signal: AbortSignal.timeout(8000),
     headers: {
       accept: "application/json",
       "user-agent": "TRADE90-terminal/2.0",
@@ -52,21 +53,25 @@ function normalizeQuote(symbol, payload) {
   const closes = result.indicators?.quote?.[0]?.close ?? [];
   const intraday = [];
   for (let index = 0; index < Math.min(timestamps.length, closes.length); index += 1) {
-    const close = Number(closes[index]);
-    if (Number.isFinite(close)) {
+    const close = closes[index];
+    if (typeof close === "number" && Number.isFinite(close) && close > 0 && Number.isFinite(timestamps[index])) {
       intraday.push({ time: new Date(timestamps[index] * 1000).toISOString(), close });
     }
   }
 
   const latestFromSeries = intraday.at(-1)?.close;
   const price = Number(meta.regularMarketPrice ?? latestFromSeries);
-  if (!Number.isFinite(price)) return null;
-  const previousClose = Number(meta.chartPreviousClose ?? meta.previousClose);
+  if (!Number.isFinite(price) || price <= 0) return null;
+  const rawPreviousClose = meta.chartPreviousClose ?? meta.previousClose;
+  const previousClose = rawPreviousClose == null ? NaN : Number(rawPreviousClose);
   const change = Number.isFinite(previousClose) ? price - previousClose : null;
   const changePct = Number.isFinite(previousClose) && previousClose !== 0 ? change / previousClose : null;
   const updatedAt = Number(meta.regularMarketTime)
     ? new Date(meta.regularMarketTime * 1000).toISOString()
     : intraday.at(-1)?.time ?? null;
+
+  const quoteAge = Date.now() - Date.parse(updatedAt);
+  if (!Number.isFinite(quoteAge) || quoteAge > 15 * 60_000 || quoteAge < -60_000) return null;
 
   return {
     symbol,
@@ -135,6 +140,10 @@ export async function onRequestGet() {
 
   const pairs = snapshot.pairs.map((pair) => ({
     ...pair,
+    ...(pair.symbol === 'XAU/USD' ? {
+      price_note: 'Spot quote; COMEX futures historical research. Price levels are not interchangeable.',
+      model: { ...pair.model, price_note: 'Spot quote; COMEX futures historical research. Price levels are not interchangeable.' },
+    } : {}),
     live: quotes.get(pair.symbol) ?? null,
   }));
 
