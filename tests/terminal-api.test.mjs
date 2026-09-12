@@ -16,7 +16,7 @@ const chartPayload = {
         meta: {
           regularMarketPrice: 1.16,
           chartPreviousClose: 1.15,
-          regularMarketTime: 1786838400,
+          regularMarketTime: Math.floor(Date.now() / 1000),
           regularMarketDayHigh: 1.17,
           regularMarketDayLow: 1.14,
           exchangeTimezoneName: "Europe/London",
@@ -102,3 +102,26 @@ for (const [name, overrides] of [
     } finally { globalThis.fetch = originalFetch; }
   });
 }
+
+test('null candles are discarded instead of turning into zero prices', async () => {
+ const originalFetch=globalThis.fetch;
+ globalThis.fetch=async url => {
+   if(String(url).includes('terminal-snapshot.json')) return Response.json(baseSnapshot);
+   if(String(url).includes('api.gold-api.com')) return new Response('',{status:503});
+   const chart=structuredClone(chartPayload); chart.chart.result[0].indicators.quote[0].close=[null,1.16];
+   return Response.json(chart);
+ };
+ try { const p=await (await onRequestGet()).json(); assert.deepEqual(p.pairs[0].live.intraday.map(x=>x.close),[1.16]); }
+ finally {globalThis.fetch=originalFetch;}
+});
+test('old FX quotes are excluded even when the provider returns success', async () => {
+ const originalFetch=globalThis.fetch;
+ globalThis.fetch=async url => {
+   if(String(url).includes('terminal-snapshot.json')) return Response.json(baseSnapshot);
+   if(String(url).includes('api.gold-api.com')) return new Response('',{status:503});
+   const chart=structuredClone(chartPayload); chart.chart.result[0].meta.regularMarketTime=Math.floor(Date.now()/1000)-3600;
+   return Response.json(chart);
+ };
+ try {const p=await (await onRequestGet()).json(); assert.equal(p.pairs[0].live,null);}
+ finally {globalThis.fetch=originalFetch;}
+});
