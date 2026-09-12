@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FxResearchTerminal from '../../components/FxResearchTerminal.svelte';
+import { INSTRUMENTS, getSlug } from '../../lib/instruments';
+export function getStaticPaths() {
+  return ['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'].map(symbol => ({params: {market: getSlug(symbol)}, props: {instrument: INSTRUMENTS[symbol]}}));
+}
+const { instrument } = Astro.props;
+const symbol = instrument.symbol.slice(0,3) + '/' + instrument.symbol.slice(3);
+const gold = instrument.symbol === 'XAUUSD';
+const bitcoin = instrument.symbol === 'BTCUSD';
+const title = `${instrument.fullName} Research — Evidence, Scenarios & Risk`;
+const description = `Research ${symbol} with indicative quotes, opposing model evidence, five-day scenarios, data freshness and historical validation. Free TRADE90 research tools.`;
+const context = gold ? 'Gold research combines trend evidence with US real yields and dollar conditions. The headline quote is in USD per troy ounce, while the current historical model uses COMEX futures. Inspect each price basis before comparing levels.' : bitcoin ? 'Bitcoin trades continuously, while many macro inputs update only on business days. Compare the quote timestamp with the model timestamp, inspect volatility and avoid assuming that a traditional-market calendar captures all crypto events.' : `${symbol} research compares the two currencies through the model’s rate, trend and cross-asset inputs. Inspect which factors support each direction, whether they offset, and how delayed positioning differs from current price data.`;
+---
+<BaseLayout title={title} description={description}>
+  <section class="mx-auto max-w-7xl px-4 py-8">
+    <nav aria-label="Breadcrumb" class="mb-4 text-base"><a class="underline" href="/tools/fx-research-terminal/">Research terminal</a> / {symbol}</nav>
+    <h1 class="text-3xl font-bold mb-3">{instrument.fullName} research</h1>
+    <p class="text-base leading-relaxed max-w-3xl mb-6">{context}</p>
+    <FxResearchTerminal initialSymbol={symbol} client:load />
+    <section class="mt-8 max-w-3xl text-base leading-relaxed">
+      <h2 class="text-2xl font-bold mb-3">Read the evidence before forming a view</h2>
+      <p>Start with quote and research timestamps, then compare bullish and bearish contributions. Check the five-day model against its baseline before treating a historical frequency as useful evidence. The overview explains missing data and price-basis differences.</p>
+      <h2 class="text-2xl font-bold mt-6 mb-3">Turn research into a reviewable decision</h2>
+      <p>Write what would change your view and which evidence remains uncertain. Keep the research timeframe separate from your execution timeframe. Use your broker's contract specifications and current prices when calculating risk.</p>
+      <div class="flex flex-wrap gap-5 mt-5"><a class="underline py-3" href={`/calculator/${getSlug(instrument.symbol)}/`}>{symbol} position size calculator</a><a class="underline py-3" href="/tools/trading-plan-builder/">Write a research plan</a><a class="underline py-3" href="/journal/">Review past decisions</a></div>
+    </section>
+  </section>
+</BaseLayout>
