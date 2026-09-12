@@ -52,6 +52,9 @@ const softwareSchema = {
         <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Freshness controlled</strong><p class="text-slate-600 text-sm">Delayed or stale inputs are disclosed and excluded from the active score.</p></div>
       </div>
 
+      <nav aria-label="Research by market" class="flex flex-wrap gap-4 mb-6 text-base">
+        {['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'].map(symbol => <a class="underline py-3" href={`/research/${symbol.toLowerCase()}/`}>{symbol} research</a>)}
+      </nav>
       <FxResearchTerminal client:load />
 
       <div class="mt-7 bg-amber-50 border border-amber-200 rounded-2xl p-5">
