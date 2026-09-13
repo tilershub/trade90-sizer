@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FxResearchTerminal from '../../components/FxResearchTerminal.svelte';
 
 const title = "TRADE90 Research Terminal — FX, Gold & Bitcoin Intelligence";
-const description = "Compare live indicative prices, charts, event risk, positioning, probabilities and model validation for seven major FX pairs, XAU/USD and BTC/USD.";
+const description = "Compare live indicative prices, charts, event risk, positioning, macro conditions and policy research for seven major FX pairs, XAU/USD and BTC/USD.";
 const site = Astro.site?.toString() || "https://tradeninety.com";
 const softwareSchema = {
   "@context": "https://schema.org",
@@ -23,7 +23,7 @@ const softwareSchema = {
   breadcrumbName="FX Research Terminal"
   breadcrumbParentName="Tools"
   breadcrumbParentPath="/tools/"
-  keywords={["FX research terminal", "XAUUSD forecast research", "BTCUSD forecast research", "forex macro analysis", "funded trader research"]}
+  keywords={["FX research terminal", "XAUUSD macro research", "BTCUSD market research", "forex macro analysis", "funded trader research"]}
 >
   <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} slot="head-extra" />
 
@@ -40,16 +40,16 @@ const softwareSchema = {
           Research <span class="text-emerald-700">Terminal</span>
         </h1>
         <p class="text-slate-600 text-base md:text-lg leading-relaxed max-w-3xl">
-          Scan seven major FX pairs, gold and Bitcoin; inspect live indicative prices, charts, event risk, positioning and calibrated scenarios without leaving TRADE90.
+          Scan seven major FX pairs, gold and Bitcoin; inspect live indicative prices, charts, event risk, positioning and sourced market conditions without leaving TRADE90.
         </p>
       </div>
     </section>
 
     <section class="max-w-6xl mx-auto py-9 px-3 md:px-6">
       <div class="grid md:grid-cols-3 gap-4 mb-7">
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Nine researched markets</strong><p class="text-slate-600 text-sm">Seven FX majors plus dedicated gold and Bitcoin models ranked by evidence strength.</p></div>
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Evidence separated</strong><p class="text-slate-600 text-sm">Observed facts, interpretation, probabilities and planning levels remain distinct.</p></div>
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Freshness controlled</strong><p class="text-slate-600 text-sm">Delayed or stale inputs are disclosed and excluded from the active score.</p></div>
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Nine researched markets</strong><p class="text-slate-600 text-sm">Seven FX majors plus gold and Bitcoin price context; US–Japan macro coverage is the first country comparison.</p></div>
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Evidence separated</strong><p class="text-slate-600 text-sm">Observed facts, policy expectations and historical reference levels remain distinct.</p></div>
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5"><strong class="text-slate-950 block mb-1">Freshness controlled</strong><p class="text-slate-600 text-sm">Every macro observation carries its source date and availability status.</p></div>
       </div>
 
       <nav aria-label="Research by market" class="flex flex-wrap gap-4 mb-6 text-base">
@@ -62,7 +62,7 @@ const softwareSchema = {
         <p class="text-slate-700 text-sm leading-relaxed">
           TRADE90 provides educational research tools, not individualized financial advice. Public feeds can be delayed or revised. Confirm prices and event data with your broker, respect funded-account limits, and make your own trading decisions.
         </p>
-        <p class="mt-3 text-emerald-800 font-black uppercase tracking-widest text-xs">All research layers are integrated above.</p>
+        <p class="mt-3 text-emerald-800 font-black uppercase tracking-widest text-xs">Source coverage and unavailable services are disclosed in the terminal.</p>
       </div>
     </section>
   </main>
