@@ -231,12 +231,13 @@
           on:click={() => chooseMarket(pair.symbol)}
         >
           <span>{pair.symbol}</span>
-          <small class={changeClass(pair.live?.change_pct)}>{signedPct(indicativePrice(pair, clock) === null ? null : pair.live?.change_pct)}</small>
+          <strong>{num(indicativePrice(pair, clock), pair.decimals)}</strong>
+          <small>{indicativePrice(pair, clock) === null ? "Quote unavailable" : formatDate(pair.live?.updated_at)}</small>
         </button>
       {/each}
     </div>
 
-    <section class="scanner" aria-label="Multi-asset market scanner">
+    <details class="scanner-disclosure"><summary>Compare all {pairs.length} markets</summary><section class="scanner" aria-label="Multi-asset market scanner">
       <div class="scanner-head">
         <span>Market</span><span>Indicative price</span><span>Day</span><span>Price structure</span><span>History date</span><span>Event risk</span>
       </div>
@@ -257,6 +258,8 @@
         </button>
       {/each}
     </section>
+
+    </details>
 
     <div class="selected-head">
       <div>
@@ -341,6 +344,8 @@
 </div>
 
 <style>
+.scanner-disclosure>summary{padding:12px 16px;cursor:pointer;font-size:.85rem;font-weight:700;color:#065f46;min-height:44px;border-bottom:1px solid #dbe3ec}.scanner-disclosure>summary:focus-visible{outline:3px solid #059669;outline-offset:-3px}.pair-tabs button{min-width:150px}.pair-tabs button strong{display:block;font-size:1rem;margin:5px 0}.pair-tabs button small{font-size:.65rem;font-weight:500;white-space:normal}.panel-tabs{scrollbar-width:thin}
+
   .terminal{--ink:#0f172a;--muted:#64748b;--line:#dbe3ec;--green:#047857;--green-dark:#064e3b;--soft:#f8fafc;--red:#b91c1c;background:#fff;color:var(--ink);border:1px solid #cbd5e1;border-radius:20px;overflow:hidden;box-shadow:0 22px 55px rgba(15,23,42,.1)}
   .terminal-bar,.selected-head,footer{display:flex;align-items:center;justify-content:space-between;gap:16px}
   .terminal-bar{padding:22px 24px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#f0fdf4,#fff 55%)}
