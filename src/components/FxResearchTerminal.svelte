@@ -1,18 +1,32 @@
 <script>
   import { onMount } from 'svelte';
-  import ResearchOverview from './ResearchOverview.svelte';
+  import MarketResearch from './MarketResearch.svelte';
+  import { technicalConditions } from '../lib/market-research.js';
+  let researchContext = null;
+  let researchError = '';
+  const emptyPairs = ['USD/JPY','EUR/USD','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD','XAU/USD','BTC/USD'].map(symbol => ({symbol,base:symbol.slice(0,3),quote:symbol.slice(4),decimals:symbol==='USD/JPY'?3:2,market:{},quality:{},model:{price_note:'Price research unavailable'},history:[]}));
+  async function loadContext() {
+    try {
+      const response = await fetch('/api/research-context', {cache:'no-store',signal:AbortSignal.timeout(15000)});
+      if (!response.ok) throw new Error();
+      const data = await response.json();
+      if (data.schema_version!==1 || data.methodology!=='research-context-1' || !Array.isArray(data.indicators)) throw new Error();
+      researchContext=data; researchError='';
+    } catch { researchError=researchContext ? 'Macro refresh failed. Showing previously retrieved research with its original dates.' : 'Macro data is unavailable. Economic and policy research cannot be loaded yet.'; }
+  }
   export let initialSymbol = 'USD/JPY';
-  let previousSnapshot = null;
   let clock = Date.now();
 
   const SNAPSHOT_URL = '/api/terminal-snapshot';
-  const STORAGE_KEY = 'trade90-terminal-snapshot-v3';
+  const STORAGE_KEY = 'trade90-terminal-snapshot-v4';
   const PANELS = [
     ['overview', 'Overview'],
     ['charts', 'Charts'],
     ['events', 'Events'],
     ['positioning', 'Positioning'],
-    ['model', 'Model & validation'],
+    ['macro', 'Macro comparison'],
+    ['policy', 'Policy & intervention'],
+    ['sources', 'Sources & coverage'],
   ];
 
   let snapshot = null;
@@ -24,9 +38,10 @@
   let usingSavedSnapshot = false;
   let lastChecked = null;
 
-  $: pairs = snapshot?.pairs ?? [];
+  $: pairs = snapshot?.pairs ?? emptyPairs;
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
   $: currentPrice = indicativePrice(active, clock);
+  $: freshQuoteCount = pairs.filter(pair => indicativePrice(pair, clock) !== null).length;
 
   function indicativePrice(pair, now) {
     const price = pair?.live?.price;
@@ -35,14 +50,11 @@
   }
   $: intradayChart = buildChart(active?.live?.intraday ?? [], ['close']);
   $: historyChart = buildChart(active?.history ?? [], ['close', 'ema_fast', 'ema_slow']);
-  $: auditMax = Math.max(1, ...(active?.model?.audit ?? []).map((item) => Math.abs(Number(item.contribution) || 0)));
 
   const pct = (value, digits = 0) => value == null ? '—' : `${(Number(value) * 100).toFixed(digits)}%`;
   const signedPct = (value, digits = 2) => value == null ? '—' : `${Number(value) >= 0 ? '+' : ''}${(Number(value) * 100).toFixed(digits)}%`;
   const num = (value, digits = 2) => value == null || !Number.isFinite(Number(value)) ? '—' : Number(value).toFixed(digits);
   const signed = (value, digits = 1) => value == null || !Number.isFinite(Number(value)) ? '—' : `${Number(value) >= 0 ? '+' : ''}${Number(value).toFixed(digits)}`;
-  const scoreClass = (value) => value > 18 ? 'positive' : value < -18 ? 'negative' : 'neutral';
-  const scoreLabel = (value) => value > 18 ? 'Bullish' : value < -18 ? 'Bearish' : 'Neutral';
   const changeClass = (value) => value > 0 ? 'positive' : value < 0 ? 'negative' : 'neutral';
   const eventClass = (level) => ['Extreme', 'High'].includes(level) ? 'negative' : level === 'Elevated' ? 'caution' : 'neutral';
 
@@ -58,9 +70,9 @@
 
   function buildChart(rows, keys, width = 800, height = 260) {
     if (!Array.isArray(rows) || rows.length < 2) return null;
-    const cleanRows = rows.filter((row) => keys.some((key) => Number.isFinite(Number(row?.[key]))));
+    const cleanRows = rows.filter((row) => keys.some((key) => typeof row?.[key] === 'number' && Number.isFinite(row[key])));
     if (cleanRows.length < 2) return null;
-    const values = cleanRows.flatMap((row) => keys.map((key) => Number(row?.[key])).filter(Number.isFinite));
+    const values = cleanRows.flatMap((row) => keys.map((key) => row?.[key]).filter(value => typeof value === 'number' && Number.isFinite(value)));
     const low = Math.min(...values);
     const high = Math.max(...values);
     const range = high - low || Math.max(Math.abs(high) * 0.01, 1);
@@ -73,8 +85,8 @@
       let path = '';
       let drawing = false;
       cleanRows.forEach((row, index) => {
-        const value = Number(row?.[key]);
-        if (!Number.isFinite(value)) {
+        const value = row?.[key];
+        if (typeof value !== 'number' || !Number.isFinite(value)) {
           drawing = false;
           return;
         }
@@ -108,6 +120,7 @@
     else loading = true;
     try {
       const response = await fetch(`${SNAPSHOT_URL}?v=${Date.now()}`, {
+        signal: AbortSignal.timeout(20000),
         cache: 'no-store',
         headers: { accept: 'application/json' },
       });
@@ -116,8 +129,6 @@
       if (data.schema_version !== 1 || !Array.isArray(data.pairs) || data.pairs.length === 0) {
         throw new Error('Unsupported terminal data');
       }
-      const prior = snapshot ?? savedSnapshot();
-      if (prior?.generated_at && Date.parse(prior.generated_at) < Date.parse(data.generated_at)) previousSnapshot = prior;
       snapshot = data;
       error = '';
       usingSavedSnapshot = false;
@@ -153,6 +164,8 @@
 
   onMount(() => {
     load();
+    loadContext();
+    const contextTimer = setInterval(loadContext,300000);
     const timer = setInterval(() => load(true), 300000);
     const clockTimer = setInterval(() => { clock = Date.now(); }, 60000);
     const refreshWhenVisible = () => {
@@ -161,6 +174,7 @@
     document.addEventListener('visibilitychange', refreshWhenVisible);
     return () => {
       clearInterval(timer);
+      clearInterval(contextTimer);
       clearInterval(clockTimer);
       document.removeEventListener('visibilitychange', refreshWhenVisible);
     };
@@ -175,40 +189,35 @@
     </div>
     <div class="status-wrap">
       <div class="status" role="status" aria-live="polite">
-        <span class:live={Boolean(snapshot) && !usingSavedSnapshot}></span>
+        <span class:live={freshQuoteCount === pairs.length && pairs.length > 0 && !usingSavedSnapshot}></span>
         {#if usingSavedSnapshot}
           Saved snapshot
-        {:else if snapshot?.live_quote_count > 0}
-          Live prices online
+        {:else if freshQuoteCount > 0}
+          {freshQuoteCount}/{pairs.length} quotes available
         {:else if snapshot}
-          Research snapshot online
+          Current quotes unavailable
         {:else}
           Connecting
         {/if}
       </div>
-      <button class="refresh" type="button" on:click={() => load(true)} disabled={refreshing} aria-label="Refresh terminal data">
+      <button class="refresh" type="button" on:click={() => { load(true); loadContext(); }} disabled={refreshing} aria-label="Refresh terminal data">
         {refreshing ? 'Refreshing…' : 'Refresh'}
       </button>
     </div>
   </header>
 
   {#if loading}
-    <div class="notice" role="status" aria-live="polite">Loading live prices and the latest research model…</div>
-  {:else if error && !snapshot}
-    <div class="error">
-      <strong>Terminal data is temporarily unavailable.</strong>
-      <span>{error}</span>
-      <button type="button" on:click={() => load()}>Retry</button>
-    </div>
+    <div class="notice" role="status" aria-live="polite">Loading market prices and sourced research…</div>
   {:else if active}
     {#if error}
       <div class="warning" role="status">{error}</div>
     {/if}
 
+    {#if researchError}<div class="warning" role="status">{researchError}</div>{/if}
     <section class="freshness" aria-label="Data freshness">
-      <div><span>Indicative prices</span><strong>{snapshot.live_quote_count ?? 0}/{pairs.length} markets</strong></div>
+      <div><span>Recent indicative quotes</span><strong>{freshQuoteCount}/{pairs.length} markets</strong></div>
       <div><span>Price refresh</span><strong>Every 5 minutes</strong></div>
-      <div><span>Research model</span><strong>{formatDate(snapshot.generated_at)}</strong></div>
+      <div><span>Price research</span><strong>{formatDate(snapshot?.generated_at)}</strong></div>
       <div><span>Last checked</span><strong>{formatDate(lastChecked)}</strong></div>
     </section>
 
@@ -222,28 +231,28 @@
           on:click={() => chooseMarket(pair.symbol)}
         >
           <span>{pair.symbol}</span>
-          <small class={changeClass(pair.live?.change_pct)}>{signedPct(pair.live?.change_pct)}</small>
+          <small class={changeClass(pair.live?.change_pct)}>{signedPct(indicativePrice(pair, clock) === null ? null : pair.live?.change_pct)}</small>
         </button>
       {/each}
     </div>
 
     <section class="scanner" aria-label="Multi-asset market scanner">
       <div class="scanner-head">
-        <span>Market</span><span>Indicative price</span><span>Day</span><span>Model score</span><span>5D scenario</span><span>Event risk</span>
+        <span>Market</span><span>Indicative price</span><span>Day</span><span>Price structure</span><span>History date</span><span>Event risk</span>
       </div>
       {#each pairs as pair}
         <button
           type="button"
-          aria-label={`Open ${pair.symbol}: price ${num(indicativePrice(pair, clock), pair.decimals)}, model score ${signed(pair.score)}, ${pair.bias} five-day scenario`}
+          aria-label={`Open ${pair.symbol}: price ${num(indicativePrice(pair, clock), pair.decimals)}, ${technicalConditions(pair).trend}`}
           aria-pressed={pair.symbol === active.symbol}
           class:chosen={pair.symbol === active.symbol}
           on:click={() => chooseMarket(pair.symbol)}
         >
           <strong>{pair.symbol}</strong>
           <span>{num(indicativePrice(pair, clock), pair.decimals)}</span>
-          <span class={changeClass(pair.live?.change_pct)}>{signedPct(pair.live?.change_pct)}</span>
-          <span class={scoreClass(pair.score)}>{signed(pair.score)}</span>
-          <span>{pair.bias}</span>
+          <span class={changeClass(pair.live?.change_pct)}>{signedPct(indicativePrice(pair, clock) === null ? null : pair.live?.change_pct)}</span>
+          <span>{technicalConditions(pair).trend}</span>
+          <span>{formatDate(pair.quality?.last_price, false)}</span>
           <span class={eventClass(pair.events?.risk?.level)}>{pair.events?.risk?.level ?? '—'}</span>
         </button>
       {/each}
@@ -266,7 +275,7 @@
       </div>
     </div>
 
-    <ResearchOverview pair={active} generatedAt={snapshot.generated_at} previous={previousSnapshot?.pairs?.find(pair => pair.symbol === active.symbol)} previousAt={previousSnapshot?.generated_at} now={clock} />
+
 
     <nav class="panel-tabs" aria-label={`${active.symbol} research sections`}>
       {#each PANELS as panel}
@@ -279,50 +288,8 @@
       {/each}
     </nav>
 
-    {#if activePanel === 'overview'}
-      <section class="panel" aria-label={`${active.symbol} overview`}>
-        <div class="facts">
-          <article><span>Indicative price</span><strong>{num(currentPrice, active.decimals)}</strong><small>{active.live ? formatDate(active.live.updated_at) : 'Live quote unavailable'}</small></article>
-          <article><span>{active.symbol === 'XAU/USD' ? 'Futures model close' : 'Model close'}</span><strong>{num(active.price, active.decimals)}</strong><small>{formatDate(active.quality.last_price, false)}</small></article>
-          <article><span>{active.market.macro_label ?? '10Y yield spread'}</span><strong>{signed(active.market.yield_spread, 2)} pp</strong></article>
-          <article><span>20D volatility</span><strong>{pct(active.market.volatility)}</strong><small>{active.market.regime}</small></article>
-          <article><span>Event risk</span><strong class={eventClass(active.events?.risk?.level)}>{active.events?.risk?.level ?? 'Unknown'}</strong><small>{active.events?.risk?.next_event ?? 'No supported event due'}</small></article>
-          <article><span>Data quality</span><strong>Grade {active.quality.grade}</strong><small>{pct(active.quality.completeness)} usable</small></article>
-        </div>
-
-        <div class="layers">
-          <article>
-            <span class="step">01 · Model interpretation</span>
-            <div class="score-row">
-              <strong class={scoreClass(active.score)}>{signed(active.score)}</strong>
-              <span>{scoreLabel(active.score)} model evidence</span>
-            </div>
-            <p>{active.model.thesis}</p>
-            <small>Instrument-specific, bounded model. The score is interpretation, not an observed fact or trade instruction.</small>
-          </article>
-
-          <article>
-            <span class="step">02 · Five-day probabilities</span>
-            <div class="probabilities">
-              <div><span>Bullish</span><strong>{pct(active.probabilities.Bullish)}</strong><i style={`width:${pct(active.probabilities.Bullish)}`}></i></div>
-              <div><span>Range</span><strong>{pct(active.probabilities['Range/neutral'])}</strong><i style={`width:${pct(active.probabilities['Range/neutral'])}`}></i></div>
-              <div><span>Bearish</span><strong>{pct(active.probabilities.Bearish)}</strong><i style={`width:${pct(active.probabilities.Bearish)}`}></i></div>
-            </div>
-            <small>{active.sample_size} similar observations · {active.confidence} confidence. Historical frequencies are not promises.</small>
-          </article>
-        </div>
-
-        <div class="planning">
-          <div><span>{active.symbol === 'XAU/USD' ? 'Futures 20D support' : '20D support'}</span><strong>{num(active.market.support20, active.decimals)}</strong></div>
-          <div><span>{active.symbol === 'XAU/USD' ? 'Futures 20D resistance' : '20D resistance'}</span><strong>{num(active.market.resistance20, active.decimals)}</strong></div>
-          <div><span>ATR-style range</span><strong>{num(active.market.atr20, active.decimals)}</strong></div>
-          <div><span>Cross-asset driver</span><strong>{active.market.driver}</strong></div>
-        </div>
-
-        {#if active.quality.stale_inputs?.length}
-          <div class="warning">Excluded stale inputs: {active.quality.stale_inputs.join(', ')}.</div>
-        {/if}
-      </section>
+    {#if activePanel !== 'charts'}
+      <MarketResearch pair={active} context={researchContext} panel={activePanel} now={clock} />
     {:else if activePanel === 'charts'}
       <section class="panel chart-panel" aria-label={`${active.symbol} charts`}>
         <article class="chart-card">
@@ -364,127 +331,10 @@
           {/if}
         </article>
       </section>
-    {:else if activePanel === 'events'}
-      <section class="panel" aria-label={`${active.symbol} event risk`}>
-        <div class="event-summary">
-          <article><span>Current risk</span><strong class={eventClass(active.events?.risk?.level)}>{active.events?.risk?.level ?? 'Unknown'}</strong></article>
-          <article><span>High-impact events / 24h</span><strong>{active.events?.risk?.count_24h ?? 0}</strong></article>
-          <article><span>Next event</span><strong>{active.events?.risk?.hours == null ? 'None scheduled' : `${num(active.events.risk.hours, 1)}h`}</strong><small>{active.events?.risk?.next_event ?? 'No supported event due'}</small></article>
-        </div>
-        <div class="section-copy">
-          <span class="step">Economic calendar</span>
-          <h4>Upcoming pair-relevant events</h4>
-          <p>Scheduled events change the risk label only. They never add bullish or bearish points to the model.</p>
-        </div>
-        {#if active.events?.upcoming?.length}
-          <div class="event-list">
-            {#each active.events.upcoming as event}
-              <article>
-                <time datetime={event.time}>{formatDate(event.time)}</time>
-                <strong>{event.event}</strong>
-                <span>{event.currency} · {event.side}</span>
-                <small>Previous {event.previous ?? '—'} · Consensus {event.forecast ?? '—'}</small>
-              </article>
-            {/each}
-          </div>
-        {:else}
-          <div class="empty-state">No supported high-impact events were returned for this market in the current window.</div>
-        {/if}
-        <p class="source-note">Calendar: {snapshot.sources?.calendar?.provider ?? 'Trading Economics'} · {snapshot.sources?.calendar?.mode ?? 'public feed'}. Event times and figures can change; verify them with the primary release source.</p>
-      </section>
-    {:else if activePanel === 'positioning'}
-      <section class="panel" aria-label={`${active.symbol} positioning`}>
-        <div class="section-copy">
-          <span class="step">Weekly derivatives context</span>
-          <h4>Leveraged-fund positioning</h4>
-          <p>CFTC positioning is delayed weekly context, not a live signal and not part of the directional score.</p>
-        </div>
-        {#if active.positioning?.available}
-          <div class="position-grid">
-            <article>
-              <span>{active.base} leveraged net</span>
-              <strong>{Number(active.positioning.base.leveraged_net).toLocaleString()}</strong>
-              <small>{pct(active.positioning.base.percentile_3y)} 3Y percentile · {active.positioning.base.crowding}</small>
-            </article>
-            <article>
-              <span>{active.quote} leveraged net</span>
-              <strong>{Number(active.positioning.quote.leveraged_net).toLocaleString()}</strong>
-              <small>{pct(active.positioning.quote.percentile_3y)} 3Y percentile · {active.positioning.quote.crowding}</small>
-            </article>
-            <article>
-              <span>Relative crowding</span>
-              <strong>{signedPct(active.positioning.relative_percentile, 0)}</strong>
-              <small>Base percentile minus quote percentile</small>
-            </article>
-            <article>
-              <span>Latest report age</span>
-              <strong>{Math.max(active.positioning.base.age_days, active.positioning.quote.age_days)} days</strong>
-              <small>{formatDate(active.positioning.fetched_at)}</small>
-            </article>
-          </div>
-          {#if active.positioning.warning}<div class="warning">{active.positioning.warning}</div>{/if}
-        {:else}
-          <div class="empty-state">
-            <strong>Complete base/quote positioning is unavailable for this market.</strong>
-            <span>{active.positioning?.warning ?? 'A verified derivatives series is not configured for both sides of this instrument.'}</span>
-          </div>
-        {/if}
-        <p class="source-note">Provider: {active.positioning?.provider ?? 'CFTC Traders in Financial Futures'} · {active.positioning?.cadence ?? 'weekly and delayed'}.</p>
-      </section>
-    {:else if activePanel === 'model'}
-      <section class="panel model-panel" aria-label={`${active.symbol} model and validation`}>
-        <article class="audit-card">
-          <div class="section-copy">
-            <span class="step">Contribution audit</span>
-            <h4>What is moving the score</h4>
-            <p>Each contribution is bounded and explains the current model interpretation.</p>
-          </div>
-          {#if active.model?.audit?.length}
-            <div class="audit-list">
-              {#each active.model.audit as item}
-                <div>
-                  <span>{item.name}</span>
-                  <div class="audit-track"><i class:negative-bar={item.contribution < 0} style={`width:${Math.max(2, Math.abs(item.contribution) / auditMax * 100)}%`}></i></div>
-                  <strong class={changeClass(item.contribution)}>{signed(item.contribution, 2)}</strong>
-                </div>
-              {/each}
-            </div>
-          {:else}
-            <div class="empty-state">The contribution audit will appear after the next enriched research refresh.</div>
-          {/if}
-        </article>
-
-        <article class="validation-card">
-          <div class="section-copy">
-            <span class="step">Out-of-sample checks</span>
-            <h4>Directional validation</h4>
-            <p>Validation measures historical behavior after the training window. It does not guarantee future performance.</p>
-          </div>
-          <div class="validation-summary">
-            <div><span>OOS accuracy</span><strong>{pct(active.validation?.walk_forward?.['OOS directional accuracy'])}</strong></div>
-            <div><span>OOS observations</span><strong>{num(active.validation?.walk_forward?.['OOS observations'], 0)}</strong></div>
-            <div><span>Current sample</span><strong>{active.sample_size}</strong></div>
-            <div><span>Confidence</span><strong>{active.confidence}</strong></div>
-          </div>
-          {#if active.validation?.horizons?.length}
-            <div class="validation-table">
-              <div class="validation-head"><span>Horizon</span><span>Model</span><span>Baseline</span><span>Lift</span><span>Observations</span></div>
-              {#each active.validation.horizons as row}
-                <div><strong>{row.Horizon}</strong><span>{pct(row['Model accuracy'])}</span><span>{pct(row['Majority baseline'])}</span><span class={changeClass(row['Lift vs baseline'])}>{signedPct(row['Lift vs baseline'], 1)}</span><span>{row['OOS observations']}</span></div>
-              {/each}
-            </div>
-          {/if}
-        </article>
-
-        <div class="method-note">
-          <strong>Method boundary</strong>
-          <p>{active.model.thesis}. Model facts, judgement, historical frequencies, event risk, and positioning are kept separate so one layer cannot masquerade as another.</p>
-        </div>
-      </section>
     {/if}
 
     <footer>
-      <span>{snapshot.cadence}</span>
+      <span>Research sources update independently; check each observation date.</span>
       <span>Price feed: indicative only · Research and education, not a trade signal</span>
     </footer>
   {/if}
