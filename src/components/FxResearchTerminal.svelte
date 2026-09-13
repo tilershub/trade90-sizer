@@ -12,7 +12,7 @@
       const data = await response.json();
       if (data.schema_version!==1 || data.methodology!=='research-context-1' || !Array.isArray(data.indicators)) throw new Error();
       researchContext=data; researchError='';
-    } catch { researchError='Macro refresh unavailable. Any retained macro data keeps its original timestamp.'; }
+    } catch { researchError=researchContext ? 'Macro refresh failed. Showing previously retrieved research with its original dates.' : 'Macro data is unavailable. Economic and policy research cannot be loaded yet.'; }
   }
   export let initialSymbol = 'USD/JPY';
   let clock = Date.now();
@@ -41,6 +41,7 @@
   $: pairs = snapshot?.pairs ?? emptyPairs;
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
   $: currentPrice = indicativePrice(active, clock);
+  $: freshQuoteCount = pairs.filter(pair => indicativePrice(pair, clock) !== null).length;
 
   function indicativePrice(pair, now) {
     const price = pair?.live?.price;
@@ -188,13 +189,13 @@
     </div>
     <div class="status-wrap">
       <div class="status" role="status" aria-live="polite">
-        <span class:live={Boolean(snapshot) && !usingSavedSnapshot}></span>
+        <span class:live={freshQuoteCount === pairs.length && pairs.length > 0 && !usingSavedSnapshot}></span>
         {#if usingSavedSnapshot}
           Saved snapshot
-        {:else if snapshot?.live_quote_count > 0}
-          Live prices online
+        {:else if freshQuoteCount > 0}
+          {freshQuoteCount}/{pairs.length} quotes available
         {:else if snapshot}
-          Research snapshot online
+          Current quotes unavailable
         {:else}
           Connecting
         {/if}
@@ -214,7 +215,7 @@
 
     {#if researchError}<div class="warning" role="status">{researchError}</div>{/if}
     <section class="freshness" aria-label="Data freshness">
-      <div><span>Indicative prices</span><strong>{snapshot?.live_quote_count ?? 0}/{pairs.length} markets</strong></div>
+      <div><span>Recent indicative quotes</span><strong>{freshQuoteCount}/{pairs.length} markets</strong></div>
       <div><span>Price refresh</span><strong>Every 5 minutes</strong></div>
       <div><span>Price research</span><strong>{formatDate(snapshot?.generated_at)}</strong></div>
       <div><span>Last checked</span><strong>{formatDate(lastChecked)}</strong></div>
