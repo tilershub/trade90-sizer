@@ -1,222 +1,48 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-const title = "Trading Plan Builder — Create a Written Trading Plan";
-const description = "Build a complete written trading plan in 10 minutes: instruments, sessions, setups, risk parameters, trade management, and review process. Saves privately in your browser, exports to Markdown.";
-
-const site = Astro.site?.toString() || "https://tradeninety.com";
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
-    { "@type": "ListItem", position: 2, name: "Tools", item: `${site}/tools/` },
-    { "@type": "ListItem", position: 3, name: "Trading Plan Builder", item: `${site}/tools/trading-plan-builder/` },
-  ],
-};
-
-const sections = [
-  {
-    id: "markets",
-    n: "01",
-    title: "Markets & Instruments",
-    hint: "Which instruments will you trade — and only these? e.g. EURUSD, XAUUSD, NAS100",
-    placeholder: "EURUSD and XAUUSD only. No crypto, no exotics.",
-  },
-  {
-    id: "sessions",
-    n: "02",
-    title: "Sessions & Schedule",
-    hint: "When are you at the screen? Which session windows do you trade?",
-    placeholder: "London open 08:00–11:00 local. No trades in the last hour of NY. No Friday afternoons.",
-  },
-  {
-    id: "setups",
-    n: "03",
-    title: "Setup Definition",
-    hint: "Entry criteria specific enough that another trader could execute them.",
-    placeholder: "A+ setup: break and retest of a 4H level with a 15m confirmation candle. No entry without both conditions.",
-  },
-  {
-    id: "risk",
-    n: "04",
-    title: "Risk Parameters",
-    hint: "Risk per trade, daily cap, max trades per day, max drawdown response.",
-    placeholder: "0.5% per trade. 1% daily cap. Max 2 trades/day. After 3 losing days in a row: half size for a week.",
-  },
-  {
-    id: "management",
-    n: "05",
-    title: "Trade Management",
-    hint: "Stop placement, targets, partials, break-even rules.",
-    placeholder: "Stop below structure, never widened. TP at 2R. Move to break-even at 1R. No adding to losers.",
-  },
-  {
-    id: "review",
-    n: "06",
-    title: "Review Process",
-    hint: "When and how you review — journaling cadence, weekly and monthly reviews.",
-    placeholder: "Journal every trade same day. Weekly review Sunday: adherence %, best/worst trade. Monthly: full stats.",
-  },
-];
+import {FIELDS,MARKETS} from '../../lib/research-plan.js';
 ---
-
-<BaseLayout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head-extra" />
-
-  <section class="py-12 px-4 border-b border-slate-800 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-amber-900/10 via-slate-950 to-slate-950">
-    <div class="max-w-3xl mx-auto">
-      <nav aria-label="Breadcrumb" class="mb-6 text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2">
-        <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
-        <span aria-hidden="true">/</span>
-        <a href="/tools/" class="hover:text-emerald-400 transition-colors">Tools</a>
-        <span aria-hidden="true">/</span>
-        <span class="text-slate-300">Trading Plan Builder</span>
-      </nav>
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white mb-2">
-            Trading Plan <span class="text-emerald-400">Builder</span>
-          </h1>
-          <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
-            A plan is only a plan if it's written. Fill in the six sections — your answers save automatically in this browser and export to a file you can keep beside your platform.
-          </p>
-        </div>
-        <a href="/trading-plans/how-to-build-a-trading-plan/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors shrink-0">
-          Read the guide first →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <div class="max-w-3xl mx-auto py-10 px-6">
-    <div class="flex items-center justify-between mb-6">
-      <p class="text-[10px] font-black uppercase tracking-widest text-slate-500"><span id="p-progress">0</span> / 6 sections written</p>
-      <p id="p-saved" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 opacity-0 transition-opacity">Saved ✓</p>
-    </div>
-
-    <div class="space-y-5">
-      {sections.map((s) => (
-        <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
-          <div class="flex items-start gap-4 mb-3">
-            <span class="text-2xl font-black text-emerald-500/25 leading-none">{s.n}</span>
-            <div>
-              <h2 class="text-white font-black uppercase tracking-tighter text-base">{s.title}</h2>
-              <p class="text-slate-500 text-xs leading-relaxed mt-0.5">{s.hint}</p>
-            </div>
-          </div>
-          <textarea
-            id={`p-${s.id}`}
-            data-plan-field={s.id}
-            rows="3"
-            placeholder={s.placeholder}
-            class="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-4 py-3 text-white text-sm leading-relaxed outline-none transition-colors resize-y"
-          ></textarea>
-        </section>
-      ))}
-    </div>
-
-    <div class="flex flex-wrap gap-3 mt-8">
-      <button id="p-export" type="button" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-xs px-5 py-3 rounded-xl transition-colors">
-        Download Plan (.md) →
-      </button>
-      <button id="p-print" type="button" class="inline-flex items-center gap-2 border border-slate-700 hover:border-emerald-500/50 text-slate-300 font-black uppercase tracking-widest text-xs px-5 py-3 rounded-xl transition-colors">
-        Print
-      </button>
-      <button id="p-clear" type="button" class="inline-flex items-center gap-2 border border-slate-800 hover:border-rose-500/50 text-slate-500 hover:text-rose-400 font-black uppercase tracking-widest text-xs px-5 py-3 rounded-xl transition-colors">
-        Clear
-      </button>
-    </div>
-
-    <p class="text-slate-600 text-[11px] mt-4">
-      Stored only in this browser. Download a copy — a plan you can't see while trading is a plan you won't follow.
-    </p>
-
-    <!-- Next steps -->
-    <section class="grid sm:grid-cols-3 gap-3 border-t border-slate-800 pt-8 mt-10">
-      {[
-        { href: "/today/", tag: "Trade", label: "Run it daily on Today →" },
-        { href: "/journal/", tag: "Review", label: "Grade adherence in the Journal →" },
-        { href: "/trading-plans/daily-trading-routine/", tag: "Learn", label: "Build the daily routine →" },
-      ].map(({ href, tag, label }) => (
-        <a href={href} class="group block bg-slate-900/40 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-all">
-          <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">{tag}</p>
-          <p class="text-white font-black uppercase tracking-tighter text-xs group-hover:text-emerald-400 transition-colors">{label}</p>
-        </a>
-      ))}
-    </section>
-  </div>
-
-  <script is:inline>
-    (function () {
-      const KEY = "t90.plan";
-      const fields = Array.from(document.querySelectorAll("[data-plan-field]"));
-      const progress = document.getElementById("p-progress");
-      const savedBadge = document.getElementById("p-saved");
-
-      const TITLES = {
-        markets: "Markets & Instruments",
-        sessions: "Sessions & Schedule",
-        setups: "Setup Definition",
-        risk: "Risk Parameters",
-        management: "Trade Management",
-        review: "Review Process",
-      };
-
-      function load() {
-        try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
-      }
-      function updateProgress() {
-        progress.textContent = fields.filter((f) => f.value.trim()).length;
-      }
-
-      // Init
-      const data = load();
-      fields.forEach((f) => { f.value = data[f.dataset.planField] || ""; });
-      updateProgress();
-
-      let saveTimer, badgeTimer;
-      fields.forEach((f) =>
-        f.addEventListener("input", function () {
-          clearTimeout(saveTimer);
-          saveTimer = setTimeout(function () {
-            const out = {};
-            fields.forEach((x) => { out[x.dataset.planField] = x.value; });
-            localStorage.setItem(KEY, JSON.stringify(out));
-            updateProgress();
-            savedBadge.style.opacity = "1";
-            clearTimeout(badgeTimer);
-            badgeTimer = setTimeout(() => { savedBadge.style.opacity = "0"; }, 1200);
-          }, 400);
-        })
-      );
-
-      function toMarkdown() {
-        const lines = ["# My Trading Plan", "", "_Built with TRADE90 — tradeninety.com. Updated " + new Date().toISOString().slice(0, 10) + "_", ""];
-        fields.forEach((f) => {
-          lines.push("## " + TITLES[f.dataset.planField]);
-          lines.push("");
-          lines.push(f.value.trim() || "_Not defined yet._");
-          lines.push("");
-        });
-        return lines.join("\n");
-      }
-
-      document.getElementById("p-export").addEventListener("click", function () {
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([toMarkdown()], { type: "text/markdown" }));
-        a.download = "my-trading-plan.md";
-        a.click();
-      });
-
-      document.getElementById("p-print").addEventListener("click", () => window.print());
-
-      document.getElementById("p-clear").addEventListener("click", function () {
-        if (!confirm("Clear the entire plan? This cannot be undone.")) return;
-        localStorage.removeItem(KEY);
-        fields.forEach((f) => { f.value = ""; });
-        updateProgress();
-      });
-    })();
-  </script>
-</BaseLayout>
+<BaseLayout title="Research & Decision Plan Builder" description="Record market evidence, uncertainty, alternative scenarios and your decision to wait, research further or consider a trade.">
+<main class="plan-page">
+ <header><a href="/#terminal">← Research terminal</a><p class="eyebrow">TRADE90 · Research to decision</p><h1>Build your research plan.</h1><p>Start with evidence. Test your interpretation. Decide whether to wait, research further or consider a trade.</p></header>
+ <p class="notice">Your decisions remain your own. Writing a complete plan does not establish confidence, accuracy or a probability of success.</p>
+ <div class="controls"><label for="plan-market">Research market<select id="plan-market">{MARKETS.map(m=><option value={m}>{m}</option>)}</select></label><label for="plan-decision">Your current decision<select id="plan-decision"><option value="undecided">Undecided</option><option value="wait">Wait / no trade</option><option value="research">Research further</option><option value="consider">Consider a trade</option></select></label></div>
+ <p id="market-handoff" role="status"></p>
+ <div class="save-line"><span id="plan-progress">0 research sections recorded</span><span id="plan-save" role="status">Stored only in this browser</span></div>
+ <section class="evidence"><h2>Capture the evidence</h2><p>Import the latest available macro snapshot for the selected market. This may be newer than the snapshot you viewed in the terminal. Existing captured evidence stays dated; it does not update automatically.</p><button type="button" id="import-evidence">Import latest macro evidence</button><p id="import-status" role="status"></p><label for="plan-evidence">Sources, observation dates and notes</label><textarea id="plan-evidence" rows="5" placeholder="Add source URLs, observation dates and confirmed facts. Identify reported or unverified information separately."></textarea></section>
+ <div class="sections">{FIELDS.map(([id,title,hint],i)=><details open={i===0} data-execution={['sessions','setups','risk','management'].includes(id)?'true':undefined}><summary>{title}<span data-written={id}></span></summary><label for={`plan-${id}`}>{hint}</label><textarea id={`plan-${id}`} data-plan-field={id} rows="4"></textarea></details>)}</div>
+ <p id="execution-note">Execution fields are optional. Waiting and further research are valid outcomes.</p>
+ <div class="actions"><button type="button" id="plan-export">Download plan</button><button type="button" id="plan-print">Print / save PDF</button><button type="button" id="plan-clear">Clear this plan</button></div>
+ <p class="storage-note">One working plan per browser. Switching markets keeps your notes; export before starting a different plan. Existing saved plans are preserved during migration. Download a copy for another device.</p>
+ <nav><a href="/tools/position-size-calculator/">Position size calculator →</a><a href="/journal/">Review in your journal →</a><a href="/research-guide/">Research guide →</a></nav>
+ <pre id="print-plan"></pre>
+</main>
+<script>
+import {PLAN_KEY,LEGACY_KEY,FIELDS,MARKETS,normalizePlan,migrateLegacy,evidenceText,planMarkdown} from '../../lib/research-plan.js';
+const byId=(id:string)=>document.getElementById(id)!;
+const market=byId('plan-market') as HTMLSelectElement;
+const decision=byId('plan-decision') as HTMLSelectElement;
+const evidence=byId('plan-evidence') as HTMLTextAreaElement;
+let plan=normalizePlan(null), storageError='', migrated=false;
+try {const stored=localStorage.getItem(PLAN_KEY); if(stored){plan=normalizePlan(JSON.parse(stored));}else {const legacy=localStorage.getItem(LEGACY_KEY);if(legacy){plan=migrateLegacy(JSON.parse(legacy));migrated=true;}}}catch{storageError='Saved data could not be read. Download a copy of your work.';}
+const requested=new URLSearchParams(location.search).get('market');
+const hasNotes=Object.values(plan.fields).some(Boolean)||Boolean(plan.evidence);
+if(requested&&MARKETS.includes(requested)){if(!hasNotes)plan.market=requested;else if(requested!==plan.market)byId('market-handoff').textContent=`You opened ${requested} from the terminal. Your saved ${plan.market} plan is retained. Export it before changing markets.`;}
+market.value=plan.market;decision.value=plan.decision;evidence.value=plan.evidence;
+for(const [id] of FIELDS)(byId('plan-'+id) as HTMLTextAreaElement).value=plan.fields[id];
+function read(){plan.market=market.value;plan.decision=decision.value;plan.evidence=evidence.value;for(const [id]of FIELDS)plan.fields[id]=(byId('plan-'+id) as HTMLTextAreaElement).value;return plan;}
+function render(){let count=0;for(const [id]of FIELDS){const written=Boolean(plan.fields[id].trim());document.querySelector(`[data-written="${id}"]`)!.textContent=written?'Recorded':'';if(!['sessions','setups','risk','management'].includes(id)&&written)count++;}byId('plan-progress').textContent=`${count}/9 research sections recorded · completeness only`;byId('execution-note').textContent=plan.decision==='consider'?'Before acting, define your execution conditions, risk limits and exit rules. No trade is required.':'Execution fields are optional. Waiting and further research are valid outcomes.';}
+function save(){read();plan.updatedAt=new Date().toISOString();try{localStorage.setItem(PLAN_KEY,JSON.stringify(plan));byId('plan-save').textContent='Saved in this browser';}catch{byId('plan-save').textContent='Could not save in this browser. Download your plan.';}render();}
+render();if(storageError)byId('plan-save').textContent=storageError;else if(migrated){save();byId('plan-save').textContent='Previous plan copied; original retained';}
+document.querySelectorAll('textarea, #plan-market, #plan-decision').forEach(el=>el.addEventListener('input',save));
+market.addEventListener('change',()=>{byId('market-handoff').textContent='Market changed. Existing notes and captured evidence remain unchanged; check that they match this market.';save();});
+byId('import-evidence').addEventListener('click',async()=>{const button=byId('import-evidence') as HTMLButtonElement;const selected=market.value;button.disabled=true;byId('import-status').textContent='Loading source observations…';try{const response=await fetch('/api/research-context',{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('Macro research is unavailable. Your existing evidence is unchanged.');const captured=evidenceText(await response.json(),selected);if(market.value!==selected)throw Error('Market changed during import. Try again for the selected market.');evidence.value=[evidence.value.trim(),captured].filter(Boolean).join('\n\n---\n\n');save();byId('import-status').textContent='Dated macro evidence appended. Review source dates and add the remaining research.';}catch(e){byId('import-status').textContent=e instanceof Error?e.message:'Evidence import failed. Existing notes are unchanged.';}finally{button.disabled=false;}});
+byId('plan-export').addEventListener('click',()=>{save();const url=URL.createObjectURL(new Blob([planMarkdown(read())],{type:'text/markdown'}));const a=document.createElement('a');a.href=url;a.download='trade90-research-plan.md';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+function preparePrint(){byId('print-plan').textContent=planMarkdown(read());}
+window.addEventListener('beforeprint',preparePrint);
+byId('plan-print').addEventListener('click',()=>{preparePrint();window.print();});
+byId('plan-clear').addEventListener('click',()=>{if(!confirm('Clear this working plan? Download a copy first.'))return;plan=normalizePlan(null);market.value=plan.market;decision.value=plan.decision;evidence.value='';for(const[id]of FIELDS)(byId('plan-'+id)as HTMLTextAreaElement).value='';byId('market-handoff').textContent='';byId('import-status').textContent='';save();});
+</script>
+<style>
+.plan-page{max-width:850px;margin:auto;padding:28px 18px 48px;color:#e2e8f0}.plan-page header{margin-bottom:20px}h1{font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.15;color:white;margin:10px 0}h2{font-size:1.15rem;font-weight:700}p{font-size:.95rem;line-height:1.6;margin:10px 0}.eyebrow{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#6ee7b7;margin-top:20px}a{color:#6ee7b7;text-decoration:underline;text-underline-offset:4px}.notice{border-left:3px solid #64748b;padding:10px 14px;background:#172033;color:#cbd5e1}.controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}label{display:block;font-size:.9rem;line-height:1.6;color:#cbd5e1}select,textarea{display:block;width:100%;background:#0b1220;color:#f8fafc;border:1px solid #64748b;border-radius:8px;padding:12px;margin-top:8px;font:inherit;font-size:16px}textarea{resize:vertical;min-height:110px}button{background:#064e3b;color:#ecfdf5;border:1px solid #34d399;border-radius:8px;padding:12px 16px;min-height:44px;font-weight:650;cursor:pointer}button:disabled{opacity:.6;cursor:wait}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #6ee7b7;outline-offset:3px}.evidence,details{background:#111c2f;border:1px solid #334155;border-radius:12px;padding:16px;margin:12px 0}.evidence p{color:#cbd5e1}.evidence label{margin-top:12px}summary{cursor:pointer;min-height:44px;align-content:center;font-weight:700;color:#f8fafc}summary span{float:right;color:#6ee7b7;font-size:.72rem;font-weight:400}details[open] label{margin-top:12px}.save-line{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:.8rem;color:#cbd5e1}.actions,nav{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.storage-note{font-size:.83rem;color:#cbd5e1}#print-plan{display:none}@media(max-width:520px){.controls{grid-template-columns:1fr}.plan-page{padding:20px 12px}.actions button{flex:1 1 auto}}@media print{.plan-page>:not(#print-plan){display:none!important}#print-plan{display:block;white-space:pre-wrap;overflow-wrap:anywhere;color:black;background:white;font:11pt/1.5 sans-serif}.plan-page{max-width:none;padding:0}}
+</style>
