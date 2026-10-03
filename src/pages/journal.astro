@@ -167,6 +167,13 @@ const breadcrumbSchema = {
         try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
       }
       function save(trades) { localStorage.setItem(KEY, JSON.stringify(trades)); }
+      function track(event, values = {}) {
+        try {
+          if (localStorage.getItem("cookieConsent") === "accepted" && typeof window.gtag === "function") {
+            window.gtag("event", event, values);
+          }
+        } catch {}
+      }
       function esc(s) { return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
 
       function stats(trades) {
@@ -249,6 +256,7 @@ const breadcrumbSchema = {
           note: $("j-note").value.trim(),
         });
         save(trades);
+        track("journal_trade_logged", { instrument: trades.at(-1).symbol, trade_count: trades.length });
         $("j-symbol").value = ""; $("j-r").value = ""; $("j-note").value = "";
         refresh();
       });
@@ -272,6 +280,7 @@ const breadcrumbSchema = {
         a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
         a.download = "trade90-journal.csv";
         a.click();
+        track("journal_exported", { format: "csv", trade_count: trades.length });
       });
 
       // Backup / restore JSON
@@ -280,6 +289,7 @@ const breadcrumbSchema = {
         a.href = URL.createObjectURL(new Blob([JSON.stringify(load(), null, 2)], { type: "application/json" }));
         a.download = "trade90-journal-backup.json";
         a.click();
+        track("journal_exported", { format: "json", trade_count: load().length });
       });
       $("j-import").addEventListener("change", function (e) {
         const file = e.target.files[0];
@@ -292,6 +302,7 @@ const breadcrumbSchema = {
             if (load().length && !confirm("Replace the current journal with the backup?")) return;
             save(data);
             refresh();
+            track("journal_imported", { trade_count: data.length });
           } catch {
             alert("That file doesn't look like a TRADE90 journal backup.");
           }
