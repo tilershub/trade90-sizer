@@ -171,9 +171,11 @@
   }
 
   $: config = ASSET_CONFIGS[pair];
+  $: dailyLimit = Math.max(Number(dailyTarget) || 0.1, 0.1);
+  $: perTradeLimit = Math.max(Number(maxTradeRisk) || 0.1, 0.1);
 
   // --- Risk Limit State ---
-  $: riskState = (parseFloat(riskPercent) || 0) <= (parseFloat(maxTradeRisk) || 0) ? 'within' : 'above';
+  $: riskState = (parseFloat(riskPercent) || 0) <= perTradeLimit ? 'within' : 'above';
 
   // Neutral status tokens: these compare the input with the user's configured limit.
   $: riskStateConfig = riskState === 'within'
@@ -182,10 +184,10 @@
 
   // --- Daily Tracker Computed Values ---
   $: projectedDailyRisk = parseFloat((dailyRiskLogged + parseFloat(riskPercent || 0)).toFixed(4));
-  $: dailyProgressPct = Math.min((dailyRiskLogged / dailyTarget) * 100, 100);
-  $: tradesRemaining = Math.max(0, Math.floor((dailyTarget - dailyRiskLogged) / (parseFloat(riskPercent) || 1)));
-  $: dailyWouldExceed = projectedDailyRisk > dailyTarget;
-  $: exceedsMaxTradeRisk = parseFloat(riskPercent) > maxTradeRisk;
+  $: dailyProgressPct = Math.min((dailyRiskLogged / dailyLimit) * 100, 100);
+  $: tradesRemaining = Math.max(0, Math.floor((dailyLimit - dailyRiskLogged) / (parseFloat(riskPercent) || 1)));
+  $: dailyWouldExceed = projectedDailyRisk > dailyLimit;
+  $: exceedsMaxTradeRisk = (parseFloat(riskPercent) || 0) > perTradeLimit;
 
   // Progress bar color
   $: progressBarColor = (() => {
@@ -356,7 +358,7 @@
       <div class="flex items-start gap-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 mb-4">
         <span class="text-amber-400 mt-0.5 shrink-0">{@html IconWarning}</span>
         <p class="text-amber-300 text-xs font-bold leading-relaxed">
-          This trade is above your configured per-trade alert threshold of {Number(maxTradeRisk).toFixed(1)}%.
+          This trade is above your configured per-trade alert threshold of {perTradeLimit.toFixed(1)}%.
         </p>
       </div>
     {/if}
@@ -420,7 +422,7 @@
           <div class="space-y-2 mb-4">
             <div class="flex items-center justify-between">
               <span class="text-gray-400 text-[11px]">Used of daily target</span>
-              <span class="text-white text-[11px] font-black">{dailyRiskLogged.toFixed(2)}% of {dailyTarget.toFixed(1)}%</span>
+              <span class="text-white text-[11px] font-black">{dailyRiskLogged.toFixed(2)}% of {dailyLimit.toFixed(1)}%</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-gray-400 text-[11px]">Trades at current risk before limit</span>
@@ -433,7 +435,7 @@
             <div class="flex items-start gap-2 bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 mb-3">
               <span class="text-rose-400 shrink-0 mt-0.5">{@html IconWarning}</span>
               <p class="text-rose-300 text-[10px] font-bold leading-relaxed">
-                Adding this trade would exceed your {dailyTarget.toFixed(1)}% daily risk target
+                Adding this trade would exceed your {dailyLimit.toFixed(1)}% daily risk target
               </p>
             </div>
           {/if}
