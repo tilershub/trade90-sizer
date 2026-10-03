@@ -167,7 +167,8 @@ const checklist = {
   <script is:inline>
     (function () {
       const $ = (id) => document.getElementById(id);
-      const today = new Date().toISOString().slice(0, 10);
+      const nowForDate = new Date();
+      const today = [nowForDate.getFullYear(), String(nowForDate.getMonth() + 1).padStart(2, "0"), String(nowForDate.getDate()).padStart(2, "0")].join("-");
       const CHECK_KEY = "t90.checklist." + today;
 
       // Header: greeting, date, clock
@@ -203,11 +204,13 @@ const checklist = {
         }
         status.textContent = (snapshot?.generated_at ? "Research refreshed " + new Date(snapshot.generated_at).toLocaleString() + " · " : "") + watched.length + " watched market" + (watched.length === 1 ? "" : "s");
         grid.innerHTML = watched.map((p) => {
-          const price = Number(p?.live?.price);
-          const ch = Number(p?.live?.change_pct);
+          const rawPrice = p?.live?.price;
+          const rawChange = p?.live?.change_pct;
+          const price = typeof rawPrice === "number" ? rawPrice : NaN;
+          const ch = typeof rawChange === "number" ? rawChange : NaN;
           const risk = p?.events?.risk?.level || "—";
           const decimals = Number.isInteger(p?.decimals) ? p.decimals : 2;
-          const priceText = Number.isFinite(price) ? price.toFixed(decimals) : "—";
+          const priceText = Number.isFinite(price) && price > 0 ? price.toFixed(decimals) : "—";
           const changeText = Number.isFinite(ch) ? ((ch >= 0 ? "+" : "") + (ch * 100).toFixed(2) + "%") : "—";
           const changeClass = Number.isFinite(ch) ? (ch >= 0 ? "text-emerald-400" : "text-rose-400") : "text-slate-500";
           const slug = String(p.symbol || "").replace("/", "").toLowerCase();
