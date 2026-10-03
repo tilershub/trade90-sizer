@@ -1,3 +1,15 @@
 ---
-return Astro.redirect("/", 302);
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MemberAuth from '../components/MemberAuth.svelte';
 ---
+<BaseLayout
+  title="Sign in — TRADE90 Member Workspace"
+  description="Sign in to sync your TRADE90 watchlist, research history, journal and research plan across devices."
+  noIndex={true}
+>
+  <section class="min-h-[68vh] px-5 py-16 flex items-center">
+    <div class="w-full">
+      <MemberAuth mode="login" client:load />
+    </div>
+  </section>
+</BaseLayout>
