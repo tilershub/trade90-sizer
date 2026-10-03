@@ -166,7 +166,10 @@ const breadcrumbSchema = {
       function load() {
         try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
       }
-      function save(trades) { localStorage.setItem(KEY, JSON.stringify(trades)); }
+      function save(trades) {
+        localStorage.setItem(KEY, JSON.stringify(trades));
+        window.trade90Workspace?.scheduleSync?.();
+      }
       function track(event, values = {}) {
         try {
           if (localStorage.getItem("cookieConsent") === "accepted" && typeof window.gtag === "function") {
@@ -313,6 +316,7 @@ const breadcrumbSchema = {
 
       // Init
       $("j-date").value = new Date().toISOString().slice(0, 10);
+      window.addEventListener("trade90-workspace-applied", refresh);
       refresh();
     })();
   </script>
