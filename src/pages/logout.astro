@@ -1,3 +1,23 @@
 ---
-return Astro.redirect("/", 302);
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
+<BaseLayout title="Sign out — TRADE90" description="Sign out of your TRADE90 member workspace." noIndex={true}>
+  <section class="min-h-[60vh] flex items-center justify-center px-6 py-20">
+    <div class="max-w-md text-center">
+      <p class="text-slate-400">Signing you out…</p>
+      <p id="logout-error" class="text-rose-300 text-sm mt-3" role="alert"></p>
+    </div>
+  </section>
+  <script>
+    import { supabase } from '../lib/supabase';
+    supabase.auth.signOut()
+      .then(({ error }) => {
+        if (error) throw error;
+        window.location.replace('/login/');
+      })
+      .catch((error) => {
+        const node = document.getElementById('logout-error');
+        if (node) node.textContent = error instanceof Error ? error.message : 'Could not sign out.';
+      });
+  </script>
+</BaseLayout>
