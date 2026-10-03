@@ -50,8 +50,8 @@
     busy = true;
     try {
       await deleteCloudWorkspace();
-      status = 'Cloud workspace deleted. Local browser data remains on this device.';
-      lastSync = null;
+      await supabase.auth.signOut();
+      window.location.assign('/login/');
     } catch (e) {
       status = e instanceof Error ? e.message : 'Could not delete the cloud workspace.';
     } finally {
@@ -106,7 +106,7 @@
 
     <div class="actions">
       <button type="button" class="secondary" on:click={signOut} disabled={busy}>Sign out</button>
-      <button type="button" class="danger" on:click={removeCloudCopy} disabled={busy}>Delete cloud workspace</button>
+      <button type="button" class="danger" on:click={removeCloudCopy} disabled={busy}>Delete cloud workspace & sign out</button>
     </div>
   {:else}
     <section class="signed-out">
