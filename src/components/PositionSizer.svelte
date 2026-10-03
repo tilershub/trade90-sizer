@@ -132,6 +132,8 @@
   let balance = 100000;
   let accountMode = 'funded';
   let riskPercent = MODE_SETTINGS.funded.riskPercent;
+  let dailyTarget = MODE_SETTINGS.funded.dailyTarget;
+  let maxTradeRisk = MODE_SETTINGS.funded.maxTradeRisk;
 
   const d = DEFAULTS[initialPair] ?? DEFAULTS['EURUSD'];
   let entryPrice = d.entry;
@@ -142,13 +144,26 @@
   // Daily tracker state
   let dailyRiskLogged = 0;
 
+  function track(event, values = {}) {
+    try {
+      if (localStorage.getItem('cookieConsent') === 'accepted' && typeof window.gtag === 'function') {
+        window.gtag('event', event, values);
+      }
+    } catch {}
+  }
+
   function switchMode(mode) {
     accountMode = mode;
     riskPercent = MODE_SETTINGS[mode].riskPercent;
+    dailyTarget = MODE_SETTINGS[mode].dailyTarget;
+    maxTradeRisk = MODE_SETTINGS[mode].maxTradeRisk;
+    dailyRiskLogged = 0;
+    track('position_sizer_mode_changed', { account_mode: mode });
   }
 
   function logTrade() {
     dailyRiskLogged = parseFloat((dailyRiskLogged + parseFloat(riskPercent)).toFixed(4));
+    track('position_sizer_risk_logged', { account_mode: accountMode, instrument: pair, risk_percent: Number(riskPercent) || 0 });
   }
 
   function resetDay() {
@@ -156,43 +171,23 @@
   }
 
   $: config = ASSET_CONFIGS[pair];
-  $: modeSettings = MODE_SETTINGS[accountMode];
-  $: dailyTarget = modeSettings.dailyTarget;
-  $: maxTradeRisk = modeSettings.maxTradeRisk;
+  $: dailyLimit = Math.max(Number(dailyTarget) || 0.1, 0.1);
+  $: perTradeLimit = Math.max(Number(maxTradeRisk) || 0.1, 0.1);
 
-  // --- Risk State ---
-  $: riskState = (() => {
-    const r = parseFloat(riskPercent) || 0;
-    if (accountMode === 'funded') {
-      if (r <= 0.5)  return 'safe';
-      if (r <= 0.75) return 'caution';
-      if (r <= 1.0)  return 'aggressive';
-      return 'dangerous';
-    } else {
-      if (r <= 1.0)  return 'safe';
-      if (r <= 1.5)  return 'caution';
-      if (r <= 2.0)  return 'aggressive';
-      return 'dangerous';
-    }
-  })();
+  // --- Risk Limit State ---
+  $: riskState = (parseFloat(riskPercent) || 0) <= perTradeLimit ? 'within' : 'above';
 
-  // Risk state visual tokens
-  $: riskStateConfig = (() => {
-    const map = {
-      safe:       { label: 'SAFE',       cardBg: 'bg-emerald-500', glow: 'shadow-[0_0_50px_-10px_rgba(16,185,129,0.5)]',  badgeBg: 'bg-emerald-500/20', badgeText: 'text-emerald-400', badgeBorder: 'border-emerald-500/30', textOnCard: 'text-black', icon: '✓' },
-      caution:    { label: 'CAUTION',    cardBg: 'bg-amber-400',   glow: 'shadow-[0_0_50px_-10px_rgba(251,191,36,0.5)]',   badgeBg: 'bg-amber-500/20',   badgeText: 'text-amber-400',   badgeBorder: 'border-amber-500/30',   textOnCard: 'text-black', icon: '!' },
-      aggressive: { label: 'AGGRESSIVE', cardBg: 'bg-orange-500',  glow: 'shadow-[0_0_50px_-10px_rgba(249,115,22,0.5)]',   badgeBg: 'bg-orange-500/20',  badgeText: 'text-orange-400',  badgeBorder: 'border-orange-500/30',  textOnCard: 'text-white', icon: '!!' },
-      dangerous:  { label: 'DANGEROUS',  cardBg: 'bg-rose-600',    glow: 'shadow-[0_0_50px_-10px_rgba(225,29,72,0.5)]',    badgeBg: 'bg-rose-500/20',    badgeText: 'text-rose-400',    badgeBorder: 'border-rose-500/30',    textOnCard: 'text-white', icon: '!!!' },
-    };
-    return map[riskState];
-  })();
+  // Neutral status tokens: these compare the input with the user's configured limit.
+  $: riskStateConfig = riskState === 'within'
+    ? { label: 'WITHIN LIMIT', cardBg: 'bg-emerald-500', glow: 'shadow-[0_0_50px_-10px_rgba(16,185,129,0.35)]', badgeBg: 'bg-emerald-500/20', badgeText: 'text-emerald-700', badgeBorder: 'border-emerald-700/30', textOnCard: 'text-black', icon: '✓' }
+    : { label: 'ABOVE LIMIT', cardBg: 'bg-amber-400', glow: 'shadow-[0_0_50px_-10px_rgba(251,191,36,0.35)]', badgeBg: 'bg-amber-900/20', badgeText: 'text-amber-900', badgeBorder: 'border-amber-900/30', textOnCard: 'text-black', icon: '!' };
 
   // --- Daily Tracker Computed Values ---
   $: projectedDailyRisk = parseFloat((dailyRiskLogged + parseFloat(riskPercent || 0)).toFixed(4));
-  $: dailyProgressPct = Math.min((dailyRiskLogged / dailyTarget) * 100, 100);
-  $: safeTradesRemaining = Math.max(0, Math.floor((dailyTarget - dailyRiskLogged) / (parseFloat(riskPercent) || 1)));
-  $: dailyWouldExceed = projectedDailyRisk > dailyTarget;
-  $: exceedsMaxTradeRisk = parseFloat(riskPercent) > maxTradeRisk;
+  $: dailyProgressPct = Math.min((dailyRiskLogged / dailyLimit) * 100, 100);
+  $: tradesRemaining = Math.max(0, Math.floor((dailyLimit - dailyRiskLogged) / (parseFloat(riskPercent) || 1)));
+  $: dailyWouldExceed = projectedDailyRisk > dailyLimit;
+  $: exceedsMaxTradeRisk = (parseFloat(riskPercent) || 0) > perTradeLimit;
 
   // Progress bar color
   $: progressBarColor = (() => {
@@ -276,15 +271,13 @@
       </div>
     </div>
 
-    <!-- 2. Trade90 Safety System Badge (Funded Mode Only) -->
-    {#if accountMode === 'funded'}
-      <div class="flex justify-center mb-4">
-        <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-1.5">
-          <span class="text-emerald-400">{@html IconShield}</span>
-          <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest">Trade90 Safety System Active</span>
-        </div>
+    <!-- 2. Template note -->
+    <div class="flex justify-center mb-4">
+      <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-1.5">
+        <span class="text-emerald-400">{@html IconShield}</span>
+        <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest">{accountMode === 'funded' ? 'Funded-account defaults loaded' : 'Personal-account defaults loaded'}</span>
       </div>
-    {/if}
+    </div>
 
     <!-- 3. Asset Selector -->
     <div class="bg-gray-900 rounded-2xl p-4 mb-4 border border-white/5 shadow-2xl">
@@ -323,11 +316,20 @@
         <div>
           <label for="risk" class="block text-gray-400 text-[10px] font-bold mb-1 uppercase">Risk (%)</label>
           <input id="risk" type="number" bind:value={riskPercent} step="0.1" class="w-full bg-gray-800 rounded-xl px-4 py-3 border border-white/10 focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
-          {#if accountMode === 'funded'}
-            <p class="text-emerald-700 text-[9px] mt-1 leading-tight">Trade90 Safety System: 0.5% max per trade</p>
-          {:else}
-            <p class="text-gray-600 text-[9px] mt-1 leading-tight">Conservative traders risk 1% or less per trade</p>
-          {/if}
+          <p class="text-gray-600 text-[9px] mt-1 leading-tight">Default only — set the percentage that matches your own plan.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="trade-limit" class="block text-gray-400 text-[10px] font-bold mb-1 uppercase">Per-trade alert at (%)</label>
+          <input id="trade-limit" type="number" bind:value={maxTradeRisk} min="0.1" max="100" step="0.1" class="w-full bg-gray-800 rounded-xl px-4 py-3 border border-white/10 focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
+          <p class="text-gray-600 text-[9px] mt-1 leading-tight">Visual warning threshold only. Check your own risk policy or firm rules.</p>
+        </div>
+        <div>
+          <label for="daily-limit" class="block text-gray-400 text-[10px] font-bold mb-1 uppercase">Daily limit (%)</label>
+          <input id="daily-limit" type="number" bind:value={dailyTarget} min="0.1" max="100" step="0.1" class="w-full bg-gray-800 rounded-xl px-4 py-3 border border-white/10 focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
+          <p class="text-gray-600 text-[9px] mt-1 leading-tight">Used by this on-page tracker; it does not enforce broker or prop-firm limits.</p>
         </div>
       </div>
 
@@ -356,11 +358,7 @@
       <div class="flex items-start gap-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 mb-4">
         <span class="text-amber-400 mt-0.5 shrink-0">{@html IconWarning}</span>
         <p class="text-amber-300 text-xs font-bold leading-relaxed">
-          {#if accountMode === 'funded'}
-            This trade exceeds the Trade90 Safety System limit of 0.5% per trade
-          {:else}
-            Risk above 2% per trade is considered aggressive by institutional standards
-          {/if}
+          This trade is above your configured per-trade alert threshold of {perTradeLimit.toFixed(1)}%.
         </p>
       </div>
     {/if}
@@ -372,7 +370,7 @@
         <!-- a. Main Lot Size Card (color = risk state) -->
         <div class="{riskStateConfig.cardBg} {riskStateConfig.glow} rounded-2xl p-6 mb-4 relative overflow-hidden">
           <div class="flex items-start justify-between mb-1">
-            <p class="{riskStateConfig.textOnCard} text-[10px] font-black uppercase tracking-widest opacity-70">Recommended Position</p>
+            <p class="{riskStateConfig.textOnCard} text-[10px] font-black uppercase tracking-widest opacity-70">Calculated Position</p>
             <!-- Risk State Badge -->
             <span class="inline-flex items-center gap-1 {riskStateConfig.badgeBg} border {riskStateConfig.badgeBorder} rounded-full px-2.5 py-0.5">
               <span class="{riskStateConfig.badgeText} text-[9px] font-black uppercase tracking-widest">{riskStateConfig.icon} {riskStateConfig.label}</span>
@@ -424,11 +422,11 @@
           <div class="space-y-2 mb-4">
             <div class="flex items-center justify-between">
               <span class="text-gray-400 text-[11px]">Used of daily target</span>
-              <span class="text-white text-[11px] font-black">{dailyRiskLogged.toFixed(2)}% of {dailyTarget.toFixed(1)}%</span>
+              <span class="text-white text-[11px] font-black">{dailyRiskLogged.toFixed(2)}% of {dailyLimit.toFixed(1)}%</span>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-gray-400 text-[11px]">Safe trades remaining today</span>
-              <span class="{safeTradesRemaining > 0 ? 'text-emerald-400' : 'text-rose-400'} text-[11px] font-black">{safeTradesRemaining}</span>
+              <span class="text-gray-400 text-[11px]">Trades at current risk before limit</span>
+              <span class="{tradesRemaining > 0 ? 'text-emerald-400' : 'text-rose-400'} text-[11px] font-black">{tradesRemaining}</span>
             </div>
           </div>
 
@@ -437,7 +435,7 @@
             <div class="flex items-start gap-2 bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 mb-3">
               <span class="text-rose-400 shrink-0 mt-0.5">{@html IconWarning}</span>
               <p class="text-rose-300 text-[10px] font-bold leading-relaxed">
-                Adding this trade would exceed your {dailyTarget.toFixed(1)}% daily risk target
+                Adding this trade would exceed your {dailyLimit.toFixed(1)}% daily risk target
               </p>
             </div>
           {/if}
@@ -457,11 +455,7 @@
 
     <!-- 8. Footer -->
     <footer class="text-center mt-8 pb-6">
-      {#if accountMode === 'funded'}
-        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-[0.25em]">Trade90 Safety System &bull; 0.5% Max Per Trade &bull; 1% Daily Cap</p>
-      {:else}
-        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-[0.4em]">Trade Smart &bull; Manage Risk &bull; Stay Consistent</p>
-      {/if}
+      <p class="text-gray-500 text-[10px] font-bold uppercase tracking-[0.22em]">Defaults are examples only &bull; Verify your own limits and current firm rules</p>
     </footer>
 
   </div>

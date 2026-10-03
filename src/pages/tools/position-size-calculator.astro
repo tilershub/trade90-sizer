@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PositionSizer from '../../components/PositionSizer.svelte';
 
-const title = "Position Size Calculator — Free Lot Size Tool for Funded Traders";
-const description = "Calculate the exact lot size for any trade across 45+ instruments. Funded-account mode enforces the 0.5% per-trade and 1% daily risk limits. Free, no login.";
+const title = "Position Size Calculator — Multi-Asset Risk Tool";
+const description = "Calculate position size across 45+ instruments from account balance, risk percentage and stop distance. Configure your own per-trade and daily risk guardrails. Free, no login.";
 const keywords = [
   "position size calculator",
   "lot size calculator",
@@ -56,14 +56,14 @@ const breadcrumbSchema = {
         Position Size <span class="text-emerald-400">Calculator</span>
       </h1>
       <p class="text-slate-400 text-sm leading-relaxed mb-8 max-w-lg mx-auto text-center">
-        Enter your account balance, risk %, and stop loss to get the exact lot size. Funded-account mode enforces the 0.5% per-trade and 1% daily limits automatically.
+        Enter your account balance, risk %, and stop loss to calculate position size. Funded and personal-account templates provide editable starting values — verify the settings against your own plan and current firm rules.
       </p>
 
       <div class="bg-slate-900/40 rounded-[2.5rem] border border-slate-800/50 p-2 shadow-2xl backdrop-blur-sm">
         <noscript>
           <div class="p-6 text-center">
             <p class="text-slate-300 text-sm font-bold mb-3">Enable JavaScript to use the interactive calculator.</p>
-            <p class="text-slate-400 text-sm">Formula: <strong class="text-white">Lot Size = (Balance × Risk%) ÷ (SL Pips × Pip Value)</strong></p>
+            <p class="text-slate-400 text-sm">Formula used: <strong class="text-white">Lot Size = (Balance × Risk%) ÷ (SL Pips × Pip Value)</strong>. Contract specifications can vary by broker and instrument.</p>
           </div>
         </noscript>
         <PositionSizer client:idle />
