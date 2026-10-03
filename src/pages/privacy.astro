@@ -1,13 +1,69 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Privacy Policy">
-  <main class="max-w-3xl mx-auto py-20 px-6 prose prose-invert">
+<BaseLayout
+  title="Privacy Policy"
+  description="How TRADE90 handles browser data, member accounts, cloud workspace data, analytics and advertising."
+>
+  <main class="max-w-3xl mx-auto py-16 px-6 prose prose-invert">
     <h1>Privacy Policy</h1>
-    <p>Last Updated: January 2026</p>
-    <h2>1. Google AdSense</h2>
-    <p>We use Google AdSense to serve ads. Google uses cookies to serve ads based on your prior visits to this or other websites. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads">Google Ads Settings</a>.</p>
-    <h2>2. Data Collection</h2>
-    <p>We do not sell your personal data. If you sign up for our Member Access via Ghost Pro, we only store your email to provide you with the framework updates.</p>
+    <p>Last updated: October 3, 2026</p>
+
+    <h2>1. Browser-only workspace data</h2>
+    <p>
+      TRADE90 can be used without an account. In that mode, features such as My Markets, research history,
+      the journal, research plan, checklist and selected risk preferences are stored in your browser using
+      local storage. Clearing your browser data can remove that information.
+    </p>
+
+    <h2>2. Member accounts and cloud sync</h2>
+    <p>
+      If you create a TRADE90 member account, authentication is provided through Supabase. We store the email
+      address associated with your account and a private workspace record used to synchronize your TRADE90 data
+      across signed-in devices.
+    </p>
+    <p>
+      The synchronized workspace can include your watchlist, research observation history, journal entries,
+      research plan, daily checklist data and workspace preferences. TRADE90 does not require your broker
+      password, brokerage account credentials or trading-platform login.
+    </p>
+    <p>
+      Member workspace records use row-level access controls so an authenticated member can access only the
+      workspace attached to that member's account.
+    </p>
+
+    <h2>3. Analytics and cookies</h2>
+    <p>
+      TRADE90 uses Google Analytics in consent mode to understand product usage. Where required by the site's
+      consent controls, analytics storage remains denied until you accept cookies. We use engagement events to
+      measure actions such as opening the terminal, adding a market to a watchlist, using the journal or research
+      plan, and exporting workspace data. We do not intentionally send journal notes, trading results, account
+      balances or passwords as analytics event content.
+    </p>
+
+    <h2>4. Advertising</h2>
+    <p>
+      If advertising is displayed on TRADE90, advertising providers such as Google may use cookies or similar
+      technologies according to their own policies and your consent choices. Advertising is separate from the
+      research, planning and risk-management tools.
+    </p>
+
+    <h2>5. Data deletion</h2>
+    <p>
+      Signed-in members can delete the synchronized TRADE90 workspace from the My TRADE90 account page. That
+      action removes the cloud workspace record but leaves browser-local data on the current device. Browser-local
+      data can be removed by clearing site data in your browser.
+    </p>
+
+    <h2>6. Data sharing</h2>
+    <p>
+      We do not sell personal data to advertisers. Service providers used to operate TRADE90 may process data as
+      needed to provide hosting, authentication, analytics or other infrastructure services.
+    </p>
+
+    <h2>7. Contact</h2>
+    <p>
+      For a privacy or data question, contact <a href="mailto:admin@tradeninety.com">admin@tradeninety.com</a>.
+    </p>
   </main>
 </BaseLayout>
