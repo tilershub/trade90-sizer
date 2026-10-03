@@ -334,7 +334,14 @@ function emitStatus(status: string, detail: Record<string, unknown> = {}) {
   window.dispatchEvent(new CustomEvent('trade90-member-sync-status', { detail: { status, ...detail } }));
 }
 
+function emitAuthState(session: any) {
+  const detail = { signedIn: Boolean(session), email: session?.user?.email ?? null };
+  window.dispatchEvent(new CustomEvent('trade90-auth-state', { detail }));
+  window.dispatchEvent(new CustomEvent('trade90-workspace-state', { detail }));
+}
+
 let syncing: Promise<any> | null = null;
+let scheduledTimer: number | null = null;
 
 export async function syncWorkspace() {
   if (syncing) return syncing;
@@ -391,7 +398,7 @@ export function startMemberWorkspaceSync() {
     if (stopped) return;
     try {
       const session = await getMemberSession();
-      window.dispatchEvent(new CustomEvent('trade90-auth-state', { detail: { signedIn: Boolean(session), email: session?.user?.email ?? null } }));
+      emitAuthState(session);
       if (!session) return;
       const fingerprint = JSON.stringify(captureLocalWorkspace());
       if (fingerprint !== lastFingerprint) {
@@ -403,8 +410,22 @@ export function startMemberWorkspaceSync() {
     }
   };
 
+  const scheduleSync = () => {
+    if (scheduledTimer !== null) window.clearTimeout(scheduledTimer);
+    scheduledTimer = window.setTimeout(() => {
+      scheduledTimer = null;
+      lastFingerprint = '';
+      run();
+    }, 700);
+  };
+
+  window.trade90Workspace = {
+    syncNow: syncWorkspace,
+    scheduleSync,
+  };
+
   const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-    window.dispatchEvent(new CustomEvent('trade90-auth-state', { detail: { signedIn: Boolean(session), email: session?.user?.email ?? null } }));
+    emitAuthState(session);
     if (session) {
       lastFingerprint = '';
       setTimeout(run, 0);
@@ -423,8 +444,21 @@ export function startMemberWorkspaceSync() {
   return () => {
     stopped = true;
     window.clearInterval(timer);
+    if (scheduledTimer !== null) window.clearTimeout(scheduledTimer);
     document.removeEventListener('visibilitychange', visible);
     window.removeEventListener('trade90-workspace-applied', applied);
     authListener.subscription.unsubscribe();
+    if (window.trade90Workspace?.syncNow === syncWorkspace) delete window.trade90Workspace;
   };
+}
+
+export const initWorkspaceSync = startMemberWorkspaceSync;
+
+declare global {
+  interface Window {
+    trade90Workspace?: {
+      syncNow?: typeof syncWorkspace;
+      scheduleSync?: () => void;
+    };
+  }
 }
