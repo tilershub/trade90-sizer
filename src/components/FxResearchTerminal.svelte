@@ -20,9 +20,11 @@
   const SNAPSHOT_URL = '/api/terminal-snapshot';
   const STORAGE_KEY = 'trade90-terminal-snapshot-v4';
   const WATCHLIST_KEY = 'trade90-watchlist-v1';
+  const WATCHLIST_UPDATED_KEY = 'trade90-watchlist-updated-at-v1';
   const VISIT_KEY = 'trade90-terminal-last-visit-v1';
   const VISIT_SNAPSHOT_KEY = 'trade90-terminal-visit-snapshot-v1';
   const HISTORY_KEY = 'trade90-research-history-v1';
+  const HISTORY_UPDATED_KEY = 'trade90-research-history-updated-at-v1';
   const PANELS = [
     ['overview', 'Overview'],
     ['charts', 'Charts'],
@@ -167,7 +169,10 @@
     watchlist = watchlist.includes(symbol)
       ? watchlist.filter(item => item !== symbol)
       : [...watchlist, symbol];
-    try { localStorage.setItem(WATCHLIST_KEY, JSON.stringify(watchlist)); } catch {}
+    try {
+      localStorage.setItem(WATCHLIST_KEY, JSON.stringify(watchlist));
+      localStorage.setItem(WATCHLIST_UPDATED_KEY, new Date().toISOString());
+    } catch {}
     window.trade90Workspace?.scheduleSync?.();
     trackResearch(watchlist.includes(symbol) ? 'watchlist_add' : 'watchlist_remove', { instrument: symbol, watchlist_size: watchlist.length });
   }
@@ -210,7 +215,16 @@
 
     if (changed) {
       researchHistory = next;
-      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+      try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+        const meta = JSON.parse(localStorage.getItem(HISTORY_UPDATED_KEY) || '{}');
+        for (const pair of data.pairs) {
+          if (Array.isArray(next[pair?.symbol]) && next[pair.symbol]?.[0]?.recordedAt === recordedAt) {
+            meta[pair.symbol] = recordedAt;
+          }
+        }
+        localStorage.setItem(HISTORY_UPDATED_KEY, JSON.stringify(meta));
+      } catch {}
       window.trade90Workspace?.scheduleSync?.();
     }
   }
@@ -219,7 +233,12 @@
     const next = { ...researchHistory };
     delete next[selected];
     researchHistory = next;
-    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+      const meta = JSON.parse(localStorage.getItem(HISTORY_UPDATED_KEY) || '{}');
+      meta[selected] = new Date().toISOString();
+      localStorage.setItem(HISTORY_UPDATED_KEY, JSON.stringify(meta));
+    } catch {}
     window.trade90Workspace?.scheduleSync?.();
     trackResearch('research_history_cleared', { instrument: selected });
   }
