@@ -452,7 +452,9 @@ export async function syncWorkspace() {
     }
 
     const resolved = saved ? remoteState(saved) : merged;
-    writeLocalWorkspace(resolved);
+    if (JSON.stringify(local) !== JSON.stringify(resolved)) {
+      writeLocalWorkspace(resolved);
+    }
 
     status({
       signedIn: true,
