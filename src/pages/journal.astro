@@ -161,6 +161,7 @@ const breadcrumbSchema = {
   <script is:inline>
     (function () {
       const KEY = "t90.journal";
+      const UPDATED_KEY = "t90.journal-updated-at";
       const $ = (id) => document.getElementById(id);
 
       function load() {
@@ -168,6 +169,7 @@ const breadcrumbSchema = {
       }
       function save(trades) {
         localStorage.setItem(KEY, JSON.stringify(trades));
+        localStorage.setItem(UPDATED_KEY, new Date().toISOString());
         window.trade90Workspace?.scheduleSync?.();
       }
       function track(event, values = {}) {
