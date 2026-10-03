@@ -310,13 +310,16 @@ const checklist = {
       let checked = [];
       try { checked = JSON.parse(localStorage.getItem(CHECK_KEY)) || []; } catch {}
       boxes.forEach((b) => { b.checked = checked.includes(b.dataset.check); });
-      function updateCount() {
+      function updateCount(persist = true) {
         const done = boxes.filter((b) => b.checked);
         $("t-check-count").textContent = done.length;
-        localStorage.setItem(CHECK_KEY, JSON.stringify(done.map((b) => b.dataset.check)));
+        if (persist) {
+          localStorage.setItem(CHECK_KEY, JSON.stringify(done.map((b) => b.dataset.check)));
+          window.trade90Workspace?.scheduleSync?.();
+        }
       }
-      boxes.forEach((b) => b.addEventListener("change", updateCount));
-      updateCount();
+      boxes.forEach((b) => b.addEventListener("change", () => updateCount(true)));
+      updateCount(false);
       // Clean old checklist keys (keep last 7 days)
       Object.keys(localStorage).filter((k) => k.startsWith("t90.checklist.")).sort().slice(0, -7).forEach((k) => localStorage.removeItem(k));
 
@@ -330,11 +333,14 @@ const checklist = {
       let riskLimit = Number(localStorage.getItem(RISK_LIMIT_KEY));
       if (!Number.isFinite(riskLimit) || riskLimit < 0.1 || riskLimit > 10) riskLimit = 1.0;
       riskInput.value = riskLimit.toFixed(1);
-      function renderRisk() {
+      function renderRisk(persist = true) {
         riskLimit = Number(riskInput.value);
         if (!Number.isFinite(riskLimit) || riskLimit < 0.1) riskLimit = 0.1;
         if (riskLimit > 10) riskLimit = 10;
-        localStorage.setItem(RISK_LIMIT_KEY, String(riskLimit));
+        if (persist) {
+          localStorage.setItem(RISK_LIMIT_KEY, String(riskLimit));
+          window.trade90Workspace?.scheduleSync?.();
+        }
         const pct = Math.min(100, (riskUsed / riskLimit) * 100);
         $("t-risk-used").textContent = riskUsed.toFixed(1) + "%";
         $("t-risk-limit-label").textContent = "Limit: " + riskLimit.toFixed(1) + "%";
@@ -346,8 +352,8 @@ const checklist = {
           Math.abs(riskUsed - riskLimit) < 0.001 ? "Your configured daily risk limit has been reached." :
           "Logged risk is above your configured daily limit. Review before taking more exposure.";
       }
-      riskInput.addEventListener("change", renderRisk);
-      renderRisk();
+      riskInput.addEventListener("change", () => renderRisk(true));
+      renderRisk(false);
 
       $("t-j-today").textContent = todays.length;
       if (todays.length) {
@@ -360,6 +366,10 @@ const checklist = {
         $("t-j-alltime").textContent = (netAll >= 0 ? "+" : "") + netAll.toFixed(1) + "R";
         $("t-j-alltime").style.color = netAll >= 0 ? "#34d399" : "#fb7185";
       }
+
+      // A remote workspace can be applied after this page has rendered.
+      // Reload once so every dashboard section reflects the resolved cloud state.
+      window.addEventListener("trade90-workspace-applied", () => window.location.reload(), { once: true });
     })();
   </script>
 </BaseLayout>

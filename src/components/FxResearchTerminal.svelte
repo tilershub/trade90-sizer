@@ -168,6 +168,7 @@
       ? watchlist.filter(item => item !== symbol)
       : [...watchlist, symbol];
     try { localStorage.setItem(WATCHLIST_KEY, JSON.stringify(watchlist)); } catch {}
+    window.trade90Workspace?.scheduleSync?.();
     trackResearch(watchlist.includes(symbol) ? 'watchlist_add' : 'watchlist_remove', { instrument: symbol, watchlist_size: watchlist.length });
   }
 
@@ -210,6 +211,7 @@
     if (changed) {
       researchHistory = next;
       try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+      window.trade90Workspace?.scheduleSync?.();
     }
   }
 
@@ -218,6 +220,7 @@
     delete next[selected];
     researchHistory = next;
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+    window.trade90Workspace?.scheduleSync?.();
     trackResearch('research_history_cleared', { instrument: selected });
   }
 
@@ -287,6 +290,14 @@
       watchlist = [];
       researchHistory = {};
     }
+    const applyWorkspace = () => {
+      try {
+        const storedWatchlist = JSON.parse(localStorage.getItem(WATCHLIST_KEY) || '[]');
+        watchlist = Array.isArray(storedWatchlist) ? storedWatchlist.filter(item => typeof item === 'string') : [];
+        researchHistory = readResearchHistory();
+      } catch {}
+    };
+    window.addEventListener('trade90-workspace-applied', applyWorkspace);
     trackResearch('terminal_open', { entry_market: initialSymbol });
     load();
     loadContext();
@@ -302,6 +313,7 @@
       clearInterval(contextTimer);
       clearInterval(clockTimer);
       document.removeEventListener('visibilitychange', refreshWhenVisible);
+      window.removeEventListener('trade90-workspace-applied', applyWorkspace);
     };
   });
 </script>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MemberAccount from '../components/MemberAccount.svelte';
+---
+<BaseLayout
+  title="My TRADE90 — Member Workspace"
+  description="Manage and sync your TRADE90 research workspace."
+  noIndex={true}
+>
+  <section class="min-h-[68vh] px-5 py-12">
+    <MemberAccount client:load />
+  </section>
+</BaseLayout>
