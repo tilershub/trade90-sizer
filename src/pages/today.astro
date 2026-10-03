@@ -167,8 +167,7 @@ const checklist = {
   <script is:inline>
     (function () {
       const $ = (id) => document.getElementById(id);
-      const nowForDate = new Date();
-      const today = [nowForDate.getFullYear(), String(nowForDate.getMonth() + 1).padStart(2, "0"), String(nowForDate.getDate()).padStart(2, "0")].join("-");
+      const today = new Date().toISOString().slice(0, 10);
       const CHECK_KEY = "t90.checklist." + today;
 
       // Header: greeting, date, clock
@@ -186,52 +185,93 @@ const checklist = {
       function readJson(key, fallback) {
         try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
       }
-      function renderMarkets(snapshot) {
+      function freshQuote(pair) {
+        const price = pair?.live?.price;
+        const updated = Date.parse(pair?.live?.updated_at);
+        const age = Date.now() - updated;
+        return typeof price === "number" && Number.isFinite(price) && price > 0 &&
+          Number.isFinite(age) && age >= -60000 && age <= 900000 ? price : NaN;
+      }
+      function marketLink(symbol) {
+        const allowed = new Set(["USD/JPY","EUR/USD","GBP/USD","USD/CHF","USD/CAD","AUD/USD","NZD/USD","XAU/USD","BTC/USD"]);
+        return allowed.has(symbol) ? "/research/" + symbol.replace("/", "").toLowerCase() + "/" : "/#terminal";
+      }
+      function renderMarkets(snapshot, savedSnapshot = false) {
         const watchlist = readJson(WATCHLIST_KEY, []);
         const pairs = Array.isArray(snapshot?.pairs) ? snapshot.pairs : [];
         const watched = pairs.filter((p) => watchlist.includes(p.symbol));
         const status = $("t-market-status");
         const grid = $("t-markets");
+        grid.replaceChildren();
+
         if (!watchlist.length) {
           status.textContent = "No markets watched yet. Open the terminal and add the instruments you want to follow.";
-          grid.innerHTML = '<a href="/#terminal" class="sm:col-span-2 lg:col-span-3 border border-dashed border-slate-700 hover:border-emerald-500/50 rounded-xl p-4 text-sm text-slate-400 hover:text-white transition-colors">Add markets from the research terminal →</a>';
+          const emptyLink = document.createElement("a");
+          emptyLink.href = "/#terminal";
+          emptyLink.className = "sm:col-span-2 lg:col-span-3 border border-dashed border-slate-700 hover:border-emerald-500/50 rounded-xl p-4 text-sm text-slate-400 hover:text-white transition-colors";
+          emptyLink.textContent = "Add markets from the research terminal →";
+          grid.appendChild(emptyLink);
           return;
         }
         if (!watched.length) {
           status.textContent = "Your watchlist is saved, but current market data is unavailable.";
-          grid.innerHTML = "";
           return;
         }
-        status.textContent = (snapshot?.generated_at ? "Research refreshed " + new Date(snapshot.generated_at).toLocaleString() + " · " : "") + watched.length + " watched market" + (watched.length === 1 ? "" : "s");
-        grid.innerHTML = watched.map((p) => {
-          const rawPrice = p?.live?.price;
+
+        const generated = snapshot?.generated_at && Number.isFinite(Date.parse(snapshot.generated_at))
+          ? new Date(snapshot.generated_at).toLocaleString()
+          : null;
+        status.textContent = savedSnapshot
+          ? "Showing a saved research snapshot. Current quotes are displayed only when less than 15 minutes old."
+          : (generated ? "Research refreshed " + generated + " · " : "") + watched.length + " watched market" + (watched.length === 1 ? "" : "s");
+
+        watched.forEach((p) => {
+          const price = freshQuote(p);
           const rawChange = p?.live?.change_pct;
-          const price = typeof rawPrice === "number" ? rawPrice : NaN;
-          const ch = typeof rawChange === "number" ? rawChange : NaN;
-          const risk = p?.events?.risk?.level || "—";
+          const ch = Number.isFinite(price) && typeof rawChange === "number" ? rawChange : NaN;
+          const risk = typeof p?.events?.risk?.level === "string" ? p.events.risk.level : "—";
           const decimals = Number.isInteger(p?.decimals) ? p.decimals : 2;
-          const priceText = Number.isFinite(price) && price > 0 ? price.toFixed(decimals) : "—";
-          const changeText = Number.isFinite(ch) ? ((ch >= 0 ? "+" : "") + (ch * 100).toFixed(2) + "%") : "—";
-          const changeClass = Number.isFinite(ch) ? (ch >= 0 ? "text-emerald-400" : "text-rose-400") : "text-slate-500";
-          const slug = String(p.symbol || "").replace("/", "").toLowerCase();
-          return '<a href="/research/' + slug + '/" class="block bg-slate-950/60 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-colors">' +
-            '<div class="flex items-center justify-between gap-3"><strong class="text-white text-sm">' + p.symbol + '</strong><span class="text-[9px] uppercase tracking-widest text-slate-500">Event ' + risk + '</span></div>' +
-            '<div class="flex items-end justify-between gap-3 mt-3"><span class="text-xl font-black font-mono text-slate-200">' + priceText + '</span><span class="text-xs font-bold ' + changeClass + '">' + changeText + '</span></div>' +
-            '</a>';
-        }).join("");
+
+          const card = document.createElement("a");
+          card.href = marketLink(p.symbol);
+          card.className = "block bg-slate-950/60 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-colors";
+
+          const top = document.createElement("div");
+          top.className = "flex items-center justify-between gap-3";
+          const symbol = document.createElement("strong");
+          symbol.className = "text-white text-sm";
+          symbol.textContent = typeof p.symbol === "string" ? p.symbol : "Market";
+          const event = document.createElement("span");
+          event.className = "text-[9px] uppercase tracking-widest text-slate-500";
+          event.textContent = "Event " + risk;
+          top.append(symbol, event);
+
+          const bottom = document.createElement("div");
+          bottom.className = "flex items-end justify-between gap-3 mt-3";
+          const priceNode = document.createElement("span");
+          priceNode.className = "text-xl font-black font-mono text-slate-200";
+          priceNode.textContent = Number.isFinite(price) ? price.toFixed(decimals) : "—";
+          const changeNode = document.createElement("span");
+          changeNode.className = "text-xs font-bold " + (Number.isFinite(ch) ? (ch >= 0 ? "text-emerald-400" : "text-rose-400") : "text-slate-500");
+          changeNode.textContent = Number.isFinite(ch) ? ((ch >= 0 ? "+" : "") + (ch * 100).toFixed(2) + "%") : "Quote unavailable";
+          bottom.append(priceNode, changeNode);
+
+          card.append(top, bottom);
+          grid.appendChild(card);
+        });
       }
       (async function loadMarkets() {
-        let cached = readJson(TERMINAL_CACHE_KEY, null);
-        if (cached) renderMarkets(cached);
+        const cached = readJson(TERMINAL_CACHE_KEY, null);
+        if (cached) renderMarkets(cached, true);
         try {
           const response = await fetch("/api/terminal-snapshot?v=" + Date.now(), { cache: "no-store", signal: AbortSignal.timeout(12000) });
           if (!response.ok) throw new Error();
           const data = await response.json();
           if (!Array.isArray(data?.pairs)) throw new Error();
           try { localStorage.setItem(TERMINAL_CACHE_KEY, JSON.stringify(data)); } catch {}
-          renderMarkets(data);
+          renderMarkets(data, false);
         } catch {
-          if (!cached) renderMarkets(null);
+          if (!cached) renderMarkets(null, true);
         }
       })();
 
