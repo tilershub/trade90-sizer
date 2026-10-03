@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import MemberWorkspaceSync from "../components/MemberWorkspaceSync.astro";
 
 const {
   title,
@@ -355,10 +356,7 @@ const breadcrumbSchema = {
   })();
 </script>
 
-    <script>
-      import { initWorkspaceSync } from "../lib/member-workspace.js";
-      initWorkspaceSync();
-    </script>
+    <MemberWorkspaceSync />
   </body>
 </html>
 
