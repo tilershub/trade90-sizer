@@ -218,7 +218,6 @@ export async function syncWorkspace({ forcePush = false } = {}) {
     let saved;
     if (!remote) {
       saved = await saveRemote(user.id, local);
-      writeLocalWorkspace(saved);
     } else if (!meta.updatedAt) {
       const merged = mergeWorkspace(remote, local);
       saved = await saveRemote(user.id, merged);
@@ -231,7 +230,6 @@ export async function syncWorkspace({ forcePush = false } = {}) {
         writeLocalWorkspace(saved);
       } else if (dirty) {
         saved = await saveRemote(user.id, local);
-        writeLocalWorkspace(saved);
       } else if (remoteChanged) {
         saved = remote;
         writeLocalWorkspace(remote);
