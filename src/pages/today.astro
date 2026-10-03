@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = "Today — Daily Trading Dashboard for Funded Traders";
-const description = "Your trading day in one place: market session clock, daily risk budget, pre-session checklist, and journal snapshot. The first tab a funded trader opens each morning.";
+const title = "TRADE90 Today — Daily Research & Risk Dashboard";
+const description = "Your trading workspace in one place: watched markets, research freshness, market sessions, daily risk budget, checklist, and journal snapshot.";
 
 const site = Astro.site?.toString() || "https://tradeninety.com";
 const breadcrumbSchema = {
@@ -18,7 +18,7 @@ const checklist = {
   pre: [
     "Checked the economic calendar for high-impact news",
     "Marked key levels on my instruments",
-    "Confirmed my risk per trade (0.5% default) and daily budget",
+    "Confirmed my risk per trade and daily budget",
     "Reviewed my trading plan setups — I know what I'm looking for",
     "I am rested and not trading to recover yesterday",
   ],
@@ -62,6 +62,19 @@ const checklist = {
 
   <div class="max-w-4xl mx-auto py-10 px-6 space-y-10">
 
+    <!-- My markets -->
+    <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div>
+          <p class="text-[9px] font-black uppercase tracking-[0.25em] text-emerald-500 mb-1">Research workspace</p>
+          <h2 class="text-lg font-black uppercase tracking-tighter text-white">My Markets</h2>
+        </div>
+        <a href="/#terminal" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">Open Terminal →</a>
+      </div>
+      <p id="t-market-status" class="text-slate-500 text-xs mb-4">Loading your watched markets…</p>
+      <div id="t-markets" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+    </section>
+
     <!-- Sessions -->
     <section>
       <h2 class="text-lg font-black uppercase tracking-tighter text-white mb-4">Market Sessions</h2>
@@ -73,7 +86,11 @@ const checklist = {
     <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
       <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
         <h2 class="text-lg font-black uppercase tracking-tighter text-white">Daily Risk Budget</h2>
-        <a href="/risk-management/daily-loss-limits/" class="text-[10px] font-black uppercase tracking-widest text-emerald-500 hover:text-white transition-colors">Why 1% →</a>
+        <div class="flex items-center gap-2">
+          <label for="t-risk-limit" class="text-[9px] font-black uppercase tracking-widest text-slate-500">Your daily limit</label>
+          <input id="t-risk-limit" type="number" min="0.1" max="10" step="0.1" value="1.0" class="w-20 bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-sm font-mono text-white" />
+          <span class="text-xs text-slate-500">%</span>
+        </div>
       </div>
       <div class="grid sm:grid-cols-3 gap-4 items-center">
         <div>
@@ -83,7 +100,7 @@ const checklist = {
         </div>
         <div class="sm:col-span-2">
           <div class="flex justify-between text-[9px] font-black uppercase tracking-widest text-slate-500 mb-2">
-            <span>0%</span><span>Target: 1.0%</span>
+            <span>0%</span><span id="t-risk-limit-label">Limit: 1.0%</span>
           </div>
           <div class="h-3 bg-slate-950 border border-slate-800 rounded-full overflow-hidden">
             <div id="t-risk-bar" class="h-full bg-emerald-500 rounded-full transition-all" style="width:0%"></div>
@@ -162,6 +179,59 @@ const checklist = {
       }
       tick(); setInterval(tick, 15000);
 
+      // Watched markets + current terminal snapshot
+      const WATCHLIST_KEY = "trade90-watchlist-v1";
+      const TERMINAL_CACHE_KEY = "trade90-terminal-snapshot-v4";
+      function readJson(key, fallback) {
+        try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
+      }
+      function renderMarkets(snapshot) {
+        const watchlist = readJson(WATCHLIST_KEY, []);
+        const pairs = Array.isArray(snapshot?.pairs) ? snapshot.pairs : [];
+        const watched = pairs.filter((p) => watchlist.includes(p.symbol));
+        const status = $("t-market-status");
+        const grid = $("t-markets");
+        if (!watchlist.length) {
+          status.textContent = "No markets watched yet. Open the terminal and add the instruments you want to follow.";
+          grid.innerHTML = '<a href="/#terminal" class="sm:col-span-2 lg:col-span-3 border border-dashed border-slate-700 hover:border-emerald-500/50 rounded-xl p-4 text-sm text-slate-400 hover:text-white transition-colors">Add markets from the research terminal →</a>';
+          return;
+        }
+        if (!watched.length) {
+          status.textContent = "Your watchlist is saved, but current market data is unavailable.";
+          grid.innerHTML = "";
+          return;
+        }
+        status.textContent = (snapshot?.generated_at ? "Research refreshed " + new Date(snapshot.generated_at).toLocaleString() + " · " : "") + watched.length + " watched market" + (watched.length === 1 ? "" : "s");
+        grid.innerHTML = watched.map((p) => {
+          const price = Number(p?.live?.price);
+          const ch = Number(p?.live?.change_pct);
+          const risk = p?.events?.risk?.level || "—";
+          const decimals = Number.isInteger(p?.decimals) ? p.decimals : 2;
+          const priceText = Number.isFinite(price) ? price.toFixed(decimals) : "—";
+          const changeText = Number.isFinite(ch) ? ((ch >= 0 ? "+" : "") + (ch * 100).toFixed(2) + "%") : "—";
+          const changeClass = Number.isFinite(ch) ? (ch >= 0 ? "text-emerald-400" : "text-rose-400") : "text-slate-500";
+          const slug = String(p.symbol || "").replace("/", "").toLowerCase();
+          return '<a href="/research/' + slug + '/" class="block bg-slate-950/60 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 transition-colors">' +
+            '<div class="flex items-center justify-between gap-3"><strong class="text-white text-sm">' + p.symbol + '</strong><span class="text-[9px] uppercase tracking-widest text-slate-500">Event ' + risk + '</span></div>' +
+            '<div class="flex items-end justify-between gap-3 mt-3"><span class="text-xl font-black font-mono text-slate-200">' + priceText + '</span><span class="text-xs font-bold ' + changeClass + '">' + changeText + '</span></div>' +
+            '</a>';
+        }).join("");
+      }
+      (async function loadMarkets() {
+        let cached = readJson(TERMINAL_CACHE_KEY, null);
+        if (cached) renderMarkets(cached);
+        try {
+          const response = await fetch("/api/terminal-snapshot?v=" + Date.now(), { cache: "no-store", signal: AbortSignal.timeout(12000) });
+          if (!response.ok) throw new Error();
+          const data = await response.json();
+          if (!Array.isArray(data?.pairs)) throw new Error();
+          try { localStorage.setItem(TERMINAL_CACHE_KEY, JSON.stringify(data)); } catch {}
+          renderMarkets(data);
+        } catch {
+          if (!cached) renderMarkets(null);
+        }
+      })();
+
       // Sessions (UTC hours)
       const SESSIONS = [
         { name: "Sydney", open: 21, close: 6 },
@@ -211,16 +281,30 @@ const checklist = {
       let trades = [];
       try { trades = JSON.parse(localStorage.getItem("t90.journal")) || []; } catch {}
       const todays = trades.filter((t) => t.date === today);
-      const riskUsed = todays.reduce((s, t) => s + (t.riskPct || 0), 0);
-      const pct = Math.min(100, (riskUsed / 1.0) * 100);
-      $("t-risk-used").textContent = riskUsed.toFixed(1) + "%";
-      $("t-risk-bar").style.width = pct + "%";
-      $("t-risk-bar").style.background = riskUsed < 1 ? "#10b981" : riskUsed <= 1.001 ? "#f59e0b" : "#f43f5e";
-      $("t-risk-msg").textContent =
-        riskUsed === 0 ? "No risk used yet — full budget available." :
-        riskUsed < 1 ? (1 - riskUsed).toFixed(1) + "% of your daily budget remains." :
-        riskUsed <= 1.001 ? "Daily budget spent — per the framework, you're done for today." :
-        "Over the 1% daily target — stop trading and review.";
+      const riskUsed = todays.reduce((s, t) => s + (Number(t.riskPct) || 0), 0);
+      const RISK_LIMIT_KEY = "t90.risk-budget-pct";
+      const riskInput = $("t-risk-limit");
+      let riskLimit = Number(localStorage.getItem(RISK_LIMIT_KEY));
+      if (!Number.isFinite(riskLimit) || riskLimit < 0.1 || riskLimit > 10) riskLimit = 1.0;
+      riskInput.value = riskLimit.toFixed(1);
+      function renderRisk() {
+        riskLimit = Number(riskInput.value);
+        if (!Number.isFinite(riskLimit) || riskLimit < 0.1) riskLimit = 0.1;
+        if (riskLimit > 10) riskLimit = 10;
+        localStorage.setItem(RISK_LIMIT_KEY, String(riskLimit));
+        const pct = Math.min(100, (riskUsed / riskLimit) * 100);
+        $("t-risk-used").textContent = riskUsed.toFixed(1) + "%";
+        $("t-risk-limit-label").textContent = "Limit: " + riskLimit.toFixed(1) + "%";
+        $("t-risk-bar").style.width = pct + "%";
+        $("t-risk-bar").style.background = riskUsed < riskLimit ? "#10b981" : Math.abs(riskUsed - riskLimit) < 0.001 ? "#f59e0b" : "#f43f5e";
+        $("t-risk-msg").textContent =
+          riskUsed === 0 ? "No logged risk used today." :
+          riskUsed < riskLimit ? (riskLimit - riskUsed).toFixed(1) + "% remains within your daily limit." :
+          Math.abs(riskUsed - riskLimit) < 0.001 ? "Your configured daily risk limit has been reached." :
+          "Logged risk is above your configured daily limit. Review before taking more exposure.";
+      }
+      riskInput.addEventListener("change", renderRisk);
+      renderRisk();
 
       $("t-j-today").textContent = todays.length;
       if (todays.length) {
