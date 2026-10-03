@@ -19,6 +19,9 @@
 
   const SNAPSHOT_URL = '/api/terminal-snapshot';
   const STORAGE_KEY = 'trade90-terminal-snapshot-v4';
+  const WATCHLIST_KEY = 'trade90-watchlist-v1';
+  const VISIT_KEY = 'trade90-terminal-last-visit-v1';
+  const VISIT_SNAPSHOT_KEY = 'trade90-terminal-visit-snapshot-v1';
   const PANELS = [
     ['overview', 'Overview'],
     ['charts', 'Charts'],
@@ -37,11 +40,17 @@
   let error = '';
   let usingSavedSnapshot = false;
   let lastChecked = null;
+  let watchlist = [];
+  let lastVisit = null;
+  let visitBaseline = null;
+  let visitCompared = false;
+  let visitChanges = [];
 
   $: pairs = snapshot?.pairs ?? emptyPairs;
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
   $: currentPrice = indicativePrice(active, clock);
   $: freshQuoteCount = pairs.filter(pair => indicativePrice(pair, clock) !== null).length;
+  $: watchedPairs = pairs.filter(pair => watchlist.includes(pair.symbol));
 
   function indicativePrice(pair, now) {
     const price = pair?.live?.price;
@@ -115,6 +124,49 @@
     }
   }
 
+  function storedVisitSnapshot() {
+    try {
+      const data = JSON.parse(localStorage.getItem(VISIT_SNAPSHOT_KEY) || 'null');
+      return data?.schema_version === 1 && Array.isArray(data?.pairs) ? data : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function latestHistoryDate(pair) {
+    const rows = Array.isArray(pair?.history) ? pair.history : [];
+    return rows.at(-1)?.date ?? null;
+  }
+
+  function buildVisitChanges(previous, current) {
+    if (!previous?.pairs || !current?.pairs) return [];
+    const changes = [];
+    for (const pair of current.pairs) {
+      const before = previous.pairs.find(item => item.symbol === pair.symbol);
+      if (!before) continue;
+      const notes = [];
+      const beforeTrend = technicalConditions(before).trend;
+      const afterTrend = technicalConditions(pair).trend;
+      if (beforeTrend && afterTrend && beforeTrend !== afterTrend) notes.push(`Price structure: ${beforeTrend} → ${afterTrend}`);
+      const beforeRisk = before.events?.risk?.level ?? null;
+      const afterRisk = pair.events?.risk?.level ?? null;
+      if (beforeRisk && afterRisk && beforeRisk !== afterRisk) notes.push(`Event risk: ${beforeRisk} → ${afterRisk}`);
+      const beforeDate = latestHistoryDate(before);
+      const afterDate = latestHistoryDate(pair);
+      if (beforeDate && afterDate && beforeDate !== afterDate) notes.push(`New price-history observation: ${afterDate}`);
+      if (notes.length) changes.push({ symbol: pair.symbol, notes });
+    }
+    return changes;
+  }
+
+  function toggleWatchlist(symbol) {
+    watchlist = watchlist.includes(symbol)
+      ? watchlist.filter(item => item !== symbol)
+      : [...watchlist, symbol];
+    try { localStorage.setItem(WATCHLIST_KEY, JSON.stringify(watchlist)); } catch {}
+    trackResearch(watchlist.includes(symbol) ? 'watchlist_add' : 'watchlist_remove', { instrument: symbol, watchlist_size: watchlist.length });
+  }
+
   async function load(quiet = false) {
     if (quiet) refreshing = true;
     else loading = true;
@@ -132,6 +184,12 @@
       snapshot = data;
       error = '';
       usingSavedSnapshot = false;
+      if (!visitCompared) {
+        visitChanges = buildVisitChanges(visitBaseline, data);
+        visitCompared = true;
+        if (lastVisit) trackResearch('terminal_return_summary', { changed_markets: visitChanges.length, watchlist_size: watchlist.length });
+        try { localStorage.setItem(VISIT_SNAPSHOT_KEY, JSON.stringify(data)); } catch {}
+      }
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* Research remains usable when storage is blocked. */ }
       if (!data.pairs.some((pair) => pair.symbol === selected)) selected = data.pairs[0]?.symbol;
     } catch (err) {
@@ -163,6 +221,15 @@
   }
 
   onMount(() => {
+    try {
+      const storedWatchlist = JSON.parse(localStorage.getItem(WATCHLIST_KEY) || '[]');
+      watchlist = Array.isArray(storedWatchlist) ? storedWatchlist.filter(item => typeof item === 'string') : [];
+      lastVisit = localStorage.getItem(VISIT_KEY);
+      visitBaseline = storedVisitSnapshot();
+      localStorage.setItem(VISIT_KEY, new Date().toISOString());
+    } catch {
+      watchlist = [];
+    }
     load();
     loadContext();
     const contextTimer = setInterval(loadContext,300000);
@@ -221,6 +288,39 @@
       <div><span>Last checked</span><strong>{formatDate(lastChecked)}</strong></div>
     </section>
 
+    {#if lastVisit}
+      <section class="since" aria-label="Changes since last visit">
+        <div class="since-head">
+          <div><span class="eyebrow">Since your last visit</span><strong>{formatDate(lastVisit)}</strong></div>
+          <span>{visitChanges.length ? `${visitChanges.length} market${visitChanges.length === 1 ? '' : 's'} changed` : 'No material structure or event-risk changes detected'}</span>
+        </div>
+        {#if visitChanges.length}
+          <div class="since-list">
+            {#each visitChanges.slice(0, 6) as change}
+              <button type="button" on:click={() => chooseMarket(change.symbol)}>
+                <strong>{change.symbol}</strong>
+                <span>{change.notes.join(' · ')}</span>
+              </button>
+            {/each}
+          </div>
+        {/if}
+      </section>
+    {/if}
+
+    {#if watchedPairs.length}
+      <section class="my-markets" aria-label="My Markets">
+        <strong>My Markets</strong>
+        <div>
+          {#each watchedPairs as pair}
+            <button type="button" class:active={pair.symbol === active.symbol} on:click={() => chooseMarket(pair.symbol)}>
+              ★ {pair.symbol}
+              <span>{num(indicativePrice(pair, clock), pair.decimals)}</span>
+            </button>
+          {/each}
+        </div>
+      </section>
+    {/if}
+
     <div class="pair-tabs" role="tablist" aria-label="Markets">
       {#each pairs as pair}
         <button
@@ -230,7 +330,7 @@
           class:active={pair.symbol === active.symbol}
           on:click={() => chooseMarket(pair.symbol)}
         >
-          <span>{pair.symbol}</span>
+          <span>{watchlist.includes(pair.symbol) ? '★ ' : ''}{pair.symbol}</span>
           <strong>{num(indicativePrice(pair, clock), pair.decimals)}</strong>
           <small>{indicativePrice(pair, clock) === null ? "Quote unavailable" : formatDate(pair.live?.updated_at)}</small>
         </button>
@@ -262,9 +362,17 @@
     </details>
 
     <div class="selected-head">
-      <div>
+      <div class="selected-copy">
         <span class="eyebrow">Selected market</span>
-        <h3>{active.symbol}</h3>
+        <div class="selected-title">
+          <h3>{active.symbol}</h3>
+          <button
+            class="watch-toggle"
+            type="button"
+            aria-pressed={watchlist.includes(active.symbol)}
+            on:click={() => toggleWatchlist(active.symbol)}
+          >{watchlist.includes(active.symbol) ? '★ Watching' : '☆ Add to My Markets'}</button>
+        </div>
         <p>{active.asset_class ?? 'FX'} · {active.symbol === 'XAU/USD' ? 'Spot quote; futures-based historical research. Their price levels are not interchangeable.' : active.model.price_note}</p>
       </div>
       <div class="headline-price">
@@ -356,10 +464,10 @@
   .notice,.error{padding:52px 24px;text-align:center;color:#475569}.error{display:grid;gap:10px;background:#fff7ed}.error strong{color:#9a3412}.error button{justify-self:center;border:0;border-radius:8px;padding:10px 14px;font-weight:800;background:#047857;color:white;cursor:pointer}
   .warning{margin:12px 18px;padding:11px 13px;border:1px solid #fed7aa;background:#fff7ed;color:#9a3412;border-radius:9px;font-size:.75rem}
   .freshness{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);background:#0f172a;color:#fff}.freshness>div{padding:12px 16px;border-right:1px solid #334155}.freshness>div:last-child{border:0}.freshness span{display:block;color:#94a3b8;font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.freshness strong{display:block;margin-top:4px;font-size:.7rem;color:#f8fafc}
-  .pair-tabs{display:flex;gap:8px;padding:14px 16px;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--soft)}.pair-tabs button{display:grid;gap:3px;min-width:88px;white-space:nowrap;border:1px solid var(--line);background:#fff;color:#334155;padding:9px 11px;border-radius:9px;font-size:.72rem;font-weight:900;cursor:pointer;text-align:left}.pair-tabs button small{font-size:.58rem}.pair-tabs button.active{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}.pair-tabs button.active small{color:#d1fae5!important}
+  .since{padding:14px 16px;border-bottom:1px solid var(--line);background:#f0fdf4}.since-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}.since-head strong{display:block;margin-top:3px;font-size:.75rem;color:#334155}.since-head>span{font-size:.7rem;color:#526474}.since-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.since-list button{border:1px solid #bbf7d0;background:#fff;border-radius:9px;padding:10px;text-align:left;cursor:pointer}.since-list button:hover{border-color:#10b981}.since-list strong,.since-list span{display:block}.since-list strong{color:#064e3b;font-size:.75rem}.since-list span{margin-top:4px;color:#526474;font-size:.64rem;line-height:1.4}.my-markets{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:#fff}.my-markets>strong{white-space:nowrap;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#475569}.my-markets>div{display:flex;gap:7px;overflow-x:auto}.my-markets button{display:flex;align-items:center;gap:7px;white-space:nowrap;border:1px solid #dbe3ec;background:#f8fafc;border-radius:999px;padding:7px 10px;font-size:.68rem;font-weight:800;color:#334155;cursor:pointer}.my-markets button.active{background:#064e3b;color:#fff;border-color:#064e3b}.my-markets button span{font-weight:600}.pair-tabs{display:flex;gap:8px;padding:14px 16px;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--soft)}.pair-tabs button{display:grid;gap:3px;min-width:88px;white-space:nowrap;border:1px solid var(--line);background:#fff;color:#334155;padding:9px 11px;border-radius:9px;font-size:.72rem;font-weight:900;cursor:pointer;text-align:left}.pair-tabs button small{font-size:.58rem}.pair-tabs button.active{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}.pair-tabs button.active small{color:#d1fae5!important}
   .scanner{margin:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden}.scanner-head,.scanner button{display:grid;grid-template-columns:1fr 1fr .7fr .8fr 1fr .8fr;align-items:center;gap:10px;text-align:left;padding:10px 14px}.scanner-head{background:#f1f5f9;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.scanner button{width:100%;border:0;border-top:1px solid #eef2f7;background:#fff;color:#334155;font-size:.74rem;cursor:pointer}.scanner button:hover,.scanner button.chosen{background:#ecfdf5}.scanner strong{color:#0f172a}
   .positive{color:#047857!important}.negative{color:#b91c1c!important}.neutral{color:#475569!important}.caution{color:#b45309!important}
-  .selected-head{padding:24px 20px 14px}.selected-head p{margin:4px 0 0;font-size:.72rem}.headline-price{text-align:right}.headline-price>span{display:block;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.headline-price>strong{display:block;font-size:1.8rem;color:#020617}.headline-price>small{font-size:.7rem;font-weight:800}
+  .selected-head{padding:24px 20px 14px}.selected-copy{min-width:0}.selected-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.selected-head p{margin:4px 0 0;font-size:.72rem}.watch-toggle{border:1px solid #a7f3d0;background:#ecfdf5;color:#065f46;border-radius:999px;padding:7px 10px;font-size:.66rem;font-weight:900;cursor:pointer}.watch-toggle[aria-pressed="true"]{background:#064e3b;color:#fff;border-color:#064e3b}.headline-price{text-align:right}.headline-price>span{display:block;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.headline-price>strong{display:block;font-size:1.8rem;color:#020617}.headline-price>small{font-size:.7rem;font-weight:800}
   .panel-tabs{display:flex;gap:4px;padding:0 20px 14px;overflow-x:auto;border-bottom:1px solid var(--line)}.panel-tabs button{white-space:nowrap;border:0;background:#f1f5f9;color:#475569;border-radius:8px;padding:9px 12px;font-size:.66rem;font-weight:900;cursor:pointer}.panel-tabs button.active{background:#064e3b;color:#fff}
   .panel{padding:18px 20px 22px}.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.facts article,.layers article,.planning>div,.event-summary article,.position-grid article,.chart-card,.audit-card,.validation-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:15px}.facts span,.planning span,.event-summary span,.position-grid span,.validation-summary span{display:block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}.facts strong,.planning strong,.event-summary strong,.position-grid strong,.validation-summary strong{display:block;color:#0f172a;font-size:.96rem}.facts small,.event-summary small,.position-grid small{display:block;margin-top:4px;color:#64748b;font-size:.6rem;line-height:1.35}
   .layers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.layers article{background:var(--soft)}.layers p{font-size:.82rem;line-height:1.55}.layers small{color:#64748b;line-height:1.45}.score-row{display:flex;align-items:baseline;gap:12px;margin-top:12px}.score-row strong{font-size:2rem}.score-row span{font-weight:800;color:#334155}
@@ -373,6 +481,6 @@
   .validation-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.validation-summary>div{padding:11px;border-radius:9px;background:#f8fafc;border:1px solid var(--line)}.validation-table{border:1px solid var(--line);border-radius:9px;overflow:hidden}.validation-table>div{display:grid;grid-template-columns:.8fr 1fr 1fr 1fr 1.1fr;gap:6px;padding:9px 10px;border-top:1px solid #eef2f7;font-size:.63rem}.validation-table>div:first-child{border:0}.validation-head{background:#f1f5f9;color:#64748b;font-weight:900;text-transform:uppercase}.method-note{grid-column:1/-1;padding:16px;border:1px solid #a7f3d0;border-radius:11px;background:#ecfdf5}.method-note strong{color:#065f46}.method-note p{margin:4px 0 0;font-size:.75rem;line-height:1.5}
   footer{border-top:1px solid var(--line);background:#f8fafc;padding:13px 20px;font-size:.64rem;color:#64748b}footer span:last-child{text-align:right}
   @media(max-width:1050px){.facts{grid-template-columns:repeat(3,1fr)}.model-panel{grid-template-columns:1fr}.method-note{grid-column:auto}}
-  @media(max-width:800px){.freshness{grid-template-columns:repeat(2,1fr)}.freshness>div:nth-child(2){border-right:0}.freshness>div:nth-child(-n+2){border-bottom:1px solid #334155}.scanner-head{display:none}.scanner button{grid-template-columns:1fr 1fr 1fr}.scanner button span:nth-of-type(3),.scanner button span:nth-of-type(4),.scanner button span:nth-of-type(5){display:none}.facts{grid-template-columns:repeat(2,1fr)}.layers{grid-template-columns:1fr}.planning,.position-grid{grid-template-columns:repeat(2,1fr)}.event-list{grid-template-columns:1fr}.event-summary{grid-template-columns:1fr 1fr}.event-summary article:last-child{grid-column:1/-1}.validation-summary{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.terminal{border-radius:14px}.terminal-bar,.selected-head,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:18px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:20px 13px 12px}.headline-price{text-align:left}.panel-tabs{padding-left:12px;padding-right:12px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}.freshness strong{font-size:.64rem}footer span:last-child{text-align:left}}
+  @media(max-width:800px){.since-list{grid-template-columns:1fr 1fr}.freshness{grid-template-columns:repeat(2,1fr)}.freshness>div:nth-child(2){border-right:0}.freshness>div:nth-child(-n+2){border-bottom:1px solid #334155}.scanner-head{display:none}.scanner button{grid-template-columns:1fr 1fr 1fr}.scanner button span:nth-of-type(3),.scanner button span:nth-of-type(4),.scanner button span:nth-of-type(5){display:none}.facts{grid-template-columns:repeat(2,1fr)}.layers{grid-template-columns:1fr}.planning,.position-grid{grid-template-columns:repeat(2,1fr)}.event-list{grid-template-columns:1fr}.event-summary{grid-template-columns:1fr 1fr}.event-summary article:last-child{grid-column:1/-1}.validation-summary{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.terminal{border-radius:14px}.since-head{align-items:flex-start;flex-direction:column}.since-list{grid-template-columns:1fr}.my-markets{align-items:flex-start;flex-direction:column}.terminal-bar,.selected-head,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:18px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:20px 13px 12px}.headline-price{text-align:left}.panel-tabs{padding-left:12px;padding-right:12px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}.freshness strong{font-size:.64rem}footer span:last-child{text-align:left}}
 </style>

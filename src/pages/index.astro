@@ -2,26 +2,30 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FxResearchTerminal from '../components/FxResearchTerminal.svelte';
 ---
-<BaseLayout title="Research Terminal for FX, Gold & Bitcoin" description="Compare sourced market conditions, indicative prices, policy and positioning in the free TRADE90 research terminal.">
+<BaseLayout title="TRADE90 — Market Research & Risk Management Workspace" description="Research FX, Gold and Bitcoin, track what changed, plan risk, size positions and review decisions with the free TRADE90 trading workspace.">
   <main class="research-home">
     <header class="intro">
       <p class="eyebrow">FX · Gold · Bitcoin</p>
-      <h1>Understand the market.</h1>
-      <p>Compare the evidence. Build your own view.</p>
-      <a href="/research-guide/">New here? Read the research guide →</a>
+      <h1>Research the market. Plan the risk. Review the decision.</h1>
+      <p>Use sourced market context and practical risk tools without turning research into a trade signal.</p>
+      <div class="intro-actions">
+        <a class="primary" href="#terminal">Open the terminal</a>
+        <a href="/today/">Open Today dashboard</a>
+        <a href="/research-guide/">Read the research guide</a>
+      </div>
     </header>
     <section id="terminal" aria-label="Market research terminal">
       <FxResearchTerminal client:load />
     </section>
     <nav class="next" aria-label="Research and planning tools">
+      <a href="/today/"><strong>Start with Today</strong><span>Watch markets, sessions, risk and journal →</span></a>
       <a href="/tools/trading-plan-builder/"><strong>Build a plan</strong><span>Record your view and risk limits →</span></a>
-      <a href="/tools/position-size-calculator/"><strong>Calculate position size</strong><span>Size the trade for your risk →</span></a>
+      <a href="/tools/position-size-calculator/"><strong>Calculate position size</strong><span>Size exposure for your risk →</span></a>
       <a href="/journal/"><strong>Review your decisions</strong><span>Open your trading journal →</span></a>
-      <a href="/research-guide/"><strong>Sources and methodology</strong><span>Learn how to read the research →</span></a>
     </nav>
     <nav class="market-links" aria-label="Market research pages"><a href="/research/usdjpy/">USD/JPY research</a><a href="/research/xauusd/">Gold research</a><a href="/research/btcusd/">Bitcoin research</a><a href="/tools/">All tools</a></nav>
   </main>
 </BaseLayout>
 <style>
-.research-home{background:#f8fafc;color:#172b3a;padding:0 20px 28px}.intro,#terminal,.next,.market-links{max-width:1280px;margin:auto}.intro{padding:28px 0 22px}.intro .eyebrow{color:#047857;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}.intro h1{font-size:clamp(1.7rem,4vw,2.8rem);line-height:1.15;letter-spacing:-.035em;margin:0 0 8px;color:#0f172a}.intro p{margin:0 0 8px;font-size:1rem}.intro a,.market-links a{color:#065f46;text-decoration:underline;text-underline-offset:3px;font-size:.9rem}#terminal{scroll-margin-top:90px}.next{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-top:24px}.next a{display:flex;flex-direction:column;gap:6px;background:white;border:1px solid #dbe3ec;border-radius:12px;padding:16px;color:#172b3a}.next span{font-size:.85rem;color:#526474}.market-links{display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:20px}.market-links a{padding:10px 0}a:focus-visible{outline:3px solid #059669;outline-offset:4px}@media(max-width:700px){.research-home{padding:0 10px 20px}.intro{padding:18px 6px}.next{grid-template-columns:1fr 1fr;gap:8px}.next a{padding:12px}.next strong{font-size:.9rem}}
+.research-home{background:#f8fafc;color:#172b3a;padding:0 20px 28px}.intro,#terminal,.next,.market-links{max-width:1280px;margin:auto}.intro{padding:32px 0 24px}.intro .eyebrow{color:#047857;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}.intro h1{max-width:900px;font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;letter-spacing:-.045em;margin:0 0 12px;color:#0f172a}.intro>p:not(.eyebrow){max-width:720px;margin:0 0 16px;font-size:1rem;color:#526474}.intro-actions{display:flex;flex-wrap:wrap;gap:10px}.intro-actions a,.market-links a{color:#065f46;text-decoration:underline;text-underline-offset:3px;font-size:.9rem}.intro-actions a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:9px}.intro-actions a.primary{background:#064e3b;color:#fff;text-decoration:none;font-weight:800}#terminal{scroll-margin-top:90px}.next{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-top:24px}.next a{display:flex;flex-direction:column;gap:6px;background:white;border:1px solid #dbe3ec;border-radius:12px;padding:16px;color:#172b3a}.next span{font-size:.85rem;color:#526474}.market-links{display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:20px}.market-links a{padding:10px 0}a:focus-visible{outline:3px solid #059669;outline-offset:4px}@media(max-width:700px){.research-home{padding:0 10px 20px}.intro{padding:22px 6px}.next{grid-template-columns:1fr 1fr;gap:8px}.next a{padding:12px}.next strong{font-size:.9rem}}@media(max-width:480px){.next{grid-template-columns:1fr}}
 </style>

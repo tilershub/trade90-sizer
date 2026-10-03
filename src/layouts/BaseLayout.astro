@@ -4,7 +4,7 @@ import Footer from "../components/Footer.astro";
 
 const {
   title,
-  description = "Professional trading tools and risk management analysis.",
+  description = "Multi-asset market research, planning and risk-management tools for disciplined traders.",
   ogImage = "/og-image.png",
   noIndex = false,
   articlePublishedTime,
@@ -61,7 +61,7 @@ const organizationSchema = {
   foundingDate: "2023",
   audience: {
     "@type": "Audience",
-    audienceType: "Funded Traders, Prop Firm Traders",
+    audienceType: "Traders researching FX, Gold and Bitcoin",
   },
   knowsAbout: [
     "Foreign Exchange Market Research",
@@ -152,9 +152,9 @@ const breadcrumbSchema = {
     <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 
-    <!-- Geo-targeting: English-language markets -->
+    <!-- English-language international research audience -->
     <meta name="language" content="English" />
-    <meta name="target" content="funded traders, prop firm traders, forex traders, US traders, UK traders, Australian traders, European traders" />
+    <meta name="target" content="forex traders, gold traders, bitcoin traders, market research, risk management" />
 
     <!-- hreflang: serve all English-speaking markets from same URL -->
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
