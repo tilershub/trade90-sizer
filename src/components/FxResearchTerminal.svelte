@@ -22,9 +22,11 @@
   const WATCHLIST_KEY = 'trade90-watchlist-v1';
   const VISIT_KEY = 'trade90-terminal-last-visit-v1';
   const VISIT_SNAPSHOT_KEY = 'trade90-terminal-visit-snapshot-v1';
+  const HISTORY_KEY = 'trade90-research-history-v1';
   const PANELS = [
     ['overview', 'Overview'],
     ['charts', 'Charts'],
+    ['history', 'History'],
     ['events', 'Events'],
     ['positioning', 'Positioning'],
     ['macro', 'Macro comparison'],
@@ -45,12 +47,14 @@
   let visitBaseline = null;
   let visitCompared = false;
   let visitChanges = [];
+  let researchHistory = {};
 
   $: pairs = snapshot?.pairs ?? emptyPairs;
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
   $: currentPrice = indicativePrice(active, clock);
   $: freshQuoteCount = pairs.filter(pair => indicativePrice(pair, clock) !== null).length;
   $: watchedPairs = pairs.filter(pair => watchlist.includes(pair.symbol));
+  $: activeHistory = Array.isArray(researchHistory?.[selected]) ? researchHistory[selected] : [];
 
   function indicativePrice(pair, now) {
     const price = pair?.live?.price;
@@ -167,6 +171,56 @@
     trackResearch(watchlist.includes(symbol) ? 'watchlist_add' : 'watchlist_remove', { instrument: symbol, watchlist_size: watchlist.length });
   }
 
+  function readResearchHistory() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+      return stored && typeof stored === 'object' && !Array.isArray(stored) ? stored : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function recordResearchHistory(data) {
+    if (!Array.isArray(data?.pairs)) return;
+    const next = { ...researchHistory };
+    const recordedAt = new Date().toISOString();
+    let changed = false;
+
+    for (const pair of data.pairs) {
+      if (typeof pair?.symbol !== 'string') continue;
+      const existing = Array.isArray(next[pair.symbol]) ? [...next[pair.symbol]] : [];
+      const entry = {
+        recordedAt,
+        researchAt: data.generated_at ?? null,
+        price: indicativePrice(pair, Date.now()),
+        trend: technicalConditions(pair).trend ?? 'Unavailable',
+        eventRisk: pair.events?.risk?.level ?? 'Unavailable',
+        historyDate: latestHistoryDate(pair),
+      };
+      const previous = existing[0];
+      const signature = [entry.trend, entry.eventRisk, entry.historyDate].join('|');
+      const previousSignature = previous ? [previous.trend, previous.eventRisk, previous.historyDate].join('|') : '';
+      const previousAge = previous?.recordedAt ? Date.now() - Date.parse(previous.recordedAt) : Infinity;
+      const shouldRecord = !previous || signature !== previousSignature || !Number.isFinite(previousAge) || previousAge >= 43200000;
+      if (!shouldRecord) continue;
+      next[pair.symbol] = [entry, ...existing].slice(0, 30);
+      changed = true;
+    }
+
+    if (changed) {
+      researchHistory = next;
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+    }
+  }
+
+  function clearActiveHistory() {
+    const next = { ...researchHistory };
+    delete next[selected];
+    researchHistory = next;
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+    trackResearch('research_history_cleared', { instrument: selected });
+  }
+
   async function load(quiet = false) {
     if (quiet) refreshing = true;
     else loading = true;
@@ -190,6 +244,7 @@
         if (lastVisit) trackResearch('terminal_return_summary', { changed_markets: visitChanges.length, watchlist_size: watchlist.length });
         try { localStorage.setItem(VISIT_SNAPSHOT_KEY, JSON.stringify(data)); } catch {}
       }
+      recordResearchHistory(data);
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* Research remains usable when storage is blocked. */ }
       if (!data.pairs.some((pair) => pair.symbol === selected)) selected = data.pairs[0]?.symbol;
     } catch (err) {
@@ -226,10 +281,13 @@
       watchlist = Array.isArray(storedWatchlist) ? storedWatchlist.filter(item => typeof item === 'string') : [];
       lastVisit = localStorage.getItem(VISIT_KEY);
       visitBaseline = storedVisitSnapshot();
+      researchHistory = readResearchHistory();
       localStorage.setItem(VISIT_KEY, new Date().toISOString());
     } catch {
       watchlist = [];
+      researchHistory = {};
     }
+    trackResearch('terminal_open', { entry_market: initialSymbol });
     load();
     loadContext();
     const contextTimer = setInterval(loadContext,300000);
@@ -399,8 +457,41 @@
       {/each}
     </nav>
 
-    {#if activePanel !== 'charts'}
-      <MarketResearch pair={active} context={researchContext} panel={activePanel} now={clock} />
+    {#if activePanel === 'history'}
+      <section class="panel history-panel" aria-label={`${active.symbol} research history`}>
+        <div class="history-head">
+          <div>
+            <span class="step">Browser observation history</span>
+            <h4>How {active.symbol} research conditions changed</h4>
+            <p>TRADE90 records a compact observation when the displayed price structure, event-risk level or latest history date changes, and at least once every 12 hours while you use this browser.</p>
+          </div>
+          {#if activeHistory.length}
+            <button type="button" class="history-clear" on:click={clearActiveHistory}>Clear</button>
+          {/if}
+        </div>
+        {#if activeHistory.length}
+          <div class="history-list">
+            {#each activeHistory as entry, index}
+              <article>
+                <div class="history-time">
+                  <strong>{formatDate(entry.recordedAt)}</strong>
+                  <span>{index === 0 ? 'Latest saved observation' : 'Saved observation'}</span>
+                </div>
+                <div><span>Price structure</span><strong>{entry.trend ?? '—'}</strong></div>
+                <div><span>Event risk</span><strong class={eventClass(entry.eventRisk)}>{entry.eventRisk ?? '—'}</strong></div>
+                <div><span>History date</span><strong>{formatDate(entry.historyDate, false)}</strong></div>
+                <div><span>Indicative quote then</span><strong>{num(entry.price, active.decimals)}</strong></div>
+              </article>
+            {/each}
+          </div>
+          <p class="history-note">This history is stored only in this browser. It is a record of what TRADE90 displayed when you visited, not a backtest, prediction record or proof of causation.</p>
+        {:else}
+          <div class="empty-state">
+            <strong>No saved history yet</strong>
+            <span>Your first observation will be saved after the current research snapshot loads. Future material changes will appear here.</span>
+          </div>
+        {/if}
+      </section>
     {:else if activePanel === 'charts'}
       <section class="panel chart-panel" aria-label={`${active.symbol} charts`}>
         <article class="chart-card">
@@ -442,6 +533,8 @@
           {/if}
         </article>
       </section>
+    {:else}
+      <MarketResearch pair={active} context={researchContext} panel={activePanel} now={clock} />
     {/if}
 
     <footer>
@@ -469,7 +562,7 @@
   .positive{color:#047857!important}.negative{color:#b91c1c!important}.neutral{color:#475569!important}.caution{color:#b45309!important}
   .selected-head{padding:24px 20px 14px}.selected-copy{min-width:0}.selected-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.selected-head p{margin:4px 0 0;font-size:.72rem}.watch-toggle{border:1px solid #a7f3d0;background:#ecfdf5;color:#065f46;border-radius:999px;padding:7px 10px;font-size:.66rem;font-weight:900;cursor:pointer}.watch-toggle[aria-pressed="true"]{background:#064e3b;color:#fff;border-color:#064e3b}.headline-price{text-align:right}.headline-price>span{display:block;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.headline-price>strong{display:block;font-size:1.8rem;color:#020617}.headline-price>small{font-size:.7rem;font-weight:800}
   .panel-tabs{display:flex;gap:4px;padding:0 20px 14px;overflow-x:auto;border-bottom:1px solid var(--line)}.panel-tabs button{white-space:nowrap;border:0;background:#f1f5f9;color:#475569;border-radius:8px;padding:9px 12px;font-size:.66rem;font-weight:900;cursor:pointer}.panel-tabs button.active{background:#064e3b;color:#fff}
-  .panel{padding:18px 20px 22px}.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.facts article,.layers article,.planning>div,.event-summary article,.position-grid article,.chart-card,.audit-card,.validation-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:15px}.facts span,.planning span,.event-summary span,.position-grid span,.validation-summary span{display:block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}.facts strong,.planning strong,.event-summary strong,.position-grid strong,.validation-summary strong{display:block;color:#0f172a;font-size:.96rem}.facts small,.event-summary small,.position-grid small{display:block;margin-top:4px;color:#64748b;font-size:.6rem;line-height:1.35}
+  .panel{padding:18px 20px 22px}.history-panel{background:#f8fafc}.history-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}.history-head p{max-width:760px;margin:6px 0 0;font-size:.75rem;line-height:1.5}.history-clear{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:8px;padding:8px 10px;font-size:.65rem;font-weight:900;text-transform:uppercase;cursor:pointer}.history-list{display:grid;gap:8px}.history-list article{display:grid;grid-template-columns:1.35fr 1.5fr .8fr 1fr 1fr;gap:12px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}.history-list article>div>span{display:block;color:#64748b;font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}.history-list article>div>strong{display:block;color:#0f172a;font-size:.72rem}.history-time span{font-size:.58rem!important;text-transform:none!important;letter-spacing:0!important}.history-note{margin:12px 0 0;color:#64748b;font-size:.68rem;line-height:1.5}.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.facts article,.layers article,.planning>div,.event-summary article,.position-grid article,.chart-card,.audit-card,.validation-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:15px}.facts span,.planning span,.event-summary span,.position-grid span,.validation-summary span{display:block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}.facts strong,.planning strong,.event-summary strong,.position-grid strong,.validation-summary strong{display:block;color:#0f172a;font-size:.96rem}.facts small,.event-summary small,.position-grid small{display:block;margin-top:4px;color:#64748b;font-size:.6rem;line-height:1.35}
   .layers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.layers article{background:var(--soft)}.layers p{font-size:.82rem;line-height:1.55}.layers small{color:#64748b;line-height:1.45}.score-row{display:flex;align-items:baseline;gap:12px;margin-top:12px}.score-row strong{font-size:2rem}.score-row span{font-weight:800;color:#334155}
   .probabilities{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0}.probabilities>div{position:relative;overflow:hidden;padding:10px;border-radius:9px;background:#fff;border:1px solid var(--line)}.probabilities span{display:block;font-size:.61rem;color:#64748b}.probabilities strong{position:relative;z-index:1;color:#0f172a}.probabilities i{position:absolute;left:0;bottom:0;height:3px;background:#10b981}
   .planning{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.panel>.warning{margin:12px 0 0}
@@ -481,6 +574,6 @@
   .validation-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.validation-summary>div{padding:11px;border-radius:9px;background:#f8fafc;border:1px solid var(--line)}.validation-table{border:1px solid var(--line);border-radius:9px;overflow:hidden}.validation-table>div{display:grid;grid-template-columns:.8fr 1fr 1fr 1fr 1.1fr;gap:6px;padding:9px 10px;border-top:1px solid #eef2f7;font-size:.63rem}.validation-table>div:first-child{border:0}.validation-head{background:#f1f5f9;color:#64748b;font-weight:900;text-transform:uppercase}.method-note{grid-column:1/-1;padding:16px;border:1px solid #a7f3d0;border-radius:11px;background:#ecfdf5}.method-note strong{color:#065f46}.method-note p{margin:4px 0 0;font-size:.75rem;line-height:1.5}
   footer{border-top:1px solid var(--line);background:#f8fafc;padding:13px 20px;font-size:.64rem;color:#64748b}footer span:last-child{text-align:right}
   @media(max-width:1050px){.facts{grid-template-columns:repeat(3,1fr)}.model-panel{grid-template-columns:1fr}.method-note{grid-column:auto}}
-  @media(max-width:800px){.since-list{grid-template-columns:1fr 1fr}.freshness{grid-template-columns:repeat(2,1fr)}.freshness>div:nth-child(2){border-right:0}.freshness>div:nth-child(-n+2){border-bottom:1px solid #334155}.scanner-head{display:none}.scanner button{grid-template-columns:1fr 1fr 1fr}.scanner button span:nth-of-type(3),.scanner button span:nth-of-type(4),.scanner button span:nth-of-type(5){display:none}.facts{grid-template-columns:repeat(2,1fr)}.layers{grid-template-columns:1fr}.planning,.position-grid{grid-template-columns:repeat(2,1fr)}.event-list{grid-template-columns:1fr}.event-summary{grid-template-columns:1fr 1fr}.event-summary article:last-child{grid-column:1/-1}.validation-summary{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.terminal{border-radius:14px}.since-head{align-items:flex-start;flex-direction:column}.since-list{grid-template-columns:1fr}.my-markets{align-items:flex-start;flex-direction:column}.terminal-bar,.selected-head,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:18px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:20px 13px 12px}.headline-price{text-align:left}.panel-tabs{padding-left:12px;padding-right:12px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}.freshness strong{font-size:.64rem}footer span:last-child{text-align:left}}
+  @media(max-width:800px){.history-list article{grid-template-columns:1fr 1fr}.history-time{grid-column:1/-1}.since-list{grid-template-columns:1fr 1fr}.freshness{grid-template-columns:repeat(2,1fr)}.freshness>div:nth-child(2){border-right:0}.freshness>div:nth-child(-n+2){border-bottom:1px solid #334155}.scanner-head{display:none}.scanner button{grid-template-columns:1fr 1fr 1fr}.scanner button span:nth-of-type(3),.scanner button span:nth-of-type(4),.scanner button span:nth-of-type(5){display:none}.facts{grid-template-columns:repeat(2,1fr)}.layers{grid-template-columns:1fr}.planning,.position-grid{grid-template-columns:repeat(2,1fr)}.event-list{grid-template-columns:1fr}.event-summary{grid-template-columns:1fr 1fr}.event-summary article:last-child{grid-column:1/-1}.validation-summary{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.terminal{border-radius:14px}.history-head{flex-direction:column}.history-list article{grid-template-columns:1fr}.history-time{grid-column:auto}.since-head{align-items:flex-start;flex-direction:column}.since-list{grid-template-columns:1fr}.my-markets{align-items:flex-start;flex-direction:column}.terminal-bar,.selected-head,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:18px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:20px 13px 12px}.headline-price{text-align:left}.panel-tabs{padding-left:12px;padding-right:12px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}.freshness strong{font-size:.64rem}footer span:last-child{text-align:left}}
 </style>
