@@ -36,7 +36,19 @@ market.value=plan.market;decision.value=plan.decision;evidence.value=plan.eviden
 for(const [id] of FIELDS)(byId('plan-'+id) as HTMLTextAreaElement).value=plan.fields[id];
 function read(){plan.market=market.value;plan.decision=decision.value;plan.evidence=evidence.value;for(const [id]of FIELDS)plan.fields[id]=(byId('plan-'+id) as HTMLTextAreaElement).value;return plan;}
 function render(){let count=0;for(const [id]of FIELDS){const written=Boolean(plan.fields[id].trim());document.querySelector(`[data-written="${id}"]`)!.textContent=written?'Recorded':'';if(!['sessions','setups','risk','management'].includes(id)&&written)count++;}byId('plan-progress').textContent=`${count}/9 research sections recorded · completeness only`;byId('execution-note').textContent=plan.decision==='consider'?'Before acting, define your execution conditions, risk limits and exit rules. No trade is required.':'Execution fields are optional. Waiting and further research are valid outcomes.';}
-function save(){read();plan.updatedAt=new Date().toISOString();try{localStorage.setItem(PLAN_KEY,JSON.stringify(plan));byId('plan-save').textContent='Saved in this browser';}catch{byId('plan-save').textContent='Could not save in this browser. Download your plan.';}render();}
+function save(){read();plan.updatedAt=new Date().toISOString();try{localStorage.setItem(PLAN_KEY,JSON.stringify(plan));byId('plan-save').textContent='Saved in this browser';(window as any).trade90Workspace?.scheduleSync?.();}catch{byId('plan-save').textContent='Could not save in this browser. Download your plan.';}render();}
+function applySyncedPlan(){
+  try{
+    const stored=localStorage.getItem(PLAN_KEY);if(!stored)return;
+    const next=normalizePlan(JSON.parse(stored));
+    if(next.updatedAt===plan.updatedAt)return;
+    plan=next;market.value=plan.market;decision.value=plan.decision;evidence.value=plan.evidence;
+    for(const[id]of FIELDS)(byId('plan-'+id)as HTMLTextAreaElement).value=plan.fields[id];
+    byId('plan-save').textContent='Synced from your member workspace';
+    render();
+  }catch{}
+}
+window.addEventListener('trade90-workspace-applied',applySyncedPlan);
 render();if(storageError)byId('plan-save').textContent=storageError;else if(migrated){save();byId('plan-save').textContent='Previous plan copied; original retained';}
 document.querySelectorAll('textarea, #plan-market, #plan-decision').forEach(el=>el.addEventListener('input',()=>{save();if(!sessionPlanStarted){sessionPlanStarted=true;track('research_plan_started',{market:market.value});}}));
 market.addEventListener('change',()=>{byId('market-handoff').textContent='Market changed. Existing notes and captured evidence remain unchanged; check that they match this market.';save();});
