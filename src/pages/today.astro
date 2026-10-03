@@ -169,6 +169,7 @@ const checklist = {
       const $ = (id) => document.getElementById(id);
       const today = new Date().toISOString().slice(0, 10);
       const CHECK_KEY = "t90.checklist." + today;
+      const CHECK_META_KEY = "t90.checklist-meta." + today;
 
       // Header: greeting, date, clock
       const h = new Date().getHours();
@@ -315,6 +316,7 @@ const checklist = {
         $("t-check-count").textContent = done.length;
         if (persist) {
           localStorage.setItem(CHECK_KEY, JSON.stringify(done.map((b) => b.dataset.check)));
+          localStorage.setItem(CHECK_META_KEY, new Date().toISOString());
           window.trade90Workspace?.scheduleSync?.();
         }
       }
@@ -329,6 +331,7 @@ const checklist = {
       const todays = trades.filter((t) => t.date === today);
       const riskUsed = todays.reduce((s, t) => s + (Number(t.riskPct) || 0), 0);
       const RISK_LIMIT_KEY = "t90.risk-budget-pct";
+      const RISK_UPDATED_KEY = "t90.preferences-updated-at";
       const riskInput = $("t-risk-limit");
       let riskLimit = Number(localStorage.getItem(RISK_LIMIT_KEY));
       if (!Number.isFinite(riskLimit) || riskLimit < 0.1 || riskLimit > 10) riskLimit = 1.0;
@@ -339,6 +342,7 @@ const checklist = {
         if (riskLimit > 10) riskLimit = 10;
         if (persist) {
           localStorage.setItem(RISK_LIMIT_KEY, String(riskLimit));
+          localStorage.setItem(RISK_UPDATED_KEY, new Date().toISOString());
           window.trade90Workspace?.scheduleSync?.();
         }
         const pct = Math.min(100, (riskUsed / riskLimit) * 100);
