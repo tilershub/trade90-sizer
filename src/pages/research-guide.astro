@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FxResearchTerminal from '../components/FxResearchTerminal.svelte';
-import Newsletter from '../components/Newsletter.astro';
 import { getCollection } from 'astro:content';
 import { HUBS } from '../lib/hubs';
 
@@ -83,7 +81,48 @@ const softwareSchema = {
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 };
 ---
-<BaseLayout title="How to use the research terminal" description="Read market evidence, check source dates and build a research plan."><main id="trade90-home" class="bg-white text-slate-950"><div class="max-w-7xl mx-auto px-5 py-8"><h1 class="text-3xl font-bold">Research guide</h1><a class="underline text-emerald-700" href="/#terminal">Back to the terminal</a></div>    <!-- Explain the evidence -->
+<BaseLayout title={seoTitle} description={seoDescription}>
+  <Fragment slot="head-extra">
+    <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)}></script>
+  </Fragment>
+  <main id="trade90-home" class="bg-white text-slate-950">
+    <div class="max-w-7xl mx-auto px-5 py-10">
+      <p class="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-700">Methodology & workflow</p>
+      <h1 class="text-3xl sm:text-4xl font-black tracking-[-0.04em]">Research guide</h1>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-slate-600">How TRADE90 collects, timestamps, transforms and presents market evidence — and how to use the terminal without treating research as a trading signal.</p>
+      <div class="mt-5 flex flex-wrap gap-5">
+        <a class="underline text-emerald-700" href="/#terminal">Back to the terminal</a>
+        <a class="underline text-emerald-700" href="/editorial-policy/">Editorial & research policy</a>
+        <a class="underline text-emerald-700" href="/research/">Current market research</a>
+      </div>
+    </div>
+
+    <section class="border-y border-slate-200 bg-slate-950 px-5 py-16 text-white sm:px-6 md:py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-10 max-w-3xl">
+          <p class="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">How the terminal is produced</p>
+          <h2 class="mb-4 text-3xl sm:text-4xl font-black tracking-[-0.045em]">A reproducible research pipeline, not a hidden signal engine.</h2>
+          <p class="text-sm sm:text-base leading-relaxed text-slate-400">TRADE90 uses automation to organize frequently changing public and permitted market observations. The pipeline is designed to preserve source dates, expose missing coverage and keep deterministic calculations separate from interpretation.</p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['01','Retrieve & timestamp','Fetch supported market, macro, policy and positioning observations. Retrieval time and observation time remain separate.'],
+            ['02','Normalize carefully','Standardize units and structures only where comparison is valid. Different instruments and cadences are not silently merged.'],
+            ['03','Calculate reproducibly','Compute items such as moving-average structure, rolling volatility and changes between observations with deterministic formulas.'],
+            ['04','Synthesize with limits','Summarize aligned, conflicting and missing evidence without converting it into a buy/sell call, price target or invented probability.'],
+          ].map(([number,title,text]) => (
+            <article class="rounded-2xl border border-slate-800 bg-slate-900/65 p-5">
+              <span class="text-xs font-black text-emerald-400">{number}</span>
+              <h3 class="mt-5 text-base font-black text-white">{title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-400">{text}</p>
+            </article>
+          ))}
+        </div>
+        <p class="mt-8 max-w-4xl text-xs leading-relaxed text-slate-500">A live quote can be newer than a macro series, and a source can become stale or unavailable. TRADE90 keeps those differences visible instead of using the newest timestamp on the page as proof that every input is current.</p>
+      </div>
+    </section>
+
+    <!-- Explain the evidence -->
     <section id="how-it-works" class="scroll-mt-24 border-y border-slate-200 bg-white px-5 py-16 sm:px-6 md:py-24">
       <div class="max-w-7xl mx-auto">
         <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
