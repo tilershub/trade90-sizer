@@ -1,0 +1,33 @@
+---
+const path = Astro.url.pathname;
+const items = [
+  { href:'/', label:'Home', icon:'⌂', active:path==='/' },
+  { href:'/research/', label:'Research', icon:'⌕', active:path.startsWith('/research') || path==='/tools/fx-research-terminal/' },
+  { href:'/economic-calendar/', label:'Calendar', icon:'◫', active:path.startsWith('/economic-calendar') },
+  { href:'/today/', label:'Today', icon:'◉', active:path.startsWith('/today') },
+  { href:'/account/', label:'Account', icon:'●', active:path.startsWith('/account') || path.startsWith('/login') || path.startsWith('/join') },
+];
+---
+<nav class="mobile-dock" aria-label="Primary mobile navigation">
+  {items.map(item => (
+    <a href={item.href} class:list={{active:item.active}} aria-current={item.active?'page':undefined}>
+      <span aria-hidden="true">{item.icon}</span>
+      <strong>{item.label}</strong>
+    </a>
+  ))}
+</nav>
+<style>
+.mobile-dock{display:none}
+@media(max-width:767px){
+  .mobile-dock{
+    position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));
+    z-index:40;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;
+    padding:6px;border:1px solid rgba(71,85,105,.78);border-radius:16px;
+    background:rgba(2,6,23,.94);backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(2,6,23,.3)
+  }
+  .mobile-dock a{display:grid;place-items:center;gap:2px;min-height:48px;border-radius:11px;color:#94a3b8;text-decoration:none}
+  .mobile-dock a.active{background:#064e3b;color:#ecfdf5}
+  .mobile-dock span{font-size:1rem;line-height:1}
+  .mobile-dock strong{font-size:.56rem;letter-spacing:.02em}
+}
+</style>
