@@ -196,13 +196,13 @@ const breadcrumbSchema = {
       button.addEventListener('click',async()=>{
         const symbol=button.dataset.symbol || 'Market';
         const path=button.dataset.path || location.pathname;
-        const url=new URL(path,location.origin).toString();
+        const url=new URL(path,location.origin);\n        url.searchParams.set('ref','share');\n        const shareUrl=url.toString();
         try{
           if(navigator.share){
-            await navigator.share({title:symbol+' research — TRADE90',text:'Research '+symbol+' with market structure, macro, events, positioning and source transparency.',url});
+            await navigator.share({title:symbol+' research — TRADE90',text:'Research '+symbol+' with market structure, macro, events, positioning and source transparency.',url:shareUrl});
             if(status) status.textContent='Shared.';
           }else{
-            await navigator.clipboard.writeText(url);
+            await navigator.clipboard.writeText(shareUrl);
             if(status) status.textContent='Research link copied.';
           }
           if(localStorage.getItem('cookieConsent')==='accepted' && typeof window.gtag==='function'){
