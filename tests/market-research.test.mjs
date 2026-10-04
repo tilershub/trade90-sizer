@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {technicalConditions,contextFresh,evidenceNotes,safeSource,nextCatalyst,marketResearchBrief,researchContextChanges} from '../src/lib/market-research.js';
+import {technicalConditions,contextFresh,evidenceNotes,safeSource,nextCatalyst,marketResearchBrief,researchContextChanges,researchTrustSummary,indicatorTrust,communicationRelevant} from '../src/lib/market-research.js';
 import {onRequestGet} from '../functions/api/research-context.js';
 test('null and zero prices never become technical data',()=>{
  assert.equal(technicalConditions({history:Array(30).fill({close:null})}).volatility,null);
@@ -66,16 +66,59 @@ test('research-context change detection captures new observations and communicat
  const previous={
    generated_at:'2026-10-03T08:00:00Z',
    indicators:[{id:'VIXCLS',country:'Global',label:'VIX',status:'available',value:18,observed_at:'2026-10-02T00:00:00Z'}],
-   communications:[{currency:'USD',source:'Federal Reserve',headline:'Old note',published_at:'2026-10-03T06:00:00Z'}],
+   communications:[{currency:'USD',source:'Federal Reserve',headline:'FOMC monetary policy statement',published_at:'2026-10-03T06:00:00Z'}],
    positioning:[]
  };
  const current={
    generated_at:'2026-10-04T08:00:00Z',
    indicators:[{id:'VIXCLS',country:'Global',label:'VIX',status:'available',value:20,observed_at:'2026-10-03T00:00:00Z'}],
-   communications:[{currency:'USD',source:'Federal Reserve',headline:'New note',published_at:'2026-10-04T06:00:00Z'}],
+   communications:[{currency:'USD',source:'Federal Reserve',headline:'FOMC monetary policy statement and interest rate decision',published_at:'2026-10-04T06:00:00Z'}],
    positioning:[]
  };
  const changes=researchContextChanges(previous,current,'EUR/USD',Date.parse('2026-10-04T09:00:00Z'));
  assert.ok(changes.some(item=>item.includes('New VIX observation')));
  assert.ok(changes.some(item=>item.includes('New Federal Reserve communication')));
+});
+
+
+test('data trust separates live, delayed and derived evidence without claiming certainty',()=>{
+ const now=Date.parse('2026-10-04T10:00:00Z');
+ const history=Array.from({length:30},(_,i)=>({
+   date:new Date(Date.UTC(2026,8,i+1)).toISOString(),
+   close:100+i,
+   ema_fast:120+i,
+   ema_slow:110+i
+ }));
+ const pair={
+   symbol:'EUR/USD',base:'EUR',quote:'USD',history,
+   live:{price:1.1,updated_at:'2026-10-04T09:55:00Z',provider:'Test feed'}
+ };
+ const context={
+   generated_at:'2026-10-04T09:30:00Z',
+   indicators:[{
+     id:'CPI',country:'US',status:'available',value:3.1,frequency:'Monthly',
+     publisher:'BLS',observed_at:'2026-09-01T00:00:00Z',age_days:33,max_age_days:75
+   }],
+   positioning:[{currency:'EUR',available:true,date:'2026-09-29T00:00:00Z',stale:false}],
+   events:[]
+ };
+ const trust=researchTrustSummary(context,pair,now);
+ assert.equal(trust.items.find(x=>x.key==='price').status,'LIVE');
+ assert.equal(trust.items.find(x=>x.key==='macro').status,'CURRENT');
+ assert.equal(trust.items.find(x=>x.key==='positioning').status,'DELAYED');
+ assert.equal(trust.items.find(x=>x.key==='technical').status,'DERIVED');
+ assert.equal(trust.items.find(x=>x.key==='calendar').status,'UNAVAILABLE');
+ assert.equal(indicatorTrust({...context.indicators[0],age_days:90},now).status,'STALE');
+});
+
+test('administrative central-bank headlines do not trigger Research Delta',()=>{
+ assert.equal(communicationRelevant({headline:'Federal Reserve Board announces approval of application by Example Corporation'}),false);
+ assert.equal(communicationRelevant({headline:'FOMC monetary policy statement and interest rate decision'}),true);
+ const previous={generated_at:'2026-10-03T08:00:00Z',indicators:[],positioning:[],communications:[]};
+ const current={
+   generated_at:'2026-10-04T08:00:00Z',
+   indicators:[],positioning:[],
+   communications:[{currency:'USD',source:'Federal Reserve',headline:'Federal Reserve Board issues enforcement action with Example Bank',published_at:'2026-10-04T06:00:00Z'}]
+ };
+ assert.deepEqual(researchContextChanges(previous,current,'EUR/USD',Date.parse('2026-10-04T09:00:00Z')),[]);
 });
