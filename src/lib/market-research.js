@@ -270,11 +270,5 @@ export function researchContextChanges(previous, current, symbol, now = Date.now
     changes.push(`Calendar update: ${currentCatalyst.event?.currency ?? ''} ${currentCatalyst.event?.event ?? 'event'} added or changed.`.trim());
   }
 
-  const previousFresh = contextFresh(previous, now);
-  const currentIsFresh = contextFresh(current, now);
-  if (previousFresh !== currentIsFresh) {
-    changes.push(currentIsFresh ? 'Macro research context is fresh again.' : 'Macro research context moved outside the refresh window.');
-  }
-
   return changes.slice(0,4);
 }
