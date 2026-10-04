@@ -54,6 +54,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </ul>
       </section>
 
+      <section>
+        <h2 class="text-2xl font-black text-white tracking-tighter mb-4">How the research is built</h2>
+        <p>
+          TRADE90 uses an automated research pipeline to retrieve, normalize and timestamp supported market and macro observations. Deterministic calculations are used for price structure, rolling volatility and changes between observations. The interface then separates observed data, synthesis and limitations instead of hiding them behind a single directional score.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4 mt-5">
+          <article class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Sources</p>
+            <p class="text-slate-400 text-sm mt-1">Observation dates and source context stay visible where the feed provides them.</p>
+          </article>
+          <article class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Automation</p>
+            <p class="text-slate-400 text-sm mt-1">Automation organizes changing evidence; it does not invent missing values or hidden trade calls.</p>
+          </article>
+          <article class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <p class="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-1">Limits</p>
+            <p class="text-slate-400 text-sm mt-1">Different data cadences, price bases and coverage gaps are disclosed rather than treated as equivalent.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="bg-slate-900/60 border border-emerald-500/20 rounded-2xl p-7">
         <p class="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-3">Method</p>
         <h2 class="text-xl font-black text-white mb-3">Evidence first, certainty second.</h2>
@@ -62,7 +83,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </p>
         <div class="flex flex-wrap gap-3 mt-5">
           <a href="/research-guide/" class="inline-flex items-center min-h-11 px-4 rounded-lg bg-emerald-900/40 border border-emerald-500/30 text-emerald-300 font-bold text-sm hover:text-white transition-colors">Read the research guide</a>
-          <a href="/editorial-policy/" class="inline-flex items-center min-h-11 px-4 rounded-lg bg-slate-950 border border-slate-700 text-slate-300 font-bold text-sm hover:text-white transition-colors">Editorial policy</a>
+          <a href="/editorial-policy/" class="inline-flex items-center min-h-11 px-4 rounded-lg bg-slate-950 border border-slate-700 text-slate-300 font-bold text-sm hover:text-white transition-colors">Editorial & research policy</a>
+          <a href="/research/" class="inline-flex items-center min-h-11 px-4 rounded-lg bg-slate-950 border border-slate-700 text-slate-300 font-bold text-sm hover:text-white transition-colors">Current research</a>
         </div>
       </section>
 
