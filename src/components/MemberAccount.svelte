@@ -111,8 +111,7 @@
   {:else}
     <section class="signed-out">
       <p>{status}</p>
-      <a href="/login/">Sign in</a>
-      <a href="/join/">Create account</a>
+      <a href="/login/">Continue with Google</a>
     </section>
   {/if}
 
