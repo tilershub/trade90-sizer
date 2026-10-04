@@ -11,6 +11,7 @@ import FxResearchTerminal from '../components/FxResearchTerminal.svelte';
       <div class="intro-actions">
         <a class="primary" href="#terminal">Open the terminal</a>
         <a href="/today/">Open Today dashboard</a>
+        <a href="/economic-calendar/">Economic calendar</a>
         <a href="/research-guide/">Read the research guide</a>
       </div>
     </header>
@@ -23,9 +24,24 @@ import FxResearchTerminal from '../components/FxResearchTerminal.svelte';
       <a href="/tools/position-size-calculator/"><strong>Calculate position size</strong><span>Size exposure for your risk →</span></a>
       <a href="/journal/"><strong>Review your decisions</strong><span>Open your trading journal →</span></a>
     </nav>
-    <nav class="market-links" aria-label="Market research pages"><a href="/research/usdjpy/">USD/JPY research</a><a href="/research/xauusd/">Gold research</a><a href="/research/btcusd/">Bitcoin research</a><a href="/tools/">All tools</a></nav>
+    <section class="markets" aria-labelledby="market-research-title">
+      <p class="eyebrow">Market research</p>
+      <h2 id="market-research-title">Open a dedicated research page</h2>
+      <div>
+        <a href="/research/eurusd/">EUR/USD <span>Research →</span></a>
+        <a href="/research/gbpusd/">GBP/USD <span>Research →</span></a>
+        <a href="/research/usdjpy/">USD/JPY <span>Research →</span></a>
+        <a href="/research/usdchf/">USD/CHF <span>Research →</span></a>
+        <a href="/research/usdcad/">USD/CAD <span>Research →</span></a>
+        <a href="/research/audusd/">AUD/USD <span>Research →</span></a>
+        <a href="/research/nzdusd/">NZD/USD <span>Research →</span></a>
+        <a href="/research/xauusd/">XAU/USD · Gold <span>Research →</span></a>
+        <a href="/research/btcusd/">BTC/USD · Bitcoin <span>Research →</span></a>
+      </div>
+    </section>
+    <nav class="market-links" aria-label="More TRADE90 tools"><a href="/economic-calendar/">Economic calendar</a><a href="/tools/">All tools</a><a href="/research-guide/">Research methodology</a></nav>
   </main>
 </BaseLayout>
 <style>
-.research-home{background:#f8fafc;color:#172b3a;padding:0 20px 28px}.intro,#terminal,.next,.market-links{max-width:1280px;margin:auto}.intro{padding:32px 0 24px}.intro .eyebrow{color:#047857;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}.intro h1{max-width:900px;font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;letter-spacing:-.045em;margin:0 0 12px;color:#0f172a}.intro>p:not(.eyebrow){max-width:720px;margin:0 0 16px;font-size:1rem;color:#526474}.intro-actions{display:flex;flex-wrap:wrap;gap:10px}.intro-actions a,.market-links a{color:#065f46;text-decoration:underline;text-underline-offset:3px;font-size:.9rem}.intro-actions a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:9px}.intro-actions a.primary{background:#064e3b;color:#fff;text-decoration:none;font-weight:800}#terminal{scroll-margin-top:90px}.next{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-top:24px}.next a{display:flex;flex-direction:column;gap:6px;background:white;border:1px solid #dbe3ec;border-radius:12px;padding:16px;color:#172b3a}.next span{font-size:.85rem;color:#526474}.market-links{display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:20px}.market-links a{padding:10px 0}a:focus-visible{outline:3px solid #059669;outline-offset:4px}@media(max-width:700px){.research-home{padding:0 10px 20px}.intro{padding:22px 6px}.next{grid-template-columns:1fr 1fr;gap:8px}.next a{padding:12px}.next strong{font-size:.9rem}}@media(max-width:480px){.next{grid-template-columns:1fr}}
+.research-home{background:#f8fafc;color:#172b3a;padding:0 20px 36px}.intro,#terminal,.next,.markets,.market-links{max-width:1280px;margin:auto}.intro{padding:32px 0 24px}.intro .eyebrow{color:#047857;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}.intro h1{max-width:900px;font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;letter-spacing:-.045em;margin:0 0 12px;color:#0f172a}.intro>p:not(.eyebrow){max-width:720px;margin:0 0 16px;font-size:1rem;color:#526474}.intro-actions{display:flex;flex-wrap:wrap;gap:10px}.intro-actions a,.market-links a{color:#065f46;text-decoration:underline;text-underline-offset:3px;font-size:.9rem}.intro-actions a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:9px}.intro-actions a.primary{background:#064e3b;color:#fff;text-decoration:none;font-weight:800}#terminal{scroll-margin-top:90px}.next{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-top:24px}.next a{display:flex;flex-direction:column;gap:6px;background:white;border:1px solid #dbe3ec;border-radius:12px;padding:16px;color:#172b3a}.next span{font-size:.85rem;color:#526474}.markets{padding-top:30px}.markets .eyebrow{margin-bottom:6px}.markets h2{margin:0;color:#0f172a;font-size:1.35rem;letter-spacing:-.035em}.markets>div{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.markets a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;border:1px solid #dbe3ec;border-radius:11px;background:#fff;color:#172b3a;font-size:.82rem;font-weight:900;text-decoration:none}.markets a:hover{border-color:#10b981}.markets a span{color:#047857;font-size:.68rem}.market-links{display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:20px}.market-links a{padding:10px 0}a:focus-visible{outline:3px solid #059669;outline-offset:4px}@media(max-width:700px){.research-home{padding:0 10px 20px}.intro{padding:22px 6px}.next{grid-template-columns:1fr 1fr;gap:8px}.next a{padding:12px}.next strong{font-size:.9rem}.markets>div{grid-template-columns:1fr 1fr}}@media(max-width:480px){.next,.markets>div{grid-template-columns:1fr}}
 </style>
