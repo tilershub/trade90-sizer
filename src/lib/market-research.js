@@ -21,6 +21,130 @@ export function relevantIndicators(context, symbol) {
   return (context?.indicators ?? []).filter(row => countries.includes(row.country));
 }
 
+export function indicatorTrust(row, now = Date.now()) {
+  if (!row || row.status !== 'available' || !finite(row.value)) {
+    return { status:'UNAVAILABLE', detail:'No usable observation is supplied.', ageDays:null, maxAgeDays:finite(row?.max_age_days)?row.max_age_days:null };
+  }
+  const observed = Date.parse(row.observed_at);
+  const calculatedAge = Number.isFinite(observed) ? Math.max(0, (now - observed) / 86400000) : null;
+  const ageDays = finite(row.age_days) ? row.age_days : calculatedAge;
+  const maxAgeDays = finite(row.max_age_days) ? row.max_age_days : null;
+  const stale = finite(ageDays) && finite(maxAgeDays) ? ageDays > maxAgeDays : false;
+  return {
+    status: stale ? 'STALE' : 'CURRENT',
+    detail: stale
+      ? `Observation is ${Math.round(ageDays)} days old, beyond its ${Math.round(maxAgeDays)}-day research window.`
+      : `${row.frequency ?? 'Source'} observation from ${row.publisher ?? 'the listed provider'} is within its configured research window.`,
+    ageDays: finite(ageDays) ? ageDays : null,
+    maxAgeDays,
+  };
+}
+
+export function communicationRelevant(item) {
+  const headline = String(item?.headline ?? '').toLowerCase();
+  if (!headline) return false;
+  const relevantTerms = [
+    'monetary policy','interest rate','interest rates','inflation','economic outlook',
+    'economic projections','policy statement','policy decision','policy decisions',
+    'meeting minutes','minutes of','press conference','rate decision','rate decisions',
+    'financial stability','yield curve','asset purchase','balance sheet','quantitative',
+    'governing council','fomc','bank rate','policy rate','cash rate','official cash rate',
+  ];
+  return relevantTerms.some(term => headline.includes(term));
+}
+
+function quoteTrust(pair, now = Date.now()) {
+  const price = pair?.live?.price;
+  const updated = Date.parse(pair?.live?.updated_at);
+  if (!finite(price) || price <= 0 || !Number.isFinite(updated)) {
+    return { status:'UNAVAILABLE', detail:'No current indicative quote is available.' };
+  }
+  const ageMs = now - updated;
+  if (!Number.isFinite(ageMs) || ageMs < -60000 || ageMs > 900000) {
+    const minutes = Number.isFinite(ageMs) ? Math.max(0, Math.round(ageMs / 60000)) : null;
+    return { status:'STALE', detail: minutes === null ? 'Quote timestamp is unavailable.' : `Indicative quote is about ${minutes} minutes old.` };
+  }
+  return {
+    status:'LIVE',
+    detail:`Indicative quote from ${pair?.live?.provider ?? 'the connected market feed'}; confirm executable prices with your broker or venue.`,
+  };
+}
+
+export function researchTrustSummary(context, pair, now = Date.now()) {
+  const indicators = relevantIndicators(context, pair?.symbol);
+  const indicatorStates = indicators.map(row => indicatorTrust(row, now));
+  const currentMacro = indicatorStates.filter(item => item.status === 'CURRENT').length;
+  const staleMacro = indicatorStates.filter(item => item.status === 'STALE').length;
+  const availableMacro = currentMacro + staleMacro;
+
+  const currencies = marketCurrencies(pair?.symbol);
+  const positions = (context?.positioning ?? [])
+    .filter(item => currencies.includes(item?.currency) && item?.available)
+    .sort((a,b) => Date.parse(b?.date) - Date.parse(a?.date));
+  const latestPosition = positions[0] ?? null;
+  const positionStatus = !latestPosition
+    ? 'UNAVAILABLE'
+    : latestPosition.stale
+      ? 'STALE'
+      : 'DELAYED';
+
+  const technical = technicalConditions(pair);
+  const technicalAvailable = technical.observations >= 21 && technical.trend !== 'Unavailable';
+  const catalystAvailable = (context?.events ?? []).some(event => currencies.includes(event?.currency) && Number.isFinite(Date.parse(event?.time)));
+
+  return {
+    items: [
+      {
+        key:'price',
+        label:'Indicative price',
+        ...quoteTrust(pair, now),
+      },
+      {
+        key:'macro',
+        label:'Macro observations',
+        status: availableMacro === 0 ? 'UNAVAILABLE' : (currentMacro > 0 && contextFresh(context, now) ? 'CURRENT' : 'STALE'),
+        detail: availableMacro === 0
+          ? 'No usable macro observations are available for this market.'
+          : `${currentMacro} within configured windows${staleMacro ? `; ${staleMacro} outside their configured windows` : ''}. Source dates remain visible.`,
+      },
+      {
+        key:'positioning',
+        label:'CFTC positioning',
+        status: positionStatus,
+        detail: !latestPosition
+          ? 'No relevant futures positioning record is supplied.'
+          : latestPosition.stale
+            ? `Latest supplied ${latestPosition.currency} futures report is outside its expected weekly window.`
+            : `Official weekly futures positioning dated ${String(latestPosition.date).slice(0,10)}. Valid context, but intentionally delayed.`,
+      },
+      {
+        key:'technical',
+        label:'Structure & volatility',
+        status: technicalAvailable ? 'DERIVED' : 'UNAVAILABLE',
+        detail: technicalAvailable
+          ? `Calculated by TRADE90 from ${technical.observations} supplied price observations; this is a transformation, not a source-published signal.`
+          : 'Insufficient supplied history for the displayed structure calculation.',
+      },
+      {
+        key:'calendar',
+        label:'Catalyst feed',
+        status: catalystAvailable ? 'CURRENT' : 'UNAVAILABLE',
+        detail: catalystAvailable
+          ? 'Verified dated events are present in the connected research context.'
+          : 'The TRADE90 research feed does not currently contain a verified upcoming event for this market; use the separate calendar as a timing reference.',
+      },
+    ],
+    legend: {
+      LIVE:'Recent indicative market observation',
+      CURRENT:'Within the source-specific research window',
+      DELAYED:'Valid source that is intentionally published with delay',
+      STALE:'Outside the configured research window',
+      UNAVAILABLE:'Reliable observation not currently supplied',
+      DERIVED:'Calculated by TRADE90 from sourced observations',
+    },
+  };
+}
+
 export function technicalConditions(pair) {
   const rows = (pair?.history ?? []).filter(row => finite(row.close) && row.close > 0);
   const empty = {trend:'Unavailable', volatility:null, volatilityRank:null, averageMove:null, low:null, high:null, change20:null, date:null, observations:rows.length};
@@ -218,7 +342,11 @@ export function marketResearchBrief(context, pair, now = Date.now()) {
 function latestRelevantCommunication(context, symbol) {
   const currencies = marketCurrencies(symbol);
   return (context?.communications ?? [])
-    .filter(item => currencies.includes(item?.currency) && Number.isFinite(Date.parse(item?.published_at)))
+    .filter(item =>
+      currencies.includes(item?.currency) &&
+      Number.isFinite(Date.parse(item?.published_at)) &&
+      communicationRelevant(item)
+    )
     .sort((a,b) => Date.parse(b.published_at) - Date.parse(a.published_at))[0] ?? null;
 }
 
