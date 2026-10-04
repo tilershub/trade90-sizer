@@ -90,7 +90,9 @@ export function researchTrustSummary(context, pair, now = Date.now()) {
 
   const technical = technicalConditions(pair);
   const technicalAvailable = technical.observations >= 21 && technical.trend !== 'Unavailable';
-  const catalystAvailable = (context?.events ?? []).some(event => currencies.includes(event?.currency) && Number.isFinite(Date.parse(event?.time)));
+  const catalyst = nextCatalyst(context, pair?.symbol, now);
+  const catalystAvailable = catalyst.status === 'upcoming' || catalyst.status === 'released';
+  const macroSnapshotFresh = contextFresh(context, now);
 
   return {
     items: [
@@ -102,10 +104,12 @@ export function researchTrustSummary(context, pair, now = Date.now()) {
       {
         key:'macro',
         label:'Macro observations',
-        status: availableMacro === 0 ? 'UNAVAILABLE' : (currentMacro > 0 && contextFresh(context, now) ? 'CURRENT' : 'STALE'),
+        status: availableMacro === 0 ? 'UNAVAILABLE' : (currentMacro > 0 && macroSnapshotFresh ? 'CURRENT' : 'STALE'),
         detail: availableMacro === 0
           ? 'No usable macro observations are available for this market.'
-          : `${currentMacro} within configured windows${staleMacro ? `; ${staleMacro} outside their configured windows` : ''}. Source dates remain visible.`,
+          : !macroSnapshotFresh
+            ? `The research-context snapshot itself is outside the eight-hour refresh window. ${currentMacro} observations remain within their own source-specific age windows.`
+            : `${currentMacro} within configured windows${staleMacro ? `; ${staleMacro} outside their configured windows` : ''}. Source dates remain visible.`,
       },
       {
         key:'positioning',
