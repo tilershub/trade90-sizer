@@ -1,5 +1,5 @@
 <script>
-  import {finite, safeSource, relevantIndicators, contextFresh, evidenceNotes, technicalConditions} from '../lib/market-research.js';
+  import {finite, safeSource, relevantIndicators, contextFresh, evidenceNotes, technicalConditions, marketResearchBrief} from '../lib/market-research.js';
   export let pair;
   export let context = null;
   export let panel = 'overview';
@@ -8,6 +8,7 @@
   $: fresh = contextFresh(context,now);
   $: technical = technicalConditions(pair);
   $: notes = evidenceNotes(context,pair?.symbol,now);
+  $: brief = marketResearchBrief(context,pair,now);
   $: currencies = [pair?.base,pair?.quote];
   $: positions = (context?.positioning ?? []).filter(p=>currencies.includes(p.currency));
   $: news = (context?.communications ?? []).filter(n=>currencies.includes(n.currency)||['XAU','BTC'].includes(pair?.base));
@@ -16,16 +17,88 @@
   const number=(v,d=2)=>finite(v)?v.toLocaleString(undefined,{maximumFractionDigits:d}):'—';
   const date=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleDateString():'Not supplied';
   const time=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString():'Not supplied';
+  const signedPercent=(v,d=1)=>finite(v)?`${v>=0?'+':''}${(v*100).toFixed(d)}%`:'—';
+  const countdown=(ms)=>{
+    if(!finite(ms)) return 'Time unavailable';
+    const minutes=Math.max(0,Math.floor(ms/60000));
+    if(minutes<60) return `${minutes}m`;
+    const hours=Math.floor(minutes/60), rem=minutes%60;
+    if(hours<48) return `${hours}h ${rem}m`;
+    return `${Math.floor(hours/24)}d ${hours%24}h`;
+  };
   const sections=[['policy','Rates and monetary conditions'],['economy','Growth, inflation and employment'],['yields','Yields and inflation expectations'],['liquidity','Money and balance sheets'],['risk','Cross-market risk conditions']];
 </script>
 <section class="research" aria-label={`${pair?.symbol} market conditions`}>
   {#if panel === 'overview'}
-    <header><span class="eyebrow">Evidence first</span><h4>Understand the current conditions</h4><p>Compare policy, economic releases and market behaviour. Form your own view from the evidence and its limits.</p></header>
+    <header><span class="eyebrow">Evidence first</span><h4>Understand the current conditions</h4><p>Start with the research brief, then inspect the underlying evidence. TRADE90 does not convert these observations into a buy/sell signal.</p></header>
+
+    <section class="brief" aria-label="Research brief">
+      <div class="brief-head">
+        <div>
+          <span class="eyebrow">Research brief</span>
+          <h5>{pair?.symbol} at a glance</h5>
+        </div>
+        <span class:warning={!brief.quality.fresh}>{brief.quality.fresh ? 'Macro fresh' : 'Macro needs refresh'}</span>
+      </div>
+
+      <div class="brief-grid">
+        <article>
+          <span>Market structure</span>
+          <strong>{brief.structure}</strong>
+          <small>{signedPercent(brief.change20)} over 20 observations</small>
+        </article>
+        <article>
+          <span>Volatility regime</span>
+          <strong>{brief.volatilityLabel}</strong>
+          <small>{finite(brief.volatilityRank) ? number(brief.volatilityRank*100,0)+'th percentile of supplied rolling history' : 'Insufficient history'}</small>
+        </article>
+        <article>
+          <span>Macro / policy</span>
+          <strong>{brief.quality.available}/{brief.quality.total} relevant indicators available</strong>
+          <small>{brief.macro}</small>
+        </article>
+        <article>
+          <span>Positioning</span>
+          <strong>{brief.positioning.label}</strong>
+          <small>{brief.positioning.detail}{brief.positioning.date ? ' · '+date(brief.positioning.date) : ''}</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="catalyst" class:unavailable={brief.catalyst.status==='unavailable'} aria-label="Next market catalyst">
+      <div>
+        <span class="eyebrow">Catalyst</span>
+        {#if brief.catalyst.status==='upcoming'}
+          <h5>{brief.catalyst.event?.currency} · {brief.catalyst.event?.event}</h5>
+          <p><strong>{countdown(brief.catalyst.msUntil)}</strong> until the scheduled release · {time(brief.catalyst.event?.time)}</p>
+          <small>Consensus {brief.catalyst.event?.forecast ?? '—'} · Previous {brief.catalyst.event?.previous ?? '—'}{brief.catalyst.event?.unit ? ' '+brief.catalyst.event.unit : ''}. Reassess the research after the release rather than treating the event as a directional instruction.</small>
+        {:else if brief.catalyst.status==='released'}
+          <h5>{brief.catalyst.event?.currency} · {brief.catalyst.event?.event}</h5>
+          <p>Released {time(brief.catalyst.event?.time)} · Actual <strong>{brief.catalyst.event?.actual ?? '—'}</strong> · Consensus {brief.catalyst.event?.forecast ?? '—'}</p>
+          <small>{finite(brief.catalyst.surprise) ? `Numerical surprise: ${brief.catalyst.surprise>0?'+':''}${number(brief.catalyst.surprise)}. ` : ''}Check yields, policy expectations and the subsequent price response before attributing causation.</small>
+        {:else}
+          <h5>No verified upcoming catalyst in the current feed</h5>
+          <p>{brief.catalyst.calendarStatus}</p>
+          <small>{brief.catalyst.note}</small>
+        {/if}
+      </div>
+    </section>
+
+    <section class="evidence-balance" aria-label="Evidence balance">
+      <div class="balance-head"><span class="eyebrow">Evidence balance</span><h5>What aligns, what conflicts, what is missing</h5></div>
+      <div class="balance-grid">
+        <article class="support"><span>Supporting / aligned</span>{#each brief.supporting as item}<p>{item}</p>{/each}</article>
+        <article class="conflict"><span>Conflicting / caution</span>{#each brief.conflicts as item}<p>{item}</p>{/each}</article>
+        <article class="missing"><span>Missing / uncertain</span>{#each brief.missing as item}<p>{item}</p>{/each}</article>
+      </div>
+      <small class="balance-note">“Supporting” means consistent with the displayed price structure, not evidence that a future move is more likely.</small>
+    </section>
+
     <div class="quality" class:warning={!fresh} role="status">{fresh?'Macro snapshot within refresh window':'Macro snapshot unavailable or needs refresh'} · {time(context?.generated_at)}. Each source has its own observation date.</div>
     {#if pair?.symbol!=='USD/JPY'}<p class="notice">Macro coverage currently includes US conditions and global context{pair?.base==='XAU'?'; gold-specific flows are listed under source coverage':pair?.base==='BTC'?'; crypto-specific flows are listed under source coverage':'. The other economy’s full indicator set is not yet connected'}. USD/JPY has the first two-country comparison.</p>{/if}
     <div class="grid">
-      <details class="research-detail" open><summary>What changed in the data?</summary>{#each notes as note}<p>{note}</p>{/each}<small>Calculated observations. These do not establish what caused a price movement.</small></details>
-      <details class="research-detail" open><summary>Price structure and volatility</summary><p>{technical.trend}</p><dl><dt>20-observation return</dt><dd>{finite(technical.change20)?number(technical.change20*100)+'%':'—'}</dd><dt>20-observation annualized volatility</dt><dd>{finite(technical.volatility)?number(technical.volatility*100)+'%':'—'}</dd><dt>Volatility percentile in supplied history</dt><dd>{finite(technical.volatilityRank)?number(technical.volatilityRank*100,0)+'%':'—'}</dd></dl><small>Close-to-close returns; {technical.annualization ?? '—'} observations/year. Percentile uses {technical.rankWindows ?? 0} overlapping windows, not a probability of a future move. Price history: {date(technical.date)}.</small></details>
+      <details class="research-detail"><summary>What changed in the data?</summary>{#each notes as note}<p>{note}</p>{/each}<small>Calculated observations. These do not establish what caused a price movement.</small></details>
+      <details class="research-detail"><summary>Price structure and volatility</summary><p>{technical.trend}</p><dl><dt>20-observation return</dt><dd>{finite(technical.change20)?number(technical.change20*100)+'%':'—'}</dd><dt>20-observation annualized volatility</dt><dd>{finite(technical.volatility)?number(technical.volatility*100)+'%':'—'}</dd><dt>Volatility percentile in supplied history</dt><dd>{finite(technical.volatilityRank)?number(technical.volatilityRank*100,0)+'%':'—'}</dd></dl><small>Close-to-close returns; {technical.annualization ?? '—'} observations/year. Percentile uses {technical.rankWindows ?? 0} overlapping windows, not a probability of a future move. Price history: {date(technical.date)}.</small></details>
     </div>
     <details class="research-detail"><summary>Read the forces together</summary><p>{pair?.symbol==='USD/JPY'?'Compare the expected Fed and BOJ paths, matching yield maturities, policy communications and yen positioning. A wide rate gap may already be reflected in price.':pair?.base==='XAU'?'Compare real yields, dollar conditions, energy prices and investment demand. Uncertainty and rising real yields can create competing pressures.':pair?.base==='BTC'?'Compare dollar and funding conditions with crypto participation. Macro liquidity measures do not identify flows into Bitcoin.':'Compare both economies, expected policy paths and the observed price response. US data alone cannot explain the pair.'}</p><p>Before drawing a conclusion, check the expected outcome, the actual release, subsequent repricing and opposing evidence. The same headline can accompany different market reactions.</p></details>
     <div class="grid"><details class="research-detail"><summary>Historical reference range</summary><dl><dt>Lowest close / 20 observations</dt><dd>{number(technical.low,pair?.decimals)}</dd><dt>Highest close / 20 observations</dt><dd>{number(technical.high,pair?.decimals)}</dd><dt>Average absolute daily close change</dt><dd>{number(technical.averageMove,pair?.decimals)}</dd></dl><small>Historical closing levels, not resting orders or stop locations. The range measure is not full high/low ATR. {pair?.base==='XAU'?'Gold levels use futures history, not spot CFD prices.':''}</small></details><details class="research-detail"><summary>Research checklist</summary><ul><li>Check data dates and the price basis.</li><li>Separate policy guidance from market expectations.</li><li>Look for disagreement between price and the narrative.</li><li>Record what would change your assessment.</li><li>Waiting is a valid decision when evidence is incomplete.</li></ul><a href={`/tools/trading-plan-builder/?market=${encodeURIComponent(pair?.symbol ?? 'USD/JPY')}`}>Write your research plan</a></details></div>
@@ -52,7 +125,7 @@
   {/if}
 </section>
 <style>
-.research-detail{padding:16px;background:white;border:1px solid #dbe3ec;border-radius:12px;margin:12px 0}.grid .research-detail{margin:0;min-width:0}.research-detail summary{cursor:pointer;font-weight:700;min-height:44px;align-content:center;font-size:1rem}.research-detail summary:focus-visible{outline:3px solid #059669;outline-offset:3px}
+.brief,.catalyst,.evidence-balance{margin:16px 0;border:1px solid #dbe3ec;border-radius:14px;background:#fff;padding:18px}.brief-head,.balance-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.brief-head>span{font-size:.7rem;font-weight:800;border:1px solid #bbf7d0;background:#ecfdf5;color:#047857;border-radius:999px;padding:6px 9px}.brief-head>span.warning{border-color:#fde68a;background:#fffbeb;color:#a16207}.brief-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.brief-grid article{margin:0;padding:14px;background:#f8fafc}.brief-grid article>span,.balance-grid article>span{display:block;color:#64748b;font-size:.64rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}.brief-grid article>strong{display:block;color:#0f172a;font-size:.92rem;line-height:1.35}.brief-grid article>small{margin-top:5px}.catalyst{border-color:#a7f3d0;background:#f0fdf4}.catalyst.unavailable{border-color:#cbd5e1;background:#f8fafc}.catalyst h5{margin:3px 0 6px}.catalyst p{margin:5px 0}.evidence-balance{background:#f8fafc}.balance-head{display:block}.balance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.balance-grid article{margin:0;padding:14px;background:#fff}.balance-grid article.support{border-top:3px solid #10b981}.balance-grid article.conflict{border-top:3px solid #f59e0b}.balance-grid article.missing{border-top:3px solid #94a3b8}.balance-grid p{font-size:.78rem;line-height:1.45;margin:8px 0}.balance-note{margin-top:10px;max-width:none}.research-detail{padding:16px;background:white;border:1px solid #dbe3ec;border-radius:12px;margin:12px 0}.grid .research-detail{margin:0;min-width:0}.research-detail summary{cursor:pointer;font-weight:700;min-height:44px;align-content:center;font-size:1rem}.research-detail summary:focus-visible{outline:3px solid #059669;outline-offset:3px}
 
-.research{padding:22px;color:#172b3a;font-size:1rem;line-height:1.65;background:#f8fafc}.eyebrow{color:#047857;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}h4{font-size:1.65rem;line-height:1.25;margin:0 0 14px}h5{font-size:1.05rem;margin:0 0 12px}p{margin:10px 0}article{padding:20px;background:white;border:1px solid #dbe3ec;border-radius:12px;margin:16px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid article{margin:0}.grid{margin:16px 0}small{display:block;font-size:.82rem;line-height:1.5;color:#526474;max-width:55ch}a{color:#066747;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}a:focus-visible{outline:3px solid #059669;outline-offset:3px}.quality,.notice{padding:12px 16px;background:#eaf4f0;border:1px solid #bfd9ce;border-radius:8px}.warning{background:#fffbeb;border-color:#e9d6a0}dl{display:grid;grid-template-columns:1fr auto;gap:10px}dt{font-size:.9rem}dd{margin:0;font-weight:650;text-align:right}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px;text-align:left}th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:#526474}td,th{padding:13px 10px;border-bottom:1px solid #e2e8f0;vertical-align:top}td:first-child{min-width:240px}li{margin:8px 0}ul{padding-left:20px}@media(max-width:700px){.research{padding:16px 12px}.grid{grid-template-columns:1fr}article{padding:16px}h4{font-size:1.4rem}dl{grid-template-columns:minmax(0,1fr) auto}}
+.research{padding:22px;color:#172b3a;font-size:1rem;line-height:1.65;background:#f8fafc}.eyebrow{color:#047857;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}h4{font-size:1.65rem;line-height:1.25;margin:0 0 14px}h5{font-size:1.05rem;margin:0 0 12px}p{margin:10px 0}article{padding:20px;background:white;border:1px solid #dbe3ec;border-radius:12px;margin:16px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid article{margin:0}.grid{margin:16px 0}small{display:block;font-size:.82rem;line-height:1.5;color:#526474;max-width:55ch}a{color:#066747;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}a:focus-visible{outline:3px solid #059669;outline-offset:3px}.quality,.notice{padding:12px 16px;background:#eaf4f0;border:1px solid #bfd9ce;border-radius:8px}.warning{background:#fffbeb;border-color:#e9d6a0}dl{display:grid;grid-template-columns:1fr auto;gap:10px}dt{font-size:.9rem}dd{margin:0;font-weight:650;text-align:right}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px;text-align:left}th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:#526474}td,th{padding:13px 10px;border-bottom:1px solid #e2e8f0;vertical-align:top}td:first-child{min-width:240px}li{margin:8px 0}ul{padding-left:20px}@media(max-width:900px){.brief-grid{grid-template-columns:1fr 1fr}.balance-grid{grid-template-columns:1fr}}@media(max-width:700px){.research{padding:16px 12px}.grid{grid-template-columns:1fr}.brief-grid{grid-template-columns:1fr}.brief,.catalyst,.evidence-balance{padding:14px}.brief-head{align-items:flex-start;flex-direction:column}article{padding:16px}h4{font-size:1.4rem}dl{grid-template-columns:minmax(0,1fr) auto}}
 </style>

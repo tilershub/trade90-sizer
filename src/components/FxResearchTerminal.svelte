@@ -1,9 +1,12 @@
 <script>
   import { onMount } from 'svelte';
   import MarketResearch from './MarketResearch.svelte';
-  import { technicalConditions } from '../lib/market-research.js';
+  import { technicalConditions, researchContextChanges } from '../lib/market-research.js';
   let researchContext = null;
   let researchError = '';
+  let contextVisitBaseline = null;
+  let contextVisitCompared = false;
+  let contextChangesByMarket = {};
   const emptyPairs = ['USD/JPY','EUR/USD','GBP/USD','USD/CHF','USD/CAD','AUD/USD','NZD/USD','XAU/USD','BTC/USD'].map(symbol => ({symbol,base:symbol.slice(0,3),quote:symbol.slice(4),decimals:symbol==='USD/JPY'?3:2,market:{},quality:{},model:{price_note:'Price research unavailable'},history:[]}));
   async function loadContext() {
     try {
@@ -11,7 +14,18 @@
       if (!response.ok) throw new Error();
       const data = await response.json();
       if (data.schema_version!==1 || data.methodology!=='research-context-1' || !Array.isArray(data.indicators)) throw new Error();
-      researchContext=data; researchError='';
+      researchContext=data;
+      researchError='';
+      if (!contextVisitCompared) {
+        const nextChanges = {};
+        for (const pair of emptyPairs) {
+          const notes = researchContextChanges(contextVisitBaseline, data, pair.symbol, Date.now());
+          if (notes.length) nextChanges[pair.symbol] = notes;
+        }
+        contextChangesByMarket = nextChanges;
+        contextVisitCompared = true;
+        try { localStorage.setItem(CONTEXT_VISIT_KEY, JSON.stringify(data)); } catch {}
+      }
     } catch { researchError=researchContext ? 'Macro refresh failed. Showing previously retrieved research with its original dates.' : 'Macro data is unavailable. Economic and policy research cannot be loaded yet.'; }
   }
   export let initialSymbol = 'USD/JPY';
@@ -23,6 +37,7 @@
   const WATCHLIST_UPDATED_KEY = 'trade90-watchlist-updated-at-v1';
   const VISIT_KEY = 'trade90-terminal-last-visit-v1';
   const VISIT_SNAPSHOT_KEY = 'trade90-terminal-visit-snapshot-v1';
+  const CONTEXT_VISIT_KEY = 'trade90-research-context-last-visit-v1';
   const HISTORY_KEY = 'trade90-research-history-v1';
   const HISTORY_UPDATED_KEY = 'trade90-research-history-updated-at-v1';
   const PANELS = [
@@ -50,6 +65,7 @@
   let visitCompared = false;
   let visitChanges = [];
   let researchHistory = {};
+  let scannerFilter = 'all';
 
   $: pairs = snapshot?.pairs ?? emptyPairs;
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
@@ -57,6 +73,14 @@
   $: freshQuoteCount = pairs.filter(pair => indicativePrice(pair, clock) !== null).length;
   $: watchedPairs = pairs.filter(pair => watchlist.includes(pair.symbol));
   $: activeHistory = Array.isArray(researchHistory?.[selected]) ? researchHistory[selected] : [];
+  $: combinedVisitChanges = pairs.map(pair => {
+    const priceChange = visitChanges.find(item => item.symbol === pair.symbol);
+    const researchChanges = Array.isArray(contextChangesByMarket?.[pair.symbol]) ? contextChangesByMarket[pair.symbol] : [];
+    const notes = [...(priceChange?.notes ?? []), ...researchChanges].slice(0, 6);
+    return { symbol: pair.symbol, notes };
+  }).filter(item => item.notes.length);
+  $: changedSymbols = new Set(combinedVisitChanges.map(item => item.symbol));
+  $: scannerPairs = pairs.filter(pair => scannerMatches(pair, scannerFilter));
 
   function indicativePrice(pair, now) {
     const price = pair?.live?.price;
@@ -137,6 +161,27 @@
     } catch {
       return null;
     }
+  }
+
+  function storedResearchContext() {
+    try {
+      const data = JSON.parse(localStorage.getItem(CONTEXT_VISIT_KEY) || 'null');
+      return data?.schema_version === 1 && data?.methodology === 'research-context-1' && Array.isArray(data?.indicators) ? data : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function scannerMatches(pair, filter) {
+    if (filter === 'watchlist') return watchlist.includes(pair.symbol);
+    if (filter === 'event') return ['Extreme','High'].includes(pair?.events?.risk?.level);
+    if (filter === 'volatility') {
+      const rank = technicalConditions(pair).volatilityRank;
+      return typeof rank === 'number' && Number.isFinite(rank) && rank >= 0.75;
+    }
+    if (filter === 'changed') return changedSymbols.has(pair.symbol);
+    if (filter === 'fresh') return indicativePrice(pair, clock) !== null;
+    return true;
   }
 
   function latestHistoryDate(pair) {
@@ -303,6 +348,7 @@
       watchlist = Array.isArray(storedWatchlist) ? storedWatchlist.filter(item => typeof item === 'string') : [];
       lastVisit = localStorage.getItem(VISIT_KEY);
       visitBaseline = storedVisitSnapshot();
+      contextVisitBaseline = storedResearchContext();
       researchHistory = readResearchHistory();
       localStorage.setItem(VISIT_KEY, new Date().toISOString());
     } catch {
@@ -381,11 +427,11 @@
       <section class="since" aria-label="Changes since last visit">
         <div class="since-head">
           <div><span class="eyebrow">Since your last visit</span><strong>{formatDate(lastVisit)}</strong></div>
-          <span>{visitChanges.length ? `${visitChanges.length} market${visitChanges.length === 1 ? '' : 's'} changed` : 'No material structure or event-risk changes detected'}</span>
+          <span>{combinedVisitChanges.length ? `${combinedVisitChanges.length} market${combinedVisitChanges.length === 1 ? '' : 's'} changed` : 'No material research changes detected'}</span>
         </div>
-        {#if visitChanges.length}
+        {#if combinedVisitChanges.length}
           <div class="since-list">
-            {#each visitChanges.slice(0, 6) as change}
+            {#each combinedVisitChanges.slice(0, 6) as change}
               <button type="button" on:click={() => chooseMarket(change.symbol)}>
                 <strong>{change.symbol}</strong>
                 <span>{change.notes.join(' · ')}</span>
@@ -426,28 +472,46 @@
       {/each}
     </div>
 
-    <details class="scanner-disclosure"><summary>Compare all {pairs.length} markets</summary><section class="scanner" aria-label="Multi-asset market scanner">
-      <div class="scanner-head">
-        <span>Market</span><span>Indicative price</span><span>Day</span><span>Price structure</span><span>History date</span><span>Event risk</span>
+    <details class="scanner-disclosure"><summary>Compare all {pairs.length} markets</summary>
+      <div class="scanner-filters" aria-label="Scanner filters">
+        {#each [
+          ['all','All'],
+          ['watchlist','My Markets'],
+          ['event','High event risk'],
+          ['volatility','High volatility'],
+          ['changed','Changed'],
+          ['fresh','Fresh quote']
+        ] as filter}
+          <button
+            type="button"
+            class:active={scannerFilter===filter[0]}
+            on:click={() => { scannerFilter=filter[0]; trackResearch('research_scanner_filtered',{filter:filter[0]}); }}
+          >{filter[1]}</button>
+        {/each}
       </div>
-      {#each pairs as pair}
-        <button
-          type="button"
-          aria-label={`Open ${pair.symbol}: price ${num(indicativePrice(pair, clock), pair.decimals)}, ${technicalConditions(pair).trend}`}
-          aria-pressed={pair.symbol === active.symbol}
-          class:chosen={pair.symbol === active.symbol}
-          on:click={() => chooseMarket(pair.symbol)}
-        >
-          <strong>{pair.symbol}</strong>
-          <span>{num(indicativePrice(pair, clock), pair.decimals)}</span>
-          <span class={changeClass(pair.live?.change_pct)}>{signedPct(indicativePrice(pair, clock) === null ? null : pair.live?.change_pct)}</span>
-          <span>{technicalConditions(pair).trend}</span>
-          <span>{formatDate(pair.quality?.last_price, false)}</span>
-          <span class={eventClass(pair.events?.risk?.level)}>{pair.events?.risk?.level ?? '—'}</span>
-        </button>
-      {/each}
-    </section>
-
+      <section class="scanner" aria-label="Multi-asset market scanner">
+        <div class="scanner-head">
+          <span>Market</span><span>Indicative price</span><span>Day</span><span>Price structure</span><span>History date</span><span>Event risk</span>
+        </div>
+        {#each scannerPairs as pair}
+          <button
+            type="button"
+            aria-label={`Open ${pair.symbol}: price ${num(indicativePrice(pair, clock), pair.decimals)}, ${technicalConditions(pair).trend}`}
+            aria-pressed={pair.symbol === active.symbol}
+            class:chosen={pair.symbol === active.symbol}
+            on:click={() => chooseMarket(pair.symbol)}
+          >
+            <strong>{changedSymbols.has(pair.symbol) ? '● ' : ''}{pair.symbol}</strong>
+            <span>{num(indicativePrice(pair, clock), pair.decimals)}</span>
+            <span class={changeClass(pair.live?.change_pct)}>{signedPct(indicativePrice(pair, clock) === null ? null : pair.live?.change_pct)}</span>
+            <span>{technicalConditions(pair).trend}</span>
+            <span>{formatDate(pair.quality?.last_price, false)}</span>
+            <span class={eventClass(pair.events?.risk?.level)}>{pair.events?.risk?.level ?? '—'}</span>
+          </button>
+        {:else}
+          <div class="scanner-empty">No markets match this filter right now.</div>
+        {/each}
+      </section>
     </details>
 
     <div class="selected-head">
@@ -576,7 +640,7 @@
 </div>
 
 <style>
-.scanner-disclosure>summary{padding:12px 16px;cursor:pointer;font-size:.85rem;font-weight:700;color:#065f46;min-height:44px;border-bottom:1px solid #dbe3ec}.scanner-disclosure>summary:focus-visible{outline:3px solid #059669;outline-offset:-3px}.pair-tabs button{min-width:150px}.pair-tabs button strong{display:block;font-size:1rem;margin:5px 0}.pair-tabs button small{font-size:.65rem;font-weight:500;white-space:normal}.panel-tabs{scrollbar-width:thin}
+.scanner-disclosure>summary{padding:12px 16px;cursor:pointer;font-size:.85rem;font-weight:700;color:#065f46;min-height:44px;border-bottom:1px solid #dbe3ec}.scanner-disclosure>summary:focus-visible{outline:3px solid #059669;outline-offset:-3px}.scanner-filters{display:flex;gap:7px;padding:12px 18px 0;overflow-x:auto}.scanner-filters button{white-space:nowrap;border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:999px;padding:8px 11px;font-size:.65rem;font-weight:900;cursor:pointer}.scanner-filters button.active{background:#064e3b;border-color:#064e3b;color:#fff}.scanner-empty{padding:22px;text-align:center;color:#64748b;font-size:.75rem;background:#f8fafc}.pair-tabs button{min-width:150px}.pair-tabs button strong{display:block;font-size:1rem;margin:5px 0}.pair-tabs button small{font-size:.65rem;font-weight:500;white-space:normal}.panel-tabs{scrollbar-width:thin}
 
   .terminal{--ink:#0f172a;--muted:#64748b;--line:#dbe3ec;--green:#047857;--green-dark:#064e3b;--soft:#f8fafc;--red:#b91c1c;background:#fff;color:var(--ink);border:1px solid #cbd5e1;border-radius:20px;overflow:hidden;box-shadow:0 22px 55px rgba(15,23,42,.1)}
   .terminal-bar,.selected-head,footer{display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -606,5 +670,5 @@
   footer{border-top:1px solid var(--line);background:#f8fafc;padding:13px 20px;font-size:.64rem;color:#64748b}footer span:last-child{text-align:right}
   @media(max-width:1050px){.facts{grid-template-columns:repeat(3,1fr)}.model-panel{grid-template-columns:1fr}.method-note{grid-column:auto}}
   @media(max-width:800px){.history-list article{grid-template-columns:1fr 1fr}.history-time{grid-column:1/-1}.since-list{grid-template-columns:1fr 1fr}.freshness{grid-template-columns:repeat(2,1fr)}.freshness>div:nth-child(2){border-right:0}.freshness>div:nth-child(-n+2){border-bottom:1px solid #334155}.scanner-head{display:none}.scanner button{grid-template-columns:1fr 1fr 1fr}.scanner button span:nth-of-type(3),.scanner button span:nth-of-type(4),.scanner button span:nth-of-type(5){display:none}.facts{grid-template-columns:repeat(2,1fr)}.layers{grid-template-columns:1fr}.planning,.position-grid{grid-template-columns:repeat(2,1fr)}.event-list{grid-template-columns:1fr}.event-summary{grid-template-columns:1fr 1fr}.event-summary article:last-child{grid-column:1/-1}.validation-summary{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.terminal{border-radius:14px}.history-head{flex-direction:column}.history-list article{grid-template-columns:1fr}.history-time{grid-column:auto}.since-head{align-items:flex-start;flex-direction:column}.since-list{grid-template-columns:1fr}.my-markets{align-items:flex-start;flex-direction:column}.terminal-bar,.selected-head,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:18px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:20px 13px 12px}.headline-price{text-align:left}.panel-tabs{padding-left:12px;padding-right:12px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}.freshness strong{font-size:.64rem}footer span:last-child{text-align:left}}
+  @media(max-width:520px){.terminal{border-radius:14px}.scanner-filters{padding-left:12px;padding-right:12px}.history-head{flex-direction:column}.history-list article{grid-template-columns:1fr}.history-time{grid-column:auto}.since-head{align-items:flex-start;flex-direction:column}.since-list{grid-template-columns:1fr}.my-markets{align-items:flex-start;flex-direction:column}.terminal-bar,.selected-head,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:18px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:20px 13px 12px}.headline-price{text-align:left}.panel-tabs{padding-left:12px;padding-right:12px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}.freshness strong{font-size:.64rem}footer span:last-child{text-align:left}}
 </style>
