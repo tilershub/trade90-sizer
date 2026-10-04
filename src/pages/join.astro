@@ -3,13 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MemberAuth from '../components/MemberAuth.svelte';
 ---
 <BaseLayout
-  title="Create account — TRADE90 Member Workspace"
-  description="Create a TRADE90 account to sync your watchlist, research history, journal and research plan across devices."
+  title="Continue with Google — TRADE90"
+  description="Use Google to create or sign in to your TRADE90 research workspace."
   noIndex={true}
 >
   <section class="min-h-[68vh] px-5 py-16 flex items-center">
     <div class="w-full">
-      <MemberAuth mode="join" client:load />
+      <MemberAuth client:load />
     </div>
   </section>
 </BaseLayout>
