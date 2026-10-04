@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import publicResearch from '../../data/public-research.json';
+
+const title = 'Market Research Today — FX, Gold & Bitcoin';
+const description = 'A current TRADE90 research desk across EUR/USD, GBP/USD, USD/JPY, USD/CHF, USD/CAD, AUD/USD, NZD/USD, Gold and Bitcoin. Compare structure, volatility, positioning and coverage.';
+const order = ['EUR/USD','GBP/USD','USD/JPY','USD/CHF','USD/CAD','AUD/USD','NZD/USD','XAU/USD','BTC/USD'];
+
+const pct = (v) => typeof v === 'number' && Number.isFinite(v)
+  ? `${v >= 0 ? '+' : ''}${(v * 100).toFixed(2)}%`
+  : '—';
+const fmtDate = (v) => v && Number.isFinite(Date.parse(v))
+  ? new Date(v).toLocaleString('en',{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'}) + ' UTC'
+  : 'Unavailable';
+
+function flags(m) {
+  const out = [];
+  if (typeof m?.volatility_percentile === 'number' && m.volatility_percentile >= .75) out.push('High volatility vs supplied history');
+  if (typeof m?.volatility_percentile === 'number' && m.volatility_percentile <= .25) out.push('Low volatility vs supplied history');
+  if (Math.abs(Number(m?.change20)) >= .05) out.push('Large 20-session move');
+  if (m?.positioning?.label && m.positioning.label !== 'Balanced' && m.positioning.label !== 'Unavailable') out.push(`Positioning: ${m.positioning.label}`);
+  if (['High','Extreme'].includes(m?.event_risk)) out.push(`${m.event_risk} event risk`);
+  if (typeof m?.macro_available === 'number' && typeof m?.macro_total === 'number' && m.macro_available < m.macro_total) out.push('Macro coverage incomplete');
+  const coverage = String(m?.macro_context || '');
+  if (coverage.includes('second-economy coverage incomplete')) out.push('Second-economy coverage incomplete');
+  if (coverage.includes('gold-specific flow coverage limited')) out.push('Gold flow coverage limited');
+  if (coverage.includes('crypto venue-flow coverage limited')) out.push('Crypto venue-flow coverage limited');
+  return out;
+}
+
+const markets = order
+  .map(symbol => publicResearch.markets?.[symbol])
+  .filter(Boolean)
+  .map(m => ({...m, flags:flags(m)}));
+
+const notable = markets
+  .filter(m => m.flags.length)
+  .sort((a,b) => b.flags.length - a.flags.length || Math.abs(Number(b.change20)||0)-Math.abs(Number(a.change20)||0));
+
+const structuredData = {
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  name:title,
+  description,
+  url:"https://tradeninety.com/research/today/",
+  dateModified:publicResearch.generated_at,
+  isAccessibleForFree:true,
+  about:[
+    {"@type":"Thing","name":"Foreign exchange market research"},
+    {"@type":"Thing","name":"Gold market research"},
+    {"@type":"Thing","name":"Bitcoin market research"}
+  ],
+  publisher:{"@type":"Organization","name":"TRADE90","url":"https://tradeninety.com/"}
+};
+---
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head-extra">
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+  </Fragment>
+
+  <main class="desk">
+    <header>
+      <p class="eyebrow">TRADE90 Research Desk</p>
+      <h1>Market research today</h1>
+      <p>One current view across the nine markets covered by TRADE90. This page highlights unusual or incomplete conditions that deserve a closer look; it does not rank trade opportunities.</p>
+      <div class="actions">
+        <a class="primary" href="/#terminal">Open live terminal</a>
+        <a href="/economic-calendar/">Economic calendar</a>
+        <a href="/research/">All market research</a>
+        <button id="share-desk" type="button">Share today’s desk</button>
+      </div>
+      <p id="share-desk-status" class="share-status" role="status" aria-live="polite"></p>
+    </header>
+
+    <section class="freshness">
+      <div><span>Published snapshot</span><strong>{fmtDate(publicResearch.generated_at)}</strong></div>
+      <div><span>Markets covered</span><strong>{markets.length}</strong></div>
+      <div><span>Interpretation</span><strong>Research, not signals</strong></div>
+    </section>
+
+    <section class="notable" aria-labelledby="notable-title">
+      <div class="section-head">
+        <div><p class="eyebrow">Attention flags</p><h2 id="notable-title">Conditions worth checking first</h2></div>
+        <p>Flags are rule-based observations such as volatility extremes, larger recent moves, positioning labels or incomplete research coverage. More flags do not mean a better trade.</p>
+      </div>
+
+      {notable.length ? (
+        <div class="notable-grid">
+          {notable.map(m => (
+            <a href={`/research/${m.slug}/`}>
+              <div class="market-title"><strong>{m.symbol}</strong><span>{m.asset_class}</span></div>
+              <p class="structure">{m.structure}</p>
+              <div class="flag-list">{m.flags.map(flag => <span>{flag}</span>)}</div>
+              <small>20-session change {pct(m.change20)} · Open research →</small>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="empty">No rule-based attention flags are present in the latest published snapshot.</p>
+      )}
+    </section>
+
+    <section class="table-section" aria-labelledby="all-markets-title">
+      <div class="section-head">
+        <div><p class="eyebrow">All markets</p><h2 id="all-markets-title">Current published research state</h2></div>
+        <p>The live terminal can have a newer indicative quote than this crawlable research snapshot.</p>
+      </div>
+      <div class="market-table">
+        <div class="table-head"><span>Market</span><span>Structure</span><span>20 sessions</span><span>Volatility</span><span>Positioning</span><span>Coverage</span></div>
+        {markets.map(m => (
+          <a class="table-row" href={`/research/${m.slug}/`}>
+            <strong>{m.symbol}</strong>
+            <span>{m.structure}</span>
+            <span class={Number(m.change20)>0?'positive':Number(m.change20)<0?'negative':''}>{pct(m.change20)}</span>
+            <span>{typeof m.volatility_percentile==='number' ? Math.round(m.volatility_percentile*100)+'th pct.' : '—'}</span>
+            <span>{m.positioning?.label ?? 'Unavailable'}</span>
+            <span>{m.macro_available}/{m.macro_total}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="workflow">
+      <article><span>1</span><strong>Scan</strong><p>Use this desk to see what changed or looks unusual.</p></article>
+      <article><span>2</span><strong>Research</strong><p>Open the market page and inspect sources, dates, macro, positioning and conflicts.</p></article>
+      <article><span>3</span><strong>Plan</strong><p>Write invalidation and risk before execution.</p></article>
+      <article><span>4</span><strong>Review</strong><p>Judge the process after the trade, not just the outcome.</p></article>
+    </section>
+  </main>
+
+  <script is:inline>
+    (function(){
+      const button=document.getElementById('share-desk');
+      const status=document.getElementById('share-desk-status');
+      if(!button) return;
+      button.addEventListener('click',async()=>{
+        const url=new URL('/research/today/',location.origin);
+        url.searchParams.set('ref','share');
+        const shareUrl=url.toString();
+        try{
+          if(navigator.share){
+            await navigator.share({title:'Market Research Today — TRADE90',text:'Current FX, Gold and Bitcoin research conditions from TRADE90.',url:shareUrl});
+            if(status) status.textContent='Shared.';
+          }else if(navigator.clipboard?.writeText){
+            await navigator.clipboard.writeText(shareUrl);
+            if(status) status.textContent='Link copied.';
+          }
+          if(localStorage.getItem('cookieConsent')==='accepted'&&typeof window.gtag==='function'){
+            window.gtag('event','research_desk_shared');
+          }
+        }catch(error){
+          if(error?.name==='AbortError') return;
+          if(status) status.textContent='Could not share automatically.';
+        }
+      });
+      if(localStorage.getItem('cookieConsent')==='accepted'&&typeof window.gtag==='function'){
+        window.gtag('event','research_desk_opened');
+      }
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+.desk{background:#f8fafc;color:#172b3a;padding:40px 20px 60px}.desk>*{max-width:1200px;margin-left:auto;margin-right:auto}.eyebrow{margin:0 0 7px;color:#047857;font-size:.68rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}header h1{margin:0;color:#0f172a;font-size:clamp(2.7rem,7vw,5.5rem);line-height:.93;letter-spacing:-.065em;font-weight:950}header>p:not(.eyebrow):not(.share-status){max-width:850px;color:#526474;font-size:1.02rem;line-height:1.65}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.actions a,.actions button{display:inline-flex;align-items:center;min-height:44px;padding:0 13px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#065f46;font:inherit;font-size:.76rem;font-weight:900;text-decoration:none;cursor:pointer}.actions .primary{background:#064e3b;border-color:#064e3b;color:#fff}.share-status{min-height:1.1rem;color:#047857;font-size:.7rem}.freshness{display:grid;grid-template-columns:2fr 1fr 1fr;margin-top:30px;border-radius:14px;background:#0f172a;overflow:hidden}.freshness>div{padding:14px 16px;border-right:1px solid #334155}.freshness>div:last-child{border:0}.freshness span,.freshness strong{display:block}.freshness span{color:#94a3b8;font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.freshness strong{margin-top:4px;color:#fff;font-size:.74rem}.notable,.table-section{padding-top:38px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:25px}.section-head h2{margin:0;color:#0f172a;font-size:1.6rem;letter-spacing:-.04em}.section-head>p{max-width:520px;margin:0;color:#64748b;font-size:.74rem;line-height:1.5}.notable-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.notable-grid>a{display:block;padding:16px;border:1px solid #dbe3ec;border-radius:14px;background:#fff;color:#172b3a;text-decoration:none}.notable-grid>a:hover{border-color:#10b981}.market-title{display:flex;align-items:center;justify-content:space-between}.market-title strong{font-size:1rem}.market-title span{color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase}.structure{margin:9px 0;color:#526474;font-size:.76rem}.flag-list{display:flex;flex-wrap:wrap;gap:5px}.flag-list span{padding:5px 7px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:.58rem;font-weight:800}.notable-grid small{display:block;margin-top:10px;color:#047857;font-size:.65rem}.empty{padding:24px;border:1px dashed #cbd5e1;border-radius:12px;color:#64748b;background:#fff}.market-table{margin-top:15px;border:1px solid #dbe3ec;border-radius:14px;overflow:hidden;background:#fff}.table-head,.table-row{display:grid;grid-template-columns:.8fr 1.6fr .8fr .8fr .9fr .55fr;gap:10px;align-items:center;padding:11px 14px}.table-head{background:#f1f5f9;color:#64748b;font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.table-row{border-top:1px solid #eef2f7;color:#334155;font-size:.72rem;text-decoration:none}.table-row:hover{background:#ecfdf5}.table-row strong{color:#0f172a}.positive{color:#047857}.negative{color:#b91c1c}.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding-top:35px}.workflow article{padding:16px;border:1px solid #dbe3ec;border-radius:13px;background:#fff}.workflow article>span{display:block;color:#10b981;font-size:.68rem;font-weight:900}.workflow strong{display:block;margin-top:8px}.workflow p{margin:5px 0 0;color:#64748b;font-size:.72rem;line-height:1.5}@media(max-width:850px){.notable-grid{grid-template-columns:1fr 1fr}.workflow{grid-template-columns:1fr 1fr}.market-table{overflow-x:auto}.table-head,.table-row{min-width:760px}}@media(max-width:560px){.desk{padding:28px 10px 45px}.freshness{grid-template-columns:1fr}.freshness>div{border-right:0;border-bottom:1px solid #334155}.section-head{align-items:flex-start;flex-direction:column}.notable-grid,.workflow{grid-template-columns:1fr}.actions a,.actions button{flex:1;justify-content:center;min-width:140px}}
+</style>

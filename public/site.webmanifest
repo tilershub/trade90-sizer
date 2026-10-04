@@ -15,16 +15,16 @@
   ],
   "shortcuts": [
     {
+      "name": "Research Today",
+      "short_name": "Research",
+      "description": "Open the current multi-market TRADE90 research desk.",
+      "url": "/research/today/"
+    },
+    {
       "name": "Research Terminal",
       "short_name": "Terminal",
       "description": "Open the TRADE90 multi-asset research terminal.",
       "url": "/#terminal"
-    },
-    {
-      "name": "Today Dashboard",
-      "short_name": "Today",
-      "description": "Open watched markets, sessions and daily risk.",
-      "url": "/today/"
     },
     {
       "name": "Economic Calendar",

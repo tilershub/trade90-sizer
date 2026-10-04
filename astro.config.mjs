@@ -3,6 +3,10 @@ import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
+import { readFileSync } from "node:fs";
+
+const researchSnapshot = JSON.parse(readFileSync(new URL("./src/data/public-research.json", import.meta.url), "utf8"));
+const researchLastmod = researchSnapshot?.generated_at ? new Date(researchSnapshot.generated_at) : undefined;
 
 export default defineConfig({
   site: "https://tradeninety.com", // MUST be absolute, no trailing slash
@@ -54,8 +58,8 @@ export default defineConfig({
         }
 
         // Market research pages are refreshed from the research pipeline.
-        if (path.startsWith('/research/') && path !== '/research/') {
-          return { ...item, priority: 1.0, changefreq: 'daily' };
+        if (path === '/research/' || path.startsWith('/research/')) {
+          return { ...item, priority: 1.0, changefreq: 'daily', ...(researchLastmod ? { lastmod: researchLastmod } : {}) };
         }
 
         // Hub articles (two path segments under a hub)

@@ -36,6 +36,7 @@ export const GET: APIRoute = async () => {
     { title: 'Trading Journal', desc: 'Log trades in R-multiples and track win rate, expectancy, and plan adherence.', url: '/journal/', section: 'Platform', type: 'tool' },
     { title: 'Trading Plan Builder', desc: 'Write a complete six-section trading plan and export it.', url: '/tools/trading-plan-builder/', section: 'Platform', type: 'tool' },
     { title: 'Economic Calendar', desc: 'Track scheduled global economic releases and central-bank events, then open the affected TRADE90 market research.', url: '/economic-calendar/', section: 'Research', type: 'tool' },
+    { title: 'Market Research Today', desc: 'Current cross-market research desk for FX, Gold and Bitcoin with structure, volatility, positioning and coverage flags.', url: '/research/today/', section: 'Research', type: 'research' },
     { title: 'EUR/USD Research', desc: 'Current EUR/USD market structure, macro context, positioning, volatility and evidence balance.', url: '/research/eurusd/', section: 'Research', type: 'research' },
     { title: 'GBP/USD Research', desc: 'Current GBP/USD market structure, macro context, positioning, volatility and evidence balance.', url: '/research/gbpusd/', section: 'Research', type: 'research' },
     { title: 'USD/JPY Research', desc: 'Current USD/JPY market structure with US, Japan and global macro context.', url: '/research/usdjpy/', section: 'Research', type: 'research' },
