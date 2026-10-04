@@ -196,7 +196,9 @@ const breadcrumbSchema = {
       button.addEventListener('click',async()=>{
         const symbol=button.dataset.symbol || 'Market';
         const path=button.dataset.path || location.pathname;
-        const url=new URL(path,location.origin);\n        url.searchParams.set('ref','share');\n        const shareUrl=url.toString();
+        const url=new URL(path,location.origin);
+        url.searchParams.set('ref','share');
+        const shareUrl=url.toString();
         try{
           if(navigator.share){
             await navigator.share({title:symbol+' research — TRADE90',text:'Research '+symbol+' with market structure, macro, events, positioning and source transparency.',url:shareUrl});
