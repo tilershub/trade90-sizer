@@ -226,7 +226,7 @@
   async function shareActiveMarket() {
     if (!active?.symbol) return;
     const slug = active.symbol.replace('/', '').toLowerCase();
-    const url = new URL(`/research/${slug}/`, window.location.origin).toString();
+    const url = new URL(`/research/${slug}/?ref=share`, window.location.origin).toString();
     shareStatus = '';
     try {
       if (navigator.share) {
