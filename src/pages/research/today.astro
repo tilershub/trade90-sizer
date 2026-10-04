@@ -21,7 +21,10 @@ function flags(m) {
   if (m?.positioning?.label && m.positioning.label !== 'Balanced' && m.positioning.label !== 'Unavailable') out.push(`Positioning: ${m.positioning.label}`);
   if (['High','Extreme'].includes(m?.event_risk)) out.push(`${m.event_risk} event risk`);
   if (typeof m?.macro_available === 'number' && typeof m?.macro_total === 'number' && m.macro_available < m.macro_total) out.push('Macro coverage incomplete');
-  if (String(m?.macro_context || '').includes('second-economy coverage incomplete')) out.push('Second-economy coverage incomplete');
+  const coverage = String(m?.macro_context || '');
+  if (coverage.includes('second-economy coverage incomplete')) out.push('Second-economy coverage incomplete');
+  if (coverage.includes('gold-specific flow coverage limited')) out.push('Gold flow coverage limited');
+  if (coverage.includes('crypto venue-flow coverage limited')) out.push('Crypto venue-flow coverage limited');
   return out;
 }
 
