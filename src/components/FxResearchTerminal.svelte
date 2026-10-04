@@ -73,6 +73,10 @@
   $: currentPrice = indicativePrice(active, clock);
   $: freshQuoteCount = pairs.filter(pair => indicativePrice(pair, clock) !== null).length;
   $: watchedPairs = pairs.filter(pair => watchlist.includes(pair.symbol));
+  $: marketTabs = [
+    ...watchedPairs,
+    ...pairs.filter(pair => !watchlist.includes(pair.symbol)),
+  ];
   $: activeHistory = Array.isArray(researchHistory?.[selected]) ? researchHistory[selected] : [];
   $: combinedVisitChanges = pairs.map(pair => {
     const priceChange = visitChanges.find(item => item.symbol === pair.symbol);
@@ -106,6 +110,17 @@
       ? { dateStyle: 'medium', timeStyle: 'short' }
       : { dateStyle: 'medium' };
     return date.toLocaleString([], options);
+  }
+
+  function relativeAge(value) {
+    const time = value instanceof Date ? value.getTime() : Date.parse(value);
+    if (!Number.isFinite(time)) return '—';
+    const minutes = Math.max(0, Math.round((Date.now() - time) / 60000));
+    if (minutes < 1) return 'now';
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.round(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    return `${Math.round(hours / 24)}d ago`;
   }
 
   function buildChart(rows, keys, width = 800, height = 260) {
@@ -378,6 +393,13 @@
       visitBaseline = storedVisitSnapshot();
       contextVisitBaseline = storedResearchContext();
       researchHistory = readResearchHistory();
+      const cachedSnapshot = savedSnapshot();
+      if (cachedSnapshot) {
+        snapshot = cachedSnapshot;
+        loading = false;
+        usingSavedSnapshot = true;
+      }
+      if (contextVisitBaseline) researchContext = contextVisitBaseline;
       localStorage.setItem(VISIT_KEY, new Date().toISOString());
     } catch {
       watchlist = [];
@@ -392,7 +414,7 @@
     };
     window.addEventListener('trade90-workspace-applied', applyWorkspace);
     trackResearch('terminal_open', { entry_market: initialSymbol });
-    load();
+    load(Boolean(snapshot));
     loadContext();
     const contextTimer = setInterval(loadContext,300000);
     const timer = setInterval(() => load(true), 300000);
@@ -444,14 +466,19 @@
     {/if}
 
     {#if researchError}<div class="warning" role="status">{researchError}</div>{/if}
-    <section class="freshness" aria-label="Data freshness">
-      <div><span>Recent indicative quotes</span><strong>{freshQuoteCount}/{pairs.length} markets</strong></div>
-      <div><span>Price refresh</span><strong>Every 5 minutes</strong></div>
-      <div><span>Price research</span><strong>{formatDate(snapshot?.generated_at)}</strong></div>
-      <div><span>Last checked</span><strong>{formatDate(lastChecked)}</strong></div>
-    </section>
+    <details class="data-status">
+      <summary>
+        <span><i class:live={freshQuoteCount > 0 && !usingSavedSnapshot}></i>{freshQuoteCount}/{pairs.length} quotes</span>
+        <strong>{usingSavedSnapshot ? 'Saved snapshot' : `Research ${relativeAge(snapshot?.generated_at)}`}</strong>
+      </summary>
+      <div>
+        <span>Indicative quote refresh <strong>Every 5 minutes</strong></span>
+        <span>Research snapshot <strong>{formatDate(snapshot?.generated_at)}</strong></span>
+        <span>Last checked <strong>{formatDate(lastChecked)}</strong></span>
+      </div>
+    </details>
 
-    {#if lastVisit}
+    {#if lastVisit && combinedVisitChanges.length}
       <section class="since" aria-label="Changes since last visit">
         <div class="since-head">
           <div><span class="eyebrow">Since your last visit</span><strong>{formatDate(lastVisit)}</strong></div>
@@ -470,22 +497,8 @@
       </section>
     {/if}
 
-    {#if watchedPairs.length}
-      <section class="my-markets" aria-label="My Markets">
-        <strong>My Markets</strong>
-        <div>
-          {#each watchedPairs as pair}
-            <button type="button" class:active={pair.symbol === active.symbol} on:click={() => chooseMarket(pair.symbol)}>
-              ★ {pair.symbol}
-              <span>{num(indicativePrice(pair, clock), pair.decimals)}</span>
-            </button>
-          {/each}
-        </div>
-      </section>
-    {/if}
-
     <div class="pair-tabs" role="tablist" aria-label="Markets">
-      {#each pairs as pair}
+      {#each marketTabs as pair}
         <button
           type="button"
           role="tab"
@@ -495,7 +508,7 @@
         >
           <span>{watchlist.includes(pair.symbol) ? '★ ' : ''}{pair.symbol}</span>
           <strong>{num(indicativePrice(pair, clock), pair.decimals)}</strong>
-          <small>{indicativePrice(pair, clock) === null ? "Quote unavailable" : formatDate(pair.live?.updated_at)}</small>
+          <small class={changeClass(pair.live?.change_pct)}>{indicativePrice(pair, clock) === null ? "Unavailable" : signedPct(pair.live?.change_pct)}</small>
         </button>
       {/each}
     </div>
@@ -542,45 +555,40 @@
       </section>
     </details>
 
-    <div class="selected-head">
-      <div class="selected-copy">
-        <span class="eyebrow">Selected market</span>
-        <div class="selected-title">
-          <h3>{active.symbol}</h3>
-          <button
-            class="watch-toggle"
-            type="button"
-            aria-pressed={watchlist.includes(active.symbol)}
-            on:click={() => toggleWatchlist(active.symbol)}
-          >{watchlist.includes(active.symbol) ? '★ Watching' : '☆ Add to My Markets'}</button>
-          <button class="share-toggle" type="button" on:click={shareActiveMarket}>↗ Share</button>
-          {#if shareStatus}<span class="share-status" role="status" aria-live="polite">{shareStatus}</span>{/if}
+    <div class="research-controls">
+      <div class="selected-head">
+        <div class="selected-copy">
+          <span class="eyebrow">Selected market</span>
+          <div class="selected-title">
+            <h3>{active.symbol}</h3>
+            <button
+              class="watch-toggle"
+              type="button"
+              aria-pressed={watchlist.includes(active.symbol)}
+              on:click={() => toggleWatchlist(active.symbol)}
+            >{watchlist.includes(active.symbol) ? '★ Watching' : '☆ Watch'}</button>
+            <button class="share-toggle" type="button" on:click={shareActiveMarket}>↗ Share</button>
+            {#if shareStatus}<span class="share-status" role="status" aria-live="polite">{shareStatus}</span>{/if}
+          </div>
         </div>
-        <p>{active.asset_class ?? 'FX'} · {active.symbol === 'XAU/USD' ? 'Spot quote; futures-based historical research. Their price levels are not interchangeable.' : active.model.price_note}</p>
+        <div class="headline-price">
+          <span>{currentPrice !== null ? 'Indicative' : 'Unavailable'}</span>
+          <strong>{num(currentPrice, active.decimals)}</strong>
+          <small class={changeClass(active.live?.change_pct)}>{currentPrice !== null ? signedPct(active.live?.change_pct)+' today' : 'Check research timestamp'}</small>
+        </div>
       </div>
-      <div class="headline-price">
-        <span>{active.symbol === 'XAU/USD' ? (currentPrice !== null ? 'Gold · USD per troy ounce' : 'Gold quote unavailable') : (currentPrice !== null ? 'Indicative price' : 'Quote unavailable')}</span>
-        <strong>{num(currentPrice, active.decimals)}</strong>
-        {#if active.symbol === 'XAU/USD'}
-          <small>{active.live ? `${active.live.provider} · ${formatDate(active.live.updated_at)}` : 'No fresh spot quote available'}</small>
-        {:else}
-          <small class={changeClass(active.live?.change_pct)}>{signedPct(active.live?.change_pct)} today</small>
-        {/if}
-      </div>
+
+      <nav class="panel-tabs" aria-label={`${active.symbol} research sections`}>
+        {#each PANELS as panel}
+          <button
+            type="button"
+            aria-current={activePanel === panel[0] ? 'page' : undefined}
+            class:active={activePanel === panel[0]}
+            on:click={() => { activePanel = panel[0]; trackResearch('research_panel_opened', { instrument: selected, panel: panel[0] }); }}
+          >{panel[1]}</button>
+        {/each}
+      </nav>
     </div>
-
-
-
-    <nav class="panel-tabs" aria-label={`${active.symbol} research sections`}>
-      {#each PANELS as panel}
-        <button
-          type="button"
-          aria-current={activePanel === panel[0] ? 'page' : undefined}
-          class:active={activePanel === panel[0]}
-          on:click={() => { activePanel = panel[0]; trackResearch('research_panel_opened', { instrument: selected, panel: panel[0] }); }}
-        >{panel[1]}</button>
-      {/each}
-    </nav>
 
     {#if activePanel === 'history'}
       <section class="panel history-panel" aria-label={`${active.symbol} research history`}>
@@ -670,11 +678,11 @@
 </div>
 
 <style>
-.scanner-disclosure>summary{padding:12px 16px;cursor:pointer;font-size:.85rem;font-weight:700;color:#065f46;min-height:44px;border-bottom:1px solid #dbe3ec}.scanner-disclosure>summary:focus-visible{outline:3px solid #059669;outline-offset:-3px}.scanner-filters{display:flex;gap:7px;padding:12px 18px 0;overflow-x:auto}.scanner-filters button{white-space:nowrap;border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:999px;padding:8px 11px;font-size:.65rem;font-weight:900;cursor:pointer}.scanner-filters button.active{background:#064e3b;border-color:#064e3b;color:#fff}.scanner-empty{padding:22px;text-align:center;color:#64748b;font-size:.75rem;background:#f8fafc}.pair-tabs button{min-width:150px}.pair-tabs button strong{display:block;font-size:1rem;margin:5px 0}.pair-tabs button small{font-size:.65rem;font-weight:500;white-space:normal}.panel-tabs{scrollbar-width:thin}
+.data-status{border-bottom:1px solid #dbe3ec;background:#0f172a;color:#fff}.data-status summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:42px;padding:0 16px;cursor:pointer;font-size:.66rem}.data-status summary span{display:flex;align-items:center;gap:7px;color:#cbd5e1;font-weight:800}.data-status summary strong{color:#f8fafc;font-size:.65rem}.data-status i{width:7px;height:7px;border-radius:50%;background:#64748b}.data-status i.live{background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.18)}.data-status>div{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#334155}.data-status>div span{padding:10px 14px;background:#0f172a;color:#94a3b8;font-size:.6rem}.data-status>div strong{display:block;margin-top:3px;color:#fff}.scanner-disclosure>summary{padding:12px 16px;cursor:pointer;font-size:.85rem;font-weight:700;color:#065f46;min-height:44px;border-bottom:1px solid #dbe3ec}.scanner-disclosure>summary:focus-visible{outline:3px solid #059669;outline-offset:-3px}.scanner-filters{display:flex;gap:7px;padding:12px 18px 0;overflow-x:auto}.scanner-filters button{white-space:nowrap;border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:999px;padding:8px 11px;font-size:.65rem;font-weight:900;cursor:pointer}.scanner-filters button.active{background:#064e3b;border-color:#064e3b;color:#fff}.scanner-empty{padding:22px;text-align:center;color:#64748b;font-size:.75rem;background:#f8fafc}.pair-tabs button{min-width:118px}.pair-tabs button strong{display:block;font-size:.94rem;margin:3px 0}.pair-tabs button small{font-size:.62rem;font-weight:800;white-space:normal}.panel-tabs{scrollbar-width:thin}
 
   .terminal{--ink:#0f172a;--muted:#64748b;--line:#dbe3ec;--green:#047857;--green-dark:#064e3b;--soft:#f8fafc;--red:#b91c1c;background:#fff;color:var(--ink);border:1px solid #cbd5e1;border-radius:20px;overflow:hidden;box-shadow:0 22px 55px rgba(15,23,42,.1)}
   .terminal-bar,.selected-head,footer{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .terminal-bar{padding:22px 24px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#f0fdf4,#fff 55%)}
+  .terminal-bar{padding:16px 18px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#f0fdf4,#fff 55%)}
   h2,h3,h4{margin:3px 0 0;color:#020617;font-weight:900;letter-spacing:-.04em}h2,h3{text-transform:uppercase}h2{font-size:1.35rem}h3{font-size:2rem}h4{font-size:1.05rem}
   p{color:#475569}.eyebrow,.step{font-size:.65rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--green)}
   .status-wrap{display:flex;align-items:center;gap:10px}.status{display:flex;align-items:center;gap:8px;font-size:.68rem;font-weight:800;text-transform:uppercase;color:#475569}.status>span{width:8px;height:8px;border-radius:50%;background:#ef4444}.status>span.live{background:#10b981;box-shadow:0 0 0 4px #d1fae5}
@@ -685,8 +693,8 @@
   .since{padding:14px 16px;border-bottom:1px solid var(--line);background:#f0fdf4}.since-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}.since-head strong{display:block;margin-top:3px;font-size:.75rem;color:#334155}.since-head>span{font-size:.7rem;color:#526474}.since-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.since-list button{border:1px solid #bbf7d0;background:#fff;border-radius:9px;padding:10px;text-align:left;cursor:pointer}.since-list button:hover{border-color:#10b981}.since-list strong,.since-list span{display:block}.since-list strong{color:#064e3b;font-size:.75rem}.since-list span{margin-top:4px;color:#526474;font-size:.64rem;line-height:1.4}.my-markets{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:#fff}.my-markets>strong{white-space:nowrap;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#475569}.my-markets>div{display:flex;gap:7px;overflow-x:auto}.my-markets button{display:flex;align-items:center;gap:7px;white-space:nowrap;border:1px solid #dbe3ec;background:#f8fafc;border-radius:999px;padding:7px 10px;font-size:.68rem;font-weight:800;color:#334155;cursor:pointer}.my-markets button.active{background:#064e3b;color:#fff;border-color:#064e3b}.my-markets button span{font-weight:600}.pair-tabs{display:flex;gap:8px;padding:14px 16px;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--soft)}.pair-tabs button{display:grid;gap:3px;min-width:88px;white-space:nowrap;border:1px solid var(--line);background:#fff;color:#334155;padding:9px 11px;border-radius:9px;font-size:.72rem;font-weight:900;cursor:pointer;text-align:left}.pair-tabs button small{font-size:.58rem}.pair-tabs button.active{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}.pair-tabs button.active small{color:#d1fae5!important}
   .scanner{margin:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden}.scanner-head,.scanner button{display:grid;grid-template-columns:1fr 1fr .7fr .8fr 1fr .8fr;align-items:center;gap:10px;text-align:left;padding:10px 14px}.scanner-head{background:#f1f5f9;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.scanner button{width:100%;border:0;border-top:1px solid #eef2f7;background:#fff;color:#334155;font-size:.74rem;cursor:pointer}.scanner button:hover,.scanner button.chosen{background:#ecfdf5}.scanner strong{color:#0f172a}
   .positive{color:#047857!important}.negative{color:#b91c1c!important}.neutral{color:#475569!important}.caution{color:#b45309!important}
-  .selected-head{padding:24px 20px 14px}.selected-copy{min-width:0}.selected-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.selected-head p{margin:4px 0 0;font-size:.72rem}.watch-toggle,.share-toggle{border:1px solid #a7f3d0;background:#ecfdf5;color:#065f46;border-radius:999px;padding:7px 10px;font-size:.66rem;font-weight:900;cursor:pointer}.watch-toggle[aria-pressed="true"]{background:#064e3b;color:#fff;border-color:#064e3b}.share-toggle{border-color:#cbd5e1;background:#fff;color:#334155}.share-status{font-size:.64rem;font-weight:800;color:#047857}.headline-price{text-align:right}.headline-price>span{display:block;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.headline-price>strong{display:block;font-size:1.8rem;color:#020617}.headline-price>small{font-size:.7rem;font-weight:800}
-  .panel-tabs{display:flex;gap:4px;padding:0 20px 14px;overflow-x:auto;border-bottom:1px solid var(--line)}.panel-tabs button{white-space:nowrap;border:0;background:#f1f5f9;color:#475569;border-radius:8px;padding:9px 12px;font-size:.66rem;font-weight:900;cursor:pointer}.panel-tabs button.active{background:#064e3b;color:#fff}
+  .research-controls{position:sticky;top:64px;z-index:12;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.selected-head{padding:12px 16px 8px}.selected-copy{min-width:0}.selected-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.selected-head p{margin:4px 0 0;font-size:.72rem}.watch-toggle,.share-toggle{border:1px solid #a7f3d0;background:#ecfdf5;color:#065f46;border-radius:999px;padding:7px 10px;font-size:.66rem;font-weight:900;cursor:pointer}.watch-toggle[aria-pressed="true"]{background:#064e3b;color:#fff;border-color:#064e3b}.share-toggle{border-color:#cbd5e1;background:#fff;color:#334155}.share-status{font-size:.64rem;font-weight:800;color:#047857}.headline-price{text-align:right}.headline-price>span{display:block;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.headline-price>strong{display:block;font-size:1.8rem;color:#020617}.headline-price>small{font-size:.7rem;font-weight:800}
+  .panel-tabs{display:flex;gap:4px;padding:0 16px 10px;overflow-x:auto}.panel-tabs button{white-space:nowrap;border:0;background:#f1f5f9;color:#475569;border-radius:8px;padding:9px 12px;font-size:.66rem;font-weight:900;cursor:pointer}.panel-tabs button.active{background:#064e3b;color:#fff}
   .panel{padding:18px 20px 22px}.history-panel{background:#f8fafc}.history-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}.history-head p{max-width:760px;margin:6px 0 0;font-size:.75rem;line-height:1.5}.history-clear{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:8px;padding:8px 10px;font-size:.65rem;font-weight:900;text-transform:uppercase;cursor:pointer}.history-list{display:grid;gap:8px}.history-list article{display:grid;grid-template-columns:1.35fr 1.5fr .8fr 1fr 1fr;gap:12px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}.history-list article>div>span{display:block;color:#64748b;font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}.history-list article>div>strong{display:block;color:#0f172a;font-size:.72rem}.history-time span{font-size:.58rem!important;text-transform:none!important;letter-spacing:0!important}.history-note{margin:12px 0 0;color:#64748b;font-size:.68rem;line-height:1.5}.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.facts article,.layers article,.planning>div,.event-summary article,.position-grid article,.chart-card,.audit-card,.validation-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:15px}.facts span,.planning span,.event-summary span,.position-grid span,.validation-summary span{display:block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}.facts strong,.planning strong,.event-summary strong,.position-grid strong,.validation-summary strong{display:block;color:#0f172a;font-size:.96rem}.facts small,.event-summary small,.position-grid small{display:block;margin-top:4px;color:#64748b;font-size:.6rem;line-height:1.35}
   .layers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.layers article{background:var(--soft)}.layers p{font-size:.82rem;line-height:1.55}.layers small{color:#64748b;line-height:1.45}.score-row{display:flex;align-items:baseline;gap:12px;margin-top:12px}.score-row strong{font-size:2rem}.score-row span{font-weight:800;color:#334155}
   .probabilities{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0}.probabilities>div{position:relative;overflow:hidden;padding:10px;border-radius:9px;background:#fff;border:1px solid var(--line)}.probabilities span{display:block;font-size:.61rem;color:#64748b}.probabilities strong{position:relative;z-index:1;color:#0f172a}.probabilities i{position:absolute;left:0;bottom:0;height:3px;background:#10b981}
@@ -699,6 +707,6 @@
   .validation-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.validation-summary>div{padding:11px;border-radius:9px;background:#f8fafc;border:1px solid var(--line)}.validation-table{border:1px solid var(--line);border-radius:9px;overflow:hidden}.validation-table>div{display:grid;grid-template-columns:.8fr 1fr 1fr 1fr 1.1fr;gap:6px;padding:9px 10px;border-top:1px solid #eef2f7;font-size:.63rem}.validation-table>div:first-child{border:0}.validation-head{background:#f1f5f9;color:#64748b;font-weight:900;text-transform:uppercase}.method-note{grid-column:1/-1;padding:16px;border:1px solid #a7f3d0;border-radius:11px;background:#ecfdf5}.method-note strong{color:#065f46}.method-note p{margin:4px 0 0;font-size:.75rem;line-height:1.5}
   footer{border-top:1px solid var(--line);background:#f8fafc;padding:13px 20px;font-size:.64rem;color:#64748b}footer span:last-child{text-align:right}
   @media(max-width:1050px){.facts{grid-template-columns:repeat(3,1fr)}.model-panel{grid-template-columns:1fr}.method-note{grid-column:auto}}
-  @media(max-width:800px){.history-list article{grid-template-columns:1fr 1fr}.history-time{grid-column:1/-1}.since-list{grid-template-columns:1fr 1fr}.freshness{grid-template-columns:repeat(2,1fr)}.freshness>div:nth-child(2){border-right:0}.freshness>div:nth-child(-n+2){border-bottom:1px solid #334155}.scanner-head{display:none}.scanner button{grid-template-columns:1fr 1fr 1fr}.scanner button span:nth-of-type(3),.scanner button span:nth-of-type(4),.scanner button span:nth-of-type(5){display:none}.facts{grid-template-columns:repeat(2,1fr)}.layers{grid-template-columns:1fr}.planning,.position-grid{grid-template-columns:repeat(2,1fr)}.event-list{grid-template-columns:1fr}.event-summary{grid-template-columns:1fr 1fr}.event-summary article:last-child{grid-column:1/-1}.validation-summary{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.terminal{border-radius:14px}.scanner-filters{padding-left:12px;padding-right:12px}.history-head{flex-direction:column}.history-list article{grid-template-columns:1fr}.history-time{grid-column:auto}.since-head{align-items:flex-start;flex-direction:column}.since-list{grid-template-columns:1fr}.my-markets{align-items:flex-start;flex-direction:column}.terminal-bar,.selected-head,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:18px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:20px 13px 12px}.headline-price{text-align:left}.panel-tabs{padding-left:12px;padding-right:12px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}.freshness strong{font-size:.64rem}footer span:last-child{text-align:left}}
+  @media(max-width:800px){.history-list article{grid-template-columns:1fr 1fr}.history-time{grid-column:1/-1}.since-list{grid-template-columns:1fr 1fr}.data-status>div{grid-template-columns:1fr}.scanner-head{display:none}.scanner button{grid-template-columns:1fr 1fr 1fr}.scanner button span:nth-of-type(3),.scanner button span:nth-of-type(4),.scanner button span:nth-of-type(5){display:none}.facts{grid-template-columns:repeat(2,1fr)}.layers{grid-template-columns:1fr}.planning,.position-grid{grid-template-columns:repeat(2,1fr)}.event-list{grid-template-columns:1fr}.event-summary{grid-template-columns:1fr 1fr}.event-summary article:last-child{grid-column:1/-1}.validation-summary{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.terminal{border-radius:14px}.research-controls{top:64px}.scanner-filters{padding-left:12px;padding-right:12px}.history-head{flex-direction:column}.history-list article{grid-template-columns:1fr}.history-time{grid-column:auto}.since-head{align-items:flex-start;flex-direction:column}.since-list{grid-template-columns:1fr}.terminal-bar,footer{align-items:flex-start;flex-direction:column}.terminal-bar{padding:14px}.status-wrap{width:100%;justify-content:space-between}.scanner{margin:12px}.scanner button{padding:11px}.selected-head{padding:10px 12px 6px}.selected-head{align-items:center}.selected-copy .eyebrow{display:none}.selected-title{gap:7px}.selected-title h3{font-size:1.25rem}.headline-price{text-align:right;margin-left:auto}.headline-price>span{display:none}.headline-price>strong{font-size:1.2rem}.panel-tabs{padding-left:10px;padding-right:10px;padding-bottom:8px}.panel{padding:14px 12px 18px}.facts{grid-template-columns:1fr 1fr}.facts article:nth-child(5),.facts article:nth-child(6){grid-column:auto}.planning{grid-template-columns:1fr 1fr}.probabilities{grid-template-columns:1fr 1fr 1fr}.chart-wrap{height:200px}.card-head{flex-direction:column}.chart-stat{text-align:left}.event-summary{grid-template-columns:1fr}.event-summary article:last-child{grid-column:auto}.position-grid{grid-template-columns:1fr 1fr}.audit-list>div{grid-template-columns:92px 1fr 42px}.validation-table{overflow-x:auto}.validation-table>div{min-width:480px}footer span:last-child{text-align:left}}
 </style>
