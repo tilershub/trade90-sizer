@@ -4,15 +4,15 @@ import FxResearchTerminal from '../../components/FxResearchTerminal.svelte';
 import { INSTRUMENTS, getSlug } from '../../lib/instruments';
 import publicResearch from '../../data/public-research.json';
 
-const MARKET_SYMBOLS = ['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'];
-
 export function getStaticPaths() {
-  return MARKET_SYMBOLS.map(symbol => ({
+  const symbols = ['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'];
+  return symbols.map(symbol => ({
     params: {market: getSlug(symbol)},
     props: {instrument: INSTRUMENTS[symbol]}
   }));
 }
 
+const MARKET_SYMBOLS = ['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'];
 const { instrument } = Astro.props;
 const symbol = instrument.symbol.slice(0,3) + '/' + instrument.symbol.slice(3);
 const snapshot = publicResearch.markets?.[symbol] ?? null;
