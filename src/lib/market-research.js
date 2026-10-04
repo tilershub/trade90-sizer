@@ -27,7 +27,7 @@ export function indicatorTrust(row, now = Date.now()) {
   }
   const observed = Date.parse(row.observed_at);
   const calculatedAge = Number.isFinite(observed) ? Math.max(0, (now - observed) / 86400000) : null;
-  const ageDays = finite(row.age_days) ? row.age_days : calculatedAge;
+  const ageDays = finite(calculatedAge) ? calculatedAge : (finite(row.age_days) ? row.age_days : null);
   const maxAgeDays = finite(row.max_age_days) ? row.max_age_days : null;
   const stale = finite(ageDays) && finite(maxAgeDays) ? ageDays > maxAgeDays : false;
   return {
