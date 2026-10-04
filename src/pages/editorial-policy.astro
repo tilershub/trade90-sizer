@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = "Editorial Policy & Methodology";
-const description = "How TRADE90 researches, writes, and reviews its trading education — our standards on accuracy, affiliate disclosure, calculator assumptions, and corrections.";
+const title = "Editorial Policy & Research Methodology";
+const description = "How TRADE90 produces market research, handles automated data, sources observations, corrects errors, explains calculator assumptions, and separates research from financial advice.";
 
 const site = Astro.site?.toString() || "https://tradeninety.com";
 
@@ -17,44 +17,63 @@ const breadcrumbSchema = {
 
 const sections = [
   {
-    h: "Our Mission",
+    h: "Purpose",
     p: [
-      "TRADE90 exists to help traders become consistently profitable before asking them to join a prop firm. Every guide, tool, and resource is built to answer a real question a funded trader has before, during, or after a trade.",
-      "We are an education platform first. Calculators support the education; affiliate recommendations appear only after substantial educational value has been delivered — never before.",
+      "TRADE90 is built to help traders examine market evidence, define risk before execution, and review decisions afterward. The research terminal is designed to make uncertainty, source dates and missing coverage visible rather than hide them behind a single score.",
+      "The primary purpose of the site is research, education and decision-process support. TRADE90 is not a broker, execution venue, investment adviser, signal service or promise of future trading results.",
     ],
   },
   {
-    h: "How We Write",
+    h: "How the Research Is Produced",
     p: [
-      "Articles are researched and written by traders with live evaluation and funded-account experience, then reviewed for accuracy before publication. We prioritise clarity and correctness over volume.",
-      "We do not publish hype, guaranteed-return claims, or fabricated income screenshots. Where we cite numbers, we use verifiable mathematics — compound drawdown, break-even win rates, expectancy — rather than invented statistics or unsourced survey figures.",
+      "The research terminal uses an automated data pipeline to retrieve, normalize and timestamp market and macro observations from identified sources. Deterministic calculations are then used for items such as moving-average structure, rolling volatility, historical ranges and changes between observations.",
+      "Live indicative quotes and slower research datasets are intentionally kept separate because they update on different schedules. A current quote does not make an older macro observation current, and an unavailable source is not replaced with an invented estimate.",
+      "The terminal's Research Brief and Evidence Balance summarize the supplied observations. They do not generate a buy/sell instruction, guaranteed outcome, price target or hidden confidence score.",
+    ],
+  },
+  {
+    h: "Source & Freshness Standards",
+    p: [
+      "Where practical, TRADE90 links to the original or primary source and displays observation dates separately from retrieval dates. Different datasets have different release schedules and can be revised after publication.",
+      "If a feed is delayed, incomplete, unavailable or based on a different instrument basis, the interface is designed to state that limitation. For example, spot Gold quotes and COMEX futures history are not treated as interchangeable price series.",
+      "Positioning, economic releases, policy communications and price data each describe different parts of the market. TRADE90 does not present any one of them as a complete measure of institutional activity or market causation.",
+    ],
+  },
+  {
+    h: "Automation & Editorial Transparency",
+    p: [
+      "Automation is used because market data changes frequently and because reproducible calculations are more useful than manually rewriting the same observations. The role of the automated pipeline is to organize evidence and make changes easier to inspect.",
+      "TRADE90 does not create large numbers of pages simply to target search queries. Market pages exist for instruments covered by the research product and are intended to remain useful to a trader who visits directly, not only to a search engine.",
+      "Educational copy, methodology explanations and product decisions are maintained under TRADE90's editorial standards. We avoid fabricated authors, invented credentials, fake testimonials and manufactured performance claims.",
     ],
   },
   {
     h: "Accuracy & Corrections",
     p: [
-      "Every article carries a visible 'last updated' date. Prop firm rules change frequently; we describe them as typical structures and consistently advise verifying current terms on each firm's official website.",
-      "If you find an error, contact us and we will correct it promptly. Material corrections are reflected in the update date.",
+      "Financial and market information can change quickly. We distinguish the timestamp of the displayed research from the time a reader visits the page, and we do not change dates merely to make unchanged content appear fresh.",
+      "If a material calculation, source mapping or explanatory statement is found to be wrong, TRADE90 aims to correct it promptly. Data-provider revisions may also change historical values without implying that the earlier page was intentionally inaccurate.",
+      "Corrections can be reported through the contact page. Include the page, the item you believe is incorrect and the source you are comparing it with.",
     ],
   },
   {
     h: "Calculator Assumptions",
     p: [
-      "Our calculators use standard, widely-published pip and point values (for example, $10 per pip per standard lot on most USD-quoted forex majors, $10 per point per 0.1 lot on gold, and $1 per point per 0.1 lot on major indices). Actual values vary by broker and contract specification.",
-      "Drawdown and compounding tools use exact arithmetic on the inputs you provide. They are planning illustrations, not predictions — real trading results include variance, spread, commissions, and slippage that a calculator cannot model.",
+      "Position-size, pip-value, risk/reward, drawdown and compounding tools are mathematical planning aids. Broker contract sizes, tick values, conversion rates, spreads, commissions and margin rules can differ by instrument and provider.",
+      "A calculated position is not a recommendation. Users should verify current contract specifications and their own risk limits before relying on a result.",
     ],
   },
   {
     h: "Affiliate Disclosure",
     p: [
-      "Some links to prop firms are affiliate links. If you sign up through one, TRADE90 may earn a commission at no additional cost to you. This never changes what we write: firm coverage is intended to be balanced, rules-focused, and free of pressure tactics.",
-      "We recommend at most one or two firms per relevant article, and only after the educational content stands on its own. We do not rank firms in exchange for higher commissions.",
+      "Some pages may contain affiliate links. If a user signs up through an eligible link, TRADE90 may earn a commission at no additional cost to that user.",
+      "Affiliate relationships do not turn a firm, broker or service into a recommendation and do not change the research methodology used in the terminal. Promotional relationships should be disclosed where they are relevant.",
     ],
   },
   {
     h: "Not Financial Advice",
     p: [
-      "Nothing on TRADE90 is financial, investment, or trading advice, and nothing should be treated as a recommendation to buy or sell any instrument. Trading carries substantial risk of loss. You are responsible for your own decisions; consider consulting a licensed professional for advice specific to your situation.",
+      "Nothing on TRADE90 is personalized financial, investment or trading advice. Market research is incomplete by nature and historical observations do not guarantee future outcomes.",
+      "Trading and leveraged products can involve substantial losses. Users remain responsible for their own decisions and may wish to consult an appropriately licensed professional for advice specific to their circumstances.",
     ],
   },
 ];
@@ -70,11 +89,12 @@ const sections = [
         <span aria-hidden="true">/</span>
         <span class="text-slate-300">Editorial Policy</span>
       </nav>
+      <p class="text-[10px] font-black uppercase tracking-[0.28em] text-emerald-400 mb-3">Who · How · Why</p>
       <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4">
-        Editorial Policy &amp; <span class="text-emerald-400">Methodology</span>
+        Editorial Policy &amp; <span class="text-emerald-400">Research Methodology</span>
       </h1>
       <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
-        The standards behind everything we publish — how we research, write, disclose, and correct.
+        How TRADE90 sources data, uses automation, handles uncertainty, corrects errors and keeps research separate from a trading recommendation.
       </p>
     </div>
   </section>
@@ -89,11 +109,13 @@ const sections = [
       </section>
     ))}
 
-    <section class="border-t border-slate-800 pt-10">
-      <p class="text-slate-400 text-sm leading-relaxed">
-        Questions about our editorial standards? <a href="/contact/" class="text-emerald-400 hover:text-white transition-colors">Contact us</a> — or read
-        <a href="/about/" class="text-emerald-400 hover:text-white transition-colors">about TRADE90</a>.
-      </p>
+    <section class="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
+      <h2 class="text-lg font-black text-white mb-3">Research documentation</h2>
+      <div class="flex flex-wrap gap-4 text-sm font-bold">
+        <a href="/research-guide/" class="text-emerald-400 hover:text-white">Research guide →</a>
+        <a href="/research/" class="text-emerald-400 hover:text-white">Current market research →</a>
+        <a href="/contact/" class="text-emerald-400 hover:text-white">Report a correction →</a>
+      </div>
     </section>
   </div>
 </BaseLayout>
