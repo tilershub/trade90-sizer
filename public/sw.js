@@ -1,5 +1,5 @@
 const CACHE = 'trade90-shell-v1';
-const CORE = ['/', '/research/', '/today/', '/economic-calendar/', '/site.webmanifest'];
+const CORE = ['/', '/research/', '/research/today/', '/today/', '/economic-calendar/', '/site.webmanifest'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).catch(() => {}));
