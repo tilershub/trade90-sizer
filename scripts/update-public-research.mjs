@@ -45,7 +45,7 @@ if(context?.schema_version!==1 || !Array.isArray(context?.indicators)) throw new
 
 const out={
   schema_version:1,
-  generated_at:new Date().toISOString(),
+  generated_at:new Date(Math.max(Date.parse(terminal.generated_at), Date.parse(context.generated_at))).toISOString(),
   terminal_generated_at:terminal.generated_at,
   context_generated_at:context.generated_at,
   markets:{}
