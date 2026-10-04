@@ -47,6 +47,7 @@ export default defineConfig({
           '/tools/fx-research-terminal/',
           '/tools/position-size-calculator/',
           '/economic-calendar/',
+          '/research/',
         ];
         if (highPriority.includes(path)) {
           return { ...item, priority: 1.0, changefreq: 'weekly' };
