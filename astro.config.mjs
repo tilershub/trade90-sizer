@@ -46,9 +46,16 @@ export default defineConfig({
           '/tools/',
           '/tools/fx-research-terminal/',
           '/tools/position-size-calculator/',
+          '/economic-calendar/',
+          '/research/',
         ];
         if (highPriority.includes(path)) {
           return { ...item, priority: 1.0, changefreq: 'weekly' };
+        }
+
+        // Market research pages are refreshed from the research pipeline.
+        if (path.startsWith('/research/') && path !== '/research/') {
+          return { ...item, priority: 1.0, changefreq: 'daily' };
         }
 
         // Hub articles (two path segments under a hub)

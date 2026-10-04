@@ -1,0 +1,90 @@
+---
+---
+<div id="trade90-install-card" class="install-card hidden" role="dialog" aria-labelledby="trade90-install-title" aria-describedby="trade90-install-copy">
+  <button id="trade90-install-close" class="close" type="button" aria-label="Dismiss install prompt">×</button>
+  <p class="eyebrow">Daily research</p>
+  <strong id="trade90-install-title">Add TRADE90 to your device</strong>
+  <p id="trade90-install-copy">Open the research terminal, Today dashboard and calendar with one tap.</p>
+  <button id="trade90-install-action" class="action" type="button">Install TRADE90</button>
+  <p id="trade90-install-help" class="help hidden" role="status"></p>
+</div>
+
+<script is:inline>
+(function(){
+  const card=document.getElementById('trade90-install-card');
+  const action=document.getElementById('trade90-install-action');
+  const close=document.getElementById('trade90-install-close');
+  const help=document.getElementById('trade90-install-help');
+  if(!card||!action||!close) return;
+
+  const standalone=window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
+  if(standalone) return;
+
+  const dismissUntil=Number(localStorage.getItem('trade90-install-dismissed-until')||0);
+  if(Date.now()<dismissUntil) return;
+
+  const visits=(Number(localStorage.getItem('trade90-page-visits')||0)+1);
+  localStorage.setItem('trade90-page-visits',String(visits));
+  if(visits<3) return;
+
+  let deferred=null;
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari=/safari/i.test(navigator.userAgent)&&!/crios|fxios|edgios/i.test(navigator.userAgent);
+
+  function analytics(event){
+    try{
+      if(localStorage.getItem('cookieConsent')==='accepted'&&typeof window.gtag==='function'){
+        window.gtag('event',event);
+      }
+    }catch{}
+  }
+  function show(){
+    if(!localStorage.getItem('cookieConsent')) return;
+    card.classList.remove('hidden');
+    analytics('pwa_install_prompt_shown');
+  }
+  function hide(days=30){
+    card.classList.add('hidden');
+    localStorage.setItem('trade90-install-dismissed-until',String(Date.now()+days*86400000));
+  }
+
+  close.addEventListener('click',()=>hide());
+
+  window.addEventListener('beforeinstallprompt',(event)=>{
+    event.preventDefault();
+    deferred=event;
+    window.setTimeout(show,2500);
+  });
+
+  if(isIOS&&isSafari){
+    action.textContent='Add to Home Screen';
+    action.addEventListener('click',()=>{
+      help.textContent='In Safari, tap Share, then choose “Add to Home Screen”.';
+      help.classList.remove('hidden');
+      analytics('pwa_ios_instructions_opened');
+    });
+    window.setTimeout(show,5000);
+  }else{
+    action.addEventListener('click',async()=>{
+      if(!deferred) return;
+      deferred.prompt();
+      const choice=await deferred.userChoice;
+      analytics(choice?.outcome==='accepted'?'pwa_install_accepted':'pwa_install_dismissed');
+      deferred=null;
+      if(choice?.outcome==='accepted') card.classList.add('hidden');
+    });
+  }
+
+  window.addEventListener('appinstalled',()=>{
+    card.classList.add('hidden');
+    localStorage.setItem('trade90-install-dismissed-until',String(Date.now()+3650*86400000));
+    analytics('pwa_installed');
+  });
+
+  window.addEventListener('cookie-accepted',()=>{ if((deferred||(isIOS&&isSafari))&&visits>=3) window.setTimeout(show,1000); });
+})();
+</script>
+
+<style>
+.install-card{position:fixed;right:18px;bottom:18px;z-index:45;width:min(340px,calc(100vw - 24px));padding:18px;border:1px solid #334155;border-radius:16px;background:#0f172a;color:#e2e8f0;box-shadow:0 20px 55px rgba(2,6,23,.35)}.install-card.hidden{display:none}.install-card .close{position:absolute;right:10px;top:8px;border:0;background:transparent;color:#94a3b8;font-size:1.35rem;cursor:pointer}.install-card .eyebrow{margin:0 0 5px;color:#34d399;font-size:.58rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.install-card>strong{display:block;padding-right:20px;color:#fff;font-size:.95rem}.install-card>p:not(.eyebrow){margin:7px 0 12px;color:#cbd5e1;font-size:.75rem;line-height:1.45}.install-card .action{min-height:42px;border:0;border-radius:9px;background:#10b981;color:#022c22;padding:0 14px;font-weight:900;cursor:pointer}.install-card .help{margin:9px 0 0!important;color:#a7f3d0!important}.install-card .help.hidden{display:none}@media(max-width:520px){.install-card{right:12px;bottom:12px}}
+</style>

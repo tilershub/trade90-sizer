@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import publicResearch from '../../data/public-research.json';
+
+const title = 'Forex, Gold & Bitcoin Market Research';
+const description = 'Compare current FX, Gold and Bitcoin market structure, volatility, positioning and macro coverage, then open the full TRADE90 research terminal.';
+const order = ['EUR/USD','GBP/USD','USD/JPY','USD/CHF','USD/CAD','AUD/USD','NZD/USD','XAU/USD','BTC/USD'];
+const names = {
+  'EUR/USD':'Euro / US Dollar',
+  'GBP/USD':'British Pound / US Dollar',
+  'USD/JPY':'US Dollar / Japanese Yen',
+  'USD/CHF':'US Dollar / Swiss Franc',
+  'USD/CAD':'US Dollar / Canadian Dollar',
+  'AUD/USD':'Australian Dollar / US Dollar',
+  'NZD/USD':'New Zealand Dollar / US Dollar',
+  'XAU/USD':'Gold / US Dollar',
+  'BTC/USD':'Bitcoin / US Dollar'
+};
+const markets = order.map(symbol => publicResearch.markets?.[symbol]).filter(Boolean);
+const pct = v => typeof v==='number'&&Number.isFinite(v) ? `${v>=0?'+':''}${(v*100).toFixed(2)}%` : '—';
+const rank = v => typeof v==='number'&&Number.isFinite(v) ? `${Math.round(v*100)}th percentile` : '—';
+const fmt = v => v&&Number.isFinite(Date.parse(v)) ? new Date(v).toLocaleString('en',{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'})+' UTC' : 'Unavailable';
+const schema = {
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  name:title,
+  description,
+  url:"https://tradeninety.com/research/",
+  dateModified:publicResearch.generated_at,
+  isAccessibleForFree:true,
+  hasPart:markets.map(m=>({
+    "@type":"WebPage",
+    name:`${m.symbol} market research`,
+    url:`https://tradeninety.com/research/${m.slug}/`
+  })),
+  publisher:{"@type":"Organization","name":"TRADE90","url":"https://tradeninety.com/"}
+};
+---
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head-extra">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  </Fragment>
+  <main class="research-index">
+    <header>
+      <p class="eyebrow">TRADE90 market research</p>
+      <h1>FX, Gold & Bitcoin research</h1>
+      <p>Compare the latest published market structure across nine TRADE90 markets, then open the full terminal for macro, policy, positioning, events, evidence balance and source coverage.</p>
+      <div class="actions"><a class="primary" href="/#terminal">Open live terminal</a><a href="/economic-calendar/">Economic calendar</a><a href="/today/">Today dashboard</a></div>
+    </header>
+
+    <section class="freshness" aria-label="Research freshness">
+      <div><span>Published research snapshot</span><strong>{fmt(publicResearch.generated_at)}</strong></div>
+      <div><span>Markets</span><strong>{markets.length}</strong></div>
+      <div><span>Access</span><strong>Free</strong></div>
+    </section>
+
+    <section class="market-grid" aria-label="Market research pages">
+      {markets.map(m => (
+        <article>
+          <div class="market-head">
+            <div><span>{m.asset_class}</span><h2>{m.symbol}</h2><p>{names[m.symbol]}</p></div>
+            <a href={`/research/${m.slug}/`}>Open research →</a>
+          </div>
+          <div class="facts">
+            <div><span>Structure</span><strong>{m.structure}</strong></div>
+            <div><span>20-session change</span><strong class={m.change20>0?'positive':m.change20<0?'negative':''}>{pct(m.change20)}</strong></div>
+            <div><span>Volatility</span><strong>{rank(m.volatility_percentile)}</strong></div>
+            <div><span>Positioning</span><strong>{m.positioning?.label ?? 'Unavailable'}</strong></div>
+            <div><span>Macro coverage</span><strong>{m.macro_available}/{m.macro_total}</strong></div>
+            <div><span>Event risk</span><strong>{m.event_risk ?? 'Unknown'}</strong></div>
+          </div>
+          <p class="coverage">{m.macro_context}</p>
+        </article>
+      ))}
+    </section>
+
+    <section class="principles">
+      <div><strong>Evidence, not signals</strong><p>TRADE90 does not turn one indicator or one model output into a buy/sell instruction.</p></div>
+      <div><strong>Missing data stays visible</strong><p>Coverage gaps are labelled rather than filled with assumptions.</p></div>
+      <div><strong>Every market has a workflow</strong><p>Research → plan → position size → journal → review.</p></div>
+    </section>
+  </main>
+</BaseLayout>
+<style>
+.research-index{background:#f8fafc;color:#172b3a;padding:42px 20px 58px}.research-index>*{max-width:1200px;margin-left:auto;margin-right:auto}.eyebrow{margin:0 0 8px;color:#047857;font-size:.7rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}header h1{margin:0;color:#0f172a;font-size:clamp(2.6rem,6vw,5rem);line-height:.94;letter-spacing:-.06em;font-weight:950}header>p:not(.eyebrow){max-width:820px;color:#526474;font-size:1.02rem;line-height:1.65}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.actions a{display:inline-flex;align-items:center;min-height:44px;padding:0 13px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#065f46;font-size:.78rem;font-weight:900;text-decoration:none}.actions .primary{background:#064e3b;border-color:#064e3b;color:#fff}.freshness{display:grid;grid-template-columns:2fr 1fr 1fr;margin-top:30px;border:1px solid #1e293b;border-radius:14px;background:#0f172a;overflow:hidden}.freshness div{padding:14px 16px;border-right:1px solid #334155}.freshness div:last-child{border:0}.freshness span,.freshness strong{display:block}.freshness span{color:#94a3b8;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.freshness strong{margin-top:4px;color:#f8fafc;font-size:.75rem}.market-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding-top:18px}.market-grid article{border:1px solid #dbe3ec;border-radius:16px;background:#fff;padding:18px}.market-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.market-head span{color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase}.market-head h2{margin:3px 0 0;color:#0f172a;font-size:1.45rem;letter-spacing:-.04em}.market-head p{margin:2px 0 0;color:#64748b;font-size:.72rem}.market-head a{color:#047857;font-size:.72rem;font-weight:900;text-decoration:none}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}.facts div{padding:10px;border-radius:9px;background:#f8fafc;border:1px solid #e2e8f0}.facts span,.facts strong{display:block}.facts span{color:#64748b;font-size:.53rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.facts strong{margin-top:4px;color:#0f172a;font-size:.67rem;line-height:1.3}.facts .positive{color:#047857}.facts .negative{color:#b91c1c}.coverage{margin:10px 0 0;color:#64748b;font-size:.68rem}.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:30px}.principles div{padding:17px;border:1px solid #dbe3ec;border-radius:13px;background:#fff}.principles strong{color:#0f172a}.principles p{margin:6px 0 0;color:#526474;font-size:.78rem;line-height:1.5}@media(max-width:760px){.research-index{padding:30px 10px 44px}.market-grid{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr 1fr}.principles{grid-template-columns:1fr}.freshness{grid-template-columns:1fr}.freshness div{border-right:0;border-bottom:1px solid #334155}}@media(max-width:430px){.facts{grid-template-columns:1fr 1fr}.market-head{flex-direction:column}}
+</style>

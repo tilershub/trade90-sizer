@@ -1,11 +1,38 @@
 {
-  "name": "TRADE90",
+  "name": "TRADE90 — Market Research Workspace",
   "short_name": "TRADE90",
-  "description": "Professional trading tools and risk management analysis.",
-  "start_url": "/",
+  "description": "Research FX, Gold and Bitcoin, track market changes, plan risk and review decisions.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#10b981",
+  "categories": [
+    "finance",
+    "productivity",
+    "education"
+  ],
+  "shortcuts": [
+    {
+      "name": "Research Terminal",
+      "short_name": "Terminal",
+      "description": "Open the TRADE90 multi-asset research terminal.",
+      "url": "/#terminal"
+    },
+    {
+      "name": "Today Dashboard",
+      "short_name": "Today",
+      "description": "Open watched markets, sessions and daily risk.",
+      "url": "/today/"
+    },
+    {
+      "name": "Economic Calendar",
+      "short_name": "Calendar",
+      "description": "Open the global economic calendar.",
+      "url": "/economic-calendar/"
+    }
+  ],
   "icons": [
     {
       "src": "/apple-touch-icon.png",

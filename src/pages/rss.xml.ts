@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { HUBS } from '../lib/hubs';
+import publicResearch from '../data/public-research.json';
 
 function escapeXml(s: string): string {
   return s
@@ -17,7 +18,19 @@ export const GET: APIRoute = async ({ site }) => {
   const articles = await getCollection('articles');
   const posts = await getCollection('posts');
 
+  const researchDate = new Date(publicResearch.generated_at);
+  const researchSummary = Object.values(publicResearch.markets ?? {})
+    .map((market: any) => `${market.symbol}: ${market.structure}`)
+    .join(' · ');
+
   const items = [
+    {
+      title: 'TRADE90 Market Research Snapshot',
+      description: `Latest published FX, Gold and Bitcoin research structure across nine markets. ${researchSummary}`,
+      url: `${base}/research/`,
+      date: researchDate,
+      category: 'Market Research',
+    },
     ...articles.map((a) => ({
       title: a.data.title,
       description: a.data.description,
@@ -41,9 +54,9 @@ export const GET: APIRoute = async ({ site }) => {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>TRADE90 — Education for Funded Traders</title>
+  <title>TRADE90 — Market Research & Risk Management</title>
   <link>${base}/</link>
-  <description>Practical education on trading psychology, risk management, and disciplined execution for funded traders.</description>
+  <description>Current FX, Gold and Bitcoin research plus practical risk-management and trading-process tools.</description>
   <language>en</language>
   <lastBuildDate>${lastBuild.toUTCString()}</lastBuildDate>
   <atom:link href="${base}/rss.xml" rel="self" type="application/rss+xml"/>

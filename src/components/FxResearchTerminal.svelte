@@ -66,6 +66,7 @@
   let visitChanges = [];
   let researchHistory = {};
   let scannerFilter = 'all';
+  let shareStatus = '';
 
   $: pairs = snapshot?.pairs ?? emptyPairs;
   $: active = pairs.find((pair) => pair.symbol === selected) ?? pairs[0];
@@ -220,6 +221,33 @@
     } catch {}
     window.trade90Workspace?.scheduleSync?.();
     trackResearch(watchlist.includes(symbol) ? 'watchlist_add' : 'watchlist_remove', { instrument: symbol, watchlist_size: watchlist.length });
+  }
+
+  async function shareActiveMarket() {
+    if (!active?.symbol) return;
+    const slug = active.symbol.replace('/', '').toLowerCase();
+    const url = new URL(`/research/${slug}/?ref=share`, window.location.origin).toString();
+    shareStatus = '';
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `${active.symbol} research — TRADE90`,
+          text: `Research ${active.symbol} with market structure, macro, events, positioning and source transparency.`,
+          url,
+        });
+        shareStatus = 'Shared';
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+        shareStatus = 'Link copied';
+      } else {
+        shareStatus = 'Open the market research page to copy its URL';
+      }
+      trackResearch('research_shared', { instrument: active.symbol, method: navigator.share ? 'native_share' : 'copy_link' });
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+      shareStatus = 'Share unavailable';
+    }
+    window.setTimeout(() => { shareStatus = ''; }, 2500);
   }
 
   function readResearchHistory() {
@@ -525,6 +553,8 @@
             aria-pressed={watchlist.includes(active.symbol)}
             on:click={() => toggleWatchlist(active.symbol)}
           >{watchlist.includes(active.symbol) ? '★ Watching' : '☆ Add to My Markets'}</button>
+          <button class="share-toggle" type="button" on:click={shareActiveMarket}>↗ Share</button>
+          {#if shareStatus}<span class="share-status" role="status" aria-live="polite">{shareStatus}</span>{/if}
         </div>
         <p>{active.asset_class ?? 'FX'} · {active.symbol === 'XAU/USD' ? 'Spot quote; futures-based historical research. Their price levels are not interchangeable.' : active.model.price_note}</p>
       </div>
@@ -655,7 +685,7 @@
   .since{padding:14px 16px;border-bottom:1px solid var(--line);background:#f0fdf4}.since-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}.since-head strong{display:block;margin-top:3px;font-size:.75rem;color:#334155}.since-head>span{font-size:.7rem;color:#526474}.since-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.since-list button{border:1px solid #bbf7d0;background:#fff;border-radius:9px;padding:10px;text-align:left;cursor:pointer}.since-list button:hover{border-color:#10b981}.since-list strong,.since-list span{display:block}.since-list strong{color:#064e3b;font-size:.75rem}.since-list span{margin-top:4px;color:#526474;font-size:.64rem;line-height:1.4}.my-markets{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:#fff}.my-markets>strong{white-space:nowrap;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#475569}.my-markets>div{display:flex;gap:7px;overflow-x:auto}.my-markets button{display:flex;align-items:center;gap:7px;white-space:nowrap;border:1px solid #dbe3ec;background:#f8fafc;border-radius:999px;padding:7px 10px;font-size:.68rem;font-weight:800;color:#334155;cursor:pointer}.my-markets button.active{background:#064e3b;color:#fff;border-color:#064e3b}.my-markets button span{font-weight:600}.pair-tabs{display:flex;gap:8px;padding:14px 16px;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--soft)}.pair-tabs button{display:grid;gap:3px;min-width:88px;white-space:nowrap;border:1px solid var(--line);background:#fff;color:#334155;padding:9px 11px;border-radius:9px;font-size:.72rem;font-weight:900;cursor:pointer;text-align:left}.pair-tabs button small{font-size:.58rem}.pair-tabs button.active{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}.pair-tabs button.active small{color:#d1fae5!important}
   .scanner{margin:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden}.scanner-head,.scanner button{display:grid;grid-template-columns:1fr 1fr .7fr .8fr 1fr .8fr;align-items:center;gap:10px;text-align:left;padding:10px 14px}.scanner-head{background:#f1f5f9;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.scanner button{width:100%;border:0;border-top:1px solid #eef2f7;background:#fff;color:#334155;font-size:.74rem;cursor:pointer}.scanner button:hover,.scanner button.chosen{background:#ecfdf5}.scanner strong{color:#0f172a}
   .positive{color:#047857!important}.negative{color:#b91c1c!important}.neutral{color:#475569!important}.caution{color:#b45309!important}
-  .selected-head{padding:24px 20px 14px}.selected-copy{min-width:0}.selected-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.selected-head p{margin:4px 0 0;font-size:.72rem}.watch-toggle{border:1px solid #a7f3d0;background:#ecfdf5;color:#065f46;border-radius:999px;padding:7px 10px;font-size:.66rem;font-weight:900;cursor:pointer}.watch-toggle[aria-pressed="true"]{background:#064e3b;color:#fff;border-color:#064e3b}.headline-price{text-align:right}.headline-price>span{display:block;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.headline-price>strong{display:block;font-size:1.8rem;color:#020617}.headline-price>small{font-size:.7rem;font-weight:800}
+  .selected-head{padding:24px 20px 14px}.selected-copy{min-width:0}.selected-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.selected-head p{margin:4px 0 0;font-size:.72rem}.watch-toggle,.share-toggle{border:1px solid #a7f3d0;background:#ecfdf5;color:#065f46;border-radius:999px;padding:7px 10px;font-size:.66rem;font-weight:900;cursor:pointer}.watch-toggle[aria-pressed="true"]{background:#064e3b;color:#fff;border-color:#064e3b}.share-toggle{border-color:#cbd5e1;background:#fff;color:#334155}.share-status{font-size:.64rem;font-weight:800;color:#047857}.headline-price{text-align:right}.headline-price>span{display:block;color:#64748b;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.headline-price>strong{display:block;font-size:1.8rem;color:#020617}.headline-price>small{font-size:.7rem;font-weight:800}
   .panel-tabs{display:flex;gap:4px;padding:0 20px 14px;overflow-x:auto;border-bottom:1px solid var(--line)}.panel-tabs button{white-space:nowrap;border:0;background:#f1f5f9;color:#475569;border-radius:8px;padding:9px 12px;font-size:.66rem;font-weight:900;cursor:pointer}.panel-tabs button.active{background:#064e3b;color:#fff}
   .panel{padding:18px 20px 22px}.history-panel{background:#f8fafc}.history-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}.history-head p{max-width:760px;margin:6px 0 0;font-size:.75rem;line-height:1.5}.history-clear{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:8px;padding:8px 10px;font-size:.65rem;font-weight:900;text-transform:uppercase;cursor:pointer}.history-list{display:grid;gap:8px}.history-list article{display:grid;grid-template-columns:1.35fr 1.5fr .8fr 1fr 1fr;gap:12px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}.history-list article>div>span{display:block;color:#64748b;font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}.history-list article>div>strong{display:block;color:#0f172a;font-size:.72rem}.history-time span{font-size:.58rem!important;text-transform:none!important;letter-spacing:0!important}.history-note{margin:12px 0 0;color:#64748b;font-size:.68rem;line-height:1.5}.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.facts article,.layers article,.planning>div,.event-summary article,.position-grid article,.chart-card,.audit-card,.validation-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:15px}.facts span,.planning span,.event-summary span,.position-grid span,.validation-summary span{display:block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}.facts strong,.planning strong,.event-summary strong,.position-grid strong,.validation-summary strong{display:block;color:#0f172a;font-size:.96rem}.facts small,.event-summary small,.position-grid small{display:block;margin-top:4px;color:#64748b;font-size:.6rem;line-height:1.35}
   .layers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.layers article{background:var(--soft)}.layers p{font-size:.82rem;line-height:1.55}.layers small{color:#64748b;line-height:1.45}.score-row{display:flex;align-items:baseline;gap:12px;margin-top:12px}.score-row strong{font-size:2rem}.score-row span{font-weight:800;color:#334155}

@@ -2,29 +2,223 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FxResearchTerminal from '../../components/FxResearchTerminal.svelte';
 import { INSTRUMENTS, getSlug } from '../../lib/instruments';
+import publicResearch from '../../data/public-research.json';
+
 export function getStaticPaths() {
-  return ['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'].map(symbol => ({params: {market: getSlug(symbol)}, props: {instrument: INSTRUMENTS[symbol]}}));
+  const symbols = ['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'];
+  return symbols.map(symbol => ({
+    params: {market: getSlug(symbol)},
+    props: {instrument: INSTRUMENTS[symbol]}
+  }));
 }
+
+const MARKET_SYMBOLS = ['XAUUSD','BTCUSD','USDJPY','EURUSD','GBPUSD','USDCHF','USDCAD','AUDUSD','NZDUSD'];
 const { instrument } = Astro.props;
 const symbol = instrument.symbol.slice(0,3) + '/' + instrument.symbol.slice(3);
+const snapshot = publicResearch.markets?.[symbol] ?? null;
 const gold = instrument.symbol === 'XAUUSD';
 const bitcoin = instrument.symbol === 'BTCUSD';
-const title = `${instrument.fullName} Research — Macro, Policy & Market Conditions`;
-const description = `Research ${symbol} with indicative quotes, macro conditions, policy, positioning, volatility and source transparency. Free TRADE90 research tools.`;
-const context = gold ? 'Gold research combines trend evidence with US real yields and dollar conditions. The headline quote is in USD per troy ounce, while the current historical model uses COMEX futures. Inspect each price basis before comparing levels.' : bitcoin ? 'Bitcoin trades continuously, while many macro inputs update only on business days. Compare the quote timestamp with the model timestamp, inspect volatility and avoid assuming that a traditional-market calendar captures all crypto events.' : `${symbol} research compares the two currencies through the model’s rate, trend and cross-asset inputs. Compare the available economic evidence, its dates and how delayed positioning differs from current price data.`;
+
+const title = `${instrument.fullName} Research Today — Macro, Events & Positioning`;
+const snapshotDescription = snapshot?.structure && snapshot.structure !== 'Unavailable'
+  ? ` Current research structure: ${snapshot.structure.toLowerCase()}.`
+  : '';
+const description = `Research ${symbol} with market structure, macro conditions, events, positioning, volatility and source transparency.${snapshotDescription} Free TRADE90 research workspace.`;
+
+const context = gold
+  ? 'Gold research combines price structure with US real-yield, dollar and global-risk context. The historical research currently uses COMEX futures while the live terminal headline quote is spot XAU/USD, so price bases must not be treated as interchangeable.'
+  : bitcoin
+    ? 'Bitcoin trades continuously, while many macro inputs update on business-day schedules. Compare the quote timestamp with the research timestamp and treat venue-specific crypto flows separately from global macro context.'
+    : symbol === 'USD/JPY'
+      ? 'USD/JPY currently has the deepest two-country macro coverage in TRADE90, including US, Japan and global context. Check data dates carefully because policy, yield, positioning and price feeds update on different schedules.'
+      : `${symbol} research combines price structure with the currently connected US and global context. Full second-economy macro coverage is still being expanded, so missing evidence is shown explicitly rather than filled with assumptions.`;
+
+const fmtDate = (value) => {
+  if (!value || !Number.isFinite(Date.parse(value))) return 'Unavailable';
+  return new Date(value).toLocaleString('en', {dateStyle:'medium', timeStyle:'short', timeZone:'UTC'}) + ' UTC';
+};
+const fmtPct = (value, digits=2) =>
+  typeof value === 'number' && Number.isFinite(value)
+    ? `${value >= 0 ? '+' : ''}${(value*100).toFixed(digits)}%`
+    : 'Unavailable';
+const fmtRank = (value) =>
+  typeof value === 'number' && Number.isFinite(value)
+    ? `${Math.round(value*100)}th percentile`
+    : 'Unavailable';
+const fmtPrice = (value, decimals=2) =>
+  typeof value === 'number' && Number.isFinite(value)
+    ? value.toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals})
+    : 'Unavailable';
+
+const related = MARKET_SYMBOLS
+  .filter(item => item !== instrument.symbol)
+  .map(item => {
+    const inst = INSTRUMENTS[item];
+    const s = item.slice(0,3) + '/' + item.slice(3);
+    return { symbol:s, name:inst.fullName, href:`/research/${getSlug(item)}/` };
+  });
+
+const pageSchema = {
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  name:title,
+  description,
+  url:`https://tradeninety.com/research/${getSlug(instrument.symbol)}/`,
+  dateModified: publicResearch.generated_at,
+  isAccessibleForFree:true,
+  about:[
+    {"@type":"Thing","name":symbol},
+    {"@type":"Thing","name":"Foreign exchange market research"},
+    {"@type":"Thing","name":"Risk management"}
+  ],
+  publisher:{"@type":"Organization","name":"TRADE90","url":"https://tradeninety.com/"}
+};
+
+const breadcrumbSchema = {
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  itemListElement:[
+    {"@type":"ListItem","position":1,"name":"TRADE90","item":"https://tradeninety.com/"},
+    {"@type":"ListItem","position":2,"name":"Research","item":"https://tradeninety.com/tools/fx-research-terminal/"},
+    {"@type":"ListItem","position":3,"name":symbol,"item":`https://tradeninety.com/research/${getSlug(instrument.symbol)}/`}
+  ]
+};
 ---
 <BaseLayout title={title} description={description}>
-  <section class="mx-auto max-w-7xl px-4 py-8">
-    <nav aria-label="Breadcrumb" class="mb-4 text-base"><a class="underline" href="/tools/fx-research-terminal/">Research terminal</a> / {symbol}</nav>
-    <h1 class="text-3xl font-bold mb-3">{instrument.fullName} research</h1>
-    <p class="text-base leading-relaxed max-w-3xl mb-6">{context}</p>
-    <FxResearchTerminal initialSymbol={symbol} client:load />
-    <section class="mt-8 max-w-3xl text-base leading-relaxed">
-      <h2 class="text-2xl font-bold mb-3">Read the evidence before forming a view</h2>
-      <p>Start with quote and research timestamps, then compare economic conditions, policy expectations and price behaviour. Inspect conflicting evidence and missing data. The source panel identifies incomplete coverage and price-basis differences.</p>
-      <h2 class="text-2xl font-bold mt-6 mb-3">Turn research into a reviewable decision</h2>
-      <p>Write what would change your view and which evidence remains uncertain. Keep the research timeframe separate from your execution timeframe. Use your broker's contract specifications and current prices when calculating risk.</p>
-      <div class="flex flex-wrap gap-5 mt-5"><a class="underline py-3" href={`/calculator/${getSlug(instrument.symbol)}/`}>{symbol} position size calculator</a><a class="underline py-3" href="/tools/trading-plan-builder/">Write a research plan</a><a class="underline py-3" href="/journal/">Review past decisions</a></div>
+  <Fragment slot="head-extra">
+    <script type="application/ld+json" set:html={JSON.stringify(pageSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+  </Fragment>
+
+  <section class="research-page">
+    <nav aria-label="Breadcrumb" class="breadcrumb"><a href="/#terminal">Research terminal</a><span>/</span><span>{symbol}</span></nav>
+
+    <header class="hero">
+      <p class="eyebrow">Current market research</p>
+      <h1>{instrument.fullName} research today</h1>
+      <p>{context}</p>
+      <div class="hero-actions">
+        <a class="primary" href="#live-terminal">Open live terminal</a>
+        <a href="/economic-calendar/">Economic calendar</a>
+        <button id="share-research" type="button" data-symbol={symbol} data-path={`/research/${getSlug(instrument.symbol)}/`}>Share research</button>
+      </div>
+      <p id="share-status" class="share-status" role="status" aria-live="polite"></p>
+    </header>
+
+    {snapshot && (
+      <section class="snapshot" aria-label={`${symbol} crawlable research snapshot`}>
+        <div class="snapshot-head">
+          <div>
+            <p class="eyebrow">Crawlable research snapshot</p>
+            <h2>Current TRADE90 research state</h2>
+          </div>
+          <p>Updated {fmtDate(publicResearch.generated_at)}</p>
+        </div>
+
+        <div class="snapshot-grid">
+          <article>
+            <span>Price structure</span>
+            <strong>{snapshot.structure}</strong>
+            <small>20-session change {fmtPct(snapshot.change20)}</small>
+          </article>
+          <article>
+            <span>Volatility</span>
+            <strong>{fmtRank(snapshot.volatility_percentile)}</strong>
+            <small>Relative to the supplied rolling history; not a forecast probability.</small>
+          </article>
+          <article>
+            <span>Positioning</span>
+            <strong>{snapshot.positioning?.label ?? 'Unavailable'}</strong>
+            <small>{snapshot.positioning?.currency ? `${snapshot.positioning.currency} futures · ` : ''}{snapshot.positioning?.date ? fmtDate(snapshot.positioning.date) : 'No current positioning date'}</small>
+          </article>
+          <article>
+            <span>Macro coverage</span>
+            <strong>{snapshot.macro_available}/{snapshot.macro_total} indicators available</strong>
+            <small>{snapshot.macro_context}</small>
+          </article>
+          <article>
+            <span>Event risk</span>
+            <strong>{snapshot.event_risk ?? 'Unknown'}</strong>
+            <small>{snapshot.next_event ?? 'No verified next event in the current snapshot.'}</small>
+          </article>
+          <article>
+            <span>Research snapshot price</span>
+            <strong>{fmtPrice(snapshot.research_price,snapshot.decimals ?? 2)}</strong>
+            <small>{fmtDate(snapshot.research_price_at)} · The live terminal may have a newer indicative quote.</small>
+          </article>
+        </div>
+
+        <p class="snapshot-note">
+          This server-rendered snapshot helps readers and search engines understand the latest published research state without relying on client-side JavaScript. It is descriptive research, not a trade signal, price target or personalized recommendation.
+        </p>
+      </section>
+    )}
+
+    <section id="live-terminal" class="terminal-wrap" aria-label={`${symbol} live research terminal`}>
+      <FxResearchTerminal initialSymbol={symbol} client:load />
+    </section>
+
+    <section class="explain">
+      <div>
+        <h2>How to read the {symbol} research</h2>
+        <p>Start with timestamps and price basis. Then compare market structure, volatility, macro conditions, positioning and upcoming events. TRADE90 separates aligned evidence, conflicting evidence and missing data so uncertainty remains visible.</p>
+      </div>
+      <div>
+        <h2>What TRADE90 does not do</h2>
+        <p>The terminal does not turn a single indicator into a buy/sell instruction, does not treat correlation as causation and does not invent directional confidence when a source is unavailable. Executable prices, spreads and contract specifications must be confirmed with your broker or venue.</p>
+      </div>
+      <div>
+        <h2>Make the research reviewable</h2>
+        <p>Write what would invalidate your view before entering a trade. Keep the research timeframe separate from the execution timeframe, size risk independently, and review the decision afterward rather than judging the process only by profit or loss.</p>
+      </div>
+    </section>
+
+    <nav class="workflow" aria-label="Research workflow">
+      <a href={`/calculator/${getSlug(instrument.symbol)}/`}><strong>{symbol} position size</strong><span>Calculate exposure from your own risk limit →</span></a>
+      <a href="/tools/trading-plan-builder/"><strong>Write a research plan</strong><span>Document evidence, uncertainty and invalidation →</span></a>
+      <a href="/journal/"><strong>Review the decision</strong><span>Track R-multiple and plan adherence →</span></a>
+    </nav>
+
+    <section class="related">
+      <p class="eyebrow">Related market research</p>
+      <h2>Compare the other TRADE90 markets</h2>
+      <div>
+        {related.map(item => <a href={item.href}><strong>{item.symbol}</strong><span>{item.name}</span></a>)}
+      </div>
     </section>
   </section>
+
+  <script is:inline>
+    (function(){
+      const button=document.getElementById('share-research');
+      const status=document.getElementById('share-status');
+      if(!button) return;
+      button.addEventListener('click',async()=>{
+        const symbol=button.dataset.symbol || 'Market';
+        const path=button.dataset.path || location.pathname;
+        const url=new URL(path,location.origin);
+        url.searchParams.set('ref','share');
+        const shareUrl=url.toString();
+        try{
+          if(navigator.share){
+            await navigator.share({title:symbol+' research — TRADE90',text:'Research '+symbol+' with market structure, macro, events, positioning and source transparency.',url:shareUrl});
+            if(status) status.textContent='Shared.';
+          }else{
+            await navigator.clipboard.writeText(shareUrl);
+            if(status) status.textContent='Research link copied.';
+          }
+          if(localStorage.getItem('cookieConsent')==='accepted' && typeof window.gtag==='function'){
+            window.gtag('event','research_shared',{instrument:symbol});
+          }
+        }catch(error){
+          if(error && error.name==='AbortError') return;
+          if(status) status.textContent='Could not share automatically. Copy the page address from your browser.';
+        }
+      });
+    })();
+  </script>
 </BaseLayout>
+
+<style>
+.research-page{background:#f8fafc;color:#172b3a;padding:28px 20px 48px}.research-page>*{max-width:1280px;margin-left:auto;margin-right:auto}.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.82rem;color:#64748b;margin-bottom:20px}.breadcrumb a{color:#065f46;text-decoration:underline;text-underline-offset:3px}.hero{padding:8px 0 24px}.eyebrow{margin:0 0 7px;color:#047857;font-size:.7rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.hero h1{margin:0;color:#0f172a;font-size:clamp(2.15rem,5vw,4rem);line-height:1;letter-spacing:-.05em;font-weight:950}.hero>p:not(.eyebrow):not(.share-status){max-width:850px;margin:15px 0;color:#526474;font-size:1.02rem;line-height:1.65}.hero-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.hero-actions a,.hero-actions button{display:inline-flex;align-items:center;min-height:44px;padding:0 13px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#065f46;font:inherit;font-size:.78rem;font-weight:900;cursor:pointer;text-decoration:none}.hero-actions .primary{background:#064e3b;border-color:#064e3b;color:#fff}.share-status{min-height:1.2em;margin:8px 0 0;color:#047857;font-size:.72rem}.snapshot{margin-bottom:24px;border:1px solid #dbe3ec;background:#fff;border-radius:18px;padding:20px}.snapshot-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:14px}.snapshot-head h2,.explain h2,.related h2{margin:0;color:#0f172a;font-weight:900;letter-spacing:-.035em}.snapshot-head h2{font-size:1.3rem}.snapshot-head>p{margin:0;color:#64748b;font-size:.72rem}.snapshot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.snapshot-grid article{padding:15px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}.snapshot-grid span{display:block;color:#64748b;font-size:.59rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.snapshot-grid strong{display:block;margin-top:6px;color:#0f172a;font-size:.94rem;line-height:1.35}.snapshot-grid small{display:block;margin-top:5px;color:#64748b;font-size:.68rem;line-height:1.45}.snapshot-note{margin:13px 0 0;color:#64748b;font-size:.7rem;line-height:1.5}.terminal-wrap{scroll-margin-top:86px}.explain{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding-top:28px}.explain>div{padding:18px;border:1px solid #dbe3ec;border-radius:14px;background:#fff}.explain h2{font-size:1.05rem}.explain p{margin:9px 0 0;color:#526474;font-size:.82rem;line-height:1.6}.workflow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:16px}.workflow a{display:block;padding:16px;border:1px solid #dbe3ec;border-radius:13px;background:#fff;color:#172b3a;text-decoration:none}.workflow strong,.workflow span{display:block}.workflow strong{font-size:.86rem}.workflow span{margin-top:5px;color:#526474;font-size:.73rem}.related{padding-top:34px}.related h2{font-size:1.35rem}.related>div{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.related a{display:flex;flex-direction:column;gap:3px;padding:12px;border:1px solid #dbe3ec;border-radius:11px;background:#fff;color:#172b3a;text-decoration:none}.related a:hover{border-color:#10b981}.related strong{font-size:.8rem}.related span{font-size:.67rem;color:#64748b}@media(max-width:850px){.snapshot-grid,.explain{grid-template-columns:1fr 1fr}.workflow{grid-template-columns:1fr}.related>div{grid-template-columns:repeat(3,1fr)}}@media(max-width:560px){.research-page{padding:20px 10px 36px}.snapshot{padding:13px}.snapshot-head{align-items:flex-start;flex-direction:column}.snapshot-grid,.explain{grid-template-columns:1fr}.related>div{grid-template-columns:1fr 1fr}.hero-actions a,.hero-actions button{flex:1;justify-content:center;min-width:140px}}
+</style>

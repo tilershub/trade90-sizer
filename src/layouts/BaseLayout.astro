@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import InstallPrompt from "../components/InstallPrompt.astro";
 
 const {
   title,
@@ -128,6 +129,10 @@ const breadcrumbSchema = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="application-name" content="TRADE90" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="TRADE90" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="alternate" type="application/rss+xml" title="TRADE90 RSS" href="/rss.xml" />
 
     <!-- Performance: preconnect to Google Analytics / GTM domain -->
@@ -273,6 +278,7 @@ const breadcrumbSchema = {
     </main>
 
     <Footer />
+    <InstallPrompt />
 
     <div
   id="cookie-banner"
@@ -358,6 +364,19 @@ const breadcrumbSchema = {
     <script>
       import { initWorkspaceSync } from "../lib/member-workspace.js";
       initWorkspaceSync();
+    </script>
+
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('ref') === 'share' && localStorage.getItem('cookieConsent') === 'accepted' && typeof window.gtag === 'function') {
+        window.gtag('event', 'research_shared_visit', { page_path: window.location.pathname });
+      }
     </script>
   </body>
 </html>
