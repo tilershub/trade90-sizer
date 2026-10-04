@@ -108,7 +108,7 @@ test('data trust separates live, delayed and derived evidence without claiming c
  assert.equal(trust.items.find(x=>x.key==='positioning').status,'DELAYED');
  assert.equal(trust.items.find(x=>x.key==='technical').status,'DERIVED');
  assert.equal(trust.items.find(x=>x.key==='calendar').status,'UNAVAILABLE');
- assert.equal(indicatorTrust({...context.indicators[0],age_days:90},now).status,'STALE');
+ assert.equal(indicatorTrust({...context.indicators[0],observed_at:'2026-06-01T00:00:00Z'},now).status,'STALE');
 });
 
 test('administrative central-bank headlines do not trigger Research Delta',()=>{
