@@ -60,7 +60,7 @@ const hubs = [
         <a href="/journal/" class="text-slate-300 hover:text-white transition-colors">Journal</a>
         <a href="/tools/" class="text-slate-300 hover:text-white transition-colors">Tools</a>
         <a href="/blog" class="text-slate-300 hover:text-white transition-colors">Blog</a>
-        <a id="member-link-desktop" href="/login/" class="text-slate-300 hover:text-emerald-400 transition-colors">Member</a>
+        <a id="member-link-desktop" href="/login/" class="text-slate-300 hover:text-emerald-400 transition-colors">Sign In</a>
         <a href="/search/" aria-label="Search" class="text-slate-300 hover:text-white transition-colors flex items-center">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </a>
@@ -112,7 +112,7 @@ const hubs = [
           <a href="/tools/position-size-calculator/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">Position Size Calculator</a>
           <a href="/calculator/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">Instrument Calculators</a>
           <p class="px-6 pt-4 pb-2 text-[9px] font-black uppercase tracking-[0.3em] text-slate-600 border-t border-slate-900/50 mt-2">Account</p>
-          <a id="member-link-mobile" href="/login/" class="block px-6 py-3 text-[10px] font-black uppercase text-emerald-400 hover:bg-slate-900 hover:text-emerald-300 transition">Member Sign In</a>
+          <a id="member-link-mobile" href="/login/" class="block px-6 py-3 text-[10px] font-black uppercase text-emerald-400 hover:bg-slate-900 hover:text-emerald-300 transition">Sign In with Google</a>
           <p class="px-6 pt-4 pb-2 text-[9px] font-black uppercase tracking-[0.3em] text-slate-600 border-t border-slate-900/50 mt-2">More</p>
           <a href="/search/" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">Search</a>
           <a href="/blog" class="block px-6 py-3 text-[10px] font-black uppercase text-slate-300 hover:bg-slate-900 hover:text-emerald-500 transition">Blog</a>
@@ -143,11 +143,11 @@ const hubs = [
     const mobile = document.getElementById("member-link-mobile");
     if (desktop) {
       desktop.href = signedIn ? "/account/" : "/login/";
-      desktop.textContent = signedIn ? "Account" : "Member";
+      desktop.textContent = signedIn ? "Account" : "Sign In";
     }
     if (mobile) {
       mobile.href = signedIn ? "/account/" : "/login/";
-      mobile.textContent = signedIn ? "My TRADE90" : "Member Sign In";
+      mobile.textContent = signedIn ? "My TRADE90" : "Sign In with Google";
     }
   }
   window.addEventListener("trade90-workspace-state", (event) => updateMemberLinks(event.detail));
