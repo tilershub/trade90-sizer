@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-11T02:07:48.646Z",
-  "terminal_generated_at": "2026-10-11T01:50:48.774749+00:00",
-  "context_generated_at": "2026-10-11T02:07:48.646096+00:00",
+  "generated_at": "2026-10-11T09:15:12.067Z",
+  "terminal_generated_at": "2026-10-11T08:45:36.196479+00:00",
+  "context_generated_at": "2026-10-11T09:15:12.067411+00:00",
   "markets": {
     "XAU/USD": {
       "symbol": "XAU/USD",
@@ -56,32 +56,6 @@
       "quality_grade": "C",
       "completeness": 0.75
     },
-    "BTC/USD": {
-      "symbol": "BTC/USD",
-      "slug": "btcusd",
-      "asset_class": "Crypto",
-      "decimals": 2,
-      "research_price": 82956.390625,
-      "research_price_at": "2026-10-11T01:00:00+00:00",
-      "structure": "EMA 20 above EMA 50",
-      "change20": 0.02235300619453362,
-      "volatility_percentile": 0.59,
-      "history_date": "2026-10-11T00:00:00",
-      "event_risk": "Unknown",
-      "next_event": null,
-      "event_hours": null,
-      "positioning": {
-        "label": "Crowded long",
-        "currency": "BTC",
-        "date": "2026-10-06T00:00:00+00:00",
-        "stale": false
-      },
-      "macro_available": 17,
-      "macro_total": 17,
-      "macro_context": "US + global; crypto venue-flow coverage limited",
-      "quality_grade": "A",
-      "completeness": 1
-    },
     "USD/CAD": {
       "symbol": "USD/CAD",
       "slug": "usdcad",
@@ -118,7 +92,7 @@
       "structure": "EMA 20 below EMA 50",
       "change20": -0.02158435004402348,
       "volatility_percentile": 0.37,
-      "history_date": "2026-10-10T00:00:00",
+      "history_date": "2026-10-11T00:00:00",
       "event_risk": "Unknown",
       "next_event": null,
       "event_hours": null,
@@ -144,7 +118,7 @@
       "structure": "EMA 20 below EMA 50",
       "change20": -0.034412696172776536,
       "volatility_percentile": 0.05,
-      "history_date": "2026-10-10T00:00:00",
+      "history_date": "2026-10-11T00:00:00",
       "event_risk": "Unknown",
       "next_event": null,
       "event_hours": null,
@@ -196,7 +170,7 @@
       "structure": "EMA 20 below EMA 50",
       "change20": -0.022982286872804347,
       "volatility_percentile": 0.25,
-      "history_date": "2026-10-10T00:00:00",
+      "history_date": "2026-10-11T00:00:00",
       "event_risk": "Unknown",
       "next_event": null,
       "event_hours": null,
@@ -237,6 +211,32 @@
       "macro_context": "US + Japan + global",
       "quality_grade": "C",
       "completeness": 0.75
+    },
+    "BTC/USD": {
+      "symbol": "BTC/USD",
+      "slug": "btcusd",
+      "asset_class": "Crypto",
+      "decimals": 2,
+      "research_price": 83007,
+      "research_price_at": "2026-10-11T08:00:00+00:00",
+      "structure": "EMA 20 above EMA 50",
+      "change20": -0.04152185987534884,
+      "volatility_percentile": 0.05,
+      "history_date": "2026-10-11T00:00:00",
+      "event_risk": "Unknown",
+      "next_event": null,
+      "event_hours": null,
+      "positioning": {
+        "label": "Crowded long",
+        "currency": "BTC",
+        "date": "2026-10-06T00:00:00+00:00",
+        "stale": false
+      },
+      "macro_available": 17,
+      "macro_total": 17,
+      "macro_context": "US + global; crypto venue-flow coverage limited",
+      "quality_grade": "A",
+      "completeness": 1
     }
   }
 }
