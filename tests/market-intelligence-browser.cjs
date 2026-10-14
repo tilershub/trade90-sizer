@@ -85,7 +85,8 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,
   assert.equal(await page.locator("#mi-content").isVisible(),true,"Briefing must visibly render");
   assert.equal(await page.locator("#mi-macro-alert").isVisible(),true,"High-impact CPI banner must be visible");
   assert.match(await page.locator("#mi-macro-facts").textContent(),/3\.7%/);
-  assert.match(await page.locator("#mi-bias").textContent(),/Old label|Conflicting old label/);
+  assert.equal(await page.locator("#mi-bias").textContent(),"Not established");
+  assert.match(await page.locator("#mi-bias-old").textContent(),/Archived model label: Bullish/);
   assert.match(await page.locator("#mi-assessment-heading").textContent(),/Major macro event/);
   assert.match(await page.locator("#mi-factors-focus").textContent(),/Gold real yields/);
   await page.waitForFunction(()=>document.getElementById("mi-events-results")?.textContent.includes("Gulf, Saudi"),undefined,{timeout:10000});
