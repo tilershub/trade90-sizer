@@ -2,7 +2,7 @@
 const path = Astro.url.pathname;
 const items = [
   { href:'/', label:'Home', icon:'home', active:path==='/' },
-  { href:'/research/', label:'Research', icon:'search', active:path.startsWith('/research') || path==='/tools/fx-research-terminal/' },
+  { href:'/market-intelligence/', label:'Intelligence', icon:'search', active:path.startsWith('/market-intelligence') || path.startsWith('/research') || path==='/tools/fx-research-terminal/' }
   { href:'/economic-calendar/', label:'Calendar', icon:'calendar', active:path.startsWith('/economic-calendar') },
   { href:'/today/', label:'Today', icon:'today', active:path.startsWith('/today') },
   { href:'/account/', label:'Account', icon:'account', active:path.startsWith('/account') || path.startsWith('/login') || path.startsWith('/join') },
