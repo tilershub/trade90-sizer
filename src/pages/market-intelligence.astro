@@ -310,6 +310,7 @@ function renderZones(v,symbol,dec){
  $("mi-i-underfoot").innerHTML=contents(z.underfoot);
  txt("mi-i-zone-method",z.method+" "+(z.limitations||[]).join(" "));
 }
+setInterval(function(){if(!document.hidden&&data)requestEvidence()},600000);
 function requestIntraday(){
  if(!data)return;
  var symbol=selected,frame=$("mi-intraday-interval").value,cycle=++intradayCycle;
