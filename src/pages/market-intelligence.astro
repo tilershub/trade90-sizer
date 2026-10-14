@@ -177,7 +177,7 @@ const description = 'Evidence-led Gold, Forex and Bitcoin research with sourced 
               <div class="rowtop"><h2>Model evidence</h2><span class="sm muted">Not a trading signal</span></div>
               <p class="sm muted" id="mi-model-description"></p>
               <div class="mini-grid" style="margin-top:13px">
-                <div class="mini"><small>Old model classification (not current)</small><strong id="mi-bias"></strong></div>
+                <div class="mini"><small>Current research direction</small><strong id="mi-bias" style="font-size:16px;line-height:1.4"></strong><span class="sm muted" id="mi-bias-old"></span></div>
                 <div class="mini"><small>Signed model score</small><strong id="mi-score"></strong></div>
                 <div class="mini"><small>Historical bullish frequency</small><strong id="mi-bull"></strong></div>
                 <div class="mini"><small>Historical bearish frequency</small><strong id="mi-bear"></strong></div>
@@ -435,7 +435,10 @@ function render(){
  var blockers=[];if(m.events.coverage!=="Available")blockers.push("event-risk coverage is unknown");if(m.snapshot_old)blockers.push("snapshot is old");if(m.score_bias_conflict)blockers.push("published model outputs conflict");if(m.validation.lift_pp!==null&&m.validation.lift_pp<=0)blockers.push("historical validation lacks an edge");
  txt("mi-no-trade",blockers.length?"Consider standing aside while "+blockers.join(", ")+". A no-trade decision is a valid research outcome.":"Wait if current quotes, event risks, or personal risk limits cannot be verified; do not trade based on a delayed snapshot.");
  txt("mi-model-description",m.model_thesis||"Publisher model input summary unavailable.");
- txt("mi-bias",(m.score_bias_conflict?"Conflicting old label: ":"Old label: ")+String(m.published_bias||"Unknown"));txt("mi-score",fmt(m.model_score,1));txt("mi-bull",pct(m.scenario_frequencies.bullish));txt("mi-bear",pct(m.scenario_frequencies.bearish));
+ txt("mi-bias",m.current_direction||"Not established");
+ txt("mi-bias-old","Archived model label: "+String(m.published_bias||"Unknown")+
+     (m.score_bias_conflict?" (conflicts with signed score).":" (not recalculated for current market)."));
+ txt("mi-score",fmt(m.model_score,1));txt("mi-bull",pct(m.scenario_frequencies.bullish));txt("mi-bear",pct(m.scenario_frequencies.bearish));
  var ds=m.drivers||[],largest=Math.max(1,...ds.map(function(d){return Math.abs(d.contribution||0)}));
  $("mi-drivers").innerHTML=ds.length?ds.map(function(d){var w=Math.max(1,100*Math.abs(d.contribution)/largest);return '<div class="driver"><div class="driver-label"><span>'+esc(d.name)+'</span><strong>'+esc(fmt(d.contribution,1))+'</strong></div><div class="driver-meter"><span class="'+(d.contribution<0?"negative":"")+'" style="width:'+w.toFixed(1)+'%"></span></div></div>'}).join(""):"<p class='empty'>No model contribution audit available.</p>";
  txt("mi-accuracy",pct(m.validation.accuracy_pct));txt("mi-baseline",pct(m.validation.baseline_pct));txt("mi-validation-msg",m.validation.message);txt("mi-validation-n","Test observations: "+(m.validation.observations==null?"not supplied":m.validation.observations)+". Sample accuracy is not a trading return.");
