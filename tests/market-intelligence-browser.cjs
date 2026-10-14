@@ -57,7 +57,7 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,
   assert.equal(await page.locator("#mi-symbol").textContent(),"Gold · XAU/USD");
   assert.equal(await page.locator("#mi-content").isVisible(),true,"Briefing must visibly render");
   assert.equal(await page.locator("#mi-macro-alert").isVisible(),true,"High-impact CPI banner must be visible");
-  assert.match(await page.locator("#mi-macro-facts").textContent(),/3\\.7%/);
+  assert.match(await page.locator("#mi-macro-facts").textContent(),/3\.7%/);
   assert.match(await page.locator("#mi-bias").textContent(),/Old label|Conflicting old label/);
   assert.match(await page.locator("#mi-assessment-heading").textContent(),/Major macro event/);
 
