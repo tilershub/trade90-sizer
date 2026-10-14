@@ -38,10 +38,11 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,markets:[go
   }));
   await page.route("**/widgets.tradingview-widget.com/**",route=>route.abort());
   await page.goto(BASE+"/market-intelligence/",{waitUntil:"domcontentloaded",timeout:30000});
-  await page.waitForFunction(()=>document.getElementById("mi-loading")===null,{timeout:10000});
+  await page.waitForFunction(()=>document.getElementById("mi-loading")===null,undefined,{timeout:10000});
   assert.equal(await page.locator("#mi-symbol").textContent(),"Gold · XAU/USD");
   assert.equal(await page.locator("#mi-content").isVisible(),true,"Briefing must visibly render");
   assert.equal(await page.getByText("Loading the latest published research briefing…").count(),0,"Loading panel must be removed");
+  await page.waitForFunction(()=>document.getElementById("mi-intraday-state")?.textContent.includes("licensed provider access required"),undefined,{timeout:10000});
   assert.equal(await page.locator("#mi-intraday-state").textContent(),"Live intraday analysis not connected: licensed provider access required.");
   await page.locator("#mi-selector").selectOption("EUR/USD");
   await page.waitForFunction(()=>document.getElementById("mi-symbol").textContent.includes("EUR/USD"));
@@ -55,7 +56,7 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,markets:[go
     body:JSON.stringify({status:"unavailable",detail:"Research source unavailable"})
   }));
   await page.reload({waitUntil:"domcontentloaded",timeout:30000});
-  await page.waitForFunction(()=>document.getElementById("mi-loading")?.classList.contains("error"),{timeout:10000});
+  await page.waitForFunction(()=>document.getElementById("mi-loading")?.classList.contains("error"),undefined,{timeout:10000});
   assert.match(await page.locator("#mi-loading").textContent(),/Research source unavailable/);
   assert.equal(await page.locator("#mi-loading").isVisible(),true);
   assert.equal(await page.locator("#mi-content").isVisible(),false);
