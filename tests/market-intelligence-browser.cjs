@@ -22,7 +22,22 @@ const gold = {
 const euro = {...gold,symbol:"EUR/USD",name:"Euro / US Dollar",price:1.1211,
   price_basis:"FX aggregated reference",decimals:5,support20:1.11,resistance20:1.13,
   chart:[{date:"2026-10-13",close:1.1200},{date:"2026-10-14",close:1.1211}]};
-const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,markets:[gold,euro]};
+const highImpact = {
+  status:"released_or_due",name:"Consumer Price Index",
+  scheduled_at:"2026-10-14T12:30:00+00:00",
+  url:"https://www.bls.gov/schedule/news_release/cpi.htm",
+  message:"High-impact U.S. release window passed. Old market bias cannot establish current direction.",
+  official_release:{headline_yoy_pct:3.7,headline_mom_pct:0.6,core_yoy_pct:2.6,core_mom_pct:0.3,
+    source_url:"https://www.bls.gov/news.release/archives/cpi_10142026.htm"}
+};
+gold.high_impact_event=highImpact;
+gold.pre_event_snapshot=true;
+gold.score_bias_conflict=true;
+gold.published_bias="Bullish";
+euro.high_impact_event=highImpact;
+euro.pre_event_snapshot=true;
+const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,
+  high_impact:highImpact,markets:[gold,euro]};
 
 (async function main(){
   const browser = await chromium.launch({headless:true});
@@ -41,6 +56,11 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,markets:[go
   await page.waitForFunction(()=>document.getElementById("mi-loading")===null,undefined,{timeout:10000});
   assert.equal(await page.locator("#mi-symbol").textContent(),"Gold · XAU/USD");
   assert.equal(await page.locator("#mi-content").isVisible(),true,"Briefing must visibly render");
+  assert.equal(await page.locator("#mi-macro-alert").isVisible(),true,"High-impact CPI banner must be visible");
+  assert.match(await page.locator("#mi-macro-facts").textContent(),/3\\.7%/);
+  assert.match(await page.locator("#mi-bias").textContent(),/Old label|Conflicting old label/);
+  assert.match(await page.locator("#mi-assessment-heading").textContent(),/Major macro event/);
+
   assert.equal(await page.getByText("Loading the latest published research briefing…").count(),0,"Loading panel must be removed");
   await page.waitForFunction(()=>document.getElementById("mi-intraday-state")?.textContent.includes("licensed provider access required"),undefined,{timeout:10000});
   assert.equal(await page.locator("#mi-intraday-state").textContent(),"Live intraday analysis not connected: licensed provider access required.");
