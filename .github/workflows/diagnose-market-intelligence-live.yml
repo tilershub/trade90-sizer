@@ -1,0 +1,23 @@
+name: Diagnose live TRADE90 Market Intelligence
+
+on:
+  pull_request:
+    paths:
+      - "tests/market-intelligence-live.cjs"
+      - ".github/workflows/diagnose-market-intelligence-live.yml"
+  workflow_dispatch:
+
+jobs:
+  production-browser-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm install --no-save playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/market-intelligence-live.cjs
