@@ -9,6 +9,7 @@ on:
       - "src/components/MobileDock.astro"
       - "functions/api/market-intelligence.js"
       - "functions/api/market-intraday.js"
+      - "functions/api/market-events.js"
       - "tests/market-intelligence-browser.cjs"
       - ".github/workflows/check-market-intelligence.yml"
   workflow_dispatch:
@@ -29,6 +30,7 @@ jobs:
         run: |
           node --check functions/api/market-intelligence.js
           node --check functions/api/market-intraday.js
+          node --check functions/api/market-events.js
       - name: Build public Astro website
         run: npm run build
       - name: Confirm generated public route

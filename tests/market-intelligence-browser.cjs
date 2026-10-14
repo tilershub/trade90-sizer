@@ -36,6 +36,20 @@ gold.score_bias_conflict=true;
 gold.published_bias="Bullish";
 euro.high_impact_event=highImpact;
 euro.pre_event_snapshot=true;
+gold.instrument_research={
+  focus:"Gold real yields and safe-haven demand can conflict.",
+  market_structure_limit:"Gold CFDs and futures are different.",
+  interpretation_rule:"Verify source time and the actual reaction.",
+  driver_watchlist:[{driver:"US real yields",transmission:"Non-yielding gold faces real-yield pressure.",
+    required_evidence:"Timestamped TIPS yields",cadence:"intraday",status:"not_assessed"}]
+};
+euro.instrument_research={
+  focus:"EUR/USD is driven by Fed–ECB repricing and relative growth.",
+  market_structure_limit:"OTC FX has no unified order book.",
+  interpretation_rule:"Verify ECB versus Fed.",
+  driver_watchlist:[{driver:"Fed versus ECB",transmission:"Relative rates matter.",
+    required_evidence:"OIS curve observations",cadence:"daily",status:"not_assessed"}]
+};
 const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,
   high_impact:highImpact,markets:[gold,euro]};
 
@@ -51,6 +65,19 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,
     status:503,contentType:"application/json",
     body:JSON.stringify({status:"not_configured",detail:"Provider not licensed"})
   }));
+  await page.route("**/api/market-events",route=>route.fulfill({
+    status:200,contentType:"application/json",body:JSON.stringify({
+      status:"ok",checked_at:observed,news_index:"GDELT Project DOC 2.0",
+      method:"Published source-link discovery, not verification",
+      topics:[{id:"gulf_supply",title:"Gulf, Saudi Arabia & energy supply",
+        instruments:["XAU/USD","EUR/USD"],status:"reports_found",publisher_count:1,
+        reports:[{headline:"Verified test publisher report about Gulf supply disruptions",
+          publisher:"www.reuters.com",first_seen_at:observed,
+          url:"https://www.reuters.com/world/middle-east/test"}],
+        mechanisms_to_investigate:["Oil may change inflation expectations."],
+        market_reaction:{status:"not_measured"}}]
+    })
+  }));
   await page.route("**/widgets.tradingview-widget.com/**",route=>route.abort());
   await page.goto(BASE+"/market-intelligence/",{waitUntil:"domcontentloaded",timeout:30000});
   await page.waitForFunction(()=>document.getElementById("mi-loading")===null,undefined,{timeout:10000});
@@ -60,6 +87,10 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,
   assert.match(await page.locator("#mi-macro-facts").textContent(),/3\.7%/);
   assert.match(await page.locator("#mi-bias").textContent(),/Old label|Conflicting old label/);
   assert.match(await page.locator("#mi-assessment-heading").textContent(),/Major macro event/);
+  assert.match(await page.locator("#mi-factors-focus").textContent(),/Gold real yields/);
+  await page.waitForFunction(()=>document.getElementById("mi-events-results")?.textContent.includes("Gulf, Saudi"),undefined,{timeout:10000});
+  assert.match(await page.locator("#mi-events-results").textContent(),/NOT MEASURED/);
+
 
   assert.equal(await page.getByText("Loading the latest published research briefing…").count(),0,"Loading panel must be removed");
   await page.waitForFunction(()=>document.getElementById("mi-intraday-state")?.textContent.includes("licensed provider access required"),undefined,{timeout:10000});
@@ -67,6 +98,7 @@ const good = {status:"ok",generated_at:observed,snapshot_age_hours:1,
   await page.locator("#mi-selector").selectOption("EUR/USD");
   await page.waitForFunction(()=>document.getElementById("mi-symbol").textContent.includes("EUR/USD"));
   assert.equal(await page.locator("#mi-symbol").textContent(),"Euro / US Dollar · EUR/USD");
+  assert.match(await page.locator("#mi-factors-focus").textContent(),/Fed–ECB/);
   assert.deepEqual(errors,[],"Page scripts must not throw on successful data");
 
   // API outage case should show an informative failure, never a permanent spinner.
