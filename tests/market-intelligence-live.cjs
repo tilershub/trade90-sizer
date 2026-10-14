@@ -37,4 +37,12 @@ const {chromium} = require("playwright");
  if(res.status()!==200 || !visible || loading || failures.length)process.exitCode=1;
  if(!macroVisible || !apiPayload?.event || apiPayload.event.status!=="released_or_due")process.exitCode=1;
  if(apiPayload?.markets?.some(m=>m.current!=="Not established"||m.use!=="historical_only"))process.exitCode=1;
+ if(apiPayload?.event?.official_release?.headline_yoy_pct!==3.7 || apiPayload?.event?.official_release?.core_mom_pct!==0.3){
+   console.error("FAIL: verified October 14 CPI release actuals absent after backend fix");
+   process.exitCode=1;
+ }
+ if(classification!=="Not established"){
+   console.error("FAIL: current market view still displays archived bullish label",classification);
+   process.exitCode=1;
+ }
 })().catch(err=>{console.error("DIAGNOSTIC_ERROR",err);process.exitCode=1});
