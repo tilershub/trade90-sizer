@@ -7,6 +7,7 @@ on:
       - "src/pages/market-intelligence.astro"
       - "functions/api/market-intelligence.js"
       - "functions/api/market-intraday.js"
+      - "functions/api/market-events.js"
       - ".github/workflows/verify-market-intelligence-domain.yml"
   workflow_dispatch:
 
@@ -45,4 +46,23 @@ jobs:
             grep -q '"markets"' /tmp/trade90-research-api.json
           else
             echo "::warning::Research API was unavailable during this request (possible backend cold start or source issue)."
+          fi
+      - name: Inspect live geopolitical evidence endpoint
+        shell: bash
+        run: |
+          code=$(curl -L -sS --connect-timeout 10 --max-time 30 \
+            -o /tmp/trade90-market-events.json -w '%{http_code}' \
+            https://tradeninety.com/api/market-events || true)
+          echo "Public geopolitical evidence API status: $code"
+          if [ "$code" = "200" ]; then
+            python3 - <<'PY'
+          import json
+          with open('/tmp/trade90-market-events.json') as file:
+              item=json.load(file)
+          assert len(item.get("topics",[])) == 3, "Expected three separate event investigations"
+          assert all(t["market_reaction"]["status"]=="not_measured" for t in item["topics"]), "Price reaction is not yet licensed/measured"
+          print("Event-source proxy schema and uncertainty checks passed.")
+          PY
+          else
+            echo "::warning::Event discovery unavailable. This must NOT be rendered as no market risk."
           fi
