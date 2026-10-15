@@ -1,13 +1,13 @@
 {
-  "name": "Trade90 — Central Bank Rate Divergence",
-  "short_name": "Trade90",
+  "name": "TRADE90 — Central Bank Rate Divergence",
+  "short_name": "TRADE90",
   "description": "Compare sourced central-bank policy rates across 28 forex currency pairs.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0b1424",
-  "theme_color": "#0b1424",
+  "background_color": "#0f172a",
+  "theme_color": "#10b981",
   "categories": [
     "finance",
     "education"
