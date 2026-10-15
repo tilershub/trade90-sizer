@@ -34,6 +34,7 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/methodology/index.html
+          test -f dist/central-banks/index.html
           test -f dist/learn/index.html
           test -f dist/learn/what-is-interest-rate-divergence/index.html
           grep -q 'Central Bank Rate Divergence' dist/index.html
@@ -41,6 +42,7 @@ jobs:
           grep -q 'Expected rate gaps' dist/index.html
           grep -q 'What changed' dist/index.html
           grep -q 'Currency pair details' dist/index.html
+          grep -q 'Central Bank Policy Updates' dist/central-banks/index.html
       - name: Desktop and mobile interaction checks
         run: |
           npm install --no-save playwright@1.56.1
