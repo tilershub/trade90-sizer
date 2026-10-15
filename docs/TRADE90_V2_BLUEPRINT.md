@@ -1,20 +1,23 @@
-# TRADE90 V2 — Central Bank Divergence Product Blueprint
+# TRADE90 V2 — Central Bank Rate Divergence Product Blueprint
 Status: Strategy and build specification (not yet deployed)
 Date: 2026-10-15
 Repository: tilershub/trade90-sizer
 Branch: trade90-v2-rate-divergence
 
+## Naming and truthfulness policy (founder-confirmed)
+Brand: **Trade90**. Main page title: **Central Bank Rate Divergence**. Avoid describing the product as \"intelligence,\" \"AI analysis,\" \"signals,\" or an ability to predict prices. Use plain, literal feature names: **Current Rate Gaps**, **Expected Rate Gaps**, **What Changed**, **Currency Pair Details**. Never imply a policy-rate differential represents actual trader swap yield or proves future FX direction. Label observations, forward market pricing, forecasts and commentary with their respective provenance and dates. Show clearly when forecast values are unavailable. Keep numerical precision appropriate to their sources. Editorial material must not state causality or certainty not supported by evidence.
+
 ## Product decision
-Rebuild Trade90 as a single-purpose, source-verified forex monetary-policy intelligence product. The CENTRAL BANK RATE DIVERGENCE INTELLIGENCE DASHBOARD with CURRENT, EXPECTED, WHAT CHANGED TODAY, and PAIR INTELLIGENCE is the homepage, not one tool among many.
+Rebuild Trade90 as a single-purpose, source-verified forex monetary-policy intelligence product. The CENTRAL BANK RATE DIVERGENCE dashboard with CURRENT RATE GAPS, EXPECTED RATE GAPS, WHAT CHANGED, and CURRENCY PAIR DETAILS is the homepage, not one tool among many.
 
 Primary promise: "Compare the rate gap. Track the expected shift. Understand what changed."
 
-## Four inseparable core intelligence features (founder-confirmed)
+## Four inseparable core features (founder-confirmed)
 The redesigned Trade90 V2 homepage is built around four integrated core functions, not one static rate calculator:
-1. CURRENT RATE DIVERGENCE — all 28 currency pair combinations; verified central bank rate gap ranking from highest absolute difference to lowest, plus signed base-quote spread, source timestamps and higher-yielding currency.
-2. EXPECTED RATE DIVERGENCE — forward-looking 3M, 6M and 12M market-implied central-bank rate paths; expected signed/absolute gaps and widening, narrowing, or reversal, based only on verified appropriately licensed and timestamped comparable sources.
-3. WHAT CHANGED TODAY — 1D and 7D changes to expected spreads (distinguished from actual policy-rate decision changes), pair rankings for biggest expectation revisions, and timestamped sourced economic/news catalysts. Do not claim a news release caused a market move without evidence.
-4. INDIVIDUAL PAIR INTELLIGENCE — select any of the 28 pairs to inspect both banks, policy rate history, forward-rate paths, key catalysts, next decisions, scenarios and risk caveats.
+1. CURRENT RATE GAPS — all 28 currency pair combinations; verified central bank rate gap ranking from highest absolute difference to lowest, plus signed base-quote spread, source timestamps and higher-yielding currency.
+2. EXPECTED RATE GAPS — forward-looking 3M, 6M and 12M market-implied central-bank rate paths; expected signed/absolute gaps and widening, narrowing, or reversal, based only on verified appropriately licensed and timestamped comparable sources.
+3. WHAT CHANGED — 1D and 7D changes to expected spreads (distinguished from actual policy-rate decision changes), pair rankings for biggest expectation revisions, and timestamped sourced economic/news catalysts. Do not claim a news release caused a market move without evidence.
+4. CURRENCY PAIR DETAILS — select any of the 28 pairs to inspect both banks, policy rate history, forward-rate paths, key catalysts, next decisions, scenarios and risk caveats.
 
 These are FOUR PRIMARY UI AREAS on the new homepage and FOUR MANDATORY TARGET CAPABILITIES of V2; neither Expected nor Today is an optional unrelated product. Implementation can be staged exclusively to guard accuracy and data licensing: mark unverified datasets as unavailable rather than substituting invented numbers. Treat acquisition of trustworthy eight-bank forward-rate data as a critical-path delivery requirement, not a forgotten enhancement. A launch without data for Expected/Today is an intentionally disclosed limited release, never a claim that complete V2 has shipped.
 Audience: FX swing traders first, then position and intraday traders who use macroeconomic context.
@@ -31,7 +34,7 @@ Remove all legacy features from the new site navigation and public UX:
 This is a PUBLIC EXPERIENCE replacement, not permission to erase repositories, database records, analytics, user accounts or backup data without a separately verified migration. Keep a production backup and rollback path. Inventory old indexed URLs before removal. Use 301 redirects ONLY when a genuinely relevant replacement exists; otherwise return a real 410 Gone or 404 and clean up links/sitemaps. Do not redirect all legacy URLs to home.
 
 ## V2 Site IA
-- / = the entire Central Bank Divergence dashboard (first screen shows ranking)
+- / = the entire Central Bank Rate Divergence dashboard (first screen shows ranking)
 - /pairs/[pair]/ = pair-specific rate comparison, factual history, monetary-policy outlook, methodology, cited drivers
 - /central-banks/ = 8 banks overview
 - /central-banks/[bank]/ = documented bank decision timeline and policy details
@@ -45,16 +48,16 @@ Start with one high-quality homepage and methodology. Pair pages can be accessib
 ## Homepage design
 Above fold:
 - Compact Trade90 wordmark; nav: Divergence / Central Banks / Learn / Methodology
-- "Central Bank Interest Rate Divergence" headline, clear one-line description
+- "Central Bank Rate Divergence" headline, clear one-line description
 - Visible data-as-of time + source and freshness status
 - Two neutral fact cards: largest absolute policy-rate gap; coverage (8 banks / 28 pairs)
 - Primary dashboard begins immediately; no generic hero video or unrelated terminal.
 
 Primary sections/tabs:
-1. CURRENT: 28 pairs sorted descending by absolute rate gap on load.
-2. EXPECTED: validated market-implied 3M / 6M / 12M rates; a core product commitment, enabled on verified/licensed data acquisition.
-3. WHAT CHANGED TODAY: daily/weekly changes in forward expectations with source timestamps, ranked by magnitude; a core commitment enabled once real observations are captured.
-4. INDIVIDUAL PAIR INTELLIGENCE: 28 selectable rate-path, history and source-rich drilldowns, integrated in all three analytical views.
+1. CURRENT RATE GAPS: 28 pairs sorted descending by absolute rate gap on load.
+2. EXPECTED RATE GAPS: validated market-implied 3M / 6M / 12M rates; a core product commitment, enabled on verified/licensed data acquisition.
+3. WHAT CHANGED: daily/weekly changes in forward expectations with source timestamps, ranked by magnitude; a core commitment enabled once real observations are captured.
+4. CURRENCY PAIR DETAILS: 28 selectable rate-path, history and source-rich drilldowns, integrated in all three analytical views.
 If forecast data is missing, render explicit "Not available — verified forward-rate data not connected"; do not insert examples or synthesize numbers into production.
 
 Current pair table: rank, symbol, signed base-minus-quote gap (bps), absolute gap (bps), higher-yielding currency, official rate pair, rate effective dates. Hide optional columns on mobile but preserve drill-down detail. Filters: search, major/cross, currency, ascending/descending. Clearly label absolute ranking versus signed gap. Selecting any pair opens pair detail. Empty/unavailable data states must be useful.
