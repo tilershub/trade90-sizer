@@ -1,0 +1,29 @@
+---
+import Trade90V2Layout from "../../layouts/Trade90V2Layout.astro";
+import Trade90PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
+---
+<Trade90V2Layout
+ title="Central Bank Policy Updates — Rate Decisions and Minutes"
+ description="Official monetary-policy decisions, meeting minutes and policy communications from the Fed, ECB, Bank of England, Bank of Japan, RBA, RBNZ, Bank of Canada and SNB, with dated primary-source links."
+ canonical="/central-banks/">
+  <main class="wrap">
+    <header class="page-intro">
+      <div class="eyebrow">Eight central banks · Official primary sources</div>
+      <h1>Central Bank Policy Updates</h1>
+      <p>Follow actual monetary-policy decisions, minutes, statements and reports for the currencies traded on TRADE90. Read what banks really published, separate from what derivatives markets currently expect.</p>
+    </header>
+    <Trade90PolicyUpdates client:load />
+    <aside class="explainer">
+      <h2>What counts as a policy update?</h2>
+      <p><strong>Rate decisions</strong> announce an official benchmark and its effective date. <strong>Minutes</strong> describe the discussion at an earlier meeting. <strong>Statements</strong> and <strong>policy reports</strong> explain policymakers' assessments and projections. None of these automatically tells us what a market-implied 3-, 6- or 12-month rate will be.</p>
+      <p>TRADE90 currently maintains a dated, curated source collection. <strong>This is not a live publication feed.</strong> New announcements are not guaranteed to appear immediately. For the latest release, always open the bank's original link. The <a href="/">Current Rate Gaps</a> calculation remains based on a separately verified policy-rate snapshot.</p>
+      <a href="/methodology/">Read the rate-gap and source methodology →</a>
+    </aside>
+  </main>
+</Trade90V2Layout>
+<style>
+.explainer{border:1px solid #334155;border-radius:14px;padding:22px;background:#111d2f;margin:30px 0;color:#cbd5e1}
+.explainer h2{font-size:1.2rem;color:#f8fafc;margin:0 0 10px}
+.explainer p{font-size:.85rem;line-height:1.75}
+.explainer a{font-size:.84rem;color:#6ee7b7}
+</style>
