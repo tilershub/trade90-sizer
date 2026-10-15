@@ -9,7 +9,6 @@ export default defineConfig({
 
   // 301 redirects: legacy URLs → new hub architecture (trailing-slash canonical)
   redirects: {
-    '/learn/': '/risk-management/',
     '/learn/position-sizing/': '/risk-management/position-sizing/',
     '/learn/risk-management/': '/risk-management/',
     '/learn/funded-accounts/': '/prop-firms/',
@@ -37,6 +36,8 @@ export default defineConfig({
         // Top priority: homepage, hub pillars, foundation guide, primary tools
         const highPriority = [
           '/',
+        '/learn/',
+        '/methodology/',
           '/psychology/',
           '/risk-management/',
           '/risk-management/position-sizing/',
