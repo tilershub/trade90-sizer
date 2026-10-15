@@ -1,6 +1,7 @@
 <script>
   import { getPairs, formatBp } from "../lib/trade90-rates.js";
   import Trade90OutlookEvidence from "./Trade90OutlookEvidence.svelte";
+  import Trade90ForwardRates from "./Trade90ForwardRates.svelte";
   export let snapshot;
 
   const banks = snapshot.banks;
@@ -102,19 +103,11 @@
       </div>
       <div class="notice"><strong>Comparable 3-, 6- and 12-month implied rate gaps are not yet available.</strong><p>The observations below are genuine sourced reports of market pricing, surveys and central-bank commentary. They are not the same dataset or observation horizon, so combining them into a numeric cross-currency forward spread would be misleading.</p></div>
       <Trade90OutlookEvidence mode="expected" />
-      <h3 class="subheading">All 28 pairs · {horizon} forward rate comparison</h3>
-      <p class="forward-info">A numeric future gap appears here only after both banks have comparable licensed forward-rate observations for the selected horizon. Until then, view verified current spreads and published policy context above.</p>
-      <div class="tablewrap">
-        <table>
-          <thead><tr><th>Pair</th><th class="number">Current absolute gap</th><th class="number">Expected {horizon} gap</th><th>Outlook</th></tr></thead>
-          <tbody>{#each allPairs as pair (pair.symbol)}
-            <tr><td><button class="pairlink" on:click={() => choosePair(pair.symbol)}>{pair.label}</button></td><td class="number">{formatBp(pair.absBp)} bp</td><td class="number muted">—</td><td class="muted">Not available</td></tr>
-          {/each}</tbody>
-        </table>
-      </div>
+      <Trade90ForwardRates mode="expected" {horizon} policyBanks={banks} onPairSelect={choosePair} />
     {:else if activeTab === "changes"}
       <div class="panelhead"><div><h2>What changed</h2><p>Official policy-rate decisions, presented separately from changes in market expectations.</p></div><span class="sourcepill">Source-linked</span></div>
       <div class="notice"><strong>Automated 24-hour and 7-day repricing is not yet connected.</strong><p>The documented examples below are historical reported observations, not a live measurement of all 28 currency pairs. Exact recurring comparisons will require continuously archived, timestamped market-price inputs.</p></div>
+      <Trade90ForwardRates mode="changes" {horizon} policyBanks={banks} onPairSelect={choosePair} />
       <Trade90OutlookEvidence mode="changes" />
       <h3 class="subheading">Latest verified central-bank decisions</h3>
       <div class="decisions">
@@ -145,6 +138,7 @@
       </div>
       <div class="interpretation"><strong>{detail.higher === "Equal" ? "Equal policy benchmarks" : detail.higher + " has the higher policy rate"}</strong><p>The signed {detail.label} base-minus-quote spread is {detail.signedBp > 0 ? "+" : ""}{formatBp(detail.signedBp)} basis points. This measures two official benchmark rates, not the actual return from holding this currency pair.</p></div>
       <div class="notice quieter"><strong>Forward expectations for {detail.label}</strong><p>Exact 3-, 6- and 12-month pair gaps require a verified forward-rate input for both central banks at the same horizon and observation time. The two sourced outlooks below offer context, not a computed forward spread.</p></div>
+      <Trade90ForwardRates mode="pair" policyBanks={banks} selectedPair={detail} />
       <Trade90OutlookEvidence mode="pair" pair={detail} />
     {/if}
   </div>
