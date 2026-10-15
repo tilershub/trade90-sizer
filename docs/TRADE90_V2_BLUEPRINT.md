@@ -7,6 +7,15 @@ Branch: trade90-v2-rate-divergence
 ## Naming and truthfulness policy (founder-confirmed)
 Brand: **Trade90**. Main page title: **Central Bank Rate Divergence**. Avoid describing the product as \"intelligence,\" \"AI analysis,\" \"signals,\" or an ability to predict prices. Use plain, literal feature names: **Current Rate Gaps**, **Expected Rate Gaps**, **What Changed**, **Currency Pair Details**. Never imply a policy-rate differential represents actual trader swap yield or proves future FX direction. Label observations, forward market pricing, forecasts and commentary with their respective provenance and dates. Show clearly when forecast values are unavailable. Keep numerical precision appropriate to their sources. Editorial material must not state causality or certainty not supported by evidence.
 
+## Brand continuity (founder-confirmed)
+V2 keeps the ORIGINAL TRADE90 identity from the legacy public website while replacing all legacy trading tools and their navigation:
+- Keep original uppercase text wordmark: white **TRADE** plus emerald-green **90**, compact heavyweight type, not a newly invented blue T90 square badge.
+- Keep original colors: black header/footer, deep slate (#0f172a) body, emerald (#10b981) highlights and links, light high-contrast type.
+- Preserve existing original green-chart favicon and apple-touch icon assets where they are already shipped.
+- New Current Rate Gaps, Expected Rate Gaps, What Changed, Currency Pair Details, methodology and learn views should ALL have the same legacy brand palette and navigation.
+- Avoid the retired position-sizer/terminal messaging and shortcuts when using old brand assets. Brand continuity does not authorize revival of old features.
+- Test brand wordmark and palette at desktop and mobile sizes.
+
 ## Product decision
 Rebuild Trade90 as a single-purpose, source-verified forex monetary-policy intelligence product. The CENTRAL BANK RATE DIVERGENCE dashboard with CURRENT RATE GAPS, EXPECTED RATE GAPS, WHAT CHANGED, and CURRENCY PAIR DETAILS is the homepage, not one tool among many.
 
