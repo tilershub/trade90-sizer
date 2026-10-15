@@ -145,9 +145,9 @@
     {/if}
   </div>
   <section class="centralbank">
-    <div class="belowhead"><div><h2>Eight central banks</h2><p>Benchmarks used for every rate gap. Source links and effective dates are shown below.</p></div><button on:click={() => showAllSources = !showAllSources}>{showAllSources ? "Hide details" : "Source details"} {showAllSources ? "↑" : "↓"}</button></div>
+    <div class="belowhead"><div><h2>{activeTab === "details" ? "Central banks for " + detail.label : "Eight central banks"}</h2><p>{activeTab === "details" ? "Only the two official benchmarks used for this pair, with source links and effective dates." : "Benchmarks used for every rate gap. Source links and effective dates are shown below."}</p></div><button on:click={() => showAllSources = !showAllSources}>{showAllSources ? "Hide details" : "Source details"} {showAllSources ? "↑" : "↓"}</button></div>
     <div class="bankgrid">
-      {#each banks as bank}
+      {#each (activeTab === "details" ? [detail.baseBank, detail.quoteBank] : banks) as bank}
         <div class="bankcard">
           <div class="banktop"><strong>{bank.code}</strong><span>{bank.short}</span></div>
           <div class="bankrate">{bank.rate.toFixed(bank.rate===3.875?3:2)}%</div>
