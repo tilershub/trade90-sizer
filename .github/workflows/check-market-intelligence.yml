@@ -5,6 +5,7 @@ on:
     paths:
       - "src/**"
       - "tests/trade90-v2.mjs"
+      - "tests/trade90-v2-browser.cjs"
       - "astro.config.mjs"
       - ".github/workflows/check-market-intelligence.yml"
   workflow_dispatch:
@@ -12,7 +13,7 @@ on:
 jobs:
   build-and-verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -36,3 +37,13 @@ jobs:
           grep -q 'Expected rate gaps' dist/index.html
           grep -q 'What changed' dist/index.html
           grep -q 'Currency pair details' dist/index.html
+      - name: Desktop and mobile interaction checks
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+          (npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/trade90-v2-preview.log 2>&1 &)
+          for i in $(seq 1 25); do
+            if curl --fail --silent http://127.0.0.1:4321/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node tests/trade90-v2-browser.cjs
