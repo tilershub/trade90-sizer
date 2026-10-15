@@ -1,5 +1,6 @@
 <script>
   import { getPairs, formatBp } from "../lib/trade90-rates.js";
+  import Trade90OutlookEvidence from "./Trade90OutlookEvidence.svelte";
   export let snapshot;
 
   const banks = snapshot.banks;
@@ -99,7 +100,10 @@
         <button class:active={horizon === "6M"} on:click={() => horizon = "6M"}>6 months</button>
         <button class:active={horizon === "12M"} on:click={() => horizon = "12M"}>12 months</button>
       </div>
-      <div class="notice"><strong>Market-implied forecasts are not yet available.</strong><p>Trade90 will publish expected-rate gaps only when it can obtain and verify appropriately licensed, comparable forward-rate data for both central banks. The current gaps below are confirmed policy-rate comparisons, not forecasts.</p></div>
+      <div class="notice"><strong>Comparable 3-, 6- and 12-month implied rate gaps are not yet available.</strong><p>The observations below are genuine sourced reports of market pricing, surveys and central-bank commentary. They are not the same dataset or observation horizon, so combining them into a numeric cross-currency forward spread would be misleading.</p></div>
+      <Trade90OutlookEvidence mode="expected" />
+      <h3 class="subheading">All 28 pairs · {horizon} forward rate comparison</h3>
+      <p class="forward-info">A numeric future gap appears here only after both banks have comparable licensed forward-rate observations for the selected horizon. Until then, view verified current spreads and published policy context above.</p>
       <div class="tablewrap">
         <table>
           <thead><tr><th>Pair</th><th class="number">Current absolute gap</th><th class="number">Expected {horizon} gap</th><th>Outlook</th></tr></thead>
@@ -110,7 +114,8 @@
       </div>
     {:else if activeTab === "changes"}
       <div class="panelhead"><div><h2>What changed</h2><p>Official policy-rate decisions, presented separately from changes in market expectations.</p></div><span class="sourcepill">Source-linked</span></div>
-      <div class="notice"><strong>24-hour and 7-day forecast repricing is not connected.</strong><p>These future rankings will measure changes in market-implied rate gaps, not changes to the current policy rates. We will not describe events as causes of market moves without reliable evidence.</p></div>
+      <div class="notice"><strong>Automated 24-hour and 7-day repricing is not yet connected.</strong><p>The documented examples below are historical reported observations, not a live measurement of all 28 currency pairs. Exact recurring comparisons will require continuously archived, timestamped market-price inputs.</p></div>
+      <Trade90OutlookEvidence mode="changes" />
       <h3 class="subheading">Latest verified central-bank decisions</h3>
       <div class="decisions">
         {#each lastDecisions as bank}
@@ -139,7 +144,8 @@
         </div>
       </div>
       <div class="interpretation"><strong>{detail.higher === "Equal" ? "Equal policy benchmarks" : detail.higher + " has the higher policy rate"}</strong><p>The signed {detail.label} base-minus-quote spread is {detail.signedBp > 0 ? "+" : ""}{formatBp(detail.signedBp)} basis points. This measures two official benchmark rates, not the actual return from holding this currency pair.</p></div>
-      <div class="notice quieter"><strong>Forward expectations for {detail.label}</strong><p>Market-implied 3-, 6- and 12-month rate paths have not been connected. Future changes will appear only with comparable, timestamped source data.</p></div>
+      <div class="notice quieter"><strong>Forward expectations for {detail.label}</strong><p>Exact 3-, 6- and 12-month pair gaps require a verified forward-rate input for both central banks at the same horizon and observation time. The two sourced outlooks below offer context, not a computed forward spread.</p></div>
+      <Trade90OutlookEvidence mode="pair" pair={detail} />
     {/if}
   </div>
   <section class="centralbank">
@@ -279,4 +285,7 @@ tbody tr:hover{background:#18263a}
 .belowhead button{color:#6ee7b7}
 .footnote a{color:#6ee7b7}
 .empty{color:#94a3b8}
+
+.forward-info{color:#94a3b8;font-size:.78rem;padding:0 24px 10px;margin:0}
+@media(max-width:600px){.forward-info{padding:0 14px 12px}}
 </style>
