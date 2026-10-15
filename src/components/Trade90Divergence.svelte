@@ -105,7 +105,7 @@
       <Trade90OutlookEvidence mode="expected" />
       <Trade90ForwardRates mode="expected" {horizon} policyBanks={banks} onPairSelect={choosePair} />
     {:else if activeTab === "changes"}
-      <div class="panelhead"><div><h2>What changed</h2><p>Official policy-rate decisions, presented separately from changes in market expectations.</p></div><span class="sourcepill">Source-linked</span></div>
+      <div class="panelhead"><div><h2>What changed</h2><p>Official policy-rate decisions, presented separately from changes in market expectations. <a href="/central-banks/">Browse central-bank policy updates →</a></p></div><span class="sourcepill">Source-linked</span></div>
       <div class="notice"><strong>How to interpret the change</strong><p>Quantified 24-hour and 7-day revisions require archived, timestamped market-price snapshots. The dated reports below are separately attributed examples and may not represent the latest market position.</p></div>
       <Trade90ForwardRates mode="changes" {horizon} policyBanks={banks} onPairSelect={choosePair} />
       <Trade90OutlookEvidence mode="changes" />
