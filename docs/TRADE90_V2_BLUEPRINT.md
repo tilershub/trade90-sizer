@@ -5,9 +5,18 @@ Repository: tilershub/trade90-sizer
 Branch: trade90-v2-rate-divergence
 
 ## Product decision
-Rebuild Trade90 as a single-purpose, source-verified forex monetary-policy intelligence product. The CENTRAL BANK INTEREST RATE DIVERGENCE DASHBOARD is the homepage, not one tool among many.
+Rebuild Trade90 as a single-purpose, source-verified forex monetary-policy intelligence product. The CENTRAL BANK RATE DIVERGENCE INTELLIGENCE DASHBOARD with CURRENT, EXPECTED, WHAT CHANGED TODAY, and PAIR INTELLIGENCE is the homepage, not one tool among many.
 
 Primary promise: "Compare the rate gap. Track the expected shift. Understand what changed."
+
+## Four inseparable core intelligence features (founder-confirmed)
+The redesigned Trade90 V2 homepage is built around four integrated core functions, not one static rate calculator:
+1. CURRENT RATE DIVERGENCE — all 28 currency pair combinations; verified central bank rate gap ranking from highest absolute difference to lowest, plus signed base-quote spread, source timestamps and higher-yielding currency.
+2. EXPECTED RATE DIVERGENCE — forward-looking 3M, 6M and 12M market-implied central-bank rate paths; expected signed/absolute gaps and widening, narrowing, or reversal, based only on verified appropriately licensed and timestamped comparable sources.
+3. WHAT CHANGED TODAY — 1D and 7D changes to expected spreads (distinguished from actual policy-rate decision changes), pair rankings for biggest expectation revisions, and timestamped sourced economic/news catalysts. Do not claim a news release caused a market move without evidence.
+4. INDIVIDUAL PAIR INTELLIGENCE — select any of the 28 pairs to inspect both banks, policy rate history, forward-rate paths, key catalysts, next decisions, scenarios and risk caveats.
+
+These are FOUR PRIMARY UI AREAS on the new homepage and FOUR MANDATORY TARGET CAPABILITIES of V2; neither Expected nor Today is an optional unrelated product. Implementation can be staged exclusively to guard accuracy and data licensing: mark unverified datasets as unavailable rather than substituting invented numbers. Treat acquisition of trustworthy eight-bank forward-rate data as a critical-path delivery requirement, not a forgotten enhancement. A launch without data for Expected/Today is an intentionally disclosed limited release, never a claim that complete V2 has shipped.
 Audience: FX swing traders first, then position and intraday traders who use macroeconomic context.
 Do NOT promise profitable trades, forecast returns, or use unsupported bullish/bearish AI scores.
 
@@ -31,7 +40,7 @@ This is a PUBLIC EXPERIENCE replacement, not permission to erase repositories, d
 - /methodology/ = benchmark definitions, calculations, feed sources, freshness, limitations
 - /about/ and /privacy/ = minimal trust/legal infrastructure; no unrelated old tools
 
-Start with one high-quality homepage and methodology. Pair pages can be accessible via UI without indexing until each has substantive unique information.
+Start with one high-quality homepage and methodology. Pair pages can be accessible via UI without indexing until each has substantive unique information. Homepage prominently contains all four sections, with Current and Expected as prominent comparison views, Today changes immediately accessible and pair drilldowns close at hand.
 
 ## Homepage design
 Above fold:
@@ -41,10 +50,11 @@ Above fold:
 - Two neutral fact cards: largest absolute policy-rate gap; coverage (8 banks / 28 pairs)
 - Primary dashboard begins immediately; no generic hero video or unrelated terminal.
 
-Primary tabs:
+Primary sections/tabs:
 1. CURRENT: 28 pairs sorted descending by absolute rate gap on load.
-2. EXPECTED: validated market-implied 3M / 6M / 12M rates (only after sourced/licensed data acquisition).
-3. CHANGES: daily/weekly changes in forward expectations with source timestamps (only after history capture).
+2. EXPECTED: validated market-implied 3M / 6M / 12M rates; a core product commitment, enabled on verified/licensed data acquisition.
+3. WHAT CHANGED TODAY: daily/weekly changes in forward expectations with source timestamps, ranked by magnitude; a core commitment enabled once real observations are captured.
+4. INDIVIDUAL PAIR INTELLIGENCE: 28 selectable rate-path, history and source-rich drilldowns, integrated in all three analytical views.
 If forecast data is missing, render explicit "Not available — verified forward-rate data not connected"; do not insert examples or synthesize numbers into production.
 
 Current pair table: rank, symbol, signed base-minus-quote gap (bps), absolute gap (bps), higher-yielding currency, official rate pair, rate effective dates. Hide optional columns on mobile but preserve drill-down detail. Filters: search, major/cross, currency, ascending/descending. Clearly label absolute ranking versus signed gap. Selecting any pair opens pair detail. Empty/unavailable data states must be useful.
@@ -100,7 +110,7 @@ B. Isolated v2 branch with homepage, source registry, unit tests and staged prev
 C. Validate 8 official benchmarks; 28 unique pairs; correct sign, decimals, midpoint treatment, sorting and ties; fresh-source timestamps and fallbacks.
 D. Review mobile UI, accessibility, Core Web Vitals, SEO, legal/privacy and endpoint failure modes; inspect source-generated pages.
 E. Publish replacement homepage only when credible data and rollback are tested. Retire old features/routes methodically with 301/410, site navigation and sitemap updates; monitor errors, crawl/indexing and real data freshness.
-F. Add expected rate paths/change feed after source contract and historical observation quality satisfy acceptance criteria.
+F. Complete and activate the already-designed Expected Divergence and What Changed Today core sections after the eight-bank forward-rate feed licensing, timestamp normalization, historical observations and quality gates pass. This is part of the V2 product, not optional scope creep.
 
 ## Acceptance criteria for public V2
 - Landing page immediately shows 28 accurately ranked pair combinations from 8 verified source decisions.
@@ -110,6 +120,7 @@ F. Add expected rate paths/change feed after source contract and historical obse
 - Missing/stale sources are clearly indicated; page stays usable, never spins forever.
 - Phone layout easy to scan; details reachable with keyboard and touch.
 - Legacy public navigation/UI removed; stored historical data and recoverable previous site retained safely.
+- The four product areas are navigable and coherently integrated; accurate Current and Pair Intelligence works; Expected and Today show genuine verified data when enabled and accurate missing-data states until then.
 - Educational pages are substantial and connected to the tool; 404/410/301 routing decisions documented.
 - Staging tests and rollback plan complete before production cutover.
 
