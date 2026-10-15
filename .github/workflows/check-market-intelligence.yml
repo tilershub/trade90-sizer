@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "src/**"
+      - "public/data/**"
+      - "scripts/publish-forward-rates.mjs"
       - "tests/trade90-v2.mjs"
       - "tests/trade90-v2-browser.cjs"
       - "astro.config.mjs"
@@ -24,6 +26,8 @@ jobs:
         run: npm ci
       - name: Validate 28-pair policy-rate calculations
         run: node tests/trade90-v2.mjs
+      - name: Verify no unlicensed published forward rates
+        run: node scripts/check-forward-publication.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes
