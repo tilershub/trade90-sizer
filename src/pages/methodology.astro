@@ -1,0 +1,25 @@
+---
+import Trade90V2Layout from "../layouts/Trade90V2Layout.astro";
+import snapshot from "../data/trade90-policy-snapshot.json";
+---
+<Trade90V2Layout title="Data and Calculation Methodology" description="How Trade90 calculates its 28 forex interest rate comparisons, defines policy-rate benchmarks and handles source dates and unavailable forward-rate expectations." canonical="/methodology/">
+<main class="wrap">
+ <article class="article">
+  <header class="page-intro"><span class="eyebrow">Transparency and data quality</span><h1>Rate Gap Methodology</h1><p>What Trade90 measures, where the numbers come from, and what the comparisons cannot tell you.</p></header>
+  <div class="card">
+   <strong>Current published dataset</strong>
+   <p>Source-verification snapshot date: <strong>{snapshot.asOf}</strong>. The page uses a dated collection of central-bank decisions, not an always-live feed. New policy-rate values require source verification and publication of an updated dataset.</p>
+  </div>
+  <section><h2>Which rates do we compare?</h2><p>Trade90 compares eight published monetary-policy benchmarks covering USD, EUR, GBP, JPY, CHF, CAD, AUD and NZD. The US Federal Reserve sets a target range rather than a single number, so we use and label its midpoint. For the European Central Bank, we use the deposit facility rate.</p><p>These benchmarks are not identical instruments or instantly tradeable funding rates. They are a transparent macroeconomic comparison.</p></section>
+  <section><h2>How do we calculate the signed gap?</h2><p><strong>Signed gap (basis points) = (base-currency benchmark % − quote-currency benchmark %) × 100.</strong></p><p>For the ranking, Trade90 sorts each pair by <strong>absolute gap</strong>, meaning the size of the difference regardless of which currency has the higher benchmark. The pair remains in a consistent market-standard base/quote orientation.</p><p>A positive signed gap means the base currency has the higher policy benchmark; a negative gap means the quote currency has the higher benchmark. There are 28 unique, unordered combinations of eight currencies.</p></section>
+  <section><h2>What does expected gap mean?</h2><p>An expected gap would compare market-implied rate paths for the same horizon (3, 6 or 12 months), using verifiable, appropriately licensed overnight-indexed swaps or interest-rate futures and consistent observations. Market pricing is not a guaranteed future policy outcome.</p><p><strong>Trade90 currently does not show numerical expected gaps.</strong> When forward-rate inputs are not available and verified for both sides of a pair, the value is left blank. We do not substitute invented forecasts or central-bank commentary for market-implied prices.</p></section>
+  <section><h2>What Changed data</h2><p>Current-rate changes reflect officially announced policy decisions. Changes in expectations would compare market-implied gap snapshots from two genuine observation times. These should be explicitly separated in the interface. Commentary about economic events should cite the underlying publication and not attribute market moves to an event without supporting evidence.</p></section>
+  <section><h2>Official source registry</h2><p>These links identify the bank publications used for the displayed snapshot. Decision date and effective date may differ. Open the original source to validate the benchmark.</p>
+   <table><thead><tr><th>Currency</th><th>Benchmark</th><th>Rate</th><th>Effective</th><th>Source</th></tr></thead><tbody>{snapshot.banks.map(bank=><tr><td>{bank.code}</td><td>{bank.benchmark}</td><td>{bank.rate}%</td><td>{bank.effectiveDate}</td><td><a href={bank.source} target="_blank" rel="noopener noreferrer">{bank.short} ↗</a></td></tr>)}</tbody></table>
+  </section>
+  <section><h2>Limitations and risk</h2><p>Policy-rate gaps are not foreign-exchange price forecasts or broker rollover yields. Market expectations can change before actual interest rates do, while exchange-rate movement, transaction costs and leverage can overwhelm nominal rate differences. Data may become outdated between verification cycles.</p><p>This website is intended for financial education and general market research only, not personalized investment recommendations.</p></section>
+  <p class="back"><a href="/">← Return to rate comparison</a></p>
+ </article>
+</main>
+</Trade90V2Layout>
+<style>.article{padding-bottom:30px}.article h2{font-size:1.3rem}.article table{border-collapse:collapse;display:block;overflow-x:auto;width:100%;font-size:.78rem}.article th,.article td{text-align:left;padding:9px;border-bottom:1px solid #dfe7ef;white-space:nowrap}.article th{background:#eef4fa}.back{padding:25px 0}</style>

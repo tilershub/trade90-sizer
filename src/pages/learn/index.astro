@@ -1,0 +1,14 @@
+---
+import Trade90V2Layout from "../../layouts/Trade90V2Layout.astro";
+import {lessons} from "../../data/v2-lessons.js";
+---
+<Trade90V2Layout title="Learn About Interest Rate Gaps" description="Clear educational guides explaining central bank rates, forex interest-rate divergence, expectations and currency risks." canonical="/learn/">
+<main class="wrap">
+ <header class="page-intro"><span class="eyebrow">Trade90 learning guides</span><h1>Understand Central Bank Rate Gaps</h1><p>Practical, source-linked explanations to help you interpret the rate comparison tool without confusing interest-rate differences with currency price predictions.</p></header>
+ <div class="articles">
+ {lessons.map(lesson=><a class="linkcard" href={"/learn/"+lesson.slug+"/"}><strong>{lesson.title}</strong><p>{lesson.description}</p><span>Read article →</span></a>)}
+ </div>
+ <div class="note"><strong>Start with the live comparison table:</strong> <a href="/">Compare all 28 current forex rate gaps →</a></div>
+</main>
+</Trade90V2Layout>
+<style>.articles{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:12px 0 30px}.articles strong{display:block;font-size:1.1rem}.articles span{font-size:.85rem;font-weight:700}.note{background:#eaf4f8;border-radius:12px;padding:22px;margin:15px 0 40px}@media(max-width:800px){.articles{grid-template-columns:1fr}}</style>

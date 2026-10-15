@@ -1,69 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from "../layouts/Trade90V2Layout.astro";
 ---
-<BaseLayout
-  title="Privacy Policy"
-  description="How TRADE90 handles browser data, member accounts, cloud workspace data, analytics and advertising."
->
-  <main class="max-w-3xl mx-auto py-16 px-6 prose prose-invert">
-    <h1>Privacy Policy</h1>
-    <p>Last updated: October 3, 2026</p>
-
-    <h2>1. Browser-only workspace data</h2>
-    <p>
-      TRADE90 can be used without an account. In that mode, features such as My Markets, research history,
-      the journal, research plan, checklist and selected risk preferences are stored in your browser using
-      local storage. Clearing your browser data can remove that information.
-    </p>
-
-    <h2>2. Member accounts and cloud sync</h2>
-    <p>
-      If you create a TRADE90 member account, authentication is provided through Supabase. We store the email
-      address associated with your account and a private workspace record used to synchronize your TRADE90 data
-      across signed-in devices.
-    </p>
-    <p>
-      The synchronized workspace can include your watchlist, research observation history, journal entries,
-      research plan, daily checklist data and workspace preferences. TRADE90 does not require your broker
-      password, brokerage account credentials or trading-platform login.
-    </p>
-    <p>
-      Member workspace records use row-level access controls so an authenticated member can access only the
-      workspace attached to that member's account.
-    </p>
-
-    <h2>3. Analytics and cookies</h2>
-    <p>
-      TRADE90 uses Google Analytics in consent mode to understand product usage. Where required by the site's
-      consent controls, analytics storage remains denied until you accept cookies. We use engagement events to
-      measure actions such as opening the terminal, adding a market to a watchlist, using the journal or research
-      plan, and exporting workspace data. We do not intentionally send journal notes, trading results, account
-      balances or passwords as analytics event content.
-    </p>
-
-    <h2>4. Advertising</h2>
-    <p>
-      If advertising is displayed on TRADE90, advertising providers such as Google may use cookies or similar
-      technologies according to their own policies and your consent choices. Advertising is separate from the
-      research, planning and risk-management tools.
-    </p>
-
-    <h2>5. Data deletion</h2>
-    <p>
-      Signed-in members can delete the synchronized TRADE90 workspace from the My TRADE90 account page. That
-      action removes the cloud workspace record but leaves browser-local data on the current device. Browser-local
-      data can be removed by clearing site data in your browser.
-    </p>
-
-    <h2>6. Data sharing</h2>
-    <p>
-      We do not sell personal data to advertisers. Service providers used to operate TRADE90 may process data as
-      needed to provide hosting, authentication, analytics or other infrastructure services.
-    </p>
-
-    <h2>7. Contact</h2>
-    <p>
-      For a privacy or data question, contact <a href="mailto:admin@tradeninety.com">admin@tradeninety.com</a>.
-    </p>
-  </main>
-</BaseLayout>
+<Layout title="Privacy Policy" description="Information on data handling and inquiries for the Trade90 website." canonical="/privacy/">
+<main class="wrap"><article class="article"><header class="page-intro"><span class="eyebrow">Trade90</span><h1>Privacy Policy</h1><p>Updated 15 October 2026</p></header>
+<h2>Browsing the website</h2><p>You can view Trade90's rate comparisons and educational guides without signing in. Web hosting and security providers may process technical request information, such as IP addresses, timestamps, browser details and request logs, to deliver and protect the website.</p>
+<h2>Contact</h2><p>If you email us, we may retain the email and the content you provide to respond to your inquiry or correction request. Do not include broker passwords or sensitive financial credentials.</p>
+<h2>Previous Trade90 accounts</h2><p>Trade90 previously provided sign-in and cloud workspace features. The new public interface does not provide account management. If you previously created an account and want to inquire about or request removal of legacy account data, contact us using the address below. Removing the interface does not itself erase stored legacy records.</p>
+<h2>Other services</h2><p>Hosting, performance measurement and advertising arrangements may change. Where optional analytics, advertising or similar technologies are used, applicable provider policies and consent requirements should be reviewed separately. This page does not mean that previous browser cookies or offline caches have been removed from every device.</p>
+<h2>Data requests</h2><p>For privacy inquiries, write to <a href="mailto:admin@tradeninety.com">admin@tradeninety.com</a>.</p></article></main>
+</Layout>

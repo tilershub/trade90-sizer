@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-15",
+  "status": "verified_snapshot",
+  "description": "Eight official policy-rate benchmarks verified against central-bank publications on 15 October 2026. Not a real-time data feed. Publish an updated verified snapshot after any new rate decision.",
+  "forwardRatesAvailable": false,
+  "banks": [
+    {
+      "code": "AUD",
+      "name": "Reserve Bank of Australia",
+      "short": "RBA",
+      "benchmark": "Cash rate target",
+      "rate": 4.6,
+      "decision": "Hike +25 bp",
+      "decisionDate": "2026-09-29",
+      "effectiveDate": "2026-09-30",
+      "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html"
+    },
+    {
+      "code": "USD",
+      "name": "Federal Reserve",
+      "short": "Fed",
+      "benchmark": "Federal funds target range midpoint",
+      "rate": 3.875,
+      "range": [
+        3.75,
+        4
+      ],
+      "decision": "Hike +25 bp",
+      "decisionDate": "2026-09-16",
+      "effectiveDate": "2026-09-17",
+      "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+    },
+    {
+      "code": "GBP",
+      "name": "Bank of England",
+      "short": "BoE",
+      "benchmark": "Bank Rate",
+      "rate": 3.75,
+      "decision": "Hold",
+      "decisionDate": "2026-09-17",
+      "effectiveDate": "2026-09-17",
+      "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026"
+    },
+    {
+      "code": "NZD",
+      "name": "Reserve Bank of New Zealand",
+      "short": "RBNZ",
+      "benchmark": "Official Cash Rate",
+      "rate": 2.75,
+      "decision": "Hike +25 bp",
+      "decisionDate": "2026-09-02",
+      "effectiveDate": "2026-09-02",
+      "source": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/ocr-increased-by-25-basis-points-to-2-75"
+    },
+    {
+      "code": "EUR",
+      "name": "European Central Bank",
+      "short": "ECB",
+      "benchmark": "Deposit facility rate",
+      "rate": 2.5,
+      "decision": "Hike +25 bp",
+      "decisionDate": "2026-09-10",
+      "effectiveDate": "2026-09-16",
+      "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html"
+    },
+    {
+      "code": "CAD",
+      "name": "Bank of Canada",
+      "short": "BoC",
+      "benchmark": "Target for overnight rate",
+      "rate": 2.25,
+      "decision": "Hold",
+      "decisionDate": "2026-09-02",
+      "effectiveDate": "2026-09-02",
+      "source": "https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/"
+    },
+    {
+      "code": "JPY",
+      "name": "Bank of Japan",
+      "short": "BoJ",
+      "benchmark": "Complementary deposit facility interest rate",
+      "rate": 1.25,
+      "decision": "Policy rate adjustment",
+      "decisionDate": "2026-09-18",
+      "effectiveDate": "2026-09-24",
+      "source": "https://www.boj.or.jp/en/mopo/measures/term_cond/yoryo36.htm"
+    },
+    {
+      "code": "CHF",
+      "name": "Swiss National Bank",
+      "short": "SNB",
+      "benchmark": "SNB policy rate",
+      "rate": 0,
+      "decision": "Hold",
+      "decisionDate": "2026-09-24",
+      "effectiveDate": "2026-09-24",
+      "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924"
+    }
+  ]
+}

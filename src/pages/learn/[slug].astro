@@ -1,0 +1,20 @@
+---
+import Trade90V2Layout from "../../layouts/Trade90V2Layout.astro";
+import {lessons} from "../../data/v2-lessons.js";
+export function getStaticPaths(){
+ return lessons.map(lesson=>({params:{slug:lesson.slug},props:{lesson}}));
+}
+const {lesson}=Astro.props;
+---
+<Trade90V2Layout title={lesson.title} description={lesson.description} canonical={"/learn/"+lesson.slug+"/"}>
+<main class="wrap">
+ <article class="article">
+  <header class="page-intro"><span class="eyebrow">Trade90 · Monetary policy explained</span><h1>{lesson.title}</h1><p>{lesson.description}</p></header>
+  <p class="tool"><strong>Want to see current numbers?</strong> <a href="/">Open the 28-pair central bank rate comparison →</a></p>
+  {lesson.sections.map(section=><section><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}</section>)}
+  <aside class="sources"><h2>Further reading and primary sources</h2><ul>{lesson.sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.name} ↗</a></li>)}</ul><p>Links are provided for verification and education, not as endorsements of trading strategies.</p></aside>
+  <p class="back"><a href="/learn/">← More Trade90 guides</a></p>
+ </article>
+</main>
+</Trade90V2Layout>
+<style>.article{padding-bottom:35px}.article h2{font-size:1.32rem}.tool{padding:14px;background:#eaf4f8;border-radius:12px;margin:4px 0 24px}.sources{background:white;border:1px solid #dce5ed;border-radius:13px;padding:20px;margin-top:30px}.sources h2{margin-top:0}.sources p{font-size:.8rem}.back{padding-top:10px}</style>

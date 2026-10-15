@@ -1,0 +1,35 @@
+const assert = require("node:assert/strict");
+const {chromium} = require("playwright");
+
+(async()=>{
+ const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
+ try{
+   const page=await browser.newPage({viewport:{width:1366,height:850}});
+   await page.goto("http://127.0.0.1:4321/",{waitUntil:"networkidle"});
+   await page.getByRole("heading",{name:"Central Bank Rate Divergence",exact:true}).waitFor();
+   const rows=page.locator(".board tbody tr");
+   assert.equal(await rows.count(),28,"home current rates show all 28 pair rows");
+   assert.match(await rows.first().innerText(),/AUD\/CHF/);
+   assert.match(await rows.first().innerText(),/460/);
+   await page.getByRole("button",{name:"Expected rate gaps"}).click();
+   assert.equal(await page.locator(".board tbody tr").count(),28,"expected shows 28 entries");
+   assert.ok((await page.getByText("Market-implied forecasts are not yet available.").count())>=1);
+   await page.getByRole("button",{name:"What changed"}).click();
+   assert.ok((await page.getByText("Latest verified central-bank decisions").count())>=1);
+   await page.getByRole("button",{name:"Currency pair details"}).click();
+   await page.locator(".detailselect select").selectOption("EURUSD");
+   assert.match(await page.locator(".interpretation").innerText(),/-137.5/);
+   await page.goto("http://127.0.0.1:4321/methodology/",{waitUntil:"domcontentloaded"});
+   await page.getByRole("heading",{name:"Rate Gap Methodology"}).waitFor();
+   await page.goto("http://127.0.0.1:4321/learn/",{waitUntil:"domcontentloaded"});
+   await page.getByRole("heading",{name:"Understand Central Bank Rate Gaps"}).waitFor();
+   const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+   await mobile.goto("http://127.0.0.1:4321/",{waitUntil:"networkidle"});
+   await mobile.getByRole("heading",{name:"Central Bank Rate Divergence",exact:true}).waitFor();
+   assert.equal(await mobile.locator(".board tbody tr").count(),28);
+   const widths=await mobile.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+   assert.ok(widths.scroll<=widths.viewport+4,"no document-level horizontal overflow: "+JSON.stringify(widths));
+   await mobile.screenshot({path:"/tmp/trade90-v2-mobile.png",fullPage:true});
+   console.log("V2 browser checks passed: desktop 28 pair ranking, all four views, rate details, methodology, learn and mobile width.");
+ }finally{await browser.close();}
+})().catch(error=>{console.error(error);process.exit(1);});

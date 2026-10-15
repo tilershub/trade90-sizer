@@ -1,75 +1,41 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import FxResearchTerminal from '../components/FxResearchTerminal.svelte';
+import Trade90V2Layout from "../layouts/Trade90V2Layout.astro";
+import Trade90Divergence from "../components/Trade90Divergence.svelte";
+import snapshot from "../data/trade90-policy-snapshot.json";
 ---
-<BaseLayout title="TRADE90 — Market Research & Risk Management Workspace" description="Research FX, Gold and Bitcoin, track what changed, plan risk, size positions and review decisions with the free TRADE90 trading workspace.">
-  <main class="research-home">
-    <header class="intro">
-      <p class="eyebrow">FX · Gold · Bitcoin</p>
-      <h1>Research the market. Plan the risk. Review the decision.</h1>
-      <p>See what changed, what evidence aligns or conflicts, what data you can trust, and what matters next — without turning research into a trade signal.</p>
-      <div class="intro-actions">
-        <a class="primary" href="/market-intelligence/">Market Intelligence →</a>
-        <a href="#terminal">Open the research terminal</a>
-        <a href="/today/">Open Today dashboard</a>
-        <a href="/economic-calendar/">Economic calendar</a>
-        <a href="/research-guide/">Read the research guide</a>
-      </div>
-    </header>
-
-    <section class="value" aria-labelledby="value-title">
-      <div class="value-head">
-        <p class="eyebrow">What traders get</p>
-        <h2 id="value-title">Understand the market in minutes, not tabs.</h2>
-        <p>TRADE90 compresses the research workflow into three repeatable questions: what changed, what does the evidence say, and how trustworthy is each input?</p>
-      </div>
-      <div class="value-grid">
-        <article>
-          <span>01</span>
-          <strong>Research Delta</strong>
-          <p>Return to TRADE90 and see only the meaningful changes since your previous review — structure, event risk, macro observations, positioning and relevant policy communications.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <strong>Evidence Balance</strong>
-          <p>Separate observations that align with the current structure from conflicting evidence and missing information. No artificial bullish/bearish score.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <strong>Data Trust</strong>
-          <p>Know whether an input is LIVE, CURRENT, DELAYED, STALE, UNAVAILABLE or DERIVED, with source dates and methodology visible.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="terminal" aria-label="Market research terminal">
-      <FxResearchTerminal client:visible />
-    </section>
-    <nav class="next" aria-label="Research and planning tools">
-      <a href="/market-intelligence/"><strong>Market Intelligence</strong><span>See the current market context, levels and evidence →</span></a>
-      <a href="/today/"><strong>Start with Today</strong><span>Watch markets, sessions, risk and journal →</span></a>
-      <a href="/tools/trading-plan-builder/"><strong>Build a plan</strong><span>Record your view and risk limits →</span></a>
-      <a href="/tools/position-size-calculator/"><strong>Calculate position size</strong><span>Size exposure for your risk →</span></a>
-      <a href="/journal/"><strong>Review your decisions</strong><span>Open your trading journal →</span></a>
-    </nav>
-    <section class="markets" aria-labelledby="market-research-title">
-      <p class="eyebrow">Market research</p>
-      <h2 id="market-research-title">Open a dedicated research page</h2>
-      <div>
-        <a href="/research/eurusd/">EUR/USD <span>Research →</span></a>
-        <a href="/research/gbpusd/">GBP/USD <span>Research →</span></a>
-        <a href="/research/usdjpy/">USD/JPY <span>Research →</span></a>
-        <a href="/research/usdchf/">USD/CHF <span>Research →</span></a>
-        <a href="/research/usdcad/">USD/CAD <span>Research →</span></a>
-        <a href="/research/audusd/">AUD/USD <span>Research →</span></a>
-        <a href="/research/nzdusd/">NZD/USD <span>Research →</span></a>
-        <a href="/research/xauusd/">XAU/USD · Gold <span>Research →</span></a>
-        <a href="/research/btcusd/">BTC/USD · Bitcoin <span>Research →</span></a>
-      </div>
-    </section>
-    <nav class="market-links" aria-label="More TRADE90 tools"><a href="/economic-calendar/">Economic calendar</a><a href="/tools/">All tools</a><a href="/research-guide/">Research methodology</a></nav>
-  </main>
-</BaseLayout>
+<Trade90V2Layout
+ title="Central Bank Rate Divergence — 28 Forex Pair Comparisons"
+ description="Compare current central-bank policy rates and interest-rate differences for 28 major forex currency pairs. Explore rate gap rankings, sourced decisions, expected-rate data availability and individual pair details."
+ canonical="/">
+ <main class="wrap">
+   <div class="page-intro">
+     <div class="eyebrow">Official interest rates · Forex rate comparisons</div>
+     <h1>Central Bank Rate Divergence</h1>
+     <p>See the policy-rate gap across 28 forex pairs. Compare eight central banks, understand the calculation, and follow what has actually changed—without unsupported trading signals.</p>
+   </div>
+   <Trade90Divergence client:load snapshot={snapshot} />
+   <section class="learnstart" aria-labelledby="learn-title">
+     <div class="learnheader">
+       <div><span class="eyebrow">Learn the fundamentals</span><h2 id="learn-title">Understand what the gap means</h2><p>Rate differences provide monetary-policy context, not a prediction of price direction. These guides explain how to interpret them.</p></div>
+       <a href="/learn/">All guides →</a>
+     </div>
+     <div class="learncards">
+       <a class="linkcard" href="/learn/what-is-interest-rate-divergence/"><strong>What is interest rate divergence in forex?</strong><p>Understand the difference between current central-bank rates and expected policy paths.</p><span>Read guide →</span></a>
+       <a class="linkcard" href="/learn/expected-rate-gaps/"><strong>How do markets price expected interest rates?</strong><p>Learn why rate expectations can move even when official policy rates stay unchanged.</p><span>Read guide →</span></a>
+       <a class="linkcard" href="/learn/high-interest-rates-currency-strength/"><strong>Do higher interest rates mean a stronger currency?</strong><p>Understand carry, exchange-rate risk and why the largest gap is not automatically the best trade.</p><span>Read guide →</span></a>
+     </div>
+   </section>
+ </main>
+</Trade90V2Layout>
 <style>
-.research-home{background:#f8fafc;color:#172b3a;padding:0 20px 36px}.intro,.value,#terminal,.next,.markets,.market-links{max-width:1280px;margin:auto}.intro{padding:32px 0 24px}.intro .eyebrow{color:#047857;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px}.intro h1{max-width:900px;font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;letter-spacing:-.045em;margin:0 0 12px;color:#0f172a}.intro>p:not(.eyebrow){max-width:720px;margin:0 0 16px;font-size:1rem;color:#526474}.intro-actions{display:flex;flex-wrap:wrap;gap:10px}.intro-actions a,.market-links a{color:#065f46;text-decoration:underline;text-underline-offset:3px;font-size:.9rem}.intro-actions a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:9px}.intro-actions a.primary{background:#064e3b;color:#fff;text-decoration:none;font-weight:800}.value{padding:0 0 24px}.value-head{display:grid;grid-template-columns:1fr 2fr;gap:8px 28px;align-items:end;margin-bottom:13px}.value-head .eyebrow{grid-column:1/-1;margin:0}.value-head h2{margin:0;color:#0f172a;font-size:clamp(1.4rem,3vw,2rem);letter-spacing:-.04em}.value-head>p:not(.eyebrow){margin:0;color:#526474;font-size:.85rem;line-height:1.55}.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.value-grid article{padding:17px;border:1px solid #dbe3ec;border-radius:14px;background:#fff}.value-grid article>span{display:inline-flex;border-radius:999px;background:#ecfdf5;color:#047857;padding:4px 7px;font-size:.55rem;font-weight:950}.value-grid strong{display:block;margin-top:10px;color:#0f172a;font-size:.95rem}.value-grid p{margin:7px 0 0;color:#526474;font-size:.78rem;line-height:1.55}#terminal{scroll-margin-top:90px}.next{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-top:24px}.next a{display:flex;flex-direction:column;gap:6px;background:white;border:1px solid #dbe3ec;border-radius:12px;padding:16px;color:#172b3a}.next span{font-size:.85rem;color:#526474}.markets{padding-top:30px}.markets .eyebrow{margin-bottom:6px}.markets h2{margin:0;color:#0f172a;font-size:1.35rem;letter-spacing:-.035em}.markets>div{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.markets a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;border:1px solid #dbe3ec;border-radius:11px;background:#fff;color:#172b3a;font-size:.82rem;font-weight:900;text-decoration:none}.markets a:hover{border-color:#10b981}.markets a span{color:#047857;font-size:.68rem}.market-links{display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:20px}.market-links a{padding:10px 0}a:focus-visible{outline:3px solid #059669;outline-offset:4px}@media(max-width:700px){.research-home{padding:0 10px 20px}.intro{padding:22px 6px}.value-head{grid-template-columns:1fr}.value-grid{grid-template-columns:1fr}.next{grid-template-columns:1fr 1fr;gap:8px}.next a{padding:12px}.next strong{font-size:.9rem}.markets>div{grid-template-columns:1fr 1fr}}@media(max-width:480px){.next,.markets>div{grid-template-columns:1fr}}
+.learnstart{padding:40px 0 20px}
+.learnheader{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.learnheader .eyebrow{font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#0b877c;text-transform:uppercase}
+.learnheader h2{font-size:1.65rem;letter-spacing:-.035em;margin:5px 0}
+.learnheader p{color:#637388;font-size:.88rem;max-width:690px;margin:5px 0}
+.learnheader>a{white-space:nowrap}
+.learncards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:17px 0}
+.learncards strong{font-size:1.05rem;line-height:1.3;display:block}
+.learncards span{color:#125f91;font-weight:700;font-size:.8rem}
+@media(max-width:760px){.learncards{grid-template-columns:1fr}.learnheader{align-items:start}.learnheader a{font-size:.8rem}}
 </style>

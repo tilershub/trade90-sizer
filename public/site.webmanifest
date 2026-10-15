@@ -1,36 +1,29 @@
 {
-  "name": "TRADE90 — Market Research Workspace",
-  "short_name": "TRADE90",
-  "description": "Research FX, Gold and Bitcoin, track market changes, plan risk and review decisions.",
+  "name": "Trade90 — Central Bank Rate Divergence",
+  "short_name": "Trade90",
+  "description": "Compare sourced central-bank policy rates across 28 forex currency pairs.",
   "id": "/",
-  "start_url": "/?source=pwa",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#10b981",
+  "background_color": "#0b1424",
+  "theme_color": "#0b1424",
   "categories": [
     "finance",
-    "productivity",
     "education"
   ],
   "shortcuts": [
     {
-      "name": "Research Terminal",
-      "short_name": "Terminal",
-      "description": "Open the TRADE90 multi-asset research terminal.",
-      "url": "/#terminal"
+      "name": "Rate Gaps",
+      "url": "/"
     },
     {
-      "name": "Today Dashboard",
-      "short_name": "Today",
-      "description": "Open watched markets, sessions and daily risk.",
-      "url": "/today/"
+      "name": "Learn",
+      "url": "/learn/"
     },
     {
-      "name": "Economic Calendar",
-      "short_name": "Calendar",
-      "description": "Open the global economic calendar.",
-      "url": "/economic-calendar/"
+      "name": "Methodology",
+      "url": "/methodology/"
     }
   ],
   "icons": [

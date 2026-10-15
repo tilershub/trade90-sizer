@@ -1,0 +1,76 @@
+---
+const {title="Central Bank Rate Divergence",description="Compare verified central bank policy rates across 28 forex pairs. Explore current rate gaps, forward-rate data availability, policy changes, and pair details.",canonical="/"} = Astro.props;
+const url = new URL(canonical,"https://tradeninety.com").toString();
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1424" />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={url} />
+  <title>{title} | Trade90</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title + " | Trade90"} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={url} />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a href="/" class="brand" aria-label="Trade90 homepage"><span class="brand-icon">T<span>90</span></span><span>TRADE90</span></a>
+      <nav aria-label="Main navigation">
+        <a href="/">Rate gaps</a>
+        <a href="/learn/">Learn</a>
+        <a href="/methodology/">Methodology</a>
+      </nav>
+    </div>
+  </header>
+  <slot />
+  <footer class="footer">
+    <div class="wrap footcontent">
+      <div><strong>TRADE90</strong><p>Clear rate comparisons. Sourced information. No trading signals.</p></div>
+      <div class="footlinks"><a href="/">Rate gaps</a><a href="/learn/">Learn</a><a href="/methodology/">Methodology</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/disclaimer/">Risk disclaimer</a></div>
+    </div>
+    <div class="wrap fine">Educational and informational use only. A policy-rate gap is not a broker swap rate, a forward FX quote, or a prediction of currency performance.</div>
+  </footer>
+</body>
+</html>
+<style is:global>
+:root {color-scheme:light;--ink:#13253c;--muted:#637388;--line:#dde5ee;--surface:#fff;--soft:#f2f6fb;--navy:#0b1424;--blue:#1c62a1;--accent:#0b877c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f7f9fc;color:var(--ink);line-height:1.55}
+a{color:var(--blue)}
+button,select,input{font:inherit}
+button,a,select,input{outline-offset:3px}
+:focus-visible{outline:3px solid #2f84cf}
+.wrap{width:min(1200px,calc(100% - 36px));margin-inline:auto}
+.topbar{background:var(--navy);color:#fff;border-bottom:1px solid #24354b}
+.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav nav{display:flex;gap:25px;flex-wrap:wrap}
+.nav nav a{color:#d9e5f2;text-decoration:none;font-size:.89rem}
+.nav nav a:hover{text-decoration:underline}
+.brand{display:inline-flex;align-items:center;gap:9px;color:#fff;text-decoration:none;font-size:1rem;font-weight:850;letter-spacing:.05em}
+.brand-icon{background:#147eaa;border-radius:8px;padding:5px 7px;font-weight:850;letter-spacing:-.1em}
+.brand-icon span{font-size:.65em;vertical-align:super;letter-spacing:0}
+.footer{background:var(--navy);color:#d5e1ed;margin-top:64px;padding:28px 0}
+.footcontent{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.footer p,.fine{color:#aebed0;font-size:.81rem}
+.footer p{margin:.3rem 0}
+.footlinks{display:flex;gap:20px;align-items:start;flex-wrap:wrap}
+.footer a{color:#d5e1ed;font-size:.84rem}
+.fine{padding-top:20px;border-top:1px solid #26384a;margin-top:20px}
+.page-intro{padding:42px 0 18px}
+.page-intro .eyebrow{font-weight:750;letter-spacing:.12em;text-transform:uppercase;font-size:.69rem;color:var(--accent)}
+.page-intro h1{margin:7px 0 12px;max-width:920px;line-height:1.12;font-size:clamp(2rem,4.4vw,3.2rem);letter-spacing:-.045em}
+.page-intro p{color:var(--muted);max-width:720px}
+.section-heading{font-size:1.4rem;letter-spacing:-.025em;margin:0 0 12px}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:22px}
+.article{max-width:790px;margin:0 auto}.article p,.article li{color:#4b5c70}.article h2{margin-top:30px}
+.linkcard{display:block;border:1px solid var(--line);border-radius:14px;padding:20px;background:#fff;text-decoration:none;color:var(--ink)}
+.linkcard:hover{border-color:#79accb}
+.linkcard p{color:var(--muted);font-size:.9rem}
+@media(max-width:600px){.wrap{width:calc(100% - 24px)}.nav{min-height:64px}.nav nav{gap:12px}.nav nav a{font-size:.73rem}.brand{font-size:.87rem}.page-intro{padding-top:30px}.card{padding:17px}}
+</style>
