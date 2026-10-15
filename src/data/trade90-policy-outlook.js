@@ -45,7 +45,7 @@ export const outlookReports = [
   {
     currency:"NZD", bank:"RBNZ",
     kind:"Older bank research — not a current quote",
-    published:"2026-09-01",
+    published:"September 2026",
     headline:"Older report: roughly 3.0% OCR at year-end",
     horizon:"End of 2026",
     detail:"BNZ research published in September described market pricing near 3.0% by year-end. This observation may be stale after subsequent data; no October 15 pricing timestamp is available from the report.",
@@ -65,7 +65,7 @@ export const outlookReports = [
   {
     currency:"CAD", bank:"BoC",
     kind:"Official decision calendar — not market pricing",
-    published:"2026-10-15",
+    published:"Source checked 2026-10-15",
     headline:"Next decision scheduled for October 28",
     horizon:"October 28 Bank of Canada",
     detail:"The official Bank of Canada rate calendar identifies the next scheduled rate decision. A sufficiently current derivatives-implied outcome probability is not yet supplied.",
