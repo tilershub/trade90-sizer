@@ -34,6 +34,31 @@ const {chromium} = require("playwright");
    await page.getByRole("button",{name:"Currency pair details"}).click();
    await page.locator(".detailselect select").selectOption("EURUSD");
    assert.match(await page.locator(".interpretation").innerText(),/-137.5/);
+   const pairUpdates = page.locator(".pair-policy-updates .update-card");
+   await page.getByRole("heading",{name:"Central Bank Policy Updates · EUR/USD"}).waitFor();
+   assert.equal(await pairUpdates.count(),4,"EUR/USD must display only ECB and Fed policy publications");
+   assert.deepEqual(new Set(await pairUpdates.locator(".currency").allTextContents()).size,2);
+   for (const label of await pairUpdates.locator(".currency").allTextContents()){
+     assert.ok(/^(EUR · ECB|USD · Fed)$/.test(label.trim()),"Only ECB/Fed updates allowed: "+label);
+   }
+   assert.equal(await page.locator(".pair-policy-updates .policy-controls").count(),0,"Pair view must not offer global eight-bank filtering");
+   assert.equal(await page.locator(".pair-policy-updates .related").count(),0,"Pair view must not show unrelated seven-pair lists");
+   assert.equal(await page.locator(".centralbank .bankcard").count(),2,"Only selected banks should appear in pair details");
+   await page.locator(".detailselect select").selectOption("AUDCHF");
+   await page.getByRole("heading",{name:"Central Bank Policy Updates · AUD/CHF"}).waitFor();
+   assert.equal(await pairUpdates.count(),2,"AUD/CHF must display only RBA and SNB publications");
+   for (const label of await pairUpdates.locator(".currency").allTextContents()){
+     assert.ok(/^(AUD · RBA|CHF · SNB)$/.test(label.trim()),"Only RBA/SNB updates allowed: "+label);
+   }
+   assert.equal(await page.locator(".centralbank .bankcard").count(),2);
+   await page.locator(".detailselect select").selectOption("USDJPY");
+   await page.getByRole("heading",{name:"Central Bank Policy Updates · USD/JPY"}).waitFor();
+   assert.equal(await pairUpdates.count(),3,"USD/JPY must display only Fed and BoJ publications");
+   for (const label of await pairUpdates.locator(".currency").allTextContents()){
+     assert.ok(/^(USD · Fed|JPY · BoJ)$/.test(label.trim()),"Only Fed/BoJ updates allowed: "+label);
+   }
+   assert.equal(await page.locator(".centralbank .bankcard").count(),2);
+
    assert.equal(await page.locator(".policy-section.compact .update-card").count(),4,"homepage shows four latest policy publications");
    assert.ok((await page.locator('.topbar nav a[href="/central-banks/"]').count())===1,"policy updates linked in header");
    await page.goto("http://127.0.0.1:4321/central-banks/",{waitUntil:"networkidle"});
@@ -57,6 +82,11 @@ const {chromium} = require("playwright");
    await mobile.goto("http://127.0.0.1:4321/",{waitUntil:"networkidle"});
    await mobile.getByRole("heading",{name:"Central Bank Rate Divergence",exact:true}).waitFor();
    assert.equal(await mobile.locator(".board tbody tr").count(),28);
+   await mobile.getByRole("button",{name:"Currency pair details"}).click();
+   await mobile.locator(".detailselect select").selectOption("EURUSD");
+   assert.equal(await mobile.locator(".pair-policy-updates .update-card").count(),4,"Pair-specific bank updates should work on mobile");
+   await mobile.locator(".detailselect select").selectOption("AUDCHF");
+   assert.equal(await mobile.locator(".pair-policy-updates .update-card").count(),2,"Mobile bank filter must react to pair change");
    const widths=await mobile.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:window.innerWidth}));
    assert.ok(widths.scroll<=widths.viewport+4,"no document-level horizontal overflow: "+JSON.stringify(widths));
    await mobile.goto("http://127.0.0.1:4321/central-banks/",{waitUntil:"networkidle"});
