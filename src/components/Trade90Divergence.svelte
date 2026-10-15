@@ -2,6 +2,7 @@
   import { getPairs, formatBp } from "../lib/trade90-rates.js";
   import Trade90OutlookEvidence from "./Trade90OutlookEvidence.svelte";
   import Trade90ForwardRates from "./Trade90ForwardRates.svelte";
+  import Trade90PolicyUpdates from "./Trade90PolicyUpdates.svelte";
   export let snapshot;
 
   const banks = snapshot.banks;
@@ -140,12 +141,13 @@
       <div class="notice quieter"><strong>Forward expectations for {detail.label}</strong><p>Exact 3-, 6- and 12-month expected policy-rate gaps display only when source observations are aligned and appropriately licensed. Separately published outlook commentary adds context; it is not the same as a calculated forward spread.</p></div>
       <Trade90ForwardRates mode="pair" policyBanks={banks} selectedPair={detail} />
       <Trade90OutlookEvidence mode="pair" pair={detail} />
+      <div class="pair-policy-updates"><Trade90PolicyUpdates pair={detail} /></div>
     {/if}
   </div>
   <section class="centralbank">
-    <div class="belowhead"><div><h2>Eight central banks</h2><p>Benchmarks used for every rate gap. Source links and effective dates are shown below.</p></div><button on:click={() => showAllSources = !showAllSources}>{showAllSources ? "Hide details" : "Source details"} {showAllSources ? "↑" : "↓"}</button></div>
+    <div class="belowhead"><div><h2>{activeTab === "details" ? "Central banks for " + detail.label : "Eight central banks"}</h2><p>{activeTab === "details" ? "Only the two official benchmarks used for this pair, with source links and effective dates." : "Benchmarks used for every rate gap. Source links and effective dates are shown below."}</p></div><button on:click={() => showAllSources = !showAllSources}>{showAllSources ? "Hide details" : "Source details"} {showAllSources ? "↑" : "↓"}</button></div>
     <div class="bankgrid">
-      {#each banks as bank}
+      {#each (activeTab === "details" ? [detail.baseBank, detail.quoteBank] : banks) as bank}
         <div class="bankcard">
           <div class="banktop"><strong>{bank.code}</strong><span>{bank.short}</span></div>
           <div class="bankrate">{bank.rate.toFixed(bank.rate===3.875?3:2)}%</div>
@@ -280,6 +282,7 @@ tbody tr:hover{background:#18263a}
 .footnote a{color:#6ee7b7}
 .empty{color:#94a3b8}
 
+.pair-policy-updates{padding:0 24px 24px}
 .forward-info{color:#94a3b8;font-size:.78rem;padding:0 24px 10px;margin:0}
-@media(max-width:600px){.forward-info{padding:0 14px 12px}}
+@media(max-width:600px){.forward-info{padding:0 14px 12px}.pair-policy-updates{padding:0 14px 16px}}
 </style>

@@ -77,6 +77,25 @@ export const policyUpdates = [...decisionUpdates,...supplemental].sort((a,b)=>
   b.publishedDate.localeCompare(a.publishedDate)||a.currency.localeCompare(b.currency)||a.id.localeCompare(b.id)
 );
 
+
+// Return only official policy publications from the TWO central banks in a
+// market-standard currency pair. This is a strict source filter, not a
+// keyword match, so unrelated bank updates cannot leak into pair details.
+export function getPairPolicyUpdates(pair, items=policyUpdates) {
+  const symbol = typeof pair === "string"
+    ? pair.replace("/", "").trim().toUpperCase()
+    : typeof pair?.symbol === "string"
+      ? pair.symbol.replace("/", "").trim().toUpperCase()
+      : typeof pair?.base === "string" && typeof pair?.quote === "string"
+        ? pair.base.toUpperCase() + pair.quote.toUpperCase()
+        : "";
+  if (!PAIR_SYMBOLS.includes(symbol)) return [];
+  const base = symbol.slice(0,3);
+  const quote = symbol.slice(3);
+  return items.filter(item=>item.currency===base||item.currency===quote)
+    .sort((a,b)=>b.publishedDate.localeCompare(a.publishedDate)||a.id.localeCompare(b.id));
+}
+
 export function policyUpdateRelatedPairs(currency) {
   if (!bankCodes.includes(currency)) return [];
   return PAIR_SYMBOLS.filter(symbol=>symbol.startsWith(currency)||symbol.endsWith(currency))

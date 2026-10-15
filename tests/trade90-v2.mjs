@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { getPairs, PAIR_SYMBOLS } from "../src/lib/trade90-rates.js";
 import { outlookAsOf, outlookReports, repricingReports } from "../src/data/trade90-policy-outlook.js";
-import { policyUpdates, validatePolicyUpdates, policyUpdateRelatedPairs, policyCollectionAsOf } from "../src/data/trade90-policy-updates.js";
+import { policyUpdates, validatePolicyUpdates, policyUpdateRelatedPairs, policyCollectionAsOf, getPairPolicyUpdates } from "../src/data/trade90-policy-updates.js";
 import { getExpectedRows, getExpectedChanges, validateForwardSnapshot, classifyExpectedGap } from "../src/lib/trade90-forward-rates.js";
 const snapshot=JSON.parse(readFileSync(new URL("../src/data/trade90-policy-snapshot.json",import.meta.url),"utf8"));
 assert.equal(snapshot.banks.length,8);
@@ -131,6 +131,23 @@ assert.equal(validatePolicyUpdates([...policyUpdates,policyUpdates[0]]).valid,fa
 const forged=policyUpdates.map(e=>({...e}));
 forged[0].source="https://untrusted-example.com/fake-policy";
 assert.equal(validatePolicyUpdates(forged).valid,false,"block unsupported news sources");
+// Each selected FX pair must receive exactly its two banks' official publications.
+for(const pair of pairs) {
+ const records=getPairPolicyUpdates(pair);
+ assert.ok(records.length>=2,"Both banks should have a verified rate decision for "+pair.symbol);
+ assert.ok(records.every(entry=>entry.currency===pair.base || entry.currency===pair.quote),"Unrelated central bank leaked into "+pair.symbol);
+ assert.deepEqual(records.map(entry=>entry.id),getPairPolicyUpdates(pair.symbol).map(entry=>entry.id),"Object and symbol forms should match");
+ assert.deepEqual(records.map(entry=>entry.id),getPairPolicyUpdates(pair.label).map(entry=>entry.id),"Slash pair symbol should match");
+ assert.ok(records.every((entry,index)=>index===0 || records[index-1].publishedDate>=entry.publishedDate),"Updates must be newest first");
+ assert.equal(new Set(records.filter(entry=>entry.type==="Rate decision").map(entry=>entry.currency)).size,2);
+}
+assert.equal(getPairPolicyUpdates("EURUSD").length,4,"EUR/USD should show only Fed and ECB publications");
+assert.deepEqual(new Set(getPairPolicyUpdates("EURUSD").map(e=>e.currency)),new Set(["EUR","USD"]));
+assert.equal(getPairPolicyUpdates("USDJPY").length,3,"USD/JPY should show only Fed and BoJ publications");
+assert.equal(getPairPolicyUpdates("AUDCHF").length,2,"AUD/CHF should show only RBA and SNB publications");
+assert.deepEqual(getPairPolicyUpdates("BTCUSD"),[],"Non-supported pairs cannot show unrelated updates");
+assert.deepEqual(getPairPolicyUpdates(null),[],"Missing selection cannot show global updates");
+
 console.log("Policy updates: "+policyUpdates.length+" official source records from eight banks validated.");
 
 console.log("Trade90 V2: 8 verified-source records, 28 pairs, formulas, ranking, source metadata and 7-pair impact checks passed.");

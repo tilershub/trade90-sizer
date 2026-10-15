@@ -1,14 +1,24 @@
 <script>
-  import { policyUpdates, policyCollectionAsOf, bankCodes, policyUpdateRelatedPairs } from "../data/trade90-policy-updates.js";
+  import { policyUpdates, policyCollectionAsOf, bankCodes, policyUpdateRelatedPairs, getPairPolicyUpdates } from "../data/trade90-policy-updates.js";
   export let compact = false;
+  export let pair = null; // selected FX pair object or market-standard symbol
   let bank = "ALL";
   let category = "ALL";
   let query = "";
   let showRelated = "";
   const types = ["Rate decision","Minutes","Policy statement","Policy report"];
   const formatted = date => new Date(date+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
-  $: visible = compact
-    ? policyUpdates.slice(0,4)
+  $: pairSymbol = pair && (typeof pair === "string" ? pair : pair.symbol || (pair.base + pair.quote));
+  $: pairLabel = pairSymbol ? pairSymbol.slice(0,3) + "/" + pairSymbol.slice(3) : "";
+  $: pairUpdates = pairSymbol ? getPairPolicyUpdates(pairSymbol) : [];
+  $: pairBankNames = pairUpdates.length ? [...new Set(pairUpdates.map(update => update.bank))].join(" and ") : "";
+  $: visible = pairSymbol
+    ? pairUpdates.filter(update =>
+        (category === "ALL" || update.type === category)
+        && (!query.trim() || [update.title,update.summary,update.currency,update.bank].join(" ").toLowerCase().includes(query.trim().toLowerCase()))
+      )
+    : compact
+      ? policyUpdates.slice(0,4)
     : policyUpdates.filter(update =>
         (bank === "ALL" || update.currency === bank)
         && (category === "ALL" || update.type === category)
@@ -16,17 +26,21 @@
       );
 </script>
 
-<section class="policy-section" aria-label="Central bank policy updates" class:compact>
+<section class="policy-section" aria-label="Central bank policy updates" class:compact class:pair-scoped={Boolean(pairSymbol)}>
   <div class="policy-header">
     <div>
       <div class="eyebrow">Official central-bank publications</div>
-      <h2>Central Bank Policy Updates</h2>
-      <p>Rate decisions, meeting minutes and monetary policy statements from the eight central banks. Every item links to its original publication.</p>
+      <h2>Central Bank Policy Updates{pairSymbol ? " · " + pairLabel : ""}</h2>
+      {#if pairSymbol}
+        <p>Only {pairBankNames || "the selected pair’s two central banks"}: official decisions, minutes and policy publications relevant to {pairLabel}. No unrelated currencies.</p>
+      {:else}
+        <p>Rate decisions, meeting minutes and monetary policy statements from the eight central banks. Every item links to its original publication.</p>
+      {/if}
     </div>
     {#if compact}<a href="/central-banks/" class="alllink">All policy updates →</a>{/if}
   </div>
   <div class="collection-note">Last curated review: {formatted(policyCollectionAsOf)} · <strong>Dated source collection — not a live news feed</strong></div>
-  {#if !compact}
+  {#if !compact && !pairSymbol}
     <div class="policy-controls">
       <label>Central bank
         <select bind:value={bank} aria-label="Filter policy updates by currency">
@@ -45,6 +59,8 @@
       </label>
     </div>
     <p class="results" aria-live="polite">{visible.length} source-linked {visible.length===1?"publication":"publications"} found.</p>
+  {:else if pairSymbol}
+    <p class="results" aria-live="polite">{visible.length} {visible.length===1?"publication":"publications"} from the two banks in {pairLabel}.</p>
   {/if}
   <div class="updates">
     {#each visible as entry (entry.id)}
@@ -58,6 +74,7 @@
         <p>{entry.summary}</p>
         {#if !compact}
           <div class="takeaway"><strong>What this publication confirms:</strong> {entry.takeAway}</div>
+          {#if !pairSymbol}
           <div class="related">
             <button type="button" on:click={() => showRelated = showRelated === entry.id ? "" : entry.id}
               aria-expanded={showRelated === entry.id}>
@@ -68,12 +85,13 @@
               <div class="pairs">{#each policyUpdateRelatedPairs(entry.currency) as pair}<span>{pair}</span>{/each}</div>
             {/if}
           </div>
+          {/if}
         {/if}
         <a class="source-link" href={entry.source} target="_blank" rel="noopener noreferrer">Official {entry.bank} publication ↗</a>
       </article>
     {/each}
   </div>
-  {#if visible.length === 0}<p class="noresults">No policy publications match your filters.</p>{/if}
+  {#if visible.length === 0}<p class="noresults">{pairSymbol ? "No official policy publications are currently available for this pair." : "No policy publications match your filters."}</p>{/if}
   {#if compact}<p class="more"><a href="/central-banks/">Browse decisions, minutes and policy reports for all eight banks →</a></p>{/if}
 </section>
 <style>
@@ -109,6 +127,8 @@
 .noresults{background:#172538;color:#cbd5e1;border:1px solid #334155;padding:18px;border-radius:12px}
 .more{margin:17px 0 0}
 .compact{margin-top:29px}
+.pair-scoped{border-top:1px solid #334155;padding-top:22px}
+.pair-scoped .updates{grid-template-columns:repeat(2,minmax(0,1fr))}
 .compact .update-card{padding:17px}
 .compact .update-card>p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 @media(max-width:730px){.updates{grid-template-columns:1fr}.policy-header{align-items:flex-start;flex-direction:column}.policy-controls{grid-template-columns:1fr 1fr}.policy-controls label:last-child{grid-column:1/-1}.alllink{white-space:normal}.compact .updates{grid-template-columns:1fr}}
