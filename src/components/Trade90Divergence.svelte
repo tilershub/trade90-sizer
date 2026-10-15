@@ -233,4 +233,50 @@ tbody tr:hover{background:#f8fbfd}
 .footnote{color:#6c7b8b;font-size:.77rem;line-height:1.65;margin-top:18px}
 @media(max-width:820px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.controls{grid-template-columns:1fr 1fr}.extra{display:none}.bankgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stat{padding:15px}.statval{font-size:1.65rem}.statval.dateval{font-size:1.22rem}.statfoot{font-size:.7rem}.tabs button{font-size:.79rem;padding:14px 12px}.panelhead{padding:18px 14px 8px;display:block}.panelhead h2{font-size:1.23rem}.panelhead p{font-size:.78rem}.sourcepill{display:inline-block;margin-top:9px}.controls{padding:12px 14px 18px;gap:8px}.controls select,.controls input{font-size:.81rem;padding:9px}.rank{padding-left:12px;width:24px}th,td{padding:10px 9px}.signed,.higher,.extra{display:none}.tablefoot{padding:12px 14px}.notice{margin:8px 14px 18px;padding:12px}.horizons{padding:10px 14px}.decisions{padding:0 14px 20px}.decision{gap:9px}.decision .day{min-width:68px;font-size:.7rem}.decisionbody{font-size:.75rem}.decision a{font-size:.7rem}.subheading{margin:8px 14px}.detailselect{margin:12px 14px}.detailhero{margin:0 14px 10px;padding:14px}.detailhero h3{font-size:1.4rem}.detailgap strong{font-size:1.4rem}.compare{grid-template-columns:1fr;padding:0 14px}.bankdetail{padding:14px}.interpretation{margin:14px;padding:14px}.notice.quieter{margin:14px}.bankcard{padding:12px}.bankgrid{gap:7px}.belowhead h2{font-size:1.22rem}}
+
+/* TRADE90 original identity: black + slate surfaces, white text, emerald emphasis.
+   Only skin changes: formulas, data sources, table order and interactions remain unchanged. */
+.dashboard{color:#f8fafc}
+.stat,.board,.bankcard{background:#111c30;border-color:#334155}
+.statname,.statfoot span,.panelhead p,.belowhead p,.bankname,.banktop span,.footnote,.tablefoot,.detailhero p,.detailgap span,.bankdetail p,.decision .day,.decisionbody span{color:#94a3b8}
+.statval,.statval small,.bankrate,.panelhead h2,.belowhead h2,.subheading,.bankdetail h4,.bankdetail strong,.detailhero h3,.detailgap strong{color:#f8fafc}
+.statval small{color:#94a3b8}
+.statfoot{color:#e2e8f0}
+.tabs{border-color:#334155}
+.tabs button{background:#111c30;color:#cbd5e1}
+.tabs button.active{color:#6ee7b7;border-bottom-color:#10b981}
+.tabs button:hover{background:#1e293b;color:#f8fafc}
+.sourcepill{background:#073b32;color:#6ee7b7}
+.sourcepill.amber{background:#3a2c17;color:#fbd38d}
+.controls label,.detailselect{color:#cbd5e1}
+.controls input,.controls select,.detailselect select{background:#0b1424;color:#f8fafc;border-color:#475569}
+.controls input::placeholder{color:#94a3b8}
+.controls input:focus,.controls select:focus,.detailselect select:focus{border-color:#10b981}
+th{background:#18263a;color:#cbd5e1}
+td{border-color:#273549;color:#e2e8f0}
+tbody tr:hover{background:#18263a}
+.rank,.muted,.number small{color:#94a3b8}
+.boldnum{color:#f8fafc}
+.pairlink{color:#6ee7b7}
+.pairlink:hover{color:#a7f3d0}
+.currencychip{background:#064e3b;color:#a7f3d0}
+.rowarrow{color:#6ee7b7}
+.tablefoot{border-color:#334155}
+.horizons button{border-color:#475569;background:#18263a;color:#cbd5e1}
+.horizons button.active{background:#065f46;border-color:#10b981;color:#fff}
+.notice{background:#2b2518;border-color:#775b23;color:#f5deb0}
+.notice.quieter{background:#17253a;border-color:#334155;color:#cbd5e1}
+.decision{border-color:#334155}
+.decision a,.bankmeta a{color:#6ee7b7}
+.detailhero{background:#18263a;border-color:#334155}
+.detailgap strong small{color:#94a3b8}
+.bankdetail{background:#101a2b;border-color:#334155}
+.bankdetail a{color:#6ee7b7}
+.interpretation{background:#073b32;border-color:#116b50;color:#d1fae5}
+.interpretation p{color:#c7f9e7}
+.bankcard{background:#111c30}
+.bankmeta{border-color:#334155;color:#cbd5e1}
+.belowhead button{color:#6ee7b7}
+.footnote a{color:#6ee7b7}
+.empty{color:#94a3b8}
 </style>
