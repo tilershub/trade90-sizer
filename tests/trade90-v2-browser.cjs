@@ -34,6 +34,21 @@ const {chromium} = require("playwright");
    await page.getByRole("button",{name:"Currency pair details"}).click();
    await page.locator(".detailselect select").selectOption("EURUSD");
    assert.match(await page.locator(".interpretation").innerText(),/-137.5/);
+   assert.equal(await page.locator(".policy-section.compact .update-card").count(),4,"homepage shows four latest policy publications");
+   assert.ok((await page.locator('.topbar nav a[href="/central-banks/"]').count())===1,"policy updates linked in header");
+   await page.goto("http://127.0.0.1:4321/central-banks/",{waitUntil:"networkidle"});
+   await page.getByRole("heading",{name:"Central Bank Policy Updates",level:1,exact:true}).waitFor();
+   assert.equal(await page.locator(".policy-section .update-card").count(),12,"12 verified official bank publications");
+   await page.locator('select[aria-label="Filter policy updates by currency"]').selectOption("USD");
+   assert.equal(await page.locator(".policy-section .update-card").count(),2,"Fed decision and meeting minutes filter correctly");
+   await page.locator(".policy-section .related button").first().click();
+   assert.equal(await page.locator(".policy-section .related .pairs span").count(),7,"all seven related FX pairs shown");
+   await page.locator('select[aria-label="Filter policy updates by currency"]').selectOption("ALL");
+   await page.locator('select[aria-label="Filter by publication type"]').selectOption("Rate decision");
+   assert.equal(await page.locator(".policy-section .update-card").count(),8,"eight central bank rate decisions displayed");
+   for (const href of await page.locator(".policy-section .source-link").evaluateAll(nodes=>nodes.map(node=>node.href))) {
+     assert.ok(href.startsWith("https://"),"policy item links to primary secure official source");
+   }
    await page.goto("http://127.0.0.1:4321/methodology/",{waitUntil:"domcontentloaded"});
    await page.getByRole("heading",{name:"Rate Gap Methodology"}).waitFor();
    await page.goto("http://127.0.0.1:4321/learn/",{waitUntil:"domcontentloaded"});
@@ -44,7 +59,12 @@ const {chromium} = require("playwright");
    assert.equal(await mobile.locator(".board tbody tr").count(),28);
    const widths=await mobile.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:window.innerWidth}));
    assert.ok(widths.scroll<=widths.viewport+4,"no document-level horizontal overflow: "+JSON.stringify(widths));
+   await mobile.goto("http://127.0.0.1:4321/central-banks/",{waitUntil:"networkidle"});
+   await mobile.getByRole("heading",{name:"Central Bank Policy Updates",level:1,exact:true}).waitFor();
+   assert.equal(await mobile.locator(".policy-section .update-card").count(),12);
+   const policyWidths=await mobile.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+   assert.ok(policyWidths.scroll<=policyWidths.viewport+4,"policy updates mobile page must not overflow");
    await mobile.screenshot({path:"/tmp/trade90-v2-mobile.png",fullPage:true});
-   console.log("V2 browser checks passed: original TRADE90 branding, dark theme, desktop 28 pair ranking, all four views, rate details, methodology, learn and mobile width.");
+   console.log("V2 browser checks passed: original TRADE90 branding, dark theme, desktop 28 pair ranking, all four views, central bank policy updates, rate details, methodology, learn and mobile width.");
  }finally{await browser.close();}
 })().catch(error=>{console.error(error);process.exit(1);});

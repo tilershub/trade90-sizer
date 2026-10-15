@@ -1,6 +1,7 @@
 ---
 import Trade90V2Layout from "../layouts/Trade90V2Layout.astro";
 import Trade90Divergence from "../components/Trade90Divergence.svelte";
+import Trade90PolicyUpdates from "../components/Trade90PolicyUpdates.svelte";
 import snapshot from "../data/trade90-policy-snapshot.json";
 ---
 <Trade90V2Layout
@@ -14,6 +15,7 @@ import snapshot from "../data/trade90-policy-snapshot.json";
      <p>See the policy-rate gap across 28 forex pairs. Compare eight central banks, understand the calculation, and follow what has actually changed—without unsupported trading signals.</p>
    </div>
    <Trade90Divergence client:load snapshot={snapshot} />
+   <Trade90PolicyUpdates client:load compact={true} />
    <section class="learnstart" aria-labelledby="learn-title">
      <div class="learnheader">
        <div><span class="eyebrow">Learn the fundamentals</span><h2 id="learn-title">Understand what the gap means</h2><p>Rate differences provide monetary-policy context, not a prediction of price direction. These guides explain how to interpret them.</p></div>

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { getPairs, PAIR_SYMBOLS } from "../src/lib/trade90-rates.js";
 import { outlookAsOf, outlookReports, repricingReports } from "../src/data/trade90-policy-outlook.js";
+import { policyUpdates, validatePolicyUpdates, policyUpdateRelatedPairs, policyCollectionAsOf } from "../src/data/trade90-policy-updates.js";
 import { getExpectedRows, getExpectedChanges, validateForwardSnapshot, classifyExpectedGap } from "../src/lib/trade90-forward-rates.js";
 const snapshot=JSON.parse(readFileSync(new URL("../src/data/trade90-policy-snapshot.json",import.meta.url),"utf8"));
 assert.equal(snapshot.banks.length,8);
@@ -110,5 +111,26 @@ assert.equal(changedForward.rows.filter(row=>Math.abs(row.revisionBp)>0.001).len
 assert.equal(getExpectedChanges(synthetic,[],snapshot.banks,"3M",24,fixedNow).available,false);
 assert.throws(()=>getExpectedRows(synthetic,snapshot.banks,"2M",fixedNow));
 assert.throws(()=>getExpectedChanges(synthetic,[prior],snapshot.banks,"3M",12,fixedNow));
+
+
+const policyAudit=validatePolicyUpdates();
+assert.equal(policyAudit.valid,true,policyAudit.reason);
+assert.equal(policyAudit.bankCount,8);
+assert.equal(policyUpdates.length,12);
+assert.equal(policyCollectionAsOf,"2026-10-15");
+assert.equal(new Set(policyUpdates.filter(e=>e.type==="Rate decision").map(e=>e.currency)).size,8);
+assert.equal(policyUpdates[0].id,"fed-fomc-minutes-2026-10-07");
+assert.equal(policyUpdateRelatedPairs("USD").length,7);
+for(const item of policyUpdates){
+ assert.ok(item.source.startsWith("https://"));
+ assert.ok(item.publishedDate <= policyCollectionAsOf);
+ assert.equal(policyUpdateRelatedPairs(item.currency).length,7);
+ if(item.type !== "Rate decision")assert.equal(item.observedRatePct,undefined,"non-decision sources must not change the actual benchmark");
+}
+assert.equal(validatePolicyUpdates([...policyUpdates,policyUpdates[0]]).valid,false,"block duplicate policy news");
+const forged=policyUpdates.map(e=>({...e}));
+forged[0].source="https://untrusted-example.com/fake-policy";
+assert.equal(validatePolicyUpdates(forged).valid,false,"block unsupported news sources");
+console.log("Policy updates: "+policyUpdates.length+" official source records from eight banks validated.");
 
 console.log("Trade90 V2: 8 verified-source records, 28 pairs, formulas, ranking, source metadata and 7-pair impact checks passed.");
