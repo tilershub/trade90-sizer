@@ -1,4 +1,4 @@
-import snapshot from "./trade90-policy-snapshot.json";
+import snapshot from "./trade90-policy-snapshot.json" with { type: "json" };
 import { PAIR_SYMBOLS } from "../lib/trade90-rates.js";
 
 export const policyCollectionAsOf = "2026-10-15";
