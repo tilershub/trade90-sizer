@@ -1,0 +1,59 @@
+name: Diagnose TRADE90 public website October 15
+
+on:
+  push:
+    branches:
+      - ops/diagnose-public-site-20261015
+  workflow_dispatch:
+
+jobs:
+  live-site-diagnostics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Current domain status from independent GitHub runner
+        shell: bash
+        run: |
+          set +e
+          date -u
+          echo "::group::DNS lookup"
+          getent ahosts tradeninety.com | head -6
+          getent ahosts trade90-platform.onrender.com | head -6
+          echo "::endgroup::"
+          urls=(
+            "https://tradeninety.com/"
+            "https://www.tradeninety.com/"
+            "https://tradeninety.com/market-intelligence/"
+            "https://tradeninety.com/tools/fx-research-terminal/"
+            "https://tradeninety.com/api/market-intelligence"
+            "https://tradeninety.com/api/terminal-snapshot"
+            "https://tradeninety.com/api/market-intraday?symbol=XAU%2FUSD&interval=15min"
+            "https://trade90-platform.onrender.com/health/"
+            "https://trade90-platform.onrender.com/market-intelligence/data.json"
+          )
+          idx=0
+          for url in "${urls[@]}"; do
+            idx=$((idx+1))
+            echo "::group::Probe $idx $url"
+            file="/tmp/trade90-$idx"
+            curl --silent --show-error --location --max-time 20 --connect-timeout 7 \
+              -D "$file.hdr" -o "$file.body" \
+              -w 'HTTP=%{http_code} effective=%{url_effective} total=%{time_total}s remote_ip=%{remote_ip} bytes=%{size_download}\n' "$url"
+            echo "headers"
+            grep -Ei '^(HTTP/|server:|location:|content-type:|cf-ray:|cache-control:|age:)' "$file.hdr" | tail -12
+            echo "response bytes $(wc -c < "$file.body")"
+            if grep -iq 'intraday market structure' "$file.body"; then echo "MARKET_INTELLIGENCE_MARKER=YES"; fi
+            if grep -iq 'Research the market' "$file.body"; then echo "RESEARCH_HOMEPAGE_MARKER=YES"; fi
+            if grep -iq 'cf-error' "$file.body"; then echo "CLOUDFLARE_ERROR_MARKER=YES"; fi
+            if [[ "$url" == *"/api/"* ]] || [[ "$url" == *"/data.json" ]]; then
+              python3 - "$file.body" <<'PY'
+          import sys,json
+          try:
+              data=json.load(open(sys.argv[1]))
+              print("JSON status:",data.get("status"),"generated_at:",data.get("generated_at"),"market_count:",len(data.get("markets",[])),"error:",str(data.get("error") or data.get("detail") or "")[:220])
+          except Exception as e:
+              print("INVALID JSON:",repr(e))
+          PY
+            fi
+            echo "::endgroup::"
+          done
