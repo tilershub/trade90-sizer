@@ -35,6 +35,12 @@ const {chromium} = require("playwright");
    await page.locator(".detailselect select").selectOption("EURUSD");
    assert.match(await page.locator(".interpretation").innerText(),/-137.5/);
    const pairUpdates = page.locator(".pair-policy-updates .update-card");
+   await page.getByRole("heading",{name:"Next Major Decisions to Watch",exact:true}).waitFor();
+   const watchCards = page.locator(".decision-watch .watch-card");
+   assert.equal(await watchCards.count(),2,"EUR/USD should show only two next bank decisions");
+   assert.deepEqual(await watchCards.locator(".watch-card-top strong").allTextContents(),["USD · Fed","EUR · ECB"]);
+   assert.deepEqual(await watchCards.locator(".event-date time").evaluateAll(nodes=>nodes.map(n=>n.dateTime)),["2026-10-28","2026-10-29"]);
+   assert.equal(await watchCards.locator('a[href^="https://"]').count(),2,"Both watch cards must link to official calendars");
    await page.getByRole("heading",{name:"Central Bank Policy Updates · EUR/USD"}).waitFor();
    assert.equal(await pairUpdates.count(),4,"EUR/USD must display only ECB and Fed policy publications");
    assert.deepEqual(new Set(await pairUpdates.locator(".currency").allTextContents()).size,2);
@@ -45,6 +51,8 @@ const {chromium} = require("playwright");
    assert.equal(await page.locator(".pair-policy-updates .related").count(),0,"Pair view must not show unrelated seven-pair lists");
    assert.equal(await page.locator(".centralbank .bankcard").count(),2,"Only selected banks should appear in pair details");
    await page.locator(".detailselect select").selectOption("AUDCHF");
+   assert.deepEqual(await watchCards.locator(".watch-card-top strong").allTextContents(),["AUD · RBA","CHF · SNB"]);
+   assert.deepEqual(await watchCards.locator(".event-date time").evaluateAll(nodes=>nodes.map(n=>n.dateTime)),["2026-11-03","2026-12-10"]);
    await page.getByRole("heading",{name:"Central Bank Policy Updates · AUD/CHF"}).waitFor();
    assert.equal(await pairUpdates.count(),2,"AUD/CHF must display only RBA and SNB publications");
    for (const label of await pairUpdates.locator(".currency").allTextContents()){
@@ -52,6 +60,8 @@ const {chromium} = require("playwright");
    }
    assert.equal(await page.locator(".centralbank .bankcard").count(),2);
    await page.locator(".detailselect select").selectOption("USDJPY");
+   assert.deepEqual(await watchCards.locator(".watch-card-top strong").allTextContents(),["USD · Fed","JPY · BoJ"]);
+   assert.deepEqual(await watchCards.locator(".event-date time").evaluateAll(nodes=>nodes.map(n=>n.dateTime)),["2026-10-28","2026-10-30"]);
    await page.getByRole("heading",{name:"Central Bank Policy Updates · USD/JPY"}).waitFor();
    assert.equal(await pairUpdates.count(),3,"USD/JPY must display only Fed and BoJ publications");
    for (const label of await pairUpdates.locator(".currency").allTextContents()){
@@ -85,6 +95,7 @@ const {chromium} = require("playwright");
    await mobile.getByRole("button",{name:"Currency pair details"}).click();
    await mobile.locator(".detailselect select").selectOption("EURUSD");
    assert.equal(await mobile.locator(".pair-policy-updates .update-card").count(),4,"Pair-specific bank updates should work on mobile");
+   assert.equal(await mobile.locator(".decision-watch .watch-card").count(),2,"Mobile must show two relevant next policy meetings");
    await mobile.locator(".detailselect select").selectOption("AUDCHF");
    assert.equal(await mobile.locator(".pair-policy-updates .update-card").count(),2,"Mobile bank filter must react to pair change");
    const widths=await mobile.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:window.innerWidth}));
