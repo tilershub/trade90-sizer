@@ -3,6 +3,7 @@
   import Trade90OutlookEvidence from "./Trade90OutlookEvidence.svelte";
   import Trade90ForwardRates from "./Trade90ForwardRates.svelte";
   import Trade90PolicyUpdates from "./Trade90PolicyUpdates.svelte";
+  import Trade90NextDecisions from "./Trade90NextDecisions.svelte";
   export let snapshot;
 
   const banks = snapshot.banks;
@@ -141,6 +142,7 @@
       <div class="notice quieter"><strong>Forward expectations for {detail.label}</strong><p>Exact 3-, 6- and 12-month expected policy-rate gaps display only when source observations are aligned and appropriately licensed. Separately published outlook commentary adds context; it is not the same as a calculated forward spread.</p></div>
       <Trade90ForwardRates mode="pair" policyBanks={banks} selectedPair={detail} />
       <Trade90OutlookEvidence mode="pair" pair={detail} />
+      <Trade90NextDecisions pair={detail} />
       <div class="pair-policy-updates"><Trade90PolicyUpdates pair={detail} /></div>
     {/if}
   </div>

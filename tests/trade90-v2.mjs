@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { getPairs, PAIR_SYMBOLS } from "../src/lib/trade90-rates.js";
 import { outlookAsOf, outlookReports, repricingReports } from "../src/data/trade90-policy-outlook.js";
 import { policyUpdates, validatePolicyUpdates, policyUpdateRelatedPairs, policyCollectionAsOf, getPairPolicyUpdates } from "../src/data/trade90-policy-updates.js";
+import { getNextPolicyDecisions, validatePolicyDecisionCalendar, officialPolicyDecisionCalendar, decisionCalendarReviewedAt } from "../src/data/trade90-decision-calendar.js";
 import { getExpectedRows, getExpectedChanges, validateForwardSnapshot, classifyExpectedGap } from "../src/lib/trade90-forward-rates.js";
 const snapshot=JSON.parse(readFileSync(new URL("../src/data/trade90-policy-snapshot.json",import.meta.url),"utf8"));
 assert.equal(snapshot.banks.length,8);
@@ -149,5 +150,33 @@ assert.deepEqual(getPairPolicyUpdates("BTCUSD"),[],"Non-supported pairs cannot s
 assert.deepEqual(getPairPolicyUpdates(null),[],"Missing selection cannot show global updates");
 
 console.log("Policy updates: "+policyUpdates.length+" official source records from eight banks validated.");
+
+
+const decisionCalendarAudit = validatePolicyDecisionCalendar();
+assert.equal(decisionCalendarAudit.valid,true,decisionCalendarAudit.reason);
+assert.equal(decisionCalendarReviewedAt,"2026-10-15");
+assert.equal(new Set(officialPolicyDecisionCalendar.map(r=>r.currency)).size,8);
+for (const pair of pairs) {
+ const two = getNextPolicyDecisions(pair,"2026-10-15");
+ assert.equal(two.length,2,"Every pair must list exactly its two central bank decisions");
+ assert.deepEqual(new Set(two.map(e=>e.currency)),new Set([pair.base,pair.quote]),"Unrelated decision was shown: "+pair.symbol);
+ assert.ok(two.every(e=>e.date && e.date>="2026-10-15" && /^https:\/\//.test(e.source)),"All scheduled decisions have official source dates");
+ assert.deepEqual(two.map(e=>e.currency),getNextPolicyDecisions(pair.symbol,"2026-10-15").map(e=>e.currency));
+}
+const eu=getNextPolicyDecisions("EURUSD","2026-10-15");
+assert.deepEqual(eu.map(e=>e.currency),["USD","EUR"]);
+assert.deepEqual(eu.map(e=>e.date),["2026-10-28","2026-10-29"]);
+const uj=getNextPolicyDecisions("USDJPY","2026-10-15");
+assert.deepEqual(uj.map(e=>e.currency),["USD","JPY"]);
+assert.deepEqual(uj.map(e=>e.date),["2026-10-28","2026-10-30"]);
+const ac=getNextPolicyDecisions("AUDCHF","2026-10-15");
+assert.deepEqual(ac.map(e=>e.currency),["AUD","CHF"]);
+assert.deepEqual(ac.map(e=>e.date),["2026-11-03","2026-12-10"]);
+const zn=getNextPolicyDecisions("NZDCAD","2026-10-15");
+assert.deepEqual(new Set(zn.map(e=>e.date)),new Set(["2026-10-28"]));
+assert.deepEqual(getNextPolicyDecisions("EURUSD","2027-01-01").map(e=>e.date),[null,null],"Never show expired calendar items as upcoming");
+assert.deepEqual(getNextPolicyDecisions("BTCUSD","2026-10-15"),[],"Unknown pairs must not show dates");
+assert.equal(validatePolicyDecisionCalendar([...officialPolicyDecisionCalendar,officialPolicyDecisionCalendar[0]]).valid,false,"Reject duplicated policy meeting");
+console.log("Official decision schedule: 8 banks, 28 pair views, dates and source links verified.");
 
 console.log("Trade90 V2: 8 verified-source records, 28 pairs, formulas, ranking, source metadata and 7-pair impact checks passed.");
