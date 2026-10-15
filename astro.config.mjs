@@ -5,99 +5,22 @@ import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
 
 export default defineConfig({
-  site: "https://tradeninety.com", // MUST be absolute, no trailing slash
-
-  // 301 redirects: legacy URLs → new hub architecture (trailing-slash canonical)
-  redirects: {
-    '/learn/position-sizing/': '/risk-management/position-sizing/',
-    '/learn/risk-management/': '/risk-management/',
-    '/learn/funded-accounts/': '/prop-firms/',
-    '/how-to-calculate-position-size/': '/risk-management/position-sizing/',
-    '/prop-firm-risk-management/': '/risk-management/',
-    '/terminal/': '/tools/fx-research-terminal/',
-  },
-
+  site: "https://tradeninety.com",
   integrations: [
     tailwind(),
     svelte(),
-
     sitemap({
-      filter: (page) =>
-        !['/join/', '/login/', '/logout/', '/learn/', '/learn/position-sizing/',
-          '/learn/risk-management/', '/learn/funded-accounts/',
-          '/how-to-calculate-position-size/', '/prop-firm-risk-management/',
-          '/terminal/'].includes(new URL(page).pathname.replace(/\/?$/, '/')),
-      // Omit lastmod until real per-page modification dates are available.
-      // A deployment does not mean every page's content changed.
       serialize(item) {
-        const url = new URL(item.url);
-        const path = url.pathname;
-
-        // Top priority: homepage, hub pillars, foundation guide, primary tools
-        const highPriority = [
-          '/',
-        '/learn/',
-        '/methodology/',
-          '/psychology/',
-          '/risk-management/',
-          '/risk-management/position-sizing/',
-          '/trading-plans/',
-          '/prop-firms/',
-          '/performance/',
-          '/tools/',
-          '/tools/fx-research-terminal/',
-          '/tools/position-size-calculator/',
-          '/economic-calendar/',
-          '/research/',
-        ];
-        if (highPriority.includes(path)) {
-          return { ...item, priority: 1.0, changefreq: 'weekly' };
-        }
-
-        // Market research pages are refreshed from the research pipeline.
-        if (path.startsWith('/research/') && path !== '/research/') {
-          return { ...item, priority: 1.0, changefreq: 'daily' };
-        }
-
-        // Hub articles (two path segments under a hub)
-        const hubPrefixes = ['/psychology/', '/risk-management/', '/trading-plans/', '/prop-firms/', '/performance/'];
-        if (hubPrefixes.some((p) => path.startsWith(p) && path !== p)) {
-          return { ...item, priority: 0.9, changefreq: 'monthly' };
-        }
-
-        // Other tools + prop firm reference
-        if (path.startsWith('/tools/') || ['/pip-value-calculator/', '/risk-reward-calculator/', '/best-prop-firms-usa/', '/calculator/'].includes(path)) {
-          return { ...item, priority: 0.8, changefreq: 'monthly' };
-        }
-
-        // Blog posts
-        if (path.startsWith('/blog/') && path !== '/blog/') {
-          return { ...item, priority: 0.7, changefreq: 'monthly' };
-        }
-
-        // Instrument calculators
-        if (path.startsWith('/calculator/') && path !== '/calculator/') {
-          return { ...item, priority: 0.6, changefreq: 'monthly' };
-        }
-
-        // Legacy calculator pages retained for continuity
-        if (['/funded-trader-risk-calculator/', '/ftmo-position-size-calculator/'].includes(path)) {
-          return { ...item, priority: 0.5, changefreq: 'monthly' };
-        }
-
-        return { ...item, priority: 0.5, changefreq: 'monthly' };
-      },
+        const p = new URL(item.url).pathname;
+        if (p === "/") return {...item,priority:1.0,changefreq:"weekly"};
+        if (p === "/methodology/" || p === "/learn/") return {...item,priority:0.8,changefreq:"monthly"};
+        if (p.startsWith("/learn/")) return {...item,priority:0.7,changefreq:"monthly"};
+        return {...item,priority:0.4,changefreq:"monthly"};
+      }
     }),
-
     robotsTxt({
-      policy: [
-        {
-          userAgent: "*",
-          allow: "/",
-          disallow: ["/join", "/login", "/logout"],
-        },
-      ],
-      sitemap: "https://tradeninety.com/sitemap-index.xml",
-    }),
-  ],
+      policy: [{userAgent:"*",allow:"/"}],
+      sitemap:"https://tradeninety.com/sitemap-index.xml"
+    })
+  ]
 });
