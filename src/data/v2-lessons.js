@@ -1,0 +1,38 @@
+export const lessons = [
+  {
+    slug:"what-is-interest-rate-divergence",
+    title:"What Is Interest Rate Divergence in Forex?",
+    description:"Learn how traders compare central-bank policy rates, calculate spreads and avoid mistaking a high-rate currency for a guaranteed profitable trade.",
+    sections:[
+      {heading:"What does rate divergence mean?",paragraphs:["Interest rate divergence refers to a difference between the monetary-policy rates set by two central banks. If one central bank sets a higher policy rate than another, its currency has a higher nominal policy-rate benchmark.","Central banks choose different policy benchmarks, so a simple comparison is a useful macroeconomic reference rather than an exact estimate of investable yields."]},
+      {heading:"How do you calculate a rate gap?",paragraphs:["Subtract the quote currency's policy rate from the base currency's policy rate. Multiply the result in percentage points by 100 to express it in basis points.","For example, if the base benchmark is 4.00% and the quote benchmark is 2.50%, the signed difference is +150 basis points. If the quote has the higher rate instead, the signed result is negative. Trade90 ranks pairs by the absolute size of the gap while preserving the base-minus-quote sign."]},
+      {heading:"Why does the difference matter?",paragraphs:["Relative interest rates can affect funding costs, investor allocations and the incentives behind some currency carry strategies. Currency prices, however, respond to expectations about future policy, inflation, growth and risk appetite as well as current rates.","A gap can remain unchanged for weeks between policy decisions even while the market's view of future rates changes substantially. That is why current gaps and expected gaps should be analyzed separately."]},
+      {heading:"What the gap does not tell you",paragraphs:["It is not a broker's overnight swap rate. Funding spreads, margin, roll conventions and product terms affect realized financing charges. It also is not a forward FX quote or a probability that a currency will rise.","A large positive gap may be offset by an adverse exchange-rate move. Use the rate comparison as context, not an automatic buy or sell signal."]}
+    ],
+    sources:[{name:"Federal Reserve monetary policy",url:"https://www.federalreserve.gov/monetarypolicy.htm"},{name:"ECB key interest rates",url:"https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html"}]
+  },
+  {
+    slug:"expected-rate-gaps",
+    title:"How Markets Price Expected Interest Rate Gaps",
+    description:"Understand market-implied rate expectations, policy-rate futures, OIS markets and why forward divergence can change before central banks make decisions.",
+    sections:[
+      {heading:"Current policy is not the whole story",paragraphs:["Today's official rate gap uses two already-announced central-bank benchmarks. The expected gap asks what those two benchmarks may be at a future horizon, based on appropriate market pricing rather than unsupported predictions.","The distinction matters because exchange rates often adjust to new information about future decisions long before any central bank changes its policy rate."]},
+      {heading:"Where do market expectations come from?",paragraphs:["Market participants trade instruments whose prices are linked to future short-term interest rates, including overnight-indexed swaps and certain short-term interest-rate futures. Those prices may be transformed into an implied forward rate path using instrument-specific conventions.","That is not identical to a published central-bank forecast. A market-implied path can also contain term premiums, liquidity effects, convexity and other technical factors."]},
+      {heading:"Calculating a projected divergence",paragraphs:["First estimate both central banks' comparable policy-rate levels for a shared horizon and observation time. Then calculate the signed base-minus-quote difference and compare it with the current signed policy-rate spread.","For example, a hypothetical +150 bp gap that moves to +100 bp is narrowing by 50 bp. If a gap crosses zero, the leadership of the higher-rate currency reverses. A projected widening or narrowing is not by itself a currency price forecast."]},
+      {heading:"How to read Trade90's expected gaps",paragraphs:["Trade90 will display the 3-, 6- and 12-month projected values only after a suitably licensed and validated market source is available for both currencies. Every forecast must carry a pricing timestamp, data source and methodology.","If the necessary data cannot be verified, the expected value stays unavailable rather than being filled in by a language model or an analyst's guess."]}
+    ],
+    sources:[{name:"New York Fed reference rates",url:"https://www.newyorkfed.org/markets/reference-rates"},{name:"CME Group interest rates education",url:"https://www.cmegroup.com/education.html"}]
+  },
+  {
+    slug:"high-interest-rates-currency-strength",
+    title:"Do Higher Interest Rates Mean a Stronger Currency?",
+    description:"Understand why a higher policy rate does not guarantee exchange-rate appreciation, and distinguish monetary-policy comparisons from realized carry returns.",
+    sections:[
+      {heading:"Higher rates are not a guaranteed buy signal",paragraphs:["A higher interest rate may attract capital, but the effect on currencies depends on why rates are high and how the outlook differs from market expectations. Inflation, political risks, economic activity and risk appetite all matter.","If an expected rate increase is already priced, the announcement itself may not strengthen the currency. Surprises relative to expectations frequently matter more than the rate level alone."]},
+      {heading:"Nominal rate spreads versus real returns",paragraphs:["The difference between two policy rates is only a nominal benchmark. Inflation differences influence real purchasing power, while transaction costs, derivatives pricing, rollover fees and exchange-rate moves influence an investor's actual returns.","Holding a higher-yielding currency against a lower-yielding currency can lose money when the higher-yielding currency depreciates. Leveraged trades can amplify both gains and losses."]},
+      {heading:"Rate convergence and rate divergence",paragraphs:["When a previously higher-rate central bank is expected to cut while the other is expected to hold or hike, the future gap can narrow even before the official gap changes.","A trader can use that shifting outlook to structure research questions: which decisions are expected, what new data could change them, and has the exchange rate already adjusted? It still does not determine a suitable entry, stop or direction."]},
+      {heading:"Use policy gaps as context",paragraphs:["Start with the current rates, examine expected changes from verifiable market prices, check the latest bank communications and identify relevant data releases. Then assess whether the resulting uncertainty fits your risk limits.","Trade90 is intended to make those comparisons transparent. It does not certify trade profitability or provide investment advice."]}
+    ],
+    sources:[{name:"BIS research and publications",url:"https://www.bis.org/publ/"},{name:"Bank of England: interest rates",url:"https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate/"}]
+  }
+];
