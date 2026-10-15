@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "status": "awaiting_licensed_data",
+  "dataKind": "market_implied_policy_level",
+  "provider": null,
+  "observedAt": null,
+  "methodology": null,
+  "license": {
+    "publicRedisplayAuthorized": false,
+    "reference": null
+  },
+  "rates": {}
+}
