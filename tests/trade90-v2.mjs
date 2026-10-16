@@ -4,6 +4,7 @@ import { getPairs, PAIR_SYMBOLS } from "../src/lib/trade90-rates.js";
 import { outlookAsOf, outlookReports, repricingReports } from "../src/data/trade90-policy-outlook.js";
 import { policyUpdates, validatePolicyUpdates, policyUpdateRelatedPairs, policyCollectionAsOf, getPairPolicyUpdates } from "../src/data/trade90-policy-updates.js";
 import { getNextPolicyDecisions, validatePolicyDecisionCalendar, officialPolicyDecisionCalendar, decisionCalendarReviewedAt } from "../src/data/trade90-decision-calendar.js";
+import { policyGuidance, getGuidanceForPair, guidanceCurrencies, validatePolicyGuidance, policyGuidanceReviewedAt } from "../src/data/trade90-policy-guidance.js";
 import { getExpectedRows, getExpectedChanges, validateForwardSnapshot, classifyExpectedGap } from "../src/lib/trade90-forward-rates.js";
 const snapshot=JSON.parse(readFileSync(new URL("../src/data/trade90-policy-snapshot.json",import.meta.url),"utf8"));
 assert.equal(snapshot.banks.length,8);
@@ -178,5 +179,32 @@ assert.deepEqual(getNextPolicyDecisions("EURUSD","2027-01-01").map(e=>e.date),[n
 assert.deepEqual(getNextPolicyDecisions("BTCUSD","2026-10-15"),[],"Unknown pairs must not show dates");
 assert.equal(validatePolicyDecisionCalendar([...officialPolicyDecisionCalendar,officialPolicyDecisionCalendar[0]]).valid,false,"Reject duplicated policy meeting");
 console.log("Official decision schedule: 8 banks, 28 pair views, dates and source links verified.");
+
+
+const verifiedGuidance=validatePolicyGuidance();
+assert.equal(verifiedGuidance.valid,true,verifiedGuidance.reason);
+assert.equal(verifiedGuidance.count,8);
+assert.equal(guidanceCurrencies.length,8);
+assert.equal(policyGuidanceReviewedAt,"2026-10-16");
+for(const pair of pairs){
+  const guidance=getGuidanceForPair(pair);
+  assert.equal(guidance.length,2,"Each pair gets two central-bank guidance statements");
+  assert.deepEqual(guidance.map(e=>e.currency),[pair.base,pair.quote],"No unrelated outlook in "+pair.symbol);
+  assert.deepEqual(getGuidanceForPair(pair.symbol).map(e=>e.currency),[pair.base,pair.quote]);
+  for(const record of guidance){
+    assert.ok(record.source.startsWith("https://"),"Official guidance must cite source");
+    assert.ok(record.publishedDate<="2026-10-16","Must not show a future document as current guidance");
+    assert.equal(record.notMarketPricing,true,"Policy remarks are not derivative-market pricing");
+  }
+}
+assert.deepEqual(getGuidanceForPair("EURUSD").map(e=>e.short),["ECB","Fed"]);
+assert.deepEqual(getGuidanceForPair("AUDCHF").map(e=>e.short),["RBA","SNB"]);
+assert.deepEqual(getGuidanceForPair("USDAUD").map(e=>e.short),["Fed","RBA"]);
+assert.deepEqual(getGuidanceForPair("USDUSD"),[],"Same-currency pairs unsupported");
+assert.deepEqual(getGuidanceForPair(null),[],"No pair must not leak all-bank records");
+const biggestSix = [...pairs].sort((a,b)=>b.absBp-a.absBp||a.symbol.localeCompare(b.symbol)).slice(0,6);
+assert.equal(biggestSix.length,6);
+assert.ok(biggestSix.every((p,i)=>i===0||biggestSix[i-1].absBp>=p.absBp),"Homepage gap ranking is deterministic");
+console.log("Outlook and featured divergences: 8 official sourced banks and 28 pair filters verified.");
 
 console.log("Trade90 V2: 8 verified-source records, 28 pairs, formulas, ranking, source metadata and 7-pair impact checks passed.");
