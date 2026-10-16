@@ -1,0 +1,15 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import Finder from "../../components/Trade90PairFinder.svelte";
+import {allTrade90Pairs,majors,crosses,pairUrl,rateSnapshot,reportDate} from "../../lib/trade90-v3.js";
+---
+<Layout title="Forex Currency Pair Research — 28 Central Bank Comparisons" description="Explore 28 dedicated forex currency pair research pages. See policy-rate divergence, two-bank source records, forward pricing status and upcoming decisions." canonical="/pairs/">
+<main class="wrap">
+<header class="page-intro"><div class="eyebrow">28 pair research hubs</div><h1>Explore a Forex Currency Pair</h1><p>Choose a pair to compare its two central banks, current official interest-rate difference, next decisions and verified publications. Policy rates checked {reportDate(rateSnapshot.asOf)}.</p></header>
+<Finder client:load pairs={allTrade90Pairs} limit={28}/>
+<section><div class="head"><h2>USD major pairs</h2><a href="/rate-gaps/">Full rate comparison →</a></div><div class="grid">{majors.map(p=><a href={pairUrl(p.symbol)}><strong>{p.label}</strong><small>{p.baseBank.short} / {p.quoteBank.short}</small><span>Research →</span></a>)}</div></section>
+<section><div class="head"><h2>Cross-currency pairs</h2></div><div class="grid">{crosses.map(p=><a href={pairUrl(p.symbol)}><strong>{p.label}</strong><small>{p.baseBank.short} / {p.quoteBank.short}</small><span>Research →</span></a>)}</div></section>
+<p class="caveat">Research is informational, not a trading signal. All 28 pair links lead to their own source-dated rate comparison.</p>
+</main>
+</Layout>
+<style>.head{margin-top:35px;display:flex;align-items:center;justify-content:space-between;gap:12px}.head h2{font-size:1.35rem}.head a{font-size:.8rem}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:8px 0 25px}.grid a{display:flex;flex-direction:column;gap:5px;border:1px solid #334155;border-radius:11px;background:#111c30;padding:17px;text-decoration:none;color:#f8fafc}.grid a:hover{border-color:#10b981;background:#192c38}.grid strong{font-size:1.12rem}.grid small{color:#94a3b8}.grid span{color:#6ee7b7;font-size:.76rem;font-weight:760;margin-top:9px}.caveat{font-size:.78rem;color:#94a3b8}@media(max-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr)}.grid a{padding:12px}}</style>

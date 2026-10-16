@@ -8,6 +8,8 @@ on:
       - "scripts/publish-forward-rates.mjs"
       - "tests/trade90-v2.mjs"
       - "tests/trade90-v2-browser.cjs"
+      - "tests/trade90-v3.mjs"
+      - "tests/trade90-v3-browser.cjs"
       - "astro.config.mjs"
       - ".github/workflows/check-market-intelligence.yml"
   workflow_dispatch:
@@ -28,6 +30,8 @@ jobs:
         run: node tests/trade90-v2.mjs
       - name: Verify no unlicensed published forward rates
         run: node scripts/check-forward-publication.mjs
+      - name: Validate V3 pair pages and source links
+        run: node tests/trade90-v3.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes
@@ -37,11 +41,16 @@ jobs:
           test -f dist/central-banks/index.html
           test -f dist/learn/index.html
           test -f dist/learn/what-is-interest-rate-divergence/index.html
-          grep -q 'Central Bank Rate Divergence' dist/index.html
-          grep -q 'Current rate gaps' dist/index.html
-          grep -q 'Expected rate gaps' dist/index.html
-          grep -q 'What changed' dist/index.html
-          grep -q 'Currency pair details' dist/index.html
+          test -f dist/pairs/index.html
+          test -f dist/pairs/eur-usd/index.html
+          test -f dist/pairs/aud-chf/index.html
+          test -f dist/rate-gaps/index.html
+          test -f dist/decisions/index.html
+          test -f dist/central-banks/fed/index.html
+          test -f dist/central-banks/ecb/index.html
+          grep -q 'Compare central-bank rates' dist/index.html
+          grep -q 'EUR/USD Interest Rate Gap' dist/pairs/eur-usd/index.html
+          grep -q 'Next Major Decisions to Watch' dist/pairs/eur-usd/index.html
           grep -q 'Central Bank Policy Updates' dist/central-banks/index.html
       - name: Desktop and mobile interaction checks
         run: |
@@ -52,4 +61,4 @@ jobs:
             if curl --fail --silent http://127.0.0.1:4321/ > /dev/null; then break; fi
             sleep 1
           done
-          node tests/trade90-v2-browser.cjs
+          node tests/trade90-v3-browser.cjs

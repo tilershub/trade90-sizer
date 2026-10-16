@@ -1,0 +1,72 @@
+const assert=require("node:assert/strict");
+const {chromium}=require("playwright");
+(async()=>{
+ const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
+ try{
+  const base="http://127.0.0.1:4321";
+  const page=await browser.newPage({viewport:{width:1366,height:850}});
+  await page.goto(base+"/",{waitUntil:"networkidle"});
+  await page.getByRole("heading",{name:/Compare central-bank rates across 28 forex pairs/i}).waitFor();
+  assert.equal((await page.locator(".topbar .brand").innerText()).replace(/\s/g,""),"TRADE90");
+  assert.equal(await page.locator(".hero #trade90-pair-search").count(),1);
+  assert.equal(await page.locator(".home .pair-card").count(),6);
+  assert.equal(await page.locator(".metrics .metric").count(),3);
+  assert.equal(await page.locator(".home .decision-grid .decision").count(),4);
+  assert.equal(await page.locator(".home .policy-section.compact .update-card").count(),4);
+  assert.equal(await page.locator(".board tbody tr").count(),0,"Homepage must not embed the 28-row research terminal");
+  assert.equal(await page.locator(".topbar nav.desktop-links a").count(),5);
+  await page.locator("#trade90-theme").selectOption("light");
+  assert.equal(await page.locator("html").getAttribute("data-theme"),"light");
+  assert.equal(await page.locator("body").evaluate(el=>getComputedStyle(el).backgroundColor),"rgb(248, 250, 252)");
+  await page.locator("#trade90-theme").selectOption("dark");
+  assert.equal(await page.locator("body").evaluate(el=>getComputedStyle(el).backgroundColor),"rgb(15, 23, 42)");
+  await page.locator("#trade90-pair-search").fill("eurusd");
+  await page.locator('#trade90-pair-results a[href="/pairs/eur-usd/"]').first().click();
+  await page.waitForURL("**/pairs/eur-usd/");
+  await page.getByRole("heading",{name:"EUR/USD Interest Rate Gap",exact:true}).waitFor();
+  assert.equal(await page.locator(".comparison .bank-card").count(),2);
+  assert.match(await page.locator(".gap-value").innerText(),/-137.5/);
+  await page.getByRole("heading",{name:"Next Major Decisions to Watch",exact:true}).waitFor();
+  assert.equal(await page.locator(".decision-watch .watch-card").count(),2);
+  assert.equal(await page.locator(".pair-policy-updates .update-card").count(),0,"Pair policy section should not use deprecated homepage wrapper");
+  assert.equal(await page.locator("#updates .update-card").count(),4,"EUR/USD policy updates are ECB + Fed only");
+  const currencies=await page.locator("#updates .update-card .currency").allTextContents();
+  assert.ok(currencies.every(s=>/^(EUR · ECB|USD · Fed)$/.test(s.trim())));
+  assert.equal(await page.locator(".section.related .related-links a").count(),6);
+  assert.equal(await page.locator('link[rel="canonical"]').getAttribute("href"),"https://tradeninety.com/pairs/eur-usd/");
+  assert.ok((await page.locator('script[type="application/ld+json"]').count())>=1);
+  await page.goto(base+"/rate-gaps/",{waitUntil:"networkidle"});
+  assert.equal(await page.locator(".full-table tbody tr").count(),28);
+  await page.locator(".full-table input[type=search]").fill("AUDJPY");
+  assert.equal(await page.locator(".full-table tbody tr").count(),1);
+  assert.match(await page.locator(".full-table tbody tr").innerText(),/AUD\/JPY/);
+  await page.goto(base+"/pairs/",{waitUntil:"networkidle"});
+  assert.equal(await page.locator("section .grid a").count(),28);
+  await page.goto(base+"/decisions/",{waitUntil:"networkidle"});
+  assert.ok((await page.locator(".timeline .event").count())>=8);
+  await page.goto(base+"/central-banks/",{waitUntil:"networkidle"});
+  assert.equal(await page.locator(".banktiles a").count(),8);
+  await page.goto(base+"/central-banks/fed/",{waitUntil:"networkidle"});
+  await page.getByRole("heading",{name:/Federal Reserve/}).first().waitFor();
+  assert.equal(await page.locator(".pairs a").count(),7);
+  for(const route of ["/pairs/gbp-usd/","/pairs/usd-jpy/","/pairs/aud-chf/","/pairs/nzd-cad/","/pairs/chf-jpy/"]){
+   await page.goto(base+route,{waitUntil:"networkidle"});
+   assert.equal(await page.locator(".comparison .bank-card").count(),2,"two banks on "+route);
+   assert.equal(await page.locator(".decision-watch .watch-card").count(),2,"two next decisions on "+route);
+   const codes=route.split("/")[2].toUpperCase().split("-");
+   assert.ok((await page.locator("#updates .update-card .currency").allTextContents()).every(v=>codes.includes(v.trim().slice(0,3))),"Pair page showed unrelated bank publications: "+route);
+  }
+  const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+  for(const route of ["/","/rate-gaps/","/pairs/eur-usd/","/central-banks/","/decisions/"]){
+    await mobile.goto(base+route,{waitUntil:"networkidle"});
+    const widths=await mobile.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:window.innerWidth}));
+    assert.ok(widths.scroll<=widths.width+4,"mobile width overflow on "+route+": "+JSON.stringify(widths));
+  }
+  await mobile.goto(base+"/",{waitUntil:"networkidle"});
+  assert.equal(await mobile.locator(".mobile-menu").isVisible(),true);
+  await mobile.locator(".mobile-menu summary").click();
+  assert.equal(await mobile.locator('.mobile-menu nav a[href="/pairs/"]').isVisible(),true);
+  await mobile.screenshot({path:"/tmp/trade90-v3-mobile.png",fullPage:true});
+  console.log("V3 browser passed: home, 28 pair routes, filters, source-only pair details, bank hubs, decisions, light/dark and mobile.");
+ }finally{await browser.close();}
+})().catch(error=>{console.error(error);process.exit(1);});

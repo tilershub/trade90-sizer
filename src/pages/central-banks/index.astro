@@ -1,6 +1,7 @@
 ---
 import Trade90V2Layout from "../../layouts/Trade90V2Layout.astro";
 import Trade90PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
+import {rateSnapshot,formatPercent} from "../../lib/trade90-v3.js";
 ---
 <Trade90V2Layout
  title="Central Bank Policy Updates — Rate Decisions and Minutes"
@@ -12,6 +13,7 @@ import Trade90PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
       <h1>Central Bank Policy Updates</h1>
       <p>Follow actual monetary-policy decisions, minutes, statements and reports for the currencies traded on TRADE90. Read what banks really published, separate from what derivatives markets currently expect.</p>
     </header>
+    <section class="bankdirectory" aria-label="Explore individual central banks"><h2>Explore all eight central banks</h2><div class="banktiles">{rateSnapshot.banks.map(bank=><a href={"/central-banks/"+bank.short.toLowerCase()+"/"}><strong>{bank.code} · {bank.short}</strong><span>{bank.name}</span><small>{formatPercent(bank.rate)} · View policy and related pairs →</small></a>)}</div></section>
     <Trade90PolicyUpdates client:load />
     <aside class="explainer">
       <h2>What counts as a policy update?</h2>
@@ -22,6 +24,8 @@ import Trade90PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
   </main>
 </Trade90V2Layout>
 <style>
+.bankdirectory{margin:16px 0 33px}.bankdirectory h2{font-size:1.3rem}.banktiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.banktiles a{display:flex;flex-direction:column;gap:5px;text-decoration:none;background:#111c30;border:1px solid #334155;border-radius:11px;padding:14px;color:#f8fafc}.banktiles a:hover{border-color:#10b981}.banktiles span{color:#94a3b8;font-size:.76rem}.banktiles small{font-size:.7rem;color:#6ee7b7;margin-top:5px}@media(max-width:780px){.banktiles{grid-template-columns:repeat(2,1fr)}}
+
 .explainer{border:1px solid #334155;border-radius:14px;padding:22px;background:#111d2f;margin:30px 0;color:#cbd5e1}
 .explainer h2{font-size:1.2rem;color:#f8fafc;margin:0 0 10px}
 .explainer p{font-size:.85rem;line-height:1.75}
