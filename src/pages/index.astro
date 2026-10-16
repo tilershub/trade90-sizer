@@ -1,51 +1,50 @@
 ---
-import Trade90V2Layout from "../layouts/Trade90V2Layout.astro";
-import Trade90Divergence from "../components/Trade90Divergence.svelte";
-import Trade90PolicyUpdates from "../components/Trade90PolicyUpdates.svelte";
-import snapshot from "../data/trade90-policy-snapshot.json";
+import Layout from "../layouts/Trade90V2Layout.astro";
+import PairFinder from "../components/Trade90PairFinder.svelte";
+import PolicyUpdates from "../components/Trade90PolicyUpdates.svelte";
+import {allTrade90Pairs,majors,pairUrl,rateSnapshot,reportDate,formatPercent} from "../lib/trade90-v3.js";
+import {formatBp} from "../lib/trade90-rates.js";
+import {officialPolicyDecisionCalendar,decisionCalendarReviewedAt} from "../data/trade90-decision-calendar.js";
+const mostGapped=allTrade90Pairs.slice(0,6);
+const lastBank=[...rateSnapshot.banks].sort((a,b)=>b.decisionDate.localeCompare(a.decisionDate))[0];
+const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().toISOString().slice(0,10)).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,4);
 ---
-<Trade90V2Layout
- title="Central Bank Rate Divergence — 28 Forex Pair Comparisons"
- description="Compare current central-bank policy rates and interest-rate differences for 28 major forex currency pairs. Explore rate gap rankings, sourced decisions, expected-rate data availability and individual pair details."
- canonical="/">
- <main class="wrap">
-   <div class="page-intro">
-     <div class="eyebrow">Official interest rates · Forex rate comparisons</div>
-     <h1>Central Bank Rate Divergence</h1>
-     <p>See the policy-rate gap across 28 forex pairs. Compare eight central banks, understand the calculation, and follow what has actually changed—without unsupported trading signals.</p>
-     <nav class="section-shortcuts" aria-label="Jump to policy research sections">
-       <a href="#policy-divergences">Key divergences <span aria-hidden="true">↓</span></a>
-       <a href="#policy-outlook">Policy outlook &amp; guidance <span aria-hidden="true">↓</span></a>
-       <a href="#next-decisions">Next decisions <span aria-hidden="true">↓</span></a>
-     </nav>
-   </div>
-   <Trade90Divergence client:load snapshot={snapshot} />
-   <Trade90PolicyUpdates client:load compact={true} />
-   <section class="learnstart" aria-labelledby="learn-title">
-     <div class="learnheader">
-       <div><span class="eyebrow">Learn the fundamentals</span><h2 id="learn-title">Understand what the gap means</h2><p>Rate differences provide monetary-policy context, not a prediction of price direction. These guides explain how to interpret them.</p></div>
-       <a href="/learn/">All guides →</a>
-     </div>
-     <div class="learncards">
-       <a class="linkcard" href="/learn/what-is-interest-rate-divergence/"><strong>What is interest rate divergence in forex?</strong><p>Understand the difference between current central-bank rates and expected policy paths.</p><span>Read guide →</span></a>
-       <a class="linkcard" href="/learn/expected-rate-gaps/"><strong>How do markets price expected interest rates?</strong><p>Learn why rate expectations can move even when official policy rates stay unchanged.</p><span>Read guide →</span></a>
-       <a class="linkcard" href="/learn/high-interest-rates-currency-strength/"><strong>Do higher interest rates mean a stronger currency?</strong><p>Understand carry, exchange-rate risk and why the largest gap is not automatically the best trade.</p><span>Read guide →</span></a>
-     </div>
-   </section>
- </main>
-</Trade90V2Layout>
+<Layout title="Forex Central Bank Rates, Rate Gaps and Next Decisions" description="Compare sourced central-bank interest rates across 28 forex pairs. Explore EUR/USD, USD/JPY and other currency pairs, next policy decisions and current rate-gap rankings." canonical="/">
+<main class="wrap home">
+ <section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-content">
+   <div class="eyebrow">FOREX MONETARY POLICY RESEARCH · 8 BANKS · 28 PAIRS</div>
+   <h1 id="hero-heading">Compare central-bank rates across <em>28 forex pairs.</em></h1>
+   <p>Understand the official interest-rate gap between two currencies, explore their central banks and see the next scheduled policy decisions. <strong>No trading signals. No invented forecasts.</strong></p>
+   <PairFinder client:load pairs={majors.concat(allTrade90Pairs.filter(p=>p.base!=="USD" && p.quote!=="USD"))} limit={7}/>
+   <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
+   <div class="data-status"><span class="statusdot" aria-hidden="true"></span> Official rates verified <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Market-implied forward feed: not connected</div>
+  </div>
+ </section>
+ <section class="metrics" aria-label="Rate research snapshot">
+  <a class="metric" href={pairUrl(mostGapped[0].symbol)}><span>Largest current absolute rate gap</span><strong>{formatBp(mostGapped[0].absBp)} <small>bp</small></strong><span>{mostGapped[0].label} · {mostGapped[0].higher} benchmark higher →</span></a>
+  <a class="metric" href="/central-banks/"><span>Latest official policy decision</span><strong>{lastBank.short} · {formatPercent(lastBank.rate)}</strong><span>{reportDate(lastBank.decisionDate)} · Official decision source →</span></a>
+  <a class="metric" href="/decisions/"><span>Next scheduled decision</span><strong>{upcoming.length?reportDate(upcoming[0].date):"Check calendar"}</strong><span>{upcoming.length?upcoming[0].currency+" · "+upcoming[0].bank:"Review official bank calendars"} →</span></a>
+ </section>
+ <section class="block" id="compare"><div class="section-head"><div><div class="eyebrow">CURRENT MONETARY POLICY</div><h2>Explore the largest official rate gaps</h2><p>Six of the 28 pairs ranked by absolute basis-point difference. These rankings are facts about selected policy benchmarks, not predictions of currency prices.</p></div><a href="/rate-gaps/">Compare all 28 pairs →</a></div>
+ <div class="pair-grid">{mostGapped.map((p,i)=><a class="pair-card" href={pairUrl(p.symbol)}><div class="pair-top"><span>#{i+1} · Policy-gap ranking</span><span>{p.baseBank.short} / {p.quoteBank.short}</span></div><strong>{p.label}</strong><div class="pair-bottom"><span>{p.signedBp>0?"+":""}{formatBp(p.signedBp)} bp <small>signed gap</small></span><span>Research →</span></div></a>)}</div>
+ <p class="minor">Official-rate figures are from {reportDate(rateSnapshot.asOf)}. A wider current gap doesn't imply a stronger currency or actual broker carry.</p></section>
+ <section class="block" id="decisions"><div class="section-head"><div><div class="eyebrow">CENTRAL BANK CALENDAR</div><h2>Next major decisions to watch</h2><p>Scheduled announcements that can change the policy outlook. Dates are official calendars, not a forecast of market moves.</p></div><a href="/decisions/">Full decision calendar →</a></div><div class="decision-grid">{upcoming.map(e=><a class="decision" href="/decisions/"><span>{e.currency} · {e.bank}</span><strong><time datetime={e.date}>{reportDate(e.date)}</time></strong><small>{e.title} →</small></a>)}</div><p class="minor">Calendar reviewed {reportDate(decisionCalendarReviewedAt)}. Verify dates at the linked official banks; unexpected decisions may occur.</p></section>
+ <section class="block" id="policy"><div class="section-head"><div><div class="eyebrow">SOURCE-LINKED PUBLICATIONS</div><h2>Latest central-bank policy updates</h2><p>Dated official decisions and meeting communications. This is a curated collection, not live breaking news.</p></div><a href="/central-banks/">All bank updates →</a></div><PolicyUpdates compact={true}/></section>
+ <section class="block" id="learn"><div class="section-head"><div><div class="eyebrow">LEARN</div><h2>Understand interest-rate divergence</h2><p>Evidence-based guides explain what policy gaps do—and do not—mean for forex traders.</p></div><a href="/learn/">All guides →</a></div><div class="guides"><a href="/learn/what-is-interest-rate-divergence/"><strong>What is interest-rate divergence?</strong><span>Understand signed and absolute rate differences →</span></a><a href="/learn/expected-rate-gaps/"><strong>How markets price expected rate moves</strong><span>Meeting probabilities, forwards and their limitations →</span></a><a href="/learn/high-interest-rates-currency-strength/"><strong>Do higher rates mean a stronger currency?</strong><span>Why policy gaps aren't trading signals →</span></a></div></section>
+</main>
+</Layout>
 <style>
-.section-shortcuts{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
-.section-shortcuts a{border:1px solid #335b53;background:#11352d;color:#baf7dc;border-radius:9px;padding:8px 12px;font-size:.78rem;font-weight:720;text-decoration:none}
-.section-shortcuts a:hover{background:#155241;color:#fff}
-.learnstart{padding:40px 0 20px}
-.learnheader{display:flex;align-items:center;justify-content:space-between;gap:20px}
-.learnheader .eyebrow{font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#34d399;text-transform:uppercase}
-.learnheader h2{font-size:1.65rem;letter-spacing:-.035em;margin:5px 0}
-.learnheader p{color:#94a3b8;font-size:.88rem;max-width:690px;margin:5px 0}
-.learnheader>a{white-space:nowrap}
-.learncards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:17px 0}
-.learncards strong{font-size:1.05rem;line-height:1.3;display:block}
-.learncards span{color:#6ee7b7;font-weight:700;font-size:.8rem}
-@media(max-width:760px){.learncards{grid-template-columns:1fr}.learnheader{align-items:start}.learnheader a{font-size:.8rem}}
+.home{padding:0 0 24px}
+.hero{padding:60px 0 30px;position:relative}.hero-content{position:relative;z-index:1;max-width:950px}.hero .eyebrow,.block .eyebrow{font-size:.7rem;letter-spacing:.1em;color:#34d399;font-weight:830}.hero h1{font-size:clamp(2.45rem,5.3vw,4.15rem);font-weight:860;letter-spacing:-.055em;line-height:1.1;margin:15px 0 18px;color:#f8fafc;max-width:900px}.hero h1 em{font-style:normal;color:#6ee7b7}.hero p{font-size:1.03rem;line-height:1.68;color:#b8c7d7;max-width:760px;margin:0 0 27px}.hero p strong{font-weight:650;color:#cbd5e1}
+.popular{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:16px 0}.popular span{font-size:.77rem;color:#a5b4c8}.popular a{border:1px solid #334155;border-radius:7px;color:#a7f3d0;text-decoration:none;padding:6px 9px;font-size:.76rem}.popular a:hover{border-color:#10b981}.data-status{font-size:.76rem;color:#cbd5e1;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:22px}.statusdot{background:#34d399;border-radius:50%;width:7px;height:7px;display:inline-block}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 42px}.metric{border:1px solid #334155;background:#111c30;border-radius:13px;padding:19px;text-decoration:none;display:flex;flex-direction:column;gap:7px;color:#e2e8f0}.metric:hover{border-color:#10b981}.metric span:first-child{font-size:.77rem;color:#a5b4c8}.metric strong{font-size:1.4rem;letter-spacing:-.025em;color:#f8fafc}.metric strong small{font-size:.65em}.metric span:last-child{font-size:.73rem;color:#a7f3d0}
+.block{padding:26px 0 30px;border-top:1px solid #334155}.section-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:20px}.section-head h2{font-size:clamp(1.35rem,2.8vw,1.75rem);margin:6px 0;color:#f8fafc;letter-spacing:-.035em}.section-head p{font-size:.84rem;color:#a5b4c8;margin:3px 0;max-width:770px}.section-head>a{color:#6ee7b7;white-space:nowrap;font-size:.82rem}
+.pair-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.pair-card{display:block;border:1px solid #334155;border-radius:13px;padding:18px;background:#111c30;text-decoration:none;color:#f8fafc}.pair-card:hover{border-color:#10b981;background:#152b32}.pair-card strong{display:block;font-size:1.6rem;letter-spacing:-.045em;margin:17px 0}.pair-top{display:flex;justify-content:space-between;gap:8px;font-size:.66rem;color:#a5b4c8}.pair-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:770;color:#a7f3d0;font-size:.84rem}.pair-bottom small{font-weight:400;color:#94a3b8}
+.minor{color:#94a3b8;font-size:.75rem;margin:15px 0 0;line-height:1.65}
+.decision-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.decision{display:flex;flex-direction:column;gap:8px;border:1px solid #334155;background:#111c30;padding:17px;border-radius:12px;text-decoration:none;color:#f8fafc}.decision span{color:#a7f3d0;font-size:.78rem;font-weight:760}.decision strong{font-size:1.2rem}.decision small{color:#a5b4c8}
+.guides{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.guides a{padding:21px;background:#111c30;border:1px solid #334155;border-radius:12px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:#f8fafc}.guides a:hover{border-color:#10b981}.guides strong{font-size:.99rem}.guides span{font-size:.77rem;color:#a5b4c8}
+#policy :global(.policy-section){margin:0}#policy :global(.policy-header){display:none}#policy :global(.collection-note){margin-top:0}
+@media(max-width:850px){.pair-grid{grid-template-columns:repeat(2,1fr)}.decision-grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:1fr 1fr}.metrics .metric:last-child{grid-column:1/-1}}
+@media(max-width:570px){.hero{padding:33px 0 20px}.hero h1{font-size:2.28rem}.hero p{font-size:.9rem}.metrics{grid-template-columns:1fr;margin:14px 0 25px}.metrics .metric:last-child{grid-column:auto}.metric{padding:14px}.section-head{display:block}.section-head>a{display:inline-block;margin-top:10px}.pair-grid{grid-template-columns:1fr 1fr;gap:7px}.pair-card{padding:11px}.pair-card strong{font-size:1.22rem}.pair-top{font-size:.59rem;display:block}.pair-top span:last-child{display:none}.pair-bottom{display:block;font-size:.76rem}.pair-bottom span:last-child{display:block;margin-top:8px}.decision-grid{grid-template-columns:1fr 1fr;gap:7px}.decision{padding:12px}.decision strong{font-size:1rem}.guides{grid-template-columns:1fr}.block{padding:22px 0}}
 </style>
