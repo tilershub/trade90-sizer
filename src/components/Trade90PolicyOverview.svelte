@@ -20,7 +20,7 @@
 </script>
 
 <div class="overview" aria-label="Trade90 policy outlook and divergence watch">
- <section class="section" aria-labelledby="key-divergences">
+ <section id="policy-divergences" class="section" aria-labelledby="key-divergences">
   <div class="intro">
    <div><span class="eyebrow">Forex policy divergence watch</span><h2 id="key-divergences">Most Important Divergences for Forex Traders Right Now</h2><p>A transparent watchlist of the <strong>six largest current policy-rate gaps</strong> out of 28 pairs. Ranking is by absolute official rate difference—not by predicted FX returns, liquidity or trading opportunity.</p></div>
    <span class="snapshot">Policy rates checked {date(snapshotAsOf)}</span>
@@ -42,7 +42,7 @@
   <p class="note">Rate differences reflect the stated policy benchmarks, not actual FX carry yields. Large spreads are not automatically useful trading signals; forward expectations may already be priced. Full methodology: <a href="/methodology/">how gaps are calculated ↗</a></p>
  </section>
 
- <section class="section" aria-labelledby="central-bank-guidance">
+ <section id="policy-outlook" class="section" aria-labelledby="central-bank-guidance">
   <div class="intro">
    <div><span class="eyebrow">Policy communication</span><h2 id="central-bank-guidance">Central Bank Policy Outlook &amp; Forward Guidance</h2><p>What each bank most recently communicated about inflation and the direction of policy risks. These are <strong>official-source summaries</strong>, not futures-implied rate paths.</p></div>
    <span class="snapshot">Guidance reviewed {date(policyGuidanceReviewedAt)}</span>
@@ -60,7 +60,7 @@
   <p class="note">To compare only two banks side by side, open a currency pair's details. Historical guidance should not be treated as live market positioning.</p>
  </section>
 
- <section class="section" aria-labelledby="next-major">
+ <section id="next-decisions" class="section" aria-labelledby="next-major">
   <div class="intro">
    <div><span class="eyebrow">Upcoming official monetary policy meetings</span><h2 id="next-major">Next Major Decisions to Watch</h2><p>Upcoming announcement dates across the eight banks. The corresponding pair view shows only its two relevant decisions.</p></div>
    <span class="snapshot">Calendar reviewed {date(decisionCalendarReviewedAt)}</span>
@@ -81,7 +81,7 @@
 
 <style>
 .overview{color:#e2e8f0}
-.section{padding:25px 0 4px}
+.section{padding:25px 0 4px;scroll-margin-top:85px}
 .intro{display:flex;justify-content:space-between;align-items:flex-start;gap:17px;margin:0 0 15px}
 .eyebrow{color:#34d399;text-transform:uppercase;font-weight:780;font-size:.68rem;letter-spacing:.1em}
 .intro h2{font-size:1.5rem;line-height:1.3;color:#f8fafc;letter-spacing:-.03em;margin:5px 0}
