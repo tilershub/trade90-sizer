@@ -53,7 +53,8 @@ const {chromium}=require("playwright");
    await page.goto(base+route,{waitUntil:"networkidle"});
    assert.equal(await page.locator(".comparison .bank-card").count(),2,"two banks on "+route);
    assert.equal(await page.locator(".decision-watch .watch-card").count(),2,"two next decisions on "+route);
-   assert.ok((await page.locator("#updates .update-card .currency").allTextContents()).every(v=>route.includes(v.slice(0,3).toLowerCase())||true));
+   const codes=route.split("/")[2].toUpperCase().split("-");
+   assert.ok((await page.locator("#updates .update-card .currency").allTextContents()).every(v=>codes.includes(v.trim().slice(0,3))),"Pair page showed unrelated bank publications: "+route);
   }
   const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
   for(const route of ["/","/rate-gaps/","/pairs/eur-usd/","/central-banks/","/decisions/"]){
