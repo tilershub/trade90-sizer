@@ -1,0 +1,72 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import PairFinder from "../../components/Trade90PairFinder.svelte";
+import ForwardRates from "../../components/Trade90ForwardRates.svelte";
+import NextDecisions from "../../components/Trade90NextDecisions.svelte";
+import PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
+import PairGuidance from "../../components/Trade90PairGuidance.svelte";
+import {allTrade90Pairs,pairSlug,pairUrl,pairInsight,formatPercent,reportDate,rateSnapshot} from "../../lib/trade90-v3.js";
+import {formatBp} from "../../lib/trade90-rates.js";
+import {getPairPolicyUpdates} from "../../data/trade90-policy-updates.js";
+export function getStaticPaths(){
+ return allTrade90Pairs.map(pair=>({params:{pair:pairSlug(pair.symbol)},props:{pair}}));
+}
+const {pair}=Astro.props;
+const explanation=pairInsight(pair);
+const previous=getPairPolicyUpdates(pair).slice(0,3);
+const title=pair.label+" Interest Rate Gap: "+pair.baseBank.short+" vs "+pair.quoteBank.short+" & Next Decisions";
+const description=pair.label+" central-bank rate comparison: "+pair.baseRate+"% vs "+pair.quoteRate+"%, signed gap "+(pair.signedBp>0?"+":"")+formatBp(pair.signedBp)+" basis points. Read official policy sources, related bank updates, and scheduled decisions. Snapshot "+rateSnapshot.asOf+".";
+const permalink=pairUrl(pair.symbol);
+const relevant=allTrade90Pairs.filter(p=>p.symbol!==pair.symbol && (p.base===pair.base||p.quote===pair.base||p.base===pair.quote||p.quote===pair.quote)).slice(0,6);
+const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+ {"@type":"ListItem","position":1,"name":"Home","item":"https://tradeninety.com/"},
+ {"@type":"ListItem","position":2,"name":"Currency pairs","item":"https://tradeninety.com/pairs/"},
+ {"@type":"ListItem","position":3,"name":pair.label,"item":"https://tradeninety.com"+permalink}]};
+---
+<Layout title={title} description={description} canonical={permalink}>
+ <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}/>
+ <main class="wrap pair-page">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>›</span><a href="/pairs/">Currency pairs</a><span>›</span><span aria-current="page">{pair.label}</span></nav>
+  <header class="pair-head">
+   <div class="eyebrow">MONETARY POLICY RESEARCH · {pair.baseBank.short} / {pair.quoteBank.short}</div>
+   <div class="headingline"><div><h1>{pair.label} Interest Rate Gap</h1><p>Official policy-rate comparison for {pair.baseBank.name} and {pair.quoteBank.name}. Updated from the verified snapshot dated <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time>.</p></div><a class="otherpair" href="/pairs/">Explore all pairs →</a></div>
+   <div class="finder-shell"><PairFinder client:load pairs={allTrade90Pairs} placeholder={"Switch pair — "+pair.label+"…"} limit={7}/></div>
+  </header>
+  <section class="comparison" aria-label={"Official "+pair.label+" policy benchmark comparison"}>
+    <div class="bank-card"><div class="card-label">BASE · {pair.base}</div><h2>{pair.baseBank.short} · {pair.baseBank.name}</h2><div class="value">{formatPercent(pair.baseRate)}</div><p>{pair.baseBank.benchmark}</p><p>Effective {reportDate(pair.baseBank.effectiveDate)}</p><a href={pair.baseBank.source} target="_blank" rel="noopener noreferrer">Official {pair.baseBank.short} rate source ↗</a></div>
+    <div class="gap-card"><div class="card-label">SIGNED BASE − QUOTE GAP</div><div class="gap-value">{pair.signedBp>0?"+":""}{formatBp(pair.signedBp)} <small>bp</small></div><strong>{pair.higher==="Equal"?"Equal benchmarks":pair.higher+" has the higher selected benchmark"}</strong><p>Absolute difference: {formatBp(pair.absBp)} bp</p><p>This is not a forecast of the {pair.label} exchange rate or actual broker swap yield.</p></div>
+    <div class="bank-card"><div class="card-label">QUOTE · {pair.quote}</div><h2>{pair.quoteBank.short} · {pair.quoteBank.name}</h2><div class="value">{formatPercent(pair.quoteRate)}</div><p>{pair.quoteBank.benchmark}</p><p>Effective {reportDate(pair.quoteBank.effectiveDate)}</p><a href={pair.quoteBank.source} target="_blank" rel="noopener noreferrer">Official {pair.quoteBank.short} rate source ↗</a></div>
+  </section>
+  <nav class="page-nav" aria-label="On this page"><a href="#expected">Expected rates</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
+  <section class="section" id="expected">
+   <div class="section-heading"><div><div class="eyebrow">Market data availability</div><h2>Expected {pair.label} Rate Divergence</h2><p>Market-implied policy-rate differences require validated, appropriately licensed forward inputs for both currencies. No fabricated forecasts.</p></div></div>
+   <ForwardRates client:load mode="pair" policyBanks={rateSnapshot.banks} selectedPair={pair}/>
+  </section>
+  <section class="section" id="decisions"><NextDecisions client:load pair={pair}/></section>
+  <section class="section" id="guidance"><PairGuidance pair={pair}/></section>
+  <section class="section" id="updates"><PolicyUpdates pair={pair}/></section>
+  <section class="section article-section" id="explanation">
+   <div class="eyebrow">Interpretation &amp; sources</div><h2>What the {pair.label} Policy-Rate Gap Means</h2>
+   <p>{explanation.summary}</p>
+   <h3>What could change the relative policy outlook?</h3>
+   <p>{explanation.developments}</p>
+   <h3>Why this gap is not a trade recommendation</h3>
+   <p>{explanation.nuances}</p>
+   <p>Current decisions and forward market pricing answer different questions. A CPI or labour-market release can change futures-implied expectations without changing an official benchmark. Trade90 does not infer a buy/sell signal from a policy gap. Read the <a href="/methodology/">rate-gap methodology</a> and <a href="/learn/expected-rate-gaps/">guide to market-implied expectations</a>.</p>
+   <h3>Latest dated official publications for this pair</h3>
+   <ul>{previous.map(item=><li><time datetime={item.publishedDate}>{reportDate(item.publishedDate)}</time> · <a href={item.source} target="_blank" rel="noopener noreferrer">{item.bank}: {item.title} ↗</a></li>)}</ul>
+  </section>
+  <section class="section related"><div class="section-heading"><h2>Explore related currency pairs</h2><a href="/pairs/">All 28 pairs →</a></div><div class="related-links">{relevant.map(p=><a href={pairUrl(p.symbol)}><strong>{p.label}</strong><span>{p.signedBp>0?"+":""}{formatBp(p.signedBp)} bp</span></a>)}</div></section>
+ </main>
+</Layout>
+<style>
+.pair-page{padding-bottom:32px}
+.crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:9px;padding-top:20px;font-size:.75rem;color:#94a3b8}.crumbs a{color:#a7f3d0}
+.pair-head{padding:32px 0 20px}.eyebrow{color:#34d399;font-size:.69rem;font-weight:780;letter-spacing:.1em;text-transform:uppercase}.headingline{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.headingline h1{font-size:clamp(2rem,4.5vw,3rem);color:#f8fafc;letter-spacing:-.045em;line-height:1.14;margin:8px 0}.headingline p{color:#a5b4c8;max-width:750px;font-size:.9rem}.otherpair{flex:none;margin-top:12px;font-size:.83rem}.finder-shell{margin-top:12px;max-width:570px}
+.comparison{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:13px}
+.bank-card,.gap-card{padding:19px;border-radius:14px;border:1px solid #334155;background:#111c30;min-width:0}
+.card-label{color:#94a3b8;font-size:.66rem;letter-spacing:.08em;font-weight:800}.bank-card h2{font-size:.91rem;color:#e2e8f0;margin:8px 0}.value,.gap-value{font-variant-numeric:tabular-nums;letter-spacing:-.05em;font-weight:860;color:#f8fafc;font-size:2rem;margin:7px 0}.gap-card{background:#07372e;border-color:#116852}.gap-value{font-size:2.25rem;color:#d1fae5}.gap-value small{font-size:.52em}.gap-card strong{font-size:.83rem;color:#a7f3d0}.bank-card p,.gap-card p{font-size:.76rem;color:#a5b4c8;margin:5px 0}.bank-card a{display:inline-block;color:#6ee7b7;font-size:.75rem;margin-top:8px}
+.page-nav{display:flex;flex-wrap:wrap;gap:7px;margin:21px 0 10px}.page-nav a{border:1px solid #475569;background:#162338;color:#cbd5e1;border-radius:8px;padding:8px 11px;text-decoration:none;font-weight:730;font-size:.77rem}.page-nav a:hover{border-color:#10b981}
+.section{scroll-margin-top:90px;border:1px solid #334155;border-radius:14px;background:#101a2b;margin:20px 0;overflow:hidden}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:20px 24px 8px}.section-heading h2,.article-section h2{font-size:1.35rem;color:#f8fafc;margin:5px 0}.section-heading p{color:#a5b4c8;font-size:.81rem;max-width:750px;margin:5px 0}.article-section{padding:23px;max-width:none}.article-section p,.article-section li{color:#cbd5e1;font-size:.87rem;line-height:1.8;max-width:880px}.article-section h3{color:#e2e8f0;font-size:1.03rem;margin:21px 0 6px}.article-section li{margin:6px 0}.section.related{padding:12px 0 24px}.related-links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px 24px}.related-links a{display:flex;justify-content:space-between;gap:8px;background:#182538;border:1px solid #334155;border-radius:9px;padding:12px;text-decoration:none;color:#e2e8f0}.related-links a span{color:#94a3b8;font-size:.8rem}.related-links a:hover{border-color:#10b981}
+@media(max-width:850px){.comparison{grid-template-columns:1fr 1fr}.gap-card{grid-column:1/-1;grid-row:1}.related-links{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.pair-head{padding-top:21px}.headingline{display:block}.otherpair{display:inline-block}.comparison{grid-template-columns:1fr 1fr;gap:8px}.bank-card,.gap-card{padding:13px}.bank-card h2{font-size:.78rem;min-height:34px}.value{font-size:1.52rem}.gap-value{font-size:1.8rem}.section-heading{padding:16px 14px 8px}.article-section{padding:16px}.related-links{padding:8px 14px;grid-template-columns:1fr}.section-heading h2{font-size:1.15rem}}
+</style>
