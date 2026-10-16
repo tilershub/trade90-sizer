@@ -13,6 +13,11 @@ import snapshot from "../data/trade90-policy-snapshot.json";
      <div class="eyebrow">Official interest rates · Forex rate comparisons</div>
      <h1>Central Bank Rate Divergence</h1>
      <p>See the policy-rate gap across 28 forex pairs. Compare eight central banks, understand the calculation, and follow what has actually changed—without unsupported trading signals.</p>
+     <nav class="section-shortcuts" aria-label="Jump to policy research sections">
+       <a href="#policy-divergences">Key divergences <span aria-hidden="true">↓</span></a>
+       <a href="#policy-outlook">Policy outlook &amp; guidance <span aria-hidden="true">↓</span></a>
+       <a href="#next-decisions">Next decisions <span aria-hidden="true">↓</span></a>
+     </nav>
    </div>
    <Trade90Divergence client:load snapshot={snapshot} />
    <Trade90PolicyUpdates client:load compact={true} />
@@ -30,6 +35,9 @@ import snapshot from "../data/trade90-policy-snapshot.json";
  </main>
 </Trade90V2Layout>
 <style>
+.section-shortcuts{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.section-shortcuts a{border:1px solid #335b53;background:#11352d;color:#baf7dc;border-radius:9px;padding:8px 12px;font-size:.78rem;font-weight:720;text-decoration:none}
+.section-shortcuts a:hover{background:#155241;color:#fff}
 .learnstart{padding:40px 0 20px}
 .learnheader{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .learnheader .eyebrow{font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#34d399;text-transform:uppercase}
