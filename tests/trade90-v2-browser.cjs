@@ -17,6 +17,8 @@ const {chromium} = require("playwright");
    assert.equal(await rows.count(),28,"home current rates show all 28 pair rows");
    assert.match(await rows.first().innerText(),/AUD\/CHF/);
    assert.match(await rows.first().innerText(),/460/);
+   assert.equal(await page.locator(".section-shortcuts a").count(),3,"Fast navigation to the three major sections");
+   assert.deepEqual(await page.locator(".section-shortcuts a").evaluateAll(nodes=>nodes.map(n=>n.hash)),["#policy-divergences","#policy-outlook","#next-decisions"]);
    assert.equal(await page.locator(".divergence-grid .divergence-card").count(),6,"Home displays six objectively largest policy gaps");
    await page.getByRole("heading",{name:"Most Important Divergences for Forex Traders Right Now"}).waitFor();
    await page.getByRole("heading",{name:"Central Bank Policy Outlook & Forward Guidance"}).waitFor();
