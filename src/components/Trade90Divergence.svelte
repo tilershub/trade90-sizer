@@ -4,6 +4,8 @@
   import Trade90ForwardRates from "./Trade90ForwardRates.svelte";
   import Trade90PolicyUpdates from "./Trade90PolicyUpdates.svelte";
   import Trade90NextDecisions from "./Trade90NextDecisions.svelte";
+  import Trade90PairGuidance from "./Trade90PairGuidance.svelte";
+  import Trade90PolicyOverview from "./Trade90PolicyOverview.svelte";
   export let snapshot;
 
   const banks = snapshot.banks;
@@ -32,7 +34,7 @@
   }
 </script>
 
-<section class="dashboard" aria-label="Central bank rate divergence dashboard">
+<section id="rate-dashboard" class="dashboard" aria-label="Central bank rate divergence dashboard">
   <div class="stats">
     <div class="stat">
       <div class="statname">Largest current policy-rate gap</div>
@@ -142,10 +144,14 @@
       <div class="notice quieter"><strong>Forward expectations for {detail.label}</strong><p>Exact 3-, 6- and 12-month expected policy-rate gaps display only when source observations are aligned and appropriately licensed. Separately published outlook commentary adds context; it is not the same as a calculated forward spread.</p></div>
       <Trade90ForwardRates mode="pair" policyBanks={banks} selectedPair={detail} />
       <Trade90OutlookEvidence mode="pair" pair={detail} />
+      <Trade90PairGuidance pair={detail} />
       <Trade90NextDecisions pair={detail} />
       <div class="pair-policy-updates"><Trade90PolicyUpdates pair={detail} /></div>
     {/if}
   </div>
+  {#if activeTab === "current"}
+    <Trade90PolicyOverview pairs={allPairs} snapshotAsOf={snapshot.asOf} onPairSelect={choosePair} />
+  {/if}
   <section class="centralbank">
     <div class="belowhead"><div><h2>{activeTab === "details" ? "Central banks for " + detail.label : "Eight central banks"}</h2><p>{activeTab === "details" ? "Only the two official benchmarks used for this pair, with source links and effective dates." : "Benchmarks used for every rate gap. Source links and effective dates are shown below."}</p></div><button on:click={() => showAllSources = !showAllSources}>{showAllSources ? "Hide details" : "Source details"} {showAllSources ? "↑" : "↓"}</button></div>
     <div class="bankgrid">
