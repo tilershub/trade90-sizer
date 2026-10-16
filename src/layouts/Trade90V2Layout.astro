@@ -8,6 +8,7 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0f172a" />
+  <script is:inline>(function(){try{var p=localStorage.getItem("trade90-appearance")||"system";var m=window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=p==="system"?(m?"light":"dark"):p;document.documentElement.dataset.appearance=p;}catch(e){document.documentElement.dataset.theme="dark";}})();</script>
   <meta name="description" content={description} />
   <link rel="canonical" href={url} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,28 +22,38 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
   <meta property="og:title" content={title + " | TRADE90"} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={url} />
+  <meta property="og:image" content="https://tradeninety.com/og-v3.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <title>{title} | TRADE90</title>
 </head>
 <body>
   <header class="topbar">
     <div class="wrap nav">
       <a href="/" class="brand" aria-label="TRADE90 homepage">TRADE<span>90</span></a>
-      <nav aria-label="Main navigation">
-        <a href="/">Rate gaps</a>
-        <a href="/central-banks/">Policy updates</a>
+      <nav class="desktop-links" aria-label="Main navigation">
+        <a href="/pairs/">Explore pairs</a>
+        <a href="/rate-gaps/">Rate gaps</a>
+        <a href="/central-banks/">Central banks</a>
+        <a href="/decisions/">Decisions</a>
         <a href="/learn/">Learn</a>
-        <a href="/methodology/">Methodology</a>
       </nav>
+      <div class="nav-actions">
+        <label class="theme-label" for="trade90-theme"><span class="sr-only">Website appearance</span><select id="trade90-theme" aria-label="Appearance"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+        <details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+          <a href="/pairs/">Explore pairs</a><a href="/rate-gaps/">Rate gaps</a><a href="/central-banks/">Central banks</a><a href="/decisions/">Decisions</a><a href="/learn/">Learn</a><a href="/methodology/">Methodology</a>
+        </nav></details>
+      </div>
     </div>
   </header>
   <slot />
   <footer class="footer">
     <div class="wrap footcontent">
       <div><a href="/" class="brand footerbrand">TRADE<span>90</span></a><p>Clear rate comparisons. Sourced information. No trading signals.</p></div>
-      <div class="footlinks"><a href="/">Rate gaps</a><a href="/central-banks/">Policy updates</a><a href="/learn/">Learn</a><a href="/methodology/">Methodology</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/disclaimer/">Risk disclaimer</a></div>
+      <div class="footlinks"><a href="/pairs/">Currency pairs</a><a href="/rate-gaps/">Rate gaps</a><a href="/decisions/">Next decisions</a><a href="/central-banks/">Central banks</a><a href="/learn/">Learn</a><a href="/methodology/">Methodology</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/disclaimer/">Risk disclaimer</a></div>
     </div>
     <div class="wrap fine">Educational and informational use only. A policy-rate gap is not a broker swap rate, a forward FX quote, or a prediction of currency performance.</div>
   </footer>
+  <script is:inline>(function(){var s=document.getElementById("trade90-theme");if(!s)return;var p=document.documentElement.dataset.appearance||"system";s.value=p;function apply(v){var isLight=window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=v==="system"?(isLight?"light":"dark"):v;document.documentElement.dataset.appearance=v;}s.addEventListener("change",function(){try{localStorage.setItem("trade90-appearance",s.value)}catch(e){}apply(s.value);});try{window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",function(){if(s.value==="system")apply("system")});}catch(e){} })();</script>
 </body>
 </html>
 <style is:global>
@@ -103,5 +114,55 @@ button,a,select,input{outline-offset:3px}
   .page-intro{padding-top:30px}
   .card{padding:17px}
 }
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.theme-label select{background:#0f172a;color:#e2e8f0;border:1px solid #475569;border-radius:8px;padding:7px 8px;font-size:.78rem;min-width:82px}
+.mobile-menu{display:none;position:relative}
+.mobile-menu summary{cursor:pointer;border:1px solid #475569;border-radius:8px;padding:8px 12px;font-size:.82rem;color:#e2e8f0;font-weight:760;list-style:none}
+.mobile-menu summary::-webkit-details-marker{display:none}
+.mobile-menu nav{position:absolute;right:0;top:calc(100% + 12px);width:220px;display:flex;flex-direction:column;gap:0;background:#0f172a;border:1px solid #475569;box-shadow:0 15px 35px #0008;border-radius:10px;overflow:hidden}
+.mobile-menu nav a{display:block;padding:12px 16px;color:#e2e8f0;text-decoration:none;font-size:.83rem;border-bottom:1px solid #334155}
+.mobile-menu nav a:hover{background:#1e293b}
+@media(max-width:920px){.desktop-links{display:none!important}.mobile-menu{display:block}.nav{gap:12px}.topbar .brand{flex:none}}
+@media(max-width:430px){.theme-label select{min-width:73px;padding:7px 4px;font-size:.71rem}}
+
+/* V3 readable light mode with native dark-mode fallback. Preserve original branding. */
+html[data-theme="light"]{color-scheme:light;background:#f8fafc}
+html[data-theme="light"] body{background:#f8fafc;color:#0f172a}
+html[data-theme="light"] .topbar{background:#fff;color:#0f172a;border-bottom-color:#dae2ea}
+html[data-theme="light"] .topbar .brand{color:#0f172a}
+html[data-theme="light"] .topbar .brand span{color:#047857}
+html[data-theme="light"] .topbar .desktop-links a{color:#334155}
+html[data-theme="light"] .topbar .desktop-links a:hover{color:#047857}
+html[data-theme="light"] .theme-label select,html[data-theme="light"] .mobile-menu summary{color:#0f172a;background:#f8fafc;border-color:#cbd5e1}
+html[data-theme="light"] .page-intro h1,html[data-theme="light"] .hero h1,html[data-theme="light"] .section-head h2{color:#0f172a}
+html[data-theme="light"] .page-intro p,html[data-theme="light"] .hero p,html[data-theme="light"] .section-head p{color:#475569}
+html[data-theme="light"] .hero .eyebrow,html[data-theme="light"] .block .eyebrow{color:#047857}
+html[data-theme="light"] .hero h1 em{color:#047857}
+html[data-theme="light"] .home .metric,html[data-theme="light"] .home .pair-card,html[data-theme="light"] .home .decision,html[data-theme="light"] .home .guides a,
+html[data-theme="light"] .pair-page .bank-card,html[data-theme="light"] .pair-page .section,html[data-theme="light"] .pair-page .related-links a,
+html[data-theme="light"] .full-table,html[data-theme="light"] .grid a,html[data-theme="light"] .bankgrid article,
+html[data-theme="light"] .timeline,html[data-theme="light"] .article .card{background:#fff;color:#0f172a;border-color:#d5dfea}
+html[data-theme="light"] .home .metric strong,html[data-theme="light"] .home .pair-card strong,html[data-theme="light"] .home .decision strong,html[data-theme="light"] .home .guides strong,
+html[data-theme="light"] .pair-head h1,html[data-theme="light"] .pair-page .bank-card h2,html[data-theme="light"] .pair-page .value,
+html[data-theme="light"] .pair-page .article-section h2,html[data-theme="light"] .pair-page .article-section h3,
+html[data-theme="light"] .pair-page .section-heading h2{color:#0f172a}
+html[data-theme="light"] .pair-page .gap-card{background:#e5f7ef;border-color:#a9dfc5;color:#065f46}
+html[data-theme="light"] .pair-page .gap-value{color:#064e3b}
+html[data-theme="light"] .pair-page .gap-card strong{color:#065f46}
+html[data-theme="light"] .pair-page .bank-card p,html[data-theme="light"] .pair-page .article-section p,html[data-theme="light"] .pair-page .article-section li{color:#475569}
+html[data-theme="light"] .pair-page .section-heading p,html[data-theme="light"] .pair-head p{color:#475569}
+html[data-theme="light"] .pair-page .page-nav a{background:#eaf1f7;color:#334155;border-color:#d5dfea}
+html[data-theme="light"] .home .minor,html[data-theme="light"] .home .data-status{color:#475569}
+html[data-theme="light"] .home .guides span,html[data-theme="light"] .home .decision small{color:#475569}
+html[data-theme="light"] .home .popular a{color:#047857}
+html[data-theme="light"] .article p,html[data-theme="light"] .article li{color:#475569}
+html[data-theme="light"] .footer{background:#e9eff5;color:#334155;border-color:#d5dfea}
+html[data-theme="light"] .footer .brand{color:#0f172a}
+html[data-theme="light"] .footer .footlinks a{color:#334155}
+html[data-theme="light"] .footer p,html[data-theme="light"] .fine{color:#475569}
+/* Research widgets retain deliberately dark terminal surfaces in light reading mode. */
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
