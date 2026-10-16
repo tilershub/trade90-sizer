@@ -178,6 +178,14 @@ Publish three different data categories with unmistakable labels:
 - Establish automated ingestion, immutable observations, source failure monitoring, alerting and human corrections policy **before** calling the service "live".
 - Make status "Verified snapshot" versus "Live market feed" explicit. No asserted real-time updates before infrastructure is actually connected.
 
+## 12A. Source-reliability audit is a V3 release prerequisite
+**Mandatory companion:** [TRADE90 V3 Data Source Reliability Audit](./TRADE90_V3_DATA_RELIABILITY_AUDIT.md) (reviewed October 16, 2026).
+- Current eight-bank benchmark snapshot and published policy/calendar/news observations are curated files, NOT automatic feeds. The connected market-implied forward-rate dataset currently holds no licensed observations.
+- Independent checks support sampled core official rates, but some URLs link to secondary explanations or operating terms rather than the exact official policy decision; correct CAD and JPY attribution first. Source-date/benchmark/rights validation and monitoring must be implemented before V3 is called continuously verified.
+- All page-level 'Verified' labels must carry a check date and document evidence. New pair SEO pages must explain the actual/expected/reported/survey data distinction and never display simulated prices.
+- Start with confirmed official rates and dated decisions; unlock quantitative 3M/6M/12M forward gaps only after documented license + real data + QA and source-health dashboard.
+- Establish staleness/error UX and bank-by-bank release verification. One incorrect bank value affects seven FX pairs.
+
 ## 13. Growth model — stretch target 10,000 visits/day
 10,000 visits/day ~= 300,000/month. This is a **stretch objective**, not a forecast based on measured current traffic (GA4/GSC baseline unavailable in review). Do not assume the 28 pages will deliver 10,000 daily visits by themselves.
 Growth flywheel: targeted evergreen search guides → useful bank/pair hubs → returning watchlist/event users → direct visits and citations/referrals; distribute standout source-linked comparisons on FX communities, social and relevant finance newsletters without spam or clickbait.
