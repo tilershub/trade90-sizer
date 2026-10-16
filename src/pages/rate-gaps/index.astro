@@ -1,0 +1,14 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import RateTable from "../../components/Trade90V3RateTable.svelte";
+import {allTrade90Pairs,rateSnapshot,reportDate,pairUrl} from "../../lib/trade90-v3.js";
+---
+<Layout title="All 28 Forex Interest Rate Gaps — Live-Status Policy Snapshot" description="Compare verified central-bank benchmark gaps across all 28 major and cross-currency forex pairs. Search by pair, sort by basis points and open each sourced pair research page." canonical="/rate-gaps/">
+<main class="wrap">
+ <header class="page-intro"><div class="eyebrow">Official policy rate comparison</div><h1>Compare All 28 Forex Rate Gaps</h1><p>Explore every unique pair drawn from eight widely traded currencies. The figures come from official bank decisions verified on <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time>, not streaming market prices.</p></header>
+ <RateTable client:load pairs={allTrade90Pairs}/>
+ <section class="links"><h2>Currency pair research</h2><p>Each pair has a source-linked page covering both central-bank benchmarks, upcoming decisions and published guidance.</p><div class="grid">{allTrade90Pairs.map(p=><a href={pairUrl(p.symbol)}>{p.label} <span>→</span></a>)}</div></section>
+ <p class="about">A larger nominal policy-rate gap does not guarantee currency appreciation, carry returns or a profitable trade. Learn the <a href="/methodology/">methodology</a> and <a href="/learn/high-interest-rates-currency-strength/">why higher rates do not imply stronger currencies</a>.</p>
+</main>
+</Layout>
+<style>.links{padding:22px 0}.links h2{font-size:1.35rem}.links p,.about{color:#a5b4c8;font-size:.85rem}.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:13px}.grid a{display:flex;justify-content:space-between;gap:3px;text-decoration:none;color:#a7f3d0;border:1px solid #334155;background:#111c30;padding:9px 10px;border-radius:8px;font-size:.78rem;font-weight:750}.grid a:hover{border-color:#10b981}.about{padding-bottom:16px}@media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}@media(max-width:600px){.grid{grid-template-columns:repeat(3,1fr)}}</style>
