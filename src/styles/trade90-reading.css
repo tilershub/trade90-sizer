@@ -378,3 +378,72 @@ html[data-theme="light"] .pair-page .pair-head h1 {color:#102033 !important}
 html[data-theme="light"] .home .hero p {color:#334155 !important}
 html[data-theme="light"] .home .hero p strong {color:#102033 !important}
 html[data-theme="light"] .home .hero h1 em {color:#047857 !important}
+
+
+/* October 17 reading QA: the homepage's freshness notice must never resemble a
+ * continuously updating green trading quote, and must pass WCAG text contrast. */
+html[data-theme="light"] .home .data-status {
+  background:#edf7f2;
+  border:1px solid #b7d8c6;
+  border-left:4px solid #047857;
+  color:#102033;
+  box-shadow:0 1px 4px rgba(15,23,42,.06);
+}
+html[data-theme="light"] .home .data-status>strong,
+html[data-theme="light"] .home .data-status>span strong{color:#102033}
+html[data-theme="light"] .home .data-status>span:not(.statusdot){color:#334155}
+html[data-theme="light"] .home .data-status .statusdot{background:#047857}
+html[data-theme="light"] .home .data-status a {color:#065f46;text-decoration:underline;text-underline-offset:3px}
+html .home .data-status{font-size:.9rem;line-height:1.65}
+html .home .data-status a{font-weight:760}
+
+/* Long-form financial research: dark text on light, adequate font size, and
+ * clear underlined source links. The dark theme retains existing brand colors. */
+html .reading-policy .page-intro p,
+html .reading-policy section>p,
+html .reading-policy .class p,
+html .article-section p,
+html .article p,
+html .article li {font-size:1rem;line-height:1.77}
+html .reading-policy table td,html .reading-policy table th {font-size:.93rem;line-height:1.62}
+html .reading-policy .status-overview small{font-size:.88rem}
+html .reading-policy .critical{font-size:1rem;line-height:1.7}
+html[data-theme="light"] .reading-policy .critical {
+  background:#e8f5ef;
+  color:#102033;
+  border-left-color:#047857;
+}
+html[data-theme="light"] .reading-policy a,
+html[data-theme="light"] .article a,
+html[data-theme="light"] .pair-page .article-section a {
+  color:#065f46;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+}
+html .reading-policy .table-scroll{scrollbar-width:thin}
+html .home .metric,
+html .home .pair-card,
+html .home .decision,
+html .policy-section .update-card {line-height:1.58}
+
+/* Force the text-heavy iPhone experience to one readable column rather than
+ * squeezing six rate cards and four decision cards into two 170px columns. */
+@media(max-width:540px){
+ html .home .pair-grid,
+ html .home .decision-grid {grid-template-columns:minmax(0,1fr)}
+ html .home .pair-card {padding:16px 18px}
+ html .home .pair-card strong {font-size:1.55rem;margin:10px 0}
+ html .home .pair-card .pair-top {display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.83rem}
+ html .home .pair-card .pair-top span:last-child {display:inline}
+ html .home .pair-card .pair-bottom {display:flex;align-items:center;gap:10px;justify-content:space-between}
+ html .home .pair-card .pair-bottom span:last-child {display:inline;margin-top:0}
+ html .home .decision {padding:16px 18px}
+ html .home .decision strong {font-size:1.18rem}
+ html .home .section-head p {font-size:.97rem}
+ html .home .data-status {align-items:flex-start;padding:14px;font-size:.91rem}
+ html .home .data-status>strong {white-space:normal}
+ html .policy-section .update-card{padding:18px}
+ html .home .guides a{padding:18px}
+ html .home .guides strong{font-size:1.05rem}
+ html .theme-label select,.mobile-menu summary{min-height:44px}
+}
