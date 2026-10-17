@@ -3,6 +3,9 @@ name: Trade90 verified rates, V3 UX and SEO build
 on:
   pull_request:
     paths:
+      - "package.json"
+      - "scripts/publish-sitemap.mjs"
+      - "tests/trade90-sitemap.mjs"
       - "src/**"
       - "public/**"
       - "scripts/publish-forward-rates.mjs"
@@ -81,6 +84,8 @@ jobs:
           grep -q 'Central Bank Policy Updates' dist/central-banks/index.html
       - name: Audit SEO and static V3 routes
         run: node tests/trade90-v3-build.mjs
+      - name: Verify current sitemap.xml and canonical pages
+        run: node tests/trade90-sitemap.mjs
       - name: Desktop and mobile interaction checks
         run: |
           npm install --no-save playwright@1.56.1
