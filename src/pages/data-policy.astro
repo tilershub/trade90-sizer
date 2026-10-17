@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Trade90V2Layout.astro";
+import SourceWatch from "../components/Trade90SourceWatch.svelte";
 import snapshot from "../data/trade90-policy-snapshot.json";
 import {policyCollectionAsOf} from "../data/trade90-policy-updates.js";
 import {decisionCalendarReviewedAt} from "../data/trade90-decision-calendar.js";
@@ -20,13 +21,15 @@ const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numer
    <div><span>Official decision calendar review</span><strong><time datetime={decisionCalendarReviewedAt}>{format(decisionCalendarReviewedAt)}</time></strong><small>Curated meeting dates, not automatically synchronized</small></div>
    <div><span>Reported expectation observations</span><strong><time datetime={outlookAsOf}>{format(outlookAsOf)}</time></strong><small>Time-specific third-party reports, not live quotes</small></div>
   </section>
-  <p class="critical"><strong>Current refresh status:</strong> Trade90's public policy-rate and decision-calendar records are updated through a curated publication workflow. No automated hourly, daily or per-minute ingestion job is connected to those datasets. The site may be out of date between reviews. The CI build tests correctness of published structures; passing a build does not mean external rates or news were refreshed.</p>
+  <p class="critical"><strong>Current refresh status:</strong> Trade90's public policy-rate and decision-calendar records are updated through a curated publication workflow. An hourly GitHub Actions monitor now checks official bank publication sources for newly published links, but this is **discovery only**: it does not automatically update policy-rate percentages, rewrite the decision calendar, or verify policy summaries. The original bank-rate and calendar datasets still require a separate verification and publication process. The site may be out of date between reviews. The CI build tests correctness of published structures; passing a build does not mean external rates or news were refreshed.</p>
+  <SourceWatch client:load />
   <section>
    <h2>How frequently does TRADE90 update?</h2>
+   <p><strong>Source discovery runs hourly on a best-effort schedule</strong> through GitHub Actions; individual runs can be delayed, fail or be blocked by the source website. The monitor records official source links and flags detected changes for review. It does not automatically prove the content of a policy decision or refresh the official rate snapshot. Source health from the latest successful run is shown above.</p>
    <div class="table-scroll"><table><thead><tr><th>Dataset</th><th>Actual operating status</th><th>Planned verification standard</th></tr></thead><tbody>
-    <tr><td><strong>Official central-bank benchmarks</strong></td><td>Static verified snapshot; not automatic</td><td>Verify after each official decision, with a daily source check once monitoring is deployed</td></tr>
-    <tr><td><strong>Upcoming policy meetings</strong></td><td>Curated dated calendar; not a live feed</td><td>Review daily and after schedule-change announcements</td></tr>
-    <tr><td><strong>Decisions, minutes and policy reports</strong></td><td>Curated records with publication dates</td><td>Check bank publication channels on business days; publish verified changes promptly</td></tr>
+    <tr><td><strong>Official central-bank benchmarks</strong></td><td>Static verified snapshot; scheduled official-source checks do not directly modify the rate</td><td>Verify after each official decision, with a daily source check once monitoring is deployed</td></tr>
+    <tr><td><strong>Upcoming policy meetings</strong></td><td>Curated dated calendar; not an automatically synchronized calendar</td><td>Review daily and after schedule-change announcements</td></tr>
+    <tr><td><strong>Decisions, minutes and policy reports</strong></td><td>Curated records; an hourly automated monitor also discovers official publication links for review</td><td>Check bank publication channels on business days; publish verified changes promptly</td></tr>
     <tr><td><strong>Reported pricing, surveys and market commentary</strong></td><td>Source-attributed dated reports; no continuous refresh</td><td>New relevant reports when independently checked, with accurate observation dates</td></tr>
     <tr><td><strong>3M, 6M and 12M market-implied policy paths</strong></td><td><strong>Numeric data provider not connected</strong></td><td>Only after a comparable, verifiable provider with public redisplay authorization is contracted</td></tr>
     <tr><td><strong>24-hour / 7-day forward-rate changes</strong></td><td>No genuine numeric forward history has been published</td><td>Calculate only after real compatible timestamped observations exist</td></tr>
