@@ -14,8 +14,16 @@
   ],
   "shortcuts": [
     {
-      "name": "Rate Gaps",
-      "url": "/"
+      "name": "Compare 28 Rate Gaps",
+      "url": "/rate-gaps/"
+    },
+    {
+      "name": "Explore Currency Pairs",
+      "url": "/pairs/"
+    },
+    {
+      "name": "Upcoming Decisions",
+      "url": "/decisions/"
     },
     {
       "name": "Learn",

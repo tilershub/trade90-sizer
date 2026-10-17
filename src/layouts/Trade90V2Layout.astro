@@ -1,5 +1,5 @@
 ---
-const {title="Central Bank Rate Divergence",description="Compare official central bank policy rates across 28 forex pairs. Explore current rate gaps, forward-rate data availability, policy changes, and pair details.",canonical="/"} = Astro.props;
+const {title="Central Bank Rate Divergence",description="Compare official central bank policy rates across 28 forex pairs. Explore current rate gaps, forward-rate data availability, policy changes, and pair details.",canonical="/",noindex=false} = Astro.props;
 const url = new URL(canonical,"https://tradeninety.com").toString();
 ---
 <!doctype html>
@@ -10,6 +10,7 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
   <meta name="theme-color" content="#0f172a" />
   <script is:inline>(function(){try{var p=localStorage.getItem("trade90-appearance")||"system";var m=window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=p==="system"?(m?"light":"dark"):p;document.documentElement.dataset.appearance=p;}catch(e){document.documentElement.dataset.theme="dark";}})();</script>
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={url} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -23,6 +24,12 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
   <meta property="og:description" content={description} />
   <meta property="og:url" content={url} />
   <meta property="og:image" content="https://tradeninety.com/og-v3.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:image" content="https://tradeninety.com/og-v3.svg" />
+  {canonical === "/" && <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"WebSite","name":"TRADE90","url":"https://tradeninety.com/","inLanguage":"en","description":"Source-linked central bank rate divergence research for 28 forex currency pairs."})}/>}
+
   <meta name="twitter:card" content="summary_large_image" />
   <title>{title} | TRADE90</title>
 </head>
@@ -53,6 +60,7 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
     </div>
     <div class="wrap fine">Educational and informational use only. A policy-rate gap is not a broker swap rate, a forward FX quote, or a prediction of currency performance.</div>
   </footer>
+  <script is:inline>(function(){/* TRADE90 no longer uses an offline service worker; retire any old cache-first worker so it cannot pin the V2 homepage. */if(!("serviceWorker" in navigator))return;navigator.serviceWorker.getRegistrations().then(function(regs){regs.forEach(function(reg){if(reg.scope.indexOf(location.origin)===0)reg.unregister().catch(function(){});});}).catch(function(){});})();</script>
   <script is:inline>(function(){var s=document.getElementById("trade90-theme");if(!s)return;var p=document.documentElement.dataset.appearance||"system";s.value=p;function apply(v){var isLight=window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=v==="system"?(isLight?"light":"dark"):v;document.documentElement.dataset.appearance=v;}s.addEventListener("change",function(){try{localStorage.setItem("trade90-appearance",s.value)}catch(e){}apply(s.value);});try{window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",function(){if(s.value==="system")apply("system")});}catch(e){} })();</script>
 </body>
 </html>
@@ -163,6 +171,99 @@ html[data-theme="light"] .footer .brand{color:#0f172a}
 html[data-theme="light"] .footer .footlinks a{color:#334155}
 html[data-theme="light"] .footer p,html[data-theme="light"] .fine{color:#475569}
 /* Research widgets retain deliberately dark terminal surfaces in light reading mode. */
+
+
+/* V3 reading theme: research modules must adapt too, rather than leaving
+   readers with white pages containing dark-only cards and low-contrast text. */
+html[data-theme="light"] .pair-page .crumbs,html[data-theme="light"] .home .pair-top,
+html[data-theme="light"] .pair-page .card-label,html[data-theme="light"] .pair-page .gap-card p{color:#475569}
+html[data-theme="light"] .policy-section,
+html[data-theme="light"] .policy-section .policy-header h2,
+html[data-theme="light"] .policy-section .update-card h3,
+html[data-theme="light"] .guidance .heading h2,
+html[data-theme="light"] .guidance .item h3,
+html[data-theme="light"] .decision-watch .watch-head h2,
+html[data-theme="light"] .forward .forward-head strong,
+html[data-theme="light"] .full-table table{color:#0f172a}
+html[data-theme="light"] .policy-section .update-card,
+html[data-theme="light"] .guidance .item,
+html[data-theme="light"] .decision-watch .watch-card,
+html[data-theme="light"] .forward,
+html[data-theme="light"] .full-table .tools,
+html[data-theme="light"] .bankdirectory .banktiles a{background:#fff;color:#0f172a;border-color:#d5dfea}
+html[data-theme="light"] .policy-section .collection-note,
+html[data-theme="light"] .policy-section .takeaway,
+html[data-theme="light"] .guidance .watch,
+html[data-theme="light"] .decision-watch .watch-for,
+html[data-theme="light"] .forward .status,
+html[data-theme="light"] .forward .periods button,
+html[data-theme="light"] .full-table th,
+html[data-theme="light"] .full-table tbody tr:hover{background:#eff6f8;color:#334155;border-color:#d5dfea}
+html[data-theme="light"] .policy-section .collection-note strong,
+html[data-theme="light"] .policy-section .takeaway strong,
+html[data-theme="light"] .guidance .watch strong,
+html[data-theme="light"] .decision-watch .watch-for strong,
+html[data-theme="light"] .decision-watch .event-date,
+html[data-theme="light"] .guidance .line strong,
+html[data-theme="light"] .policy-section .currency,
+html[data-theme="light"] .decision-watch .watch-card-top strong{color:#065f46}
+html[data-theme="light"] .policy-section .policy-header p,
+html[data-theme="light"] .policy-section .update-card>p,
+html[data-theme="light"] .policy-section .collection-note,
+html[data-theme="light"] .policy-section .meta time,
+html[data-theme="light"] .policy-section .results,
+html[data-theme="light"] .guidance .heading p,
+html[data-theme="light"] .guidance .item>p,
+html[data-theme="light"] .guidance .foot,
+html[data-theme="light"] .guidance .line time,
+html[data-theme="light"] .guidance .watch p,
+html[data-theme="light"] .decision-watch .watch-head p,
+html[data-theme="light"] .decision-watch .watch-for p,
+html[data-theme="light"] .decision-watch .meeting-start,
+html[data-theme="light"] .decision-watch .watch-note,
+html[data-theme="light"] .forward .forward-head p,
+html[data-theme="light"] .forward .updated,
+html[data-theme="light"] .forward .disclaimer,
+html[data-theme="light"] .full-table .showing,
+html[data-theme="light"] .full-table .note{color:#475569}
+html[data-theme="light"] .policy-section .publication-type,
+html[data-theme="light"] .decision-watch .watch-card-top span,
+html[data-theme="light"] .forward .state-ok{background:#e7f6ee;color:#065f46;border-color:#a5d9c1}
+html[data-theme="light"] .guidance .stance{background:#eaf2f7;color:#334155;border-color:#cbd5e1}
+html[data-theme="light"] .forward table th{background:#e9f1f5;color:#334155}
+html[data-theme="light"] .forward table td,
+html[data-theme="light"] .full-table table td{color:#0f172a;border-color:#d5dfea}
+html[data-theme="light"] .forward table td.value,
+html[data-theme="light"] .forward .pairbutton,
+html[data-theme="light"] .full-table .pair-link,
+html[data-theme="light"] .full-table .entry a{color:#047857}
+html[data-theme="light"] .full-table .tools label{color:#334155}
+html[data-theme="light"] .full-table .tools input,
+html[data-theme="light"] .full-table .tools select{background:#fff;color:#0f172a;border-color:#94a3b8}
+html[data-theme="light"] .policy-section .source-link,
+html[data-theme="light"] .decision-watch a,
+html[data-theme="light"] .guidance .item a,
+html[data-theme="light"] .forward a,
+html[data-theme="light"] .pair-page .bank-card a,
+html[data-theme="light"] .pair-page .related-links a,
+html[data-theme="light"] .pair-page .related-links a span{color:#047857}
+html[data-theme="light"] .finder .results{background:#fff;color:#0f172a;border-color:#cbd5e1}
+html[data-theme="light"] .finder .result-head,
+html[data-theme="light"] .finder .result-items a span:nth-child(2){color:#475569}
+html[data-theme="light"] .finder .result-items a{color:#0f172a;border-color:#d5dfea}
+html[data-theme="light"] .finder .result-items a:hover{background:#eaf4ee}
+html[data-theme="light"] .finder .result-items a strong,
+html[data-theme="light"] .finder .gap{color:#047857}
+html[data-theme="light"] .full-table .scroll{background:#fff}
+html[data-theme="light"] .full-table table th{color:#334155}
+html[data-theme="light"] .home .pair-bottom span:last-child,
+html[data-theme="light"] .home .metric span:last-child,
+html[data-theme="light"] .home .decision span,
+html[data-theme="light"] .home .section-head>a,
+html[data-theme="light"] .home .popular a{color:#047857}
+html[data-theme="light"] .pair-page .bank-card .value{color:#0f172a}
+html[data-theme="light"] .bankdirectory .banktiles a strong{color:#0f172a}
+html[data-theme="light"] .bankdirectory .banktiles a span{color:#475569}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>

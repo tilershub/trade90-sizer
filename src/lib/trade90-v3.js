@@ -5,7 +5,7 @@ export const bySymbol=Object.fromEntries(allTrade90Pairs.map(p=>[p.symbol,p]));
 export const pairSlug=s=>s.slice(0,3).toLowerCase()+"-"+s.slice(3).toLowerCase();
 export const pairUrl=s=>"/pairs/"+pairSlug(s)+"/";
 export const pairFromSlug=s=>bySymbol[(s||"").replace(/[-/_]/g,"").toUpperCase()]||null;
-export const formatPercent=v=>Number(v).toFixed(Number.isInteger(v)?2:3)+"%";
+export const formatPercent=v=>{const value=Number(v);const hundredths=value*100;return value.toFixed(Math.abs(hundredths-Math.round(hundredths))<1e-8?2:3)+"%";};
 export const reportDate=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
 export const currencyContext={
  USD:{country:"United States",drivers:"US inflation, payrolls, Fed communications and Treasury-market repricing",benchmark:"Federal funds target range midpoint"},
