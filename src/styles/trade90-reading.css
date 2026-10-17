@@ -508,9 +508,7 @@ html[data-theme="dark"] .home .pair-card:hover,
 html[data-theme="dark"] .home .metric:hover{background:#192638}
 html .topbar nav a{text-transform:none;font-size:.78rem;letter-spacing:0;font-weight:660}
 html .footer .footlinks a{font-size:.83rem}
-html .home .pair-card,
-html .home .metric,
-html .home .decision{transition:border-color .12s ease,background-color .12s ease}
+/* Immediate theme switch: no half-light cards with dark text or vice versa. */
 @media (max-width:600px){
  html .home .hero{padding-top:23px}
  html .home .hero h1{font-size:clamp(2rem,9vw,2.6rem)}
