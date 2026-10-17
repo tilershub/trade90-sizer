@@ -128,7 +128,8 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
  const results={};
  const supplemental={
    EUR:["https://www.ecb.europa.eu/press/govcdec/mopo/html/index.en.html"],
-   NZD:["https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/the-official-cash-rate"]
+   JPY:["https://www.boj.or.jp/en/mopo/mpmdeci/state_2026/"],
+   NZD:["https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions","https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/the-official-cash-rate"]
  };
  for(const s of SOURCES){
    results[s.code]=await scanOne(s,fetcher);
