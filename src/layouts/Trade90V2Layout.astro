@@ -1,5 +1,5 @@
 ---
-const {title="Central Bank Rate Divergence",description="Compare official central bank policy rates across 28 forex pairs. Explore current rate gaps, forward-rate data availability, policy changes, and pair details.",canonical="/"} = Astro.props;
+const {title="Central Bank Rate Divergence",description="Compare official central bank policy rates across 28 forex pairs. Explore current rate gaps, forward-rate data availability, policy changes, and pair details.",canonical="/",noindex=false} = Astro.props;
 const url = new URL(canonical,"https://tradeninety.com").toString();
 ---
 <!doctype html>
@@ -10,6 +10,7 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
   <meta name="theme-color" content="#0f172a" />
   <script is:inline>(function(){try{var p=localStorage.getItem("trade90-appearance")||"system";var m=window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=p==="system"?(m?"light":"dark"):p;document.documentElement.dataset.appearance=p;}catch(e){document.documentElement.dataset.theme="dark";}})();</script>
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={url} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -23,6 +24,12 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
   <meta property="og:description" content={description} />
   <meta property="og:url" content={url} />
   <meta property="og:image" content="https://tradeninety.com/og-v3.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:image" content="https://tradeninety.com/og-v3.svg" />
+  {canonical === "/" && <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"WebSite","name":"TRADE90","url":"https://tradeninety.com/","inLanguage":"en","description":"Source-linked central bank rate divergence research for 28 forex currency pairs."})}/>}
+
   <meta name="twitter:card" content="summary_large_image" />
   <title>{title} | TRADE90</title>
 </head>
