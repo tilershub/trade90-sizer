@@ -5,6 +5,9 @@ on:
     paths:
       - "package.json"
       - "scripts/publish-sitemap.mjs"
+      - "scripts/submit-indexnow.mjs"
+      - "tests/indexnow.mjs"
+      - ".github/workflows/indexnow-discovery.yml"
       - "tests/trade90-sitemap.mjs"
       - "src/**"
       - "public/**"
@@ -61,6 +64,8 @@ jobs:
         run: node tests/trade90-v3.mjs
       - name: Validate automatic source monitoring safeguards
         run: node tests/monitor-official-sources.mjs
+      - name: Verify IndexNow canonical page notification safety
+        run: node tests/indexnow.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes

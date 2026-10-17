@@ -1,0 +1,56 @@
+name: TRADE90 IndexNow discovery
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/pages/**"
+      - "src/components/**"
+      - "src/lib/**"
+      - "src/data/**"
+      - "src/layouts/**"
+      - "scripts/submit-indexnow.mjs"
+      - "scripts/publish-sitemap.mjs"
+      - "astro.config.mjs"
+      - ".github/workflows/indexnow-discovery.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: trade90-indexnow-discovery
+  cancel-in-progress: true
+jobs:
+  notify-indexnow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify IndexNow domain-key and selected URL rules
+        run: node tests/indexnow.mjs
+      - name: Build current canonical sitemap
+        run: |
+          npm run build
+          node tests/trade90-sitemap.mjs
+      - name: Find changed indexable research pages
+        if: github.event_name == 'push'
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            git diff --name-only "$BEFORE" "$GITHUB_SHA" > /tmp/trade90-index-changes.txt
+          else
+            echo "src/components/research-changed" > /tmp/trade90-index-changes.txt
+          fi
+      - name: Submit changed URLs to IndexNow
+        if: github.event_name == 'push'
+        run: node scripts/submit-indexnow.mjs --changed-file=/tmp/trade90-index-changes.txt
+      - name: Submit all valid URLs to IndexNow (manual request)
+        if: github.event_name == 'workflow_dispatch'
+        run: node scripts/submit-indexnow.mjs
