@@ -73,10 +73,10 @@ async function inspect(page,selector,route){
     for(const selector of selectors)await inspect(page,selector,route);
     if(route==="/" && viewport.width<500){
       const cardLayout=await page.locator(".home .pair-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);
-      const columns=cardLayout.trim().split(/\\s+/);
+      const columns=cardLayout.trim().split(/\s+/);
       assert.equal(columns.length,1,"Pair cards on iPhone must use one readable column: "+cardLayout);
       const decisionLayout=await page.locator(".home .decision-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);
-      assert.equal(decisionLayout.trim().split(/\\s+/).length,1,"Decision cards must use one readable column: "+decisionLayout);
+      assert.equal(decisionLayout.trim().split(/\s+/).length,1,"Decision cards must use one readable column: "+decisionLayout);
     }
     const horizontal=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth}));
     assert.ok(horizontal.scroll<=horizontal.width+4,"Horizontal overflow in light mode "+route+" "+JSON.stringify(horizontal));
