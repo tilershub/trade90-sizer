@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "status": "partial",
-  "lastScanAt": "2026-10-17T12:26:35.825Z",
+  "status": "monitored",
+  "lastScanAt": "2026-10-17T12:41:15.375Z",
   "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
   "sources": [
     {
@@ -10,67 +10,67 @@
       "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
       "domain": "federalreserve.gov",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
       "items": [
         {
           "title": "Minutes of the Board's discount rate meetings on August 17, September 9, and September 16, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261013a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261013a.htm"
         },
         {
           "title": "Minutes of the Federal Open Market Committee, September 15-16, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm"
         },
         {
           "title": "Federal Reserve issues FOMC statement",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
         },
         {
           "title": "Federal Reserve Board and Federal Open Market Committee release economic projections from the September 15-16 FOMC meeting",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916b.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916b.htm"
         },
         {
           "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm"
         },
         {
           "title": "Minutes of the Federal Open Market Committee, July 28–29, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm"
         },
         {
           "title": "Federal Reserve issues FOMC statement",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm"
         },
         {
           "title": "Minutes of the Board's discount rate meetings on June 8 and June 17, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260714a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260714a.htm"
         },
         {
           "title": "Federal Reserve announces the leadership and objectives of its task forces to advance the conduct of monetary policy",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260709a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260709a.htm"
         },
         {
           "title": "Minutes of the Federal Open Market Committee, June 16-17, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260708a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260708a.htm"
         },
         {
           "title": "Federal Reserve issues FOMC statement",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"
         },
         {
           "title": "Federal Reserve Board and Federal Open Market Committee release economic projections from the June 16-17 FOMC meeting",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617b.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617b.htm"
         },
         {
           "title": "Minutes of the Board's discount rate meeting on April 20 and 29, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260526a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260526a.htm"
         },
         {
           "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
         },
         {
           "title": "Federal Reserve issues FOMC statement",
-          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm]]%3E"
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm"
         }
       ]
     },
@@ -80,15 +80,15 @@
       "url": "https://www.ecb.europa.eu/rss/press.html",
       "domain": "ecb.europa.eu",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
       "items": [
         {
           "title": "Philip R. Lane: Diagnostic Challenges for ECB Monetary Policy",
-          "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261005~1d8d998ef4.en.html"
+          "url": "https://www.ecb.europa.eu/press/key/date/2026/html/ecb.sp261005~1d8d998ef4.en.html"
         },
         {
           "title": "Decisions taken by the Governing Council of the ECB (in addition to decisions setting interest rates)",
-          "url": "https://www.ecb.europa.eu//press/govcdec/otherdec/2026/html/ecb.gc261002~54c6b5672b.en.html"
+          "url": "https://www.ecb.europa.eu/press/govcdec/otherdec/2026/html/ecb.gc261002~54c6b5672b.en.html"
         }
       ]
     },
@@ -98,32 +98,8 @@
       "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
       "domain": "bankofengland.co.uk",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
       "items": [
-        {
-          "title": "SONIA interest rate benchmark",
-          "url": "https://www.bankofengland.co.uk/markets/sonia-benchmark"
-        },
-        {
-          "title": "Interest rates and Bank Rate",
-          "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
-        },
-        {
-          "title": "Prudential and Resolution Policy Index",
-          "url": "https://www.bankofengland.co.uk/prudential-regulation/prudential-and-resolution-policy-index"
-        },
-        {
-          "title": "Financial Policy Committee",
-          "url": "https://www.bankofengland.co.uk/about/people/financial-policy-committee"
-        },
-        {
-          "title": "Monetary Policy Committee",
-          "url": "https://www.bankofengland.co.uk/about/people/monetary-policy-committee"
-        },
-        {
-          "title": "News and minutes",
-          "url": "https://www.bankofengland.co.uk/news/news"
-        },
         {
           "title": "Publication // Monetary Policy Report (MPR) 30 July 2026 Monetary Policy Report - July 2026 Monetary Policy Report - July 2026",
           "url": "https://www.bankofengland.co.uk/monetary-policy-report/2026/july-2026"
@@ -149,20 +125,44 @@
           "url": "https://www.bankofengland.co.uk/monetary-policy-report/2027/november-2027"
         },
         {
-          "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
-          "url": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement"
-        },
-        {
-          "title": "Publication // Working Paper 09 October 2026 Navigating climate policy shocks: optimal... Navigating climate policy shocks: optimal monetary policy responses",
-          "url": "https://www.bankofengland.co.uk/working-paper/2026/navigating-climate-policy-shocks-optimal-monetary-policy-responses"
-        },
-        {
-          "title": "Publication // Working Paper 09 October 2026 Domestic and foreign insurer corporate bond... Domestic and foreign insurer corporate bond demand and monetary policy",
-          "url": "https://www.bankofengland.co.uk/working-paper/2026/domestic-and-foreign-insurer-corporate-bond-demand-and-monetary-policy"
-        },
-        {
           "title": "News // Monetary Policy Committee (MPC) 17 September 2026 Bank rate maintained at 3.75% - September... Bank rate maintained at 3.75% - September 2026 Monetary Policy Summary and Minutes",
           "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 30 July 2026 Bank Rate maintained at 3.75% - July 2026... Bank Rate maintained at 3.75% - July 2026 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 18 June 2026 Bank Rate maintained at 3.75% - June 2026... Bank Rate maintained at 3.75% - June 2026 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 30 April 2026 Bank Rate maintained at 3.75% - April 2026... Bank Rate maintained at 3.75% - April 2026 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/april-2026"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 19 March 2026 Bank Rate maintained at 3.75% - March 2026... Bank Rate maintained at 3.75% - March 2026 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/march-2026"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 05 February 2026 Bank Rate maintained at 3.75% - February... Bank Rate maintained at 3.75% - February 2026 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/february-2026"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 18 December 2025 Bank Rate reduced to 3.75% - December 2025... Bank Rate reduced to 3.75% - December 2025 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 06 November 2025 Bank Rate maintained at 4% - November 2025... Bank Rate maintained at 4% - November 2025 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/november-2025"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 05 November 2026 Monetary Policy Summary and minutes of the... Monetary Policy Summary and minutes of the Monetary Policy Committee meeting - November 2026 (to be published...",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 17 December 2026 Monetary Policy Summary and minutes of the... Monetary Policy Summary and minutes of the Monetary Policy Committee meeting - December 2026 (to be published...",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/december-2026"
         }
       ]
     },
@@ -172,63 +172,15 @@
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "domain": "boj.or.jp",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
       "items": [
-        {
-          "title": "Outline of Monetary Policy",
-          "url": "https://www.boj.or.jp/en/mopo/outline/index.htm"
-        },
-        {
-          "title": "Review of Monetary Policy from a Broad Perspective",
-          "url": "https://www.boj.or.jp/en/mopo/outline/bpreview/index.htm"
-        },
-        {
-          "title": "Monetary Policy Meetings",
-          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm"
-        },
-        {
-          "title": "Monetary Policy Releases",
-          "url": "https://www.boj.or.jp/en/mopo/mpmdeci/index.htm"
-        },
-        {
-          "title": "Monetary Policy Measures",
-          "url": "https://www.boj.or.jp/en/mopo/measures/index.htm"
-        },
-        {
-          "title": "Policy Actions for Financial Stability",
-          "url": "https://www.boj.or.jp/en/finsys/fs_policy/index.htm"
-        },
-        {
-          "title": "Cross-Industry Committee on Japanese Yen Interest Rate Benchmarks",
-          "url": "https://www.boj.or.jp/en/paym/market/jpy_cmte/index.htm"
-        },
-        {
-          "title": "Cross-Industry Forum on Interest Rate Benchmarks",
-          "url": "https://www.boj.or.jp/en/paym/market/i_forum/index.htm"
-        },
-        {
-          "title": "Social Networking Site Management Policy",
-          "url": "https://www.boj.or.jp/en/snspolicy.htm"
-        },
         {
           "title": "Speech by Board Member KOEDA in Kumamoto (Economic Activity, Prices, and Monetary Policy in Japan)",
           "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko261015a.htm"
         },
         {
-          "title": "Monetary Base and the Bank of Japan's Transactions (Sept.)[PDF&nbsp;132KB]",
-          "url": "https://www.boj.or.jp/en/statistics/boj/other/mbt/mbt2609.pdf"
-        },
-        {
           "title": "Opening Remarks by Deputy Governor UCHIDA at the ECONDAT 2026 Fall Meeting (AI, Big Data, and Monetary Policy)",
           "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko261005a.htm"
-        },
-        {
-          "title": "Monetary Base (Sept.)",
-          "url": "https://www.boj.or.jp/en/statistics/boj/other/mb/mb.htm"
-        },
-        {
-          "title": "Average Contract Interest Rates on Loans and Discounts (Aug.)[PDF&nbsp;1,118KB]",
-          "url": "https://www.boj.or.jp/en/statistics/dl/loan/yaku/yaku2608.pdf"
         },
         {
           "title": "Summary of Opinions at the Monetary Policy Meeting on September 17 and 18, 2026[PDF&nbsp;227KB]",
@@ -237,6 +189,54 @@
         {
           "title": "Minutes of the Monetary Policy Meeting on July 30 and 31, 2026[PDF&nbsp;353KB]",
           "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/minu_2026/g260731.pdf"
+        },
+        {
+          "title": "Speech by Board Member MASU in Fukui (Economic Activity, Prices, and Monetary Policy in Japan)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko260910a.htm"
+        },
+        {
+          "title": "Speech by Board Member TAKATA in Sapporo (Economic Activity, Prices, and Monetary Policy in Japan)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko260902a.htm"
+        },
+        {
+          "title": "Speech by Deputy Governor HIMINO in Saitama (Japan's Economy and Monetary Policy)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko260827a.htm"
+        },
+        {
+          "title": "Summary of Opinions at the Monetary Policy Meeting on July 30 and 31, 2026[PDF&nbsp;175KB]",
+          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/opinion_2026/opi260731.pdf"
+        },
+        {
+          "title": "Minutes of the Monetary Policy Meeting on June 15 and 16, 2026[PDF&nbsp;313KB]",
+          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/minu_2026/g260616.pdf"
+        },
+        {
+          "title": "Statement on Monetary Policy[PDF&nbsp;160KB]",
+          "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260731a.pdf"
+        },
+        {
+          "title": "Speech by Board Member TAMURA in Hyogo (Economic Activity, Prices, and Monetary Policy in Japan)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko260625a.htm"
+        },
+        {
+          "title": "Summary of Opinions at the Monetary Policy Meeting on June 15 and 16, 2026[PDF&nbsp;212KB]",
+          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/opinion_2026/opi260616.pdf"
+        },
+        {
+          "title": "Minutes of the Monetary Policy Meeting on April 27 and 28, 2026[PDF&nbsp;336KB]",
+          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/minu_2026/g260428.pdf"
+        },
+        {
+          "title": "Speech by Board Member KOEDA in Fukuoka (Economic Activity, Prices, and Monetary Policy in Japan)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko260521a.htm"
+        },
+        {
+          "title": "Speech by Deputy Governor HIMINO at the Japan Society of Monetary Economics (Singleness of Money and the Role of Central Banks)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko260516a.htm"
+        },
+        {
+          "title": "Speech by Board Member MASU at a Meeting Held by the Kagoshima Keizai Doyukai (Economic Activity, Prices, and Monetary Policy in Japan)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko260514a.htm"
         }
       ]
     },
@@ -246,7 +246,7 @@
       "url": "https://www.rba.gov.au/media-releases/",
       "domain": "rba.gov.au",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
       "items": [
         {
           "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
@@ -317,11 +317,36 @@
     {
       "code": "NZD",
       "bank": "RBNZ",
-      "url": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions",
+      "url": "https://www.rbnz.govt.nz/feeds/news",
       "domain": "rbnz.govt.nz",
-      "status": "unavailable",
-      "lastSuccessAt": null,
-      "items": []
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
+      "items": [
+        {
+          "title": "Updates to the October Monetary Policy Review and November Financial Stability Report",
+          "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/updates-to-the-october-mpr-and-november-fsr"
+        },
+        {
+          "title": "New Monetary Policy Committee member appointed",
+          "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/new-monetary-policy-committee-member-appointed"
+        },
+        {
+          "title": "Reserve Bank welcomes findings of independent review of Covid-19 monetary policy",
+          "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/reserve-bank-welcomes-findings-of-independent-review-of-covid-19-monetary-policy"
+        },
+        {
+          "title": "RBNZ Governor connects with Hawke's Bay on Monetary Policy",
+          "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/05/rbnz-governor-connects-with-hawkes-bay-on-monetary-policy"
+        },
+        {
+          "title": "Enhanced Monetary Policy Committee transparency changes announced",
+          "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/04/enhanced-monetary-policy-committee-transparency-changes-announced"
+        },
+        {
+          "title": "Expanded April Monetary Policy Review and change to focus of Business NZ speech",
+          "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/03/expanded-april-monetary-policy-review-and-change-to-focus-of-business-nz-speech"
+        }
+      ]
     },
     {
       "code": "CAD",
@@ -329,24 +354,8 @@
       "url": "https://www.bankofcanada.ca/press/press-releases/",
       "domain": "bankofcanada.ca",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
       "items": [
-        {
-          "title": "Policy interest rate",
-          "url": "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/"
-        },
-        {
-          "title": "Renewing Canada’s monetary policy framework",
-          "url": "https://www.bankofcanada.ca/core-functions/monetary-policy/renewing-canadas-monetary-policy-framework/"
-        },
-        {
-          "title": "Monetary Policy Report",
-          "url": "https://www.bankofcanada.ca/publications/mpr/"
-        },
-        {
-          "title": "Monetary Policy Report—July 2026",
-          "url": "https://www.bankofcanada.ca/publications/mpr/mpr-2026-07-15/"
-        },
         {
           "title": "Repo markets and monetary policy implementation",
           "url": "https://www.bankofcanada.ca/2026/09/repo-markets-monetary-policy-implementation/"
@@ -379,12 +388,8 @@
       "url": "https://www.snb.ch/en/news-publications/media-releases",
       "domain": "snb.ch",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "lastSuccessAt": "2026-10-17T12:41:15.375Z",
       "items": [
-        {
-          "title": "Implementation of monetary policy",
-          "url": "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy/implementation"
-        },
         {
           "title": "24.09.2026 Monetary policy assessment of 24 September 2026 &#65279;",
           "url": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924"
