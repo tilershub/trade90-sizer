@@ -1,31 +1,31 @@
-# TRADE90 — Search indexing and crawl notifications
+# TRADE90 Search indexing and discovery
 
-## Implemented
+## Site architecture
 
-TRADE90 builds /sitemap.xml from its canonical public routes, including all 28 FX pair research pages and eight central-bank hubs. The generated /robots.txt advertises https://tradeninety.com/sitemap.xml. The Astro sitemap index and shard are also retained.
+TRADE90 publishes a canonical sitemap at https://tradeninety.com/sitemap.xml with 52 public URLs, including 28 currency pair research pages, eight bank research hubs, education, methodology and decision calendars. The static Astro build validates that sitemap and creates robots.txt advertising it.
 
-IndexNow site ownership is proven through the public file /indexnow-key.txt. The key file is intentionally public as part of the IndexNow protocol; it is not a password or site administration secret.
+## IndexNow automation — Bing and participating engines
 
-On main-branch public-page changes, the new .github/workflows/indexnow.yml builds and validates the sitemap, waits for the key to become accessible at the deployed domain, and sends the current deployed canonical URLs to Bing IndexNow. The workflow is also manually runnable from GitHub Actions.
+The live IndexNow implementation is .github/workflows/indexnow-discovery.yml with the publisher scripts/submit-indexnow.mjs and tests/indexnow.mjs. Its domain-ownership key is the public root file /16fd9ce1153b9709c9289b771fdbc3c9afd1d0be.txt.
 
-IndexNow script commands: node scripts/indexnow-submit.mjs --dry-run, --check-live, --submit. The script refuses an unverified domain, different key, incomplete pair/bank coverage, retired pages and noncanonical URLs. CI tests its sitemap and candidate URL validation.
+The workflow runs on relevant main-branch content changes, detects changed URLs, verifies that the published domain serves the matching IndexNow key, and notifies the IndexNow API. It also supports manual submission through GitHub Actions workflow_dispatch. Unlike an unnecessary blanket ping of the entire site on every change, this implementation normally selects changed indexable URLs.
 
-## Important limitations
+The first main-branch workflow run returned **HTTP 202** from IndexNow for 52 canonical URLs on 17 October 2026. That confirms the service received the submission, **not** that its engines crawled, indexed or ranked them. Pending key validation is possible; verify indexing results in Bing Webmaster Tools.
 
-A successful IndexNow request does not guarantee that pages are crawled, indexed, or ranked. Google does not support IndexNow for ordinary research pages; Google's Indexing API is only documented for eligible JobPosting or livestream BroadcastEvent pages, not forex research. Never use deceptive structured data or promise instant Google indexing.
+## Google Search Console — one-time owner step
 
-The GitHub automation does not imply that Google Search Console was connected or that a GSC sitemap was submitted. A separate authenticated Search Console action is required. IndexNow does not update TRADE90 financial data or improve the accuracy of policy-rate snapshots.
+Google does not accept IndexNow requests and its Indexing API does not cover these general forex research pages. Use ordinary discovery through a verified Search Console property and sitemap.
 
-## One-time setup for Google
+1. Verify ownership of tradeninety.com at https://search.google.com/search-console using its supported DNS or other verification method, if not already verified.
+2. Open Indexing > Sitemaps and submit https://tradeninety.com/sitemap.xml.
+3. Use URL Inspection for https://tradeninety.com/ and representative new pages such as https://tradeninety.com/pairs/eur-usd/ and https://tradeninety.com/rate-gaps/.
+4. Review the indexing report for crawl errors, canonical mismatches and old indexed calculator/terminal URLs. Allow real 404/410 responses for retired content; redirect only to equivalent replacements.
+5. Check index coverage and search clicks over the following days/weeks. Submission never guarantees indexing or search traffic.
 
-1. Verify domain property tradeninety.com in Google Search Console if not already verified (usually by DNS verification).
-2. Under Indexing > Sitemaps submit https://tradeninety.com/sitemap.xml.
-3. Inspect the homepage, https://tradeninety.com/pairs/eur-usd/, https://tradeninety.com/rate-gaps/, and a representative bank hub. Request indexing selectively if useful.
-4. Inspect Page Indexing, canonical conflicts, exclusions and old indexed URLs. Old calculator, journal and research-terminal URLs may remain in search results until recrawled.
-5. Serve real 404/410 responses for gone pages; use permanent redirects only for truly equivalent replacements. Avoid homepage catch-all redirects.
-6. Verify site ownership in Bing Webmaster Tools and review IndexNow diagnostics for acceptance and actual indexed-page reports.
+Search Console account access is required for property verification and sitemap submission; the GitHub workflow does not impersonate a logged-in Search Console account.
 
-## Sources
+## Official references
+
 - https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
 - https://developers.google.com/search/apis/indexing-api/v3/using-api
 - https://www.indexnow.org/documentation
