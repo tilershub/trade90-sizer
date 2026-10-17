@@ -10,6 +10,8 @@ on:
       - "tests/trade90-v2-browser.cjs"
       - "tests/trade90-v3.mjs"
       - "tests/trade90-v3-browser.cjs"
+      - "tests/monitor-official-sources.mjs"
+      - "scripts/monitor-official-sources.mjs"
       - "tests/trade90-reading-browser.cjs"
       - "tests/monitor-official-sources.mjs"
       - "scripts/monitor-official-sources.mjs"
@@ -33,6 +35,8 @@ jobs:
         run: npm ci
       - name: Validate 28-pair policy-rate calculations
         run: node tests/trade90-v2.mjs
+      - name: Validate eight-bank official publication monitoring and safe link parsing
+        run: node tests/monitor-official-sources.mjs
       - name: Verify no unlicensed published forward rates
         run: node scripts/check-forward-publication.mjs
       - name: Validate V3 pair pages and source links
