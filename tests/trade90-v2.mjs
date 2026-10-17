@@ -27,11 +27,12 @@ for (const pair of pairs) {
  assert.ok(Math.abs(pair.signedBp - Math.round((pair.baseRate-pair.quoteRate)*1000)/10)<0.00001,"correct basis point scaling");
  assert.equal(pair.higher,pair.signedBp===0?"Equal":(pair.signedBp>0?pair.base:pair.quote));
 }
-assert.equal(pairs[0].symbol,"AUDCHF");
-assert.equal(pairs[0].absBp,460);
-assert.equal(pairs.find(p=>p.symbol==="USDCHF").absBp,387.5);
-assert.equal(pairs.find(p=>p.symbol==="EURUSD").signedBp,-137.5);
-assert.equal(pairs[pairs.length-1].absBp,12.5);
+assert.equal(pairs[0].absBp,Math.max(...pairs.map(p=>p.absBp)),"Largest rank follows actual verified bank rates");
+assert.equal(pairs[pairs.length-1].absBp,Math.min(...pairs.map(p=>p.absBp)),"Smallest rank follows actual verified bank rates");
+const eurusd=pairs.find(p=>p.symbol==="EURUSD");
+assert.equal(eurusd.signedBp,Math.round((eurusd.baseRate-eurusd.quoteRate)*1000)/10,"EUR/USD derives from published bank rates");
+const usdchf=pairs.find(p=>p.symbol==="USDCHF");
+assert.equal(usdchf.absBp,Math.abs(Math.round((usdchf.baseRate-usdchf.quoteRate)*1000)/10));
 const changed=snapshot.banks.map(bank=>({...bank,rate:bank.code==="AUD"?bank.rate+0.25:bank.rate}));
 const updated=getPairs(changed);
 let modified=0;

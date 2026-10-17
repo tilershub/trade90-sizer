@@ -102,7 +102,23 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
  let prior={schemaVersion:1,status:"awaiting_first_scan",sources:[]};
  try{prior=JSON.parse(readFileSync(file,"utf8"));}catch{}
  const results={};
- for(const s of SOURCES){results[s.code]=await scanOne(s,fetcher);console.log(s.code+": "+(results[s.code].ok?"found "+results[s.code].items.length+" links":results[s.code].error));}
+ const supplemental={
+   EUR:["https://www.ecb.europa.eu/press/govcdec/mopo/html/index.en.html"],
+   NZD:["https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/the-official-cash-rate"]
+ };
+ for(const s of SOURCES){
+   results[s.code]=await scanOne(s,fetcher);
+   // Some general news RSS feeds omit the very policy-rate announcements we
+   // need. Combine a second primary-source policy release index when supplied.
+   for(const extraUrl of supplemental[s.code]||[]){
+     const alt=await scanOne({...s,url:extraUrl},fetcher);
+     if(alt.ok){
+       const entries=[...(results[s.code].ok?results[s.code].items:[]),...alt.items];
+       results[s.code]={ok:true,items:[...new Map(entries.map(item=>[item.url,item])).values()].slice(0,32)};
+     }
+   }
+   console.log(s.code+": "+(results[s.code].ok?"found "+results[s.code].items.length+" links":results[s.code].error));
+ }
  const {snapshot,changes,failed}=nextSnapshot(prior,results,now());
  if(failed.length===SOURCES.length && !(prior.sources||[]).length)throw Error("All initial source checks failed");
  const previousTime=Date.parse(prior.lastScanAt||"");

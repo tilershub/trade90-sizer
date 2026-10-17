@@ -7,6 +7,9 @@ on:
       - "public/**"
       - "scripts/publish-forward-rates.mjs"
       - "tests/trade90-v2.mjs"
+      - "scripts/auto-policy-rates.mjs"
+      - "scripts/monitor-official-sources.mjs"
+      - "tests/auto-policy-rates.mjs"
       - "tests/trade90-v2-browser.cjs"
       - "tests/trade90-v3.mjs"
       - "tests/trade90-v3-browser.cjs"
@@ -33,6 +36,10 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Verify deterministic autonomous rate publication guards
+        run: node tests/auto-policy-rates.mjs
+      - name: Verify source watcher safety
+        run: node tests/monitor-official-sources.mjs
       - name: Validate 28-pair policy-rate calculations
         run: node tests/trade90-v2.mjs
       - name: Validate eight-bank official publication monitoring and safe link parsing
