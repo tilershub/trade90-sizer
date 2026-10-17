@@ -13,6 +13,19 @@ const fed=SOURCES.find(s=>s.code==="USD");
 const rss='<rss><channel><item><title>Federal Open Market Committee announces its monetary policy decision</title><link>https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm</link></item></channel></rss>';
 const rssItems=extractOfficialLinks(rss,fed);
 assert.equal(rssItems.length,1);assert.match(rssItems[0].title,/Open Market Committee/);
+// Real Fed RSS feeds wrap link content in CDATA. Never publish a malformed /feeds/%3C![CDATA URL.
+const fedCdata='<rss><channel><item><title>Federal Reserve issues FOMC statement</title><link><![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm]]></link></item></channel></rss>';
+const fedDecoded=extractOfficialLinks(fedCdata,fed);
+assert.equal(fedDecoded.length,1);
+assert.equal(fedDecoded[0].url,"https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm");
+assert.equal(verifiedSourceUrl("<![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm]]>",fed),fedDecoded[0].url);
+assert.equal(verifiedSourceUrl("<![CDATA[https://evil.com/malware]]>",fed),null);
+assert.equal(verifiedSourceUrl("/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm]]%3E",fed),null);
+assert.equal(verifiedSourceUrl("https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",fed),null,"Not a new release");
+const oldMalformed="https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm]]%3E";
+const parsedExisting=nextSnapshot({schemaVersion:1,sources:[{code:"USD",status:"available",lastSuccessAt:"2026-10-17T10:00:00Z",items:[{title:"Federal Reserve issues FOMC statement",url:oldMalformed}]}]},
+ {USD:{ok:true,items:fedDecoded}},"2026-10-17T11:00:00Z");
+assert.equal(parsedExisting.changes.length,0,"Fixing CDATA must not trigger a false new-release notification");
 const html='<html><a href="/media-releases/2026/mr-26-30.html"><strong>Statement</strong> by the Monetary Policy Board: Interest Rate Decision</a><a href="https://fake.rba.gov.au/rates">Cash rate updated</a><a href="/media-releases/about/">About the bank</a></html>';
 const rba=SOURCES.find(s=>s.code==="AUD");
 const items=extractOfficialLinks(html,rba);
