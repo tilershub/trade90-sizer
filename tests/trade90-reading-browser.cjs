@@ -45,7 +45,8 @@ async function inspect(page,selector,route){
       ".home .decision span",".home .decision strong",".home .decision small",
       ".home .section-head p",".home .policy-section .update-card h3",
       ".home .policy-section .update-card>p",".home .policy-section .source-link",
-      ".home .guides strong",".home .guides span",".home .data-status a"
+      ".home .guides strong",".home .guides span",".home .data-status",
+      ".home .data-status>strong",".home .data-status>span:not(.statusdot)",".home .data-status a"
     ],
     "/pairs/eur-usd/":[
       ".pair-head h1",".pair-page .bank-card h2",".pair-page .bank-card p",
@@ -70,6 +71,13 @@ async function inspect(page,selector,route){
     await page.locator("#trade90-theme").selectOption("light");
     assert.equal(await page.locator("html").getAttribute("data-theme"),"light");
     for(const selector of selectors)await inspect(page,selector,route);
+    if(route==="/" && viewport.width<500){
+      const cardLayout=await page.locator(".home .pair-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);
+      const columns=cardLayout.trim().split(/\\s+/);
+      assert.equal(columns.length,1,"Pair cards on iPhone must use one readable column: "+cardLayout);
+      const decisionLayout=await page.locator(".home .decision-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);
+      assert.equal(decisionLayout.trim().split(/\\s+/).length,1,"Decision cards must use one readable column: "+decisionLayout);
+    }
     const horizontal=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth}));
     assert.ok(horizontal.scroll<=horizontal.width+4,"Horizontal overflow in light mode "+route+" "+JSON.stringify(horizontal));
    }
@@ -83,13 +91,14 @@ async function inspect(page,selector,route){
   await doc.goto(origin+"/data-policy/",{waitUntil:"domcontentloaded"});
   assert.equal(await doc.locator("h1").innerText(),"TRADE90 Data Sources & Update Policy");
   const body=await doc.locator("main").innerText();
-  for(const statement of ["not continuously refreshing","No automated hourly, daily or per-minute ingestion","not a promise","Numeric data provider not connected","Copyright, permissions and lawful data use"]){
+  for(const statement of ["not continuously refreshing","No automated hourly, daily or per-minute ingestion","not a promise","Numeric data provider not connected","Copyright, permissions and lawful data use","Quick answers for forex traders","Official source and market-data terms","Verified snapshot"]){
    assert.ok(body.includes(statement),"Data transparency statement missing: "+statement);
   }
   for(const route of ["/","/pairs/eur-usd/","/methodology/","/disclaimer/","/editorial-policy/"]){
    await doc.goto(origin+route);
    assert.ok(await doc.locator('a[href="/data-policy/"]').count()>0,"Missing transparency link on "+route);
   }
+  assert.equal(await doc.locator("body a[href='https://www.cmegroup.com/market-data/license-data.html']").count(),1,"Primary CME redistribution licensing reference required");
   assert.equal(lowContrast.length,0,"Low-contrast content ("+lowContrast.length+" samples):\n"+lowContrast.slice(0,65).join("\n"));
   console.log("Readability verified: high-contrast Light & Dark across trader pages on mobile and desktop; accurate data-policy disclosures and internal links.");
  }finally{await browser.close();}
