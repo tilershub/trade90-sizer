@@ -1,0 +1,65 @@
+name: TRADE90 hourly official-source watch
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: trade90-official-source-watch
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout publication branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify source scanner
+        run: node tests/monitor-official-sources.mjs
+      - name: Detect official releases and policy-source changes
+        run: node scripts/monitor-official-sources.mjs
+      - name: Commit monitored OFFICIAL LINKS only
+        run: |
+          git add public/data/official-source-monitor.json
+          if git diff --cached --quiet; then
+            echo "No monitored source-record changes."
+          else
+            git config user.name "trade90-source-watch[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "data: automated official bank publication-link discovery [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Create a review issue for newly detected publications
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT=$(node -e "const r=require('/tmp/trade90-source-monitor-result.json'); console.log(r.changes.length)")
+          if [ "$COUNT" -gt 0 ]; then
+            gh issue create --title "Official bank release watch: $COUNT new link(s)" --body-file /tmp/trade90-source-alert.md || echo "Issue permission unavailable; source links remain recorded."
+          fi
+      - name: Report source failures without inventing updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node -e "const r=require('/tmp/trade90-source-monitor-result.json');if(r.failed.length)console.log('Sources needing adapter/availability review:',JSON.stringify(r.failed));"
+          COUNT=$(node -e "const r=require('/tmp/trade90-source-monitor-result.json'); console.log(r.failed.length)")
+          if [ "$COUNT" -gt 0 ]; then
+            EXISTING=$(gh issue list --state open --search '"TRADE90 source watch coverage needs attention" in:title' --json number --jq 'length' 2>/dev/null || echo 1)
+            if [ "$EXISTING" = "0" ]; then
+              node -e "const r=require('/tmp/trade90-source-monitor-result.json');const fs=require('fs');fs.writeFileSync('/tmp/trade90-source-failures.md','Some official bank sources could not be read. Existing published rates were NOT changed.\n\n'+r.failed.map(e=>'- '+e.code+': '+e.error).join('\n')+'\n\nCheck the source adapter and official publication URL before relying on its automated coverage.');"
+              gh issue create --title "TRADE90 source watch coverage needs attention" --body-file /tmp/trade90-source-failures.md || true
+            fi
+          fi

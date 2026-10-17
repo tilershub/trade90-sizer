@@ -11,6 +11,9 @@ on:
       - "tests/trade90-v3.mjs"
       - "tests/trade90-v3-browser.cjs"
       - "tests/trade90-reading-browser.cjs"
+      - "tests/monitor-official-sources.mjs"
+      - "scripts/monitor-official-sources.mjs"
+      - ".github/workflows/monitor-official-sources.yml"
       - "tests/trade90-v3-build.mjs"
       - "astro.config.mjs"
       - ".github/workflows/check-market-intelligence.yml"
@@ -34,6 +37,8 @@ jobs:
         run: node scripts/check-forward-publication.mjs
       - name: Validate V3 pair pages and source links
         run: node tests/trade90-v3.mjs
+      - name: Validate automatic source monitoring safeguards
+        run: node tests/monitor-official-sources.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes
