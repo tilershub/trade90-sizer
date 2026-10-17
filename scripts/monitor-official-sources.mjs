@@ -16,9 +16,31 @@ export const SOURCES=[
 const relevant=/monetary|policy|interest.rate|cash.rate|bank.rate|official.cash.rate|fomc|governing.council|minutes|inflation.report|assessment|overnight.rate|target.rate/i;
 const file=resolve("public/data/official-source-monitor.json");
 const decode=s=>s.replace(/&amp;/gi,"&").replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
+
+const unwrapCdata=s=>s.trim().replace(/^<!\[CDATA\[/i,"").replace(/\]\]>$/,"").trim();
+const publicationPath=(url,source)=>{
+ const p=new URL(url).pathname;
+ const dated=/(?:20[2-3]\d|pre_20[2-3]\d)/i.test(p);
+ // Evergreen landing pages do not constitute a newly published decision.
+ if(!dated)return false;
+ if(source.code==="USD")return /\/newsevents\/pressreleases\/monetary20\d{6}[a-z]\.htm$/i.test(p);
+ if(source.code==="AUD")return /\/media-releases\/20\d\d\/mr-/i.test(p);
+ if(source.code==="GBP")return /monetary-policy-summary-and-minutes|monetary-policy-report|\/news\/20\d\d/i.test(p);
+ if(source.code==="CAD")return /\/20\d\d\//.test(p);
+ return true;
+};
+
 const plain=s=>decode(s.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim()).slice(0,220);
 export function verifiedSourceUrl(href,source){
- try{const u=new URL(decode(href),source.url);if(u.protocol!=="https:"||u.username||u.password||u.port||u.hostname!==new URL(source.url).hostname)return null;u.hash="";return u.href;}catch{return null;}
+ try{
+  const clean=unwrapCdata(decode(href));
+  if(!clean||/[<>\[\]]/.test(clean)||/%(?:3c|3e|5b|5d)/i.test(clean))return null;
+  const u=new URL(clean,source.url);
+  if(u.protocol!=="https:"||u.username||u.password||u.port||u.hostname!==new URL(source.url).hostname)return null;
+  u.hash="";u.pathname=u.pathname.replace(/\/{2,}/g,"/");
+  if(!publicationPath(u.href,source))return null;
+  return u.href;
+ }catch{return null;}
 }
 export function extractOfficialLinks(body,source){
  if(typeof body!=="string"||body.length>3000000)throw Error("Invalid official source body");
@@ -50,7 +72,13 @@ export function nextSnapshot(previous,results,stamp){
   if(!r?.ok){failed.push({code:s.code,error:String(r?.error||"No data").slice(0,160)});return {...s,status:"unavailable",lastSuccessAt:existing?.lastSuccessAt||null,items:existing?.items||[]};}
   const before=new Set((existing?.items||[]).map(x=>x.url));
   // First run is the baseline: do not open issues for historical headlines.
-  if(existing?.lastSuccessAt)for(const item of r.items)if(!before.has(item.url))changes.push({...item,code:s.code,bank:s.bank});
+  if(existing?.lastSuccessAt)for(const item of r.items)if(!before.has(item.url)){
+   // Older scans accidentally kept feed CDATA wrappers inside relative URLs.
+   const legacyMatch=(existing.items||[]).some(prior=>{
+     try {return decodeURIComponent(prior.url).includes(item.url+"]]>" );}catch{return false;}
+   });
+   if(!legacyMatch)changes.push({...item,code:s.code,bank:s.bank});
+  }
   return {...s,status:"available",lastSuccessAt:stamp,items:r.items};
  });
  return {snapshot:{schemaVersion:1,status:failed.length===SOURCES.length?"unavailable":failed.length?"partial":"monitored",lastScanAt:stamp,
