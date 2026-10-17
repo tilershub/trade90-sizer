@@ -60,6 +60,7 @@ const url = new URL(canonical,"https://tradeninety.com").toString();
     </div>
     <div class="wrap fine">Educational and informational use only. A policy-rate gap is not a broker swap rate, a forward FX quote, or a prediction of currency performance.</div>
   </footer>
+  <script is:inline>(function(){/* TRADE90 no longer uses an offline service worker; retire any old cache-first worker so it cannot pin the V2 homepage. */if(!("serviceWorker" in navigator))return;navigator.serviceWorker.getRegistrations().then(function(regs){regs.forEach(function(reg){if(reg.scope.indexOf(location.origin)===0)reg.unregister().catch(function(){});});}).catch(function(){});})();</script>
   <script is:inline>(function(){var s=document.getElementById("trade90-theme");if(!s)return;var p=document.documentElement.dataset.appearance||"system";s.value=p;function apply(v){var isLight=window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=v==="system"?(isLight?"light":"dark"):v;document.documentElement.dataset.appearance=v;}s.addEventListener("change",function(){try{localStorage.setItem("trade90-appearance",s.value)}catch(e){}apply(s.value);});try{window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",function(){if(s.value==="system")apply("system")});}catch(e){} })();</script>
 </body>
 </html>
