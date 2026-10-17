@@ -18,7 +18,7 @@ const file=resolve("public/data/official-source-monitor.json");
 const decode=s=>s.replace(/&amp;/gi,"&").replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
 const plain=s=>decode(s.replace(/<!\[CDATA\[|\]\]>/g,"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim()).slice(0,220);
 export function verifiedSourceUrl(href,source){
- try{const u=new URL(decode(href),source.url);if(u.protocol!=="https:"||u.username||u.password||u.port||!(u.hostname===source.domain||u.hostname.endsWith("."+source.domain)))return null;u.hash="";return u.href;}catch{return null;}
+ try{const u=new URL(decode(href),source.url);if(u.protocol!=="https:"||u.username||u.password||u.port||u.hostname!==new URL(source.url).hostname)return null;u.hash="";return u.href;}catch{return null;}
 }
 export function extractOfficialLinks(body,source){
  if(typeof body!=="string"||body.length>3000000)throw Error("Invalid official source body");
@@ -63,7 +63,7 @@ export async function scanOne(source,fetcher=fetch){
   const res=await fetcher(source.url,{redirect:"follow",signal:c.signal,headers:{"user-agent":"TRADE90OfficialSourceWatch/1.0 (+https://tradeninety.com/data-policy/)","accept":"application/rss+xml, application/atom+xml, text/xml, text/html"}});
   if(!res.ok)throw Error("HTTP "+res.status);
   const final=new URL(res.url||source.url);
-  if(!(final.hostname===source.domain||final.hostname.endsWith("."+source.domain)))throw Error("Unexpected redirect");
+  if(final.hostname!==new URL(source.url).hostname)throw Error("Unexpected redirect");
   const items=extractOfficialLinks(await res.text(),source);
   if(!items.length)throw Error("No relevant links extracted");
   return {ok:true,items};
