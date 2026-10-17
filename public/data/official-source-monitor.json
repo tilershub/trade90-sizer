@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "partial",
-  "lastScanAt": "2026-10-17T12:23:40.894Z",
+  "lastScanAt": "2026-10-17T12:26:35.825Z",
   "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
   "sources": [
     {
@@ -10,7 +10,7 @@
       "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
       "domain": "federalreserve.gov",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
       "items": [
         {
           "title": "Minutes of the Board's discount rate meetings on August 17, September 9, and September 16, 2026",
@@ -80,7 +80,7 @@
       "url": "https://www.ecb.europa.eu/rss/press.html",
       "domain": "ecb.europa.eu",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
       "items": [
         {
           "title": "Philip R. Lane: Diagnostic Challenges for ECB Monetary Policy",
@@ -95,11 +95,76 @@
     {
       "code": "GBP",
       "bank": "BoE",
-      "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes",
+      "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
       "domain": "bankofengland.co.uk",
-      "status": "unavailable",
-      "lastSuccessAt": null,
-      "items": []
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
+      "items": [
+        {
+          "title": "SONIA interest rate benchmark",
+          "url": "https://www.bankofengland.co.uk/markets/sonia-benchmark"
+        },
+        {
+          "title": "Interest rates and Bank Rate",
+          "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+        },
+        {
+          "title": "Prudential and Resolution Policy Index",
+          "url": "https://www.bankofengland.co.uk/prudential-regulation/prudential-and-resolution-policy-index"
+        },
+        {
+          "title": "Financial Policy Committee",
+          "url": "https://www.bankofengland.co.uk/about/people/financial-policy-committee"
+        },
+        {
+          "title": "Monetary Policy Committee",
+          "url": "https://www.bankofengland.co.uk/about/people/monetary-policy-committee"
+        },
+        {
+          "title": "News and minutes",
+          "url": "https://www.bankofengland.co.uk/news/news"
+        },
+        {
+          "title": "Publication // Monetary Policy Report (MPR) 30 July 2026 Monetary Policy Report - July 2026 Monetary Policy Report - July 2026",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-report/2026/july-2026"
+        },
+        {
+          "title": "Publication // Monetary Policy Report (MPR) 05 November 2026 Monetary Policy Report - November 2026 (to... Monetary Policy Report - November 2026 (to be published at 12pm)",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-report/2026/november-2026"
+        },
+        {
+          "title": "Publication // Monetary Policy Report (MPR) 04 February 2027 Monetary Policy Report - February 2027 (to... Monetary Policy Report - February 2027 (to be published at 12pm)",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-report/2027/february-2027"
+        },
+        {
+          "title": "Publication // Monetary Policy Report (MPR) 29 April 2027 Monetary Policy Report - April 2027 (to be... Monetary Policy Report - April 2027 (to be published at 12pm)",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-report/2027/april-2027"
+        },
+        {
+          "title": "Publication // Monetary Policy Report (MPR) 29 July 2027 Monetary Policy Report - July 2027 (to be... Monetary Policy Report - July 2027 (to be published at 12pm)",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-report/2027/july-2027"
+        },
+        {
+          "title": "Publication // Monetary Policy Report (MPR) 04 November 2027 Monetary Policy Report - November 2027 (to... Monetary Policy Report - November 2027 (to be published at 12pm)",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-report/2027/november-2027"
+        },
+        {
+          "title": "Prudential Regulation // Policy statement 14 October 2026 PS19/26 – High loan to income lending PS19/26 – High loan to income lending",
+          "url": "https://www.bankofengland.co.uk/prudential-regulation/publication/2026/october/high-loan-to-income-lending-policy-statement"
+        },
+        {
+          "title": "Publication // Working Paper 09 October 2026 Navigating climate policy shocks: optimal... Navigating climate policy shocks: optimal monetary policy responses",
+          "url": "https://www.bankofengland.co.uk/working-paper/2026/navigating-climate-policy-shocks-optimal-monetary-policy-responses"
+        },
+        {
+          "title": "Publication // Working Paper 09 October 2026 Domestic and foreign insurer corporate bond... Domestic and foreign insurer corporate bond demand and monetary policy",
+          "url": "https://www.bankofengland.co.uk/working-paper/2026/domestic-and-foreign-insurer-corporate-bond-demand-and-monetary-policy"
+        },
+        {
+          "title": "News // Monetary Policy Committee (MPC) 17 September 2026 Bank rate maintained at 3.75% - September... Bank rate maintained at 3.75% - September 2026 Monetary Policy Summary and Minutes",
+          "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026"
+        }
+      ]
     },
     {
       "code": "JPY",
@@ -107,7 +172,7 @@
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "domain": "boj.or.jp",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
       "items": [
         {
           "title": "Outline of Monetary Policy",
@@ -181,7 +246,7 @@
       "url": "https://www.rba.gov.au/media-releases/",
       "domain": "rba.gov.au",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
       "items": [
         {
           "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
@@ -252,7 +317,7 @@
     {
       "code": "NZD",
       "bank": "RBNZ",
-      "url": "https://www.rbnz.govt.nz/news-and-events/news",
+      "url": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions",
       "domain": "rbnz.govt.nz",
       "status": "unavailable",
       "lastSuccessAt": null,
@@ -264,7 +329,7 @@
       "url": "https://www.bankofcanada.ca/press/press-releases/",
       "domain": "bankofcanada.ca",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
       "items": [
         {
           "title": "Policy interest rate",
@@ -314,7 +379,7 @@
       "url": "https://www.snb.ch/en/news-publications/media-releases",
       "domain": "snb.ch",
       "status": "available",
-      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "lastSuccessAt": "2026-10-17T12:26:35.825Z",
       "items": [
         {
           "title": "Implementation of monetary policy",
