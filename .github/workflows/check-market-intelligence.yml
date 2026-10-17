@@ -9,6 +9,9 @@ on:
       - "tests/indexnow.mjs"
       - ".github/workflows/indexnow-discovery.yml"
       - "tests/trade90-sitemap.mjs"
+      - "tests/trade90-indexnow.mjs"
+      - "scripts/indexnow-submit.mjs"
+      - ".github/workflows/indexnow.yml"
       - "src/**"
       - "public/**"
       - "scripts/publish-forward-rates.mjs"
@@ -91,6 +94,10 @@ jobs:
         run: node tests/trade90-v3-build.mjs
       - name: Verify current sitemap.xml and canonical pages
         run: node tests/trade90-sitemap.mjs
+      - name: Validate IndexNow key and search submission candidates
+        run: |
+          node tests/trade90-indexnow.mjs
+          node scripts/indexnow-submit.mjs --dry-run
       - name: Desktop and mobile interaction checks
         run: |
           npm install --no-save playwright@1.56.1
