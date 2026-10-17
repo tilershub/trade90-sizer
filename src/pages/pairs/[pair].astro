@@ -4,6 +4,7 @@ import PairFinder from "../../components/Trade90PairFinder.svelte";
 import ForwardRates from "../../components/Trade90ForwardRates.svelte";
 import NextDecisions from "../../components/Trade90NextDecisions.svelte";
 import PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
+import OfficialPublications from "../../components/Trade90OfficialPublications.svelte";
 import PairGuidance from "../../components/Trade90PairGuidance.svelte";
 import {allTrade90Pairs,pairSlug,pairUrl,pairInsight,formatPercent,reportDate,rateSnapshot} from "../../lib/trade90-v3.js";
 import {formatBp} from "../../lib/trade90-rates.js";
@@ -46,6 +47,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
   <section class="section" id="decisions"><NextDecisions client:idle pair={pair}/></section>
   <section class="section" id="guidance"><PairGuidance pair={pair}/></section>
   <section class="section" id="updates"><PolicyUpdates pair={pair}/></section>
+  <section class="section" id="official-releases"><OfficialPublications client:visible pair={pair}/></section>
   <section class="section article-section" id="explanation">
    <div class="eyebrow">Interpretation &amp; sources</div><h2>What the {pair.label} Policy-Rate Gap Means</h2>
    <p>{explanation.summary}</p>
