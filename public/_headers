@@ -20,9 +20,32 @@
 /rss.xml
   Cache-Control: public, max-age=3600
 
+# HTML research pages must revalidate after each release.
+# Prevent a stale V2 homepage from lingering while V3 pair pages are published.
+# These paths are HTML; hashed /_astro/* assets retain the immutable rule above.
+/
+  Cache-Control: no-cache, max-age=0, must-revalidate
+  CDN-Cache-Control: no-cache
+/pairs/*
+  Cache-Control: no-cache, max-age=0, must-revalidate
+/rate-gaps/*
+  Cache-Control: no-cache, max-age=0, must-revalidate
+/decisions/*
+  Cache-Control: no-cache, max-age=0, must-revalidate
+/central-banks/*
+  Cache-Control: no-cache, max-age=0, must-revalidate
+/learn/*
+  Cache-Control: no-cache, max-age=0, must-revalidate
+/methodology/*
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
 # Security headers on everything
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Current share artwork (independent of the retired funded-trader artwork)
+/og-v3.svg
+  Cache-Control: public, max-age=86400
