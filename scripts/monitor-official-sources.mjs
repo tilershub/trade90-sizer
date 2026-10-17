@@ -35,9 +35,9 @@ export function extractOfficialLinks(body,source){
   if(title&&link)add(title,link);
  }
  if(!links.length){
-  for(const [,attrs,body] of body.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)){
+  for(const [,attrs,anchorText] of body.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)){
    const href=attrs.match(/\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
-   if(href)add(body,href);
+   if(href)add(anchorText,href);
   }
  }
  return [...new Map(links.map(l=>[l.url,l])).values()].slice(0,16);
