@@ -91,7 +91,7 @@ async function inspect(page,selector,route){
   await doc.goto(origin+"/data-policy/",{waitUntil:"domcontentloaded"});
   assert.equal(await doc.locator("h1").innerText(),"TRADE90 Data Sources & Update Policy");
   const body=await doc.locator("main").innerText();
-  for(const statement of ["not continuously refreshing","An hourly GitHub Actions monitor now checks official bank publication sources","not a promise","Numeric data provider not connected","Copyright, permissions and lawful data use","Quick answers for forex traders","Official source and market-data terms","Verified snapshot"]){
+  for(const statement of ["not continuously refreshing","An hourly GitHub Actions process monitors official bank publications","not a promise","Numeric data provider not connected","Copyright, permissions and lawful data use","Quick answers for forex traders","Official source and market-data terms","Verified snapshot"]){
    assert.ok(body.includes(statement),"Data transparency statement missing: "+statement);
   }
   assert.equal(await doc.locator("body a[href='https://www.cmegroup.com/market-data/license-data.html']").count(),1,"Primary CME redistribution licensing reference required");
