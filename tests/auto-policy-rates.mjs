@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import {officialDecisionLink,parseOfficialDecision,completeFedDecision,decisionSafety,updateSnapshot} from "../scripts/auto-policy-rates.mjs";
+import {officialDecisionLink,parseOfficialDecision,completeFedDecision,decisionSafety,updateSnapshot,appendRateHistory} from "../scripts/auto-policy-rates.mjs";
 import baseline from "../src/data/trade90-policy-snapshot.json" with {type:"json"};
 const cases=[
  ["USD",{title:"Federal Reserve issues FOMC statement",url:"https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"},"The Federal Reserve issues FOMC statement. The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 4 to 4-1/4 percent.",4.125],
@@ -48,4 +48,11 @@ assert.equal(results.next.asOf,"2026-10-30");
 assert.equal(results.next.banks.find(b=>b.code==="EUR").rate,baseline.banks.find(b=>b.code==="EUR").rate);
 assert.equal(updateSnapshot(baseline,[{...fedParsed,decisionDate:"2026-09-16"}],"2026-10-30").changed.length,0);
 assert.equal(updateSnapshot(baseline,[],"2026-10-17").next,baseline);
+const audit=appendRateHistory([],baseline,results.next,results.changed,"2026-10-30T12:00:00Z");
+assert.equal(audit.length,2);
+assert.deepEqual(new Set(audit.map(x=>x.code)),new Set(["USD","CAD"]));
+assert.ok(audit.every(x=>x.officialSource.startsWith("https://")));
+assert.equal(appendRateHistory(audit,baseline,results.next,results.changed,"2026-10-30T13:00:00Z").length,2,"Published rate decisions must be idempotent");
+assert.deepEqual(appendRateHistory(audit,baseline,baseline,[],"2026-10-30T13:00:00Z"),audit,"No invented audit updates on an unchanged run");
+
 console.log("Autonomous central-bank publication parser: 7 official bank adapters, effective-date safety, exact Fed range cross-check, 28-pair arithmetic, no speculative changes.");
