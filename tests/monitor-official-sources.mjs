@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import {SOURCES,verifiedSourceUrl,extractOfficialLinks,nextSnapshot,scanOne} from "../scripts/monitor-official-sources.mjs";
+import {SOURCES,verifiedSourceUrl,extractOfficialLinks,nextSnapshot,scanOne,nextPublicFeed} from "../scripts/monitor-official-sources.mjs";
 assert.equal(SOURCES.length,8);
 assert.equal(new Set(SOURCES.map(s=>s.code)).size,8);
 for(const source of SOURCES){
@@ -42,4 +42,17 @@ const f=async()=>({ok:true,url:fed.url,text:async()=>rss});
 assert.equal((await scanOne(fed,f)).items.length,1);
 assert.equal((await scanOne(fed,async()=>({ok:true,url:"https://evil.com/rss",text:async()=>rss}))).ok,false);
 assert.equal((await scanOne(fed,async()=>({ok:false,status:503}))).ok,false);
+
+const firstFeed=nextPublicFeed(null,a.snapshot,"2026-10-17T05:00:00.000Z");
+assert.equal(firstFeed.kind,"official_discovered_publications");
+assert.equal(firstFeed.items.length,8);
+const secondFeed=nextPublicFeed(firstFeed,b.snapshot,"2026-10-17T06:00:00.000Z");
+assert.equal(secondFeed.items.filter(x=>x.code==="USD").length,2);
+assert.equal(secondFeed.items.find(x=>x.url===rssItems[0].url)?.firstSeenAt,"2026-10-17T05:00:00.000Z","First discovery date must not be rewritten on subsequent scans");
+assert.equal(secondFeed.items.find(x=>x.url.includes("monetary20261029a"))?.firstSeenAt,"2026-10-17T06:00:00.000Z");
+assert.deepEqual(new Set(secondFeed.items.map(x=>x.code)),new Set(SOURCES.map(x=>x.code)));
+const maliciousMonitor={sources:[{...fed,status:"available",items:[{title:"Federal monetary policy rates",url:"https://attack.example.org/newsevents/pressreleases/monetary20261029a.htm"}]}],lastScanAt:"2026-10-18T00:00:00Z"};
+assert.equal(nextPublicFeed(null,maliciousMonitor,"2026-10-18T00:00:00Z").items.length,0,"Do not archive nonofficial links");
+assert.equal(nextPublicFeed(secondFeed,{sources:[],lastScanAt:"2026-10-17T07:00:00Z"},"2026-10-17T07:00:00Z").items.length,secondFeed.items.length,"Keep previous official sources through temporary downtime");
+
 console.log("8 bank source discovery guards, RSS/HTML parsing, initial baseline, changed links, fail-safe behavior verified.");
