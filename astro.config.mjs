@@ -10,6 +10,12 @@ export default defineConfig({
     tailwind(),
     svelte(),
     sitemap({
+      filter: (page) => {
+        const path = new URL(page).pathname;
+        // Keep error/retired routes out of the sitemap even if generated.
+        return !/^\/(?:404\/?)$/.test(path) &&
+          !/^\/(?:calculator|tools|research)\//.test(path);
+      },
       serialize(item) {
         const p = new URL(item.url).pathname;
         if (p === "/") return {...item,priority:1.0,changefreq:"weekly"};
@@ -20,7 +26,7 @@ export default defineConfig({
     }),
     robotsTxt({
       policy: [{userAgent:"*",allow:"/"}],
-      sitemap:"https://tradeninety.com/sitemap-index.xml"
+      sitemap:"https://tradeninety.com/sitemap.xml"
     })
   ]
 });
