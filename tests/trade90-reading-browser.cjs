@@ -72,6 +72,7 @@ async function inspect(page,selector,route){
     await page.goto(origin+route,{waitUntil:"networkidle"});
     await page.locator("#trade90-theme").selectOption("light");
     assert.equal(await page.locator("html").getAttribute("data-theme"),"light");
+    if(route==="/")await page.locator(".home .release-feed").scrollIntoViewIfNeeded(); // client:visible hydration requires intersection
     for(const selector of selectors)await inspect(page,selector,route);
     if(route==="/" && viewport.width<500){
       const cardLayout=await page.locator(".home .pair-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);
