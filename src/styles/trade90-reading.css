@@ -333,3 +333,39 @@ html[data-theme="light"] input:focus-visible {outline:3px solid #047857;outline-
  html .full-table th{font-size:.78rem}
  html .full-table td{font-size:.85rem}
 }
+
+
+/* Data-policy content has scoped Astro CSS; this global layer makes its
+ * light appearance independent from component-scoping implementation. */
+html[data-theme="light"] .reading-policy .status-overview>div,
+html[data-theme="light"] .reading-policy .class {
+ background:#fff;color:#102033;border-color:#cbd5e1;
+}
+html[data-theme="light"] .reading-policy .status-overview span,
+html[data-theme="light"] .reading-policy .status-overview small,
+html[data-theme="light"] .reading-policy .class p{color:#334155}
+html[data-theme="light"] .reading-policy .status-overview strong,
+html[data-theme="light"] .reading-policy .class strong,
+html[data-theme="light"] .reading-policy h2,
+html[data-theme="light"] .reading-policy h3{color:#102033}
+html[data-theme="light"] .reading-policy .critical{background:#ecfdf5;color:#102033}
+html[data-theme="light"] .reading-policy table th{background:#e2e8f0;color:#102033}
+html[data-theme="light"] .reading-policy table td{color:#334155;border-color:#cbd5e1}
+html[data-theme="light"] .reading-policy .backlinks{border-color:#cbd5e1}
+html[data-theme="light"] .reading-policy .backlinks a{color:#065f46}
+html .pair-page .data-footnote{font-size:.9rem;color:#cbd5e1}
+html[data-theme="light"] .pair-page .data-footnote{color:#334155}
+html .home .data-status a{color:#6ee7b7;text-decoration:underline;font-weight:720}
+html[data-theme="light"] .home .data-status a{color:#065f46}
+html[data-theme="light"] .home .popular a{border-color:#94a3b8}
+/* Footer and menus must keep legible foreground/background in both themes. */
+html[data-theme="light"] .footer .brand:hover{color:#102033}
+html[data-theme="light"] .mobile-menu nav{background:#fff;border-color:#94a3b8}
+html[data-theme="light"] .mobile-menu nav a{color:#102033;border-color:#cbd5e1}
+html[data-theme="light"] .mobile-menu nav a:hover{background:#e2e8f0;color:#065f46}
+/* The header remains a comfortable hit target on compact mobile screens. */
+@media(max-width:600px){
+ html .mobile-menu summary{font-size:.88rem;padding:9px 12px}
+ html .theme-label select{font-size:.85rem;min-height:42px}
+ html .home .data-status{font-size:.86rem}
+}
