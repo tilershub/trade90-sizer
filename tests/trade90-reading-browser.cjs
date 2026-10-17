@@ -1,6 +1,7 @@
 const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const origin="http://127.0.0.1:4321";
+const lowContrast=[];
 function luminance([r,g,b]){
  const values=[r,g,b].map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);
  return values[0]*.2126+values[1]*.7152+values[2]*.0722;
@@ -29,7 +30,7 @@ async function inspect(page,selector,route){
  const fg=rgb(data.text),bg=rgb(data.bg);
  assert.ok(fg&&bg,"Could not determine text/background colors for "+selector+" on "+route+": "+JSON.stringify(data));
  const ratio=contrast(fg,bg);
- assert.ok(ratio>=4.5,"Unreadable text: "+route+" "+selector+" "+ratio.toFixed(2)+":1 "+JSON.stringify(data));
+ if(ratio<4.5)lowContrast.push("Unreadable text: "+route+" "+selector+" "+ratio.toFixed(2)+":1 "+JSON.stringify(data));
 }
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
@@ -89,6 +90,7 @@ async function inspect(page,selector,route){
    await doc.goto(origin+route);
    assert.ok(await doc.locator('a[href="/data-policy/"]').count()>0,"Missing transparency link on "+route);
   }
+  assert.equal(lowContrast.length,0,"Low-contrast content ("+lowContrast.length+" samples):\n"+lowContrast.slice(0,65).join("\n"));
   console.log("Readability verified: high-contrast Light & Dark across trader pages on mobile and desktop; accurate data-policy disclosures and internal links.");
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});
