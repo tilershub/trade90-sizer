@@ -62,7 +62,7 @@ export function parseOfficialDecision(item,code,html){
  }
  if(code==="AUD"){
   decisionDate=englishDate(t.match(/\bDate\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
-  rate=pct(t.match(/cash rate target[\s\S]{0,130}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*(?:per\s*cent|percent|%)/i)?.[1]);eff=decisionDate;
+  rate=pct(t.match(/cash rate target[\s\S]{0,130}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*(?:per\s*cent|percent|%)/i)?.[1]);eff=englishDate(t.match(/(?:effective|with effect)\s+(?:on|from)?\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
  }
  if(code==="CAD"){
   m=p.match(/fad-press-release-(20\d{2})-(\d{2})-(\d{2})/);
@@ -71,11 +71,11 @@ export function parseOfficialDecision(item,code,html){
  }
  if(code==="CHF"){
   m=p.match(/pre_(20\d{2})(\d{2})(\d{2})/);decisionDate=m&&dateParts(m[1],m[2],m[3]);
-  rate=pct(t.match(/SNB policy rate[\s\S]{0,105}?\b(?:at|to)\s+(-?\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);eff=decisionDate;
+  rate=pct(t.match(/SNB policy rate[\s\S]{0,105}?\b(?:at|to)\s+(-?\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);eff=englishDate(t.match(/(?:effective|with effect)\s+(?:on|from)?\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
  }
  if(code==="NZD"){
   rate=pct(t.match(/(?:Official Cash Rate|OCR)[\s\S]{0,80}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*(?:%|percent)/i)?.[1]);
-  decisionDate=englishDate(t.match(/(?:Wednesday|Tuesday|Monday|Thursday|Friday)\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");eff=decisionDate;
+  decisionDate=englishDate(t.match(/(?:Wednesday|Tuesday|Monday|Thursday|Friday)\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");eff=englishDate(t.match(/(?:effective|with effect)\s+(?:on|from)?\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
  }
  return rate!==null&&rate!==undefined&&decisionDate&&eff?{code,rate,decisionDate,effectiveDate:eff,source:item.url,decision:"Verified official policy decision"}:null;
 }
