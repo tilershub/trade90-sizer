@@ -43,7 +43,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
    <div class="section-heading"><div><div class="eyebrow">Market data availability</div><h2>Expected {pair.label} Rate Divergence</h2><p>Market-implied policy-rate differences require validated, appropriately licensed forward inputs for both currencies. No fabricated forecasts.</p></div></div>
    <ForwardRates client:visible mode="pair" policyBanks={rateSnapshot.banks} selectedPair={pair}/>
   </section>
-  <section class="section" id="decisions"><NextDecisions client:load pair={pair}/></section>
+  <section class="section" id="decisions"><NextDecisions client:idle pair={pair}/></section>
   <section class="section" id="guidance"><PairGuidance pair={pair}/></section>
   <section class="section" id="updates"><PolicyUpdates pair={pair}/></section>
   <section class="section article-section" id="explanation">
