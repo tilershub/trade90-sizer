@@ -1,6 +1,7 @@
 ---
 import Trade90V2Layout from "../../layouts/Trade90V2Layout.astro";
 import Trade90PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
+import OfficialReleaseFeed from "../../components/Trade90OfficialReleaseFeed.svelte";
 import {rateSnapshot,formatPercent} from "../../lib/trade90-v3.js";
 ---
 <Trade90V2Layout
@@ -15,10 +16,11 @@ import {rateSnapshot,formatPercent} from "../../lib/trade90-v3.js";
     </header>
     <section class="bankdirectory" aria-label="Explore individual central banks"><h2>Explore all eight central banks</h2><div class="banktiles">{rateSnapshot.banks.map(bank=><a href={"/central-banks/"+bank.short.toLowerCase()+"/"}><strong>{bank.code} · {bank.short}</strong><span>{bank.name}</span><small>{formatPercent(bank.rate)} · View policy and related pairs →</small></a>)}</div></section>
     <Trade90PolicyUpdates client:visible />
+    <OfficialReleaseFeed client:visible limit={8} />
     <aside class="explainer">
       <h2>What counts as a policy update?</h2>
       <p><strong>Rate decisions</strong> announce an official benchmark and its effective date. <strong>Minutes</strong> describe the discussion at an earlier meeting. <strong>Statements</strong> and <strong>policy reports</strong> explain policymakers' assessments and projections. None of these automatically tells us what a market-implied 3-, 6- or 12-month rate will be.</p>
-      <p>TRADE90 currently maintains a dated, curated source collection. <strong>This is not a live publication feed.</strong> New announcements are not guaranteed to appear immediately. For the latest release, always open the bank's original link. The <a href="/">Current Rate Gaps</a> calculation remains based on a separately verified policy-rate snapshot.</p>
+      <p>TRADE90 maintains both an older editorially curated collection and a separate hourly automated official-link archive shown above. Automatic link detection is not verification of an interest-rate decision or a guarantee of immediate discovery. For the latest release, always open the bank's original link. The <a href="/">Current Rate Gaps</a> calculation remains based on a separately verified policy-rate snapshot.</p>
       <a href="/methodology/">Read the rate-gap and source methodology →</a>
     </aside>
   </main>
