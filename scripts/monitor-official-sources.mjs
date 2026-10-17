@@ -105,11 +105,17 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
  for(const s of SOURCES){results[s.code]=await scanOne(s,fetcher);console.log(s.code+": "+(results[s.code].ok?"found "+results[s.code].items.length+" links":results[s.code].error));}
  const {snapshot,changes,failed}=nextSnapshot(prior,results,now());
  if(failed.length===SOURCES.length && !(prior.sources||[]).length)throw Error("All initial source checks failed");
- mkdirSync(dirname(file),{recursive:true});writeFileSync(file,JSON.stringify(snapshot,null,2)+"\n");
+ const previousTime=Date.parse(prior.lastScanAt||"");
+ const elapsed=Date.parse(snapshot.lastScanAt)-previousTime;
+ const healthChanged=(prior.sources||[]).some(old=>old.status!==snapshot.sources.find(x=>x.code===old.code)?.status);
+ const publish=changes.length>0||healthChanged||!(elapsed>=0&&elapsed<23*60*60*1000);
+ // Scan each hour, but don't rebuild the public website every hour when
+ // sources haven't changed. Public monitor timestamps mean PUBLISHED scans.
+ if(publish){mkdirSync(dirname(file),{recursive:true});writeFileSync(file,JSON.stringify(snapshot,null,2)+"\n");}
  const report=changes.length?"Automatically detected "+changes.length+" official publication link(s):\n\n"+changes.slice(0,16).map(x=>"- "+x.code+" "+x.bank+": ["+x.title+"]("+x.url+")").join("\n")+"\n\nLINK DISCOVERY ONLY. Do not change policy rates without verified benchmark and effective date.":"";
  writeFileSync("/tmp/trade90-source-alert.md",report);
  writeFileSync("/tmp/trade90-source-monitor-result.json",JSON.stringify({changes,failed}));
- console.log("New links: "+changes.length+"; failed sources: "+failed.length+"; NO policy rates modified.");
+ console.log("New links: "+changes.length+"; failed sources: "+failed.length+"; public status published: "+publish+"; NO policy rates modified.");
  return {snapshot,changes,failed};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)runMonitor().catch(e=>{console.error(e);process.exitCode=1;});
