@@ -369,3 +369,12 @@ html[data-theme="light"] .mobile-menu nav a:hover{background:#e2e8f0;color:#065f
  html .theme-label select{font-size:.85rem;min-height:42px}
  html .home .data-status{font-size:.86rem}
 }
+
+
+/* These page-local Astro hero rules previously overrode the light layout.
+ * Set foreground explicitly where the text is actually rendered. */
+html[data-theme="light"] .home .hero h1,
+html[data-theme="light"] .pair-page .pair-head h1 {color:#102033 !important}
+html[data-theme="light"] .home .hero p {color:#334155 !important}
+html[data-theme="light"] .home .hero p strong {color:#102033 !important}
+html[data-theme="light"] .home .hero h1 em {color:#047857 !important}
