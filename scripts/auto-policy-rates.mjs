@@ -79,6 +79,22 @@ export function parseOfficialDecision(item,code,html){
  }
  return rate!==null&&rate!==undefined&&decisionDate&&eff?{code,rate,decisionDate,effectiveDate:eff,source:item.url,decision:"Verified official policy decision"}:null;
 }
+// Cross-verify a Fed press-release range against its separate same-day
+// Implementation Note, including the actual effective date.
+export function completeFedDecision(parsed,implementationHtml){
+ if(parsed?.code!=="USD"||!parsed.range||!implementationHtml)return null;
+ const t=clean(implementationHtml);
+ if(!/Implementation Note issued/i.test(t)||!/Federal Open Market Committee directs the Desk/i.test(t))return null;
+ const matches=[...t.matchAll(/Effective\s+(\w+\s+\d{1,2},?\s+20\d{2})[\s\S]{0,170}?federal funds rate in a target range of\s+(\d{1,2}(?:[ -](?:1\/4|1\/2|3\/4))?)\s+to\s+(\d{1,2}(?:[ -](?:1\/4|1\/2|3\/4))?)\s+percent/gi)];
+ if(matches.length!==1)return null;
+ const [m]=matches;
+ const dateUs=m[1].match(/(\w+)\s+(\d{1,2}),?\s+(20\d{2})/);
+ const eff=dateUs?dateParts(dateUs[3],months[dateUs[1].toLowerCase()],dateUs[2]):null;
+ const lower=fraction(m[2]),upper=fraction(m[3]);
+ if(!eff||lower!==parsed.range[0]||upper!==parsed.range[1]||eff<parsed.decisionDate)return null;
+ return {...parsed,effectiveDate:eff,reason:undefined};
+}
+
 export function decisionSafety(candidate,bank,today){
  if(!candidate||candidate.code!==bank.code||!Number.isFinite(candidate.rate)||!candidate.decisionDate||!candidate.effectiveDate)return "not_verified";
  if(candidate.decisionDate>today||candidate.effectiveDate>today)return "future_decision";
@@ -129,7 +145,12 @@ export async function runAutomaticRateCheck({fetcher=fetch,now=()=>new Date().to
   let verified=false;
   for(const record of candidates){
    try{
-    const html=await fetchSource(record.url,fetcher),parsed=parseOfficialDecision(record,bank.code,html);
+    const html=await fetchSource(record.url,fetcher);let parsed=parseOfficialDecision(record,bank.code,html);
+    if(parsed?.reason==="fed_effective_date_unverified"){
+      const noteUrl=record.url.replace(/a\.htm$/,"a1.htm");
+      try{parsed=completeFedDecision(parsed,await fetchSource(noteUrl,fetcher));}
+      catch(e){parsed=null;}
+    }
     const state=decisionSafety(parsed,bank,today);
     if(state==="publish"){proposals.push(parsed);coverage.push({code:bank.code,state:"Verified new decision"});verified=true;break;}
     if(state==="unchanged"){coverage.push({code:bank.code,state:"Decision matches published benchmark"});verified=true;break;}
