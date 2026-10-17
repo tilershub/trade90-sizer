@@ -1,15 +1,16 @@
-name: Trade90 V2 verified rates and website build
+name: Trade90 verified rates, V3 UX and SEO build
 
 on:
   pull_request:
     paths:
       - "src/**"
-      - "public/data/**"
+      - "public/**"
       - "scripts/publish-forward-rates.mjs"
       - "tests/trade90-v2.mjs"
       - "tests/trade90-v2-browser.cjs"
       - "tests/trade90-v3.mjs"
       - "tests/trade90-v3-browser.cjs"
+      - "tests/trade90-v3-build.mjs"
       - "astro.config.mjs"
       - ".github/workflows/check-market-intelligence.yml"
   workflow_dispatch:
@@ -52,6 +53,8 @@ jobs:
           grep -q 'EUR/USD Interest Rate Gap' dist/pairs/eur-usd/index.html
           grep -q 'Next Major Decisions to Watch' dist/pairs/eur-usd/index.html
           grep -q 'Central Bank Policy Updates' dist/central-banks/index.html
+      - name: Audit SEO and static V3 routes
+        run: node tests/trade90-v3-build.mjs
       - name: Desktop and mobile interaction checks
         run: |
           npm install --no-save playwright@1.56.1
