@@ -1,9 +1,67 @@
 {
   "schemaVersion": 1,
-  "status": "awaiting_first_automatic_rate_run",
-  "lastCheckedAt": null,
+  "status": "automated_fail_closed",
+  "lastCheckedAt": "2026-10-17T14:55:29.285Z",
   "changedBanks": [],
-  "coverage": [],
-  "failures": [],
-  "explanation": "Official policy rate verification is separate from hourly source-link discovery. Unverified bank figures remain unchanged."
+  "coverage": [
+    {
+      "code": "AUD",
+      "state": "No safely verified new decision"
+    },
+    {
+      "code": "USD",
+      "state": "Decision matches published benchmark"
+    },
+    {
+      "code": "GBP",
+      "state": "Decision matches published benchmark"
+    },
+    {
+      "code": "NZD",
+      "state": "No parseable decision in official feed"
+    },
+    {
+      "code": "EUR",
+      "state": "No parseable decision in official feed"
+    },
+    {
+      "code": "CAD",
+      "state": "Decision matches published benchmark"
+    },
+    {
+      "code": "JPY",
+      "state": "No parseable decision in official feed"
+    },
+    {
+      "code": "CHF",
+      "state": "No safely verified new decision"
+    }
+  ],
+  "failures": [
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "CHF",
+      "state": "not_verified"
+    },
+    {
+      "code": "CHF",
+      "state": "not_verified"
+    },
+    {
+      "code": "CHF",
+      "state": "not_verified"
+    }
+  ],
+  "explanation": "Strict policy decision parsing: only source-confirmed, dated, effective bank decisions are published; other bank observations retain their last verified values."
 }
