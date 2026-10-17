@@ -1,7 +1,338 @@
 {
   "schemaVersion": 1,
-  "status": "awaiting_first_scan",
-  "lastScanAt": null,
-  "explanation": "No automated official-source scan published yet. No published rate figures are auto-updated by this dataset.",
-  "sources": []
+  "status": "partial",
+  "lastScanAt": "2026-10-17T12:23:40.894Z",
+  "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
+  "sources": [
+    {
+      "code": "USD",
+      "bank": "Fed",
+      "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
+      "domain": "federalreserve.gov",
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "items": [
+        {
+          "title": "Minutes of the Board's discount rate meetings on August 17, September 9, and September 16, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261013a.htm]]%3E"
+        },
+        {
+          "title": "Minutes of the Federal Open Market Committee, September 15-16, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm]]%3E"
+        },
+        {
+          "title": "Federal Reserve issues FOMC statement",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm]]%3E"
+        },
+        {
+          "title": "Federal Reserve Board and Federal Open Market Committee release economic projections from the September 15-16 FOMC meeting",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916b.htm]]%3E"
+        },
+        {
+          "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm]]%3E"
+        },
+        {
+          "title": "Minutes of the Federal Open Market Committee, July 28–29, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm]]%3E"
+        },
+        {
+          "title": "Federal Reserve issues FOMC statement",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm]]%3E"
+        },
+        {
+          "title": "Minutes of the Board's discount rate meetings on June 8 and June 17, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260714a.htm]]%3E"
+        },
+        {
+          "title": "Federal Reserve announces the leadership and objectives of its task forces to advance the conduct of monetary policy",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260709a.htm]]%3E"
+        },
+        {
+          "title": "Minutes of the Federal Open Market Committee, June 16-17, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260708a.htm]]%3E"
+        },
+        {
+          "title": "Federal Reserve issues FOMC statement",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm]]%3E"
+        },
+        {
+          "title": "Federal Reserve Board and Federal Open Market Committee release economic projections from the June 16-17 FOMC meeting",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617b.htm]]%3E"
+        },
+        {
+          "title": "Minutes of the Board's discount rate meeting on April 20 and 29, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260526a.htm]]%3E"
+        },
+        {
+          "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm]]%3E"
+        },
+        {
+          "title": "Federal Reserve issues FOMC statement",
+          "url": "https://www.federalreserve.gov/feeds/%3C![CDATA[https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm]]%3E"
+        }
+      ]
+    },
+    {
+      "code": "EUR",
+      "bank": "ECB",
+      "url": "https://www.ecb.europa.eu/rss/press.html",
+      "domain": "ecb.europa.eu",
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "items": [
+        {
+          "title": "Philip R. Lane: Diagnostic Challenges for ECB Monetary Policy",
+          "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261005~1d8d998ef4.en.html"
+        },
+        {
+          "title": "Decisions taken by the Governing Council of the ECB (in addition to decisions setting interest rates)",
+          "url": "https://www.ecb.europa.eu//press/govcdec/otherdec/2026/html/ecb.gc261002~54c6b5672b.en.html"
+        }
+      ]
+    },
+    {
+      "code": "GBP",
+      "bank": "BoE",
+      "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes",
+      "domain": "bankofengland.co.uk",
+      "status": "unavailable",
+      "lastSuccessAt": null,
+      "items": []
+    },
+    {
+      "code": "JPY",
+      "bank": "BoJ",
+      "url": "https://www.boj.or.jp/en/whatsnew/",
+      "domain": "boj.or.jp",
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "items": [
+        {
+          "title": "Outline of Monetary Policy",
+          "url": "https://www.boj.or.jp/en/mopo/outline/index.htm"
+        },
+        {
+          "title": "Review of Monetary Policy from a Broad Perspective",
+          "url": "https://www.boj.or.jp/en/mopo/outline/bpreview/index.htm"
+        },
+        {
+          "title": "Monetary Policy Meetings",
+          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm"
+        },
+        {
+          "title": "Monetary Policy Releases",
+          "url": "https://www.boj.or.jp/en/mopo/mpmdeci/index.htm"
+        },
+        {
+          "title": "Monetary Policy Measures",
+          "url": "https://www.boj.or.jp/en/mopo/measures/index.htm"
+        },
+        {
+          "title": "Policy Actions for Financial Stability",
+          "url": "https://www.boj.or.jp/en/finsys/fs_policy/index.htm"
+        },
+        {
+          "title": "Cross-Industry Committee on Japanese Yen Interest Rate Benchmarks",
+          "url": "https://www.boj.or.jp/en/paym/market/jpy_cmte/index.htm"
+        },
+        {
+          "title": "Cross-Industry Forum on Interest Rate Benchmarks",
+          "url": "https://www.boj.or.jp/en/paym/market/i_forum/index.htm"
+        },
+        {
+          "title": "Social Networking Site Management Policy",
+          "url": "https://www.boj.or.jp/en/snspolicy.htm"
+        },
+        {
+          "title": "Speech by Board Member KOEDA in Kumamoto (Economic Activity, Prices, and Monetary Policy in Japan)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko261015a.htm"
+        },
+        {
+          "title": "Monetary Base and the Bank of Japan's Transactions (Sept.)[PDF&nbsp;132KB]",
+          "url": "https://www.boj.or.jp/en/statistics/boj/other/mbt/mbt2609.pdf"
+        },
+        {
+          "title": "Opening Remarks by Deputy Governor UCHIDA at the ECONDAT 2026 Fall Meeting (AI, Big Data, and Monetary Policy)",
+          "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko261005a.htm"
+        },
+        {
+          "title": "Monetary Base (Sept.)",
+          "url": "https://www.boj.or.jp/en/statistics/boj/other/mb/mb.htm"
+        },
+        {
+          "title": "Average Contract Interest Rates on Loans and Discounts (Aug.)[PDF&nbsp;1,118KB]",
+          "url": "https://www.boj.or.jp/en/statistics/dl/loan/yaku/yaku2608.pdf"
+        },
+        {
+          "title": "Summary of Opinions at the Monetary Policy Meeting on September 17 and 18, 2026[PDF&nbsp;227KB]",
+          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/opinion_2026/opi260918.pdf"
+        },
+        {
+          "title": "Minutes of the Monetary Policy Meeting on July 30 and 31, 2026[PDF&nbsp;353KB]",
+          "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/minu_2026/g260731.pdf"
+        }
+      ]
+    },
+    {
+      "code": "AUD",
+      "bank": "RBA",
+      "url": "https://www.rba.gov.au/media-releases/",
+      "domain": "rba.gov.au",
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "items": [
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html"
+        },
+        {
+          "title": "Assessment of ASX Clearing and Settlement Facilities &ndash; September 2026",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-26.html"
+        },
+        {
+          "title": "Appointment to the Monetary Policy Board",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-20.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-19.html"
+        },
+        {
+          "title": "Assessment of the Reserve Bank Information and Transfer System (RITS)",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-16.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-15.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-12.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-08.html"
+        },
+        {
+          "title": "Proposed Decommissioning of the Bulk Electronic Clearing System: RBA Risk Assessment Update",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-07.html"
+        },
+        {
+          "title": "Appointment to the Monetary Policy Board",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-04.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2026/mr-26-03.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2025/mr-25-33.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2025/mr-25-31.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2025/mr-25-27.html"
+        },
+        {
+          "title": "Assessment of ASX Clearing and Settlement Facilities &ndash; September 2025",
+          "url": "https://www.rba.gov.au/media-releases/2025/mr-25-25.html"
+        },
+        {
+          "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+          "url": "https://www.rba.gov.au/media-releases/2025/mr-25-22.html"
+        }
+      ]
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news",
+      "domain": "rbnz.govt.nz",
+      "status": "unavailable",
+      "lastSuccessAt": null,
+      "items": []
+    },
+    {
+      "code": "CAD",
+      "bank": "BoC",
+      "url": "https://www.bankofcanada.ca/press/press-releases/",
+      "domain": "bankofcanada.ca",
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "items": [
+        {
+          "title": "Policy interest rate",
+          "url": "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/"
+        },
+        {
+          "title": "Renewing Canada’s monetary policy framework",
+          "url": "https://www.bankofcanada.ca/core-functions/monetary-policy/renewing-canadas-monetary-policy-framework/"
+        },
+        {
+          "title": "Monetary Policy Report",
+          "url": "https://www.bankofcanada.ca/publications/mpr/"
+        },
+        {
+          "title": "Monetary Policy Report—July 2026",
+          "url": "https://www.bankofcanada.ca/publications/mpr/mpr-2026-07-15/"
+        },
+        {
+          "title": "Repo markets and monetary policy implementation",
+          "url": "https://www.bankofcanada.ca/2026/09/repo-markets-monetary-policy-implementation/"
+        },
+        {
+          "title": "Bank of Canada maintains the policy rate at 2¼%",
+          "url": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/"
+        },
+        {
+          "title": "Bank of Canada publishes its 2027 schedule for policy interest rate announcements and other major publications",
+          "url": "https://www.bankofcanada.ca/2026/07/bank-canada-publishes-2027-schedule-policy-interest-rate-announcements-other-major-publications/"
+        },
+        {
+          "title": "Bank of Canada maintains the policy rate at 2¼%",
+          "url": "https://www.bankofcanada.ca/2026/07/fad-press-release-2026-07-15/"
+        },
+        {
+          "title": "Bank of Canada publishes report on monetary policy framework consultations",
+          "url": "https://www.bankofcanada.ca/2026/06/bank-canada-publishes-report-monetary-policy-framework-consultations/"
+        },
+        {
+          "title": "Bank of Canada maintains the policy rate at 2¼%",
+          "url": "https://www.bankofcanada.ca/2026/06/fad-press-release-2026-06-10/"
+        }
+      ]
+    },
+    {
+      "code": "CHF",
+      "bank": "SNB",
+      "url": "https://www.snb.ch/en/news-publications/media-releases",
+      "domain": "snb.ch",
+      "status": "available",
+      "lastSuccessAt": "2026-10-17T12:23:40.894Z",
+      "items": [
+        {
+          "title": "Implementation of monetary policy",
+          "url": "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy/implementation"
+        },
+        {
+          "title": "24.09.2026 Monetary policy assessment of 24 September 2026 &#65279;",
+          "url": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924"
+        },
+        {
+          "title": "18.06.2026 Monetary policy assessment of 18 June 2026 &#65279;",
+          "url": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260618"
+        },
+        {
+          "title": "19.03.2026 Monetary policy assessment of 19 March 2026 &#65279;",
+          "url": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260319"
+        }
+      ]
+    }
+  ]
 }
