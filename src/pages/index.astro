@@ -18,7 +18,7 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
    <p>Understand the official interest-rate gap between two currencies, explore their central banks and see the next scheduled policy decisions. <strong>No trading signals. No invented forecasts.</strong></p>
    <PairFinder client:load pairs={majors.concat(allTrade90Pairs.filter(p=>p.base!=="USD" && p.quote!=="USD"))} limit={7}/>
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
-   <div class="data-status"><span class="statusdot" aria-hidden="true"></span> Official rates verified <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Market-implied forward feed: not connected</div>
+   <div class="data-status"><span class="statusdot" aria-hidden="true"></span> Official rates verified <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Market-implied forward feed: not connected · <a href="/data-policy/">How often is this updated? →</a></div>
   </div>
  </section>
  <section class="metrics" aria-label="Rate research snapshot">
