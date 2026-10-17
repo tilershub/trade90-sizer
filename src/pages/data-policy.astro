@@ -1,0 +1,98 @@
+---
+import Layout from "../layouts/Trade90V2Layout.astro";
+import snapshot from "../data/trade90-policy-snapshot.json";
+import {policyCollectionAsOf} from "../data/trade90-policy-updates.js";
+import {decisionCalendarReviewedAt} from "../data/trade90-decision-calendar.js";
+import {outlookAsOf} from "../data/trade90-policy-outlook.js";
+const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numeric",month:"long",day:"numeric",timeZone:"UTC"});
+---
+<Layout title="Data Sources, Update Frequency, Reliability and Licensing" description="Find out how TRADE90 sources and verifies central-bank rates, policy statements, decision calendars and expected rate gaps. See observed dates, current refresh limitations and data redistribution safeguards." canonical="/data-policy/">
+<main class="wrap">
+ <article class="reading-policy">
+  <header class="page-intro">
+   <span class="eyebrow">Source transparency · Last-reviewed timestamps</span>
+   <h1>TRADE90 Data Sources &amp; Update Policy</h1>
+   <p>Trade90 is a source-linked forex monetary-policy research website. <strong>Our published official rates and bank updates are dated curated observations, not continuously refreshing market data.</strong> This page explains where the figures come from, how often they currently change, and what we do not publish.</p>
+  </header>
+  <section class="status-overview" aria-label="Current published data status">
+   <div><span>Official policy-rate snapshot</span><strong><time datetime={snapshot.asOf}>{format(snapshot.asOf)}</time></strong><small>Published static bank benchmarks for eight currencies</small></div>
+   <div><span>Official policy publication review</span><strong><time datetime={policyCollectionAsOf}>{format(policyCollectionAsOf)}</time></strong><small>Dated decisions, minutes and statements</small></div>
+   <div><span>Official decision calendar review</span><strong><time datetime={decisionCalendarReviewedAt}>{format(decisionCalendarReviewedAt)}</time></strong><small>Curated meeting dates, not automatically synchronized</small></div>
+   <div><span>Reported expectation observations</span><strong><time datetime={outlookAsOf}>{format(outlookAsOf)}</time></strong><small>Time-specific third-party reports, not live quotes</small></div>
+  </section>
+  <p class="critical"><strong>Current refresh status:</strong> Trade90's public policy-rate and decision-calendar records are updated through a curated publication workflow. No automated hourly, daily or per-minute ingestion job is connected to those datasets. The site may be out of date between reviews. The CI build tests correctness of published structures; passing a build does not mean external rates or news were refreshed.</p>
+  <section>
+   <h2>How frequently does TRADE90 update?</h2>
+   <div class="table-scroll"><table><thead><tr><th>Dataset</th><th>Actual operating status</th><th>Planned verification standard</th></tr></thead><tbody>
+    <tr><td><strong>Official central-bank benchmarks</strong></td><td>Static verified snapshot; not automatic</td><td>Verify after each official decision, with a daily source check once monitoring is deployed</td></tr>
+    <tr><td><strong>Upcoming policy meetings</strong></td><td>Curated dated calendar; not a live feed</td><td>Review daily and after schedule-change announcements</td></tr>
+    <tr><td><strong>Decisions, minutes and policy reports</strong></td><td>Curated records with publication dates</td><td>Check bank publication channels on business days; publish verified changes promptly</td></tr>
+    <tr><td><strong>Reported pricing, surveys and market commentary</strong></td><td>Source-attributed dated reports; no continuous refresh</td><td>New relevant reports when independently checked, with accurate observation dates</td></tr>
+    <tr><td><strong>3M, 6M and 12M market-implied policy paths</strong></td><td><strong>Numeric data provider not connected</strong></td><td>Only after a comparable, verifiable provider with public redisplay authorization is contracted</td></tr>
+    <tr><td><strong>24-hour / 7-day forward-rate changes</strong></td><td>No genuine numeric forward history has been published</td><td>Calculate only after real compatible timestamped observations exist</td></tr>
+   </tbody></table></div>
+   <p>The third column describes intended verification goals, <strong>not a promise or a currently running refresh schedule</strong>. Official monetary-policy benchmarks typically change at decision meetings, but market pricing can reprice much more often.</p>
+  </section>
+  <section>
+   <h2>Reliability: what you can trust, and what it means</h2>
+   <div class="classes">
+    <div class="class"><strong>Official policy benchmark</strong><p>Primary-source decisions published by the Fed, ECB, BoE, BoJ, RBA, RBNZ, BoC and SNB. The benchmark and effective date can be checked against the original bank link. High confidence applies to the official announcement as of the stated date; it does <em>not</em> establish that the page is up to date today.</p></div>
+    <div class="class"><strong>Official schedule / publication</strong><p>Meeting dates, minutes and policy statements recorded from the bank's own pages. Meeting times can change, special decisions may occur, and summaries are editorial interpretations rather than verbatim bank statements. Check the linked release before acting.</p></div>
+    <div class="class"><strong>Dated third-party reporting</strong><p>Quoted or paraphrased market expectations and economist surveys with an original publication date and attribution. An October probability report cannot be treated as the market's current price after later news.</p></div>
+    <div class="class"><strong>Market-implied forward rate</strong><p>Not currently available as a numeric live dataset. Futures or overnight-indexed swap pricing must be converted using instrument-specific methodology, aligned observation times, freshness checks and licensing. It is not a guaranteed central-bank decision.</p></div>
+   </div>
+  </section>
+  <section>
+   <h2>How are interest-rate gaps calculated?</h2>
+   <p>For each market-standard FX pair, we take the selected <strong>base currency policy benchmark</strong>, subtract the selected <strong>quote currency policy benchmark</strong>, and multiply by 100 to express the signed result in basis points. The absolute gap removes the sign and is used for ranking.</p>
+   <p>For example, a base benchmark of 4.00% and quote benchmark of 2.50% produce a <strong>+150 bp signed policy-rate gap</strong>. This is a reproducible arithmetic comparison, <strong>not a currency trade, an executable FX forward quote, a broker rollover rate or a prediction</strong>. Different central banks also define policy benchmarks differently. See our <a href="/methodology/">full methodology and source registry</a>.</p>
+  </section>
+  <section>
+   <h2>Why expected rates sometimes show “not connected”</h2>
+   <p>TRADE90's forward calculation engine is ready to process eight currencies and 28 pairs across 3, 6 and 12 months, but the published forward dataset still lacks licensed market-implied observations. Displaying unavailable data is safer than inventing plausible-looking values.</p>
+   <p>Future data must have a named provider, documented market-implied policy-rate methodology, per-currency timestamps and source instruments, plus a recorded authorization for public redistribution. Its validator requires matched observations and rejects stale figures. These safeguards <strong>do not themselves connect an external feed or guarantee the right to publish a provider's data</strong>.</p>
+  </section>
+  <section>
+   <h2>Copyright, permissions and lawful data use</h2>
+   <p>Trade90 links to official central-bank websites and provides independently written factual comparisons and short explanatory summaries. Public access to an official webpage <strong>does not automatically mean all its content is free to reproduce or redistribute</strong>; each institution's copyright notices, data-use policies, attribution requirements and access conditions must be respected.</p>
+   <p>Third-party media coverage, exchanges, futures data, OIS pricing, API feeds and derived real-time datasets may carry separate copyright, licensing, access, contractual and onward-distribution restrictions. We should not ingest, republish or label any of these as publicly licensed without checking the relevant terms and obtaining permission when needed. A subscription, trial, or API key alone does not establish redisplay rights.</p>
+   <p>Our editorial policy requires original brief summaries with primary-source links. A link or attribution alone is not a substitute for permission where permission is required. Local financial-publishing, privacy, advertising or regulated-investment rules may also apply depending on content, users and jurisdiction. This is an explanation of TRADE90's publication approach, <strong>not a legal opinion or guarantee of regulatory compliance</strong>.</p>
+  </section>
+  <section>
+   <h2>What happens when sources disagree or become stale?</h2>
+   <p>For official policy benchmarks, the original bank decision and effective date take priority over commentary or secondary market reports. If a rate, meeting date or attribution cannot be verified, its status should be reviewed or withheld rather than silently replaced. This site is currently based on a static snapshot workflow and does not yet offer automated missing-source alerts or a guaranteed correction response time.</p>
+   <p>Report an error with the affected currency, URL and authoritative publication to <a href="mailto:admin@tradeninety.com">admin@tradeninety.com</a>. You can also read our <a href="/editorial-policy/">editorial and correction policy</a> and <a href="/disclaimer/">trading risk disclaimer</a>.</p>
+  </section>
+  <footer class="backlinks"><a href="/rate-gaps/">Compare all 28 rate gaps →</a><a href="/decisions/">Next central-bank decisions →</a><a href="/methodology/">Detailed methodology →</a></footer>
+ </article>
+</main>
+</Layout>
+<style>
+.reading-policy{max-width:990px;margin:0 auto;padding-bottom:52px}
+.reading-policy .page-intro{max-width:820px}.reading-policy .page-intro h1{font-size:clamp(2rem,4vw,3rem)}
+.reading-policy>section:not(.status-overview){margin:36px 0;padding-top:6px}
+.reading-policy h2{font-size:1.42rem;margin:0 0 12px;letter-spacing:-.025em}
+.reading-policy p{max-width:80ch}
+.status-overview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:19px 0}
+.status-overview>div{display:flex;flex-direction:column;gap:5px;background:#111c30;border:1px solid #334155;border-radius:12px;padding:19px}
+.status-overview span,.status-overview small{font-size:.83rem;color:#cbd5e1}
+.status-overview strong{font-size:1.25rem;color:#f8fafc}
+.critical{border-left:4px solid #10b981;background:#122c29;padding:16px 20px;border-radius:0 9px 9px 0}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.89rem}
+th{text-align:left;color:#f8fafc;background:#1d2b41;padding:13px;min-width:190px}
+td{border-bottom:1px solid #334155;padding:14px;vertical-align:top;line-height:1.55}
+.classes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.class{background:#111c30;border:1px solid #334155;border-radius:11px;padding:19px}
+.class strong{font-size:1.04rem}
+.class p{font-size:.94rem;margin:9px 0 0}
+.backlinks{display:flex;gap:18px;flex-wrap:wrap;padding-top:20px;border-top:1px solid #334155}
+html[data-theme="light"] .status-overview>div,html[data-theme="light"] .class{background:#fff;border-color:#cbd5e1}
+html[data-theme="light"] .status-overview span,html[data-theme="light"] .status-overview small,
+html[data-theme="light"] .class p{color:#334155}
+html[data-theme="light"] .status-overview strong,html[data-theme="light"] .class strong{color:#102033}
+html[data-theme="light"] .critical{background:#ecfdf5;color:#102033}
+html[data-theme="light"] th{background:#e2e8f0;color:#102033}
+html[data-theme="light"] td{border-color:#cbd5e1}
+@media(max-width:700px){.status-overview,.classes{grid-template-columns:1fr}.reading-policy>section:not(.status-overview){margin:25px 0}.reading-policy h2{font-size:1.23rem}th{min-width:155px}.status-overview>div,.class{padding:15px}}
+</style>
