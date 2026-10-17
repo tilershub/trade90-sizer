@@ -14,6 +14,10 @@ on:
       - "tests/trade90-v3.mjs"
       - "tests/trade90-v3-browser.cjs"
       - "tests/monitor-official-sources.mjs"
+      - "tests/auto-policy-rates.mjs"
+      - "scripts/auto-policy-rates.mjs"
+      - "scripts/monitor-official-sources.mjs"
+      - "tests/monitor-official-sources.mjs"
       - "scripts/monitor-official-sources.mjs"
       - "tests/trade90-reading-browser.cjs"
       - "tests/monitor-official-sources.mjs"
@@ -46,6 +50,10 @@ jobs:
         run: node tests/monitor-official-sources.mjs
       - name: Verify no unlicensed published forward rates
         run: node scripts/check-forward-publication.mjs
+      - name: Verify autonomous central-bank source discovery and parser
+        run: |
+          node tests/monitor-official-sources.mjs
+          node tests/auto-policy-rates.mjs
       - name: Validate V3 pair pages and source links
         run: node tests/trade90-v3.mjs
       - name: Validate automatic source monitoring safeguards

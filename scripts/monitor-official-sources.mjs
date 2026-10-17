@@ -85,6 +85,30 @@ export function nextSnapshot(previous,results,stamp){
  explanation:"Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
  sources},changes,failed};
 }
+
+// Independently maintain a source-linked publication archive. "First seen" is
+// discovery time, never asserted to be the official publication date.
+export function nextPublicFeed(previous,monitor,stamp,max=160){
+ const existing=Array.isArray(previous?.items)?previous.items:[];
+ const old=new Map(existing.filter(x=>typeof x.url==="string").map(x=>[x.url,x]));
+ const collected=[];
+ for(const source of monitor.sources||[]){
+  if(source.status!=="available")continue;
+  for(const item of source.items||[]){
+   const url=verifiedSourceUrl(item.url,source);
+   if(!url||!relevant.test(item.title||""))continue;
+   collected.push({code:source.code,bank:source.bank,title:String(item.title).slice(0,220),url,
+     firstSeenAt:old.get(url)?.firstSeenAt||stamp});
+  }
+ }
+ const combined=[...new Map([...existing,...collected].map(x=>[x.url,x])).values()]
+ .filter(item=>SOURCES.some(source=>source.code===item.code&&verifiedSourceUrl(item.url,source)))
+ .sort((a,b)=>b.firstSeenAt.localeCompare(a.firstSeenAt)||a.code.localeCompare(b.code)).slice(0,max);
+ return {schemaVersion:1,kind:"official_discovered_publications",lastCompiledAt:stamp,
+   lastSourceScanAt:monitor.lastScanAt,items:combined,
+   explanation:"Automatically collected links on official central-bank domains. First seen is when TRADE90 discovered the link, not its publication date; content summaries and rate decisions have separate verification."};
+}
+
 export async function scanOne(source,fetcher=fetch){
  const c=new AbortController(),timer=setTimeout(()=>c.abort(),12500);
  try{
@@ -104,7 +128,8 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
  const results={};
  const supplemental={
    EUR:["https://www.ecb.europa.eu/press/govcdec/mopo/html/index.en.html"],
-   NZD:["https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/the-official-cash-rate"]
+   JPY:["https://www.boj.or.jp/en/mopo/mpmdeci/state_2026/"],
+   NZD:["https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions","https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/the-official-cash-rate"]
  };
  for(const s of SOURCES){
    results[s.code]=await scanOne(s,fetcher);
@@ -120,6 +145,18 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
    console.log(s.code+": "+(results[s.code].ok?"found "+results[s.code].items.length+" links":results[s.code].error));
  }
  const {snapshot,changes,failed}=nextSnapshot(prior,results,now());
+ // Build the archive from current-source discoveries even when the official
+ // rate publication engine does not recognize or support a rate decision.
+ const feedPath=resolve("public/data/official-release-feed.json");
+ let priorFeed=null;try{priorFeed=JSON.parse(readFileSync(feedPath,"utf8"))}catch{}
+ const feed=nextPublicFeed(priorFeed,snapshot,snapshot.lastScanAt);
+ const previousLinks=JSON.stringify((priorFeed?.items||[]).map(x=>x.url).sort());
+ const newLinks=JSON.stringify(feed.items.map(x=>x.url).sort());
+ const feedElapsed=Date.parse(feed.lastCompiledAt)-Date.parse(priorFeed?.lastCompiledAt||"");
+ if(newLinks!==previousLinks||!Number.isFinite(feedElapsed)||feedElapsed>=23*3600000){
+  mkdirSync(dirname(feedPath),{recursive:true});
+  writeFileSync(feedPath,JSON.stringify(feed,null,2)+"\n");
+ }
  if(failed.length===SOURCES.length && !(prior.sources||[]).length)throw Error("All initial source checks failed");
  const previousTime=Date.parse(prior.lastScanAt||"");
  const elapsed=Date.parse(snapshot.lastScanAt)-previousTime;
@@ -132,6 +169,6 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
  writeFileSync("/tmp/trade90-source-alert.md",report);
  writeFileSync("/tmp/trade90-source-monitor-result.json",JSON.stringify({changes,failed}));
  console.log("New links: "+changes.length+"; failed sources: "+failed.length+"; public status published: "+publish+"; NO policy rates modified.");
- return {snapshot,changes,failed};
+ return {snapshot,changes,failed,feed};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)runMonitor().catch(e=>{console.error(e);process.exitCode=1;});

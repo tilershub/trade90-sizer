@@ -46,7 +46,8 @@ async function inspect(page,selector,route){
       ".home .section-head p",".home .policy-section .update-card h3",
       ".home .policy-section .update-card>p",".home .policy-section .source-link",
       ".home .guides strong",".home .guides span",".home .data-status",
-      ".home .data-status>strong",".home .data-status>span:not(.statusdot)",".home .data-status a"
+      ".home .data-status>strong",".home .data-status>span:not(.statusdot)",".home .data-status a",
+      ".home .release-feed .release-head h2",".home .release-feed .release-head p",".home .release-feed .feed-list a"
     ],
     "/pairs/eur-usd/":[
       ".pair-head h1",".pair-page .bank-card h2",".pair-page .bank-card p",
@@ -55,7 +56,8 @@ async function inspect(page,selector,route){
       "#decisions .watch-head p","#decisions .watch-card h3",
       "#decisions .watch-for p","#guidance .item>p","#guidance .watch p",
       "#updates .update-card>p","#updates .update-card h3",
-      "#updates .source-link","#explanation p"
+      "#updates .source-link","#explanation p",
+      ".pair-page .release-feed .release-head h2",".pair-page .release-feed .release-head p",".pair-page .release-feed .feed-list a"
     ],
     "/rate-gaps/":[".full-table th",".full-table td",".full-table .showing",".full-table .tools label"],
     "/central-banks/fed/":[".hub .details p",".hub .part h2",".hub .news p",".hub .pairs span"],
@@ -70,6 +72,7 @@ async function inspect(page,selector,route){
     await page.goto(origin+route,{waitUntil:"networkidle"});
     await page.locator("#trade90-theme").selectOption("light");
     assert.equal(await page.locator("html").getAttribute("data-theme"),"light");
+    if(route==="/")await page.locator(".home .release-feed").scrollIntoViewIfNeeded(); // client:visible hydration requires intersection
     for(const selector of selectors)await inspect(page,selector,route);
     if(route==="/" && viewport.width<500){
       const cardLayout=await page.locator(".home .pair-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);

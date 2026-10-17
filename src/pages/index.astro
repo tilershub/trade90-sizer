@@ -2,6 +2,7 @@
 import Layout from "../layouts/Trade90V2Layout.astro";
 import PairFinder from "../components/Trade90PairFinder.svelte";
 import PolicyUpdates from "../components/Trade90PolicyUpdates.svelte";
+import OfficialReleaseFeed from "../components/Trade90OfficialReleaseFeed.svelte";
 import {allTrade90Pairs,majors,pairUrl,rateSnapshot,reportDate,formatPercent} from "../lib/trade90-v3.js";
 import {formatBp} from "../lib/trade90-rates.js";
 import {officialPolicyDecisionCalendar,decisionCalendarReviewedAt} from "../data/trade90-decision-calendar.js";
@@ -20,7 +21,7 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
    <aside class="data-status" aria-label="TRADE90 data freshness and availability">
      <strong><span class="statusdot" aria-hidden="true"></span> Verified official-rate snapshot</strong>
-     <span>Checked <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Updated after manual source verification, not automatically every minute or day.</span>
+     <span>Checked <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Hourly automated official-source checks attempt to publish only strictly verified rate decisions; unsupported formats remain unchanged.</span>
      <span>Market-implied 3M / 6M / 12M feed: <strong>not connected</strong>.</span>
      <a href="/data-policy/">View update frequency, sources and licensing →</a>
    </aside>
@@ -36,6 +37,7 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
  <p class="minor">Official-rate figures are from {reportDate(rateSnapshot.asOf)}. A wider current gap doesn't imply a stronger currency or actual broker carry.</p></section>
  <section class="block" id="decisions"><div class="section-head"><div><div class="eyebrow">CENTRAL BANK CALENDAR</div><h2>Next major decisions to watch</h2><p>Scheduled announcements that can change the policy outlook. Dates are official calendars, not a forecast of market moves.</p></div><a href="/decisions/">Full decision calendar →</a></div><div class="decision-grid">{upcoming.map(e=><a class="decision" href="/decisions/"><span>{e.currency} · {e.bank}</span><strong><time datetime={e.date}>{reportDate(e.date)}</time></strong><small>{e.title} →</small></a>)}</div><p class="minor">Calendar reviewed {reportDate(decisionCalendarReviewedAt)}. Verify dates at the linked official banks; unexpected decisions may occur.</p></section>
  <section class="block" id="policy"><div class="section-head"><div><div class="eyebrow">SOURCE-LINKED PUBLICATIONS</div><h2>Latest central-bank policy updates</h2><p>Dated official decisions and meeting communications. This is a curated collection, not live breaking news.</p></div><a href="/central-banks/">All bank updates →</a></div><PolicyUpdates compact={true}/></section>
+ <OfficialReleaseFeed client:visible limit={4}/>
  <section class="block" id="learn"><div class="section-head"><div><div class="eyebrow">LEARN</div><h2>Understand interest-rate divergence</h2><p>Evidence-based guides explain what policy gaps do—and do not—mean for forex traders.</p></div><a href="/learn/">All guides →</a></div><div class="guides"><a href="/learn/what-is-interest-rate-divergence/"><strong>What is interest-rate divergence?</strong><span>Understand signed and absolute rate differences →</span></a><a href="/learn/expected-rate-gaps/"><strong>How markets price expected rate moves</strong><span>Meeting probabilities, forwards and their limitations →</span></a><a href="/learn/high-interest-rates-currency-strength/"><strong>Do higher rates mean a stronger currency?</strong><span>Why policy gaps aren't trading signals →</span></a></div></section>
 </main>
 </Layout>

@@ -104,6 +104,22 @@ export function decisionSafety(candidate,bank,today){
  if(candidate.effectiveDate<candidate.decisionDate)return "invalid_effective_date";
  return "publish";
 }
+// Append-only public record of accepted OFFICIAL decisions, never guesses.
+// Rates come exclusively from proposals that passed decisionSafety.
+export function appendRateHistory(history,previous,next,changed,stamp){
+ if(!Array.isArray(history))throw Error("Invalid official rate audit history");
+ const records=changed.map(code=>{
+  const old=previous.banks.find(x=>x.code===code);
+  const bank=next.banks.find(x=>x.code===code);
+  if(!old||!bank||!bank.source||!bank.decisionDate||!bank.effectiveDate)throw Error("Incomplete rate audit entry: "+code);
+  return {code,previousRatePct:old.rate,ratePct:bank.rate,
+   benchmark:bank.benchmark,decisionDate:bank.decisionDate,effectiveDate:bank.effectiveDate,
+   officialSource:bank.source,publishedBy:"trade90-autonomous-verified-policy-publisher",recordedAt:stamp};
+ });
+ const known=new Set(history.map(x=>[x.code,x.decisionDate,x.officialSource].join("|")));
+ return [...history,...records.filter(x=>!known.has([x.code,x.decisionDate,x.officialSource].join("|")))].slice(-1000);
+}
+
 export function updateSnapshot(snapshot,proposals,today){
  if(snapshot?.banks?.length!==8)throw Error("Invalid eight-bank source snapshot");
  const changed=[],verdicts=[];
@@ -140,7 +156,7 @@ export async function runAutomaticRateCheck({fetcher=fetch,now=()=>new Date().to
  const proposals=[],coverage=[],failures=[];
  for(const bank of snapshot.banks){
   const records=(monitor.sources||[]).find(s=>s.code===bank.code)?.items||[];
-  const candidates=records.filter(x=>officialDecisionLink(x,bank.code)).slice(0,3);
+  const candidates=records.filter(x=>officialDecisionLink(x,bank.code)).slice(0,16);
   if(!candidates.length){coverage.push({code:bank.code,state:"No parseable decision in official feed"});continue;}
   let verified=false;
   for(const record of candidates){
@@ -160,7 +176,15 @@ export async function runAutomaticRateCheck({fetcher=fetch,now=()=>new Date().to
   if(!verified)coverage.push({code:bank.code,state:"No safely verified new decision"});
  }
  const output=updateSnapshot(snapshot,proposals,today);
- if(output.changed.length)writeFileSync(resolve("src/data/trade90-policy-snapshot.json"),JSON.stringify(output.next,null,2)+"\n");
+ if(output.changed.length){
+  // Store an independently auditable public history alongside the immutable
+  // Git history. Only confirmed changes can reach this code path.
+  const auditPath=resolve("public/data/official-rate-history.json");
+  let previous=[];try{previous=JSON.parse(readFileSync(auditPath,"utf8"))}catch{}
+  const updated=appendRateHistory(previous,snapshot,output.next,output.changed,stamp);
+  writeFileSync(auditPath,JSON.stringify(updated,null,2)+"\n");
+  writeFileSync(resolve("src/data/trade90-policy-snapshot.json"),JSON.stringify(output.next,null,2)+"\n");
+ }
  const report={checkedAt:stamp,changed:output.changed,coverage,failures,notes:"Official documents only. Uncertain rates remain unchanged."};
  writeFileSync("/tmp/trade90-auto-rates-result.json",JSON.stringify(report,null,2)+"\n");
  const statusPath=resolve("public/data/official-policy-automation.json");
