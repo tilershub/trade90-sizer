@@ -6,6 +6,9 @@ import {officialDecisionSources,getNextPolicyDecisions} from "../src/data/trade9
 import {getPairPolicyUpdates} from "../src/data/trade90-policy-updates.js";
 assert.equal(allTrade90Pairs.length,28);
 assert.equal(majors.length,7);
+assert.equal((await import("../src/lib/trade90-v3.js")).formatPercent(2.5),"2.50%");
+assert.equal((await import("../src/lib/trade90-v3.js")).formatPercent(4.6),"4.60%");
+assert.equal((await import("../src/lib/trade90-v3.js")).formatPercent(3.875),"3.875%");
 assert.equal(crosses.length,21);
 assert.equal(new Set(allTrade90Pairs.map(p=>pairSlug(p.symbol))).size,28);
 for (const p of allTrade90Pairs){
