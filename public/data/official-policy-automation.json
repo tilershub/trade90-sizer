@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "automated_fail_closed",
-  "lastCheckedAt": "2026-10-17T14:55:29.285Z",
+  "lastCheckedAt": "2026-10-17T15:19:59.456Z",
   "changedBanks": [],
   "coverage": [
     {
@@ -38,6 +38,34 @@
     }
   ],
   "failures": [
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "AUD",
+      "state": "not_verified"
+    },
     {
       "code": "AUD",
       "state": "not_verified"
