@@ -91,7 +91,7 @@ async function inspect(page,selector,route){
   await doc.goto(origin+"/data-policy/",{waitUntil:"domcontentloaded"});
   assert.equal(await doc.locator("h1").innerText(),"TRADE90 Data Sources & Update Policy");
   const body=await doc.locator("main").innerText();
-  for(const statement of ["not continuously refreshing","No automated hourly, daily or per-minute ingestion","not a promise","Numeric data provider not connected","Copyright, permissions and lawful data use","Quick answers for forex traders","Official source and market-data terms","Verified snapshot"]){
+  for(const statement of ["not continuously refreshing","An hourly GitHub Actions monitor now checks official bank publication sources","not a promise","Numeric data provider not connected","Copyright, permissions and lawful data use","Quick answers for forex traders","Official source and market-data terms","Verified snapshot"]){
    assert.ok(body.includes(statement),"Data transparency statement missing: "+statement);
   }
   assert.equal(await doc.locator("body a[href='https://www.cmegroup.com/market-data/license-data.html']").count(),1,"Primary CME redistribution licensing reference required");
@@ -100,6 +100,9 @@ async function inspect(page,selector,route){
    assert.ok(await doc.locator('a[href="/data-policy/"]').count()>0,"Missing transparency link on "+route);
   }
 
+  await doc.goto(origin+"/data-policy/");
+  assert.equal(await doc.locator(".monitor").count(),1,"Source watch status is visible on data policy page");
+  assert.match(await doc.locator(".monitor").innerText(),/Automated official-source checks/);
   assert.equal(lowContrast.length,0,"Low-contrast content ("+lowContrast.length+" samples):\n"+lowContrast.slice(0,65).join("\n"));
   console.log("Readability verified: high-contrast Light & Dark across trader pages on mobile and desktop; accurate data-policy disclosures and internal links.");
  }finally{await browser.close();}
