@@ -14,7 +14,7 @@ import {rateSnapshot,formatPercent} from "../../lib/trade90-v3.js";
       <p>Follow actual monetary-policy decisions, minutes, statements and reports for the currencies traded on TRADE90. Read what banks really published, separate from what derivatives markets currently expect.</p>
     </header>
     <section class="bankdirectory" aria-label="Explore individual central banks"><h2>Explore all eight central banks</h2><div class="banktiles">{rateSnapshot.banks.map(bank=><a href={"/central-banks/"+bank.short.toLowerCase()+"/"}><strong>{bank.code} · {bank.short}</strong><span>{bank.name}</span><small>{formatPercent(bank.rate)} · View policy and related pairs →</small></a>)}</div></section>
-    <Trade90PolicyUpdates client:load />
+    <Trade90PolicyUpdates client:visible />
     <aside class="explainer">
       <h2>What counts as a policy update?</h2>
       <p><strong>Rate decisions</strong> announce an official benchmark and its effective date. <strong>Minutes</strong> describe the discussion at an earlier meeting. <strong>Statements</strong> and <strong>policy reports</strong> explain policymakers' assessments and projections. None of these automatically tells us what a market-implied 3-, 6- or 12-month rate will be.</p>
