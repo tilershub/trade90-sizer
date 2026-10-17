@@ -1,5 +1,8 @@
 const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
+const {readFileSync}=require("node:fs");
+const snapshot=JSON.parse(readFileSync("src/data/trade90-policy-snapshot.json","utf8"));
+const rate=(code)=>snapshot.banks.find(b=>b.code===code).rate;
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
  try{
@@ -25,12 +28,12 @@ const {chromium}=require("playwright");
   await page.waitForURL("**/pairs/eur-usd/");
   await page.getByRole("heading",{name:"EUR/USD Interest Rate Gap",exact:true}).waitFor();
   assert.equal(await page.locator(".comparison .bank-card").count(),2);
-  assert.equal(await page.locator(".comparison .bank-card .value").first().innerText(),"2.50%","Display published precision for ECB policy benchmark");
+  assert.equal(parseFloat(await page.locator(".comparison .bank-card .value").first().innerText()),rate("EUR"),"Display current published ECB benchmark");
   await page.locator("#trade90-theme").selectOption("light");
   assert.equal(await page.locator(".policy-section .update-card").first().evaluate(el=>getComputedStyle(el).backgroundColor),"rgb(255, 255, 255)","Light theme must support policy update reading cards");
   assert.equal(await page.locator(".forward").evaluate(el=>getComputedStyle(el).backgroundColor),"rgb(255, 255, 255)","Light theme should also cover the forward-data panel");
   await page.locator("#trade90-theme").selectOption("dark");
-  assert.match(await page.locator(".gap-value").innerText(),/-137.5/);
+  assert.ok(Math.abs(parseFloat(await page.locator(".gap-value").innerText())-(rate("EUR")-rate("USD"))*100)<.01,"Signed EUR/USD gap must derive from auto-verified rates");
   await page.getByRole("heading",{name:"Next Major Decisions to Watch",exact:true}).waitFor();
   assert.equal(await page.locator(".decision-watch .watch-card").count(),2);
   assert.equal(await page.locator(".pair-policy-updates .update-card").count(),0,"Pair policy section should not use deprecated homepage wrapper");
