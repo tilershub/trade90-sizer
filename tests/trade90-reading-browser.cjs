@@ -94,11 +94,12 @@ async function inspect(page,selector,route){
   for(const statement of ["not continuously refreshing","No automated hourly, daily or per-minute ingestion","not a promise","Numeric data provider not connected","Copyright, permissions and lawful data use","Quick answers for forex traders","Official source and market-data terms","Verified snapshot"]){
    assert.ok(body.includes(statement),"Data transparency statement missing: "+statement);
   }
+  assert.equal(await doc.locator("body a[href='https://www.cmegroup.com/market-data/license-data.html']").count(),1,"Primary CME redistribution licensing reference required");
   for(const route of ["/","/pairs/eur-usd/","/methodology/","/disclaimer/","/editorial-policy/"]){
    await doc.goto(origin+route);
    assert.ok(await doc.locator('a[href="/data-policy/"]').count()>0,"Missing transparency link on "+route);
   }
-  assert.equal(await doc.locator("body a[href='https://www.cmegroup.com/market-data/license-data.html']").count(),1,"Primary CME redistribution licensing reference required");
+
   assert.equal(lowContrast.length,0,"Low-contrast content ("+lowContrast.length+" samples):\n"+lowContrast.slice(0,65).join("\n"));
   console.log("Readability verified: high-contrast Light & Dark across trader pages on mobile and desktop; accurate data-policy disclosures and internal links.");
  }finally{await browser.close();}
