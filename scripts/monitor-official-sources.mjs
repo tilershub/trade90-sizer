@@ -6,10 +6,10 @@ import {pathToFileURL} from "node:url";
 export const SOURCES=[
  {code:"USD",bank:"Fed",url:"https://www.federalreserve.gov/feeds/press_monetary.xml",domain:"federalreserve.gov"},
  {code:"EUR",bank:"ECB",url:"https://www.ecb.europa.eu/rss/press.html",domain:"ecb.europa.eu"},
- {code:"GBP",bank:"BoE",url:"https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes",domain:"bankofengland.co.uk"},
+ {code:"GBP",bank:"BoE",url:"https://www.bankofengland.co.uk/news/latest-and-upcoming",domain:"bankofengland.co.uk"},
  {code:"JPY",bank:"BoJ",url:"https://www.boj.or.jp/en/whatsnew/",domain:"boj.or.jp"},
  {code:"AUD",bank:"RBA",url:"https://www.rba.gov.au/media-releases/",domain:"rba.gov.au"},
- {code:"NZD",bank:"RBNZ",url:"https://www.rbnz.govt.nz/news-and-events/news",domain:"rbnz.govt.nz"},
+ {code:"NZD",bank:"RBNZ",url:"https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions",domain:"rbnz.govt.nz"},
  {code:"CAD",bank:"BoC",url:"https://www.bankofcanada.ca/press/press-releases/",domain:"bankofcanada.ca"},
  {code:"CHF",bank:"SNB",url:"https://www.snb.ch/en/news-publications/media-releases",domain:"snb.ch"}
 ];
