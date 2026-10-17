@@ -28,7 +28,7 @@ for(const [code,doc,html,wanted] of cases){
    assert.equal(completeFedDecision(parsed,note.replace("4-1/4","4-1/2")),null,"Mismatched implementation range rejected");
  }else assert.equal(decisionSafety(parsed,prior,"2026-12-31"),"publish");
  assert.equal(decisionSafety({...parsed,rate:prior.rate+2},prior,"2026-12-31"),code==="USD"?"not_verified":"unusually_large_change");
- assert.equal(decisionSafety(parsed,prior,"2026-10-01"),"future_decision");
+ assert.equal(decisionSafety(code==="USD"?completeFedDecision(parsed,'<h1>Implementation Note issued October 28, 2026</h1>Effective October 29, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations to maintain the federal funds rate in a target range of 4 to 4-1/4 percent.'):parsed,prior,"2026-10-01"),"future_decision");
 }
 const doc=cases[3][1],txt=cases[3][2];
 assert.equal(parseOfficialDecision(doc,"AUD",txt.replace(", effective from 4 November 2026","")),null,"RBA effective date may not be guessed");
