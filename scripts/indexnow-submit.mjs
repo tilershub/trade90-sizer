@@ -1,6 +1,7 @@
 /**
  * TRADE90 IndexNow: notify supported engines of deployed canonical URLs.
- * --dry-run validates generated sitemap offline. --submit verifies ownership
+ * --dry-run validates generated sitemap offline. --check-live checks the deployment.
+ * --submit verifies ownership
  * on the deployed site, then sends URLs (does not guarantee indexing).
  * Google's general webpages must use Search Console/sitemaps, not Indexing API.
  */
@@ -56,7 +57,7 @@ async function fetchText(url) {
 
 async function main() {
   const mode = process.argv[2] || "--dry-run";
-  if (mode !== "--dry-run" && mode !== "--submit") throw Error("Use --dry-run or --submit");
+  if (!["--dry-run","--check-live","--submit"].includes(mode)) throw Error("Use --dry-run, --check-live, or --submit");
   const key = readIndexNowKey();
   if (mode === "--dry-run") {
     const urls = urlsFromSitemap(readFileSync(localMap, "utf8"));
@@ -67,6 +68,7 @@ async function main() {
   const verifiedKey = (await fetchText(KEY_LOCATION)).trim();
   if (verifiedKey !== key) throw Error("Live IndexNow verification key differs from repository key");
   const urls = urlsFromSitemap(await fetchText(SITEMAP));
+  if (mode === "--check-live") { console.log("Live site verified: IndexNow key and " + urls.length + " canonical sitemap URLs are accessible."); return; }
   const response = await fetch(ENDPOINT, {
     method: "POST",
     headers: { "content-type": "application/json; charset=utf-8", "user-agent": "TRADE90-IndexNow/1.0" },
