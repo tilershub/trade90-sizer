@@ -31,7 +31,16 @@ const rba=SOURCES.find(s=>s.code==="AUD");
 const items=extractOfficialLinks(html,rba);
 assert.equal(items.length,1);
 assert.equal(items[0].url,"https://www.rba.gov.au/media-releases/2026/mr-26-30.html");
-const baseline=Object.fromEntries(SOURCES.map(s=>[s.code,{ok:true,items:s.code==="USD"?rssItems:items.map(i=>({...i,url:"https://"+s.domain+"/news/2026/new-policy-decision"}))}]));
+const exampleDecisionUrls={
+ EUR:"https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~demo.en.html",
+ GBP:"https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/october-2026",
+ JPY:"https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k261028a.pdf",
+ AUD:"https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
+ NZD:"https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-decision",
+ CAD:"https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+ CHF:"https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20261210"
+};
+const baseline=Object.fromEntries(SOURCES.map(s=>[s.code,{ok:true,items:s.code==="USD"?rssItems:[{title:"Official monetary policy rate decision",url:exampleDecisionUrls[s.code]}]}]));
 const a=nextSnapshot({schemaVersion:1,status:"awaiting_first_scan",sources:[]},baseline,"2026-10-17T05:00:00.000Z");
 assert.equal(a.snapshot.sources.length,8);assert.equal(a.changes.length,0);assert.equal(a.failed.length,0);
 const b=nextSnapshot(a.snapshot,{...baseline,USD:{ok:true,items:[{title:"New monetary policy rate announcement",url:"https://www.federalreserve.gov/newsevents/pressreleases/monetary20261029a.htm"},...rssItems]}}, "2026-10-17T06:00:00.000Z");
