@@ -57,11 +57,5 @@
 .feed-list li:last-child{border:0}
 .feed-list .bank{font-size:.78rem;color:#a7f3d0;font-weight:740;white-space:nowrap;min-width:66px}
 .feed-list a,.feed-note a{color:#6ee7b7;text-decoration:underline;text-underline-offset:3px;font-size:.89rem}
-html[data-theme="light"] .release-feed{background:#fff;border-color:#cbd5e1;color:#102033}
-html[data-theme="light"] .release-head .eyebrow,html[data-theme="light"] .feed-list .bank{color:#065f46}
-html[data-theme="light"] .release-head h2{color:#102033}
-html[data-theme="light"] .release-head p,html[data-theme="light"] .feed-meta,html[data-theme="light"] .feed-note,html[data-theme="light"] .feed-state{color:#334155}
-html[data-theme="light"] .feed-meta,html[data-theme="light"] .feed-list li{border-color:#cbd5e1}
-html[data-theme="light"] .feed-list a,html[data-theme="light"] .feed-note a{color:#065f46}
 @media(max-width:600px){.release-feed{padding:14px}.feed-list li{display:block;padding:12px 0}.feed-list .bank{display:block;margin-bottom:4px}}
 </style>
