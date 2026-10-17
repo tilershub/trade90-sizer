@@ -22,7 +22,7 @@ const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numer
    <div><span>Reported expectation observations</span><strong><time datetime={outlookAsOf}>{format(outlookAsOf)}</time></strong><small>Time-specific third-party reports, not live quotes</small></div>
   </section>
   <p class="critical"><strong>Current refresh status:</strong> Trade90's public policy-rate and decision-calendar records are updated through a curated publication workflow. An hourly GitHub Actions monitor now checks official bank publication sources for newly published links, but this is **discovery only**: it does not automatically update policy-rate percentages, rewrite the decision calendar, or verify policy summaries. The original bank-rate and calendar datasets still require a separate verification and publication process. The site may be out of date between reviews. The CI build tests correctness of published structures; passing a build does not mean external rates or news were refreshed.</p>
-  <SourceWatch client:load />
+  <SourceWatch client:visible />
   <section>
    <h2>How frequently does TRADE90 update?</h2>
    <p><strong>Source discovery runs hourly on a best-effort schedule</strong> through GitHub Actions; individual runs can be delayed, fail or be blocked by the source website. The monitor records official source links and flags detected changes for review. It does not automatically prove the content of a policy decision or refresh the official rate snapshot. Source health from the latest successful run is shown above.</p>

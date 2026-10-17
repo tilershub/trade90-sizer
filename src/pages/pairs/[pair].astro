@@ -41,9 +41,9 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
   <nav class="page-nav" aria-label="On this page"><a href="#expected">Expected rates</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
   <section class="section" id="expected">
    <div class="section-heading"><div><div class="eyebrow">Market data availability</div><h2>Expected {pair.label} Rate Divergence</h2><p>Market-implied policy-rate differences require validated, appropriately licensed forward inputs for both currencies. No fabricated forecasts.</p></div></div>
-   <ForwardRates client:load mode="pair" policyBanks={rateSnapshot.banks} selectedPair={pair}/>
+   <ForwardRates client:visible mode="pair" policyBanks={rateSnapshot.banks} selectedPair={pair}/>
   </section>
-  <section class="section" id="decisions"><NextDecisions client:load pair={pair}/></section>
+  <section class="section" id="decisions"><NextDecisions client:idle pair={pair}/></section>
   <section class="section" id="guidance"><PairGuidance pair={pair}/></section>
   <section class="section" id="updates"><PolicyUpdates pair={pair}/></section>
   <section class="section article-section" id="explanation">

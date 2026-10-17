@@ -447,3 +447,75 @@ html .policy-section .update-card {line-height:1.58}
  html .home .guides strong{font-size:1.05rem}
  html .theme-label select,.mobile-menu summary{min-height:44px}
 }
+
+
+/* Trade90 clean research finish: neutrals own the page; green is for actions.
+ * Intentionally no gradients, decorative glow, animated backgrounds or giant
+ * boxed callouts. This preserves the original TRADE + emerald 90 wordmark. */
+:root{--t90-green:#047857;--t90-green-hover:#065f46}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+h1,h2,h3,h4{font-weight:750;letter-spacing:-.025em}
+html .home .hero{padding-top:38px;padding-bottom:16px}
+html .home .hero h1{font-size:clamp(2.1rem,4.1vw,3.3rem);max-width:780px;line-height:1.15}
+html .home .hero p{max-width:730px}
+html .home .metrics{margin:12px 0 30px;gap:10px}
+html .home .metric,
+html .home .pair-card,
+html .home .decision,
+html .home .guides a{box-shadow:none!important;border-radius:9px}
+html .home .block{padding:23px 0 26px}
+html .home .pair-card{padding:16px}
+html .home .pair-card strong{margin:10px 0;font-size:1.4rem}
+html .home .section-head{margin-bottom:14px}
+html .home .section-head p{max-width:70ch}
+html .home .data-status{box-shadow:none;max-width:780px;border-radius:8px}
+html .home .metric{gap:6px}
+html .home .metric strong{font-size:1.28rem}
+html .home .popular a{border-radius:6px}
+html .home .guides a{gap:6px;padding:17px}
+html .home .decision{gap:6px}
+html .home .pair-grid,
+html .home .decision-grid{gap:10px}
+html[data-theme="light"] .home .data-status{background:#f1f5f9;border-color:#cbd5e1;border-left-color:#047857}
+html[data-theme="light"] .home .metric,
+html[data-theme="light"] .home .pair-card,
+html[data-theme="light"] .home .decision,
+html[data-theme="light"] .home .guides a,
+html[data-theme="light"] .pair-page .bank-card,
+html[data-theme="light"] .pair-page .section,
+html[data-theme="light"] .policy-section .update-card{background:#fff;border-color:#cbd5e1;box-shadow:none!important}
+html[data-theme="light"] .home .pair-top,
+html[data-theme="light"] .home .metric span:first-child,
+html[data-theme="light"] .home .decision small,
+html[data-theme="light"] .home .data-status{color:#334155}
+html[data-theme="light"] .home .metric span:last-child,
+html[data-theme="light"] .home .pair-bottom span,
+html[data-theme="light"] .home .decision span,
+html[data-theme="light"] .home .guides span{color:#334155}
+html[data-theme="light"] .home .pair-bottom span:last-child,
+html[data-theme="light"] .home .section-head>a,
+html[data-theme="light"] .home .popular a,
+html[data-theme="light"] .home .data-status a{color:#065f46}
+html[data-theme="light"] .home .section-head{border:0}
+html[data-theme="light"] .home .pair-card:hover,
+html[data-theme="light"] .home .metric:hover,
+html[data-theme="light"] .home .decision:hover,
+html[data-theme="light"] .home .guides a:hover{background:#f8fafc;border-color:#64748b}
+html[data-theme="light"] .home .hero h1 em{color:#065f46!important}
+html[data-theme="light"] .home .popular span,
+html[data-theme="light"] .home .minor{color:#475569}
+html[data-theme="dark"] .home .pair-card:hover,
+html[data-theme="dark"] .home .metric:hover{background:#192638}
+html .topbar nav a{text-transform:none;font-size:.78rem;letter-spacing:0;font-weight:660}
+html .footer .footlinks a{font-size:.83rem}
+/* Immediate theme switch: no half-light cards with dark text or vice versa. */
+@media (max-width:600px){
+ html .home .hero{padding-top:23px}
+ html .home .hero h1{font-size:clamp(2rem,9vw,2.6rem)}
+ html .home .metrics{margin:12px 0 20px}
+ html .home .block{padding:18px 0 24px}
+ html .home .pair-grid,html .home .decision-grid{grid-template-columns:minmax(0,1fr)}
+ html .home .pair-card{padding:15px}
+ html .home .decision{padding:15px}
+ html .home .metric strong{font-size:1.28rem}
+}
