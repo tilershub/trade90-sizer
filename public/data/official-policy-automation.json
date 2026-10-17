@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "status": "awaiting_first_automatic_rate_run",
+  "lastCheckedAt": null,
+  "changedBanks": [],
+  "coverage": [],
+  "failures": [],
+  "explanation": "Official policy rate verification is separate from hourly source-link discovery. Unverified bank figures remain unchanged."
+}
