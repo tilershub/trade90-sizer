@@ -163,6 +163,15 @@ export async function runAutomaticRateCheck({fetcher=fetch,now=()=>new Date().to
  if(output.changed.length)writeFileSync(resolve("src/data/trade90-policy-snapshot.json"),JSON.stringify(output.next,null,2)+"\n");
  const report={checkedAt:stamp,changed:output.changed,coverage,failures,notes:"Official documents only. Uncertain rates remain unchanged."};
  writeFileSync("/tmp/trade90-auto-rates-result.json",JSON.stringify(report,null,2)+"\n");
+ const statusPath=resolve("public/data/official-policy-automation.json");
+ let prior=null;try{prior=JSON.parse(readFileSync(statusPath,"utf8"))}catch{}
+ const publicStatus={schemaVersion:1,status:"automated_fail_closed",lastCheckedAt:stamp,changedBanks:output.changed,
+  coverage:coverage.map(x=>({code:x.code,state:x.state})),
+  failures:failures.map(x=>({code:x.code,state:x.state})).slice(0,16),
+  explanation:"Strict policy decision parsing: only source-confirmed, dated, effective bank decisions are published; other bank observations retain their last verified values."};
+ const last=Date.parse(prior?.lastCheckedAt||""),elapsed=Date.parse(stamp)-last;
+ const changes=output.changed.length||JSON.stringify(publicStatus.coverage)!==JSON.stringify(prior?.coverage)||JSON.stringify(publicStatus.failures)!==JSON.stringify(prior?.failures);
+ if(changes||!Number.isFinite(elapsed)||elapsed>=23*60*60*1000)writeFileSync(statusPath,JSON.stringify(publicStatus,null,2)+"\n");
  console.log(JSON.stringify({changed:report.changed,coverage:coverage.map(x=>x.code+":"+x.state),failures:failures.length}));
  return report;
 }
