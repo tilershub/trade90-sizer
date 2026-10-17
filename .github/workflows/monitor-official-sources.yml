@@ -6,7 +6,9 @@ on:
     paths:
       - ".github/workflows/monitor-official-sources.yml"
       - "scripts/monitor-official-sources.mjs"
+      - "scripts/auto-policy-rates.mjs"
       - "tests/monitor-official-sources.mjs"
+      - "tests/auto-policy-rates.mjs"
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
@@ -37,24 +39,39 @@ jobs:
         run: node tests/monitor-official-sources.mjs
       - name: Detect official releases and policy-source changes
         run: node scripts/monitor-official-sources.mjs
-      - name: Commit monitored OFFICIAL LINKS only
+      - name: Verify autonomous policy publisher against deterministic official-source examples
+        run: node tests/auto-policy-rates.mjs
+      - name: Try verified official rate decisions automatically
+        run: node scripts/auto-policy-rates.mjs
+      - name: Validate published rates and 28 derived currency pairs
         run: |
-          git add public/data/official-source-monitor.json
+          node tests/trade90-v2.mjs
+          node tests/trade90-v3.mjs
+      - name: Commit verified rate changes and newly discovered bank links
+        run: |
+          git add src/data/trade90-policy-snapshot.json public/data/official-source-monitor.json
           if git diff --cached --quiet; then
-            echo "No monitored source-record changes."
+            echo "No safely verified rate change or new publication links."
           else
             git config user.name "trade90-source-watch[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "data: automated official bank publication-link discovery [skip ci]"
+            git commit -m "data: autonomous source-linked official policy refresh [skip ci]"
             git push origin HEAD:main
           fi
-      - name: Create a review issue for newly detected publications
+      - name: Log new official publications (no routine human approval)
+        run: |
+          node -e "const r=require('/tmp/trade90-source-monitor-result.json'); console.log('Official source links automatically recorded:',r.changes.length)"
+      - name: Alert on unverified policy decision documents, not publish them
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          COUNT=$(node -e "const r=require('/tmp/trade90-source-monitor-result.json'); console.log(r.changes.length)")
+          COUNT=$(node -e "const r=require('/tmp/trade90-auto-rates-result.json'); console.log(r.failures.length)")
           if [ "$COUNT" -gt 0 ]; then
-            gh issue create --title "Official bank release watch: $COUNT new link(s)" --body-file /tmp/trade90-source-alert.md || echo "Issue permission unavailable; source links remain recorded."
+            EXISTING=$(gh issue list --state open --search '"TRADE90 policy parser requires attention" in:title' --json number --jq 'length' 2>/dev/null || echo 1)
+            if [ "$EXISTING" = "0" ]; then
+              node -e "const r=require('/tmp/trade90-auto-rates-result.json');const fs=require('fs');fs.writeFileSync('/tmp/trade90-rate-failures.md','Automatic rate publication withheld uncertain decisions. Existing rates were preserved.\n\n'+r.failures.map(e=>'- '+e.code+': '+e.state+' — '+e.url).join('\n'))"
+              gh issue create --title "TRADE90 policy parser requires attention" --body-file /tmp/trade90-rate-failures.md || true
+            fi
           fi
       - name: Report source failures without inventing updates
         env:
