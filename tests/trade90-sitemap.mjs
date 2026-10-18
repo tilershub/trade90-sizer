@@ -21,7 +21,7 @@ assert.equal(urls.size,locs.length, "Duplicate URLs in sitemap");
 const required = [
  "/", "/rate-gaps/", "/pairs/", "/central-banks/", "/decisions/",
  "/methodology/", "/data-policy/", "/learn/", "/editorial-policy/",
- "/about/", "/contact/", "/disclaimer/", "/privacy/"
+ "/about/", "/contact/", "/disclaimer/", "/privacy/", "/tools/", "/tools/position-size-calculator/"
 ];
 for (const p of allTrade90Pairs) required.push(pairUrl(p.symbol));
 for (const bank of rateSnapshot.banks) required.push("/central-banks/"+bank.short.toLowerCase()+"/");
@@ -37,7 +37,7 @@ for (const url of urls) {
  const parsed = new URL(url);
  assert.equal(parsed.origin,"https://tradeninety.com");
  assert.ok(parsed.pathname.endsWith("/"), "Noncanonical trailing-slash URL: "+url);
- assert.ok(!/\/(?:404|calculator|tools|research)\//.test(url),"Nonindexable/retired route in sitemap: "+url);
+ assert.ok(!/\/(?:404|calculator|research)\//.test(url),"Nonindexable/retired route in sitemap: "+url);
  const pagePath=parsed.pathname==="/"? "index.html" : parsed.pathname.slice(1)+"index.html";
  assert.ok(existsSync(new URL(pagePath,root)),"Orphan sitemap URL: "+url);
  const html=read(pagePath);

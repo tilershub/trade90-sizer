@@ -13,7 +13,7 @@ const KEY_URL=ORIGIN+"/"+KEY+".txt";
 const ROOT=new URL("../dist/",import.meta.url);
 const BASE_URLS=new Set(["/","/rate-gaps/","/pairs/","/decisions/","/central-banks/"]);
 const BANKS=["fed","ecb","boe","boj","rba","rbnz","boc","snb"];
-const forbidden=/^\/(?:404(?:\/|$)|calculator\/|tools\/|research\/)/i;
+const forbidden=/^\/(?:404(?:\/|$)|calculator\/|research\/)/i;
 
 export function readSitemap(xml){
  if(!xml.includes("<urlset")||!xml.includes("</urlset>"))throw Error("Not a complete sitemap URL set");

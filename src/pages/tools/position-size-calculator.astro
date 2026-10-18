@@ -1,11 +1,12 @@
 ---
 import Layout from "../../layouts/Trade90V2Layout.astro";
 import RiskCalculator from "../../components/Trade90RiskCalculator.svelte";
+const appSchema={"@context":"https://schema.org","@type":"WebApplication","name":"TRADE90 Forex & Gold Position Size Calculator","url":"https://tradeninety.com/tools/position-size-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true,"browserRequirements":"Requires JavaScript","description":"Estimate standard-lot size from a USD account balance, risk budget and stop distance. Manual currency conversion and contract assumptions apply."};
 ---
-<Layout title="Forex Position Size Calculator — Know Your Risk Before You Trade" description="Free TRADE90 forex and gold position size calculator. Enter USD balance, risk percentage, stop-loss pips or gold price distance, and transaction cost buffer to estimate lots and potential cash loss." canonical="/tools/position-size-calculator/">
-<main class="wrap tools-page">
+<Layout title="Forex & Gold Position Size Calculator | Lot Size by Risk" description="Free TRADE90 forex and gold position size calculator. Enter USD balance, risk percentage, stop-loss pips or gold price distance, and transaction cost buffer to estimate lots and potential cash loss." canonical="/tools/position-size-calculator/">
+<script type="application/ld+json" set:html={JSON.stringify(appSchema)}/><main class="wrap tools-page">
 <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>›</span><a href="/tools/">Trading tools</a><span>›</span><span aria-current="page">Position size calculator</span></nav>
-<header class="page-intro"><span class="eyebrow">FREE TRADING TOOL · NO LOGIN</span><h1>Know Your Risk Before You Trade</h1><p>Calculate your forex or gold position size using a defined risk budget. The calculator operates locally in your browser and never executes trades or requests brokerage account information.</p></header>
+<header class="page-intro"><span class="eyebrow">FREE TRADING TOOL · NO LOGIN</span><h1>Forex &amp; Gold Position Size Calculator</h1><p>Calculate your forex or gold position size using a defined risk budget. The calculator operates locally in your browser and never executes trades or requests brokerage account information.</p></header>
 <RiskCalculator client:load/>
 <section class="explain">
 <h2>How does the position size calculator work?</h2>

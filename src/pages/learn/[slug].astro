@@ -5,14 +5,20 @@ export function getStaticPaths(){
  return lessons.map(lesson=>({params:{slug:lesson.slug},props:{lesson}}));
 }
 const {lesson}=Astro.props;
+const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+ {"@type":"ListItem","position":1,"name":"Home","item":"https://tradeninety.com/"},
+ {"@type":"ListItem","position":2,"name":"Learn","item":"https://tradeninety.com/learn/"},
+ {"@type":"ListItem","position":3,"name":lesson.title,"item":"https://tradeninety.com/learn/"+lesson.slug+"/"}]};
 ---
 <Trade90V2Layout title={lesson.title} description={lesson.description} canonical={"/learn/"+lesson.slug+"/"}>
-<main class="wrap">
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}/><main class="wrap">
  <article class="article">
   <header class="page-intro"><span class="eyebrow">Trade90 · Monetary policy explained</span><h1>{lesson.title}</h1><p>{lesson.description}</p></header>
+  <p>Published by <a href="/about/">TRADE90</a> · <a href="/editorial-policy/">Editorial standards and corrections</a></p>
   <p class="tool"><strong>Want to see current numbers?</strong> <a href="/">Open the 28-pair central bank rate comparison →</a></p>
   {lesson.sections.map(section=><section><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}</section>)}
   <aside class="sources"><h2>Further reading and primary sources</h2><ul>{lesson.sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.name} ↗</a></li>)}</ul><p>Links are provided for verification and education, not as endorsements of trading strategies.</p></aside>
+  <p>Apply this guide to <a href="/pairs/eur-usd/">EUR/USD fundamentals</a>, <a href="/pairs/gbp-usd/">GBP/USD fundamentals</a> or <a href="/pairs/aud-usd/">AUD/USD fundamentals</a>. Use the <a href="/tools/position-size-calculator/">position size calculator</a> to check your risk assumptions.</p>
   <p class="back"><a href="/learn/">← More Trade90 guides</a></p>
  </article>
 </main>

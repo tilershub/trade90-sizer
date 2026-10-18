@@ -18,8 +18,8 @@ export function getStaticPaths(){
 const {pair}=Astro.props;
 const explanation=pairInsight(pair);
 const previous=getPairPolicyUpdates(pair).slice(0,3);
-const title=pair.label+" Interest Rate Gap: "+pair.baseBank.short+" vs "+pair.quoteBank.short+" & Next Decisions";
-const description=pair.label+" central-bank rate comparison: "+pair.baseRate+"% vs "+pair.quoteRate+"%, signed gap "+(pair.signedBp>0?"+":"")+formatBp(pair.signedBp)+" basis points. Read official policy sources, related bank updates, and scheduled decisions. Snapshot "+rateSnapshot.asOf+".";
+const title=pair.label+" Fundamentals: Interest Rates, Inflation & GDP";
+const description="Compare "+pair.label+" interest rates, CPI inflation, unemployment and real GDP growth. View dated economic charts, official sources and central-bank decisions.";
 const permalink=pairUrl(pair.symbol);
 const relevant=allTrade90Pairs.filter(p=>p.symbol!==pair.symbol && (p.base===pair.base||p.quote===pair.base||p.base===pair.quote||p.quote===pair.quote)).slice(0,6);
 const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -33,7 +33,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
   <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>›</span><a href="/pairs/">Currency pairs</a><span>›</span><span aria-current="page">{pair.label}</span></nav>
   <header class="pair-head">
    <div class="eyebrow">MONETARY POLICY RESEARCH · {pair.baseBank.short} / {pair.quoteBank.short}</div>
-   <div class="headingline"><div><h1>{pair.label} Interest Rate Gap</h1><p>Official policy-rate comparison for {pair.baseBank.name} and {pair.quoteBank.name}. Updated from the verified snapshot dated <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time>.</p></div><a class="otherpair" href="/pairs/">Explore all pairs →</a></div>
+   <div class="headingline"><div><h1>{pair.label} Fundamental Analysis</h1><p>Official policy-rate comparison for {pair.baseBank.name} and {pair.quoteBank.name}. Updated from the verified snapshot dated <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time>.</p></div><a class="otherpair" href="/pairs/">Explore all pairs →</a></div>
    <div class="finder-shell"><PairFinder client:load pairs={allTrade90Pairs} placeholder={"Switch pair — "+pair.label+"…"} limit={7}/></div>
   </header>
   <section class="comparison" aria-label={"Official "+pair.label+" policy benchmark comparison"}>
@@ -64,6 +64,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
    <h3>Latest dated official publications for this pair</h3>
    <ul>{previous.map(item=><li><time datetime={item.publishedDate}>{reportDate(item.publishedDate)}</time> · <a href={item.source} target="_blank" rel="noopener noreferrer">{item.bank}: {item.title} ↗</a></li>)}</ul>
   </section>
+  <section class="section article-section"><h2>Continue your research</h2><p>Use the <a href="/learn/forex-fundamental-analysis/">forex fundamental analysis checklist</a> to compare the two economies, read <a href="/learn/interest-rate-divergence/">how interest-rate differentials work</a>, and model trade risk with the <a href="/tools/position-size-calculator/">forex position size calculator</a>.</p></section>
   <section class="section related"><div class="section-heading"><h2>Explore related currency pairs</h2><a href="/pairs/">All 28 pairs →</a></div><div class="related-links">{relevant.map(p=><a href={pairUrl(p.symbol)}><strong>{p.label}</strong><span>{p.signedBp>0?"+":""}{formatBp(p.signedBp)} bp</span></a>)}</div></section>
  </main>
 </Layout>

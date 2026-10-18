@@ -39,14 +39,14 @@ for (const item of entries) {
   const url = new URL(loc);
   if (url.origin !== origin) throw new Error("Unexpected external sitemap URL: " + loc);
   if (url.search || url.hash) throw new Error("Query/fragment in canonical sitemap URL: " + loc);
-  if (/^\/(?:404\/?|calculator\/|tools\/|research\/)/i.test(url.pathname)) {
+  if (/^\/(?:404\/?|calculator\/|research\/)/i.test(url.pathname)) {
     throw new Error("Retired or nonindexable page in sitemap: " + loc);
   }
   if (seen.has(loc)) throw new Error("Duplicate canonical sitemap URL: " + loc);
   seen.add(loc);
 }
 const required = ["/", "/rate-gaps/", "/pairs/", "/decisions/", "/central-banks/",
-  "/learn/", "/methodology/", "/data-policy/"];
+  "/learn/", "/methodology/", "/data-policy/", "/tools/", "/tools/position-size-calculator/"];
 for (const pathname of required) {
   if (!seen.has(origin + pathname)) throw new Error("Required page missing from sitemap: " + pathname);
 }
