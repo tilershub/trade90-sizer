@@ -59,6 +59,18 @@ async function inspect(page,selector,route){
       "#updates .source-link","#explanation p",
       ".pair-page .release-feed .release-head h2",".pair-page .release-feed .release-head p",".pair-page .release-feed .feed-list a"
     ],
+    "/tools/":[
+      ".tool-grid .tool h2",".tool-grid .tool p",".tool-grid .tool strong",".info p"
+    ],
+    "/tools/position-size-calculator/":[
+      ".tools-page .page-intro p",
+      ".risk-calculator .calc-top h2",".risk-calculator .calc-top p",
+      ".risk-calculator .form-row label",".risk-calculator .form-row .hint",
+      ".risk-calculator .source-note",".risk-calculator .result-eyebrow",
+      ".risk-calculator .lots",".risk-calculator .numbers span",
+      ".risk-calculator .numbers strong",".risk-calculator .math-lines p",
+      ".risk-calculator .caution",".tools-page .explain p"
+    ],
     "/rate-gaps/":[".full-table th",".full-table td",".full-table .showing",".full-table .tools label"],
     "/central-banks/fed/":[".hub .details p",".hub .part h2",".hub .news p",".hub .pairs span"],
     "/data-policy/":[
