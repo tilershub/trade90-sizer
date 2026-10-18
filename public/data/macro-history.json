@@ -14,7 +14,7 @@
           "sourceUpdated": "2025-05-15 2:20 PM CDT",
           "retrievedAt": "2026-10-18T11:53:48.921609+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -524,7 +524,7 @@
           "sourceUpdated": "2026-09-15 3:14 PM CDT",
           "retrievedAt": "2026-10-18T11:53:48.857083+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -722,7 +722,7 @@
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
           "retrievedAt": "2026-10-18T11:53:49.571822+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -925,7 +925,7 @@
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
           "retrievedAt": "2026-10-18T11:53:49.111874+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -1499,7 +1499,7 @@
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
           "retrievedAt": "2026-10-18T11:53:49.005752+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -1697,7 +1697,7 @@
           "sourceUpdated": "2025-05-15 2:17 PM CDT",
           "retrievedAt": "2026-10-18T11:53:48.820834+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -1880,7 +1880,7 @@
           "sourceUpdated": "2026-09-07 4:03 AM CDT",
           "retrievedAt": "2026-10-18T11:54:05.664028+00:00",
           "transform": "qoq",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -2078,7 +2078,7 @@
           "sourceUpdated": "2026-10-16 7:44 AM CDT",
           "retrievedAt": "2026-10-18T11:54:05.654917+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -2656,7 +2656,7 @@
           "sourceUpdated": "2023-03-15 1:15 PM CDT",
           "retrievedAt": "2026-10-18T11:54:05.691367+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -3063,7 +3063,7 @@
           "sourceUpdated": "2026-09-15 3:14 PM CDT",
           "retrievedAt": "2026-10-18T11:54:05.808793+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -3637,7 +3637,7 @@
           "sourceUpdated": "2025-05-15 2:20 PM CDT",
           "retrievedAt": "2026-10-18T11:54:05.792985+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -4143,7 +4143,7 @@
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
           "retrievedAt": "2026-10-18T11:54:05.817189+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -4346,7 +4346,7 @@
           "sourceUpdated": "2024-05-15 2:00 PM CDT",
           "retrievedAt": "2026-10-18T11:54:22.738185+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -4672,7 +4672,7 @@
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
           "retrievedAt": "2026-10-18T11:54:22.758065+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -5246,7 +5246,7 @@
           "sourceUpdated": "2026-09-15 3:09 PM CDT",
           "retrievedAt": "2026-10-18T11:54:22.870581+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -5449,7 +5449,7 @@
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
           "retrievedAt": "2026-10-18T11:54:22.867736+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -5647,7 +5647,7 @@
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
           "retrievedAt": "2026-10-18T11:54:22.897521+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -6213,7 +6213,7 @@
           "sourceUpdated": "2025-05-15 2:18 PM CDT",
           "retrievedAt": "2026-10-18T11:54:22.715579+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -6724,7 +6724,7 @@
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
           "retrievedAt": "2026-10-18T11:54:41.284684+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -6922,7 +6922,7 @@
           "sourceUpdated": "2026-08-17 3:04 PM CDT",
           "retrievedAt": "2026-10-18T11:54:39.713751+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -7120,7 +7120,7 @@
           "sourceUpdated": "2025-05-15 2:16 PM CDT",
           "retrievedAt": "2026-10-18T11:54:39.803833+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -7303,7 +7303,7 @@
           "sourceUpdated": "2026-10-02 8:24 AM CDT",
           "retrievedAt": "2026-10-18T11:54:39.662237+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -7877,7 +7877,7 @@
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
           "retrievedAt": "2026-10-18T11:54:41.135412+00:00",
           "transform": null,
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -8075,7 +8075,7 @@
           "sourceUpdated": "2026-10-14 8:08 AM CDT",
           "retrievedAt": "2026-10-18T11:54:39.496838+00:00",
           "transform": "yoy",
-          "status": "ok",
+          "status": "refresh_failed",
           "points": [
             {
               "date": "2015-01-01",
@@ -8642,5 +8642,5 @@
       }
     }
   },
-  "checkedAt": "2026-10-18T11:54:41.290143+00:00"
+  "checkedAt": "2026-10-18T11:58:27.698960+00:00"
 }
