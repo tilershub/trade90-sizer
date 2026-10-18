@@ -589,3 +589,7 @@ html .risk-calculator .caution{font-size:.9rem;line-height:1.7}
 html .tools-page .explain p,
 html .tools-page .explain li,
 html .info p{font-size:1rem;line-height:1.8}
+
+/* Astro page-local selectors can otherwise win ties after imported global CSS. */
+html[data-theme="light"] body main .info p {color:#334155 !important;}
+html[data-theme="light"] body main .info h2 {color:#102033 !important;}
