@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import RiskCalculator from "../../components/Trade90RiskCalculator.svelte";
+---
+<Layout title="Forex Position Size Calculator — Know Your Risk Before You Trade" description="Free TRADE90 forex and gold position size calculator. Enter USD balance, risk percentage, stop-loss pips or gold price distance, and transaction cost buffer to estimate lots and potential cash loss." canonical="/tools/position-size-calculator/">
+<main class="wrap tools-page">
+<nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>›</span><a href="/tools/">Trading tools</a><span>›</span><span aria-current="page">Position size calculator</span></nav>
+<header class="page-intro"><span class="eyebrow">FREE TRADING TOOL · NO LOGIN</span><h1>Know Your Risk Before You Trade</h1><p>Calculate your forex or gold position size using a defined risk budget. The calculator operates locally in your browser and never executes trades or requests brokerage account information.</p></header>
+<RiskCalculator client:load/>
+<section class="explain">
+<h2>How does the position size calculator work?</h2>
+<p>First calculate the cash risk budget: <strong>USD account balance × risk percentage ÷ 100</strong>. TRADE90 then divides that budget by the modeled loss per standard lot at your chosen stop-loss distance, including any buffer and round-trip commission you entered. The suggested size is rounded <strong>down</strong> to the nearest 0.01 lot.</p>
+<h3>Forex example: EUR/USD</h3>
+<p>With a $10,000 USD account, 1% risk ($100), and a 50-pip stop, a conventional 100,000 EUR standard lot risks $500 before commissions or slippage. A position of <strong>0.20 standard lots</strong> therefore models $100 at the stop, assuming the instrument trades normally and there are no additional costs.</p>
+<h3>What about USD/JPY and cross pairs?</h3>
+<p>Pip value for pairs that do not quote in USD must be converted. For USD/JPY, enter an indicative USD/JPY price so the JPY-denominated pip value can be converted into USD. For pairs such as EUR/GBP or AUD/CHF, manually enter the USD value of one quote-currency unit. The calculator <strong>does not fetch exchange rates</strong>, and inaccurate manual quotes will make sizing inaccurate.</p>
+<h3>Gold (XAU/USD) is different</h3>
+<p>For gold, enter the stop distance as a change in <strong>USD per troy ounce</strong>, not as “pips”. The model assumes a common 100-troy-ounce contract per standard lot: a $5/oz stop models $500 per standard lot before extra costs. Some brokers use different contract definitions; check yours before relying on any result.</p>
+<h3>What this tool cannot guarantee</h3>
+<p>The displayed loss is an <strong>estimate under your inputs</strong>, not a guaranteed maximum. Gaps, unexpected slippage, bid/ask spread, commissions, swap/funding, broker limits and liquidation may increase actual losses. A stop-loss order does not guarantee an execution price. If your broker uses a different contract size, quote conversion or minimum lot increment, do not treat this result as executable sizing.</p>
+<p>Use this tool for planning, alongside the <a href="/disclaimer/">trading risk disclaimer</a> and TRADE90's <a href="/methodology/">data methodology</a>. It contains no investment advice or recommendations to trade.</p>
+</section>
+</main></Layout>
+<style>.tools-page{padding-bottom:38px}.crumb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-top:19px;color:#94a3b8;font-size:.81rem}.crumb a{color:#6ee7b7}.tools-page .page-intro{padding-top:30px}.tools-page .page-intro p{font-size:1.07rem;line-height:1.75;max-width:850px}.explain{max-width:790px;margin:45px auto 0}.explain h2{font-size:1.5rem;letter-spacing:-.02em}.explain h3{font-size:1.16rem;margin-top:29px}.explain p{color:#cbd5e1;font-size:1rem;line-height:1.8}.explain strong{color:#f8fafc}@media(max-width:600px){.explain{margin-top:32px}}</style>
