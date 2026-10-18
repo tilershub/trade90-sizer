@@ -1,0 +1,39 @@
+name: Refresh country economic histories
+on:
+  schedule:
+    - cron: '43 5 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/update-macro-history.py
+      - tests/macro-history.py
+      - .github/workflows/update-macro-history.yml
+permissions:
+  contents: write
+concurrency:
+  group: trade90-macro-history
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tests/macro-history.py
+      - run: python scripts/update-macro-history.py
+      - name: Publish source-attributed observations
+        run: |
+          git add public/data/macro-history.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'trade90-macro[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'data: refresh country economic histories'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

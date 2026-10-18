@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {chartData,isStale,periodLabel} from '../src/lib/trade90-macro.js';
+const s={frequency:'Monthly',points:[{date:'2026-01-01',value:0},{date:'2026-03-01',value:-1}]};
+const result=chartData([s,undefined],1,Date.parse('2026-06-01'));
+assert.equal(result.paths[0].split('M').length,3,'Missing February must break the line');
+assert.equal(result.lines[0][0].value,0,'Zero is an observation');
+assert.equal(result.paths[1],'');
+assert.equal(periodLabel('2026-04-01','Quarterly'),'2026 Q2');
+assert.equal(isStale(s,Date.parse('2026-10-18')),true);
+assert.equal(isStale({frequency:'Quarterly',points:[{date:'2026-04-01',value:1}]},Date.parse('2026-10-18')),false);
+console.log('Macro date, gap, missing data and staleness checks passed');
