@@ -1,0 +1,28 @@
+name: Verify macro API connectivity
+on:
+  push:
+    branches: [fix/macro-api-updates]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Test structured upstreams from scheduled runner
+        shell: python
+        run: |
+          import urllib.request, concurrent.futures
+          urls = [
+            'https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS.Q.N.CPI.PA._T.N.GY?startPeriod=2025&format=csvfile',
+            'https://api.db.nomics.world/v22/series/STATJP/CPIm/001?observations=1',
+            'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?lang=en&geo=EA20&sex=T&age=Y15-74&s_adj=SA&unit=PC_ACT&sinceTimePeriod=2025-01',
+            'https://fred.stlouisfed.org/graph/graph.csv?id=UNRATE&cosd=2025-01-01'
+          ]
+          def check(url):
+              try:
+                  with urllib.request.urlopen(url,timeout=30) as r:
+                      body=r.read()
+                      print(url, r.status, len(body), body[:600], flush=True)
+              except Exception as e: print(url, str(e), flush=True)
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool: list(pool.map(check,urls))
