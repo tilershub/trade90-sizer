@@ -512,7 +512,8 @@
               "date": "2025-04-01",
               "value": 0.03426
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "unemployment": {
           "seriesId": "LRHUTTTTCHQ156S",
@@ -710,7 +711,8 @@
               "date": "2026-04-01",
               "value": 5.03241
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "gdp": {
           "seriesId": "NAEXKP01CHQ657S",
@@ -908,7 +910,8 @@
               "date": "2026-04-01",
               "value": 1.88475
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     },
@@ -1487,7 +1490,8 @@
               "date": "2026-08-01",
               "value": 4.6463
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "gdp": {
           "seriesId": "NAEXKP01AUQ657S",
@@ -1685,7 +1689,8 @@
               "date": "2026-04-01",
               "value": 0.4195
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "inflation": {
           "seriesId": "AUSCPIALLQINMEI",
@@ -1863,7 +1868,8 @@
               "date": "2025-01-01",
               "value": 2.40176
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     },
@@ -2066,7 +2072,8 @@
               "date": "2026-04-01",
               "value": 0.63396
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "inflation": {
           "seriesId": "CP0000EZ19M086NEST",
@@ -2644,7 +2651,8 @@
               "date": "2026-09-01",
               "value": 3.7505
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "unemployment": {
           "seriesId": "LRHUTTTTEZM156S",
@@ -3046,7 +3054,8 @@
               "date": "2023-01-01",
               "value": 6.7
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     },
@@ -3625,7 +3634,8 @@
               "date": "2026-08-01",
               "value": 6.4
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "inflation": {
           "seriesId": "CANCPIALLMINMEI",
@@ -4131,7 +4141,8 @@
               "date": "2025-03-01",
               "value": 2.31535
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "gdp": {
           "seriesId": "NAEXKP01CAQ657S",
@@ -4329,7 +4340,8 @@
               "date": "2026-04-01",
               "value": 0.81974
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     },
@@ -4660,7 +4672,8 @@
               "date": "2021-06-01",
               "value": -0.40047
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "unemployment": {
           "seriesId": "LRHUTTTTJPM156S",
@@ -5234,7 +5247,8 @@
               "date": "2026-08-01",
               "value": 2.5
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "gdp": {
           "seriesId": "NAEXKP01JPQ657S",
@@ -5432,7 +5446,8 @@
               "date": "2026-04-01",
               "value": 0.36046
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     },
@@ -5635,7 +5650,8 @@
               "date": "2026-04-01",
               "value": 0.53261
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "unemployment": {
           "seriesId": "LRHUTTTTGBM156S",
@@ -6201,7 +6217,8 @@
               "date": "2026-06-01",
               "value": 4.9
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "inflation": {
           "seriesId": "GBRCPIALLMINMEI",
@@ -6707,7 +6724,8 @@
               "date": "2025-03-01",
               "value": 3.41945
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     },
@@ -6910,7 +6928,8 @@
               "date": "2026-04-01",
               "value": 0.3601
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "unemployment": {
           "seriesId": "LRHUTTTTNZQ156S",
@@ -7108,7 +7127,8 @@
               "date": "2026-04-01",
               "value": 5.6
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "inflation": {
           "seriesId": "NZLCPIALLQINMEI",
@@ -7286,7 +7306,8 @@
               "date": "2025-01-01",
               "value": 2.52567
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     },
@@ -7865,7 +7886,8 @@
               "date": "2026-09-01",
               "value": 4.2
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "gdp": {
           "seriesId": "NAEXKP01USQ657S",
@@ -8063,7 +8085,8 @@
               "date": "2026-04-01",
               "value": 0.55049
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         },
         "inflation": {
           "seriesId": "CPIAUCNS",
@@ -8637,10 +8660,11 @@
               "date": "2026-09-01",
               "value": 3.73768
             }
-          ]
+          ],
+          "lastError": "The read operation timed out"
         }
       }
     }
   },
-  "checkedAt": "2026-10-18T11:58:27.698960+00:00"
+  "checkedAt": "2026-10-18T18:03:48.435438+00:00"
 }
