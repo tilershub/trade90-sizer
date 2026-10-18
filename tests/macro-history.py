@@ -1,4 +1,5 @@
-import importlib.util, pathlib, unittest
+import importlib.util, pathlib, unittest, tempfile, json
+from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('macro',pathlib.Path(__file__).parents[1]/'scripts/update-macro-history.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 def table(unit='Index 2015=100',freq='Monthly',sid='TEST',missing=None):
@@ -24,4 +25,17 @@ class ParseTest(unittest.TestCase):
         self.assertEqual(points[-1],{'date':'2025-01-01','value':10.0})
     def test_html_challenge_rejected(self):
         with self.assertRaises(ValueError):m.parse_table('<html>Sign in</html>','TEST','Monthly','inflation','yoy')
+class RefreshFailureTest(unittest.TestCase):
+    def test_cached_data_does_not_mask_fetch_failure(self):
+        with tempfile.TemporaryDirectory() as folder:
+            out=pathlib.Path(folder)/'history.json'
+            points=[{'date':'2026-07-01','value':4.1}]
+            out.write_text(json.dumps({'countries':{'USD':{'name':'United States','series':{'unemployment':{'points':points}}}}}))
+            one=[('USD','unemployment','United States','UNRATE','Monthly',None)]
+            with patch.object(m,'OUT',out), patch.object(m,'specs',return_value=one), patch.object(m,'retrieve',side_effect=TimeoutError('timeout')):
+                with self.assertRaises(SystemExit): m.main()
+            saved=json.loads(out.read_text())['countries']['USD']['series']['unemployment']
+            self.assertEqual(saved['points'],points)
+            self.assertEqual(saved['status'],'refresh_failed')
+            self.assertEqual(saved['lastError'],'timeout')
 if __name__=='__main__':unittest.main()

@@ -79,10 +79,13 @@ def main():
                 failures.append(f'{currency}/{metric}: {e}')
                 old=country['series'].setdefault(metric,{'seriesId':sid,'country':name,'frequency':freq,'sourceUrl':f'https://fred.stlouisfed.org/series/{sid}','points':[]})
                 old['status']='refresh_failed'
+                old['lastError']=str(e)
                 print('FAILED',failures[-1],flush=True)
     data['checkedAt']=dt.datetime.now(dt.timezone.utc).isoformat()
     OUT.parent.mkdir(parents=True,exist_ok=True)
     tmp=OUT.with_suffix('.tmp');tmp.write_text(json.dumps(data,indent=2)+'\n');tmp.replace(OUT)
-    if failures: print('\n'.join(failures))
+    if failures:
+        print('\n'.join(failures))
+        raise SystemExit(f'{len(failures)} economic series failed to refresh; cached observations are not a successful update')
     if not any(s.get('points') for c in data['countries'].values() for s in c['series'].values()): raise SystemExit('No usable series')
 if __name__=='__main__': main()

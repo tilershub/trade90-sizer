@@ -26,7 +26,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: python tests/macro-history.py
-      - run: python scripts/update-macro-history.py
+      - name: Retrieve economic observations
+        id: retrieve
+        continue-on-error: true
+        run: python scripts/update-macro-history.py
       - name: Publish source-attributed observations
         run: |
           git add public/data/macro-history.json
@@ -37,3 +40,8 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+      - name: Fail if retrieval failed
+        if: steps.retrieve.outcome != 'success'
+        run: |
+          echo "::error::Economic data retrieval failed. Saved observations remain available with failure status."
+          exit 1
