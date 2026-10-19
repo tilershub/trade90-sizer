@@ -107,6 +107,6 @@ export const lessons = [
       {heading:"Rate convergence and rate divergence",paragraphs:["When a previously higher-rate central bank is expected to cut while the other is expected to hold or hike, the future gap can narrow even before the official gap changes.","A trader can use that shifting outlook to structure research questions: which decisions are expected, what new data could change them, and has the exchange rate already adjusted? It still does not determine a suitable entry, stop or direction."]},
       {heading:"Use policy gaps as context",paragraphs:["Start with the current rates, examine expected changes from verifiable market prices, check the latest bank communications and identify relevant data releases. Then assess whether the resulting uncertainty fits your risk limits.","Trade90 is intended to make those comparisons transparent. It does not certify trade profitability or provide investment advice."]}
     ],
-    sources:[{name:"BIS research and publications",url:"https://www.bis.org/publ/"},{name:"Bank of England: interest rates",url:"https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate/"}]
+    sources:[{name:"BIS research and publications",url:"https://www.bis.org/publications/research"},{name:"Bank of England: interest rates",url:"https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"}]
   }
 ];

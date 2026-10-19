@@ -3,7 +3,7 @@ import Layout from "../../layouts/Trade90V2Layout.astro";
 import RateTable from "../../components/Trade90V3RateTable.svelte";
 import {allTrade90Pairs,rateSnapshot,reportDate,pairUrl} from "../../lib/trade90-v3.js";
 ---
-<Layout title="All 28 Forex Interest Rate Gaps — Verified Policy Snapshot" description="Compare verified central-bank benchmark gaps across all 28 major and cross-currency forex pairs. Search by pair, sort by basis points and open each sourced pair research page." canonical="/rate-gaps/">
+<Layout title="Forex Interest Rate Gaps: All 28 Pairs" description="Compare verified central-bank benchmark gaps across all 28 major and cross-currency forex pairs. Search by pair, sort by basis points and open each sourced pair research page." canonical="/rate-gaps/">
 <main class="wrap">
  <header class="page-intro"><div class="eyebrow">Official policy rate comparison</div><h1>Compare All 28 Forex Rate Gaps</h1><p>Explore every unique pair drawn from eight widely traded currencies. The figures come from official bank decisions verified on <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time>, not streaming market prices.</p></header>
  <RateTable client:load pairs={allTrade90Pairs}/>

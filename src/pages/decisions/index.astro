@@ -5,7 +5,7 @@ import {reportDate,allTrade90Pairs,pairUrl} from "../../lib/trade90-v3.js";
 const referenceDate=new Date().toISOString().slice(0,10);
 const next=[...officialPolicyDecisionCalendar].filter(e=>e.date>=referenceDate).sort((a,b)=>a.date.localeCompare(b.date));
 ---
-<Layout title="Upcoming Central Bank Interest Rate Decisions — Fed, ECB and Six More" description="Official monetary policy decision calendars for the Fed, ECB, BoE, BoJ, RBA, RBNZ, BoC and SNB, with dated source links and relevant forex currency pairs." canonical="/decisions/">
+<Layout title="Central Bank Interest Rate Decision Calendar" description="Official monetary policy decision calendars for the Fed, ECB, BoE, BoJ, RBA, RBNZ, BoC and SNB, with dated source links and relevant forex currency pairs." canonical="/decisions/">
 <main class="wrap">
 <header class="page-intro"><div class="eyebrow">Eight official central banks</div><h1>Next Major Interest Rate Decisions</h1><p>Upcoming central-bank announcements, their schedules and the forex pairs affected by those currencies. These are verified scheduled meeting dates—not predictions of a rate change or market reaction.</p><p class="reviewed">Calendar last curated: <time datetime={decisionCalendarReviewedAt}>{reportDate(decisionCalendarReviewedAt)}</time>. Meetings can be changed or added without notice. Always verify with the original bank calendar.</p></header>
 <section class="timeline" aria-label="Upcoming rate announcements">

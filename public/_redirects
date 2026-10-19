@@ -1,3 +1,5 @@
-# Trade90 V2: removed legacy tools and pages have no misleading catch-all redirect.
-# Only normalize the clean education landing path.
+# Canonical host and retired guide alias. Preserve path on www requests.
+https://www.tradeninety.com/* https://tradeninety.com/:splat 301
+/learn/interest-rate-divergence /learn/what-is-interest-rate-divergence/ 301
+/learn/interest-rate-divergence/ /learn/what-is-interest-rate-divergence/ 301
 /learn /learn/ 301
