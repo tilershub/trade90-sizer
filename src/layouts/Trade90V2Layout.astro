@@ -39,6 +39,43 @@ const structuredPage={"@context":"https://schema.org","@graph":[
 
   <meta name="twitter:card" content="summary_large_image" />
   <title>{title} | TRADE90</title>
+  <!-- Existing TRADE90 GA4 property; one loader for every public page. -->
+  <script is:inline>
+    (function () {
+      if (window.__trade90Analytics) return;
+      const id = 'G-EBLQLRSZZL';
+      let loaded = false;
+      let choice = null;
+      try { choice = localStorage.getItem('cookieConsent'); } catch (_) {}
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      window.gtag('consent', 'default', {
+        analytics_storage: 'denied', ad_storage: 'denied',
+        ad_user_data: 'denied', ad_personalization: 'denied'
+      });
+      function apply(value) {
+        choice = value;
+        window.gtag('consent', 'update', { analytics_storage: value === 'accepted' ? 'granted' : 'denied' });
+        if (value !== 'accepted' || loaded) return;
+        loaded = true;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+        document.head.appendChild(script);
+        window.gtag('js', new Date());
+        window.gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false });
+      }
+      window.__trade90Analytics = {
+        getChoice: function () { return choice; },
+        setChoice: function (value) {
+          if (value !== 'accepted' && value !== 'declined') return;
+          try { localStorage.setItem('cookieConsent', value); } catch (_) {}
+          apply(value);
+        }
+      };
+      if (choice === 'accepted') apply(choice);
+    })();
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -64,12 +101,34 @@ const structuredPage={"@context":"https://schema.org","@graph":[
   <footer class="footer">
     <div class="wrap footcontent">
       <div><a href="/" class="brand footerbrand">TRADE<span>90</span></a><p>Clear rate comparisons. Sourced information. No trading signals.</p></div>
-      <div class="footlinks"><a href="/pairs/">Currency pairs</a><a href="/rate-gaps/">Rate gaps</a><a href="/decisions/">Next decisions</a><a href="/central-banks/">Central banks</a><a href="/learn/">Learn</a><a href="/tools/">Trading tools</a><a href="/tools/position-size-calculator/">Position size calculator</a><a href="/methodology/">Methodology</a><a href="/data-policy/">Data sources &amp; updates</a><a href="/about/">About</a><a href="/editorial-policy/">Editorial policy</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/disclaimer/">Risk disclaimer</a></div>
+      <div class="footlinks"><a href="/pairs/">Currency pairs</a><a href="/rate-gaps/">Rate gaps</a><a href="/decisions/">Next decisions</a><a href="/central-banks/">Central banks</a><a href="/learn/">Learn</a><a href="/tools/">Trading tools</a><a href="/tools/position-size-calculator/">Position size calculator</a><a href="/methodology/">Methodology</a><a href="/data-policy/">Data sources &amp; updates</a><a href="/about/">About</a><a href="/editorial-policy/">Editorial policy</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/disclaimer/">Risk disclaimer</a><button id="trade90-analytics-settings" type="button">Analytics preferences</button></div>
     </div>
     <div class="wrap fine">Educational and informational use only. A policy-rate gap is not a broker swap rate, a forward FX quote, or a prediction of currency performance.</div>
   </footer>
   <script is:inline>(function(){/* TRADE90 no longer uses an offline service worker; retire any old cache-first worker so it cannot pin the V2 homepage. */if(!("serviceWorker" in navigator))return;navigator.serviceWorker.getRegistrations().then(function(regs){regs.forEach(function(reg){if(reg.scope.indexOf(location.origin)===0)reg.unregister().catch(function(){});});}).catch(function(){});})();</script>
   <script is:inline>(function(){var s=document.getElementById("trade90-theme");if(!s)return;var p=document.documentElement.dataset.appearance||"system";s.value=p;function apply(v){var isLight=window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=v==="system"?(isLight?"light":"dark"):v;document.documentElement.dataset.appearance=v;}s.addEventListener("change",function(){try{localStorage.setItem("trade90-appearance",s.value)}catch(e){}apply(s.value);});try{window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",function(){if(s.value==="system")apply("system")});}catch(e){} })();</script>
+  <aside id="trade90-cookie-banner" aria-label="Analytics preferences" hidden>
+    <p>Allow analytics cookies to help us understand how TRADE90 is used? <a href="/privacy/">Privacy policy</a></p>
+    <div><button type="button" data-analytics-choice="accepted">Accept analytics</button><button type="button" data-analytics-choice="declined">Decline</button></div>
+  </aside>
+  <script is:inline>
+    (function () {
+      const banner = document.getElementById('trade90-cookie-banner');
+      const analytics = window.__trade90Analytics;
+      if (!banner || !analytics) return;
+      banner.hidden = ['accepted', 'declined'].includes(analytics.getChoice());
+      banner.querySelectorAll('[data-analytics-choice]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          analytics.setChoice(button.getAttribute('data-analytics-choice'));
+          banner.hidden = true;
+        });
+      });
+      document.getElementById('trade90-analytics-settings').addEventListener('click', function () {
+        banner.hidden = false;
+        banner.querySelector('button').focus();
+      });
+    })();
+  </script>
 </body>
 </html>
 <style is:global>
@@ -274,4 +333,14 @@ html[data-theme="light"] .bankdirectory .banktiles a strong{color:#0f172a}
 html[data-theme="light"] .bankdirectory .banktiles a span{color:#475569}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<style>
+#trade90-cookie-banner[hidden]{display:none}
+#trade90-cookie-banner{position:fixed;bottom:16px;left:16px;right:16px;z-index:1000;max-width:640px;margin:auto;padding:18px;background:#0f172a;color:#f8fafc;border:1px solid #64748b;border-radius:12px;box-shadow:0 8px 32px #0005;font-size:14px}
+#trade90-cookie-banner p{margin:0 0 12px;color:#f8fafc}
+#trade90-cookie-banner a{color:#6ee7b7;text-decoration:underline}
+#trade90-cookie-banner div{display:flex;gap:10px;flex-wrap:wrap}
+#trade90-cookie-banner button{padding:9px 15px;border:1px solid #64748b;border-radius:7px;background:#1e293b;color:#fff;cursor:pointer}
+#trade90-analytics-settings{border:0;background:none;color:inherit;padding:0;font:inherit;text-align:left;cursor:pointer;text-decoration:underline}
 </style>
