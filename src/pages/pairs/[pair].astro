@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Trade90V2Layout.astro";
+import PolicyOutlook from "../../components/Trade90PolicyOutlook.svelte";
+import policyModel from "../../../public/data/policy-outlook.json";
 import MacroComparison from "../../components/Trade90MacroComparison.svelte";
 import macroData from "../../../public/data/macro-history.json";
 import PairFinder from "../../components/Trade90PairFinder.svelte";
@@ -41,8 +43,9 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
     <div class="gap-card"><div class="card-label">SIGNED BASE − QUOTE GAP</div><div class="gap-value">{pair.signedBp>0?"+":""}{formatBp(pair.signedBp)} <small>bp</small></div><strong>{pair.higher==="Equal"?"Equal benchmarks":pair.higher+" has the higher selected benchmark"}</strong><p>Absolute difference: {formatBp(pair.absBp)} bp</p><p>This is not a forecast of the {pair.label} exchange rate or actual broker swap yield.</p></div>
     <div class="bank-card"><div class="card-label">QUOTE · {pair.quote}</div><h2><a href={"/central-banks/"+pair.quoteBank.short.toLowerCase()+"/"}>{pair.quoteBank.short} · {pair.quoteBank.name}</a></h2><div class="value">{formatPercent(pair.quoteRate)}</div><p>{pair.quoteBank.benchmark}</p><p>Effective {reportDate(pair.quoteBank.effectiveDate)}</p><a href={pair.quoteBank.source} target="_blank" rel="noopener noreferrer">Official {pair.quoteBank.short} rate source ↗</a></div>
   </section>
-  <p class="data-footnote">Rates are from the verified {reportDate(rateSnapshot.asOf)} snapshot; updates are currently curated, not live. <a href="/data-policy/">Review sources, update frequency and licensing →</a></p>
-  <nav class="page-nav" aria-label="On this page"><a href="#economy">Economic comparison</a><a href="#expected">Expected rates</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
+  <p class="data-footnote">Rates are from the verified {reportDate(rateSnapshot.asOf)} snapshot; supported official decisions are checked automatically; this is not live market pricing. <a href="/data-policy/">Review sources, update frequency and licensing →</a></p>
+  <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">Policy outlook</a><a href="#economy">Economic comparison</a><a href="#expected">Expected rates</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
+  <section class="section" id="policy-outlook"><PolicyOutlook client:load symbol={pair.symbol} initialData={{...policyModel,banks:{[pair.base]:policyModel.banks[pair.base],[pair.quote]:policyModel.banks[pair.quote]},pairs:{[pair.symbol]:policyModel.pairs[pair.symbol]}}}/></section>
   <section class="section" id="economy"><MacroComparison client:visible base={pair.base} quote={pair.quote} initialData={{...macroData,countries:{[pair.base]:macroData.countries[pair.base],[pair.quote]:macroData.countries[pair.quote]}}}/></section>
   <section class="section" id="expected">
    <div class="section-heading"><div><div class="eyebrow">Market data availability</div><h2>Expected {pair.label} Rate Divergence</h2><p>Market-implied policy-rate differences require validated, appropriately licensed forward inputs for both currencies. No fabricated forecasts.</p></div></div>

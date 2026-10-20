@@ -5,32 +5,34 @@
       "name": "Switzerland",
       "series": {
         "inflation": {
-          "seriesId": "CHECPIALLMINMEI",
+          "seriesId": "DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL:CHE:M",
           "country": "Switzerland",
           "frequency": "Monthly",
-          "source": "Organization for Economic Co-operation and Development",
-          "sourceTitle": "Consumer Price Indices (CPIs, HICPs), COICOP 1999: Consumer Price Index: Total for Switzerland",
-          "sourceUrl": "https://fred.stlouisfed.org/series/CHECPIALLMINMEI",
-          "sourceUpdated": "2025-05-15 2:20 PM CDT",
-          "retrievedAt": "2026-10-18T11:53:48.921609+00:00",
-          "transform": "yoy",
-          "status": "refresh_failed",
+          "source": "OECD",
+          "provider": "OECD SDMX",
+          "sourceTitle": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
+          "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+          "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN.M.N.CPI.PA._T.N.GY?startPeriod=2015",
+          "sourceUpdated": null,
+          "retrievedAt": "2026-10-19T20:34:35.700044+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
-              "value": -0.48532
+              "value": -0.48524
             },
             {
               "date": "2015-02-01",
-              "value": -0.83959
+              "value": -0.83963
             },
             {
               "date": "2015-03-01",
-              "value": -0.87469
+              "value": -0.87473
             },
             {
               "date": "2015-04-01",
-              "value": -1.12258
+              "value": -1.12261
             },
             {
               "date": "2015-05-01",
@@ -38,35 +40,35 @@
             },
             {
               "date": "2015-06-01",
-              "value": -1.03737
+              "value": -1.03736
             },
             {
               "date": "2015-07-01",
-              "value": -1.27602
+              "value": -1.27592
             },
             {
               "date": "2015-08-01",
-              "value": -1.40253
+              "value": -1.40239
             },
             {
               "date": "2015-09-01",
-              "value": -1.44358
+              "value": -1.44372
             },
             {
               "date": "2015-10-01",
-              "value": -1.35985
+              "value": -1.35989
             },
             {
               "date": "2015-11-01",
-              "value": -1.39247
+              "value": -1.39251
             },
             {
               "date": "2015-12-01",
-              "value": -1.30833
+              "value": -1.30844
             },
             {
               "date": "2016-01-01",
-              "value": -1.26665
+              "value": -1.26663
             },
             {
               "date": "2016-02-01",
@@ -74,87 +76,87 @@
             },
             {
               "date": "2016-03-01",
-              "value": -0.86071
+              "value": -0.86076
             },
             {
               "date": "2016-04-01",
-              "value": -0.35199
+              "value": -0.35191
             },
             {
               "date": "2016-05-01",
-              "value": -0.43997
+              "value": -0.43993
             },
             {
               "date": "2016-06-01",
-              "value": -0.37407
+              "value": -0.37409
             },
             {
               "date": "2016-07-01",
-              "value": -0.2029
+              "value": -0.20291
             },
             {
               "date": "2016-08-01",
-              "value": -0.14309
+              "value": -0.14313
             },
             {
               "date": "2016-09-01",
-              "value": -0.18153
+              "value": -0.18144
             },
             {
               "date": "2016-10-01",
-              "value": -0.21279
+              "value": -0.21274
             },
             {
               "date": "2016-11-01",
-              "value": -0.3382
+              "value": -0.33836
             },
             {
               "date": "2016-12-01",
-              "value": -0.00675
+              "value": -0.00669
             },
             {
               "date": "2017-01-01",
-              "value": 0.34892
+              "value": 0.34887
             },
             {
               "date": "2017-02-01",
-              "value": 0.64601
+              "value": 0.64609
             },
             {
               "date": "2017-03-01",
-              "value": 0.56781
+              "value": 0.5679
             },
             {
               "date": "2017-04-01",
-              "value": 0.4378
+              "value": 0.43779
             },
             {
               "date": "2017-05-01",
-              "value": 0.47944
+              "value": 0.47941
             },
             {
               "date": "2017-06-01",
-              "value": 0.19723
+              "value": 0.19728
             },
             {
               "date": "2017-07-01",
-              "value": 0.32925
+              "value": 0.3293
             },
             {
               "date": "2017-08-01",
-              "value": 0.46267
+              "value": 0.46273
             },
             {
               "date": "2017-09-01",
-              "value": 0.652
+              "value": 0.65197
             },
             {
               "date": "2017-10-01",
-              "value": 0.66097
+              "value": 0.66089
             },
             {
               "date": "2017-11-01",
-              "value": 0.78703
+              "value": 0.78711
             },
             {
               "date": "2017-12-01",
@@ -162,79 +164,79 @@
             },
             {
               "date": "2018-01-01",
-              "value": 0.74018
+              "value": 0.74021
             },
             {
               "date": "2018-02-01",
-              "value": 0.62808
+              "value": 0.62809
             },
             {
               "date": "2018-03-01",
-              "value": 0.79538
+              "value": 0.7954
             },
             {
               "date": "2018-04-01",
-              "value": 0.80316
+              "value": 0.8031
             },
             {
               "date": "2018-05-01",
-              "value": 0.99923
+              "value": 0.99919
             },
             {
               "date": "2018-06-01",
-              "value": 1.14663
+              "value": 1.14651
             },
             {
               "date": "2018-07-01",
-              "value": 1.23029
+              "value": 1.23031
             },
             {
               "date": "2018-08-01",
-              "value": 1.18115
+              "value": 1.18103
             },
             {
               "date": "2018-09-01",
-              "value": 0.98949
+              "value": 0.98959
             },
             {
               "date": "2018-10-01",
-              "value": 1.10662
+              "value": 1.10653
             },
             {
               "date": "2018-11-01",
-              "value": 0.92197
+              "value": 0.92201
             },
             {
               "date": "2018-12-01",
-              "value": 0.69153
+              "value": 0.69155
             },
             {
               "date": "2019-01-01",
-              "value": 0.56015
+              "value": 0.56007
             },
             {
               "date": "2019-02-01",
-              "value": 0.57859
+              "value": 0.5786
             },
             {
               "date": "2019-03-01",
-              "value": 0.72911
+              "value": 0.72895
             },
             {
               "date": "2019-04-01",
-              "value": 0.70809
+              "value": 0.70812
             },
             {
               "date": "2019-05-01",
-              "value": 0.63422
+              "value": 0.63431
             },
             {
               "date": "2019-06-01",
-              "value": 0.60019
+              "value": 0.60036
             },
             {
               "date": "2019-07-01",
-              "value": 0.31185
+              "value": 0.31173
             },
             {
               "date": "2019-08-01",
@@ -242,215 +244,215 @@
             },
             {
               "date": "2019-09-01",
-              "value": 0.14835
+              "value": 0.14823
             },
             {
               "date": "2019-10-01",
-              "value": -0.25319
+              "value": -0.25313
             },
             {
               "date": "2019-11-01",
-              "value": -0.13117
+              "value": -0.13118
             },
             {
               "date": "2019-12-01",
-              "value": 0.15579
+              "value": 0.15574
             },
             {
               "date": "2020-01-01",
-              "value": 0.2023
+              "value": 0.20227
             },
             {
               "date": "2020-02-01",
-              "value": -0.06216
+              "value": -0.06217
             },
             {
               "date": "2020-03-01",
-              "value": -0.51521
+              "value": -0.51513
             },
             {
               "date": "2020-04-01",
-              "value": -1.06297
+              "value": -1.06309
             },
             {
               "date": "2020-05-01",
-              "value": -1.32453
+              "value": -1.32458
             },
             {
               "date": "2020-06-01",
-              "value": -1.27475
+              "value": -1.27476
             },
             {
               "date": "2020-07-01",
-              "value": -0.91994
+              "value": -0.91983
             },
             {
               "date": "2020-08-01",
-              "value": -0.86625
+              "value": -0.86617
             },
             {
               "date": "2020-09-01",
-              "value": -0.79994
+              "value": -0.79988
             },
             {
               "date": "2020-10-01",
-              "value": -0.57024
+              "value": -0.57027
             },
             {
               "date": "2020-11-01",
-              "value": -0.68473
+              "value": -0.68477
             },
             {
               "date": "2020-12-01",
-              "value": -0.81385
+              "value": -0.81375
             },
             {
               "date": "2021-01-01",
-              "value": -0.5444
+              "value": -0.54424
             },
             {
               "date": "2021-02-01",
-              "value": -0.50411
+              "value": -0.50408
             },
             {
               "date": "2021-03-01",
-              "value": -0.24513
+              "value": -0.24516
             },
             {
               "date": "2021-04-01",
-              "value": 0.32787
+              "value": 0.32783
             },
             {
               "date": "2021-05-01",
-              "value": 0.55092
+              "value": 0.55097
             },
             {
               "date": "2021-06-01",
-              "value": 0.60451
+              "value": 0.60449
             },
             {
               "date": "2021-07-01",
-              "value": 0.67884
+              "value": 0.67877
             },
             {
               "date": "2021-08-01",
-              "value": 0.88167
+              "value": 0.88162
             },
             {
               "date": "2021-09-01",
-              "value": 0.94239
+              "value": 0.94242
             },
             {
               "date": "2021-10-01",
-              "value": 1.24186
+              "value": 1.24182
             },
             {
               "date": "2021-11-01",
-              "value": 1.53277
+              "value": 1.53281
             },
             {
               "date": "2021-12-01",
-              "value": 1.53111
+              "value": 1.53103
             },
             {
               "date": "2022-01-01",
-              "value": 1.64882
+              "value": 1.64872
             },
             {
               "date": "2022-02-01",
-              "value": 2.15088
+              "value": 2.15083
             },
             {
               "date": "2022-03-01",
-              "value": 2.38612
+              "value": 2.38617
             },
             {
               "date": "2022-04-01",
-              "value": 2.54796
+              "value": 2.54814
             },
             {
               "date": "2022-05-01",
-              "value": 2.94252
+              "value": 2.94246
             },
             {
               "date": "2022-06-01",
-              "value": 3.38493
+              "value": 3.38492
             },
             {
               "date": "2022-07-01",
-              "value": 3.43343
+              "value": 3.43342
             },
             {
               "date": "2022-08-01",
-              "value": 3.4521
+              "value": 3.45215
             },
             {
               "date": "2022-09-01",
-              "value": 3.25246
+              "value": 3.25243
             },
             {
               "date": "2022-10-01",
-              "value": 2.99597
+              "value": 2.99599
             },
             {
               "date": "2022-11-01",
-              "value": 2.96027
+              "value": 2.96021
             },
             {
               "date": "2022-12-01",
-              "value": 2.84027
+              "value": 2.84042
             },
             {
               "date": "2023-01-01",
-              "value": 3.2825
+              "value": 3.28254
             },
             {
               "date": "2023-02-01",
-              "value": 3.3718
+              "value": 3.37188
             },
             {
               "date": "2023-03-01",
-              "value": 2.9453
+              "value": 2.94525
             },
             {
               "date": "2023-04-01",
-              "value": 2.56536
+              "value": 2.56534
             },
             {
               "date": "2023-05-01",
-              "value": 2.1587
+              "value": 2.15878
             },
             {
               "date": "2023-06-01",
-              "value": 1.71087
+              "value": 1.71081
             },
             {
               "date": "2023-07-01",
-              "value": 1.60517
+              "value": 1.60512
             },
             {
               "date": "2023-08-01",
-              "value": 1.55429
+              "value": 1.55426
             },
             {
               "date": "2023-09-01",
-              "value": 1.6547
+              "value": 1.65474
             },
             {
               "date": "2023-10-01",
-              "value": 1.69338
+              "value": 1.69351
             },
             {
               "date": "2023-11-01",
-              "value": 1.44363
+              "value": 1.44368
             },
             {
               "date": "2023-12-01",
-              "value": 1.71498
+              "value": 1.71476
             },
             {
               "date": "2024-01-01",
-              "value": 1.27868
+              "value": 1.27866
             },
             {
               "date": "2024-02-01",
@@ -458,19 +460,19 @@
             },
             {
               "date": "2024-03-01",
-              "value": 1.04495
+              "value": 1.04497
             },
             {
               "date": "2024-04-01",
-              "value": 1.36783
+              "value": 1.36778
             },
             {
               "date": "2024-05-01",
-              "value": 1.39004
+              "value": 1.39002
             },
             {
               "date": "2024-06-01",
-              "value": 1.32807
+              "value": 1.32808
             },
             {
               "date": "2024-07-01",
@@ -478,42 +480,109 @@
             },
             {
               "date": "2024-08-01",
-              "value": 1.06037
+              "value": 1.06038
             },
             {
               "date": "2024-09-01",
-              "value": 0.84302
+              "value": 0.84292
             },
             {
               "date": "2024-10-01",
-              "value": 0.62297
+              "value": 0.62287
             },
             {
               "date": "2024-11-01",
-              "value": 0.73076
+              "value": 0.73066
             },
             {
               "date": "2024-12-01",
-              "value": 0.62643
+              "value": 0.62639
             },
             {
               "date": "2025-01-01",
-              "value": 0.40153
+              "value": 0.40157
             },
             {
               "date": "2025-02-01",
-              "value": 0.32482
+              "value": 0.32472
             },
             {
               "date": "2025-03-01",
-              "value": 0.34232
+              "value": 0.34229
             },
             {
               "date": "2025-04-01",
-              "value": 0.03426
+              "value": 0.03434
+            },
+            {
+              "date": "2025-05-01",
+              "value": -0.09976
+            },
+            {
+              "date": "2025-06-01",
+              "value": 0.07792
+            },
+            {
+              "date": "2025-07-01",
+              "value": 0.21798
+            },
+            {
+              "date": "2025-08-01",
+              "value": 0.15217
+            },
+            {
+              "date": "2025-09-01",
+              "value": 0.22443
+            },
+            {
+              "date": "2025-10-01",
+              "value": 0.09598
+            },
+            {
+              "date": "2025-11-01",
+              "value": 0.0212
+            },
+            {
+              "date": "2025-12-01",
+              "value": 0.06324
+            },
+            {
+              "date": "2026-01-01",
+              "value": 0.05807
+            },
+            {
+              "date": "2026-02-01",
+              "value": 0.13072
+            },
+            {
+              "date": "2026-03-01",
+              "value": 0.31465
+            },
+            {
+              "date": "2026-04-01",
+              "value": 0.60189
+            },
+            {
+              "date": "2026-05-01",
+              "value": 0.61587
+            },
+            {
+              "date": "2026-06-01",
+              "value": 0.4512
+            },
+            {
+              "date": "2026-07-01",
+              "value": 0.35423
+            },
+            {
+              "date": "2026-08-01",
+              "value": 0.80725
+            },
+            {
+              "date": "2026-09-01",
+              "value": 0.99006
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "unemployment": {
           "seriesId": "LRHUTTTTCHQ156S",
@@ -523,9 +592,10 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Switzerland",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
           "sourceUpdated": "2026-09-15 3:14 PM CDT",
-          "retrievedAt": "2026-10-18T11:53:48.857083+00:00",
+          "retrievedAt": "2026-10-19T20:30:46.385436+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -711,8 +781,7 @@
               "date": "2026-04-01",
               "value": 5.03241
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "gdp": {
           "seriesId": "NAEXKP01CHQ657S",
@@ -722,9 +791,10 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Switzerland",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-18T11:53:49.571822+00:00",
+          "retrievedAt": "2026-10-19T20:30:55.094269+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -910,8 +980,7 @@
               "date": "2026-04-01",
               "value": 1.88475
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     },
@@ -926,9 +995,10 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Australia",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-18T11:53:49.111874+00:00",
+          "retrievedAt": "2026-10-19T20:30:46.732579+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -1490,8 +1560,7 @@
               "date": "2026-08-01",
               "value": 4.6463
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "gdp": {
           "seriesId": "NAEXKP01AUQ657S",
@@ -1501,9 +1570,10 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Australia",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-18T11:53:49.005752+00:00",
+          "retrievedAt": "2026-10-19T20:30:46.319221+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -1689,20 +1759,21 @@
               "date": "2026-04-01",
               "value": 0.4195
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "inflation": {
-          "seriesId": "AUSCPIALLQINMEI",
+          "seriesId": "DSD_PRICES@DF_PRICES_ALL:AUS:Q",
           "country": "Australia",
           "frequency": "Quarterly",
-          "source": "Organization for Economic Co-operation and Development",
-          "sourceTitle": "Consumer Price Indices (CPIs, HICPs), COICOP 1999: Consumer Price Index: Total for Australia",
-          "sourceUrl": "https://fred.stlouisfed.org/series/AUSCPIALLQINMEI",
-          "sourceUpdated": "2025-05-15 2:17 PM CDT",
-          "retrievedAt": "2026-10-18T11:53:48.820834+00:00",
-          "transform": "yoy",
-          "status": "refresh_failed",
+          "source": "OECD",
+          "provider": "OECD SDMX",
+          "sourceTitle": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
+          "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+          "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
+          "sourceUpdated": null,
+          "retrievedAt": "2026-10-19T20:34:35.697356+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -1714,63 +1785,63 @@
             },
             {
               "date": "2015-07-01",
-              "value": 1.50373
+              "value": 1.50376
             },
             {
               "date": "2015-10-01",
-              "value": 1.68853
+              "value": 1.68856
             },
             {
               "date": "2016-01-01",
-              "value": 1.31088
+              "value": 1.31086
             },
             {
               "date": "2016-04-01",
-              "value": 1.02329
+              "value": 1.02326
             },
             {
               "date": "2016-07-01",
-              "value": 1.29629
+              "value": 1.2963
             },
             {
               "date": "2016-10-01",
-              "value": 1.47606
+              "value": 1.47602
             },
             {
               "date": "2017-01-01",
-              "value": 2.12564
+              "value": 2.12569
             },
             {
               "date": "2017-04-01",
-              "value": 1.93369
+              "value": 1.9337
             },
             {
               "date": "2017-07-01",
-              "value": 1.82821
+              "value": 1.82815
             },
             {
               "date": "2017-10-01",
-              "value": 1.90908
+              "value": 1.90909
             },
             {
               "date": "2018-01-01",
-              "value": 1.90054
+              "value": 1.90045
             },
             {
               "date": "2018-04-01",
-              "value": 2.07763
+              "value": 2.07769
             },
             {
               "date": "2018-07-01",
-              "value": 1.88509
+              "value": 1.8851
             },
             {
               "date": "2018-10-01",
-              "value": 1.78408
+              "value": 1.78412
             },
             {
               "date": "2019-01-01",
-              "value": 1.33207
+              "value": 1.33215
             },
             {
               "date": "2019-04-01",
@@ -1778,11 +1849,11 @@
             },
             {
               "date": "2019-07-01",
-              "value": 1.67404
+              "value": 1.67401
             },
             {
               "date": "2019-10-01",
-              "value": 1.84048
+              "value": 1.84049
             },
             {
               "date": "2020-01-01",
@@ -1790,86 +1861,105 @@
             },
             {
               "date": "2020-04-01",
-              "value": -0.34844
+              "value": -0.34843
             },
             {
               "date": "2020-07-01",
-              "value": 0.69317
+              "value": 0.69324
             },
             {
               "date": "2020-10-01",
-              "value": 0.86066
+              "value": 0.86059
             },
             {
               "date": "2021-01-01",
-              "value": 1.11498
+              "value": 1.11492
             },
             {
               "date": "2021-04-01",
-              "value": 3.84618
+              "value": 3.84615
             },
             {
               "date": "2021-07-01",
-              "value": 3.01212
+              "value": 3.01205
             },
             {
               "date": "2021-10-01",
-              "value": 3.49824
+              "value": 3.49829
             },
             {
               "date": "2022-01-01",
-              "value": 5.08904
+              "value": 5.08906
             },
             {
               "date": "2022-04-01",
-              "value": 6.14482
+              "value": 6.14478
             },
             {
               "date": "2022-07-01",
-              "value": 7.26811
+              "value": 7.26817
             },
             {
               "date": "2022-10-01",
-              "value": 7.83187
+              "value": 7.83182
             },
             {
               "date": "2023-01-01",
-              "value": 7.02182
+              "value": 7.02179
             },
             {
               "date": "2023-04-01",
-              "value": 6.02698
+              "value": 6.02696
             },
             {
               "date": "2023-07-01",
-              "value": 5.37386
+              "value": 5.37383
             },
             {
               "date": "2023-10-01",
-              "value": 4.05197
+              "value": 4.05199
             },
             {
               "date": "2024-01-01",
-              "value": 3.61986
+              "value": 3.61991
             },
             {
               "date": "2024-04-01",
-              "value": 3.81445
+              "value": 3.81451
             },
             {
               "date": "2024-07-01",
-              "value": 2.80854
+              "value": 2.8388
             },
             {
               "date": "2024-10-01",
-              "value": 2.4247
+              "value": 2.41422
             },
             {
               "date": "2025-01-01",
-              "value": 2.40176
+              "value": 2.45861
+            },
+            {
+              "date": "2025-04-01",
+              "value": 2.12045
+            },
+            {
+              "date": "2025-07-01",
+              "value": 3.23671
+            },
+            {
+              "date": "2025-10-01",
+              "value": 3.67194
+            },
+            {
+              "date": "2026-01-01",
+              "value": 4.04829
+            },
+            {
+              "date": "2026-04-01",
+              "value": 3.96315
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     },
@@ -1877,794 +1967,801 @@
       "name": "Euro area",
       "series": {
         "gdp": {
-          "seriesId": "CLVMNACSCAB1GQEA19",
+          "seriesId": "namq_10_gdp:EA21",
+          "geography": "EA21",
           "country": "Euro area",
           "frequency": "Quarterly",
           "source": "Eurostat",
-          "sourceTitle": "Real Gross Domestic Product for Euro Area (19 Countries)",
-          "sourceUrl": "https://fred.stlouisfed.org/series/CLVMNACSCAB1GQEA19",
-          "sourceUpdated": "2026-09-07 4:03 AM CDT",
-          "retrievedAt": "2026-10-18T11:54:05.664028+00:00",
-          "transform": "qoq",
-          "status": "refresh_failed",
+          "provider": "Eurostat API",
+          "sourceTitle": "Euro area (21 countries): Real GDP, quarter-on-quarter percentage change, seasonally and calendar adjusted",
+          "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
+          "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?lang=en&geo=EA21&na_item=B1GQ&unit=CLV_PCH_PRE&s_adj=SCA&freq=Q&sinceTimePeriod=2015-Q1",
+          "sourceUpdated": "2026-10-19T11:00:00+0200",
+          "retrievedAt": "2026-10-19T20:35:08.194130+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
-              "value": 0.79312
+              "value": 0.8
             },
             {
               "date": "2015-04-01",
-              "value": 0.43523
+              "value": 0.4
             },
             {
               "date": "2015-07-01",
-              "value": 0.40171
+              "value": 0.4
             },
             {
               "date": "2015-10-01",
-              "value": 0.48618
+              "value": 0.5
             },
             {
               "date": "2016-01-01",
-              "value": 0.49259
+              "value": 0.5
             },
             {
               "date": "2016-04-01",
-              "value": 0.18782
+              "value": 0.2
             },
             {
               "date": "2016-07-01",
-              "value": 0.49852
+              "value": 0.5
             },
             {
               "date": "2016-10-01",
-              "value": 0.80007
+              "value": 0.8
             },
             {
               "date": "2017-01-01",
-              "value": 0.76631
+              "value": 0.8
             },
             {
               "date": "2017-04-01",
-              "value": 0.69102
+              "value": 0.7
             },
             {
               "date": "2017-07-01",
-              "value": 0.76943
+              "value": 0.8
             },
             {
               "date": "2017-10-01",
-              "value": 0.81693
+              "value": 0.8
             },
             {
               "date": "2018-01-01",
-              "value": 0.03074
+              "value": 0.0
             },
             {
               "date": "2018-04-01",
-              "value": 0.48615
+              "value": 0.5
             },
             {
               "date": "2018-07-01",
-              "value": 0.15383
+              "value": 0.2
             },
             {
               "date": "2018-10-01",
-              "value": 0.50734
+              "value": 0.5
             },
             {
               "date": "2019-01-01",
-              "value": 0.73759
+              "value": 0.8
             },
             {
               "date": "2019-04-01",
-              "value": 0.32233
+              "value": 0.3
             },
             {
               "date": "2019-07-01",
-              "value": 0.26718
+              "value": 0.3
             },
             {
               "date": "2019-10-01",
-              "value": -0.15927
+              "value": -0.2
             },
             {
               "date": "2020-01-01",
-              "value": -3.16893
+              "value": -3.1
             },
             {
               "date": "2020-04-01",
-              "value": -11.14332
+              "value": -11.1
             },
             {
               "date": "2020-07-01",
-              "value": 11.59748
+              "value": 11.5
             },
             {
               "date": "2020-10-01",
-              "value": 0.24216
+              "value": 0.3
             },
             {
               "date": "2021-01-01",
-              "value": 0.85405
+              "value": 0.9
             },
             {
               "date": "2021-04-01",
-              "value": 2.15268
+              "value": 2.1
             },
             {
               "date": "2021-07-01",
-              "value": 1.8324
+              "value": 1.8
             },
             {
               "date": "2021-10-01",
-              "value": 0.70559
+              "value": 0.7
             },
             {
               "date": "2022-01-01",
-              "value": 0.74779
+              "value": 0.8
             },
             {
               "date": "2022-04-01",
-              "value": 0.94474
+              "value": 0.9
             },
             {
               "date": "2022-07-01",
-              "value": 0.54104
+              "value": 0.5
             },
             {
               "date": "2022-10-01",
-              "value": -0.05273
+              "value": -0.1
             },
             {
               "date": "2023-01-01",
-              "value": -0.20643
+              "value": -0.2
             },
             {
               "date": "2023-04-01",
-              "value": 0.19496
+              "value": 0.2
             },
             {
               "date": "2023-07-01",
-              "value": 0.18333
+              "value": 0.2
             },
             {
               "date": "2023-10-01",
-              "value": -0.00095
+              "value": 0.0
             },
             {
               "date": "2024-01-01",
-              "value": 0.43042
+              "value": 0.4
             },
             {
               "date": "2024-04-01",
-              "value": 0.22142
+              "value": 0.2
             },
             {
               "date": "2024-07-01",
-              "value": 0.53372
+              "value": 0.5
             },
             {
               "date": "2024-10-01",
-              "value": 0.32237
+              "value": 0.3
             },
             {
               "date": "2025-01-01",
-              "value": 0.4874
+              "value": 0.5
             },
             {
               "date": "2025-04-01",
-              "value": 0.02265
+              "value": 0.0
             },
             {
               "date": "2025-07-01",
-              "value": 0.30941
+              "value": 0.3
             },
             {
               "date": "2025-10-01",
-              "value": 0.22436
+              "value": 0.2
             },
             {
               "date": "2026-01-01",
-              "value": -0.01467
+              "value": 0.0
             },
             {
               "date": "2026-04-01",
-              "value": 0.63396
+              "value": 0.6
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "inflation": {
-          "seriesId": "CP0000EZ19M086NEST",
+          "seriesId": "prc_hicp_minr:EA21",
+          "geography": "EA21",
           "country": "Euro area",
           "frequency": "Monthly",
           "source": "Eurostat",
-          "sourceTitle": "Harmonized Index of Consumer Prices: Total for Euro Area (19 Countries)",
-          "sourceUrl": "https://fred.stlouisfed.org/series/CP0000EZ19M086NEST",
-          "sourceUpdated": "2026-10-16 7:44 AM CDT",
-          "retrievedAt": "2026-10-18T11:54:05.654917+00:00",
-          "transform": "yoy",
-          "status": "refresh_failed",
+          "provider": "Eurostat API",
+          "sourceTitle": "Euro area (21 countries): Headline HICP, ECOICOP version 2, year-on-year percentage change",
+          "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+          "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?lang=en&geo=EA21&coicop18=TOTAL&unit=RCH_A&freq=M&sinceTimePeriod=2015-01",
+          "sourceUpdated": "2026-10-16T23:00:00+0200",
+          "retrievedAt": "2026-10-19T20:35:00.337884+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
-              "value": -0.59896
+              "value": -0.6
             },
             {
               "date": "2015-02-01",
-              "value": -0.29855
+              "value": -0.3
             },
             {
               "date": "2015-03-01",
-              "value": -0.0643
+              "value": -0.1
             },
             {
               "date": "2015-04-01",
-              "value": 0.20544
+              "value": 0.2
             },
             {
               "date": "2015-05-01",
-              "value": 0.60419
+              "value": 0.6
             },
             {
               "date": "2015-06-01",
-              "value": 0.50077
+              "value": 0.5
             },
             {
               "date": "2015-07-01",
-              "value": 0.54285
+              "value": 0.5
             },
             {
               "date": "2015-08-01",
-              "value": 0.42603
+              "value": 0.4
             },
             {
               "date": "2015-09-01",
-              "value": 0.20566
+              "value": 0.2
             },
             {
               "date": "2015-10-01",
-              "value": 0.38585
+              "value": 0.4
             },
             {
               "date": "2015-11-01",
-              "value": 0.14173
+              "value": 0.1
             },
             {
               "date": "2015-12-01",
-              "value": 0.24503
+              "value": 0.2
             },
             {
               "date": "2016-01-01",
-              "value": 0.31438
+              "value": 0.3
             },
             {
               "date": "2016-02-01",
-              "value": -0.13019
+              "value": -0.1
             },
             {
               "date": "2016-03-01",
-              "value": -0.05147
+              "value": -0.1
             },
             {
               "date": "2016-04-01",
-              "value": -0.25628
+              "value": -0.3
             },
             {
               "date": "2016-05-01",
-              "value": -0.12778
+              "value": -0.1
             },
             {
               "date": "2016-06-01",
-              "value": 0.03833
+              "value": 0.0
             },
             {
               "date": "2016-07-01",
-              "value": 0.16712
+              "value": 0.1
             },
             {
               "date": "2016-08-01",
-              "value": 0.23139
+              "value": 0.2
             },
             {
               "date": "2016-09-01",
-              "value": 0.39764
+              "value": 0.4
             },
             {
               "date": "2016-10-01",
-              "value": 0.51249
+              "value": 0.5
             },
             {
               "date": "2016-11-01",
-              "value": 0.579
+              "value": 0.6
             },
             {
               "date": "2016-12-01",
-              "value": 1.09353
+              "value": 1.1
             },
             {
               "date": "2017-01-01",
-              "value": 1.73675
+              "value": 1.7
             },
             {
               "date": "2017-02-01",
-              "value": 1.95542
+              "value": 2.0
             },
             {
               "date": "2017-03-01",
-              "value": 1.545
+              "value": 1.5
             },
             {
               "date": "2017-04-01",
-              "value": 1.88849
+              "value": 1.9
             },
             {
               "date": "2017-05-01",
-              "value": 1.39458
+              "value": 1.4
             },
             {
               "date": "2017-06-01",
-              "value": 1.30268
+              "value": 1.3
             },
             {
               "date": "2017-07-01",
-              "value": 1.3347
+              "value": 1.3
             },
             {
               "date": "2017-08-01",
-              "value": 1.53905
+              "value": 1.5
             },
             {
               "date": "2017-09-01",
-              "value": 1.55871
+              "value": 1.6
             },
             {
               "date": "2017-10-01",
-              "value": 1.37667
+              "value": 1.4
             },
             {
               "date": "2017-11-01",
-              "value": 1.52232
+              "value": 1.5
             },
             {
               "date": "2017-12-01",
-              "value": 1.34894
+              "value": 1.3
             },
             {
               "date": "2018-01-01",
-              "value": 1.29637
+              "value": 1.3
             },
             {
               "date": "2018-02-01",
-              "value": 1.12518
+              "value": 1.1
             },
             {
               "date": "2018-03-01",
-              "value": 1.3947
+              "value": 1.4
             },
             {
               "date": "2018-04-01",
-              "value": 1.23566
+              "value": 1.2
             },
             {
               "date": "2018-05-01",
-              "value": 1.94322
+              "value": 1.9
             },
             {
               "date": "2018-06-01",
-              "value": 1.96672
+              "value": 2.0
             },
             {
               "date": "2018-07-01",
-              "value": 2.20365
+              "value": 2.2
             },
             {
               "date": "2018-08-01",
-              "value": 2.08412
+              "value": 2.1
             },
             {
               "date": "2018-09-01",
-              "value": 2.07573
+              "value": 2.1
             },
             {
               "date": "2018-10-01",
-              "value": 2.27587
+              "value": 2.3
             },
             {
               "date": "2018-11-01",
-              "value": 1.92792
+              "value": 1.9
             },
             {
               "date": "2018-12-01",
-              "value": 1.51934
+              "value": 1.5
             },
             {
               "date": "2019-01-01",
-              "value": 1.38115
+              "value": 1.4
             },
             {
               "date": "2019-02-01",
-              "value": 1.49197
+              "value": 1.5
             },
             {
               "date": "2019-03-01",
-              "value": 1.40053
+              "value": 1.4
             },
             {
               "date": "2019-04-01",
-              "value": 1.71877
+              "value": 1.7
             },
             {
               "date": "2019-05-01",
-              "value": 1.2254
+              "value": 1.2
             },
             {
               "date": "2019-06-01",
-              "value": 1.27349
+              "value": 1.3
             },
             {
               "date": "2019-07-01",
-              "value": 1.01611
+              "value": 1.0
             },
             {
               "date": "2019-08-01",
-              "value": 1.0146
+              "value": 1.0
             },
             {
               "date": "2019-09-01",
-              "value": 0.83806
+              "value": 0.8
             },
             {
               "date": "2019-10-01",
-              "value": 0.72535
+              "value": 0.7
             },
             {
               "date": "2019-11-01",
-              "value": 0.96427
+              "value": 1.0
             },
             {
               "date": "2019-12-01",
-              "value": 1.33581
+              "value": 1.3
             },
             {
               "date": "2020-01-01",
-              "value": 1.36233
+              "value": 1.4
             },
             {
               "date": "2020-02-01",
-              "value": 1.22088
+              "value": 1.2
             },
             {
               "date": "2020-03-01",
-              "value": 0.73992
+              "value": 0.8
             },
             {
               "date": "2020-04-01",
-              "value": 0.31835
+              "value": 0.3
             },
             {
               "date": "2020-05-01",
-              "value": 0.0856
+              "value": 0.1
             },
             {
               "date": "2020-06-01",
-              "value": 0.26859
+              "value": 0.3
             },
             {
               "date": "2020-07-01",
-              "value": 0.39254
+              "value": 0.4
             },
             {
               "date": "2020-08-01",
-              "value": -0.17148
+              "value": -0.2
             },
             {
               "date": "2020-09-01",
-              "value": -0.31777
+              "value": -0.3
             },
             {
               "date": "2020-10-01",
-              "value": -0.26852
+              "value": -0.3
             },
             {
               "date": "2020-11-01",
-              "value": -0.29387
+              "value": -0.3
             },
             {
               "date": "2020-12-01",
-              "value": -0.28073
+              "value": -0.3
             },
             {
               "date": "2021-01-01",
-              "value": 0.91245
+              "value": 0.9
             },
             {
               "date": "2021-02-01",
-              "value": 0.93538
+              "value": 0.9
             },
             {
               "date": "2021-03-01",
-              "value": 1.33431
+              "value": 1.3
             },
             {
               "date": "2021-04-01",
-              "value": 1.61113
+              "value": 1.6
             },
             {
               "date": "2021-05-01",
-              "value": 1.97923
+              "value": 2.0
             },
             {
               "date": "2021-06-01",
-              "value": 1.89943
+              "value": 1.9
             },
             {
               "date": "2021-07-01",
-              "value": 2.16276
+              "value": 2.2
             },
             {
               "date": "2021-08-01",
-              "value": 2.94479
+              "value": 3.0
             },
             {
               "date": "2021-09-01",
-              "value": 3.35949
+              "value": 3.4
             },
             {
               "date": "2021-10-01",
-              "value": 4.05091
+              "value": 4.1
             },
             {
               "date": "2021-11-01",
-              "value": 4.87535
+              "value": 4.9
             },
             {
               "date": "2021-12-01",
-              "value": 4.9694
+              "value": 5.0
             },
             {
               "date": "2022-01-01",
-              "value": 5.10753
+              "value": 5.1
             },
             {
               "date": "2022-02-01",
-              "value": 5.87733
+              "value": 5.9
             },
             {
               "date": "2022-03-01",
-              "value": 7.44141
+              "value": 7.5
             },
             {
               "date": "2022-04-01",
-              "value": 7.44745
+              "value": 7.5
             },
             {
               "date": "2022-05-01",
-              "value": 8.0508
+              "value": 8.1
             },
             {
               "date": "2022-06-01",
-              "value": 8.63902
+              "value": 8.7
             },
             {
               "date": "2022-07-01",
-              "value": 8.86258
+              "value": 8.9
             },
             {
               "date": "2022-08-01",
-              "value": 9.15375
+              "value": 9.2
             },
             {
               "date": "2022-09-01",
-              "value": 9.92883
+              "value": 10.0
             },
             {
               "date": "2022-10-01",
-              "value": 10.62103
+              "value": 10.7
             },
             {
               "date": "2022-11-01",
-              "value": 10.04684
+              "value": 10.1
             },
             {
               "date": "2022-12-01",
-              "value": 9.20009
+              "value": 9.3
             },
             {
               "date": "2023-01-01",
-              "value": 8.63753
+              "value": 8.7
             },
             {
               "date": "2023-02-01",
-              "value": 8.49937
+              "value": 8.6
             },
             {
               "date": "2023-03-01",
-              "value": 6.88104
+              "value": 6.9
             },
             {
               "date": "2023-04-01",
-              "value": 6.94243
+              "value": 7.0
             },
             {
               "date": "2023-05-01",
-              "value": 6.09824
+              "value": 6.1
             },
             {
               "date": "2023-06-01",
-              "value": 5.51034
+              "value": 5.5
             },
             {
               "date": "2023-07-01",
-              "value": 5.28455
+              "value": 5.3
             },
             {
               "date": "2023-08-01",
-              "value": 5.20856
+              "value": 5.3
             },
             {
               "date": "2023-09-01",
-              "value": 4.31639
+              "value": 4.4
             },
             {
               "date": "2023-10-01",
-              "value": 2.87081
+              "value": 2.9
             },
             {
               "date": "2023-11-01",
-              "value": 2.37285
+              "value": 2.4
             },
             {
               "date": "2023-12-01",
-              "value": 2.90443
+              "value": 2.9
             },
             {
               "date": "2024-01-01",
-              "value": 2.76083
+              "value": 2.8
             },
             {
               "date": "2024-02-01",
-              "value": 2.56873
+              "value": 2.6
             },
             {
               "date": "2024-03-01",
-              "value": 2.409
+              "value": 2.4
             },
             {
               "date": "2024-04-01",
-              "value": 2.35208
+              "value": 2.4
             },
             {
               "date": "2024-05-01",
-              "value": 2.5499
+              "value": 2.6
             },
             {
               "date": "2024-06-01",
-              "value": 2.50182
+              "value": 2.5
             },
             {
               "date": "2024-07-01",
-              "value": 2.57748
+              "value": 2.6
             },
             {
               "date": "2024-08-01",
-              "value": 2.1588
+              "value": 2.2
             },
             {
               "date": "2024-09-01",
-              "value": 1.72753
+              "value": 1.7
             },
             {
               "date": "2024-10-01",
-              "value": 1.99483
+              "value": 2.0
             },
             {
               "date": "2024-11-01",
-              "value": 2.23469
+              "value": 2.2
             },
             {
               "date": "2024-12-01",
-              "value": 2.42814
+              "value": 2.4
             },
             {
               "date": "2025-01-01",
-              "value": 2.49922
+              "value": 2.5
             },
             {
               "date": "2025-02-01",
-              "value": 2.29742
+              "value": 2.3
             },
             {
               "date": "2025-03-01",
-              "value": 2.16744
+              "value": 2.2
             },
             {
               "date": "2025-04-01",
-              "value": 2.15504
+              "value": 2.2
             },
             {
               "date": "2025-05-01",
-              "value": 1.86487
+              "value": 1.9
             },
             {
               "date": "2025-06-01",
-              "value": 1.96278
+              "value": 2.0
             },
             {
               "date": "2025-07-01",
-              "value": 2.01424
+              "value": 2.0
             },
             {
               "date": "2025-08-01",
-              "value": 2.02174
+              "value": 2.1
             },
             {
               "date": "2025-09-01",
-              "value": 2.2168
+              "value": 2.2
             },
             {
               "date": "2025-10-01",
-              "value": 2.07742
+              "value": 2.1
             },
             {
               "date": "2025-11-01",
-              "value": 2.11468
+              "value": 2.1
             },
             {
               "date": "2025-12-01",
-              "value": 1.93496
+              "value": 2.0
             },
             {
               "date": "2026-01-01",
-              "value": 1.63568
+              "value": 1.7
             },
             {
               "date": "2026-02-01",
-              "value": 1.87152
+              "value": 1.9
             },
             {
               "date": "2026-03-01",
-              "value": 2.53368
+              "value": 2.6
             },
             {
               "date": "2026-04-01",
-              "value": 2.9994
+              "value": 3.0
             },
             {
               "date": "2026-05-01",
-              "value": 3.14126
+              "value": 3.2
             },
             {
               "date": "2026-06-01",
-              "value": 2.73289
+              "value": 2.8
             },
             {
               "date": "2026-07-01",
-              "value": 2.93179
+              "value": 3.0
             },
             {
               "date": "2026-08-01",
-              "value": 3.22645
+              "value": 3.2
             },
             {
               "date": "2026-09-01",
-              "value": 3.7505
+              "value": 3.8
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "unemployment": {
-          "seriesId": "LRHUTTTTEZM156S",
+          "seriesId": "une_rt_m:EA21",
+          "geography": "EA21",
           "country": "Euro area",
           "frequency": "Monthly",
-          "source": "Organization for Economic Co-operation and Development",
-          "sourceTitle": "Harmonised Unemployment - Monthly Rates: Total: All Persons for the Euro Area (19 Countries)",
-          "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTEZM156S",
-          "sourceUpdated": "2023-03-15 1:15 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:05.691367+00:00",
+          "source": "Eurostat",
+          "provider": "Eurostat API",
+          "sourceTitle": "Euro area (21 countries): Unemployment, total labour force, seasonally adjusted",
+          "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
+          "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?lang=en&geo=EA21&sex=T&age=TOTAL&unit=PC_ACT&s_adj=SA&freq=M&sinceTimePeriod=2015-01",
+          "sourceUpdated": "2026-10-16T23:00:00+0200",
+          "retrievedAt": "2026-10-19T20:34:51.642749+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -2672,7 +2769,7 @@
             },
             {
               "date": "2015-02-01",
-              "value": 11.4
+              "value": 11.3
             },
             {
               "date": "2015-03-01",
@@ -2696,7 +2793,7 @@
             },
             {
               "date": "2015-08-01",
-              "value": 10.7
+              "value": 10.8
             },
             {
               "date": "2015-09-01",
@@ -2712,7 +2809,7 @@
             },
             {
               "date": "2015-12-01",
-              "value": 10.6
+              "value": 10.5
             },
             {
               "date": "2016-01-01",
@@ -2720,7 +2817,7 @@
             },
             {
               "date": "2016-02-01",
-              "value": 10.5
+              "value": 10.4
             },
             {
               "date": "2016-03-01",
@@ -2752,11 +2849,11 @@
             },
             {
               "date": "2016-10-01",
-              "value": 9.9
+              "value": 9.8
             },
             {
               "date": "2016-11-01",
-              "value": 9.9
+              "value": 9.8
             },
             {
               "date": "2016-12-01",
@@ -2764,15 +2861,15 @@
             },
             {
               "date": "2017-01-01",
-              "value": 9.7
-            },
-            {
-              "date": "2017-02-01",
               "value": 9.6
             },
             {
-              "date": "2017-03-01",
+              "date": "2017-02-01",
               "value": 9.5
+            },
+            {
+              "date": "2017-03-01",
+              "value": 9.4
             },
             {
               "date": "2017-04-01",
@@ -2780,7 +2877,7 @@
             },
             {
               "date": "2017-05-01",
-              "value": 9.3
+              "value": 9.2
             },
             {
               "date": "2017-06-01",
@@ -2812,7 +2909,7 @@
             },
             {
               "date": "2018-01-01",
-              "value": 8.7
+              "value": 8.6
             },
             {
               "date": "2018-02-01",
@@ -2856,11 +2953,11 @@
             },
             {
               "date": "2018-12-01",
-              "value": 7.9
+              "value": 7.8
             },
             {
               "date": "2019-01-01",
-              "value": 7.9
+              "value": 7.8
             },
             {
               "date": "2019-02-01",
@@ -2888,11 +2985,11 @@
             },
             {
               "date": "2019-08-01",
-              "value": 7.5
+              "value": 7.4
             },
             {
               "date": "2019-09-01",
-              "value": 7.5
+              "value": 7.4
             },
             {
               "date": "2019-10-01",
@@ -2900,7 +2997,7 @@
             },
             {
               "date": "2019-11-01",
-              "value": 7.5
+              "value": 7.4
             },
             {
               "date": "2019-12-01",
@@ -2908,15 +3005,15 @@
             },
             {
               "date": "2020-01-01",
-              "value": 7.5
-            },
-            {
-              "date": "2020-02-01",
               "value": 7.4
             },
             {
+              "date": "2020-02-01",
+              "value": 7.3
+            },
+            {
               "date": "2020-03-01",
-              "value": 7.2
+              "value": 7.1
             },
             {
               "date": "2020-04-01",
@@ -2924,7 +3021,7 @@
             },
             {
               "date": "2020-05-01",
-              "value": 7.6
+              "value": 7.7
             },
             {
               "date": "2020-06-01",
@@ -2940,7 +3037,7 @@
             },
             {
               "date": "2020-09-01",
-              "value": 8.6
+              "value": 8.5
             },
             {
               "date": "2020-10-01",
@@ -2968,15 +3065,15 @@
             },
             {
               "date": "2021-04-01",
-              "value": 8.2
+              "value": 8.3
             },
             {
               "date": "2021-05-01",
-              "value": 8.0
+              "value": 8.1
             },
             {
               "date": "2021-06-01",
-              "value": 7.8
+              "value": 7.9
             },
             {
               "date": "2021-07-01",
@@ -2992,7 +3089,7 @@
             },
             {
               "date": "2021-10-01",
-              "value": 7.3
+              "value": 7.2
             },
             {
               "date": "2021-11-01",
@@ -3000,7 +3097,7 @@
             },
             {
               "date": "2021-12-01",
-              "value": 7.0
+              "value": 7.1
             },
             {
               "date": "2022-01-01",
@@ -3016,7 +3113,7 @@
             },
             {
               "date": "2022-04-01",
-              "value": 6.7
+              "value": 6.8
             },
             {
               "date": "2022-05-01",
@@ -3053,9 +3150,180 @@
             {
               "date": "2023-01-01",
               "value": 6.7
+            },
+            {
+              "date": "2023-02-01",
+              "value": 6.6
+            },
+            {
+              "date": "2023-03-01",
+              "value": 6.5
+            },
+            {
+              "date": "2023-04-01",
+              "value": 6.5
+            },
+            {
+              "date": "2023-05-01",
+              "value": 6.5
+            },
+            {
+              "date": "2023-06-01",
+              "value": 6.5
+            },
+            {
+              "date": "2023-07-01",
+              "value": 6.6
+            },
+            {
+              "date": "2023-08-01",
+              "value": 6.5
+            },
+            {
+              "date": "2023-09-01",
+              "value": 6.6
+            },
+            {
+              "date": "2023-10-01",
+              "value": 6.6
+            },
+            {
+              "date": "2023-11-01",
+              "value": 6.5
+            },
+            {
+              "date": "2023-12-01",
+              "value": 6.5
+            },
+            {
+              "date": "2024-01-01",
+              "value": 6.5
+            },
+            {
+              "date": "2024-02-01",
+              "value": 6.5
+            },
+            {
+              "date": "2024-03-01",
+              "value": 6.4
+            },
+            {
+              "date": "2024-04-01",
+              "value": 6.4
+            },
+            {
+              "date": "2024-05-01",
+              "value": 6.4
+            },
+            {
+              "date": "2024-06-01",
+              "value": 6.4
+            },
+            {
+              "date": "2024-07-01",
+              "value": 6.4
+            },
+            {
+              "date": "2024-08-01",
+              "value": 6.3
+            },
+            {
+              "date": "2024-09-01",
+              "value": 6.3
+            },
+            {
+              "date": "2024-10-01",
+              "value": 6.2
+            },
+            {
+              "date": "2024-11-01",
+              "value": 6.2
+            },
+            {
+              "date": "2024-12-01",
+              "value": 6.2
+            },
+            {
+              "date": "2025-01-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-02-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-03-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-04-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-05-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-06-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-07-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-08-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-09-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-10-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-11-01",
+              "value": 6.3
+            },
+            {
+              "date": "2025-12-01",
+              "value": 6.3
+            },
+            {
+              "date": "2026-01-01",
+              "value": 6.3
+            },
+            {
+              "date": "2026-02-01",
+              "value": 6.4
+            },
+            {
+              "date": "2026-03-01",
+              "value": 6.4
+            },
+            {
+              "date": "2026-04-01",
+              "value": 6.4
+            },
+            {
+              "date": "2026-05-01",
+              "value": 6.4
+            },
+            {
+              "date": "2026-06-01",
+              "value": 6.4
+            },
+            {
+              "date": "2026-07-01",
+              "value": 6.4
+            },
+            {
+              "date": "2026-08-01",
+              "value": 6.4
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     },
@@ -3070,9 +3338,10 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
           "sourceUpdated": "2026-09-15 3:14 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:05.808793+00:00",
+          "retrievedAt": "2026-10-19T20:30:55.035780+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -3634,20 +3903,21 @@
               "date": "2026-08-01",
               "value": 6.4
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "inflation": {
-          "seriesId": "CANCPIALLMINMEI",
+          "seriesId": "DSD_PRICES@DF_PRICES_ALL:CAN:M",
           "country": "Canada",
           "frequency": "Monthly",
-          "source": "Organization for Economic Co-operation and Development",
-          "sourceTitle": "Consumer Price Indices (CPIs, HICPs), COICOP 1999: Consumer Price Index: Total for Canada",
-          "sourceUrl": "https://fred.stlouisfed.org/series/CANCPIALLMINMEI",
-          "sourceUpdated": "2025-05-15 2:20 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:05.792985+00:00",
-          "transform": "yoy",
-          "status": "refresh_failed",
+          "source": "OECD",
+          "provider": "OECD SDMX",
+          "sourceTitle": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
+          "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+          "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
+          "sourceUpdated": null,
+          "retrievedAt": "2026-10-19T20:34:35.702686+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -3655,11 +3925,11 @@
             },
             {
               "date": "2015-02-01",
-              "value": 1.04755
+              "value": 1.04754
             },
             {
               "date": "2015-03-01",
-              "value": 1.20193
+              "value": 1.20192
             },
             {
               "date": "2015-04-01",
@@ -3667,11 +3937,11 @@
             },
             {
               "date": "2015-05-01",
-              "value": 0.87444
+              "value": 0.8744
             },
             {
               "date": "2015-06-01",
-              "value": 1.03257
+              "value": 1.03256
             },
             {
               "date": "2015-07-01",
@@ -3683,15 +3953,15 @@
             },
             {
               "date": "2015-09-01",
-              "value": 1.0334
+              "value": 1.03339
             },
             {
               "date": "2015-10-01",
-              "value": 1.03257
+              "value": 1.03256
             },
             {
               "date": "2015-11-01",
-              "value": 1.35568
+              "value": 1.35566
             },
             {
               "date": "2015-12-01",
@@ -3699,191 +3969,191 @@
             },
             {
               "date": "2016-01-01",
-              "value": 2.01131
+              "value": 2.01126
             },
             {
               "date": "2016-02-01",
-              "value": 1.35568
+              "value": 1.35566
             },
             {
               "date": "2016-03-01",
-              "value": 1.26686
+              "value": 1.26683
             },
             {
               "date": "2016-04-01",
-              "value": 1.66402
+              "value": 1.66403
             },
             {
               "date": "2016-05-01",
-              "value": 1.49716
+              "value": 1.49724
             },
             {
               "date": "2016-06-01",
-              "value": 1.49373
+              "value": 1.49371
             },
             {
               "date": "2016-07-01",
-              "value": 1.25692
+              "value": 1.25687
             },
             {
               "date": "2016-08-01",
-              "value": 1.09973
+              "value": 1.09976
             },
             {
               "date": "2016-09-01",
-              "value": 1.33746
+              "value": 1.33753
             },
             {
               "date": "2016-10-01",
-              "value": 1.49373
+              "value": 1.49371
             },
             {
               "date": "2016-11-01",
-              "value": 1.18013
+              "value": 1.18017
             },
             {
               "date": "2016-12-01",
-              "value": 1.50196
+              "value": 1.50198
             },
             {
               "date": "2017-01-01",
-              "value": 2.12927
+              "value": 2.12934
             },
             {
               "date": "2017-02-01",
-              "value": 2.04558
+              "value": 2.04563
             },
             {
               "date": "2017-03-01",
-              "value": 1.56373
+              "value": 1.56372
             },
             {
               "date": "2017-04-01",
-              "value": 1.63678
+              "value": 1.63679
             },
             {
               "date": "2017-05-01",
-              "value": 1.31991
+              "value": 1.31988
             },
             {
               "date": "2017-06-01",
-              "value": 1.00694
+              "value": 1.00697
             },
             {
               "date": "2017-07-01",
-              "value": 1.16365
+              "value": 1.16369
             },
             {
               "date": "2017-08-01",
-              "value": 1.39863
+              "value": 1.3986
             },
             {
               "date": "2017-09-01",
-              "value": 1.5528
+              "value": 1.55279
             },
             {
               "date": "2017-10-01",
-              "value": 1.39429
+              "value": 1.39427
             },
             {
               "date": "2017-11-01",
-              "value": 2.09957
+              "value": 2.09953
             },
             {
               "date": "2017-12-01",
-              "value": 1.86913
+              "value": 1.86916
             },
             {
               "date": "2018-01-01",
-              "value": 1.69883
+              "value": 1.69884
             },
             {
               "date": "2018-02-01",
-              "value": 2.15886
+              "value": 2.15883
             },
             {
               "date": "2018-03-01",
-              "value": 2.30948
+              "value": 2.30947
             },
             {
               "date": "2018-04-01",
-              "value": 2.22394
+              "value": 2.22393
             },
             {
               "date": "2018-05-01",
-              "value": 2.22224
+              "value": 2.22222
             },
             {
               "date": "2018-06-01",
-              "value": 2.45398
+              "value": 2.45399
             },
             {
               "date": "2018-07-01",
-              "value": 2.99082
+              "value": 2.9908
             },
             {
               "date": "2018-08-01",
-              "value": 2.83529
+              "value": 2.83525
             },
             {
               "date": "2018-09-01",
-              "value": 2.21714
+              "value": 2.21712
             },
             {
               "date": "2018-10-01",
-              "value": 2.4446
+              "value": 2.44461
             },
             {
               "date": "2018-11-01",
-              "value": 1.67554
+              "value": 1.67555
             },
             {
               "date": "2018-12-01",
-              "value": 1.98781
+              "value": 1.98777
             },
             {
               "date": "2019-01-01",
-              "value": 1.44269
+              "value": 1.44267
             },
             {
               "date": "2019-02-01",
-              "value": 1.50944
+              "value": 1.50943
             },
             {
               "date": "2019-03-01",
-              "value": 1.88107
+              "value": 1.88111
             },
             {
               "date": "2019-04-01",
-              "value": 2.02554
+              "value": 2.02551
             },
             {
               "date": "2019-05-01",
-              "value": 2.39879
+              "value": 2.3988
             },
             {
               "date": "2019-06-01",
-              "value": 2.02099
+              "value": 2.02096
             },
             {
               "date": "2019-07-01",
-              "value": 2.01036
+              "value": 2.01042
             },
             {
               "date": "2019-08-01",
-              "value": 1.93736
+              "value": 1.93741
             },
             {
               "date": "2019-09-01",
-              "value": 1.86991
+              "value": 1.86986
             },
             {
               "date": "2019-10-01",
-              "value": 1.86424
+              "value": 1.86428
             },
             {
               "date": "2019-11-01",
-              "value": 2.1723
+              "value": 2.17229
             },
             {
               "date": "2019-12-01",
@@ -3891,47 +4161,47 @@
             },
             {
               "date": "2020-01-01",
-              "value": 2.3952
+              "value": 2.39521
             },
             {
               "date": "2020-02-01",
-              "value": 2.15615
+              "value": 2.15613
             },
             {
               "date": "2020-03-01",
-              "value": 0.88625
+              "value": 0.88626
             },
             {
               "date": "2020-04-01",
-              "value": -0.22065
+              "value": -0.22059
             },
             {
               "date": "2020-05-01",
-              "value": -0.36599
+              "value": -0.36603
             },
             {
               "date": "2020-06-01",
-              "value": 0.66032
+              "value": 0.66031
             },
             {
               "date": "2020-07-01",
-              "value": 0.14606
+              "value": 0.14599
             },
             {
               "date": "2020-08-01",
-              "value": 0.14618
+              "value": 0.1462
             },
             {
               "date": "2020-09-01",
-              "value": 0.51389
+              "value": 0.51395
             },
             {
               "date": "2020-10-01",
-              "value": 0.65887
+              "value": 0.65886
             },
             {
               "date": "2020-11-01",
-              "value": 0.95305
+              "value": 0.95308
             },
             {
               "date": "2020-12-01",
@@ -3939,23 +4209,23 @@
             },
             {
               "date": "2021-01-01",
-              "value": 1.02345
+              "value": 1.02339
             },
             {
               "date": "2021-02-01",
-              "value": 1.09166
+              "value": 1.0917
             },
             {
               "date": "2021-03-01",
-              "value": 2.1962
+              "value": 2.19619
             },
             {
               "date": "2021-04-01",
-              "value": 3.38988
+              "value": 3.38983
             },
             {
               "date": "2021-05-01",
-              "value": 3.60022
+              "value": 3.60029
             },
             {
               "date": "2021-06-01",
@@ -3967,31 +4237,31 @@
             },
             {
               "date": "2021-08-01",
-              "value": 4.08764
+              "value": 4.08759
             },
             {
               "date": "2021-09-01",
-              "value": 4.38278
+              "value": 4.38276
             },
             {
               "date": "2021-10-01",
-              "value": 4.65452
+              "value": 4.65454
             },
             {
               "date": "2021-11-01",
-              "value": 4.72047
+              "value": 4.72041
             },
             {
               "date": "2021-12-01",
-              "value": 4.80345
+              "value": 4.80349
             },
             {
               "date": "2022-01-01",
-              "value": 5.13749
+              "value": 5.13748
             },
             {
               "date": "2022-02-01",
-              "value": 5.68757
+              "value": 5.68755
             },
             {
               "date": "2022-03-01",
@@ -3999,55 +4269,55 @@
             },
             {
               "date": "2022-04-01",
-              "value": 6.77118
+              "value": 6.7712
             },
             {
               "date": "2022-05-01",
-              "value": 7.73053
+              "value": 7.7305
             },
             {
               "date": "2022-06-01",
-              "value": 8.13294
+              "value": 8.13296
             },
             {
               "date": "2022-07-01",
-              "value": 7.58955
+              "value": 7.5896
             },
             {
               "date": "2022-08-01",
-              "value": 7.01265
+              "value": 7.01262
             },
             {
               "date": "2022-09-01",
-              "value": 6.85798
+              "value": 6.85794
             },
             {
               "date": "2022-10-01",
-              "value": 6.87981
+              "value": 6.87978
             },
             {
               "date": "2022-11-01",
-              "value": 6.79607
+              "value": 6.79612
             },
             {
               "date": "2022-12-01",
-              "value": 6.31946
+              "value": 6.31944
             },
             {
               "date": "2023-01-01",
-              "value": 5.91875
+              "value": 5.91879
             },
             {
               "date": "2023-02-01",
-              "value": 5.24527
+              "value": 5.24523
             },
             {
               "date": "2023-03-01",
-              "value": 4.29817
+              "value": 4.29819
             },
             {
               "date": "2023-04-01",
-              "value": 4.40584
+              "value": 4.40587
             },
             {
               "date": "2023-05-01",
@@ -4055,11 +4325,11 @@
             },
             {
               "date": "2023-06-01",
-              "value": 2.81228
+              "value": 2.8123
             },
             {
               "date": "2023-07-01",
-              "value": 3.26585
+              "value": 3.26584
             },
             {
               "date": "2023-08-01",
@@ -4067,15 +4337,15 @@
             },
             {
               "date": "2023-09-01",
-              "value": 3.79824
+              "value": 3.7983
             },
             {
               "date": "2023-10-01",
-              "value": 3.12096
+              "value": 3.12094
             },
             {
               "date": "2023-11-01",
-              "value": 3.11691
+              "value": 3.11688
             },
             {
               "date": "2023-12-01",
@@ -4083,15 +4353,15 @@
             },
             {
               "date": "2024-01-01",
-              "value": 2.85898
+              "value": 2.859
             },
             {
               "date": "2024-02-01",
-              "value": 2.78315
+              "value": 2.78317
             },
             {
               "date": "2024-03-01",
-              "value": 2.89767
+              "value": 2.89762
             },
             {
               "date": "2024-04-01",
@@ -4099,15 +4369,15 @@
             },
             {
               "date": "2024-05-01",
-              "value": 2.86621
+              "value": 2.86624
             },
             {
               "date": "2024-06-01",
-              "value": 2.67175
+              "value": 2.67176
             },
             {
               "date": "2024-07-01",
-              "value": 2.53005
+              "value": 2.53004
             },
             {
               "date": "2024-08-01",
@@ -4115,11 +4385,11 @@
             },
             {
               "date": "2024-09-01",
-              "value": 1.64042
+              "value": 1.64038
             },
             {
               "date": "2024-10-01",
-              "value": 2.01764
+              "value": 2.01765
             },
             {
               "date": "2024-11-01",
@@ -4127,7 +4397,7 @@
             },
             {
               "date": "2024-12-01",
-              "value": 1.83198
+              "value": 1.83197
             },
             {
               "date": "2025-01-01",
@@ -4135,14 +4405,81 @@
             },
             {
               "date": "2025-02-01",
-              "value": 2.64483
+              "value": 2.64484
             },
             {
               "date": "2025-03-01",
-              "value": 2.31535
+              "value": 2.31539
+            },
+            {
+              "date": "2025-04-01",
+              "value": 1.74346
+            },
+            {
+              "date": "2025-05-01",
+              "value": 1.73375
+            },
+            {
+              "date": "2025-06-01",
+              "value": 1.85874
+            },
+            {
+              "date": "2025-07-01",
+              "value": 1.72733
+            },
+            {
+              "date": "2025-08-01",
+              "value": 1.85414
+            },
+            {
+              "date": "2025-09-01",
+              "value": 2.35878
+            },
+            {
+              "date": "2025-10-01",
+              "value": 2.16316
+            },
+            {
+              "date": "2025-11-01",
+              "value": 2.22497
+            },
+            {
+              "date": "2025-12-01",
+              "value": 2.35732
+            },
+            {
+              "date": "2026-01-01",
+              "value": 2.29386
+            },
+            {
+              "date": "2026-02-01",
+              "value": 1.77914
+            },
+            {
+              "date": "2026-03-01",
+              "value": 2.38532
+            },
+            {
+              "date": "2026-04-01",
+              "value": 2.81518
+            },
+            {
+              "date": "2026-05-01",
+              "value": 3.22581
+            },
+            {
+              "date": "2026-06-01",
+              "value": 2.79805
+            },
+            {
+              "date": "2026-07-01",
+              "value": 3.03214
+            },
+            {
+              "date": "2026-08-01",
+              "value": 3.03398
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "gdp": {
           "seriesId": "NAEXKP01CAQ657S",
@@ -4152,9 +4489,10 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Canada",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:05.817189+00:00",
+          "retrievedAt": "2026-10-19T20:30:55.013663+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -4340,8 +4678,7 @@
               "date": "2026-04-01",
               "value": 0.81974
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     },
@@ -4349,48 +4686,50 @@
       "name": "Japan",
       "series": {
         "inflation": {
-          "seriesId": "JPNCPIALLMINMEI",
+          "seriesId": "DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL:JPN:M",
           "country": "Japan",
           "frequency": "Monthly",
-          "source": "Organization for Economic Co-operation and Development",
-          "sourceTitle": "Consumer Price Indices (CPIs, HICPs), COICOP 1999: Consumer Price Index: Total for Japan",
-          "sourceUrl": "https://fred.stlouisfed.org/series/JPNCPIALLMINMEI",
-          "sourceUpdated": "2024-05-15 2:00 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:22.738185+00:00",
-          "transform": "yoy",
-          "status": "refresh_failed",
+          "source": "OECD",
+          "provider": "OECD SDMX",
+          "sourceTitle": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
+          "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+          "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN.M.N.CPI.PA._T.N.GY?startPeriod=2015",
+          "sourceUpdated": null,
+          "retrievedAt": "2026-10-19T20:34:35.711507+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
-              "value": 2.40838
+              "value": 2.4
             },
             {
               "date": "2015-02-01",
-              "value": 2.19896
+              "value": 2.2
             },
             {
               "date": "2015-03-01",
-              "value": 2.29886
+              "value": 2.3
             },
             {
               "date": "2015-04-01",
-              "value": 0.71651
+              "value": 0.6
             },
             {
               "date": "2015-05-01",
-              "value": 0.61164
+              "value": 0.5
             },
             {
               "date": "2015-06-01",
-              "value": 0.4082
+              "value": 0.4
             },
             {
               "date": "2015-07-01",
-              "value": 0.20392
+              "value": 0.2
             },
             {
               "date": "2015-08-01",
-              "value": 0.10172
+              "value": 0.2
             },
             {
               "date": "2015-09-01",
@@ -4398,23 +4737,23 @@
             },
             {
               "date": "2015-10-01",
-              "value": 0.30553
+              "value": 0.3
             },
             {
               "date": "2015-11-01",
-              "value": 0.20429
+              "value": 0.3
             },
             {
               "date": "2015-12-01",
-              "value": 0.20429
+              "value": 0.2
             },
             {
               "date": "2016-01-01",
-              "value": -0.10224
+              "value": -0.1
             },
             {
               "date": "2016-02-01",
-              "value": 0.20491
+              "value": 0.2
             },
             {
               "date": "2016-03-01",
@@ -4422,258 +4761,505 @@
             },
             {
               "date": "2016-04-01",
-              "value": -0.30492
+              "value": -0.3
             },
             {
               "date": "2016-05-01",
-              "value": -0.5066
+              "value": -0.5
             },
             {
               "date": "2016-06-01",
-              "value": -0.30492
+              "value": -0.4
             },
             {
               "date": "2016-07-01",
-              "value": -0.40696
+              "value": -0.4
             },
             {
               "date": "2016-08-01",
-              "value": -0.50816
+              "value": -0.5
             },
             {
               "date": "2016-09-01",
-              "value": -0.50764
+              "value": -0.5
             },
             {
               "date": "2016-10-01",
-              "value": 0.10152
+              "value": 0.1
             },
             {
               "date": "2016-11-01",
-              "value": 0.50971
+              "value": 0.5
             },
             {
               "date": "2016-12-01",
-              "value": 0.30585
+              "value": 0.3
             },
             {
               "date": "2017-01-01",
-              "value": 0.51177
+              "value": 0.4
             },
             {
               "date": "2017-02-01",
-              "value": 0.30675
+              "value": 0.3
             },
             {
               "date": "2017-03-01",
-              "value": 0.20429
+              "value": 0.2
             },
             {
               "date": "2017-04-01",
-              "value": 0.40778
+              "value": 0.4
             },
             {
               "date": "2017-05-01",
-              "value": 0.40735
+              "value": 0.4
             },
             {
               "date": "2017-06-01",
-              "value": 0.40778
+              "value": 0.4
             },
             {
               "date": "2017-07-01",
-              "value": 0.40862
+              "value": 0.4
             },
             {
               "date": "2017-08-01",
-              "value": 0.6129
+              "value": 0.7
             },
             {
               "date": "2017-09-01",
-              "value": 0.81633
+              "value": 0.7
             },
             {
               "date": "2017-10-01",
-              "value": 0.20283
+              "value": 0.2
             },
             {
               "date": "2017-11-01",
-              "value": 0.50706
+              "value": 0.6
             },
             {
               "date": "2017-12-01",
-              "value": 1.01619
+              "value": 1.0
             },
             {
               "date": "2018-01-01",
-              "value": 1.32379
+              "value": 1.4
             },
             {
               "date": "2018-02-01",
-              "value": 1.42708
+              "value": 1.5
             },
             {
               "date": "2018-03-01",
-              "value": 1.12129
+              "value": 1.1
             },
             {
               "date": "2018-04-01",
-              "value": 0.60909
+              "value": 0.6
             },
             {
               "date": "2018-05-01",
-              "value": 0.70989
+              "value": 0.7
             },
             {
               "date": "2018-06-01",
-              "value": 0.71061
+              "value": 0.7
             },
             {
               "date": "2018-07-01",
-              "value": 0.9155
+              "value": 0.9
             },
             {
               "date": "2018-08-01",
-              "value": 1.3198
+              "value": 1.3
             },
             {
               "date": "2018-09-01",
-              "value": 1.11338
+              "value": 1.2
             },
             {
               "date": "2018-10-01",
-              "value": 1.417
+              "value": 1.4
             },
             {
               "date": "2018-11-01",
-              "value": 0.90821
+              "value": 0.8
             },
             {
               "date": "2018-12-01",
-              "value": 0.30189
+              "value": 0.3
             },
             {
               "date": "2019-01-01",
-              "value": 0.20109
+              "value": 0.2
             },
             {
               "date": "2019-02-01",
-              "value": 0.20109
+              "value": 0.2
             },
             {
               "date": "2019-03-01",
-              "value": 0.5041
+              "value": 0.5
             },
             {
               "date": "2019-04-01",
-              "value": 0.90821
+              "value": 0.9
             },
             {
               "date": "2019-05-01",
-              "value": 0.70498
+              "value": 0.7
             },
             {
               "date": "2019-06-01",
-              "value": 0.6049
+              "value": 0.7
             },
             {
               "date": "2019-07-01",
-              "value": 0.6049
+              "value": 0.5
             },
             {
               "date": "2019-08-01",
-              "value": 0.20039
+              "value": 0.3
             },
             {
               "date": "2019-09-01",
-              "value": 0.20019
+              "value": 0.2
             },
             {
               "date": "2019-10-01",
-              "value": 0.19959
+              "value": 0.2
             },
             {
               "date": "2019-11-01",
-              "value": 0.49997
+              "value": 0.5
             },
             {
               "date": "2019-12-01",
-              "value": 0.80235
+              "value": 0.8
             },
             {
               "date": "2020-01-01",
-              "value": 0.80235
+              "value": 0.7
             },
             {
               "date": "2020-02-01",
-              "value": 0.60176
+              "value": 0.4
             },
             {
               "date": "2020-03-01",
-              "value": 0.60176
+              "value": 0.4
             },
             {
               "date": "2020-04-01",
-              "value": 0.19999
+              "value": 0.1
             },
             {
               "date": "2020-05-01",
-              "value": 0.09999
+              "value": 0.1
             },
             {
               "date": "2020-06-01",
-              "value": 0.10019
+              "value": 0.1
             },
             {
               "date": "2020-07-01",
-              "value": 0.20039
+              "value": 0.3
             },
             {
               "date": "2020-08-01",
-              "value": 0.09999
+              "value": 0.2
             },
             {
               "date": "2020-09-01",
-              "value": -0.19979
+              "value": 0.0
             },
             {
               "date": "2020-10-01",
-              "value": -0.59757
+              "value": -0.4
             },
             {
               "date": "2020-11-01",
-              "value": -0.99505
+              "value": -0.9
             },
             {
               "date": "2020-12-01",
-              "value": -1.19404
+              "value": -1.2
             },
             {
               "date": "2021-01-01",
-              "value": -0.69647
+              "value": -0.7
             },
             {
               "date": "2021-02-01",
-              "value": -0.49847
+              "value": -0.5
             },
             {
               "date": "2021-03-01",
-              "value": -0.39878
+              "value": -0.4
             },
             {
               "date": "2021-04-01",
-              "value": -1.09783
+              "value": -1.1
             },
             {
               "date": "2021-05-01",
-              "value": -0.69935
+              "value": -0.8
             },
             {
               "date": "2021-06-01",
-              "value": -0.40047
+              "value": -0.5
+            },
+            {
+              "date": "2021-07-01",
+              "value": -0.3
+            },
+            {
+              "date": "2021-08-01",
+              "value": -0.4
+            },
+            {
+              "date": "2021-09-01",
+              "value": 0.2
+            },
+            {
+              "date": "2021-10-01",
+              "value": 0.1
+            },
+            {
+              "date": "2021-11-01",
+              "value": 0.6
+            },
+            {
+              "date": "2021-12-01",
+              "value": 0.8
+            },
+            {
+              "date": "2022-01-01",
+              "value": 0.5
+            },
+            {
+              "date": "2022-02-01",
+              "value": 0.9
+            },
+            {
+              "date": "2022-03-01",
+              "value": 1.2
+            },
+            {
+              "date": "2022-04-01",
+              "value": 2.5
+            },
+            {
+              "date": "2022-05-01",
+              "value": 2.5
+            },
+            {
+              "date": "2022-06-01",
+              "value": 2.4
+            },
+            {
+              "date": "2022-07-01",
+              "value": 2.6
+            },
+            {
+              "date": "2022-08-01",
+              "value": 3.0
+            },
+            {
+              "date": "2022-09-01",
+              "value": 3.0
+            },
+            {
+              "date": "2022-10-01",
+              "value": 3.7
+            },
+            {
+              "date": "2022-11-01",
+              "value": 3.8
+            },
+            {
+              "date": "2022-12-01",
+              "value": 4.0
+            },
+            {
+              "date": "2023-01-01",
+              "value": 4.3
+            },
+            {
+              "date": "2023-02-01",
+              "value": 3.3
+            },
+            {
+              "date": "2023-03-01",
+              "value": 3.2
+            },
+            {
+              "date": "2023-04-01",
+              "value": 3.5
+            },
+            {
+              "date": "2023-05-01",
+              "value": 3.2
+            },
+            {
+              "date": "2023-06-01",
+              "value": 3.3
+            },
+            {
+              "date": "2023-07-01",
+              "value": 3.3
+            },
+            {
+              "date": "2023-08-01",
+              "value": 3.2
+            },
+            {
+              "date": "2023-09-01",
+              "value": 3.0
+            },
+            {
+              "date": "2023-10-01",
+              "value": 3.3
+            },
+            {
+              "date": "2023-11-01",
+              "value": 2.8
+            },
+            {
+              "date": "2023-12-01",
+              "value": 2.6
+            },
+            {
+              "date": "2024-01-01",
+              "value": 2.2
+            },
+            {
+              "date": "2024-02-01",
+              "value": 2.8
+            },
+            {
+              "date": "2024-03-01",
+              "value": 2.7
+            },
+            {
+              "date": "2024-04-01",
+              "value": 2.5
+            },
+            {
+              "date": "2024-05-01",
+              "value": 2.8
+            },
+            {
+              "date": "2024-06-01",
+              "value": 2.8
+            },
+            {
+              "date": "2024-07-01",
+              "value": 2.8
+            },
+            {
+              "date": "2024-08-01",
+              "value": 3.0
+            },
+            {
+              "date": "2024-09-01",
+              "value": 2.5
+            },
+            {
+              "date": "2024-10-01",
+              "value": 2.3
+            },
+            {
+              "date": "2024-11-01",
+              "value": 2.9
+            },
+            {
+              "date": "2024-12-01",
+              "value": 3.6
+            },
+            {
+              "date": "2025-01-01",
+              "value": 4.0
+            },
+            {
+              "date": "2025-02-01",
+              "value": 3.7
+            },
+            {
+              "date": "2025-03-01",
+              "value": 3.6
+            },
+            {
+              "date": "2025-04-01",
+              "value": 3.6
+            },
+            {
+              "date": "2025-05-01",
+              "value": 3.5
+            },
+            {
+              "date": "2025-06-01",
+              "value": 3.3
+            },
+            {
+              "date": "2025-07-01",
+              "value": 3.1
+            },
+            {
+              "date": "2025-08-01",
+              "value": 2.7
+            },
+            {
+              "date": "2025-09-01",
+              "value": 2.9
+            },
+            {
+              "date": "2025-10-01",
+              "value": 3.0
+            },
+            {
+              "date": "2025-11-01",
+              "value": 2.9
+            },
+            {
+              "date": "2025-12-01",
+              "value": 2.1
+            },
+            {
+              "date": "2026-01-01",
+              "value": 1.5
+            },
+            {
+              "date": "2026-02-01",
+              "value": 1.3
+            },
+            {
+              "date": "2026-03-01",
+              "value": 1.5
+            },
+            {
+              "date": "2026-04-01",
+              "value": 1.4
+            },
+            {
+              "date": "2026-05-01",
+              "value": 1.5
+            },
+            {
+              "date": "2026-06-01",
+              "value": 1.6
+            },
+            {
+              "date": "2026-07-01",
+              "value": 1.9
+            },
+            {
+              "date": "2026-08-01",
+              "value": 1.9
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "unemployment": {
           "seriesId": "LRHUTTTTJPM156S",
@@ -4683,9 +5269,10 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Japan",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:22.758065+00:00",
+          "retrievedAt": "2026-10-19T20:31:20.213194+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -5247,8 +5834,7 @@
               "date": "2026-08-01",
               "value": 2.5
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "gdp": {
           "seriesId": "NAEXKP01JPQ657S",
@@ -5258,9 +5844,10 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Japan",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S",
           "sourceUpdated": "2026-09-15 3:09 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:22.870581+00:00",
+          "retrievedAt": "2026-10-19T20:31:22.679677+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -5446,8 +6033,7 @@
               "date": "2026-04-01",
               "value": 0.36046
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     },
@@ -5462,9 +6048,10 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United Kingdom",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:22.867736+00:00",
+          "retrievedAt": "2026-10-19T20:31:11.630576+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -5650,8 +6237,7 @@
               "date": "2026-04-01",
               "value": 0.53261
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "unemployment": {
           "seriesId": "LRHUTTTTGBM156S",
@@ -5661,608 +6247,748 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for United Kingdom",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:22.897521+00:00",
+          "retrievedAt": "2026-10-19T20:31:16.681048+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
-              "value": 5.6
+              "value": 5.6,
+              "periodEnd": "2015-02-28"
             },
             {
               "date": "2015-02-01",
-              "value": 5.5
+              "value": 5.5,
+              "periodEnd": "2015-03-31"
             },
             {
               "date": "2015-03-01",
-              "value": 5.5
+              "value": 5.5,
+              "periodEnd": "2015-04-30"
             },
             {
               "date": "2015-04-01",
-              "value": 5.6
+              "value": 5.6,
+              "periodEnd": "2015-05-31"
             },
             {
               "date": "2015-05-01",
-              "value": 5.6
+              "value": 5.6,
+              "periodEnd": "2015-06-30"
             },
             {
               "date": "2015-06-01",
-              "value": 5.5
+              "value": 5.5,
+              "periodEnd": "2015-07-31"
             },
             {
               "date": "2015-07-01",
-              "value": 5.4
+              "value": 5.4,
+              "periodEnd": "2015-08-31"
             },
             {
               "date": "2015-08-01",
-              "value": 5.3
+              "value": 5.3,
+              "periodEnd": "2015-09-30"
             },
             {
               "date": "2015-09-01",
-              "value": 5.2
+              "value": 5.2,
+              "periodEnd": "2015-10-31"
             },
             {
               "date": "2015-10-01",
-              "value": 5.1
+              "value": 5.1,
+              "periodEnd": "2015-11-30"
             },
             {
               "date": "2015-11-01",
-              "value": 5.1
+              "value": 5.1,
+              "periodEnd": "2015-12-31"
             },
             {
               "date": "2015-12-01",
-              "value": 5.1
+              "value": 5.1,
+              "periodEnd": "2016-01-31"
             },
             {
               "date": "2016-01-01",
-              "value": 5.1
+              "value": 5.1,
+              "periodEnd": "2016-02-29"
             },
             {
               "date": "2016-02-01",
-              "value": 5.1
+              "value": 5.1,
+              "periodEnd": "2016-03-31"
             },
             {
               "date": "2016-03-01",
-              "value": 5.0
+              "value": 5.0,
+              "periodEnd": "2016-04-30"
             },
             {
               "date": "2016-04-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2016-05-31"
             },
             {
               "date": "2016-05-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2016-06-30"
             },
             {
               "date": "2016-06-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2016-07-31"
             },
             {
               "date": "2016-07-01",
-              "value": 5.0
+              "value": 5.0,
+              "periodEnd": "2016-08-31"
             },
             {
               "date": "2016-08-01",
-              "value": 4.8
+              "value": 4.8,
+              "periodEnd": "2016-09-30"
             },
             {
               "date": "2016-09-01",
-              "value": 4.8
+              "value": 4.8,
+              "periodEnd": "2016-10-31"
             },
             {
               "date": "2016-10-01",
-              "value": 4.8
+              "value": 4.8,
+              "periodEnd": "2016-11-30"
             },
             {
               "date": "2016-11-01",
-              "value": 4.7
+              "value": 4.7,
+              "periodEnd": "2016-12-31"
             },
             {
               "date": "2016-12-01",
-              "value": 4.7
+              "value": 4.7,
+              "periodEnd": "2017-01-31"
             },
             {
               "date": "2017-01-01",
-              "value": 4.6
+              "value": 4.6,
+              "periodEnd": "2017-02-28"
             },
             {
               "date": "2017-02-01",
-              "value": 4.6
+              "value": 4.6,
+              "periodEnd": "2017-03-31"
             },
             {
               "date": "2017-03-01",
-              "value": 4.5
+              "value": 4.5,
+              "periodEnd": "2017-04-30"
             },
             {
               "date": "2017-04-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2017-05-31"
             },
             {
               "date": "2017-05-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2017-06-30"
             },
             {
               "date": "2017-06-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2017-07-31"
             },
             {
               "date": "2017-07-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2017-08-31"
             },
             {
               "date": "2017-08-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2017-09-30"
             },
             {
               "date": "2017-09-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2017-10-31"
             },
             {
               "date": "2017-10-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2017-11-30"
             },
             {
               "date": "2017-11-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2017-12-31"
             },
             {
               "date": "2017-12-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2018-01-31"
             },
             {
               "date": "2018-01-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2018-02-28"
             },
             {
               "date": "2018-02-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2018-03-31"
             },
             {
               "date": "2018-03-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2018-04-30"
             },
             {
               "date": "2018-04-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2018-05-31"
             },
             {
               "date": "2018-05-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2018-06-30"
             },
             {
               "date": "2018-06-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2018-07-31"
             },
             {
               "date": "2018-07-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2018-08-31"
             },
             {
               "date": "2018-08-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2018-09-30"
             },
             {
               "date": "2018-09-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2018-10-31"
             },
             {
               "date": "2018-10-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2018-11-30"
             },
             {
               "date": "2018-11-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2018-12-31"
             },
             {
               "date": "2018-12-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2019-01-31"
             },
             {
               "date": "2019-01-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2019-02-28"
             },
             {
               "date": "2019-02-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2019-03-31"
             },
             {
               "date": "2019-03-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2019-04-30"
             },
             {
               "date": "2019-04-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2019-05-31"
             },
             {
               "date": "2019-05-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2019-06-30"
             },
             {
               "date": "2019-06-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2019-07-31"
             },
             {
               "date": "2019-07-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2019-08-31"
             },
             {
               "date": "2019-08-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2019-09-30"
             },
             {
               "date": "2019-09-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2019-10-31"
             },
             {
               "date": "2019-10-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2019-11-30"
             },
             {
               "date": "2019-11-01",
-              "value": 3.7
+              "value": 3.7,
+              "periodEnd": "2019-12-31"
             },
             {
               "date": "2019-12-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2020-01-31"
             },
             {
               "date": "2020-01-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2020-02-29"
             },
             {
               "date": "2020-02-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2020-03-31"
             },
             {
               "date": "2020-03-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2020-04-30"
             },
             {
               "date": "2020-04-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2020-05-31"
             },
             {
               "date": "2020-05-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2020-06-30"
             },
             {
               "date": "2020-06-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2020-07-31"
             },
             {
               "date": "2020-07-01",
-              "value": 4.6
+              "value": 4.6,
+              "periodEnd": "2020-08-31"
             },
             {
               "date": "2020-08-01",
-              "value": 5.0
+              "value": 5.0,
+              "periodEnd": "2020-09-30"
             },
             {
               "date": "2020-09-01",
-              "value": 5.2
+              "value": 5.2,
+              "periodEnd": "2020-10-31"
             },
             {
               "date": "2020-10-01",
-              "value": 5.2
+              "value": 5.2,
+              "periodEnd": "2020-11-30"
             },
             {
               "date": "2020-11-01",
-              "value": 5.3
+              "value": 5.3,
+              "periodEnd": "2020-12-31"
             },
             {
               "date": "2020-12-01",
-              "value": 5.2
+              "value": 5.2,
+              "periodEnd": "2021-01-31"
             },
             {
               "date": "2021-01-01",
-              "value": 5.0
+              "value": 5.0,
+              "periodEnd": "2021-02-28"
             },
             {
               "date": "2021-02-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2021-03-31"
             },
             {
               "date": "2021-03-01",
-              "value": 4.8
+              "value": 4.8,
+              "periodEnd": "2021-04-30"
             },
             {
               "date": "2021-04-01",
-              "value": 4.8
+              "value": 4.8,
+              "periodEnd": "2021-05-31"
             },
             {
               "date": "2021-05-01",
-              "value": 4.7
+              "value": 4.7,
+              "periodEnd": "2021-06-30"
             },
             {
               "date": "2021-06-01",
-              "value": 4.6
+              "value": 4.6,
+              "periodEnd": "2021-07-31"
             },
             {
               "date": "2021-07-01",
-              "value": 4.5
+              "value": 4.5,
+              "periodEnd": "2021-08-31"
             },
             {
               "date": "2021-08-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2021-09-30"
             },
             {
               "date": "2021-09-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2021-10-31"
             },
             {
               "date": "2021-10-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2021-11-30"
             },
             {
               "date": "2021-11-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2021-12-31"
             },
             {
               "date": "2021-12-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2022-01-31"
             },
             {
               "date": "2022-01-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2022-02-28"
             },
             {
               "date": "2022-02-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2022-03-31"
             },
             {
               "date": "2022-03-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2022-04-30"
             },
             {
               "date": "2022-04-01",
-              "value": 3.7
+              "value": 3.7,
+              "periodEnd": "2022-05-31"
             },
             {
               "date": "2022-05-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2022-06-30"
             },
             {
               "date": "2022-06-01",
-              "value": 3.6
+              "value": 3.6,
+              "periodEnd": "2022-07-31"
             },
             {
               "date": "2022-07-01",
-              "value": 3.6
+              "value": 3.6,
+              "periodEnd": "2022-08-31"
             },
             {
               "date": "2022-08-01",
-              "value": 3.7
+              "value": 3.7,
+              "periodEnd": "2022-09-30"
             },
             {
               "date": "2022-09-01",
-              "value": 3.8
+              "value": 3.8,
+              "periodEnd": "2022-10-31"
             },
             {
               "date": "2022-10-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2022-11-30"
             },
             {
               "date": "2022-11-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2022-12-31"
             },
             {
               "date": "2022-12-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2023-01-31"
             },
             {
               "date": "2023-01-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2023-02-28"
             },
             {
               "date": "2023-02-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2023-03-31"
             },
             {
               "date": "2023-03-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2023-04-30"
             },
             {
               "date": "2023-04-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2023-05-31"
             },
             {
               "date": "2023-05-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2023-06-30"
             },
             {
               "date": "2023-06-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2023-07-31"
             },
             {
               "date": "2023-07-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2023-08-31"
             },
             {
               "date": "2023-08-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2023-09-30"
             },
             {
               "date": "2023-09-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2023-10-31"
             },
             {
               "date": "2023-10-01",
-              "value": 4.0
+              "value": 4.0,
+              "periodEnd": "2023-11-30"
             },
             {
               "date": "2023-11-01",
-              "value": 3.9
+              "value": 3.9,
+              "periodEnd": "2023-12-31"
             },
             {
               "date": "2023-12-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2024-01-31"
             },
             {
               "date": "2024-01-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2024-02-29"
             },
             {
               "date": "2024-02-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2024-03-31"
             },
             {
               "date": "2024-03-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2024-04-30"
             },
             {
               "date": "2024-04-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2024-05-31"
             },
             {
               "date": "2024-05-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2024-06-30"
             },
             {
               "date": "2024-06-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2024-07-31"
             },
             {
               "date": "2024-07-01",
-              "value": 4.1
+              "value": 4.1,
+              "periodEnd": "2024-08-31"
             },
             {
               "date": "2024-08-01",
-              "value": 4.3
+              "value": 4.3,
+              "periodEnd": "2024-09-30"
             },
             {
               "date": "2024-09-01",
-              "value": 4.2
+              "value": 4.2,
+              "periodEnd": "2024-10-31"
             },
             {
               "date": "2024-10-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2024-11-30"
             },
             {
               "date": "2024-11-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2024-12-31"
             },
             {
               "date": "2024-12-01",
-              "value": 4.4
+              "value": 4.4,
+              "periodEnd": "2025-01-31"
             },
             {
               "date": "2025-01-01",
-              "value": 4.5
+              "value": 4.5,
+              "periodEnd": "2025-02-28"
             },
             {
               "date": "2025-02-01",
-              "value": 4.6
+              "value": 4.6,
+              "periodEnd": "2025-03-31"
             },
             {
               "date": "2025-03-01",
-              "value": 4.6
+              "value": 4.6,
+              "periodEnd": "2025-04-30"
             },
             {
               "date": "2025-04-01",
-              "value": 4.7
+              "value": 4.7,
+              "periodEnd": "2025-05-31"
             },
             {
               "date": "2025-05-01",
-              "value": 4.7
+              "value": 4.7,
+              "periodEnd": "2025-06-30"
             },
             {
               "date": "2025-06-01",
-              "value": 4.7
+              "value": 4.7,
+              "periodEnd": "2025-07-31"
             },
             {
               "date": "2025-07-01",
-              "value": 4.8
+              "value": 4.8,
+              "periodEnd": "2025-08-31"
             },
             {
               "date": "2025-08-01",
-              "value": 5.0
+              "value": 5.0,
+              "periodEnd": "2025-09-30"
             },
             {
               "date": "2025-09-01",
-              "value": 5.1
+              "value": 5.1,
+              "periodEnd": "2025-10-31"
             },
             {
               "date": "2025-10-01",
-              "value": 5.1
+              "value": 5.1,
+              "periodEnd": "2025-11-30"
             },
             {
               "date": "2025-11-01",
-              "value": 5.2
+              "value": 5.2,
+              "periodEnd": "2025-12-31"
             },
             {
               "date": "2025-12-01",
-              "value": 5.2
+              "value": 5.2,
+              "periodEnd": "2026-01-31"
             },
             {
               "date": "2026-01-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2026-02-28"
             },
             {
               "date": "2026-02-01",
-              "value": 5.0
+              "value": 5.0,
+              "periodEnd": "2026-03-31"
             },
             {
               "date": "2026-03-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2026-04-30"
             },
             {
               "date": "2026-04-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2026-05-31"
             },
             {
               "date": "2026-05-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2026-06-30"
             },
             {
               "date": "2026-06-01",
-              "value": 4.9
+              "value": 4.9,
+              "periodEnd": "2026-07-31"
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "inflation": {
-          "seriesId": "GBRCPIALLMINMEI",
+          "seriesId": "DSD_PRICES@DF_PRICES_ALL:GBR:M",
           "country": "United Kingdom",
           "frequency": "Monthly",
-          "source": "Organization for Economic Co-operation and Development",
-          "sourceTitle": "Consumer Price Indices (CPIs, HICPs), COICOP 1999: Consumer Price Index: Total for United Kingdom",
-          "sourceUrl": "https://fred.stlouisfed.org/series/GBRCPIALLMINMEI",
-          "sourceUpdated": "2025-05-15 2:18 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:22.715579+00:00",
-          "transform": "yoy",
-          "status": "refresh_failed",
+          "source": "OECD",
+          "provider": "OECD SDMX",
+          "sourceTitle": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
+          "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+          "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
+          "sourceUpdated": null,
+          "retrievedAt": "2026-10-19T20:34:35.709108+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
-              "value": 0.50659
+              "value": 0.5
             },
             {
               "date": "2015-02-01",
-              "value": 0.40363
+              "value": 0.4
             },
             {
               "date": "2015-03-01",
-              "value": 0.30211
+              "value": 0.3
             },
             {
               "date": "2015-04-01",
-              "value": 0.3012
+              "value": 0.3
             },
             {
               "date": "2015-05-01",
-              "value": 0.50201
+              "value": 0.4
             },
             {
               "date": "2015-06-01",
-              "value": 0.3006
+              "value": 0.3
             },
             {
               "date": "2015-07-01",
-              "value": 0.40161
+              "value": 0.5
             },
             {
               "date": "2015-08-01",
-              "value": 0.4004
+              "value": 0.4
             },
             {
               "date": "2015-09-01",
@@ -6270,39 +6996,39 @@
             },
             {
               "date": "2015-10-01",
-              "value": 0.1998
+              "value": 0.2
             },
             {
               "date": "2015-11-01",
-              "value": 0.4004
+              "value": 0.4
             },
             {
               "date": "2015-12-01",
-              "value": 0.5005
+              "value": 0.5
             },
             {
               "date": "2016-01-01",
-              "value": 0.70565
+              "value": 0.6
             },
             {
               "date": "2016-02-01",
-              "value": 0.60302
+              "value": 0.6
             },
             {
               "date": "2016-03-01",
-              "value": 0.80321
+              "value": 0.8
             },
             {
               "date": "2016-04-01",
-              "value": 0.7007
+              "value": 0.7
             },
             {
               "date": "2016-05-01",
-              "value": 0.6993
+              "value": 0.7
             },
             {
               "date": "2016-06-01",
-              "value": 0.8991
+              "value": 0.8
             },
             {
               "date": "2016-07-01",
@@ -6310,115 +7036,115 @@
             },
             {
               "date": "2016-08-01",
-              "value": 0.89731
+              "value": 1.0
             },
             {
               "date": "2016-09-01",
-              "value": 1.29741
+              "value": 1.3
             },
             {
               "date": "2016-10-01",
-              "value": 1.29611
+              "value": 1.3
             },
             {
               "date": "2016-11-01",
-              "value": 1.49551
+              "value": 1.5
             },
             {
               "date": "2016-12-01",
-              "value": 1.79283
+              "value": 1.8
             },
             {
               "date": "2017-01-01",
-              "value": 1.9019
+              "value": 1.9
             },
             {
               "date": "2017-02-01",
-              "value": 2.2977
+              "value": 2.3
             },
             {
               "date": "2017-03-01",
-              "value": 2.29084
+              "value": 2.3
             },
             {
               "date": "2017-04-01",
-              "value": 2.58449
+              "value": 2.6
             },
             {
               "date": "2017-05-01",
-              "value": 2.67857
+              "value": 2.7
             },
             {
               "date": "2017-06-01",
-              "value": 2.47525
+              "value": 2.6
             },
             {
               "date": "2017-07-01",
-              "value": 2.57681
+              "value": 2.6
             },
             {
               "date": "2017-08-01",
-              "value": 2.7668
+              "value": 2.7
             },
             {
               "date": "2017-09-01",
-              "value": 2.75862
+              "value": 2.8
             },
             {
               "date": "2017-10-01",
-              "value": 2.75591
+              "value": 2.8
             },
             {
               "date": "2017-11-01",
-              "value": 2.84872
+              "value": 2.8
             },
             {
               "date": "2017-12-01",
-              "value": 2.73973
+              "value": 2.7
             },
             {
               "date": "2018-01-01",
-              "value": 2.65226
+              "value": 2.7
             },
             {
               "date": "2018-02-01",
-              "value": 2.44141
+              "value": 2.5
             },
             {
               "date": "2018-03-01",
-              "value": 2.3369
+              "value": 2.3
             },
             {
               "date": "2018-04-01",
-              "value": 2.22868
+              "value": 2.2
             },
             {
               "date": "2018-05-01",
-              "value": 2.31884
+              "value": 2.3
             },
             {
               "date": "2018-06-01",
-              "value": 2.31884
+              "value": 2.3
             },
             {
               "date": "2018-07-01",
-              "value": 2.31884
+              "value": 2.3
             },
             {
               "date": "2018-08-01",
-              "value": 2.40385
+              "value": 2.4
             },
             {
               "date": "2018-09-01",
-              "value": 2.20518
+              "value": 2.2
             },
             {
               "date": "2018-10-01",
-              "value": 2.20307
+              "value": 2.2
             },
             {
               "date": "2018-11-01",
-              "value": 2.10124
+              "value": 2.2
             },
             {
               "date": "2018-12-01",
@@ -6426,306 +7152,373 @@
             },
             {
               "date": "2019-01-01",
-              "value": 1.81818
+              "value": 1.8
             },
             {
               "date": "2019-02-01",
-              "value": 1.81125
+              "value": 1.8
             },
             {
               "date": "2019-03-01",
-              "value": 1.8078
+              "value": 1.8
             },
             {
               "date": "2019-04-01",
-              "value": 1.99052
+              "value": 2.0
             },
             {
               "date": "2019-05-01",
-              "value": 1.88857
+              "value": 1.9
             },
             {
               "date": "2019-06-01",
-              "value": 1.88857
+              "value": 1.9
             },
             {
               "date": "2019-07-01",
-              "value": 1.983
+              "value": 2.0
             },
             {
               "date": "2019-08-01",
-              "value": 1.69014
+              "value": 1.7
             },
             {
               "date": "2019-09-01",
-              "value": 1.68856
+              "value": 1.7
             },
             {
               "date": "2019-10-01",
-              "value": 1.49953
+              "value": 1.5
             },
             {
               "date": "2019-11-01",
-              "value": 1.49673
+              "value": 1.5
             },
             {
               "date": "2019-12-01",
-              "value": 1.30719
+              "value": 1.4
             },
             {
               "date": "2020-01-01",
-              "value": 1.78571
+              "value": 1.8
             },
             {
               "date": "2020-02-01",
-              "value": 1.68539
+              "value": 1.7
             },
             {
               "date": "2020-03-01",
-              "value": 1.49533
+              "value": 1.5
             },
             {
               "date": "2020-04-01",
-              "value": 0.92937
+              "value": 0.9
             },
             {
               "date": "2020-05-01",
-              "value": 0.64875
+              "value": 0.7
             },
             {
               "date": "2020-06-01",
-              "value": 0.83411
+              "value": 0.8
             },
             {
               "date": "2020-07-01",
-              "value": 1.11111
+              "value": 1.1
             },
             {
               "date": "2020-08-01",
-              "value": 0.46168
+              "value": 0.5
             },
             {
               "date": "2020-09-01",
-              "value": 0.73801
+              "value": 0.7
             },
             {
               "date": "2020-10-01",
-              "value": 0.83102
+              "value": 0.9
             },
             {
               "date": "2020-11-01",
-              "value": 0.553
+              "value": 0.6
             },
             {
               "date": "2020-12-01",
-              "value": 0.82949
+              "value": 0.8
             },
             {
               "date": "2021-01-01",
-              "value": 0.92336
+              "value": 0.9
             },
             {
               "date": "2021-02-01",
-              "value": 0.73665
+              "value": 0.7
             },
             {
               "date": "2021-03-01",
-              "value": 1.01289
+              "value": 1.0
             },
             {
               "date": "2021-04-01",
-              "value": 1.65746
+              "value": 1.6
             },
             {
               "date": "2021-05-01",
-              "value": 2.20994
+              "value": 2.1
             },
             {
               "date": "2021-06-01",
-              "value": 2.38971
+              "value": 2.4
             },
             {
               "date": "2021-07-01",
-              "value": 2.01465
+              "value": 2.1
             },
             {
               "date": "2021-08-01",
-              "value": 3.03309
+              "value": 3.0
             },
             {
               "date": "2021-09-01",
-              "value": 2.9304
+              "value": 2.9
             },
             {
               "date": "2021-10-01",
-              "value": 3.84615
+              "value": 3.8
             },
             {
               "date": "2021-11-01",
-              "value": 4.58295
+              "value": 4.6
             },
             {
               "date": "2021-12-01",
-              "value": 4.84461
+              "value": 4.8
             },
             {
               "date": "2022-01-01",
-              "value": 4.84904
+              "value": 4.9
             },
             {
               "date": "2022-02-01",
-              "value": 5.48446
+              "value": 5.5
             },
             {
               "date": "2022-03-01",
-              "value": 6.19872
+              "value": 6.2
             },
             {
               "date": "2022-04-01",
-              "value": 7.78986
+              "value": 7.8
             },
             {
               "date": "2022-05-01",
-              "value": 7.83784
+              "value": 7.9
             },
             {
               "date": "2022-06-01",
-              "value": 8.16876
+              "value": 8.2
             },
             {
               "date": "2022-07-01",
-              "value": 8.79713
+              "value": 8.8
             },
             {
               "date": "2022-08-01",
-              "value": 8.65299
+              "value": 8.6
             },
             {
               "date": "2022-09-01",
-              "value": 8.80783
+              "value": 8.8
             },
             {
               "date": "2022-10-01",
-              "value": 9.61199
+              "value": 9.6
             },
             {
               "date": "2022-11-01",
-              "value": 9.37774
+              "value": 9.3
             },
             {
               "date": "2022-12-01",
-              "value": 9.2415
+              "value": 9.2
             },
             {
               "date": "2023-01-01",
-              "value": 8.90052
+              "value": 8.8
             },
             {
               "date": "2023-02-01",
-              "value": 9.18544
+              "value": 9.2
             },
             {
               "date": "2023-03-01",
-              "value": 8.8412
+              "value": 8.9
             },
             {
               "date": "2023-04-01",
-              "value": 7.81513
+              "value": 7.8
             },
             {
               "date": "2023-05-01",
-              "value": 7.85297
+              "value": 7.9
             },
             {
               "date": "2023-06-01",
-              "value": 7.38589
+              "value": 7.3
             },
             {
               "date": "2023-07-01",
-              "value": 6.43564
+              "value": 6.4
             },
             {
               "date": "2023-08-01",
-              "value": 6.23974
+              "value": 6.3
             },
             {
               "date": "2023-09-01",
-              "value": 6.37776
+              "value": 6.3
             },
             {
               "date": "2023-10-01",
-              "value": 4.74658
+              "value": 4.7
             },
             {
               "date": "2023-11-01",
-              "value": 4.16667
+              "value": 4.2
             },
             {
               "date": "2023-12-01",
-              "value": 4.15004
+              "value": 4.2
             },
             {
               "date": "2024-01-01",
-              "value": 4.16667
+              "value": 4.2
             },
             {
               "date": "2024-02-01",
-              "value": 3.80952
+              "value": 3.8
             },
             {
               "date": "2024-03-01",
-              "value": 3.78549
+              "value": 3.8
             },
             {
               "date": "2024-04-01",
-              "value": 3.03975
+              "value": 3.0
             },
             {
               "date": "2024-05-01",
-              "value": 2.78854
+              "value": 2.8
             },
             {
               "date": "2024-06-01",
-              "value": 2.78207
+              "value": 2.8
             },
             {
               "date": "2024-07-01",
-              "value": 3.02326
+              "value": 3.1
             },
             {
               "date": "2024-08-01",
-              "value": 3.09119
+              "value": 3.1
             },
             {
               "date": "2024-09-01",
-              "value": 2.61337
+              "value": 2.6
             },
             {
               "date": "2024-10-01",
-              "value": 3.149
+              "value": 3.2
             },
             {
               "date": "2024-11-01",
-              "value": 3.53846
+              "value": 3.5
             },
             {
               "date": "2024-12-01",
-              "value": 3.5249
+              "value": 3.5
             },
             {
               "date": "2025-01-01",
-              "value": 3.92308
+              "value": 3.9
             },
             {
               "date": "2025-02-01",
-              "value": 3.66972
+              "value": 3.7
             },
             {
               "date": "2025-03-01",
-              "value": 3.41945
+              "value": 3.4
+            },
+            {
+              "date": "2025-04-01",
+              "value": 4.1
+            },
+            {
+              "date": "2025-05-01",
+              "value": 4.0
+            },
+            {
+              "date": "2025-06-01",
+              "value": 4.1
+            },
+            {
+              "date": "2025-07-01",
+              "value": 4.2
+            },
+            {
+              "date": "2025-08-01",
+              "value": 4.1
+            },
+            {
+              "date": "2025-09-01",
+              "value": 4.1
+            },
+            {
+              "date": "2025-10-01",
+              "value": 3.8
+            },
+            {
+              "date": "2025-11-01",
+              "value": 3.5
+            },
+            {
+              "date": "2025-12-01",
+              "value": 3.6
+            },
+            {
+              "date": "2026-01-01",
+              "value": 3.2
+            },
+            {
+              "date": "2026-02-01",
+              "value": 3.2
+            },
+            {
+              "date": "2026-03-01",
+              "value": 3.4
+            },
+            {
+              "date": "2026-04-01",
+              "value": 3.0
+            },
+            {
+              "date": "2026-05-01",
+              "value": 3.0
+            },
+            {
+              "date": "2026-06-01",
+              "value": 2.8
+            },
+            {
+              "date": "2026-07-01",
+              "value": 3.1
+            },
+            {
+              "date": "2026-08-01",
+              "value": 3.3
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     },
@@ -6740,9 +7533,10 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for New Zealand",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:41.284684+00:00",
+          "retrievedAt": "2026-10-19T20:31:28.305181+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -6928,8 +7722,7 @@
               "date": "2026-04-01",
               "value": 0.3601
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "unemployment": {
           "seriesId": "LRHUTTTTNZQ156S",
@@ -6939,9 +7732,10 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for New Zealand",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
           "sourceUpdated": "2026-08-17 3:04 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:39.713751+00:00",
+          "retrievedAt": "2026-10-19T20:31:20.028730+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -7127,20 +7921,21 @@
               "date": "2026-04-01",
               "value": 5.6
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "inflation": {
-          "seriesId": "NZLCPIALLQINMEI",
+          "seriesId": "DSD_PRICES@DF_PRICES_ALL:NZL:Q",
           "country": "New Zealand",
           "frequency": "Quarterly",
-          "source": "Organization for Economic Co-operation and Development",
-          "sourceTitle": "Consumer Price Indices (CPIs, HICPs), COICOP 1999: Consumer Price Index: Total for New Zealand",
-          "sourceUrl": "https://fred.stlouisfed.org/series/NZLCPIALLQINMEI",
-          "sourceUpdated": "2025-05-15 2:16 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:39.803833+00:00",
-          "transform": "yoy",
-          "status": "refresh_failed",
+          "source": "OECD",
+          "provider": "OECD SDMX",
+          "sourceTitle": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
+          "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+          "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
+          "sourceUpdated": null,
+          "retrievedAt": "2026-10-19T20:34:35.713435+00:00",
+          "transform": null,
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -7148,11 +7943,11 @@
             },
             {
               "date": "2015-04-01",
-              "value": 0.41837
+              "value": 0.41841
             },
             {
               "date": "2015-07-01",
-              "value": 0.41703
+              "value": 0.41701
             },
             {
               "date": "2015-10-01",
@@ -7160,23 +7955,23 @@
             },
             {
               "date": "2016-01-01",
-              "value": 0.41837
+              "value": 0.41841
             },
             {
               "date": "2016-04-01",
-              "value": 0.41674
+              "value": 0.41667
             },
             {
               "date": "2016-07-01",
-              "value": 0.41526
+              "value": 0.41528
             },
             {
               "date": "2016-10-01",
-              "value": 1.33552
+              "value": 1.33556
             },
             {
               "date": "2017-01-01",
-              "value": 2.16675
+              "value": 2.16667
             },
             {
               "date": "2017-04-01",
@@ -7184,107 +7979,107 @@
             },
             {
               "date": "2017-07-01",
-              "value": 1.90243
+              "value": 1.9024
             },
             {
               "date": "2017-10-01",
-              "value": 1.59439
+              "value": 1.5944
             },
             {
               "date": "2018-01-01",
-              "value": 1.09996
+              "value": 1.1
             },
             {
               "date": "2018-04-01",
-              "value": 1.49994
+              "value": 1.5
             },
             {
               "date": "2018-07-01",
-              "value": 1.90128
+              "value": 1.9013
             },
             {
               "date": "2018-10-01",
-              "value": 1.88869
+              "value": 1.88867
             },
             {
               "date": "2019-01-01",
-              "value": 1.48372
+              "value": 1.48368
             },
             {
               "date": "2019-04-01",
-              "value": 1.67486
+              "value": 1.67488
             },
             {
               "date": "2019-07-01",
-              "value": 1.46488
+              "value": 1.46484
             },
             {
               "date": "2019-10-01",
-              "value": 1.85368
+              "value": 1.85366
             },
             {
               "date": "2020-01-01",
-              "value": 2.53402
+              "value": 2.53411
             },
             {
               "date": "2020-04-01",
-              "value": 1.45353
+              "value": 1.45349
             },
             {
               "date": "2020-07-01",
-              "value": 1.44364
+              "value": 1.4437
             },
             {
               "date": "2020-10-01",
-              "value": 1.43682
+              "value": 1.43678
             },
             {
               "date": "2021-01-01",
-              "value": 1.52092
+              "value": 1.52091
             },
             {
               "date": "2021-04-01",
-              "value": 3.34291
+              "value": 3.34288
             },
             {
               "date": "2021-07-01",
-              "value": 4.9336
+              "value": 4.93359
             },
             {
               "date": "2021-10-01",
-              "value": 5.94898
+              "value": 5.94901
             },
             {
               "date": "2022-01-01",
-              "value": 6.92888
+              "value": 6.92884
             },
             {
               "date": "2022-04-01",
-              "value": 7.30128
+              "value": 7.30129
             },
             {
               "date": "2022-07-01",
-              "value": 7.23323
+              "value": 7.23327
             },
             {
               "date": "2022-10-01",
-              "value": 7.21927
+              "value": 7.21925
             },
             {
               "date": "2023-01-01",
-              "value": 6.65497
+              "value": 6.65499
             },
             {
               "date": "2023-04-01",
-              "value": 6.02925
+              "value": 6.02928
             },
             {
               "date": "2023-07-01",
-              "value": 5.64929
+              "value": 5.64924
             },
             {
               "date": "2023-10-01",
-              "value": 4.65502
+              "value": 4.65503
             },
             {
               "date": "2024-01-01",
@@ -7292,22 +8087,41 @@
             },
             {
               "date": "2024-04-01",
-              "value": 3.33066
+              "value": 3.33063
             },
             {
               "date": "2024-07-01",
-              "value": 2.15481
+              "value": 2.15483
             },
             {
               "date": "2024-10-01",
-              "value": 2.22394
+              "value": 2.22399
             },
             {
               "date": "2025-01-01",
-              "value": 2.52567
+              "value": 2.52565
+            },
+            {
+              "date": "2025-04-01",
+              "value": 2.67296
+            },
+            {
+              "date": "2025-07-01",
+              "value": 3.04688
+            },
+            {
+              "date": "2025-10-01",
+              "value": 3.108
+            },
+            {
+              "date": "2026-01-01",
+              "value": 3.07929
+            },
+            {
+              "date": "2026-04-01",
+              "value": 4.05819
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     },
@@ -7322,9 +8136,10 @@
           "sourceTitle": "Unemployment Rate",
           "sourceUrl": "https://fred.stlouisfed.org/series/UNRATE",
           "sourceUpdated": "2026-10-02 8:24 AM CDT",
-          "retrievedAt": "2026-10-18T11:54:39.662237+00:00",
+          "retrievedAt": "2026-10-19T20:31:28.248226+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -7886,8 +8701,7 @@
               "date": "2026-09-01",
               "value": 4.2
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "gdp": {
           "seriesId": "NAEXKP01USQ657S",
@@ -7897,9 +8711,10 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United States",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-18T11:54:41.135412+00:00",
+          "retrievedAt": "2026-10-19T20:31:36.577796+00:00",
           "transform": null,
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -8085,8 +8900,7 @@
               "date": "2026-04-01",
               "value": 0.55049
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         },
         "inflation": {
           "seriesId": "CPIAUCNS",
@@ -8096,9 +8910,10 @@
           "sourceTitle": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
           "sourceUrl": "https://fred.stlouisfed.org/series/CPIAUCNS",
           "sourceUpdated": "2026-10-14 8:08 AM CDT",
-          "retrievedAt": "2026-10-18T11:54:39.496838+00:00",
+          "retrievedAt": "2026-10-19T20:31:28.363153+00:00",
           "transform": "yoy",
-          "status": "refresh_failed",
+          "provider": "FRED",
+          "status": "ok",
           "points": [
             {
               "date": "2015-01-01",
@@ -8660,11 +9475,10 @@
               "date": "2026-09-01",
               "value": 3.73768
             }
-          ],
-          "lastError": "The read operation timed out"
+          ]
         }
       }
     }
   },
-  "checkedAt": "2026-10-19T11:17:28.408809+00:00"
+  "checkedAt": "2026-10-19T20:35:08.194634+00:00"
 }

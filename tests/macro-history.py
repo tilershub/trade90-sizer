@@ -32,10 +32,22 @@ class RefreshFailureTest(unittest.TestCase):
             points=[{'date':'2026-07-01','value':4.1}]
             out.write_text(json.dumps({'countries':{'USD':{'name':'United States','series':{'unemployment':{'points':points}}}}}))
             one=[('USD','unemployment','United States','UNRATE','Monthly',None)]
-            with patch.object(m,'OUT',out), patch.object(m,'specs',return_value=one), patch.object(m,'retrieve',side_effect=TimeoutError('timeout')):
+            with patch.object(m,'direct_series',return_value={}), patch.object(m,'OUT',out), patch.object(m,'specs',return_value=one), patch.object(m,'retrieve',side_effect=TimeoutError('timeout')):
                 with self.assertRaises(SystemExit): m.main()
             saved=json.loads(out.read_text())['countries']['USD']['series']['unemployment']
             self.assertEqual(saved['points'],points)
             self.assertEqual(saved['status'],'refresh_failed')
             self.assertEqual(saved['lastError'],'timeout')
+class DirectProviderTest(unittest.TestCase):
+    def test_oecd_dimensions_and_quarter_dates(self):
+        header='DATAFLOW,REF_AREA,FREQ,METHODOLOGY,MEASURE,UNIT_MEASURE,EXPENDITURE,ADJUSTMENT,TRANSFORMATION,TIME_PERIOD,OBS_VALUE,OBS_STATUS\n'
+        body=header+''.join(f'FLOW,AUS,Q,N,CPI,PA,_T,N,GY,{y}-Q{q},2.5,A\n' for y in (2024,2025) for q in range(1,5))
+        p=m.parse_oecd(body,'AUS','Q','FLOW')
+        self.assertEqual(p[-1],{'date':'2025-10-01','value':2.5})
+        with self.assertRaises(ValueError):m.parse_oecd(body.replace(',PA,',',IX,'),'AUS','Q','FLOW')
+    def test_eurostat_rejects_unfiltered_geography(self):
+        raw={'source':'ESTAT','id':['geo','freq','time'],'dimension':{'geo':{'category':{'index':{'EA21':0,'EA20':1}}},'freq':{'category':{'index':{'M':0}}},'time':{'category':{'index':{}}}}}
+        with self.assertRaises(ValueError):m.parse_eurostat(raw,{'geo':'EA21','freq':'M'})
+    def test_stale_source_not_success(self):
+        self.assertEqual(m.freshness([{'date':'2021-01-01','value':2}],'Monthly'),'stale')
 if __name__=='__main__':unittest.main()

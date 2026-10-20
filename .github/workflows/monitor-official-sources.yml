@@ -47,9 +47,13 @@ jobs:
         run: |
           node tests/trade90-v2.mjs
           node tests/trade90-v3.mjs
+      - name: Validate and record policy outlook
+        run: |
+          node tests/policy-model.mjs
+          node scripts/build-policy-outlook.mjs
       - name: Commit verified rate changes and newly discovered bank links
         run: |
-          git add src/data/trade90-policy-snapshot.json public/data/official-source-monitor.json public/data/official-policy-automation.json public/data/official-release-feed.json public/data/official-rate-history.json
+          git add public/data/policy-outlook.json public/data/policy-outlook-history.json src/data/trade90-policy-snapshot.json public/data/official-source-monitor.json public/data/official-policy-automation.json public/data/official-release-feed.json public/data/official-rate-history.json
           if git diff --cached --quiet; then
             echo "No safely verified rate change or new publication links."
           else

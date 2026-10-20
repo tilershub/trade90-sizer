@@ -1,14 +1,14 @@
 export const macroMetrics = [
  {key:'inflation',title:'Inflation',unit:'Headline CPI · year-on-year %',note:'National headline CPI; euro area uses HICP. Baskets and national methods differ. Quarterly readings remain quarterly.'},
- {key:'unemployment',title:'Unemployment',unit:'% of labour force · seasonally adjusted',note:'OECD labour-force survey measure. Switzerland and New Zealand report quarterly; other economies report monthly. National age coverage can differ.'},
- {key:'gdp',title:'Real GDP growth',unit:'Quarter-on-quarter % · seasonally adjusted',note:'Real output growth from the previous quarter, not annualised. Euro area uses the 19-country aggregate. Revisions may change historical values.'}
+ {key:'unemployment',title:'Unemployment',unit:'% of labour force · seasonally adjusted',note:'Labour-force survey measure. Euro-area unemployment uses Eurostat’s 21-country aggregate. Switzerland and New Zealand report quarterly; other economies report monthly. UK observations are rolling three-month averages dated to the middle month; age coverage can differ.'},
+ {key:'gdp',title:'Real GDP growth',unit:'Quarter-on-quarter % · seasonally adjusted',note:'Real output growth from the previous quarter, not annualised. Euro area uses the 21-country aggregate. Revisions may change historical values.'}
 ];
 export function periodLabel(date,frequency){
  if(!date)return 'Unavailable';
  return frequency==='Quarterly'?`${date.slice(0,4)} Q${Math.floor((Number(date.slice(5,7))-1)/3)+1}`:new Date(date+'T00:00:00Z').toLocaleDateString('en-GB',{month:'short',year:'numeric',timeZone:'UTC'});
 }
 export function isStale(series,now=Date.now()){
- const last=series?.points?.at(-1);return !!last && now-Date.parse(last.date)>(series.frequency==='Quarterly'?240:120)*86400000;
+ const last=series?.points?.at(-1);return !!last && now-Date.parse(last.periodEnd||last.date)>(series.frequency==='Quarterly'?240:120)*86400000;
 }
 export function chartData(series,years,now=Date.now()){
  const end=now,start=new Date(now); start.setUTCFullYear(start.getUTCFullYear()-years);
