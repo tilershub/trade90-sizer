@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "monitored",
-  "lastScanAt": "2026-10-19T22:26:41.883Z",
+  "lastScanAt": "2026-10-20T22:22:10.727Z",
   "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
   "sources": [
     {
@@ -10,7 +10,7 @@
       "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
       "domain": "federalreserve.gov",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "Minutes of the Board's discount rate meetings on August 17, September 9, and September 16, 2026",
@@ -80,7 +80,7 @@
       "url": "https://www.ecb.europa.eu/rss/press.html",
       "domain": "ecb.europa.eu",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "Philip R. Lane: Diagnostic Challenges for ECB Monetary Policy",
@@ -98,7 +98,7 @@
       "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
       "domain": "bankofengland.co.uk",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "Publication // Monetary Policy Report (MPR) 30 July 2026 Monetary Policy Report - July 2026 Monetary Policy Report - July 2026",
@@ -172,7 +172,7 @@
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "domain": "boj.or.jp",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "Speech by Board Member KOEDA in Kumamoto (Economic Activity, Prices, and Monetary Policy in Japan)",
@@ -258,7 +258,7 @@
       "url": "https://www.rba.gov.au/media-releases/",
       "domain": "rba.gov.au",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
@@ -332,7 +332,7 @@
       "url": "https://www.rbnz.govt.nz/feeds/news",
       "domain": "rbnz.govt.nz",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "Updates to the October Monetary Policy Review and November Financial Stability Report",
@@ -366,7 +366,7 @@
       "url": "https://www.bankofcanada.ca/press/press-releases/",
       "domain": "bankofcanada.ca",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "Bank of Canada maintains the policy rate at 2¼%",
@@ -396,7 +396,7 @@
       "url": "https://www.snb.ch/en/news-publications/media-releases",
       "domain": "snb.ch",
       "status": "available",
-      "lastSuccessAt": "2026-10-19T22:26:41.883Z",
+      "lastSuccessAt": "2026-10-20T22:22:10.727Z",
       "items": [
         {
           "title": "24.09.2026 Monetary policy assessment of 24 September 2026 &#65279;",
