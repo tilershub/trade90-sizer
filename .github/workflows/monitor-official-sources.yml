@@ -18,7 +18,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: trade90-official-source-watch
+  group: trade90-data-publication
   cancel-in-progress: false
 
 jobs:

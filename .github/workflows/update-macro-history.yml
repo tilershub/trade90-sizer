@@ -12,7 +12,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: trade90-macro-history
+  group: trade90-data-publication
   cancel-in-progress: false
 jobs:
   refresh:
