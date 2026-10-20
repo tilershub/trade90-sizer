@@ -1200,6 +1200,606 @@
           ]
         }
       }
+    },
+    {
+      "generatedAt": "2026-10-20T02:53:37.744Z",
+      "modelVersion": "1.0.0",
+      "inputFingerprint": "16f837faf773ce3bf7a0572d62209aa87e0aff9c7d3fd48de89657181f20aec6",
+      "states": {
+        "AUDCHF": "unclear",
+        "USDCHF": "unclear",
+        "GBPCHF": "unclear",
+        "AUDJPY": "unavailable",
+        "NZDCHF": "unclear",
+        "USDJPY": "unavailable",
+        "EURCHF": "unclear",
+        "GBPJPY": "unavailable",
+        "AUDCAD": "unclear",
+        "CADCHF": "narrowing",
+        "EURAUD": "unclear",
+        "AUDNZD": "unclear",
+        "USDCAD": "unclear",
+        "GBPCAD": "unclear",
+        "NZDJPY": "unavailable",
+        "EURUSD": "unclear",
+        "CHFJPY": "unavailable",
+        "EURGBP": "unclear",
+        "EURJPY": "unavailable",
+        "NZDUSD": "unclear",
+        "CADJPY": "unavailable",
+        "GBPNZD": "unclear",
+        "GBPAUD": "unclear",
+        "AUDUSD": "unclear",
+        "NZDCAD": "widening",
+        "EURCAD": "unclear",
+        "EURNZD": "unclear",
+        "GBPUSD": "unclear"
+      },
+      "rates": {
+        "AUD": 4.6,
+        "USD": 3.875,
+        "GBP": 3.75,
+        "NZD": 2.75,
+        "EUR": 2.5,
+        "CAD": 2.25,
+        "JPY": 1.25,
+        "CHF": 0
+      },
+      "evidence": {
+        "CHF": {
+          "currency": "CHF",
+          "state": "tightening",
+          "label": "Tightening lean",
+          "score": 3,
+          "reasons": [],
+          "drivers": [
+            {
+              "metric": "Inflation",
+              "text": "Headline inflation accelerating",
+              "signal": 1,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 0.99006
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 0.4512
+              },
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+              "retrievedAt": "2026-10-20T02:53:31.706633+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 5.03241
+              },
+              "previous": {
+                "date": "2025-10-01",
+                "value": 5.07263
+              },
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
+              "retrievedAt": "2026-10-20T02:53:33.910509+00:00"
+            },
+            {
+              "metric": "Growth",
+              "text": "Two quarters of firm growth",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 1.88475
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.63205
+              },
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
+              "retrievedAt": "2026-10-20T02:53:34.338163+00:00"
+            }
+          ],
+          "guidance": {
+            "currency": "CHF",
+            "bank": "Swiss National Bank",
+            "short": "SNB",
+            "publishedDate": "2026-09-24",
+            "stance": "Rate hold · Conditional inflation outlook",
+            "headline": "SNB held at zero as its conditional inflation forecast stayed in target",
+            "guidance": "The SNB maintained a 0% policy rate. Its published inflation forecast assumed a constant policy rate and was within its price-stability range; that assumption is not a promise to hold future rates.",
+            "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
+            "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
+            "evidence": "Official monetary policy assessment",
+            "notMarketPricing": true,
+            "lean": "neutral",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-24"
+          },
+          "evidenceStrength": "Moderate",
+          "limitations": [
+            "Headline CPI only; no core inflation, wages, forecasts or market pricing in v1"
+          ]
+        },
+        "AUD": {
+          "currency": "AUD",
+          "state": "mixed",
+          "label": "Mixed evidence",
+          "score": 1,
+          "reasons": [
+            "Economic and policy evidence does not give a consistent direction"
+          ],
+          "drivers": [
+            {
+              "metric": "Inflation",
+              "text": "Headline inflation broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 3.96315
+              },
+              "previous": {
+                "date": "2025-10-01",
+                "value": 3.67194
+              },
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "retrievedAt": "2026-10-20T02:53:31.700261+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment rising",
+              "signal": -1,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 4.6463
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 4.39241
+              },
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
+              "retrievedAt": "2026-10-20T02:53:33.925678+00:00"
+            },
+            {
+              "metric": "Growth",
+              "text": "Growth gives no strong directional signal",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.4195
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.28623
+              },
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
+              "retrievedAt": "2026-10-20T02:53:34.022063+00:00"
+            }
+          ],
+          "guidance": {
+            "currency": "AUD",
+            "bank": "Reserve Bank of Australia",
+            "short": "RBA",
+            "publishedDate": "2026-09-29",
+            "stance": "Further tightening possible if needed",
+            "headline": "RBA raised its cash target and left room for another increase",
+            "guidance": "After raising its cash-rate target to 4.60%, the RBA said inflation was still too high and that it could increase rates further if necessary. Its next decision remains data-dependent.",
+            "watch": "Australian inflation, wages, employment and evidence of slowing demand",
+            "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+            "evidence": "Official Monetary Policy Board decision",
+            "notMarketPricing": true,
+            "lean": "tightening",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-29"
+          },
+          "evidenceStrength": "Mixed",
+          "limitations": [
+            "Headline CPI only; no core inflation, wages, forecasts or market pricing in v1"
+          ]
+        },
+        "EUR": {
+          "currency": "EUR",
+          "state": "mixed",
+          "label": "Mixed evidence",
+          "score": 2,
+          "reasons": [
+            "Economic and policy evidence does not give a consistent direction"
+          ],
+          "drivers": [
+            {
+              "metric": "Inflation",
+              "text": "Headline inflation accelerating",
+              "signal": 1,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.8
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 2.8
+              },
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+              "retrievedAt": "2026-10-20T02:53:32.907400+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 6.4
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 6.4
+              },
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
+              "retrievedAt": "2026-10-20T02:53:32.589887+00:00"
+            },
+            {
+              "metric": "Growth",
+              "text": "Growth gives no strong directional signal",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.6
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0
+              },
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
+              "retrievedAt": "2026-10-20T02:53:33.224509+00:00"
+            }
+          ],
+          "guidance": {
+            "currency": "EUR",
+            "bank": "European Central Bank",
+            "short": "ECB",
+            "publishedDate": "2026-09-10",
+            "stance": "Data-dependent · Meeting by meeting",
+            "headline": "ECB commits to inflation target, not a predetermined rate path",
+            "guidance": "The Governing Council assesses inflation and economic data at each meeting; its communication does not commit to a specific future policy-rate trajectory.",
+            "watch": "Euro-area inflation, wage growth and the ECB's updated projections",
+            "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
+            "evidence": "Official monetary policy decisions",
+            "notMarketPricing": true,
+            "lean": "neutral",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-10"
+          },
+          "evidenceStrength": "Mixed",
+          "limitations": [
+            "Headline CPI only; no core inflation, wages, forecasts or market pricing in v1"
+          ]
+        },
+        "CAD": {
+          "currency": "CAD",
+          "state": "hold",
+          "label": "Hold lean",
+          "score": 0,
+          "reasons": [],
+          "drivers": [
+            {
+              "metric": "Inflation",
+              "text": "Headline inflation broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 3.03398
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 3.22581
+              },
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "retrievedAt": "2026-10-20T02:53:31.712384+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 6.4
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 6.6
+              },
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
+              "retrievedAt": "2026-10-20T02:53:34.981507+00:00"
+            },
+            {
+              "metric": "Growth",
+              "text": "Growth gives no strong directional signal",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.81974
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.08119
+              },
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
+              "retrievedAt": "2026-10-20T02:53:34.779762+00:00"
+            }
+          ],
+          "guidance": {
+            "currency": "CAD",
+            "bank": "Bank of Canada",
+            "short": "BoC",
+            "publishedDate": "2026-09-02",
+            "stance": "Rate hold · Watching inflation upside",
+            "headline": "BoC held at 2.25%, with more uncertainty around inflation",
+            "guidance": "The Governing Council kept its overnight target unchanged, said upside inflation risks had increased, and remained prepared to adjust policy as needed. It did not announce a precommitted hike.",
+            "watch": "Canadian inflation excluding energy, recovery durability and trade-policy effects",
+            "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
+            "evidence": "Official rate decision press release",
+            "notMarketPricing": true,
+            "lean": "neutral",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-02"
+          },
+          "evidenceStrength": "Moderate",
+          "limitations": [
+            "Headline CPI only; no core inflation, wages, forecasts or market pricing in v1"
+          ]
+        },
+        "JPY": {
+          "currency": "JPY",
+          "state": "unavailable",
+          "label": "Insufficient evidence",
+          "reasons": [
+            "A newer policy decision supersedes this guidance review"
+          ],
+          "drivers": [],
+          "guidance": {
+            "currency": "JPY",
+            "bank": "Bank of Japan",
+            "short": "BoJ",
+            "publishedDate": "2026-07-31",
+            "stance": "Conditional further tightening",
+            "headline": "BoJ July outlook described scope to continue raising rates",
+            "guidance": "The BoJ's July outlook said it would continue adjusting accommodation by raising rates in response to economic activity, prices and financial conditions. This is conditional guidance, not a dated hike promise.",
+            "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
+            "source": "https://www.boj.or.jp/en/mopo/outlook/highlight/ten202607.htm",
+            "evidence": "Official July Outlook Report summary",
+            "notMarketPricing": true,
+            "lean": "tightening",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-18"
+          }
+        },
+        "GBP": {
+          "currency": "GBP",
+          "state": "mixed",
+          "label": "Mixed evidence",
+          "score": 1,
+          "reasons": [
+            "Economic and policy evidence does not give a consistent direction"
+          ],
+          "drivers": [
+            {
+              "metric": "Inflation",
+              "text": "Headline inflation broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 3.3
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 3
+              },
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "retrievedAt": "2026-10-20T02:53:31.715433+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-06-01",
+                "value": 4.9,
+                "periodEnd": "2026-07-31"
+              },
+              "previous": {
+                "date": "2026-03-01",
+                "value": 4.9,
+                "periodEnd": "2026-04-30"
+              },
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
+              "retrievedAt": "2026-10-20T02:53:34.686234+00:00"
+            },
+            {
+              "metric": "Growth",
+              "text": "Two quarters of firm growth",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.53261
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.64121
+              },
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
+              "retrievedAt": "2026-10-20T02:53:35.254381+00:00"
+            }
+          ],
+          "guidance": {
+            "currency": "GBP",
+            "bank": "Bank of England",
+            "short": "BoE",
+            "publishedDate": "2026-09-17",
+            "stance": "Rate hold · Upside inflation risks",
+            "headline": "Six MPC members held; three preferred a 25 bp hike",
+            "guidance": "The September MPC maintained Bank Rate at 3.75% by 6–3. It highlighted energy-driven upside inflation risks and said it stood ready to act if necessary.",
+            "watch": "UK CPI, wage-setting effects from energy prices, jobs and MPC votes",
+            "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+            "evidence": "MPC summary and minutes",
+            "notMarketPricing": true,
+            "lean": "neutral",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-17"
+          },
+          "evidenceStrength": "Mixed",
+          "limitations": [
+            "Headline CPI only; no core inflation, wages, forecasts or market pricing in v1"
+          ]
+        },
+        "NZD": {
+          "currency": "NZD",
+          "state": "tightening",
+          "label": "Tightening lean",
+          "score": 4,
+          "reasons": [],
+          "drivers": [
+            {
+              "metric": "Inflation",
+              "text": "Headline inflation accelerating",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 4.05819
+              },
+              "previous": {
+                "date": "2025-10-01",
+                "value": 3.108
+              },
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "retrievedAt": "2026-10-20T02:53:31.720678+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 5.6
+              },
+              "previous": {
+                "date": "2025-10-01",
+                "value": 5.4
+              },
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
+              "retrievedAt": "2026-10-20T02:53:35.728344+00:00"
+            },
+            {
+              "metric": "Growth",
+              "text": "Growth gives no strong directional signal",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.3601
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 1.05475
+              },
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
+              "retrievedAt": "2026-10-20T02:53:35.760823+00:00"
+            }
+          ],
+          "guidance": {
+            "currency": "NZD",
+            "bank": "Reserve Bank of New Zealand",
+            "short": "RBNZ",
+            "publishedDate": "2026-09-02",
+            "stance": "Conditional further tightening projected",
+            "headline": "RBNZ projections allowed for further OCR increases",
+            "guidance": "The September Monetary Policy Statement projected further OCR increases conditional on its central economic outlook, to bring inflation back toward 2%. This is the bank's conditional projection, not a market-implied quote.",
+            "watch": "New Zealand CPI, demand and labour-market data; new OCR path in the next policy statement",
+            "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
+            "evidence": "Official Monetary Policy Statement",
+            "notMarketPricing": true,
+            "lean": "tightening",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-02"
+          },
+          "evidenceStrength": "Moderate",
+          "limitations": [
+            "Headline CPI only; no core inflation, wages, forecasts or market pricing in v1"
+          ]
+        },
+        "USD": {
+          "currency": "USD",
+          "state": "mixed",
+          "label": "Mixed evidence",
+          "score": 1,
+          "reasons": [
+            "Economic and policy evidence does not give a consistent direction"
+          ],
+          "drivers": [
+            {
+              "metric": "Inflation",
+              "text": "Headline inflation broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.73768
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 3.53143
+              },
+              "source": "https://fred.stlouisfed.org/series/CPIAUCNS",
+              "retrievedAt": "2026-10-20T02:53:37.622264+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 4.2
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 4.2
+              },
+              "source": "https://fred.stlouisfed.org/series/UNRATE",
+              "retrievedAt": "2026-10-20T02:53:36.253684+00:00"
+            },
+            {
+              "metric": "Growth",
+              "text": "Two quarters of firm growth",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.55049
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.61721
+              },
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
+              "retrievedAt": "2026-10-20T02:53:36.517034+00:00"
+            }
+          ],
+          "guidance": {
+            "currency": "USD",
+            "bank": "Federal Reserve",
+            "short": "Fed",
+            "publishedDate": "2026-09-16",
+            "stance": "Recent rate increase · No fixed future path",
+            "headline": "Inflation remains elevated after September rate increase",
+            "guidance": "The FOMC increased its target range to 3.75–4.00% and emphasized its 2% inflation objective. The statement did not promise a specific move at the next meeting.",
+            "watch": "US CPI and employment trends; the next FOMC statement and economic projections",
+            "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+            "evidence": "Official FOMC statement",
+            "notMarketPricing": true,
+            "lean": "neutral",
+            "reviewedAt": "2026-10-16",
+            "latestDecisionDate": "2026-09-16"
+          },
+          "evidenceStrength": "Mixed",
+          "limitations": [
+            "Headline CPI only; no core inflation, wages, forecasts or market pricing in v1"
+          ]
+        }
+      }
     }
   ]
 }

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "modelVersion": "1.0.0",
   "experimental": true,
-  "generatedAt": "2026-10-20T02:51:43.768Z",
-  "inputFingerprint": "561c00bb5b4bc94afabfdd6421aa1343d9304ad6d118b4fa9e06baf34d722e61",
+  "generatedAt": "2026-10-20T02:53:37.744Z",
+  "inputFingerprint": "16f837faf773ce3bf7a0572d62209aa87e0aff9c7d3fd48de89657181f20aec6",
   "horizonDays": 90,
   "banks": {
     "CHF": {
@@ -26,7 +26,7 @@
             "value": 0.4512
           },
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
-          "retrievedAt": "2026-10-20T02:51:39.052433+00:00"
+          "retrievedAt": "2026-10-20T02:53:31.706633+00:00"
         },
         {
           "metric": "Employment",
@@ -41,7 +41,7 @@
             "value": 5.07263
           },
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
-          "retrievedAt": "2026-10-20T02:51:42.183671+00:00"
+          "retrievedAt": "2026-10-20T02:53:33.910509+00:00"
         },
         {
           "metric": "Growth",
@@ -56,7 +56,7 @@
             "value": 0.63205
           },
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
-          "retrievedAt": "2026-10-20T02:51:42.469131+00:00"
+          "retrievedAt": "2026-10-20T02:53:34.338163+00:00"
         }
       ],
       "guidance": {
@@ -102,7 +102,7 @@
             "value": 3.67194
           },
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
-          "retrievedAt": "2026-10-20T02:51:39.050053+00:00"
+          "retrievedAt": "2026-10-20T02:53:31.700261+00:00"
         },
         {
           "metric": "Employment",
@@ -117,7 +117,7 @@
             "value": 4.39241
           },
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
-          "retrievedAt": "2026-10-20T02:51:42.300735+00:00"
+          "retrievedAt": "2026-10-20T02:53:33.925678+00:00"
         },
         {
           "metric": "Growth",
@@ -132,7 +132,7 @@
             "value": 0.28623
           },
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
-          "retrievedAt": "2026-10-20T02:51:42.401790+00:00"
+          "retrievedAt": "2026-10-20T02:53:34.022063+00:00"
         }
       ],
       "guidance": {
@@ -178,7 +178,7 @@
             "value": 2.8
           },
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
-          "retrievedAt": "2026-10-20T02:51:41.386068+00:00"
+          "retrievedAt": "2026-10-20T02:53:32.907400+00:00"
         },
         {
           "metric": "Employment",
@@ -193,7 +193,7 @@
             "value": 6.4
           },
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
-          "retrievedAt": "2026-10-20T02:51:40.900895+00:00"
+          "retrievedAt": "2026-10-20T02:53:32.589887+00:00"
         },
         {
           "metric": "Growth",
@@ -208,7 +208,7 @@
             "value": 0
           },
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
-          "retrievedAt": "2026-10-20T02:51:41.880949+00:00"
+          "retrievedAt": "2026-10-20T02:53:33.224509+00:00"
         }
       ],
       "guidance": {
@@ -252,7 +252,7 @@
             "value": 3.22581
           },
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
-          "retrievedAt": "2026-10-20T02:51:39.054709+00:00"
+          "retrievedAt": "2026-10-20T02:53:31.712384+00:00"
         },
         {
           "metric": "Employment",
@@ -267,7 +267,7 @@
             "value": 6.6
           },
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
-          "retrievedAt": "2026-10-20T02:51:42.666332+00:00"
+          "retrievedAt": "2026-10-20T02:53:34.981507+00:00"
         },
         {
           "metric": "Growth",
@@ -282,7 +282,7 @@
             "value": 0.08119
           },
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
-          "retrievedAt": "2026-10-20T02:51:42.753135+00:00"
+          "retrievedAt": "2026-10-20T02:53:34.779762+00:00"
         }
       ],
       "guidance": {
@@ -353,7 +353,7 @@
             "value": 3
           },
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
-          "retrievedAt": "2026-10-20T02:51:39.057031+00:00"
+          "retrievedAt": "2026-10-20T02:53:31.715433+00:00"
         },
         {
           "metric": "Employment",
@@ -370,7 +370,7 @@
             "periodEnd": "2026-04-30"
           },
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
-          "retrievedAt": "2026-10-20T02:51:42.686836+00:00"
+          "retrievedAt": "2026-10-20T02:53:34.686234+00:00"
         },
         {
           "metric": "Growth",
@@ -385,7 +385,7 @@
             "value": 0.64121
           },
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
-          "retrievedAt": "2026-10-20T02:51:42.934768+00:00"
+          "retrievedAt": "2026-10-20T02:53:35.254381+00:00"
         }
       ],
       "guidance": {
@@ -429,7 +429,7 @@
             "value": 3.108
           },
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
-          "retrievedAt": "2026-10-20T02:51:39.060976+00:00"
+          "retrievedAt": "2026-10-20T02:53:31.720678+00:00"
         },
         {
           "metric": "Employment",
@@ -444,7 +444,7 @@
             "value": 5.4
           },
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
-          "retrievedAt": "2026-10-20T02:51:43.183806+00:00"
+          "retrievedAt": "2026-10-20T02:53:35.728344+00:00"
         },
         {
           "metric": "Growth",
@@ -459,7 +459,7 @@
             "value": 1.05475
           },
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
-          "retrievedAt": "2026-10-20T02:51:43.168179+00:00"
+          "retrievedAt": "2026-10-20T02:53:35.760823+00:00"
         }
       ],
       "guidance": {
@@ -505,7 +505,7 @@
             "value": 3.53143
           },
           "source": "https://fred.stlouisfed.org/series/CPIAUCNS",
-          "retrievedAt": "2026-10-20T02:51:43.278093+00:00"
+          "retrievedAt": "2026-10-20T02:53:37.622264+00:00"
         },
         {
           "metric": "Employment",
@@ -520,7 +520,7 @@
             "value": 4.2
           },
           "source": "https://fred.stlouisfed.org/series/UNRATE",
-          "retrievedAt": "2026-10-20T02:51:43.453580+00:00"
+          "retrievedAt": "2026-10-20T02:53:36.253684+00:00"
         },
         {
           "metric": "Growth",
@@ -535,7 +535,7 @@
             "value": 0.61721
           },
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
-          "retrievedAt": "2026-10-20T02:51:43.613545+00:00"
+          "retrievedAt": "2026-10-20T02:53:36.517034+00:00"
         }
       ],
       "guidance": {
