@@ -1,0 +1,58 @@
+{
+  "USD": {
+    "bias": "neutral",
+    "rationale": "The decision leaves future adjustments dependent on incoming information.",
+    "publishedDate": "2026-09-16",
+    "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+    "reviewedAt": "2026-10-16"
+  },
+  "EUR": {
+    "bias": "neutral",
+    "rationale": "Meeting-by-meeting decisions do not establish a future hold.",
+    "publishedDate": "2026-09-10",
+    "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
+    "reviewedAt": "2026-10-16"
+  },
+  "GBP": {
+    "bias": "neutral",
+    "rationale": "Upside inflation risk and a split vote are context, not a promised hike.",
+    "publishedDate": "2026-09-17",
+    "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+    "reviewedAt": "2026-10-16"
+  },
+  "CAD": {
+    "bias": "neutral",
+    "rationale": "The current hold does not constitute forward hold guidance.",
+    "publishedDate": "2026-09-02",
+    "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
+    "reviewedAt": "2026-10-16"
+  },
+  "NZD": {
+    "bias": "tightening",
+    "rationale": "The published conditional policy projection allows further tightening.",
+    "publishedDate": "2026-09-02",
+    "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
+    "reviewedAt": "2026-10-16"
+  },
+  "JPY": {
+    "bias": "tightening",
+    "rationale": "The September decision retains conditional further adjustment; timing remains uncertain.",
+    "publishedDate": "2026-09-18",
+    "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
+    "reviewedAt": "2026-10-20"
+  },
+  "AUD": {
+    "bias": "tightening",
+    "rationale": "The Board explicitly retains further increases if needed; easing labour conditions remain an offset.",
+    "publishedDate": "2026-09-29",
+    "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+    "reviewedAt": "2026-10-20"
+  },
+  "CHF": {
+    "bias": "hold_context",
+    "rationale": "The conditional inflation forecast stays within price stability under an unchanged-rate assumption; the bank judges policy appropriate. This supports a research hold baseline, not a promise.",
+    "publishedDate": "2026-09-24",
+    "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
+    "reviewedAt": "2026-10-20"
+  }
+}

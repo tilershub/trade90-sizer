@@ -1,30 +1,58 @@
 import assert from 'node:assert/strict';
-import {bankOutlook,pairOutlook} from '../src/lib/trade90-policy-model.js';
+import {bankOutlook,pairOutlook,changeSignal,usableSeries} from '../src/lib/trade90-policy-model.js';
 const now=Date.parse('2026-10-20T00:00:00Z');
-const b=state=>({state});
-const pair={base:'AAA',quote:'BBB',baseRate:4,quoteRate:2};
-const test=(a,bv,p=pair)=>pairOutlook(p,{AAA:b(a),BBB:b(bv)},'2026-10-19',now).state;
-assert.equal(test('tightening','hold'),'widening');
-assert.equal(test('easing','hold'),'narrowing');
-assert.equal(test('hold','tightening'),'narrowing');
-assert.equal(test('hold','easing'),'widening');
-assert.equal(test('tightening','hold',{...pair,baseRate:1,quoteRate:4}),'narrowing');
-assert.equal(test('hold','easing',{...pair,baseRate:1,quoteRate:4}),'narrowing');
-assert.equal(test('easing','easing'),'unclear','Equal direction is not equal magnitude');
-assert.equal(test('hold','hold'),'unchanged');
-assert.equal(test('mixed','hold'),'unclear');
-assert.equal(test('unavailable','hold'),'unavailable');
-assert.equal(test('easing','hold',{...pair,baseRate:2.25}),'unclear','Crossing risk');
-const monthly=values=>({frequency:'Monthly',status:'ok',retrievedAt:'2026-10-19',sourceUrl:'https://example.com',points:values.map((value,i)=>({date:`2026-0${i+6}-01`,value}))});
-const gdp={frequency:'Quarterly',status:'ok',retrievedAt:'2026-10-19',sourceUrl:'https://example.com',points:[{date:'2025-07-01',value:.1},{date:'2025-10-01',value:.1},{date:'2026-01-01',value:.6},{date:'2026-04-01',value:.6}]};
-const input={countries:{AAA:{series:{inflation:monthly([2,2.1,2.2,2.6]),unemployment:monthly([5,4.9,4.8,4.7]),gdp}}}};
-const guidance={AAA:{publishedDate:'2026-09-01',reviewedAt:'2026-10-19',lean:'neutral'}};
-assert.equal(bankOutlook('AAA',input,guidance,now).state,'tightening');
-input.countries.AAA.series.unemployment=monthly([4,4.1,4.2,4.3]);
-assert.equal(bankOutlook('AAA',input,guidance,now).state,'mixed','Do not hide contradictory jobs data');
-input.countries.AAA.series.inflation.status='refresh_failed';
-assert.equal(bankOutlook('AAA',input,guidance,now).state,'unavailable');
-input.countries.AAA.series.inflation.status='ok';
-assert.equal(bankOutlook('AAA',input,guidance,now+20*86400000).state,'unavailable','Freshness expires without new input');
-assert.equal(bankOutlook('AAA',input,{AAA:{...guidance.AAA,publishedDate:'2026-01-01'}},now).state,'unavailable','Old guidance cannot become current from review timestamp');
-console.log('Policy model: direction, symmetry, crossing, conflicting evidence and freshness gates passed');
+assert.equal(changeSignal(3.3,3,.3),1);
+assert.equal(changeSignal(6.4,6.6,.2),-1);
+assert.equal(changeSignal(5.6,5.4,.2),1);
+assert.equal(changeSignal(3.299,3,.3),0);
+assert.equal(changeSignal(NaN,3,.3),null);
+const pair={base:'AUD',quote:'CHF',baseRate:4,quoteRate:1};
+const test=(a,b,p=pair,date='2026-10-19')=>pairOutlook(p,{AUD:{state:a},CHF:{state:b}},date,now);
+for(const [a,b,rates,state,tone] of [
+ ['hike_hold','hold',[4,1],'widening','positive'],
+ ['cut_hold','hold',[4,1],'narrowing','negative'],
+ ['hold','hike_hold',[1,4],'widening','negative'],
+ ['hike_hold','hold',[1,4],'narrowing','positive'],
+ ['hold','cut_hold',[4,1],'widening','positive'],
+ ['hold','cut_hold',[1,4],'narrowing','positive']
+]){
+ const p={...pair,baseRate:rates[0],quoteRate:rates[1]},r=test(a,b,p);
+ assert.equal(r.state,state);assert.equal(r.tone,tone);
+ const reversed=pairOutlook({...p,base:'CHF',quote:'AUD',baseRate:rates[1],quoteRate:rates[0]},{AUD:{state:a},CHF:{state:b}},'2026-10-19',now);
+ assert.equal(reversed.state,r.state);assert.equal(reversed.direction,-r.direction);
+}
+assert.equal(test('hold','hold').state,'unchanged');
+assert.equal(test('hike_hold','hike_hold').state,'unclear');
+assert.equal(test('cut_hold','cut_hold').state,'unclear');
+assert.equal(test('uncertain','hold').state,'unclear');
+assert.equal(test('unavailable','hold').state,'unavailable');
+assert.equal(test('hike_hold','hold',pair,'2026-10-21').state,'unavailable');
+assert.equal(test('hike_hold','hold',{...pair,baseRate:NaN}).state,'unavailable');
+assert.equal(test('hike_hold','hold',{...pair,baseRate:1}).state,'widening');
+assert.equal(test('cut_hold','hold',{...pair,baseRate:1.25}).crossingRisk,true);
+const monthly=values=>({frequency:'Monthly',status:'ok',retrievedAt:'2026-10-19',sourceUrl:'https://example.com',sourceTitle:'Fixture CPI',points:values.map((value,i)=>({date:`2026-0${i+6}-01`,value}))});
+const gdp={frequency:'Quarterly',status:'ok',retrievedAt:'2026-10-19',sourceUrl:'https://example.com',points:[{date:'2025-07-01',value:.1},{date:'2025-10-01',value:.1},{date:'2026-01-01',value:.1},{date:'2026-04-01',value:.1}]};
+const country=(headline,core,unemployment,bias='neutral')=>{
+ const data={countries:{CHF:{series:{inflation:monthly(headline),unemployment:monthly(unemployment),gdp}}}};
+ const extra={countries:{CHF:{series:{coreInflation:monthly(core)}}}};
+ const guidance={CHF:{publishedDate:'2026-09-01',source:'https://example.com/decision',assessment:{publishedDate:'2026-09-01',source:'https://example.com/decision',reviewedAt:'2026-10-19',bias}}};
+ return {data,extra,guidance};
+};
+const run=x=>bankOutlook('CHF',x.data,x.guidance,now,x.extra);
+const low=country([.4,.6,.8,1],[.5,.5,.6,.6],[5,5,5,5]);
+assert.equal(run(low).state,'uncertain','No inflation-target pressure is not a hold forecast');
+assert.equal(run(low).economicPressure,'Balanced or conflicting pressure','Low inflation rising does not mean tightening');
+low.guidance.CHF.assessment.bias='hold_context';assert.equal(run(low).state,'hold');
+const hike=country([3,3.1,3.2,3.3],[2.6,2.7,2.8,2.9],[5,5.1,5.1,5.2],'tightening');
+assert.equal(run(hike).state,'hike_hold','Mild labour offset must be visible without blanket veto');
+assert.ok(run(hike).cautions.some(s=>s.includes('unemployment offsets')));
+hike.data.countries.CHF.series.unemployment=monthly([5,5.2,5.4,5.5]);assert.equal(run(hike).state,'uncertain','Severe labour weakness blocks hike bias');
+const cut=country([-.1,-.2,-.3,-.5],[.5,.4,.3,.2],[5,5.1,5.2,5.3]);assert.equal(run(cut).state,'cut_hold');
+const stale=structuredClone(low);stale.extra.countries.CHF.series.coreInflation.status='refresh_failed';assert.equal(run(stale).state,'unavailable');
+const future=structuredClone(low);future.guidance.CHF.assessment.reviewedAt='2026-10-21';assert.equal(run(future).state,'unavailable');
+const mismatch=structuredClone(low);mismatch.guidance.CHF.source='https://example.com/new';assert.equal(run(mismatch).state,'unavailable');
+const superseded=structuredClone(low);superseded.guidance.CHF.latestDecisionDate='2026-09-20';assert.equal(run(superseded).state,'unavailable');
+const bad=monthly([1,2,3,4]);bad.points[1].value=NaN;assert.equal(usableSeries(bad,now),false);
+const dup=monthly([1,2,3,4]);dup.points[1].date=dup.points[0].date;assert.equal(usableSeries(dup,now),false);
+const usd=bankOutlook('USD',{countries:{USD:low.data.countries.CHF}},{},now,{});assert.equal(usd.state,'unavailable','US cannot substitute CPI for missing PCE');
+console.log('Policy v2: thresholds, four colours, reversal, uncertainty, policy context and input validation passed');

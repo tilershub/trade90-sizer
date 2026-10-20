@@ -25,14 +25,14 @@ def specs():
 
 def clean(s): return html.unescape(re.sub('<[^>]+>', ' ', s)).strip()
 
-def parse_table(body, sid, freq, metric, transform):
+def parse_table(body, sid, freq, metric, transform, adjustment=None):
     rows = re.findall(r'<tr[^>]*>\s*<th[^>]*>(.*?)</th>\s*<td[^>]*>(.*?)</td>\s*</tr>',body,re.S)
     metadata = {clean(k):clean(v) for k,v in rows if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',clean(k))}
     if metadata.get('Series ID') != sid or metadata.get('Frequency') != freq: raise ValueError('Series identity/frequency mismatch')
     unit = metadata.get('Units','').lower()
     expected = ('millions of chained 2010 euros' if sid=='CLVMNACSCAB1GQEA19' else 'index') if transform else {'inflation':'growth rate same period previous year','unemployment':'percent','gdp':'growth rate previous period'}[metric]
     if expected not in unit: raise ValueError('Unexpected units: '+unit)
-    expected_adjustment = 'Not Seasonally Adjusted' if metric == 'inflation' else 'Seasonally Adjusted'
+    expected_adjustment = adjustment or ('Not Seasonally Adjusted' if metric == 'inflation' else 'Seasonally Adjusted')
     if metadata.get('Seasonal Adjustment') != expected_adjustment: raise ValueError('Unexpected seasonal adjustment')
     # Long FRED tables append additional observations from a literal JS string.
     # Parse only date/value literals; never execute provider JavaScript.
@@ -73,11 +73,11 @@ def freshness(points, freq):
     age=(dt.date.today()-dt.date.fromisoformat(points[-1].get('periodEnd',points[-1]['date']))).days
     return 'stale' if age>(240 if freq=='Quarterly' else 120) else 'ok'
 
-def parse_oecd(body, iso, freq, flow):
+def parse_oecd(body, iso, freq, flow, expenditure='_T'):
     result={}
     for r in csv.DictReader(io.StringIO(body)):
         if r.get('REF_AREA')!=iso or r.get('FREQ')!=freq: continue
-        expected={'MEASURE':'CPI','UNIT_MEASURE':'PA','EXPENDITURE':'_T','ADJUSTMENT':'N','TRANSFORMATION':'GY','METHODOLOGY':'N'}
+        expected={'MEASURE':'CPI','UNIT_MEASURE':'PA','EXPENDITURE':expenditure,'ADJUSTMENT':'N','TRANSFORMATION':'GY','METHODOLOGY':'N'}
         if any(r.get(k)!=v for k,v in expected.items()) or flow not in r.get('DATAFLOW',''): raise ValueError('Unexpected OECD dimensions')
         period=r['TIME_PERIOD']
         if freq=='Q' and re.fullmatch(r'\d{4}-Q[1-4]',period): date=f'{period[:4]}-{(int(period[-1])-1)*3+1:02d}-01'

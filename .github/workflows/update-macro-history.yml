@@ -8,6 +8,8 @@ on:
     paths:
       - scripts/update-macro-history.py
       - tests/macro-history.py
+      - scripts/update-policy-inputs.py
+      - tests/policy-inputs.py
       - .github/workflows/update-macro-history.yml
 permissions:
   contents: write
@@ -33,13 +35,19 @@ jobs:
         id: retrieve
         continue-on-error: true
         run: python scripts/update-macro-history.py
+      - name: Retrieve additional policy inputs
+        id: policy_inputs
+        continue-on-error: true
+        run: |
+          python tests/policy-inputs.py
+          python scripts/update-policy-inputs.py
       - name: Validate and record policy outlook
         run: |
           node tests/policy-model.mjs
           node scripts/build-policy-outlook.mjs
       - name: Publish source-attributed observations
         run: |
-          git add public/data/macro-history.json public/data/policy-outlook.json public/data/policy-outlook-history.json
+          git add public/data/policy-inputs.json public/data/macro-history.json public/data/policy-outlook.json public/data/policy-outlook-history.json
           if ! git diff --cached --quiet; then
             git config user.name 'trade90-macro[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -48,7 +56,7 @@ jobs:
             git push origin HEAD:main
           fi
       - name: Fail if retrieval failed
-        if: steps.retrieve.outcome != 'success'
+        if: steps.retrieve.outcome != 'success' || steps.policy_inputs.outcome != 'success'
         run: |
           echo "::error::Economic data retrieval failed. Saved observations remain available with failure status."
           exit 1

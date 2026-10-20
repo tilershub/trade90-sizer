@@ -32,12 +32,12 @@ export const policyGuidance = {
   },
   JPY:{
     currency:"JPY",bank:"Bank of Japan",short:"BoJ",
-    publishedDate:"2026-07-31",stance:"Conditional further tightening",
-    headline:"BoJ July outlook described scope to continue raising rates",
-    guidance:"The BoJ's July outlook said it would continue adjusting accommodation by raising rates in response to economic activity, prices and financial conditions. This is conditional guidance, not a dated hike promise.",
+    publishedDate:"2026-09-18",stance:"Conditional further tightening",
+    headline:"BoJ September decision retained a conditional tightening path",
+    guidance:"After its September rate increase, the BoJ said further adjustments would depend on economic activity, prices and financial conditions. It described underlying inflation approaching its objective, while retaining uncertainty about timing and pace.",
     watch:"Japan's wage and inflation trend, financial conditions and the October Outlook Report",
-    source:"https://www.boj.or.jp/en/mopo/outlook/highlight/ten202607.htm",
-    evidence:"Official July Outlook Report summary",notMarketPricing:true
+    source:"https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
+    evidence:"Official September monetary policy decision", reviewedAt:"2026-10-20",notMarketPricing:true
   },
   AUD:{
     currency:"AUD",bank:"Reserve Bank of Australia",short:"RBA",
