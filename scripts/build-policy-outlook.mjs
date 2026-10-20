@@ -34,10 +34,21 @@ const output={schemaVersion:2,modelVersion:MODEL_VERSION,experimental:true,gener
 fs.writeFileSync('public/data/policy-outlook.json',JSON.stringify(output,null,2)+'\n');
 const path='public/data/policy-outlook-history.json';
 const history=fs.existsSync(path)?read(path):{schemaVersion:1,records:[]};
+// Preserve records from machines with skewed clocks, but never use them as
+// correctly timed prospective forecasts. Do not rewrite their original evidence.
+let archiveChanged=false;
+for(const record of history.records){
+ if(Date.parse(record.generatedAt)>now+5*60000&&!record.excludedFromEvaluation){
+  record.excludedFromEvaluation=true;
+  record.exclusionReason='Recorded timestamp was ahead of the publication runner clock';
+  archiveChanged=true;
+ }
+}
 const states=Object.fromEntries(Object.entries(pairs).map(([p,v])=>[p,v.state]));
 const last=history.records.at(-1);
 if(!last||last.inputFingerprint!==fingerprint||JSON.stringify(last.states)!==JSON.stringify(states)){
  history.records.push({generatedAt,modelVersion:MODEL_VERSION,inputFingerprint:fingerprint,states,rates:Object.fromEntries(snapshot.banks.map(b=>[b.code,b.rate])),pairs,evidence:banks});
- fs.writeFileSync(path,JSON.stringify(history,null,2)+'\n');
+ archiveChanged=true;
 }
+if(archiveChanged)fs.writeFileSync(path,JSON.stringify(history,null,2)+'\n');
 console.log('Policy model:',Object.values(pairs).reduce((a,p)=>(a[p.state]=(a[p.state]||0)+1,a),{}));
