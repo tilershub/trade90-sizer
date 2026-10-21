@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "modelVersion": "2.0.0",
   "experimental": true,
-  "generatedAt": "2026-10-21T13:53:55.411Z",
+  "generatedAt": "2026-10-21T18:43:35.933Z",
   "inputFingerprint": "ffe99599ca1be083de1a34b3288f9a083fe7f681a40d87ce9e2102705178e7f5",
   "horizonDays": 90,
   "banks": {
@@ -149,7 +149,7 @@
       "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
       "score": 1,
       "guidanceDirection": "hold_context",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "AUD": {
       "currency": "AUD",
@@ -294,7 +294,7 @@
       "watch": "Australian inflation, wages, employment and evidence of slowing demand",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EUR": {
       "currency": "EUR",
@@ -440,7 +440,7 @@
       "watch": "Euro-area inflation, wage growth and the ECB's updated projections",
       "score": 2,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "CAD": {
       "currency": "CAD",
@@ -586,7 +586,7 @@
       "watch": "Canadian inflation excluding energy, recovery durability and trade-policy effects",
       "score": 1,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "JPY": {
       "currency": "JPY",
@@ -731,7 +731,7 @@
       "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "GBP": {
       "currency": "GBP",
@@ -877,7 +877,7 @@
       "watch": "UK CPI, wage-setting effects from energy prices, jobs and MPC votes",
       "score": 3,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "NZD": {
       "currency": "NZD",
@@ -1021,7 +1021,7 @@
       "watch": "New Zealand CPI, demand and labour-market data; new OCR path in the next policy statement",
       "score": 0,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "USD": {
       "currency": "USD",
@@ -1167,7 +1167,7 @@
       "watch": "US CPI and employment trends; the next FOMC statement and economic projections",
       "score": 0,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     }
   },
   "pairs": {
@@ -1185,7 +1185,7 @@
       "signedDirection": "Towards AUD",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1201,7 +1201,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "GBPCHF": {
       "base": "GBP",
@@ -1217,7 +1217,7 @@
       "signedDirection": "Towards GBP",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "AUDJPY": {
       "base": "AUD",
@@ -1233,7 +1233,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -1249,7 +1249,7 @@
       "signedDirection": "Towards NZD",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "USDJPY": {
       "base": "USD",
@@ -1265,7 +1265,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EURCHF": {
       "base": "EUR",
@@ -1281,7 +1281,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "GBPJPY": {
       "base": "GBP",
@@ -1297,7 +1297,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "AUDCAD": {
       "base": "AUD",
@@ -1313,7 +1313,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "CADCHF": {
       "base": "CAD",
@@ -1329,7 +1329,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EURAUD": {
       "base": "EUR",
@@ -1345,7 +1345,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "AUDNZD": {
       "base": "AUD",
@@ -1361,7 +1361,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "USDCAD": {
       "base": "USD",
@@ -1377,7 +1377,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "GBPCAD": {
       "base": "GBP",
@@ -1393,7 +1393,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "NZDJPY": {
       "base": "NZD",
@@ -1409,7 +1409,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EURUSD": {
       "base": "EUR",
@@ -1425,7 +1425,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "CHFJPY": {
       "base": "CHF",
@@ -1441,7 +1441,7 @@
       "signedDirection": "Towards JPY",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EURGBP": {
       "base": "EUR",
@@ -1457,7 +1457,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EURJPY": {
       "base": "EUR",
@@ -1473,7 +1473,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "NZDUSD": {
       "base": "NZD",
@@ -1489,7 +1489,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "CADJPY": {
       "base": "CAD",
@@ -1505,7 +1505,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "GBPNZD": {
       "base": "GBP",
@@ -1521,7 +1521,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "GBPAUD": {
       "base": "GBP",
@@ -1537,7 +1537,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "AUDUSD": {
       "base": "AUD",
@@ -1553,7 +1553,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "NZDCAD": {
       "base": "NZD",
@@ -1569,7 +1569,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EURCAD": {
       "base": "EUR",
@@ -1585,7 +1585,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "EURNZD": {
       "base": "EUR",
@@ -1601,7 +1601,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     },
     "GBPUSD": {
       "base": "GBP",
@@ -1617,7 +1617,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-23T13:53:55.411Z"
+      "expiresAt": "2026-10-23T18:43:35.933Z"
     }
   }
 }
