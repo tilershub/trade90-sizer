@@ -15,8 +15,9 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
  <section class="hero" aria-labelledby="hero-heading">
   <div class="hero-content">
    <div class="eyebrow">FOREX MONETARY POLICY RESEARCH · 8 BANKS · 28 PAIRS</div>
-   <h1 id="hero-heading">Compare central-bank rates across <em>28 forex pairs.</em></h1>
-   <p>Understand the official interest-rate gap between two currencies, explore their central banks and see the next scheduled policy decisions. <strong>No trading signals. No invented forecasts.</strong></p>
+   <h1 id="hero-heading">Your daily <em>central-bank research routine.</em></h1>
+   <p>Follow your currency pairs, understand what changed and prepare for upcoming policy decisions. Explore sourced rate comparisons and experimental 90-day policy outlooks.</p>
+   <p><a href="/daily/">Open your daily dashboard →</a></p>
    <PairFinder client:load pairs={majors.concat(allTrade90Pairs.filter(p=>p.base!=="USD" && p.quote!=="USD"))} limit={7}/>
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
    <aside class="data-status" aria-label="TRADE90 data freshness and availability">

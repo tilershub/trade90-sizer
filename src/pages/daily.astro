@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Trade90V2Layout.astro';
+import Daily from '../components/Trade90Daily.svelte';
+import outlook from '../../public/data/policy-outlook.json';
+---
+<Layout title="Daily Central Bank & Currency Research Dashboard" description="Follow your forex pairs, compare policy outlooks since your last visit and prepare for upcoming central-bank decisions with TRADE90's daily research dashboard." canonical="/daily/">
+ <main class="wrap"><header class="page-intro"><div class="eyebrow">YOUR DAILY RESEARCH ROUTINE</div><h1>What changed for your currency pairs?</h1><p>Check the outlook before your session, review new evidence after releases, and prepare for the next policy decision.</p></header><Daily initialData={outlook} client:load/><noscript><p>Enable JavaScript to save a watchlist and compare visits. <a href="/pairs/">Browse all pair research</a> or <a href="/decisions/">view the decision calendar</a>.</p></noscript></main>
+</Layout>

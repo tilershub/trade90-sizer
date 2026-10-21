@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {captureView,changesSince,effectiveState,upcomingDecisions} from '../src/lib/trade90-daily.js';
+const now=Date.parse('2026-10-21T00:00:00Z');
+const d={modelVersion:'2',pairs:{AUDCHF:{state:'widening',expiresAt:'2026-10-22',signedGap:4.6}},banks:{AUD:{drivers:[{metric:'Inflation',latest:{date:'2026-08-01',value:3},text:'Stable',source:'https://example.com'}]}}};
+const a=JSON.parse(JSON.stringify(captureView(d,now)));
+assert.equal(changesSince(a,captureView(d,now+1000),['AUDCHF']).length,0);
+d.banks.AUD.drivers[0].retrievedAt='new';assert.equal(changesSince(a,captureView(d,now),['AUDCHF']).length,0);
+d.banks.AUD.drivers[0].latest.value=3.2;assert.equal(changesSince(a,captureView(d,now),['AUDCHF']).length,1);
+assert.equal(effectiveState(d.pairs.AUDCHF,now+86400000),'unavailable');
+assert.equal(changesSince(a,captureView(d,now),[]).length,0);
+assert.deepEqual(upcomingDecisions([{currency:'AUD',date:'2026-10-20'}],['AUD'],'2026-10-21'),[]);
+d.modelVersion='3';assert.equal(changesSince(a,captureView(d,now),['AUDCHF'])[0].title,'Model version changed');
+assert.deepEqual(changesSince(null,captureView(d,now),['AUDCHF']),[]);
+console.log('Daily dashboard comparison checks passed');
