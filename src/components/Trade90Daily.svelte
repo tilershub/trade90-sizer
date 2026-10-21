@@ -1,9 +1,12 @@
 <script>
  import {onMount} from 'svelte';
+ import {getAuthClient} from '../lib/trade90-auth.js';
+ import {loadDashboard,saveDashboard,sanitizeDashboard} from '../lib/trade90-dashboard-sync.js';
  import {outlookLabels,effectiveState,captureView,changesSince,upcomingDecisions} from '../lib/trade90-daily.js';
  import {officialPolicyDecisionCalendar,decisionCalendarReviewedAt} from '../data/trade90-decision-calendar.js';
  export let initialData;
  let data=initialData, selected=[], previous=null, ready=false, busy=false, error='', storageError=false, now=Date.now(), feed=null;
+ let user=null,accountReady=false,cloudVersion=null,cloudLoaded=false,syncBusy=false,syncMessage='',syncError=false,authClient=null;
  const watchKey='trade90-daily-pairs-v1',viewKey='trade90-daily-view-v1';
  const link=s=>'/pairs/'+s.slice(0,3).toLowerCase()+'-'+s.slice(3).toLowerCase()+'/#policy-outlook';
  const label=s=>s.slice(0,3)+'/'+s.slice(3);
@@ -14,25 +17,55 @@
  $: events=upcomingDecisions(officialPolicyDecisionCalendar,codes,new Date(now).toISOString().slice(0,10));
  $: publications=(feed?.items||[]).filter(i=>codes.includes(i.code)&&Date.parse(i.firstSeenAt)<=now&&(!previous||Date.parse(i.firstSeenAt)>Date.parse(previous.viewedAt))).sort((a,b)=>b.firstSeenAt.localeCompare(a.firstSeenAt)).slice(0,8);
  function save(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{storageError=true;}}
- function toggle(s){selected=selected.includes(s)?selected.filter(x=>x!==s):[...selected,s];save(watchKey,selected);}
+ function toggle(s){if(user&&!cloudLoaded)return;selected=selected.includes(s)?selected.filter(x=>x!==s):[...selected,s];if(!user)save(watchKey,selected);else syncMessage='Unsaved watchlist changes. Save to your account.';}
  async function refresh(){if(busy)return;busy=true;error='';now=Date.now();
  const results=await Promise.allSettled(['/data/policy-outlook.json','/data/official-release-feed.json'].map(async url=>{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error();return r.json();}));
- const outlook=results[0];if(outlook.status==='fulfilled'&&outlook.value.schemaVersion===2&&outlook.value.pairs&&outlook.value.banks&&Date.parse(outlook.value.generatedAt)<=now+300000){data=outlook.value;save(viewKey,captureView(data,now));}else error='Could not refresh policy research. The dated snapshot below is retained; expired outlooks are hidden.';
+ const outlook=results[0];if(outlook.status==='fulfilled'&&outlook.value.schemaVersion===2&&outlook.value.pairs&&outlook.value.banks&&Date.parse(outlook.value.generatedAt)<=now+300000){data=outlook.value;if(!user&&accountReady)save(viewKey,captureView(data,now));}else error='Could not refresh policy research. The dated snapshot below is retained; expired outlooks are hidden.';
  const releases=results[1];if(releases.status==='fulfilled'&&Array.isArray(releases.value.items))feed=releases.value;else feed=null;
  busy=false;
  }
- onMount(()=>{try{const stored=JSON.parse(localStorage.getItem(watchKey)||'null');selected=Array.isArray(stored)?[...new Set(stored.filter(s=>symbols.includes(s)))]:['EURUSD','AUDCHF','USDJPY'];const v=JSON.parse(localStorage.getItem(viewKey)||'null');if(v?.version===1&&Date.parse(v.viewedAt)<=Date.now())previous=v;}catch{storageError=true;selected=['EURUSD','AUDCHF','USDJPY'];}ready=true;refresh();const timer=setInterval(()=>{now=Date.now();if(!document.hidden)refresh();},300000);return()=>clearInterval(timer);});
+
+ async function initAccount(){
+  authClient=getAuthClient();
+  try{
+   const {data:session,error}=await authClient.auth.getSession();if(error)throw error;
+   user=session.session?.user||null;
+   if(user){
+    const remote=await loadDashboard(authClient,user.id);cloudVersion=remote?.workspace_version??null;
+    const saved=sanitizeDashboard(remote?.daily_dashboard,symbols);
+    if(saved){selected=saved.pairs;previous=saved.view;}
+    else {selected=[];previous=null;}
+    cloudLoaded=true;syncMessage=saved?'Account dashboard loaded.':'Choose pairs and save to start your account dashboard.';
+   }
+  }catch{syncError=true;syncMessage='Account dashboard could not load. Reload to try again; no cloud data has been overwritten.';}
+  accountReady=true;await refresh();
+ }
+ async function saveAccount(){
+  if(!user||!cloudLoaded||syncBusy)return;syncBusy=true;syncError=false;
+  try{
+   const {data:session}=await authClient.auth.getSession();if(session.session?.user.id!==user.id)throw Error('Your session changed. Reload this page before saving.');
+   cloudVersion=await saveDashboard(authClient,user.id,cloudVersion,{version:1,pairs:selected,view:captureView(data,Date.now())});syncMessage='Dashboard saved to your account.';
+  }catch{syncError=true;syncMessage='Could not save. Your session or dashboard may have changed on another device. Reload before trying again.';}
+  finally{syncBusy=false;}
+ }
+ async function logout(){
+  const {error}=await authClient.auth.signOut({scope:'local'});
+  if(error){syncError=true;syncMessage='Sign-out failed. Please try again.';return;}
+  user=null;previous=null;selected=[];window.location.replace('/daily/');
+ }
+ onMount(()=>{try{const stored=JSON.parse(localStorage.getItem(watchKey)||'null');selected=Array.isArray(stored)?[...new Set(stored.filter(s=>symbols.includes(s)))]:['EURUSD','AUDCHF','USDJPY'];const v=JSON.parse(localStorage.getItem(viewKey)||'null');if(v?.version===1&&Date.parse(v.viewedAt)<=Date.now())previous=v;}catch{storageError=true;selected=['EURUSD','AUDCHF','USDJPY'];}ready=true;initAccount();const {data:authListener}=getAuthClient().auth.onAuthStateChange((_event,session)=>{if(accountReady&&(session?.user?.id||null)!==(user?.id||null)){user=null;selected=[];previous=null;cloudLoaded=false;accountReady=false;setTimeout(()=>window.location.reload(),0);}});const timer=setInterval(()=>{now=Date.now();if(!document.hidden)refresh();},300000);return()=>{clearInterval(timer);authListener.subscription.unsubscribe();};});
 </script>
 <div class="daily">
+ <section aria-label="Account"><div class="toolbar"><div><strong>{user?'Your account dashboard':'Make this dashboard yours'}</strong><p>{user?'Your account watchlist is separate from this browser’s guest watchlist. Save after editing pairs or reviewing research to update your cross-device baseline.':'Sign in or create an account with Google to save a dashboard across devices. Guest mode remains available.'}</p></div>{#if !accountReady}<span>Checking account…</span>{:else if user}<div><button on:click={saveAccount} disabled={!cloudLoaded||syncBusy||busy}>{syncBusy?'Saving…':'Save dashboard'}</button> <button on:click={logout} disabled={syncBusy}>Sign out</button></div>{:else}<a href="/sign-in/">Sign in / Create account →</a>{/if}</div>{#if syncMessage}<p role="status" class:notice={syncError}>{syncMessage}</p>{/if}</section>
  <div class="toolbar"><p>90-day policy research · Experimental · Accuracy not yet established</p><button on:click={refresh} disabled={!ready||busy}>{busy?'Checking…':'Check for updates'}</button></div>
  <p class="meta">Published model run: {stamp(data.generatedAt)}. Checks this dashboard every five minutes while visible; upstream macro data refreshes daily and official-source checks run hourly. Policy interpretations require dated review.</p>
  {#if error}<p role="status" class="notice">{error}</p>{/if}
  {#if storageError}<p class="notice">Browser storage is unavailable or invalid. Your selections or visit history may not persist.</p>{/if}
- <section><h2>My pairs</h2><p>Choose your pairs. Your watchlist and previous dashboard snapshot stay on this browser; they do not sync between devices.</p>
- <details><summary>Edit watchlist · {selected.length} pairs</summary><div class="choices">{#each symbols as s}<button aria-pressed={selected.includes(s)} on:click={()=>toggle(s)}>{selected.includes(s)?'✓ ':''}{label(s)}</button>{/each}</div></details>
+ <section><h2>My pairs</h2><p>Choose your pairs. Guest selections stay in this browser. Signed-in traders can save their watchlist and comparison baseline to their account.</p>
+ <details><summary>Edit watchlist · {selected.length} pairs</summary><div class="choices">{#each symbols as s}<button disabled={!accountReady||(user&&!cloudLoaded)||syncBusy} aria-pressed={selected.includes(s)} on:click={()=>toggle(s)}>{selected.includes(s)?'✓ ':''}{label(s)}</button>{/each}</div></details>
  {#if !ready}<p>Loading your daily research…</p>{:else if !selected.length}<p>Select a pair above to start your daily routine.</p>{:else}<div class="pairgrid">{#each selected as s}{@const p=data.pairs[s]}{@const state=effectiveState(p,now)}<a class="pair" href={link(s)}><h3>{label(s)}</h3><strong class:positive={state!=='unavailable'&&p.tone==='positive'} class:negative={state!=='unavailable'&&p.tone==='negative'}>{state==='unavailable'?'—':p.direction>0?'↑':p.direction<0?'↓':'—'} {outlookLabels[state]}</strong><p>{state==='unavailable'?'Fresh evidence is required before showing a directional outlook.':p.reason}</p><span>Read evidence & what could change →</span></a>{/each}</div>{/if}
  <p class="meta">Green means the signed policy gap moves towards the first currency; red towards the second. These are not currency-price signals.</p></section>
- <section><h2>Since your last visit</h2>{#if !previous}<p>Your first visit establishes a baseline. Return to compare published evidence with what you saw here today.</p>{:else}<p>Compared with your dashboard visit at {stamp(previous.viewedAt)}. Changes below are for your current watchlist.</p>{#if changes.length}<ul>{#each changes as change}<li><strong>{change.title}</strong><p>{change.text}</p>{#if change.symbol}<a href={link(change.symbol)}>View research →</a>{:else if change.source}<a href={change.source} target="_blank" rel="noopener noreferrer">Original data source ↗</a>{/if}</li>{/each}</ul>{:else}<p class="notice">No change detected in the tracked outlooks or displayed evidence since your previous visit. This does not mean no economic news has occurred.</p>{/if}{/if}</section>
+ <section><h2>Since your last visit</h2>{#if !previous}<p>{user?'Save dashboard to establish your account baseline. Return and save after reviewing research to update it.':'Your first visit establishes a baseline. Return to compare published evidence with what you saw here today.'}</p>{:else}<p>Compared with your dashboard visit at {stamp(previous.viewedAt)}. Changes below are for your current watchlist.</p>{#if changes.length}<ul>{#each changes as change}<li><strong>{change.title}</strong><p>{change.text}</p>{#if change.symbol}<a href={link(change.symbol)}>View research →</a>{:else if change.source}<a href={change.source} target="_blank" rel="noopener noreferrer">Original data source ↗</a>{/if}</li>{/each}</ul>{:else}<p class="notice">No change detected in the tracked outlooks or displayed evidence since your previous visit. This does not mean no economic news has occurred.</p>{/if}{/if}</section>
  <div class="columns"><section><h2>Next policy decisions</h2><p>Dates from official bank calendars, reviewed {decisionCalendarReviewedAt}. Announcement times and a complete calendar of economic releases and speeches are not yet included.</p>{#if events.length}<ul>{#each events.slice(0,8) as e}<li><strong>{e.date} · {e.currency} · {e.bank}</strong><p>{e.title}</p><p>{e.watch}</p><a href={e.source} target="_blank" rel="noopener noreferrer">Confirm on official calendar ↗</a></li>{/each}</ul>{:else}<p>No upcoming decision is listed for your selection. This is not confirmation that no events are scheduled.</p>{/if}</section>
  <section><h2>{previous?'Newly detected official links':'Official source watch'}</h2><p>Discovery time is not publication time. Links may refer to older material and do not automatically change the model.</p><p class="meta">Last source scan: {stamp(feed?.lastSourceScanAt)}{#if !feed?.lastSourceScanAt||now-Date.parse(feed.lastSourceScanAt)>30*3600000} · Feed unavailable or potentially stale{/if}</p>{#if publications.length}<ul>{#each publications as item}<li><strong>{item.code} · Detected {stamp(item.firstSeenAt)}</strong><p><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title.replace(/&nbsp;/g,' ').replace(/&amp;/g,'&')} ↗</a></p></li>{/each}</ul>{:else}<p>No newly detected links available for your selection. Check the original central-bank sources for complete coverage.</p>{/if}</section></div>
  <section><h2>What to watch in your currencies</h2><div class="pairgrid">{#each codes as c}{@const bank=data.banks[c]}<article><h3>{c}</h3><p><strong>{Date.parse(bank.expiresAt)>now?bank.label:'Assessment expired'}</strong></p><p>{bank.watch}</p><details><summary>Evidence & counter-evidence</summary>{#each bank.drivers||[] as d}<p><strong>{d.metric}:</strong> {d.text} · {d.latest.value}% ({d.latest.date.slice(0,7)}) · <a href={d.source} target="_blank" rel="noopener noreferrer">Source</a></p>{/each}{#each bank.cautions||[] as c}<p>{c}</p>{/each}<p>These observations may cover different periods. See the pair research for definitions, freshness and policy context.</p></details></article>{/each}</div></section>

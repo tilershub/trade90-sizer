@@ -53,3 +53,9 @@
 # Current share artwork (independent of the retired funded-trader artwork)
 /og-v3.svg
   Cache-Control: public, max-age=86400
+
+/sign-in/*
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+/daily/*
+  Cache-Control: no-cache, max-age=0, must-revalidate

@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Trade90V2Layout.astro';
+import SignIn from '../components/Trade90SignIn.svelte';
+---
+<Layout title="Sign in or Create Your TRADE90 Account" description="Use your Google account to save your TRADE90 daily research dashboard and currency watchlist." canonical="/sign-in/" noindex={true}>
+ <main class="wrap"><header class="page-intro"><div class="eyebrow">YOUR TRADE90 ACCOUNT</div><h1>Sign in to your dashboard</h1></header><SignIn client:load/><noscript>JavaScript is required for secure Google sign-in. Public pair research remains available.</noscript></main>
+</Layout>
