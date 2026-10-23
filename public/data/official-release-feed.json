@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-10-22T07:41:34.364Z",
-  "lastSourceScanAt": "2026-10-22T07:41:34.364Z",
+  "lastCompiledAt": "2026-10-23T07:39:07.438Z",
+  "lastSourceScanAt": "2026-10-23T07:39:07.438Z",
   "items": [
+    {
+      "code": "JPY",
+      "bank": "BoJ",
+      "title": "Statement on Monetary Policy&nbsp;",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/state_2026/k260319a.htm",
+      "firstSeenAt": "2026-10-23T07:39:07.438Z"
+    },
     {
       "code": "EUR",
       "bank": "ECB",
