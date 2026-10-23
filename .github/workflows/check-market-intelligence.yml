@@ -72,6 +72,8 @@ jobs:
         run: node tests/trade90-position-size.mjs
       - name: Verify policy forecast rules and quarterly freshness
         run: node tests/policy-model.mjs
+      - name: Verify daily data freshness and manual-review provenance
+        run: node tests/refresh-status.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes
