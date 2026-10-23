@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Trade90V2Layout.astro";
 import SourceWatch from "../components/Trade90SourceWatch.svelte";
+import RefreshStatus from "../components/Trade90RefreshStatus.svelte";
 import snapshot from "../data/trade90-policy-snapshot.json";
 import {policyCollectionAsOf} from "../data/trade90-policy-updates.js";
 import {decisionCalendarReviewedAt} from "../data/trade90-decision-calendar.js";
@@ -11,17 +12,18 @@ const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numer
 <main class="wrap">
  <article class="reading-policy">
   <header class="page-intro">
-   <span class="eyebrow">Source transparency · Last-reviewed timestamps</span>
+   <span class="eyebrow">Source transparency · Automated checks and dated reviews</span>
    <h1>TRADE90 Data Sources &amp; Update Policy</h1>
    <p>Trade90 is a source-linked forex monetary-policy research website. <strong>Our published official rates and bank updates are dated curated observations, not continuously refreshing market data.</strong> This page explains where the figures come from, how often they currently change, and what we do not publish.</p>
   </header>
+  <RefreshStatus client:visible />
   <section class="status-overview" aria-label="Current published data status">
    <div><span>Official policy-rate snapshot</span><strong><time datetime={snapshot.asOf}>{format(snapshot.asOf)}</time></strong><small>Published static bank benchmarks for eight currencies</small></div>
    <div><span>Official policy publication review</span><strong><time datetime={policyCollectionAsOf}>{format(policyCollectionAsOf)}</time></strong><small>Dated decisions, minutes and statements</small></div>
    <div><span>Official decision calendar review</span><strong><time datetime={decisionCalendarReviewedAt}>{format(decisionCalendarReviewedAt)}</time></strong><small>Curated meeting dates, not automatically synchronized</small></div>
    <div><span>Reported expectation observations</span><strong><time datetime={outlookAsOf}>{format(outlookAsOf)}</time></strong><small>Time-specific third-party reports, not live quotes</small></div>
   </section>
-  <p class="critical"><strong>Current refresh status:</strong> Trade90's public policy-rate and decision-calendar records are updated through a curated publication workflow. An hourly GitHub Actions process monitors official bank publications, automatically publishes bank-owned source links, and attempts strict, bank-specific verification of rate decisions. Only documents with an approved source, explicitly parsed benchmark and verified effective date may update the eight-bank rate snapshot. This is **not complete coverage**: some bank release feeds omit decisions, PDF-only decisions lack a verified parser, and ambiguous effective dates are deliberately withheld. Meeting calendars and policy summaries remain separately curated; the market-implied forward feed is not connected. The site may be out of date between reviews. The CI build tests correctness of published structures; passing a build does not mean external rates or news were refreshed.</p>
+  <p class="critical"><strong>Current refresh status:</strong> Trade90's public policy-rate and decision-calendar records are updated through a curated publication workflow. An hourly GitHub Actions process monitors official bank publications, automatically publishes bank-owned source links, and attempts strict, bank-specific verification of rate decisions. Only documents with an approved source, explicitly parsed benchmark and verified effective date may update the eight-bank rate snapshot. This is **not complete coverage**: some bank release feeds omit decisions, PDF-only decisions lack a verified parser, and ambiguous effective dates are deliberately withheld. Meeting calendars and policy summaries remain separately curated; the market-implied forward feed is not connected. A daily research-health audit now publishes source-check times and highlights outstanding review gaps; it does not automatically recertify curated summaries, calendars or older reported market-pricing research. The site may be out of date between checks. Passing a build does not mean external rates or news were refreshed.</p>
   <SourceWatch client:visible />
   <section aria-labelledby="automatic-publications"><h2 id="automatic-publications">Automatically discovered official publications</h2><p>TRADE90's hourly source watcher now maintains a continuously updated, source-linked publication archive for all eight central banks. The latest links are displayed directly on <a href="/central-banks/">the central-bank updates page</a> and on relevant <a href="/pairs/">currency-pair pages</a> without manual publishing. The time a link was <strong>first detected is not its original release date</strong>, and discovering a link does not prove that a rate changed. The older curated editorial summaries and future-rate estimates remain separate datasets.</p><p>Strictly validated official policy decisions can update the rate snapshot and an <a href="/data/official-rate-history.json" download="trade90-rate-decision-history.json" type="application/json">downloadable rate-decision history (JSON)</a> automatically. Unsupported or ambiguous documents are held back, and source-health failures are recorded rather than replaced with invented figures. Published decisions may arrive later than the bank's actual announcement because checking, validation and website deployment are not instantaneous.</p></section>
   <section>
@@ -35,7 +37,7 @@ const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numer
     <tr><td><strong>3M, 6M and 12M market-implied policy paths</strong></td><td><strong>Numeric data provider not connected</strong></td><td>Only after a comparable, verifiable provider with public redisplay authorization is contracted</td></tr>
     <tr><td><strong>24-hour / 7-day forward-rate changes</strong></td><td>No genuine numeric forward history has been published</td><td>Calculate only after real compatible timestamped observations exist</td></tr>
    </tbody></table></div>
-   <p>The third column describes intended verification goals, <strong>not a promise or a currently running refresh schedule</strong>. Official monetary-policy benchmarks typically change at decision meetings, but market pricing can reprice much more often.</p>
+   <p>The third column describes editorial and source-verification targets, <strong>not automatic replacement of dated analyst assessments</strong>. The daily freshness audit above is scheduled for 07:23 UTC after the economic retrieval window. Official monetary-policy benchmarks typically change at decision meetings, but market pricing can reprice much more often.</p>
   </section>
   <section>
    <h2>Reliability: what you can trust, and what it means</h2>
@@ -65,7 +67,7 @@ const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numer
   <section class="faq" aria-labelledby="quick-answers">
    <h2 id="quick-answers">Quick answers for forex traders</h2>
    <h3>Is TRADE90 updating every minute?</h3>
-   <p><strong>No.</strong> The published policy-rate figures come from a source-checked, static dataset. Visiting or refreshing a page does not recheck official central-bank sources, and the current website has no automatic minute-by-minute, hourly, or daily publication pipeline for these records.</p>
+   <p><strong>No.</strong> The published policy-rate figures come from a source-checked, static dataset. Visiting or refreshing a page does not recheck official central-bank sources, and TRADE90 now runs an hourly source monitor and daily economic-data retrieval and freshness audit, but a successful check is not a new official rate decision or a new analyst review.</p>
    <h3>How do I know whether a particular number is current?</h3>
    <p>Check the <strong>source-verification date</strong> next to the number, then open the linked official bank release. A number can be correctly copied from a past decision yet no longer be the latest official benchmark. <strong>“Verified snapshot” is not synonymous with “live”.</strong></p>
    <h3>Why does TRADE90 show “not connected” for expected rates?</h3>
