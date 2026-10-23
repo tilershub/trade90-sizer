@@ -5,7 +5,6 @@ import policyModel from "../../../public/data/policy-outlook.json";
 import MacroComparison from "../../components/Trade90MacroComparison.svelte";
 import macroData from "../../../public/data/macro-history.json";
 import PairFinder from "../../components/Trade90PairFinder.svelte";
-import ForwardRates from "../../components/Trade90ForwardRates.svelte";
 import NextDecisions from "../../components/Trade90NextDecisions.svelte";
 import PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
 import OfficialReleaseFeed from "../../components/Trade90OfficialReleaseFeed.svelte";
@@ -44,13 +43,9 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
     <div class="bank-card"><div class="card-label">QUOTE · {pair.quote}</div><h2><a href={"/central-banks/"+pair.quoteBank.short.toLowerCase()+"/"}>{pair.quoteBank.short} · {pair.quoteBank.name}</a></h2><div class="value">{formatPercent(pair.quoteRate)}</div><p>{pair.quoteBank.benchmark}</p><p>Effective {reportDate(pair.quoteBank.effectiveDate)}</p><a href={pair.quoteBank.source} target="_blank" rel="noopener noreferrer">Official {pair.quoteBank.short} rate source ↗</a></div>
   </section>
   <p class="data-footnote">Rates are from the verified {reportDate(rateSnapshot.asOf)} snapshot; supported official decisions are checked automatically; this is not live market pricing. <a href="/data-policy/">Review sources, update frequency and licensing →</a></p>
-  <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">Policy outlook</a><a href="#economy">Economic comparison</a><a href="#expected">Expected rates</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
+  <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">Policy outlook</a><a href="#economy">Economic comparison</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
   <section class="section" id="policy-outlook"><PolicyOutlook client:idle symbol={pair.symbol} initialData={{...policyModel,banks:{[pair.base]:policyModel.banks[pair.base],[pair.quote]:policyModel.banks[pair.quote]},pairs:{[pair.symbol]:policyModel.pairs[pair.symbol]}}}/></section>
   <section class="section" id="economy"><MacroComparison client:visible base={pair.base} quote={pair.quote} initialData={{...macroData,countries:{[pair.base]:macroData.countries[pair.base],[pair.quote]:macroData.countries[pair.quote]}}}/></section>
-  <section class="section" id="expected">
-   <div class="section-heading"><div><div class="eyebrow">Market data availability</div><h2>Expected {pair.label} Rate Divergence</h2><p>Market-implied policy-rate differences require validated, appropriately licensed forward inputs for both currencies. No fabricated forecasts.</p></div></div>
-   <ForwardRates client:visible mode="pair" policyBanks={rateSnapshot.banks} selectedPair={pair}/>
-  </section>
   <section class="section" id="decisions"><NextDecisions client:idle pair={pair}/></section>
   <section class="section" id="guidance"><PairGuidance pair={pair}/></section>
   <section class="section" id="updates"><PolicyUpdates pair={pair}/></section>

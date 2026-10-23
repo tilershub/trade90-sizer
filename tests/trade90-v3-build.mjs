@@ -29,7 +29,8 @@ for(const pair of allTrade90Pairs){
  assert.ok(html.includes("What the "+pair.label+" Policy-Rate Gap Means"),"Missing indexable pair context for "+slug);
  assert.ok(html.includes(pair.baseBank.source),"No source for base "+slug);
  assert.ok(html.includes(pair.quoteBank.source),"No source for quote "+slug);
- assert.ok(html.includes("Forward"),"Missing expectation status on "+slug);
+ assert.ok(!html.includes('id="expected"'),"Retired market-implied section should not exist on "+slug);
+ assert.ok(!html.includes('href="#expected"'),"Retired section must not be in pair navigation "+slug);
 }
 for(const bank of rateSnapshot.banks){
  const path="central-banks/"+bank.short.toLowerCase()+"/index.html";
