@@ -61,4 +61,5 @@ assert.equal(usableSeries(quarter,now),true,'Completed Q2 data remains current i
 quarter.retrievedAt='2027-02-01';
 assert.equal(usableSeries(quarter,Date.parse('2027-02-01T00:00:00Z')),false,'Quarterly data expires after period end');
 assert.equal(observationPeriodEnd({frequency:'Quarterly'},{date:'2026-01-01',periodEnd:'2026-03-31'}),'2026-03-31');
+assert.equal(observationPeriodEnd({frequency:'Quarterly'},{date:'2026-05-15',value:1}),'2026-05-15','Nonstandard quarterly dates should not artificially extend evidence life');
 console.log('Policy v2: thresholds, four colours, reversal, uncertainty, policy context and input validation passed');
