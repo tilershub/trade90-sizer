@@ -1,0 +1,85 @@
+---
+import {formatBp} from "../lib/trade90-rates.js";
+const {pair,model}=Astro.props;
+const outlook=model?.pairs?.[pair.symbol],base=model?.banks?.[pair.base],quote=model?.banks?.[pair.quote];
+const until=Date.parse(outlook?.expiresAt||"");
+const valid=Number.isFinite(until)&&until>Date.now();
+const state=valid?outlook?.state||"unavailable":"unavailable";
+const states={
+ widening:["WIDENING","Rate gap may widen"],
+ narrowing:["NARROWING","Rate gap may narrow"],
+ unchanged:["UNCHANGED BIAS","Both banks have a conditional hold baseline"],
+ unclear:["UNCERTAIN","Relative rate-gap direction is unresolved"],
+ unavailable:["NOT AVAILABLE","Current policy outlook unavailable"]
+};
+const [headline,subhead]=states[state]||states.unavailable;
+const when=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZone:"UTC"})+" UTC":"Not recorded";
+const currentGap=(pair.signedBp>0?"+":"")+formatBp(pair.signedBp);
+---
+<section class:list={["outlook-hero","state-"+state]} id="policy-outlook" aria-label={pair.label+" 90-day policy-rate divergence outlook"} data-divergence-hero data-expires-at={outlook?.expiresAt||""}>
+ <div class="topline"><span class="eyebrow">TRADE90 RESEARCH · NEXT 90 DAYS</span><span class="research-type">Experimental policy-rate outlook</span></div>
+ <div class="hero-main">
+  <div class="decision">
+   <p class="prompt">Expected {pair.label} interest-rate divergence</p>
+   <h2 class="result" data-outlook-label>{headline}</h2>
+   <p class="result-description" data-outlook-plain>{subhead}</p>
+  </div>
+  <div class="rate-fact"><span>Current official rate gap</span><strong>{currentGap}<small> bp</small></strong><span>{pair.base} minus {pair.quote}</span></div>
+ </div>
+ <p class="reason" data-outlook-reason>{valid?outlook?.reason||subhead:"Assessment expired. Fresh validated evidence is required before displaying a direction."}</p>
+ {base&&quote&&<div class="bank-biases" aria-label="Central-bank policy assessments">
+  <div><span>{pair.base} · {pair.baseBank.short}</span><strong>{base.label||"Direction not supported"}</strong></div>
+  <div><span>{pair.quote} · {pair.quoteBank.short}</span><strong>{quote.label||"Direction not supported"}</strong></div>
+ </div>}
+ <div class="hero-bottom">
+  <div class="timestamps"><span>Model calculated <time datetime={model?.generatedAt}>{when(model?.generatedAt)}</time></span><span data-outlook-validity>Valid until <time datetime={outlook?.expiresAt}>{when(outlook?.expiresAt)}</time></span></div>
+  <a class="evidence-link" href="#policy-evidence">Explore the supporting evidence ↓</a>
+ </div>
+ <p class="disclaimer">This is a <strong>policy-rate difference assessment</strong>, not an exchange-rate forecast, buy/sell signal, or calibrated probability. Rates may hold and move sizes are unknown.</p>
+</section>
+<script is:inline>
+(() => {
+ const check=()=>document.querySelectorAll("[data-divergence-hero]").forEach(el=>{
+  const expires=Date.parse(el.getAttribute("data-expires-at")||"");
+  if(Number.isFinite(expires)&&Date.now()<expires||el.classList.contains("is-expired"))return;
+  el.classList.add("is-expired");
+  const label=el.querySelector("[data-outlook-label]"),sub=el.querySelector("[data-outlook-plain]"),reason=el.querySelector("[data-outlook-reason]"),valid=el.querySelector("[data-outlook-validity]");
+  if(label)label.textContent="NOT AVAILABLE";
+  if(sub)sub.textContent="90-day model outlook expired";
+  if(reason)reason.textContent="New source-validated model evidence is required. Old central-bank biases have been hidden.";
+  if(valid)valid.textContent="Assessment expired — awaiting verified refresh";
+ });
+ check();window.addEventListener("pageshow",check);
+})();
+</script>
+<style>
+.outlook-hero{--signal:#60a5fa;border:1px solid var(--line,#334155);border-left:5px solid var(--signal);background:var(--surface,#101a2b);color:var(--ink,#f8fafc);border-radius:13px;padding:18px 21px 15px;margin:10px 0 22px;scroll-margin-top:90px}
+.outlook-hero.state-narrowing{--signal:#fbbf24}
+.outlook-hero.state-unclear,.outlook-hero.state-unchanged,.outlook-hero.state-unavailable,.outlook-hero.is-expired{--signal:#94a3b8}
+.topline,.hero-main,.hero-bottom{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.eyebrow{font-size:.7rem;font-weight:850;letter-spacing:.08em;color:var(--blue,#60a5fa)}
+.research-type{font-size:.72rem;color:var(--muted,#94a3b8)}
+.hero-main{align-items:center;margin:13px 0 7px}
+.decision{flex:1;min-width:0}
+.prompt{font-size:.87rem;color:var(--muted,#94a3b8);margin:0 0 4px}
+.result{font-size:clamp(2.1rem,5.2vw,3.8rem);line-height:1.04;font-weight:900;letter-spacing:-.05em;color:var(--ink,#f8fafc);margin:5px 0;overflow-wrap:anywhere}
+.result-description{font-size:1rem;font-weight:760;color:var(--signal);margin:7px 0}
+.rate-fact{border:1px solid var(--line,#334155);border-radius:9px;background:var(--soft,#1b2a3f);padding:13px 15px;width:220px;flex:none}
+.rate-fact span{display:block;font-size:.74rem;color:var(--muted,#94a3b8)}
+.rate-fact strong{display:block;font-size:1.85rem;color:var(--ink,#f8fafc);font-variant-numeric:tabular-nums;font-weight:850;margin:4px 0}
+.rate-fact small{font-size:.58em}
+.reason{color:var(--muted,#cbd5e1);font-size:.89rem;line-height:1.65;max-width:90ch;margin:10px 0 13px}
+.bank-biases{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.bank-biases>div{border:1px solid var(--line,#334155);background:var(--soft,#1b2a3f);border-radius:7px;padding:10px 12px}
+.bank-biases span{display:block;font-size:.74rem;color:var(--muted,#94a3b8)}
+.bank-biases strong{display:block;font-size:.87rem;margin-top:3px;color:var(--ink,#f8fafc)}
+.hero-bottom{align-items:center;border-top:1px solid var(--line,#334155);padding-top:13px;margin-top:13px}
+.timestamps{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.75rem;color:var(--muted,#94a3b8)}
+.timestamps time{color:var(--ink,#f8fafc)}
+.evidence-link{white-space:nowrap;font-size:.82rem;font-weight:730;color:var(--blue,#60a5fa);text-underline-offset:3px}
+.disclaimer{color:var(--muted,#94a3b8);font-size:.75rem;margin:13px 0 0;line-height:1.55}
+.disclaimer strong{color:var(--ink,#f8fafc)}
+.is-expired .bank-biases{display:none}
+@media(max-width:720px){.outlook-hero{padding:14px 15px;margin:9px 0 17px}.topline{flex-wrap:wrap;gap:4px}.hero-main{flex-direction:column;align-items:stretch}.rate-fact{width:auto;display:flex;align-items:center;justify-content:space-between;gap:7px}.rate-fact span{max-width:31%}.rate-fact strong{font-size:1.5rem;margin:0}.hero-bottom{flex-direction:column;align-items:flex-start;gap:8px}.evidence-link{white-space:normal}.bank-biases{gap:7px}.bank-biases>div{padding:9px}.bank-biases strong{font-size:.8rem}.reason{font-size:.86rem}}
+@media(max-width:380px){.bank-biases{grid-template-columns:1fr}.rate-fact strong{font-size:1.35rem}}
+</style>
