@@ -23,7 +23,7 @@ for(const pair of allTrade90Pairs){
  const path="pairs/"+slug+"/index.html";
  assert.ok(existsSync(new URL(path,builtRoot)),path+" is not a generated route");
  const html=read(path);
- assert.ok(html.includes(pair.label+" Fundamental Analysis"),"Missing unique pair heading for "+slug);
+ assert.ok(html.includes(pair.label+" 90-Day Policy Rate Outlook"),"Missing unique pair heading for "+slug);
  assert.ok(html.includes('https://tradeninety.com/pairs/'+slug+'/'),"Wrong canonical for "+slug);
  assert.ok(html.includes("Next Major Decisions to Watch"),"Missing bank decision watch for "+slug);
  assert.ok(html.includes("What the "+pair.label+" Policy-Rate Gap Means"),"Missing indexable pair context for "+slug);
@@ -31,9 +31,11 @@ for(const pair of allTrade90Pairs){
  assert.ok(html.includes('id="policy-outlook"'),"Missing hero anchor on "+slug);
  assert.ok(html.includes('id="policy-evidence"'),"Missing detailed source evidence anchor on "+slug);
  assert.ok(html.indexOf('data-divergence-hero')<html.indexOf('class="comparison"'),"90-day policy outlook must appear before the rate cards on "+slug);
+ assert.ok(html.indexOf('data-divergence-hero')<html.indexOf('pair-switcher"'),"Primary outlook must appear before the pair switcher on "+slug);
  assert.ok(html.includes('data-outlook-label'),"Headline status must render directly in HTML on "+slug);
  assert.ok(html.includes('href="#policy-evidence"'),"Research verdict must link to bank evidence on "+slug);
- assert.ok(html.includes('90-DAY POLICY-RATE DIVERGENCE')===false || html.includes('NEXT 90 DAYS'),"90-day headline should be visible for "+slug);
+ assert.ok(html.includes("90-DAY POLICY DIVERGENCE"),"90-day outlook must be the page headline for "+slug);
+ assert.ok(html.includes('href="/daily/"'),"Daily changes link missing from primary outlook on "+slug);
  
  assert.ok(html.includes(pair.baseBank.source),"No source for base "+slug);
  assert.ok(html.includes(pair.quoteBank.source),"No source for quote "+slug);
