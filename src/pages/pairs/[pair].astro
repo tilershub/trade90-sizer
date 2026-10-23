@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Trade90V2Layout.astro";
 import PolicyOutlook from "../../components/Trade90PolicyOutlook.svelte";
+import DivergenceHero from "../../components/Trade90DivergenceHero.astro";
 import policyModel from "../../../public/data/policy-outlook.json";
 import MacroComparison from "../../components/Trade90MacroComparison.svelte";
 import macroData from "../../../public/data/macro-history.json";
@@ -19,8 +20,8 @@ export function getStaticPaths(){
 const {pair}=Astro.props;
 const explanation=pairInsight(pair);
 const previous=getPairPolicyUpdates(pair).slice(0,3);
-const title=pair.label+" Fundamentals: Interest Rates, Inflation & GDP";
-const description="Compare "+pair.label+" interest rates, CPI inflation, unemployment and real GDP growth. View dated economic charts, official sources and central-bank decisions.";
+const title=pair.label+" 90-Day Policy Rate Outlook & Fundamental Analysis";
+const description="Explore TRADE90’s experimental 90-day "+pair.label+" policy-rate divergence outlook: widening, narrowing or uncertain. Compare official interest rates, inflation, GDP, jobs and central-bank decisions.";
 const permalink=pairUrl(pair.symbol);
 const relevant=allTrade90Pairs.filter(p=>p.symbol!==pair.symbol && (p.base===pair.base||p.quote===pair.base||p.base===pair.quote||p.quote===pair.quote)).slice(0,6);
 const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -37,14 +38,15 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
    <div class="headingline"><div><h1>{pair.label} Fundamental Analysis</h1><p>Official policy-rate comparison for {pair.baseBank.name} and {pair.quoteBank.name}. Updated from the verified snapshot dated <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time>.</p></div><a class="otherpair" href="/pairs/">Explore all pairs →</a></div>
    <div class="finder-shell"><PairFinder client:load pairs={allTrade90Pairs} placeholder={"Switch pair — "+pair.label+"…"} limit={7}/></div>
   </header>
+  <DivergenceHero pair={pair} model={policyModel}/>
   <section class="comparison" aria-label={"Official "+pair.label+" policy benchmark comparison"}>
     <div class="bank-card"><div class="card-label">BASE · {pair.base}</div><h2><a href={"/central-banks/"+pair.baseBank.short.toLowerCase()+"/"}>{pair.baseBank.short} · {pair.baseBank.name}</a></h2><div class="value">{formatPercent(pair.baseRate)}</div><p>{pair.baseBank.benchmark}</p><p>Effective {reportDate(pair.baseBank.effectiveDate)}</p><a href={pair.baseBank.source} target="_blank" rel="noopener noreferrer">Official {pair.baseBank.short} rate source ↗</a></div>
     <div class="gap-card"><div class="card-label">SIGNED BASE − QUOTE GAP</div><div class="gap-value">{pair.signedBp>0?"+":""}{formatBp(pair.signedBp)} <small>bp</small></div><strong>{pair.higher==="Equal"?"Equal benchmarks":pair.higher+" has the higher selected benchmark"}</strong><p>Absolute difference: {formatBp(pair.absBp)} bp</p><p>This is not a forecast of the {pair.label} exchange rate or actual broker swap yield.</p></div>
     <div class="bank-card"><div class="card-label">QUOTE · {pair.quote}</div><h2><a href={"/central-banks/"+pair.quoteBank.short.toLowerCase()+"/"}>{pair.quoteBank.short} · {pair.quoteBank.name}</a></h2><div class="value">{formatPercent(pair.quoteRate)}</div><p>{pair.quoteBank.benchmark}</p><p>Effective {reportDate(pair.quoteBank.effectiveDate)}</p><a href={pair.quoteBank.source} target="_blank" rel="noopener noreferrer">Official {pair.quoteBank.short} rate source ↗</a></div>
   </section>
   <p class="data-footnote">Rates are from the verified {reportDate(rateSnapshot.asOf)} snapshot; supported official decisions are checked automatically; this is not live market pricing. <a href="/data-policy/">Review sources, update frequency and licensing →</a></p>
-  <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">Policy outlook</a><a href="#economy">Economic comparison</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
-  <section class="section" id="policy-outlook"><PolicyOutlook client:idle symbol={pair.symbol} initialData={{...policyModel,banks:{[pair.base]:policyModel.banks[pair.base],[pair.quote]:policyModel.banks[pair.quote]},pairs:{[pair.symbol]:policyModel.pairs[pair.symbol]}}}/></section>
+  <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">90-day outlook</a><a href="#policy-evidence">Bank evidence</a><a href="#economy">Economic comparison</a><a href="#decisions">Next decisions</a><a href="#guidance">Bank guidance</a><a href="#updates">Policy updates</a><a href="#explanation">What it means</a></nav>
+  <section class="section" id="policy-evidence"><PolicyOutlook evidenceOnly={true} client:visible symbol={pair.symbol} initialData={{...policyModel,banks:{[pair.base]:policyModel.banks[pair.base],[pair.quote]:policyModel.banks[pair.quote]},pairs:{[pair.symbol]:policyModel.pairs[pair.symbol]}}}/></section>
   <section class="section" id="economy"><MacroComparison client:visible base={pair.base} quote={pair.quote} initialData={{...macroData,countries:{[pair.base]:macroData.countries[pair.base],[pair.quote]:macroData.countries[pair.quote]}}}/></section>
   <section class="section" id="decisions"><NextDecisions client:idle pair={pair}/></section>
   <section class="section" id="guidance"><PairGuidance pair={pair}/></section>

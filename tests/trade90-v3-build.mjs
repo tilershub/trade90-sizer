@@ -27,6 +27,14 @@ for(const pair of allTrade90Pairs){
  assert.ok(html.includes('https://tradeninety.com/pairs/'+slug+'/'),"Wrong canonical for "+slug);
  assert.ok(html.includes("Next Major Decisions to Watch"),"Missing bank decision watch for "+slug);
  assert.ok(html.includes("What the "+pair.label+" Policy-Rate Gap Means"),"Missing indexable pair context for "+slug);
+ assert.ok(html.includes('data-divergence-hero'),"Missing prominent divergence research summary on "+slug);
+ assert.ok(html.includes('id="policy-outlook"'),"Missing hero anchor on "+slug);
+ assert.ok(html.includes('id="policy-evidence"'),"Missing detailed source evidence anchor on "+slug);
+ assert.ok(html.indexOf('data-divergence-hero')<html.indexOf('class="comparison"'),"90-day policy outlook must appear before the rate cards on "+slug);
+ assert.ok(html.includes('data-outlook-label'),"Headline status must render directly in HTML on "+slug);
+ assert.ok(html.includes('href="#policy-evidence"'),"Research verdict must link to bank evidence on "+slug);
+ assert.ok(html.includes('90-DAY POLICY-RATE DIVERGENCE')===false || html.includes('NEXT 90 DAYS'),"90-day headline should be visible for "+slug);
+ 
  assert.ok(html.includes(pair.baseBank.source),"No source for base "+slug);
  assert.ok(html.includes(pair.quoteBank.source),"No source for quote "+slug);
  assert.ok(!html.includes('id="expected"'),"Retired market-implied section should not exist on "+slug);
