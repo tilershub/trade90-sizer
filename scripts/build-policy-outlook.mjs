@@ -16,8 +16,8 @@ for(const bank of Object.values(banks)){
  const limits=[now+2*DAY,Date.parse(snapshot.asOf)+45*DAY,Date.parse(bank.guidance?.publishedDate)+90*DAY,Date.parse(bank.guidance?.assessment?.reviewedAt)+14*DAY];
  for(const c of bank.coverage||[])if(c.usable){
   limits.push(Date.parse(c.retrievedAt)+7*DAY);
-  const driver=bank.drivers.find(d=>d.latest.date===c.latestDate&&d.retrievedAt===c.retrievedAt);
-  if(driver)limits.push(Date.parse(driver.latest.periodEnd||driver.latest.date)+(driver.frequency==='Quarterly'?210:100)*DAY);
+  // Expire against each series's actual period end; do not infer it from another driver.
+  if(c.periodEnd)limits.push(Date.parse(c.periodEnd)+(c.frequency==='Quarterly'?210:100)*DAY);
  }
  bank.expiresAt=new Date(Math.min(...limits.filter(Number.isFinite))).toISOString();
 }

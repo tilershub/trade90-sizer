@@ -47,7 +47,7 @@
 </section>
 <style>
 .release-feed{border:1px solid #334155;background:#111c30;border-radius:13px;padding:20px;color:#e2e8f0;margin:18px 0}
-.release-head .eyebrow{color:#34d399;font-weight:800;letter-spacing:.07em;font-size:.74rem}
+.release-head .eyebrow{color:#60a5fa;font-weight:800;letter-spacing:.07em;font-size:.74rem}
 .release-head h2{font-size:1.25rem;margin:7px 0;color:#f8fafc}
 .release-head p{font-size:.91rem;line-height:1.65;color:#cbd5e1;max-width:790px}
 .feed-meta,.feed-state,.feed-note{font-size:.82rem;color:#cbd5e1;line-height:1.65}
@@ -55,7 +55,7 @@
 .feed-list{padding:0;list-style:none;margin:10px 0}
 .feed-list li{display:flex;align-items:baseline;gap:13px;border-bottom:1px solid #334155;padding:13px 0;line-height:1.45}
 .feed-list li:last-child{border:0}
-.feed-list .bank{font-size:.78rem;color:#a7f3d0;font-weight:740;white-space:nowrap;min-width:66px}
-.feed-list a,.feed-note a{color:#6ee7b7;text-decoration:underline;text-underline-offset:3px;font-size:.89rem}
+.feed-list .bank{font-size:.78rem;color:#bfdbfe;font-weight:740;white-space:nowrap;min-width:66px}
+.feed-list a,.feed-note a{color:#93c5fd;text-decoration:underline;text-underline-offset:3px;font-size:.89rem}
 @media(max-width:600px){.release-feed{padding:14px}.feed-list li{display:block;padding:12px 0}.feed-list .bank{display:block;margin-bottom:4px}}
 </style>

@@ -26,5 +26,5 @@
  <p class="small">Google shares your basic profile and email with Supabase to authenticate your account. We do not request access to Gmail or Google Drive. <a href="/privacy/">Privacy policy</a></p>
 </div>
 <style>
-.login{max-width:640px;margin:15px auto;padding:26px;border:1px solid #475569;border-radius:14px;background:#111c30;color:#e2e8f0}.login p,.login li{line-height:1.7}.login a{color:#6ee7b7}.login button{padding:13px 22px;background:#fff;color:#172033;border:1px solid #94a3b8;border-radius:8px;font-weight:700;cursor:pointer}.small{font-size:.83rem}.notice{padding:14px;border:1px solid #94a3b8;border-radius:8px}:global(html[data-theme='light']) .login{background:#fff;color:#102033;border-color:#cbd5e1}:global(html[data-theme='light']) .login a{color:#065f46}
+.login{max-width:640px;margin:15px auto;padding:26px;border:1px solid #475569;border-radius:14px;background:#111c30;color:#e2e8f0}.login p,.login li{line-height:1.7}.login a{color:#93c5fd}.login button{padding:13px 22px;background:#fff;color:#172033;border:1px solid #94a3b8;border-radius:8px;font-weight:700;cursor:pointer}.small{font-size:.83rem}.notice{padding:14px;border:1px solid #94a3b8;border-radius:8px}:global(html[data-theme='light']) .login{background:#fff;color:#102033;border-color:#cbd5e1}:global(html[data-theme='light']) .login a{color:#1d4ed8}
 </style>

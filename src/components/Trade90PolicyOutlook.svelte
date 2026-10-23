@@ -1,50 +1,122 @@
 <script>
  import {onMount} from 'svelte';
  export let initialData; export let symbol;
- let data=initialData;let now=Date.now();
+ let data=initialData,now=Date.now();
  $: result=data?.pairs?.[symbol];
  $: expired=!Number.isFinite(Date.parse(result?.expiresAt))||now>=Date.parse(result.expiresAt);
  $: state=expired?'unavailable':result?.state||'unavailable';
- $: tone=expired?'neutral':result?.tone||'neutral';
- $: banks=result?[data.banks[result.base],data.banks[result.quote]]:[];
- const names={widening:'Gap expected to widen — bias',narrowing:'Gap expected to narrow — bias',unchanged:'Broadly unchanged — bias',unclear:'Direction uncertain',unavailable:'Insufficient current evidence'};
- const format=v=>Number.isFinite(v)?v.toFixed(2)+'%':'Unavailable';
- const period=(p,f)=>f==='Quarterly'?`${p.date.slice(0,4)} Q${Math.floor((Number(p.date.slice(5,7))-1)/3)+1}`:p.date.slice(0,7);
- onMount(()=>{now=Date.now();const timer=setInterval(()=>now=Date.now(),60000);return ()=>clearInterval(timer);});
+ $: banks=result?[data?.banks?.[result.base],data?.banks?.[result.quote]]:[];
+ const names={widening:'Rate gap may widen',narrowing:'Rate gap may narrow',unchanged:'Broadly unchanged bias',unclear:'Direction remains uncertain',unavailable:'Current outlook unavailable'};
+ const labels={widening:'Widening bias',narrowing:'Narrowing bias',unchanged:'Unchanged bias',unclear:'Uncertain',unavailable:'Unavailable'};
+ const rate=value=>Number.isFinite(value)?value.toFixed(2)+'%':'Unavailable';
+ const bp=value=>Number.isFinite(value)?(value>0?'+':'')+Number((value*100).toFixed(2))+' bp':'Unavailable';
+ const when=value=>value?value.replace('T',' ').slice(0,16)+' UTC':'Unavailable';
+ const period=(point,frequency)=>!point?'—':frequency==='Quarterly'?point.date.slice(0,4)+' Q'+(Math.floor((Number(point.date.slice(5,7))-1)/3)+1):point.date.slice(0,7);
+ onMount(()=>{now=Date.now();const timer=setInterval(()=>now=Date.now(),300000);return ()=>clearInterval(timer);});
 </script>
 <div class="outlook">
- <span class="eyebrow">TRADE90 RESEARCH · EXPERIMENTAL MODEL {data?.modelVersion}</span>
- <h2>Policy Divergence Outlook</h2>
- <p>Next 90 days · Economic evidence and official central-bank guidance</p>
- <div class="verdict" class:positive={tone==='positive'} class:negative={tone==='negative'}><span aria-hidden="true">{tone==='positive'?'↑':tone==='negative'?'↓':state==='unchanged'?'→':'—'}</span><strong>{names[state]}</strong></div>
- <p>{expired?'This assessment has expired. Current inputs and policy guidance are required before showing a directional outlook.':result?.reason}</p>
- <div class="reading">
-  <p><strong>Current signed gap:</strong> {Number.isFinite(result?.signedGap)?`${result.signedGap>0?'+':''}${result.signedGap.toFixed(2)} percentage points`:'Unavailable'} ({result?.base} minus {result?.quote})</p>
-  <p><strong>Higher-rate currency:</strong> {result?.higher||'Unavailable'}</p>
-  <p><strong>Expected signed-gap movement:</strong> {expired?'Unavailable':result?.signedDirection}</p>
+ <div class="heading">
+  <div>
+   <span class="eyebrow">TRADE90 POLICY RESEARCH · EXPERIMENTAL {data?.modelVersion}</span>
+   <h2>{result?.base}/{result?.quote} Policy Divergence Outlook</h2>
+   <p>Conditional 90-day assessment · Official economic data and central-bank statements</p>
+  </div>
+  <a class="method-link" href="/policy-model/">Model methodology ↗</a>
  </div>
- <p class="legend">Green: the signed rate gap moves towards {result?.base}. Red: towards {result?.quote}. Grey: no supported direction. Colours describe policy rates, not exchange-rate forecasts or trade instructions.</p>
- <div class="banks">{#each banks as bank}{#if bank}<article>
-  <h3>{bank.currency}<span>{expired?'Assessment expired':bank.label}</span></h3>
-  <p><strong>Economic pressure:</strong> {bank.economicPressure}</p>
-  <p class="meta">Current input coverage: {bank.coverage?.filter(c=>c.usable).length||0}/{bank.coverage?.length||4} required series · Predictive accuracy not yet established</p>
-  {#if bank.framework}<p class="meta"><a href={bank.framework.source} target="_blank" rel="noopener noreferrer">Policy objective ↗</a>: {bank.framework.description}. An inflation objective is not a mechanical rate trigger.</p>{/if}
-  {#if bank.reasons?.length}<ul>{#each bank.reasons as reason}<li>{reason}</li>{/each}</ul>{/if}
-  {#each bank.drivers||[] as driver}<div class="driver"><strong>{driver.metric}: {driver.text}</strong><p>{format(driver.previous.value)} ({period(driver.previous,driver.frequency)}) → {format(driver.latest.value)} ({period(driver.latest,driver.frequency)}) · <a href={driver.source} target="_blank" rel="noopener noreferrer">Source ↗</a></p></div>{/each}
-  {#if bank.guidance}<div class="driver"><strong>Official policy context</strong><p>{bank.guidance.guidance}</p>{#if bank.guidance.assessment}<p>{bank.guidance.assessment.rationale}</p>{/if}<p class="meta">Published {bank.guidance.publishedDate} · Interpretation reviewed {bank.guidance.assessment?.reviewedAt||'Unavailable'} · <a href={bank.guidance.source} target="_blank" rel="noopener noreferrer">Original statement ↗</a></p></div>{/if}
-  {#if bank.cautions?.length}<details><summary>Counter-evidence & limitations</summary><ul>{#each bank.cautions as caution}<li>{caution}</li>{/each}</ul></details>{/if}
-  <p class="watch"><strong>What could change this?</strong> {bank.watch}</p>
- </article>{/if}{/each}</div>
- <details><summary>How to read this research</summary>
- <p>The model assesses the absolute policy-rate gap; the colour describes movement in the signed first-currency-minus-second-currency gap. A negative gap widening is red; a negative gap narrowing is green. Equal rates can diverge in either direction. Narrowing could eventually cross zero, so the higher-rate currency may reverse.</p>
- <p>Hike-or-hold and cut-or-hold are conditional biases, not promises. An unchanged gap remains possible. If both banks lean the same way, the gap remains uncertain because the relative timing and size of changes are unknown.</p>
- <p>Official inflation objectives, headline and underlying inflation, jobs, growth and reviewed policy statements inform this research. Headlines and risk sentiment are not scored directly. Their expected economic effects can be reflected in official guidance before appearing in released data.</p>
- <p>No numerical future rate gap, probabilities, market-pricing comparison or trading recommendations. Thresholds remain uncalibrated. Wages and a complete set of central-bank forecasts are not included. Underlying inflation measures differ across countries.</p>
- <p>Macro inputs refresh daily. Policy interpretations are dated and expire; discovery of a new publication does not automatically validate an interpretation. Freshness limits cannot guarantee that every newest release has been captured.</p>
- <a href="/policy-model/">Full model rules, sources and version history →</a>
+ <div class="verdict" class:wide={state==='widening'} class:narrow={state==='narrowing'} class:uncertain={state==='unclear'||state==='unavailable'}>
+  <div class="verdict-top"><div><span class="eyebrow">90-DAY RATE DIFFERENCE</span><h3>{names[state]}</h3></div><span class="state-label">{labels[state]}</span></div>
+  <p class="reason">{expired?'This assessment has expired. Updated inputs and reviewed bank guidance are required before showing a direction.':result?.reason||'Not enough current information to evaluate relative policy changes.'}</p>
+  <div class="metrics">
+   <div><span>Official rate gap today</span><strong>{bp(result?.signedGap)}</strong><small>{result?.base} minus {result?.quote}</small></div>
+   <div><span>Higher current benchmark</span><strong>{result?.higher||'Unavailable'}</strong><small>Selected central-bank rates</small></div>
+   <div><span>Gap movement</span><strong>{expired?'Unavailable':state==='widening'?'Possibly wider':state==='narrowing'?'Possibly narrower':state==='unchanged'?'Broadly stable':'Unresolved'}</strong><small>Direction only · no rate-size estimate</small></div>
+  </div>
+ </div>
+ <div class="interpretation">
+  <strong>How to interpret this result</strong>
+  {#if !expired && (state==='widening'||state==='narrowing')}
+   <p>The model compares the two banks' policy biases. It suggests the <b>absolute difference between policy rates</b> may {state==='widening'?'increase':'decrease'} over 90 days. {result?.signedDirection}. Either bank may still hold; the model cannot estimate how many basis points the rates would change.</p>
+  {:else if !expired && state==='unchanged'}
+   <p>Both banks have supported conditional hold baselines. This does not guarantee that either policy rate will stay unchanged.</p>
+  {:else}
+   <p>The available evidence does not support a reliable relative direction. That is a research finding, not a missing buy/sell signal.</p>
+  {/if}
+  <p class="no-price">This is <b>not</b> a bullish or bearish forecast for {result?.base}/{result?.quote}, a prediction of FX returns or a broker swap-rate estimate.</p>
+ </div>
+ <div class="bank-grid">
+  {#each banks as bank}
+   {#if bank}
+    <article class="bank">
+     <div class="bank-title"><h3>{bank.currency} <span>Central-bank outlook</span></h3><strong class="bank-label">{expired?'Expired':bank.label}</strong></div>
+     <p><b>Economic pressure:</b> {bank.economicPressure}</p>
+     <p class="coverage">Validated input coverage: {bank.coverage?.filter(c=>c.usable).length||0}/{bank.coverage?.length||4} series · Predictive accuracy not yet established</p>
+     {#if bank.reasons?.length}<p class="caution">{bank.reasons.join(' · ')}</p>{/if}
+     <div class="drivers">
+      <h4>Evidence currently evaluated</h4>
+      {#each bank.drivers||[] as driver}
+       <div class="driver">
+        <div class="driver-line"><strong>{driver.metric}</strong><span>{driver.text}</span></div>
+        <p>{rate(driver.previous?.value)} ({period(driver.previous,driver.frequency)}) → {rate(driver.latest?.value)} ({period(driver.latest,driver.frequency)}) · <a href={driver.source} target="_blank" rel="noopener noreferrer">Source ↗</a></p>
+       </div>
+      {/each}
+     </div>
+     <div class="watch"><b>What could change the outlook?</b><p>{bank.watch}</p></div>
+     <details class="evidence">
+      <summary>Official guidance, opposing evidence &amp; input details</summary>
+      {#if bank.framework}<p><b>Inflation objective:</b> {bank.framework.description}. <a href={bank.framework.source} target="_blank" rel="noopener noreferrer">Official framework ↗</a></p>{/if}
+      {#if bank.guidance}<p><b>Central-bank statement:</b> {bank.guidance.guidance} <a href={bank.guidance.source} target="_blank" rel="noopener noreferrer">Original statement ↗</a></p><p class="meta">Published {bank.guidance.publishedDate} · Review {bank.guidance.assessment?.reviewedAt||'Unavailable'}</p>{/if}
+      {#if bank.cautions?.length}<ul>{#each bank.cautions as note}<li>{note}</li>{/each}</ul>{/if}
+     </details>
+    </article>
+   {/if}
+  {/each}
+ </div>
+ <details class="about">
+  <summary>What is included, what is missing, and how to read the rate gap</summary>
+  <p>The current rules evaluate headline and underlying inflation, unemployment, GDP and source-reviewed central-bank guidance. The inflation measures are not always the same as each bank's preferred policy measure.</p>
+  <p>Wage growth, inflation expectations, services inflation, policy projections, credit conditions and market-implied policy paths are not yet scored. The current thresholds have not been calibrated against historical forecast outcomes.</p>
+  <p>Rates are compared as base minus quote; a negative signed gap can become more negative even when the absolute gap widens. Widening or narrowing should never be interpreted as an FX buy/sell signal. If both banks have similar directional biases, timing and move sizes may make the relative gap uncertain. <a href="/policy-model/">Read the complete model rules and limitations ↗</a></p>
  </details>
- <p class="meta">Model run: {data?.generatedAt?.replace('T',' ').slice(0,19)} UTC · Valid until {result?.expiresAt?.replace('T',' ').slice(0,19)} UTC · <a href="/data/policy-outlook-history.json">Recorded assessments</a></p>
+ <p class="meta bottom">Model generated {when(data?.generatedAt)} · Valid until {when(result?.expiresAt)} · <a href="/data/policy-outlook-history.json">Historical assessment archive ↗</a></p>
 </div>
 <style>
-.outlook{padding:24px;color:var(--ink);background:var(--surface)}.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.08em;color:var(--blue)}h2{margin:8px 0;font-size:1.5rem}p{font-size:.9rem;line-height:1.65;color:var(--muted);margin:8px 0}.verdict{display:flex;align-items:center;gap:12px;font-size:1.5rem;padding:17px 0;color:var(--ink)}.verdict>span{font-size:2rem}.positive{color:#047857}.negative{color:#b91c1c}.meta,.legend{font-size:.78rem}.reading{border:1px solid var(--line);border-radius:8px;padding:12px 16px}.banks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}article{padding:18px;border:1px solid var(--line);border-radius:10px;background:var(--soft);min-width:0}h3{font-size:1.05rem;margin:0 0 12px}h3 span{display:block;font-size:.9rem;color:var(--ink);margin-top:5px}.driver{border-top:1px solid var(--line);padding:10px 0}.driver strong{font-size:.85rem}.driver p,li{font-size:.8rem}ul{padding-left:18px;color:var(--muted)}summary{cursor:pointer;font-weight:650;padding:8px 0}a{color:var(--blue)}.watch{border-top:1px solid var(--line);padding-top:12px}:global(html[data-theme='dark']) .positive{color:#6ee7b7}:global(html[data-theme='dark']) .negative{color:#fca5a5}@media(max-width:650px){.outlook{padding:16px}.banks{grid-template-columns:1fr}.verdict{font-size:1.2rem}.reading{padding:10px}.meta{overflow-wrap:anywhere}}
+.outlook{padding:22px;color:var(--ink);background:var(--surface);line-height:1.6}
+.heading,.verdict-top,.bank-title{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.heading h2{font-size:1.35rem;line-height:1.25;margin:6px 0}
+.heading p,.bank p,.interpretation p,.about p{color:var(--muted);font-size:.88rem;line-height:1.64}
+.eyebrow{font-size:.68rem;letter-spacing:.075em;font-weight:800;color:var(--blue)}
+.method-link{font-size:.78rem;white-space:nowrap;color:var(--blue)}
+.verdict{margin:18px 0 14px;border:1px solid var(--line);border-left:4px solid #64748b;background:var(--soft);padding:17px;border-radius:8px}
+.verdict.wide{border-left-color:#60a5fa}.verdict.narrow{border-left-color:#f59e0b}
+.verdict h3{font-size:clamp(1.26rem,3vw,1.75rem);letter-spacing:-.025em;margin:4px 0 2px;color:var(--ink)}
+.state-label{color:var(--ink);font-size:.75rem;font-weight:750;padding:5px 9px;border-radius:5px;border:1px solid var(--line);white-space:nowrap}
+.reason{font-size:.88rem;max-width:90ch;color:var(--muted);margin:8px 0 14px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.metrics>div{padding:12px;border:1px solid var(--line);border-radius:7px;min-width:0;background:var(--surface)}
+.metrics span,.metrics small{display:block;font-size:.72rem;color:var(--muted)}
+.metrics strong{display:block;font-size:1.04rem;font-weight:800;color:var(--ink);margin:4px 0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.interpretation{padding:8px 1px 14px}
+.interpretation>strong{font-size:.92rem;color:var(--ink)}
+.interpretation p{margin:7px 0}
+.no-price{padding-left:12px;border-left:2px solid var(--line)}
+.bank-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.bank{min-width:0;padding:15px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+.bank-title h3{font-size:1.06rem;margin:0;color:var(--ink)}
+.bank-title h3 span{display:block;font-size:.72rem;font-weight:500;color:var(--muted)}
+.bank-label{font-size:.78rem;color:var(--blue);text-align:right;max-width:46%}
+.bank p{margin:8px 0}.coverage,.meta{font-size:.74rem!important;color:var(--muted)}
+.caution{border-left:2px solid #f59e0b;padding-left:9px}
+.drivers{margin-top:12px}.drivers h4{font-size:.85rem;margin:0 0 5px}
+.driver{padding:9px 0;border-top:1px solid var(--line)}
+.driver-line{display:flex;flex-direction:column;gap:2px}
+.driver-line strong{font-size:.82rem}
+.driver-line span,.driver p{font-size:.76rem;color:var(--muted);margin:2px 0}
+.watch{margin:12px 0 4px;padding:10px 0;border-top:1px solid var(--line)}
+.watch b{font-size:.82rem}.watch p{margin:3px 0}
+.evidence,.about{border-top:1px solid var(--line);padding-top:7px;margin-top:10px}
+summary{cursor:pointer;font-size:.82rem;font-weight:720;color:var(--blue);padding:6px 0}
+a{color:var(--blue);text-underline-offset:3px}
+li{font-size:.8rem;line-height:1.65;color:var(--muted);margin:6px 0}
+.bottom{margin:14px 0 0}
+@media(max-width:650px){.outlook{padding:15px}.heading{flex-wrap:wrap}.heading h2{font-size:1.2rem}.metrics{grid-template-columns:1fr}.metrics>div{padding:10px}.bank-grid{grid-template-columns:1fr}.method-link{white-space:normal}.bank{padding:13px}.verdict{padding:13px}}
 </style>

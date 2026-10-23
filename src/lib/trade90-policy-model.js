@@ -9,12 +9,24 @@ export const changeSignal=(latest,prior,threshold)=>{
  const delta=round(latest-prior);
  return delta>=threshold?1:delta<=-threshold?-1:0;
 };
+export function observationPeriodEnd(series,point){
+ if(!point)return null;
+ if(point.periodEnd)return point.periodEnd;
+ if(series?.frequency!=='Quarterly')return point.date;
+ const date=new Date(`${point.date}T00:00:00Z`);
+ if(!Number.isFinite(date.getTime()))return point.date;
+ // Only derive period end from a standard first-day quarterly label.
+ // Non-standard observation dates must not receive an artificially extended validity.
+ if(date.getUTCDate()!==1||date.getUTCMonth()%3!==0)return point.date;
+ // Quarterly time-series label the FIRST day of a quarter, not the release/period end.
+ return new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth()+3,0)).toISOString().slice(0,10);
+}
 export function usableSeries(s,now){
  if(!s||s.status!=='ok'||!validAge(s.retrievedAt,7,now)||!['Monthly','Quarterly'].includes(s.frequency))return false;
  if(!Array.isArray(s.points)||s.points.length<4)return false;
  if(s.points.some((p,i)=>!Number.isFinite(p.value)||!Number.isFinite(Date.parse(p.date))||age(p.date,now)<0||(i&&p.date<=s.points[i-1].date)))return false;
  const p=s.points.at(-1);
- return validAge(p.periodEnd||p.date,s.frequency==='Quarterly'?210:100,now);
+ return validAge(observationPeriodEnd(s,p),s.frequency==='Quarterly'?210:100,now);
 }
 export function priorObservation(s,months){
  const d=new Date(s.points.at(-1).date+'T00:00:00Z');d.setUTCMonth(d.getUTCMonth()-months);
@@ -29,7 +41,7 @@ export function bankOutlook(currency,data,guidance,now=Date.now(),additional={})
  const required={inflation:['USD','AUD'].includes(currency)?extra.targetInflation:s.inflation,core:extra.coreInflation,unemployment:s.unemployment,gdp:s.gdp};
  for(const [key,series] of Object.entries(required)){
   const usable=usableSeries(series,now);
-  result.coverage.push({key,usable,latestDate:series?.points?.at(-1)?.date||null,retrievedAt:series?.retrievedAt||null,source:series?.sourceUrl||null});
+  result.coverage.push({key,usable,latestDate:series?.points?.at(-1)?.date||null,periodEnd:observationPeriodEnd(series,series?.points?.at(-1)),frequency:series?.frequency||null,retrievedAt:series?.retrievedAt||null,source:series?.sourceUrl||null});
   if(!usable)result.reasons.push(`${key}: missing, stale, invalid or refresh failed`);
  }
  if(!framework)result.reasons.push('Policy framework unavailable');

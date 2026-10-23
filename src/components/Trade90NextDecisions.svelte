@@ -38,23 +38,23 @@
 <style>
 .decision-watch{padding:22px 24px 24px;border-top:1px solid #334155;color:#e2e8f0}
 .watch-head{margin:0 0 14px}
-.eyebrow{text-transform:uppercase;letter-spacing:.09em;font-size:.66rem;font-weight:750;color:#34d399}
+.eyebrow{text-transform:uppercase;letter-spacing:.09em;font-size:.66rem;font-weight:750;color:#60a5fa}
 .watch-head h2{font-size:1.34rem;letter-spacing:-.025em;color:#f8fafc;margin:5px 0}
 .watch-head p{font-size:.82rem;color:#a5b4c8;max-width:780px;margin:4px 0}
 .watch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .watch-card{background:#111d2f;border:1px solid #334155;border-radius:12px;padding:17px;min-width:0}
 .watch-card-top{display:flex;justify-content:space-between;align-items:center;gap:9px}
-.watch-card-top strong{color:#d1fae5;font-size:.83rem}
-.watch-card-top span{font-size:.69rem;border:1px solid #147d60;background:#073a2f;color:#a7f3d0;border-radius:8px;padding:3px 7px}
+.watch-card-top strong{color:#dbeafe;font-size:.83rem}
+.watch-card-top span{font-size:.69rem;border:1px solid #147d60;background:#073a2f;color:#bfdbfe;border-radius:8px;padding:3px 7px}
 .watch-card-top .unconfirmed{background:#3b2a20;border-color:#88653f;color:#f9dcad}
 .event-date{font-weight:820;color:#f8fafc;font-size:1.6rem;letter-spacing:-.05em;margin:12px 0 0;line-height:1.25}
 .meeting-start,.missing-date{color:#94a3b8;font-size:.74rem;min-height:18px;margin:5px 0 13px}
 .missing-date{margin-top:15px}
 .watch-card h3{color:#e2e8f0;font-size:.91rem;margin:0 0 12px;font-weight:750}
-.watch-for{border-left:2px solid #10b981;padding:8px 11px;background:#182a3d;margin-bottom:14px}
+.watch-for{border-left:2px solid #3b82f6;padding:8px 11px;background:#182a3d;margin-bottom:14px}
 .watch-for strong{font-size:.73rem;color:#b5e9d8}
 .watch-for p{font-size:.76rem;color:#d0dce8;margin:4px 0 0}
-.watch-card a{font-size:.78rem;color:#6ee7b7;font-weight:700;text-underline-offset:3px}
+.watch-card a{font-size:.78rem;color:#93c5fd;font-weight:700;text-underline-offset:3px}
 .watch-note{color:#94a3b8;font-size:.73rem;line-height:1.55;margin:13px 0 0}
 @media(max-width:650px){.decision-watch{padding:18px 14px}.watch-grid{grid-template-columns:1fr}.watch-card{padding:15px}.event-date{font-size:1.38rem}.watch-head h2{font-size:1.2rem}}
 </style>

@@ -70,6 +70,8 @@ jobs:
         run: node tests/indexnow.mjs
       - name: Verify forex and gold position sizing risk calculations
         run: node tests/trade90-position-size.mjs
+      - name: Verify policy forecast rules and quarterly freshness
+        run: node tests/policy-model.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes
@@ -89,9 +91,9 @@ jobs:
           test -f dist/data-policy/index.html
           test -f dist/tools/index.html
           test -f dist/tools/position-size-calculator/index.html
-          grep -q 'Know Your Risk Before You Trade' dist/tools/position-size-calculator/index.html
-          grep -q 'Compare central-bank rates' dist/index.html
-          grep -q 'EUR/USD Interest Rate Gap' dist/pairs/eur-usd/index.html
+          grep -q 'Position Size Calculator' dist/tools/position-size-calculator/index.html
+          grep -q 'Your daily' dist/index.html
+          grep -q 'EUR/USD Fundamental Analysis' dist/pairs/eur-usd/index.html
           grep -q 'Next Major Decisions to Watch' dist/pairs/eur-usd/index.html
           grep -q 'Central Bank Policy Updates' dist/central-banks/index.html
       - name: Audit SEO and static V3 routes

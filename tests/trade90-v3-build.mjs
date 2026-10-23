@@ -4,7 +4,8 @@ import {allTrade90Pairs,pairSlug,rateSnapshot} from "../src/lib/trade90-v3.js";
 const builtRoot=new URL("../dist/",import.meta.url);
 const read=path=>readFileSync(new URL(path,builtRoot),"utf8");
 const home=read("index.html");
-assert.match(home,/<h1[^>]*>Compare central-bank rates/);
+assert.match(home,/Your daily/);
+assert.match(home,/central-bank research routine\./);
 assert.match(home,/href="\/pairs\/eur-usd\/"/,"Homepage should link to most requested pair");
 assert.doesNotMatch(home,/Most Important Divergences for Forex Traders Right Now/,"Old V2 homepage has been retired");
 assert.match(home,/https:\/\/tradeninety\.com\/og-v3\.svg/);
@@ -22,7 +23,7 @@ for(const pair of allTrade90Pairs){
  const path="pairs/"+slug+"/index.html";
  assert.ok(existsSync(new URL(path,builtRoot)),path+" is not a generated route");
  const html=read(path);
- assert.ok(html.includes(pair.label+" Interest Rate Gap"),"Missing unique pair heading for "+slug);
+ assert.ok(html.includes(pair.label+" Fundamental Analysis"),"Missing unique pair heading for "+slug);
  assert.ok(html.includes('https://tradeninety.com/pairs/'+slug+'/'),"Wrong canonical for "+slug);
  assert.ok(html.includes("Next Major Decisions to Watch"),"Missing bank decision watch for "+slug);
  assert.ok(html.includes("What the "+pair.label+" Policy-Rate Gap Means"),"Missing indexable pair context for "+slug);

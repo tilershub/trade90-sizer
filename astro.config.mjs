@@ -13,7 +13,7 @@ export default defineConfig({
       filter: (page) => {
         const path = new URL(page).pathname;
         // Keep error/retired routes out of the sitemap even if generated.
-        return !/^\/(?:404\/?)$/.test(path) &&
+        return !/^\/(?:404\/?|sign-in\/?)$/.test(path) &&
           !/^\/(?:calculator|research)\//.test(path);
       },
       serialize(item) {
