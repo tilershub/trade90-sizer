@@ -37,7 +37,15 @@
     || (b.expectedAbsBp??Math.abs(b.currentSignedBp))-(a.expectedAbsBp??Math.abs(a.currentSignedBp))
     || a.symbol.localeCompare(b.symbol)) : [];
   $: revisions = latest ? getExpectedChanges(latest,history,policyBanks,horizon,period) : null;
-  $: selected = selectedPair ? HORIZONS.map(h => getExpectedRows(latest,policyBanks,h).rows.find(r => r.symbol===selectedPair.symbol)) : [];
+  $: selected = selectedPair ? HORIZONS.map(h => ({...getExpectedRows(latest,policyBanks,h).rows.find(r => r.symbol===selectedPair.symbol),horizon:h})) : [];
+  $: visiblePairs = sorted.filter(row => row.available);
+  $: visibleSelected = selected.filter(row => row?.available);
+  $: pairDataAvailable = visibleSelected.length > 0;
+  const researchLinks = {
+    AUD: {title:"ASX RBA Rate Tracker",url:"https://www.asx.com.au/markets/trade-our-derivatives-market/futures-market/rba-rate-tracker"},
+    CHF: {title:"SIX SARON benchmark",url:"https://www.six-group.com/en/market-data/indices/switzerland/saron.html"}
+  };
+  $: selectedResearchLinks = selectedPair ? [selectedPair.base, selectedPair.quote].map(c => researchLinks[c]).filter(Boolean) : [];
 
 </script>
 
@@ -60,11 +68,18 @@
     {:else}
       <p class="updated">{curves?.health?.reason || "No verified forward dataset"}. Showing sourced policy outlook reports elsewhere in this section.</p>
     {/if}
+    {#if visiblePairs.length === 0}
+      <div class="market-empty" role="status">
+        <strong>No publishable market-implied rate paths</strong>
+        <p>TRADE90 has not connected a verified source with public-display rights for comparable 3M, 6M and 12M policy levels. This does not mean expectations are unchanged or zero.</p>
+        <p>Until comparable data is licensed and validated, explore the <a href="/pairs/">independent 90-day policy outlooks for 28 pairs →</a></p>
+      </div>
+    {:else}
     <div class="tablewrap">
-      <table aria-label="Expected interest-rate gaps across 28 pairs">
+      <table aria-label="Expected interest-rate gaps across covered pairs">
         <thead><tr><th>Pair</th><th class="right">Current signed gap</th><th class="right">Expected {horizon} gap</th><th class="right">Change vs current</th><th>Gap outlook</th></tr></thead>
         <tbody>
-          {#each sorted as row (row.symbol)}
+          {#each visiblePairs as row (row.symbol)}
             <tr>
               <td><button class="pairbutton" on:click={() => onPairSelect(row.symbol)}>{row.base}/{row.quote}</button></td>
               <td class="right">{showSigned(row.currentSignedBp)} bp</td>
@@ -76,6 +91,7 @@
         </tbody>
       </table>
     </div>
+    {/if}
     <p class="disclaimer">The expected values, when available, reflect licensed source methodology and observation times. Current gaps use official policy benchmarks; the difference from current is not a forecast of currency performance.</p>
   {:else if mode === "changes"}
     <div class="forward-head">
@@ -96,14 +112,27 @@
       <p class="status">{revisions?.reason || "Historical implied rates have not yet been captured for this period."} Dated published repricing reports remain available above.</p>
     {/if}
   {:else if mode === "pair"}
-    <div class="forward-head"><div><strong>Market-implied gap path · {selectedPair?.label}</strong><p>Each horizon is calculated from matching market-implied policy levels for both currencies.</p></div></div>
-    <div class="tablewrap"><table aria-label="Pair forward-rate path">
-      <thead><tr><th>Horizon</th><th class="right">Base implied rate</th><th class="right">Quote implied rate</th><th class="right">Expected signed gap</th><th>Source</th></tr></thead>
-      <tbody>{#each HORIZONS as h,i}
-      <tr><td>{h}</td><td class="right">{selected[i]?.available ? selected[i].baseForwardPct.toFixed(3)+"%" : "—"}</td><td class="right">{selected[i]?.available ? selected[i].quoteForwardPct.toFixed(3)+"%" : "—"}</td><td class="right value">{selected[i]?.available ? showSigned(selected[i].expectedSignedBp)+" bp" : "Not available"}</td><td>{#if selected[i]?.available}<a href={selected[i].sourceBase} target="_blank" rel="noopener noreferrer">Base ↗</a> · <a href={selected[i].sourceQuote} target="_blank" rel="noopener noreferrer">Quote ↗</a>{:else}—{/if}</td></tr>
-      {/each}</tbody>
-    </table></div>
-    <p class="disclaimer">Source-aligned policy-level estimates are not guaranteed outcomes. Rates may change after economic releases; this display is not a trade recommendation.</p>
+    {#if !pairDataAvailable}
+      <div class="market-empty" role="status">
+        <strong>Market pricing: {curves?.health?.valid ? "Pair-level quotes unavailable" : "Feed not connected"}</strong>
+        <p>TRADE90 cannot currently display verified 3M, 6M or 12M market-implied policy-rate differences for <b>{selectedPair?.label}</b>. Comparable forward curves for both currencies, timestamp alignment and public-display rights are required.</p>
+        <p>The <a href="#policy-outlook">90-day economic policy assessment ↑</a> is available separately above. It indicates a conditional direction, not a numerical market-implied rate path. <a href="#decisions">View upcoming central-bank decisions →</a></p>
+        {#if selectedResearchLinks.length}
+          <p class="external-links">Independent market references (not a calculated pair forecast):
+            {#each selectedResearchLinks as link}<a href={link.url} target="_blank" rel="noopener noreferrer">{link.title} ↗</a>{/each}
+          </p>
+        {/if}
+      </div>
+    {:else}
+      <div class="forward-head"><div><strong>Verified market-implied gap path · {selectedPair?.label}</strong><p>Only matched, licensed source observations are displayed. Missing horizons are omitted.</p></div></div>
+      <div class="tablewrap"><table aria-label="Pair forward-rate path">
+        <thead><tr><th>Horizon</th><th class="right">Base implied rate</th><th class="right">Quote implied rate</th><th class="right">Expected signed gap</th><th>Source</th></tr></thead>
+        <tbody>{#each visibleSelected as row}
+        <tr><td>{row.horizon}</td><td class="right">{row.baseForwardPct.toFixed(3)}%</td><td class="right">{row.quoteForwardPct.toFixed(3)}%</td><td class="right value">{showSigned(row.expectedSignedBp)} bp</td><td><a href={row.sourceBase} target="_blank" rel="noopener noreferrer">Base ↗</a> · <a href={row.sourceQuote} target="_blank" rel="noopener noreferrer">Quote ↗</a></td></tr>
+        {/each}</tbody>
+      </table></div>
+      <p class="disclaimer">Provider: {latest?.provider} · Observed: {dateLabel(latest?.observedAt)}. This is market-implied policy pricing, not a forecast of FX returns or a trading recommendation.</p>
+    {/if}
   {/if}
 </div>
 <style>
@@ -111,6 +140,12 @@
 .forward-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin:0 0 10px}
 .forward-head strong{font-size:1.02rem;color:#f8fafc}
 .forward-head p{font-size:.78rem;color:#94a3b8;margin:5px 0;max-width:720px}
+ .market-empty{padding:16px;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--ink)}
+.market-empty strong{display:block;font-size:.98rem;color:var(--ink)}
+.market-empty p{max-width:76ch;color:var(--muted);font-size:.87rem;line-height:1.65;margin:8px 0}
+.market-empty a{color:var(--blue);text-underline-offset:3px}
+.market-empty .external-links{font-size:.8rem;border-top:1px solid var(--line);padding-top:10px;margin-top:13px}
+.market-empty .external-links a{display:inline-block;margin:3px 12px 0 0}
 .status{border:1px solid #385166;background:#172538;padding:13px;border-radius:9px;color:#cbd5e1;font-size:.83rem}
 .state-ok{background:#1e40af;color:#bfdbfe;border:1px solid #3b82f6;padding:6px 10px;border-radius:9px;white-space:nowrap;font-size:.73rem}
 .state-muted{color:#f5dbaa;border:1px solid #755426;background:#37291c;padding:6px 10px;border-radius:9px;white-space:nowrap;font-size:.73rem}
