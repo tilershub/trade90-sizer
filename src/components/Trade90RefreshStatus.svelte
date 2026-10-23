@@ -78,5 +78,14 @@
  .manual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}.manual-grid p{margin:5px 0}
  .manual-grid b{color:var(--ink)}.attention{border-left:3px solid #d97706;padding:9px 13px}
  .audit .fine{font-size:.77rem;line-height:1.5}
+ :global(html[data-theme="light"]) .audit{background:#fff;color:#0f172a;border-color:#cbd5e1}
+ :global(html[data-theme="light"]) .audit-grid>div{background:#f8fafc;border-color:#cbd5e1}
+ :global(html[data-theme="light"]) .audit h2,:global(html[data-theme="light"]) .audit h3,
+ :global(html[data-theme="light"]) .audit-grid strong,:global(html[data-theme="light"]) .manual-grid b,
+ :global(html[data-theme="light"]) .compact b{color:#0f172a}
+ :global(html[data-theme="light"]) .audit p,:global(html[data-theme="light"]) .audit time,
+ :global(html[data-theme="light"]) .compact{color:#475569}
+ :global(html[data-theme="light"]) .audit a,:global(html[data-theme="light"]) .compact a{color:#1d4ed8}
+ :global(html[data-theme="light"]) .audit .attention{border-left-color:#d97706}
  @media(max-width:700px){.audit{padding:14px}.audit-grid,.manual-grid{grid-template-columns:1fr}}
 </style>
