@@ -57,7 +57,7 @@ The null above is a FIELD PLACEHOLDER, not publishable. Values must come from re
 7. Revalidate that expired or missing data is labelled; do not silently fall back to old forecasts. Correct source/licensing mappings are a precondition for public rate values.
 
 ## Known limitations
-- Without a redisplay-licensed feed, Expected Rate Gaps shows authentic source-linked reported outlooks and all 28 pair placeholders with explicit availability, NOT fabricated future values.
+- Without a redisplay-licensed feed, the pair and cross-pair expected-rate widgets show a concise, honest availability explanation instead of a full table of empty placeholders. Pair pages link to the separate 90-day macro policy-divergence model and bank decision calendar. A partially available feed displays only validated currency pairs or horizons; missing values never become zero.
 - A 24h/7d date comparison is not a causality claim. CPI, employment, and monetary statements require their own sources before connecting any narrative to derivatives repricing.
 - Snapshot history in this implementation is committed through a controlled publishing step. A production-grade vendor integration should store many immutable measurements securely in a database/data lake, publish only a sanitized latest snapshot, and record source failures and validation alerts.
 - Each country's overnight index, policy-rate target, rate-range midpoint, settlement conventions and risk premiums can differ. Do not compare unadjusted overnight swap yields as future TARGET policy rates.
