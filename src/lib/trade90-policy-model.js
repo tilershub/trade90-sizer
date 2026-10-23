@@ -1,5 +1,5 @@
 import {policyFrameworks} from '../data/trade90-policy-frameworks.js';
-export const MODEL_VERSION='2.0.0';
+export const MODEL_VERSION='2.0.1';
 const DAY=86400000;
 const age=(v,now)=>(now-Date.parse(v))/DAY;
 const validAge=(v,max,now)=>Number.isFinite(age(v,now))&&age(v,now)>=0&&age(v,now)<=max;
