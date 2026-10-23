@@ -12,6 +12,7 @@ on:
       - ".github/workflows/daily-refresh-audit.yml"
 permissions:
   contents: write
+  issues: write
 concurrency:
   group: trade90-data-publication
   cancel-in-progress: false
@@ -42,6 +43,18 @@ jobs:
             git commit -m 'data: publish daily research freshness audit'
             git pull --rebase origin main
             git push origin HEAD:main
+          fi
+      - name: Open one review issue when stale or incomplete sources are detected
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT=$(node -e "const r=require('./public/data/refresh-status.json');console.log(r.warnings.length)")
+          if [ "$COUNT" -gt 0 ]; then
+            EXISTING=$(gh issue list --state open --search '"TRADE90 daily freshness needs review" in:title' --json number --jq 'length' 2>/dev/null || echo 1)
+            if [ "$EXISTING" = "0" ]; then
+              node -e "const fs=require('fs');const r=require('./public/data/refresh-status.json');fs.writeFileSync('/tmp/trade90-freshness-warnings.md','Daily data freshness audit '+r.auditedAt+' (UTC). Original manual review dates were not changed.\\n\\n'+r.warnings.map(w=>'- **'+w.category+'**: '+w.reason+' ['+w.status+']').join('\\n')+'\\n\\nCheck official bank sources and correct validated inputs before updating editorial review dates.');"
+              gh issue create --title "TRADE90 daily freshness needs review" --body-file /tmp/trade90-freshness-warnings.md || true
+            fi
           fi
       - name: Flag outdated curated research without changing its original review dates
         env:
