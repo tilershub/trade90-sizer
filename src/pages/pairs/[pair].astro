@@ -55,7 +55,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
   <section class="section" id="guidance"><PairGuidance pair={pair}/></section>
   <section class="section" id="updates"><PolicyUpdates pair={pair}/></section>
   <section class="section" id="official-releases"><OfficialPublications client:visible pair={pair}/></section>
-  <OfficialReleaseFeed client:load pair={pair} limit={5}/>
+  <OfficialReleaseFeed client:visible pair={pair} limit={5}/>
   <section class="section article-section" id="explanation">
    <div class="eyebrow">Interpretation &amp; sources</div><h2>What the {pair.label} Policy-Rate Gap Means</h2>
    <p>{explanation.summary}</p>
