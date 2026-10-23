@@ -15,6 +15,9 @@ export function observationPeriodEnd(series,point){
  if(series?.frequency!=='Quarterly')return point.date;
  const date=new Date(`${point.date}T00:00:00Z`);
  if(!Number.isFinite(date.getTime()))return point.date;
+ // Only derive period end from a standard first-day quarterly label.
+ // Non-standard observation dates must not receive an artificially extended validity.
+ if(date.getUTCDate()!==1||date.getUTCMonth()%3!==0)return point.date;
  // Quarterly time-series label the FIRST day of a quarter, not the release/period end.
  return new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth()+3,0)).toISOString().slice(0,10);
 }
