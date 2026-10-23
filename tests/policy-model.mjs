@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {bankOutlook,pairOutlook,changeSignal,usableSeries} from '../src/lib/trade90-policy-model.js';
+import {bankOutlook,pairOutlook,changeSignal,usableSeries,observationPeriodEnd} from '../src/lib/trade90-policy-model.js';
 const now=Date.parse('2026-10-20T00:00:00Z');
 assert.equal(changeSignal(3.3,3,.3),1);
 assert.equal(changeSignal(6.4,6.6,.2),-1);
@@ -55,4 +55,10 @@ const superseded=structuredClone(low);superseded.guidance.CHF.latestDecisionDate
 const bad=monthly([1,2,3,4]);bad.points[1].value=NaN;assert.equal(usableSeries(bad,now),false);
 const dup=monthly([1,2,3,4]);dup.points[1].date=dup.points[0].date;assert.equal(usableSeries(dup,now),false);
 const usd=bankOutlook('USD',{countries:{USD:low.data.countries.CHF}},{},now,{});assert.equal(usd.state,'unavailable','US cannot substitute CPI for missing PCE');
+const quarter={frequency:'Quarterly',status:'ok',retrievedAt:'2026-10-19',points:[{date:'2025-07-01',value:1},{date:'2025-10-01',value:1},{date:'2026-01-01',value:1},{date:'2026-04-01',value:1}]};
+assert.equal(observationPeriodEnd(quarter,quarter.points.at(-1)),'2026-06-30');
+assert.equal(usableSeries(quarter,now),true,'Completed Q2 data remains current in October when checked by period end');
+quarter.retrievedAt='2027-02-01';
+assert.equal(usableSeries(quarter,Date.parse('2027-02-01T00:00:00Z')),false,'Quarterly data expires after period end');
+assert.equal(observationPeriodEnd({frequency:'Quarterly'},{date:'2026-01-01',periodEnd:'2026-03-31'}),'2026-03-31');
 console.log('Policy v2: thresholds, four colours, reversal, uncertainty, policy context and input validation passed');
