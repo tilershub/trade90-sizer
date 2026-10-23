@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
-  "auditedAt": "2026-10-23T03:25:12.165Z",
+  "auditedAt": "2026-10-23T12:41:47.225Z",
   "disclaimer": "Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.",
   "categories": {
     "macro": {
-      "checkedAt": "2026-10-22T10:37:33.881917+00:00",
+      "checkedAt": "2026-10-23T10:29:41.906358+00:00",
       "okCount": 24,
       "total": 24,
       "status": "checked"
     },
     "extra": {
-      "checkedAt": "2026-10-22T10:37:35.430888+00:00",
+      "checkedAt": "2026-10-23T10:29:43.508075+00:00",
       "okCount": 10,
       "total": 10,
       "status": "checked"
     },
     "sourceDiscovery": {
-      "checkedAt": "2026-10-22T07:41:34.364Z",
+      "checkedAt": "2026-10-23T07:39:07.438Z",
       "okCount": 8,
       "total": 8,
       "status": "checked"
@@ -28,7 +28,7 @@
       "status": "partial"
     },
     "model": {
-      "generatedAt": "2026-10-23T01:36:04.093Z",
+      "generatedAt": "2026-10-23T10:29:43.702Z",
       "activePairs": 28,
       "totalPairs": 28,
       "status": "checked"
