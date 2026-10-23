@@ -28,7 +28,16 @@ const rate=(code)=>snapshot.banks.find(b=>b.code===code).rate;
   await page.locator('#trade90-pair-results a[href="/pairs/eur-usd/"]').first().click();
   await page.waitForURL("**/pairs/eur-usd/");
   await page.getByRole("heading",{name:"EUR/USD Fundamental Analysis",exact:true}).waitFor();
-  assert.equal(await page.locator(".comparison .bank-card").count(),2);
+
+  const hero=page.locator(".outlook-hero");
+  await hero.waitFor();
+  assert.ok(await hero.getByRole("heading",{level:2}).isVisible(),"90-day policy assessment must render as prominent headline");
+  assert.match(await hero.locator(".result").innerText(),/WIDENING|NARROWING|UNCERTAIN|UNCHANGED BIAS|NOT AVAILABLE/);
+  const positions=await page.evaluate(()=>({hero:document.querySelector(".outlook-hero")?.getBoundingClientRect().top+window.scrollY,rates:document.querySelector(".comparison")?.getBoundingClientRect().top+window.scrollY}));
+  assert.ok(positions.hero<positions.rates,"Policy outcome must precede current rate detail");
+  assert.equal(await page.locator("#policy-evidence .bank").count(),2,"Show two source-linked bank evidence sections");
+  assert.equal(await page.locator('.page-nav a[href="#policy-evidence"]').count(),1);
+    assert.equal(await page.locator(".comparison .bank-card").count(),2);
   assert.equal(parseFloat(await page.locator(".comparison .bank-card .value").first().innerText()),rate("EUR"),"Display current published ECB benchmark");
   await page.locator("#trade90-theme").selectOption("light");
   assert.equal(await page.locator(".policy-section .update-card").first().evaluate(el=>getComputedStyle(el).backgroundColor),"rgb(255, 255, 255)","Light theme must support policy update reading cards");
