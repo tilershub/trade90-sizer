@@ -48,7 +48,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
   <section class="section" id="policy-outlook"><PolicyOutlook client:idle symbol={pair.symbol} initialData={{...policyModel,banks:{[pair.base]:policyModel.banks[pair.base],[pair.quote]:policyModel.banks[pair.quote]},pairs:{[pair.symbol]:policyModel.pairs[pair.symbol]}}}/></section>
   <section class="section" id="economy"><MacroComparison client:visible base={pair.base} quote={pair.quote} initialData={{...macroData,countries:{[pair.base]:macroData.countries[pair.base],[pair.quote]:macroData.countries[pair.quote]}}}/></section>
   <section class="section" id="expected">
-   <div class="section-heading"><div><div class="eyebrow">Market data availability</div><h2>Expected {pair.label} Rate Divergence</h2><p>Market-implied policy-rate differences require validated, appropriately licensed forward inputs for both currencies. No fabricated forecasts.</p></div></div>
+   <div class="section-heading"><div><div class="eyebrow">Independent market expectations</div><h2>Market-Implied {pair.label} Rate Outlook</h2><p>A separate view from TRADE90’s economic policy model. Numerical 3M, 6M and 12M rates appear only when comparable, verified market data can legally be displayed.</p></div></div>
    <ForwardRates client:visible mode="pair" policyBanks={rateSnapshot.banks} selectedPair={pair}/>
   </section>
   <section class="section" id="decisions"><NextDecisions client:idle pair={pair}/></section>
