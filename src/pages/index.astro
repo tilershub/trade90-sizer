@@ -2,6 +2,7 @@
 import Layout from "../layouts/Trade90V2Layout.astro";
 import PairFinder from "../components/Trade90PairFinder.svelte";
 import PolicyUpdates from "../components/Trade90PolicyUpdates.svelte";
+import RefreshStatus from "../components/Trade90RefreshStatus.svelte";
 import OfficialReleaseFeed from "../components/Trade90OfficialReleaseFeed.svelte";
 import {allTrade90Pairs,majors,pairUrl,rateSnapshot,reportDate,formatPercent} from "../lib/trade90-v3.js";
 import {formatBp} from "../lib/trade90-rates.js";
@@ -22,8 +23,9 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
    <aside class="data-status" aria-label="TRADE90 data freshness and availability">
      <strong><span class="statusdot" aria-hidden="true"></span> Verified official-rate snapshot</strong>
-     <span>Checked <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Hourly automated official-source checks attempt to publish only strictly verified rate decisions; unsupported formats remain unchanged.</span>
+     <span>Published snapshot dated <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Hourly automated official-source checks attempt to publish only strictly verified rate decisions; unsupported formats remain unchanged.</span>
      <span>Market-implied 3M / 6M / 12M feed: <strong>not connected</strong>.</span>
+     <RefreshStatus compact={true} client:visible />
      <a href="/data-policy/">View update frequency, sources and licensing →</a>
    </aside>
   </div>
