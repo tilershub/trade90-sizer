@@ -1,6 +1,6 @@
 <script>
  import {onMount} from 'svelte';
- export let initialData; export let symbol;
+ export let initialData; export let symbol; export let evidenceOnly=false;
  let data=initialData,now=Date.now();
  $: result=data?.pairs?.[symbol];
  $: expired=!Number.isFinite(Date.parse(result?.expiresAt))||now>=Date.parse(result.expiresAt);
@@ -15,6 +15,15 @@
  onMount(()=>{now=Date.now();const timer=setInterval(()=>now=Date.now(),300000);return ()=>clearInterval(timer);});
 </script>
 <div class="outlook">
+ {#if evidenceOnly}
+ <div class="heading">
+  <div><span class="eyebrow">SOURCE-LINKED RESEARCH · HOW THE MODEL REACHED THIS VIEW</span>
+   <h2>{result?.base}/{result?.quote} · Economic drivers and central-bank evidence</h2>
+   <p>Underlying policy assessments, offsetting risks, observation periods and official publication links.</p>
+  </div>
+  <a class="method-link" href="/policy-model/">Model methodology ↗</a>
+ </div>
+ {:else}
  <div class="heading">
   <div>
    <span class="eyebrow">TRADE90 POLICY RESEARCH · EXPERIMENTAL {data?.modelVersion}</span>
@@ -23,6 +32,8 @@
   </div>
   <a class="method-link" href="/policy-model/">Model methodology ↗</a>
  </div>
+ {/if}
+ {#if !evidenceOnly}
  <div class="verdict" class:wide={state==='widening'} class:narrow={state==='narrowing'} class:uncertain={state==='unclear'||state==='unavailable'}>
   <div class="verdict-top"><div><span class="eyebrow">90-DAY RATE DIFFERENCE</span><h3>{names[state]}</h3></div><span class="state-label">{labels[state]}</span></div>
   <p class="reason">{expired?'This assessment has expired. Updated inputs and reviewed bank guidance are required before showing a direction.':result?.reason||'Not enough current information to evaluate relative policy changes.'}</p>
@@ -43,6 +54,7 @@
   {/if}
   <p class="no-price">This is <b>not</b> a bullish or bearish forecast for {result?.base}/{result?.quote}, a prediction of FX returns or a broker swap-rate estimate.</p>
  </div>
+ {/if}
  <div class="bank-grid">
   {#each banks as bank}
    {#if bank}
