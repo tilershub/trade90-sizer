@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-10-23T03:25:12.165Z",
+  "disclaimer": "Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.",
+  "categories": {
+    "macro": {
+      "checkedAt": "2026-10-22T10:37:33.881917+00:00",
+      "okCount": 24,
+      "total": 24,
+      "status": "checked"
+    },
+    "extra": {
+      "checkedAt": "2026-10-22T10:37:35.430888+00:00",
+      "okCount": 10,
+      "total": 10,
+      "status": "checked"
+    },
+    "sourceDiscovery": {
+      "checkedAt": "2026-10-22T07:41:34.364Z",
+      "okCount": 8,
+      "total": 8,
+      "status": "checked"
+    },
+    "rateDecisionChecks": {
+      "checkedAt": "2026-10-22T18:36:38.466Z",
+      "okCount": 5,
+      "total": 8,
+      "status": "partial"
+    },
+    "model": {
+      "generatedAt": "2026-10-23T01:36:04.093Z",
+      "activePairs": 28,
+      "totalPairs": 28,
+      "status": "checked"
+    }
+  },
+  "reviewed": {
+    "benchmarkSnapshot": "2026-10-15",
+    "policyPublications": "2026-10-15",
+    "meetingCalendar": "2026-10-15",
+    "policyStatements": "2026-10-16",
+    "oldestPolicyAssessment": "2026-10-16",
+    "marketReports": "2026-10-15"
+  },
+  "warnings": [
+    {
+      "category": "rateDecisionChecks",
+      "reason": "Not all inputs could be verified",
+      "status": "partial"
+    }
+  ]
+}
