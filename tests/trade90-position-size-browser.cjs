@@ -10,7 +10,7 @@ const cash=s=>Number(s.replace(/[^0-9.-]/g,""));
   await page.locator('.desktop-links a[href="/tools/position-size-calculator/"]').waitFor();
   await page.locator('.desktop-links a[href="/tools/position-size-calculator/"]').click();
   await page.waitForURL("**/tools/position-size-calculator/");
-  await page.getByRole("heading",{name:"Know Your Risk Before You Trade"}).waitFor();
+  await page.getByRole("heading",{name:"Forex & Gold Position Size Calculator"}).waitFor();
   await page.locator(".risk-calculator .lots").waitFor();
   assert.equal(await page.locator("main h1").count(),1);
   assert.match(await page.locator(".risk-calculator .lots").innerText(),/0.28/);
@@ -43,7 +43,7 @@ const cash=s=>Number(s.replace(/[^0-9.-]/g,""));
   await page.locator("#trade90-theme").selectOption("dark");
   assert.equal(await page.locator(".risk-calculator").evaluate(el=>getComputedStyle(el).backgroundColor),"rgb(17, 28, 48)");
   await page.goto(origin+"/tools/",{waitUntil:"networkidle"});
-  await page.getByRole("heading",{name:"Know Your Risk Before You Trade"}).waitFor();
+  await page.getByRole("heading",{name:"Forex & Gold Position Size Calculator"}).waitFor();
   await page.locator('a[href="/tools/position-size-calculator/"]').last().click();
   await page.waitForURL("**/tools/position-size-calculator/");
   for(const viewport of [{width:390,height:844},{width:320,height:760}]){
