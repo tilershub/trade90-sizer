@@ -50,7 +50,7 @@ async function inspect(page,selector,route){
       ".home .release-feed .release-head h2",".home .release-feed .release-head p",".home .release-feed .feed-list a"
     ],
     "/pairs/eur-usd/":[
-      ".pair-head h1",".pair-page .bank-card h2",".pair-page .bank-card p",
+      ".pair-head h1",".outlook-hero .result",".outlook-hero .result-description",".outlook-hero .reasoning p",".outlook-hero .bank-biases strong",".outlook-hero .rate-fact strong",".pair-page .bank-card h2",".pair-page .bank-card p",
       ".pair-page .bank-card .value",".pair-page .gap-card p",
       ".pair-page .data-footnote",
       "#decisions .watch-head p","#decisions .watch-card h3",
