@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node scripts/build-policy-outlook.mjs && astro build && node scripts/publish-sitemap.mjs",
+    "build": "node scripts/build-policy-outlook.mjs && node scripts/build-refresh-status.mjs && astro build && node scripts/publish-sitemap.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

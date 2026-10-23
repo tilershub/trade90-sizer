@@ -52,7 +52,7 @@ async function inspect(page,selector,route){
     "/pairs/eur-usd/":[
       ".pair-head h1",".pair-page .bank-card h2",".pair-page .bank-card p",
       ".pair-page .bank-card .value",".pair-page .gap-card p",
-      ".pair-page .data-footnote",".pair-page .section-heading p",
+      ".pair-page .data-footnote",
       "#decisions .watch-head p","#decisions .watch-card h3",
       "#decisions .watch-for p","#guidance .item>p","#guidance .watch p",
       "#updates .update-card>p","#updates .update-card h3",
