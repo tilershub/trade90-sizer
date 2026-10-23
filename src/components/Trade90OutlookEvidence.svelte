@@ -71,7 +71,7 @@
 .asof{flex:none;color:#a5b4c8;border:1px solid #475569;font-size:.7rem;padding:5px 9px;border-radius:8px}
 .source-filters{display:flex;gap:7px;overflow-x:auto;white-space:nowrap;padding:3px 0 14px}
 .source-filters button{color:#cbd5e1;background:#1e293b;border:1px solid #475569;border-radius:8px;padding:7px 11px;font-size:.75rem;font-weight:650;cursor:pointer}
-.source-filters button.chosen{background:#065f46;border-color:#10b981;color:#fff}
+.source-filters button.chosen{background:#1d4ed8;border-color:#3b82f6;color:#fff}
 .outlook-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .outlook-card{border:1px solid #334155;border-radius:12px;padding:15px;background:#0e1a2c;min-width:0}
 .outlook-top{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#e2e8f0;font-size:.79rem}
@@ -81,12 +81,12 @@
 .outlook-card h4{font-size:.98rem;margin:0;color:#f8fafc;line-height:1.4}
 .horizon{color:#cbd5e1;font-size:.74rem;margin-top:4px}
 .outlook-card p{color:#a5b4c8;font-size:.78rem;line-height:1.6}
-.outlook-card a{color:#6ee7b7;font-size:.75rem;text-underline-offset:3px}
+.outlook-card a{color:#93c5fd;font-size:.75rem;text-underline-offset:3px}
 .beforeafter{display:flex;gap:9px;align-items:center;margin:12px 0;background:#172538;border-radius:9px;padding:10px}
 .beforeafter>div:not(.move-arrow){flex:1;min-width:0}
 .beforeafter small{display:block;color:#94a3b8;font-size:.69rem}
 .beforeafter strong{display:block;color:#f8fafc;font-size:.78rem;line-height:1.45}
-.move-arrow{color:#34d399;font-size:1.1rem}
+.move-arrow{color:#60a5fa;font-size:1.1rem}
 .no-evidence{padding:18px;color:#94a3b8}
 @media(max-width:680px){.outlook-evidence{padding:8px 14px 18px}.outlook-grid{grid-template-columns:1fr}.outlook-head{display:block}.asof{display:inline-flex;margin-top:10px}.outlook-card{padding:13px}}
 </style>
