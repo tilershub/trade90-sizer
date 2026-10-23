@@ -37,7 +37,7 @@ for (const url of urls) {
  const parsed = new URL(url);
  assert.equal(parsed.origin,"https://tradeninety.com");
  assert.ok(parsed.pathname.endsWith("/"), "Noncanonical trailing-slash URL: "+url);
- assert.ok(!/\/(?:404|calculator|research)\//.test(url),"Nonindexable/retired route in sitemap: "+url);
+ assert.ok(!/\/(?:404|sign-in|calculator|research)\//.test(url),"Nonindexable/retired route in sitemap: "+url);
  const pagePath=parsed.pathname==="/"? "index.html" : parsed.pathname.slice(1)+"index.html";
  assert.ok(existsSync(new URL(pagePath,root)),"Orphan sitemap URL: "+url);
  const html=read(pagePath);
