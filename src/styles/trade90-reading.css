@@ -1,7 +1,7 @@
 /*
  * TRADE90 Reading System, October 2026.
  * Theme application is global because Svelte/Astro scoped component styles
- * used dark-only literal colors. Keep the original dark brand available.
+ * used dark-only literal colors. Maintain legible dark and light research surfaces.
  * All informational copy and actions in LIGHT mode must be readable on white.
  */
 :root {
@@ -9,7 +9,7 @@
   --read-ink: #102033;
   --read-body: #334155;
   --read-muted: #475569;
-  --read-accent: #065f46;
+  --read-accent: #1d4ed8;
   --read-surface: #fff;
   --read-soft: #f1f5f9;
   --read-line: #cbd5e1;
@@ -85,19 +85,19 @@ html .decision-watch .watch-card{line-height:1.65}
 html[data-theme="light"] {
  color-scheme: light;
  --ink:#102033;--muted:#475569;--line:#cbd5e1;
- --surface:#f8fafc;--soft:#f1f5f9;--blue:#065f46;--accent:#047857;
+ --surface:#f8fafc;--soft:#f1f5f9;--blue:#1d4ed8;--accent:#1d4ed8;
 }
 html[data-theme="light"] body { color:var(--read-ink);background:#f8fafc; }
-html[data-theme="light"] a { color:#065f46; }
-html[data-theme="light"] a:hover { color:#064e3b; }
-html[data-theme="light"] .brand span { color:#047857; }
+html[data-theme="light"] a { color:#1d4ed8; }
+html[data-theme="light"] a:hover { color:#1e40af; }
+html[data-theme="light"] .brand span { color:#1d4ed8; }
 html[data-theme="light"] .page-intro .eyebrow,
 html[data-theme="light"] .hero .eyebrow,
 html[data-theme="light"] .block .eyebrow,
 html[data-theme="light"] .pair-page .eyebrow,
 html[data-theme="light"] .guidance .eyebrow,
 html[data-theme="light"] .policy-section .eyebrow,
-html[data-theme="light"] .decision-watch .eyebrow { color:#065f46; }
+html[data-theme="light"] .decision-watch .eyebrow { color:#1d4ed8; }
 html[data-theme="light"] .home .hero p strong{ color:#102033; }
 html[data-theme="light"] .home .popular span,
 html[data-theme="light"] .home .pair-top,
@@ -114,7 +114,7 @@ html[data-theme="light"] .home .pair-bottom span,
 html[data-theme="light"] .home .decision span,
 html[data-theme="light"] .home .section-head>a,
 html[data-theme="light"] .home .popular a,
-html[data-theme="light"] .home .guides a:hover { color:#065f46; }
+html[data-theme="light"] .home .guides a:hover { color:#1d4ed8; }
 html[data-theme="light"] .home .metric,
 html[data-theme="light"] .home .pair-card,
 html[data-theme="light"] .home .decision,
@@ -123,7 +123,7 @@ html[data-theme="light"] .home .guides a{
 }
 html[data-theme="light"] .home .pair-card:hover,
 html[data-theme="light"] .home .metric:hover,
-html[data-theme="light"] .home .guides a:hover{background:#f1faf5;border-color:#047857}
+html[data-theme="light"] .home .guides a:hover{background:#eff6ff;border-color:#1d4ed8}
 html[data-theme="light"] .home .metric strong,
 html[data-theme="light"] .home .pair-card strong,
 html[data-theme="light"] .home .decision strong,
@@ -133,15 +133,15 @@ html[data-theme="light"] .home .guides strong { color:#102033; }
 html[data-theme="light"] .finder label{color:#334155}
 html[data-theme="light"] .finder .find-field{background:#fff;color:#475569;border-color:#64748b}
 html[data-theme="light"] .finder .find-field input{color:#102033;background:transparent}
-html[data-theme="light"] .finder .find-field button{background:#065f46;color:#fff}
-html[data-theme="light"] .finder .find-field button:hover{background:#064e3b}
+html[data-theme="light"] .finder .find-field button{background:#1d4ed8;color:#fff}
+html[data-theme="light"] .finder .find-field button:hover{background:#1e40af}
 html[data-theme="light"] .finder .results{background:#fff;color:#102033;border:1px solid #94a3b8}
 html[data-theme="light"] .finder .result-head,
 html[data-theme="light"] .finder .result-items a span:nth-child(2),
 html[data-theme="light"] .finder .no-results{color:#475569}
 html[data-theme="light"] .finder .result-items a{color:#102033;border-color:#cbd5e1}
 html[data-theme="light"] .finder .result-items a strong,
-html[data-theme="light"] .finder .result-items a .gap{color:#065f46}
+html[data-theme="light"] .finder .result-items a .gap{color:#1d4ed8}
 html[data-theme="light"] .finder .result-items a:hover{background:#ecfdf5}
 
 /* Bank guidance / statements. */
@@ -153,12 +153,12 @@ html[data-theme="light"] .guidance .item>p,
 html[data-theme="light"] .guidance .foot,
 html[data-theme="light"] .guidance .line time{color:#334155}
 html[data-theme="light"] .guidance .item{background:#fff;border-color:#cbd5e1}
-html[data-theme="light"] .guidance .line strong{color:#065f46}
+html[data-theme="light"] .guidance .line strong{color:#1d4ed8}
 html[data-theme="light"] .guidance .stance{background:#e2e8f0;color:#102033;border-color:#94a3b8}
-html[data-theme="light"] .guidance .watch{background:#f0fdf4;border-color:#047857}
-html[data-theme="light"] .guidance .watch strong{color:#064e3b}
+html[data-theme="light"] .guidance .watch{background:#eff6ff;border-color:#1d4ed8}
+html[data-theme="light"] .guidance .watch strong{color:#1e40af}
 html[data-theme="light"] .guidance .watch p{color:#334155}
-html[data-theme="light"] .guidance .item a{color:#065f46}
+html[data-theme="light"] .guidance .item a{color:#1d4ed8}
 
 /* Upcoming decisions and nested what-to-watch text. */
 html[data-theme="light"] .decision-watch{color:#102033;border-color:#cbd5e1}
@@ -170,13 +170,13 @@ html[data-theme="light"] .decision-watch .meeting-start,
 html[data-theme="light"] .decision-watch .missing-date,
 html[data-theme="light"] .decision-watch .watch-note {color:#334155}
 html[data-theme="light"] .decision-watch .watch-card{background:#fff;border-color:#cbd5e1}
-html[data-theme="light"] .decision-watch .watch-card-top strong{color:#065f46}
-html[data-theme="light"] .decision-watch .watch-card-top span:not(.unconfirmed){background:#dcfce7;color:#065f46;border-color:#86efac}
+html[data-theme="light"] .decision-watch .watch-card-top strong{color:#1d4ed8}
+html[data-theme="light"] .decision-watch .watch-card-top span:not(.unconfirmed){background:#dcfce7;color:#1d4ed8;border-color:#86efac}
 html[data-theme="light"] .decision-watch .watch-card-top .unconfirmed{background:#fff7ed;color:#9a3412;border-color:#fdba74}
-html[data-theme="light"] .decision-watch .watch-for{background:#f0fdf4;border-color:#047857}
-html[data-theme="light"] .decision-watch .watch-for strong{color:#064e3b}
+html[data-theme="light"] .decision-watch .watch-for{background:#eff6ff;border-color:#1d4ed8}
+html[data-theme="light"] .decision-watch .watch-for strong{color:#1e40af}
 html[data-theme="light"] .decision-watch .watch-for p{color:#334155}
-html[data-theme="light"] .decision-watch .watch-card a{color:#065f46}
+html[data-theme="light"] .decision-watch .watch-card a{color:#1d4ed8}
 
 /* Policy updates: source, type, summary and metadata. */
 html[data-theme="light"] .policy-section{color:#102033}
@@ -188,8 +188,8 @@ html[data-theme="light"] .policy-section .meta time,
 html[data-theme="light"] .policy-section .results,
 html[data-theme="light"] .policy-section .related p{color:#334155}
 html[data-theme="light"] .policy-section .update-card{background:#fff;border-color:#cbd5e1}
-html[data-theme="light"] .policy-section .currency{color:#065f46}
-html[data-theme="light"] .policy-section .publication-type{background:#dcfce7;color:#065f46;border-color:#86efac}
+html[data-theme="light"] .policy-section .currency{color:#1d4ed8}
+html[data-theme="light"] .policy-section .publication-type{background:#dcfce7;color:#1d4ed8;border-color:#86efac}
 html[data-theme="light"] .policy-section .collection-note,
 html[data-theme="light"] .policy-section .takeaway,
 html[data-theme="light"] .policy-section .noresults{background:#f1f5f9;color:#334155;border-color:#cbd5e1}
@@ -198,7 +198,7 @@ html[data-theme="light"] .policy-section .takeaway strong{color:#102033}
 html[data-theme="light"] .policy-section .source-link,
 html[data-theme="light"] .policy-section .more a,
 html[data-theme="light"] .policy-section .alllink,
-html[data-theme="light"] .policy-section .related button {color:#065f46}
+html[data-theme="light"] .policy-section .related button {color:#1d4ed8}
 html[data-theme="light"] .policy-section .policy-controls{background:#fff;border-color:#cbd5e1}
 html[data-theme="light"] .policy-section .policy-controls label{color:#334155}
 html[data-theme="light"] .policy-section .policy-controls select,
@@ -223,7 +223,7 @@ html[data-theme="light"] .full-table .pair-link,
 html[data-theme="light"] .full-table .entry a,
 html[data-theme="light"] .forward .value,
 html[data-theme="light"] .forward .pairbutton,
-html[data-theme="light"] .forward a{color:#065f46}
+html[data-theme="light"] .forward a{color:#1d4ed8}
 html[data-theme="light"] .full-table .tools label{color:#334155}
 html[data-theme="light"] .full-table .tools input,
 html[data-theme="light"] .full-table .tools select{background:#fff;color:#102033;border-color:#94a3b8}
@@ -231,8 +231,8 @@ html[data-theme="light"] .forward .forward-head strong{color:#102033}
 html[data-theme="light"] .forward .status,
 html[data-theme="light"] .forward .periods button:not(.chosen){background:#f1f5f9;color:#334155;border-color:#cbd5e1}
 html[data-theme="light"] .forward .state-muted{background:#fff7ed;color:#9a3412;border-color:#fdba74}
-html[data-theme="light"] .forward .state-ok{background:#dcfce7;color:#065f46;border-color:#86efac}
-html[data-theme="light"] .forward .periods button.chosen{background:#065f46;color:#fff;border-color:#065f46}
+html[data-theme="light"] .forward .state-ok{background:#dcfce7;color:#1d4ed8;border-color:#86efac}
+html[data-theme="light"] .forward .periods button.chosen{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
 
 /* Pair-page rate summary, related sources and interpretive copy. */
 html[data-theme="light"] .pair-page .section,
@@ -250,12 +250,12 @@ html[data-theme="light"] .pair-page .section-heading p,
 html[data-theme="light"] .pair-page .crumbs,
 html[data-theme="light"] .pair-page .card-label,
 html[data-theme="light"] .pair-page .related-links a span{color:#334155}
-html[data-theme="light"] .pair-page .gap-card{background:#e6f5ec;color:#064e3b;border-color:#a7d6b5}
+html[data-theme="light"] .pair-page .gap-card{background:#e6f5ec;color:#1e40af;border-color:#a7d6b5}
 html[data-theme="light"] .pair-page .gap-value,
-html[data-theme="light"] .pair-page .gap-card strong{color:#064e3b}
+html[data-theme="light"] .pair-page .gap-card strong{color:#1e40af}
 html[data-theme="light"] .pair-page .gap-card p{color:#334155}
 html[data-theme="light"] .pair-page .page-nav a{background:#e2e8f0;color:#102033;border-color:#cbd5e1}
-html[data-theme="light"] .pair-page .related-links a:hover{background:#f0fdf4}
+html[data-theme="light"] .pair-page .related-links a:hover{background:#eff6ff}
 html[data-theme="light"] .pair-page .related-links a strong{color:#102033}
 
 /* Eight bank hubs and decisions directory. */
@@ -271,7 +271,7 @@ html[data-theme="light"] .bankgrid article,
 html[data-theme="light"] .bankdirectory .banktiles a{
  background:#fff;color:#102033;border-color:#cbd5e1;
 }
-html[data-theme="light"] .hub .rate strong{color:#065f46}
+html[data-theme="light"] .hub .rate strong{color:#1d4ed8}
 html[data-theme="light"] .hub .rate span,
 html[data-theme="light"] .hub .details p,
 html[data-theme="light"] .hub .part p,
@@ -282,7 +282,7 @@ html[data-theme="light"] .hub .details h2,
 html[data-theme="light"] .hub .part h2,
 html[data-theme="light"] .hub .news h3{color:#102033}
 html[data-theme="light"] .hub .events strong,
-html[data-theme="light"] .hub .pairs span{color:#065f46}
+html[data-theme="light"] .hub .pairs span{color:#1d4ed8}
 html[data-theme="light"] .hub .pairs a strong{color:#102033}
 html[data-theme="light"] .timeline .when,
 html[data-theme="light"] .timeline .event-main h2,
@@ -310,7 +310,7 @@ html[data-theme="light"] .article table td{color:#334155;border-color:#cbd5e1}
 html[data-theme="light"] a:focus-visible,
 html[data-theme="light"] button:focus-visible,
 html[data-theme="light"] select:focus-visible,
-html[data-theme="light"] input:focus-visible {outline:3px solid #047857;outline-offset:3px}
+html[data-theme="light"] input:focus-visible {outline:3px solid #1d4ed8;outline-offset:3px}
 
 /* Keep iPhone cards legible: avoid sub-12px labels and tiny controls. */
 @media (max-width:600px){
@@ -352,17 +352,17 @@ html[data-theme="light"] .reading-policy .critical{background:#ecfdf5;color:#102
 html[data-theme="light"] .reading-policy table th{background:#e2e8f0;color:#102033}
 html[data-theme="light"] .reading-policy table td{color:#334155;border-color:#cbd5e1}
 html[data-theme="light"] .reading-policy .backlinks{border-color:#cbd5e1}
-html[data-theme="light"] .reading-policy .backlinks a{color:#065f46}
+html[data-theme="light"] .reading-policy .backlinks a{color:#1d4ed8}
 html .pair-page .data-footnote{font-size:.9rem;color:#cbd5e1}
 html[data-theme="light"] .pair-page .data-footnote{color:#334155}
-html .home .data-status a{color:#6ee7b7;text-decoration:underline;font-weight:720}
-html[data-theme="light"] .home .data-status a{color:#065f46}
+html .home .data-status a{color:#93c5fd;text-decoration:underline;font-weight:720}
+html[data-theme="light"] .home .data-status a{color:#1d4ed8}
 html[data-theme="light"] .home .popular a{border-color:#94a3b8}
 /* Footer and menus must keep legible foreground/background in both themes. */
 html[data-theme="light"] .footer .brand:hover{color:#102033}
 html[data-theme="light"] .mobile-menu nav{background:#fff;border-color:#94a3b8}
 html[data-theme="light"] .mobile-menu nav a{color:#102033;border-color:#cbd5e1}
-html[data-theme="light"] .mobile-menu nav a:hover{background:#e2e8f0;color:#065f46}
+html[data-theme="light"] .mobile-menu nav a:hover{background:#e2e8f0;color:#1d4ed8}
 /* The header remains a comfortable hit target on compact mobile screens. */
 @media(max-width:600px){
  html .mobile-menu summary{font-size:.88rem;padding:9px 12px}
@@ -377,7 +377,7 @@ html[data-theme="light"] .home .hero h1,
 html[data-theme="light"] .pair-page .pair-head h1 {color:#102033 !important}
 html[data-theme="light"] .home .hero p {color:#334155 !important}
 html[data-theme="light"] .home .hero p strong {color:#102033 !important}
-html[data-theme="light"] .home .hero h1 em {color:#047857 !important}
+html[data-theme="light"] .home .hero h1 em {color:#1d4ed8 !important}
 
 
 /* October 17 reading QA: the homepage's freshness notice must never resemble a
@@ -385,15 +385,15 @@ html[data-theme="light"] .home .hero h1 em {color:#047857 !important}
 html[data-theme="light"] .home .data-status {
   background:#edf7f2;
   border:1px solid #b7d8c6;
-  border-left:4px solid #047857;
+  border-left:4px solid #1d4ed8;
   color:#102033;
   box-shadow:0 1px 4px rgba(15,23,42,.06);
 }
 html[data-theme="light"] .home .data-status>strong,
 html[data-theme="light"] .home .data-status>span strong{color:#102033}
 html[data-theme="light"] .home .data-status>span:not(.statusdot){color:#334155}
-html[data-theme="light"] .home .data-status .statusdot{background:#047857}
-html[data-theme="light"] .home .data-status a {color:#065f46;text-decoration:underline;text-underline-offset:3px}
+html[data-theme="light"] .home .data-status .statusdot{background:#1d4ed8}
+html[data-theme="light"] .home .data-status a {color:#1d4ed8;text-decoration:underline;text-underline-offset:3px}
 html .home .data-status{font-size:.9rem;line-height:1.65}
 html .home .data-status a{font-weight:760}
 
@@ -409,14 +409,14 @@ html .reading-policy table td,html .reading-policy table th {font-size:.93rem;li
 html .reading-policy .status-overview small{font-size:.88rem}
 html .reading-policy .critical{font-size:1rem;line-height:1.7}
 html[data-theme="light"] .reading-policy .critical {
-  background:#e8f5ef;
+  background:#eff6ff;
   color:#102033;
-  border-left-color:#047857;
+  border-left-color:#1d4ed8;
 }
 html[data-theme="light"] .reading-policy a,
 html[data-theme="light"] .article a,
 html[data-theme="light"] .pair-page .article-section a {
-  color:#065f46;
+  color:#1d4ed8;
   text-decoration:underline;
   text-decoration-thickness:1px;
 }
@@ -449,10 +449,10 @@ html .policy-section .update-card {line-height:1.58}
 }
 
 
-/* Trade90 clean research finish: neutrals own the page; green is for actions.
+/* Trade90 financial-blue reading system: neutrals own the page; blue is for actions.
  * Intentionally no gradients, decorative glow, animated backgrounds or giant
- * boxed callouts. This preserves the original TRADE + emerald 90 wordmark. */
-:root{--t90-green:#047857;--t90-green-hover:#065f46}
+ * boxed callouts. TRADE + blue 90 remains a text-based wordmark. */
+:root{--t90-green:#1d4ed8;--t90-green-hover:#1e40af;--t90-primary:#1d4ed8;--t90-primary-hover:#1e40af}
 body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 h1,h2,h3,h4{font-weight:750;letter-spacing:-.025em}
 html .home .hero{padding-top:38px;padding-bottom:16px}
@@ -476,7 +476,7 @@ html .home .guides a{gap:6px;padding:17px}
 html .home .decision{gap:6px}
 html .home .pair-grid,
 html .home .decision-grid{gap:10px}
-html[data-theme="light"] .home .data-status{background:#f1f5f9;border-color:#cbd5e1;border-left-color:#047857}
+html[data-theme="light"] .home .data-status{background:#f1f5f9;border-color:#cbd5e1;border-left-color:#1d4ed8}
 html[data-theme="light"] .home .metric,
 html[data-theme="light"] .home .pair-card,
 html[data-theme="light"] .home .decision,
@@ -495,13 +495,13 @@ html[data-theme="light"] .home .guides span{color:#334155}
 html[data-theme="light"] .home .pair-bottom span:last-child,
 html[data-theme="light"] .home .section-head>a,
 html[data-theme="light"] .home .popular a,
-html[data-theme="light"] .home .data-status a{color:#065f46}
+html[data-theme="light"] .home .data-status a{color:#1d4ed8}
 html[data-theme="light"] .home .section-head{border:0}
 html[data-theme="light"] .home .pair-card:hover,
 html[data-theme="light"] .home .metric:hover,
 html[data-theme="light"] .home .decision:hover,
 html[data-theme="light"] .home .guides a:hover{background:#f8fafc;border-color:#64748b}
-html[data-theme="light"] .home .hero h1 em{color:#065f46!important}
+html[data-theme="light"] .home .hero h1 em{color:#1d4ed8!important}
 html[data-theme="light"] .home .popular span,
 html[data-theme="light"] .home .minor{color:#475569}
 html[data-theme="dark"] .home .pair-card:hover,
@@ -527,7 +527,7 @@ html .release-feed .feed-list a{font-size:.95rem;line-height:1.6}
 html[data-theme="light"] .release-feed{background:#fff;color:#102033;border:1px solid #cbd5e1}
 html[data-theme="light"] .release-feed .release-head h2{color:#102033}
 html[data-theme="light"] .release-feed .release-head .eyebrow,
-html[data-theme="light"] .release-feed .feed-list .bank{color:#065f46}
+html[data-theme="light"] .release-feed .feed-list .bank{color:#1d4ed8}
 html[data-theme="light"] .release-feed .release-head p,
 html[data-theme="light"] .release-feed .feed-note,
 html[data-theme="light"] .release-feed .feed-meta,
@@ -535,7 +535,7 @@ html[data-theme="light"] .release-feed .feed-state{color:#334155}
 html[data-theme="light"] .release-feed .feed-list li,
 html[data-theme="light"] .release-feed .feed-meta{border-color:#cbd5e1}
 html[data-theme="light"] .release-feed .feed-list a,
-html[data-theme="light"] .release-feed .feed-note a{color:#065f46}
+html[data-theme="light"] .release-feed .feed-note a{color:#1d4ed8}
 @media(max-width:600px){html .release-feed .feed-list a{font-size:1rem}}
 
 
@@ -549,18 +549,18 @@ html[data-theme="light"] .tools-page .explain h3,
 html[data-theme="light"] .tools-page .explain strong,
 html[data-theme="light"] .info h2,
 html[data-theme="light"] .info p{color:#102033}
-html[data-theme="light"] .tools-page .crumb a{color:#065f46}
+html[data-theme="light"] .tools-page .crumb a{color:#1d4ed8}
 html[data-theme="light"] .tool-grid .tool{background:#fff;color:#102033;border-color:#cbd5e1;box-shadow:0 2px 10px #0f172a0b}
-html[data-theme="light"] .tool-grid .tool:hover{background:#f0fdf4;border-color:#047857}
+html[data-theme="light"] .tool-grid .tool:hover{background:#eff6ff;border-color:#1d4ed8}
 html[data-theme="light"] .tool-grid .tool h2,
 html[data-theme="light"] .tool-grid .tool p{color:#102033}
 html[data-theme="light"] .tool-grid .tool .eyebrow,
-html[data-theme="light"] .tool-grid .tool strong{color:#065f46}
+html[data-theme="light"] .tool-grid .tool strong{color:#1d4ed8}
 html[data-theme="light"] .risk-calculator{background:#fff;color:#102033;border-color:#cbd5e1;box-shadow:0 3px 16px #0f172a0c}
 html[data-theme="light"] .risk-calculator .calc-top h2{color:#102033}
 html[data-theme="light"] .risk-calculator .calc-top p{color:#334155}
 html[data-theme="light"] .risk-calculator .eyebrow,
-html[data-theme="light"] .risk-calculator .result-eyebrow{color:#065f46}
+html[data-theme="light"] .risk-calculator .result-eyebrow{color:#1d4ed8}
 html[data-theme="light"] .risk-calculator .reset{background:#f1f5f9;color:#102033;border-color:#94a3b8}
 html[data-theme="light"] .risk-calculator .calc-form{background:#f8fafc;border-color:#cbd5e1}
 html[data-theme="light"] .risk-calculator .form-row label,
@@ -569,16 +569,16 @@ html[data-theme="light"] .risk-calculator .form-row input,
 html[data-theme="light"] .risk-calculator .form-row select{background:#fff;color:#102033;border-color:#64748b}
 html[data-theme="light"] .risk-calculator .form-row .hint{color:#475569}
 html[data-theme="light"] .risk-calculator .source-note{background:#eef2f7;color:#334155;border-color:#cbd5e1}
-html[data-theme="light"] .risk-calculator .calc-result{background:#eaf7ef;color:#102033;border-color:#86bda3}
-html[data-theme="light"] .risk-calculator .lots{color:#064e3b}
+html[data-theme="light"] .risk-calculator .calc-result{background:#eff6ff;color:#102033;border-color:#93c5fd}
+html[data-theme="light"] .risk-calculator .lots{color:#1e40af}
 html[data-theme="light"] .risk-calculator .result-caption{color:#334155}
-html[data-theme="light"] .risk-calculator .numbers>div{background:#fff;border-color:#aac9b7}
+html[data-theme="light"] .risk-calculator .numbers>div{background:#fff;border-color:#93c5fd}
 html[data-theme="light"] .risk-calculator .numbers span{color:#334155}
 html[data-theme="light"] .risk-calculator .numbers strong,
 html[data-theme="light"] .risk-calculator .math-lines strong{color:#102033}
-html[data-theme="light"] .risk-calculator .math-lines{border-color:#aac9b7}
+html[data-theme="light"] .risk-calculator .math-lines{border-color:#93c5fd}
 html[data-theme="light"] .risk-calculator .math-lines p{color:#334155}
-html[data-theme="light"] .risk-calculator .caution{background:#dff4e6;border-color:#047857;color:#102033}
+html[data-theme="light"] .risk-calculator .caution{background:#dbeafe;border-color:#1d4ed8;color:#102033}
 html[data-theme="light"] .risk-calculator .issue{background:#fff7ed;color:#9a3412;border-color:#fdba74}
 html .risk-calculator .form-row label{font-size:.91rem}
 html .risk-calculator .form-row .hint{font-size:.86rem}
