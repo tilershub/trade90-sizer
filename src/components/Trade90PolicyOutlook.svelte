@@ -9,7 +9,7 @@
  const names={widening:'Rate gap may widen',narrowing:'Rate gap may narrow',unchanged:'Broadly unchanged bias',unclear:'Direction remains uncertain',unavailable:'Current outlook unavailable'};
  const labels={widening:'Widening bias',narrowing:'Narrowing bias',unchanged:'Unchanged bias',unclear:'Uncertain',unavailable:'Unavailable'};
  const rate=value=>Number.isFinite(value)?value.toFixed(2)+'%':'Unavailable';
- const bp=value=>Number.isFinite(value)?(value>0?'+':'')+Math.round(value*100)+' bp':'Unavailable';
+ const bp=value=>Number.isFinite(value)?(value>0?'+':'')+Number((value*100).toFixed(2))+' bp':'Unavailable';
  const when=value=>value?value.replace('T',' ').slice(0,16)+' UTC':'Unavailable';
  const period=(point,frequency)=>!point?'—':frequency==='Quarterly'?point.date.slice(0,4)+' Q'+(Math.floor((Number(point.date.slice(5,7))-1)/3)+1):point.date.slice(0,7);
  onMount(()=>{now=Date.now();const timer=setInterval(()=>now=Date.now(),300000);return ()=>clearInterval(timer);});
