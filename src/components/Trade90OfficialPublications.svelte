@@ -54,7 +54,7 @@
 </section>
 <style>
 .official-watch{padding:20px 24px 24px;border-top:1px solid #334155;background:#111c30;color:#f8fafc}
-.eyebrow{font-size:.75rem;color:#34d399;font-weight:790;letter-spacing:.07em}
+.eyebrow{font-size:.75rem;color:#60a5fa;font-weight:790;letter-spacing:.07em}
 .heading h2{font-size:1.32rem;letter-spacing:-.02em;margin:6px 0;color:#f8fafc}
 .heading p{font-size:.89rem;color:#cbd5e1;line-height:1.65;margin:6px 0}
 .heading strong{color:#f8fafc}
@@ -62,16 +62,16 @@
 .status strong{color:#e2e8f0}
 .items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0}
 .link{display:flex;flex-direction:column;gap:7px;padding:15px;border:1px solid #334155;background:#17263a;border-radius:10px;color:#f8fafc;text-decoration:none}
-.link:hover{border-color:#10b981}
-.link span{font-size:.73rem;color:#6ee7b7}
+.link:hover{border-color:#3b82f6}
+.link span{font-size:.73rem;color:#93c5fd}
 .link strong{font-size:.89rem;line-height:1.48;overflow-wrap:anywhere}
 .link small{font-size:.75rem;color:#a5b4c8}
-.fine a{color:#6ee7b7;text-decoration:underline}
+.fine a{color:#93c5fd;text-decoration:underline}
 @media(max-width:650px){.official-watch{padding:16px 14px}.items{grid-template-columns:1fr}}
 :global(html[data-theme="light"]) .official-watch{background:#fff;color:#0f172a;border-color:#cbd5e1}
 :global(html[data-theme="light"]) .heading h2,:global(html[data-theme="light"]) .heading strong,:global(html[data-theme="light"]) .link strong{color:#0f172a}
 :global(html[data-theme="light"]) .heading p,:global(html[data-theme="light"]) .status,:global(html[data-theme="light"]) .notice,:global(html[data-theme="light"]) .fine,:global(html[data-theme="light"]) .link small{color:#334155}
 :global(html[data-theme="light"]) .status strong{color:#0f172a}
-:global(html[data-theme="light"]) .eyebrow,:global(html[data-theme="light"]) .link span,:global(html[data-theme="light"]) .fine a{color:#065f46}
+:global(html[data-theme="light"]) .eyebrow,:global(html[data-theme="light"]) .link span,:global(html[data-theme="light"]) .fine a{color:#1d4ed8}
 :global(html[data-theme="light"]) .link{background:#f8fafc;border-color:#cbd5e1;color:#0f172a}
 </style>
