@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "modelVersion": "2.0.1",
   "experimental": true,
-  "generatedAt": "2026-10-24T07:23:08.192Z",
+  "generatedAt": "2026-10-24T09:46:41.303Z",
   "inputFingerprint": "785a41385dbc4ecbba785c9751a6591a71877776468983a038ae6df481dda448",
   "horizonDays": 90,
   "banks": {
@@ -27,7 +27,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-10-23T10:29:37.734318+00:00"
+          "retrievedAt": "2026-10-24T09:46:35.698932+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -44,7 +44,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:42.974868+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.720677+00:00"
         },
         {
           "metric": "Employment",
@@ -61,7 +61,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Switzerland",
-          "retrievedAt": "2026-10-23T10:29:39.923173+00:00"
+          "retrievedAt": "2026-10-24T09:46:38.179877+00:00"
         },
         {
           "metric": "Real GDP",
@@ -78,7 +78,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Switzerland",
-          "retrievedAt": "2026-10-23T10:29:40.294659+00:00"
+          "retrievedAt": "2026-10-24T09:46:38.501940+00:00"
         }
       ],
       "reasons": [],
@@ -123,7 +123,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:37.734318+00:00",
+          "retrievedAt": "2026-10-24T09:46:35.698932+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -132,7 +132,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:42.974868+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.720677+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -141,7 +141,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:39.923173+00:00",
+          "retrievedAt": "2026-10-24T09:46:38.179877+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S"
         },
         {
@@ -150,14 +150,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:40.294659+00:00",
+          "retrievedAt": "2026-10-24T09:46:38.501940+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S"
         }
       ],
       "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
       "score": 1,
       "guidanceDirection": "hold_context",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "AUD": {
       "currency": "AUD",
@@ -180,7 +180,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "Headline CPI, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:42.707614+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.557785+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -197,7 +197,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:42.713260+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.861954+00:00"
         },
         {
           "metric": "Employment",
@@ -214,7 +214,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Australia",
-          "retrievedAt": "2026-10-23T10:29:40.010733+00:00"
+          "retrievedAt": "2026-10-24T09:46:38.212171+00:00"
         },
         {
           "metric": "Real GDP",
@@ -231,7 +231,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Australia",
-          "retrievedAt": "2026-10-23T10:29:40.138184+00:00"
+          "retrievedAt": "2026-10-24T09:46:38.114424+00:00"
         }
       ],
       "reasons": [],
@@ -276,7 +276,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:42.707614+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.557785+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -285,7 +285,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:42.713260+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.861954+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -294,7 +294,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:40.010733+00:00",
+          "retrievedAt": "2026-10-24T09:46:38.212171+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S"
         },
         {
@@ -303,14 +303,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:40.138184+00:00",
+          "retrievedAt": "2026-10-24T09:46:38.114424+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S"
         }
       ],
       "watch": "Australian inflation, wages, employment and evidence of slowing demand",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EUR": {
       "currency": "EUR",
@@ -333,7 +333,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "Euro area (21 countries): Headline HICP, ECOICOP version 2, year-on-year percentage change",
-          "retrievedAt": "2026-10-23T10:29:39.285030+00:00"
+          "retrievedAt": "2026-10-24T09:46:37.424088+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -350,7 +350,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "HICP excluding energy, food, alcohol and tobacco, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:43.039546+00:00"
+          "retrievedAt": "2026-10-24T09:46:41.034715+00:00"
         },
         {
           "metric": "Employment",
@@ -367,7 +367,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
           "title": "Euro area (21 countries): Unemployment, total labour force, seasonally adjusted",
-          "retrievedAt": "2026-10-23T10:29:38.987221+00:00"
+          "retrievedAt": "2026-10-24T09:46:37.124225+00:00"
         },
         {
           "metric": "Real GDP",
@@ -384,7 +384,7 @@
           "frequency": "Quarterly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
           "title": "Euro area (21 countries): Real GDP, quarter-on-quarter percentage change, seasonally and calendar adjusted",
-          "retrievedAt": "2026-10-23T10:29:39.602830+00:00"
+          "retrievedAt": "2026-10-24T09:46:37.741664+00:00"
         }
       ],
       "reasons": [
@@ -430,7 +430,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:39.285030+00:00",
+          "retrievedAt": "2026-10-24T09:46:37.424088+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -439,7 +439,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:43.039546+00:00",
+          "retrievedAt": "2026-10-24T09:46:41.034715+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -448,7 +448,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:38.987221+00:00",
+          "retrievedAt": "2026-10-24T09:46:37.124225+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table"
         },
         {
@@ -457,14 +457,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:39.602830+00:00",
+          "retrievedAt": "2026-10-24T09:46:37.741664+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table"
         }
       ],
       "watch": "Euro-area inflation, wage growth and the ECB's updated projections",
       "score": 2,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "CAD": {
       "currency": "CAD",
@@ -487,7 +487,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-23T10:29:37.740258+00:00"
+          "retrievedAt": "2026-10-24T09:46:35.702039+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -504,7 +504,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:42.977906+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.723867+00:00"
         },
         {
           "metric": "Employment",
@@ -521,7 +521,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada",
-          "retrievedAt": "2026-10-23T10:29:40.397717+00:00"
+          "retrievedAt": "2026-10-24T09:46:38.500300+00:00"
         },
         {
           "metric": "Real GDP",
@@ -538,7 +538,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Canada",
-          "retrievedAt": "2026-10-23T10:29:40.432932+00:00"
+          "retrievedAt": "2026-10-24T09:46:38.594732+00:00"
         }
       ],
       "reasons": [
@@ -584,7 +584,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:37.740258+00:00",
+          "retrievedAt": "2026-10-24T09:46:35.702039+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -593,7 +593,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:42.977906+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.723867+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -602,7 +602,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:40.397717+00:00",
+          "retrievedAt": "2026-10-24T09:46:38.500300+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S"
         },
         {
@@ -611,14 +611,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:40.432932+00:00",
+          "retrievedAt": "2026-10-24T09:46:38.594732+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S"
         }
       ],
       "watch": "Canadian inflation excluding energy, recovery durability and trade-policy effects",
       "score": 1,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "JPY": {
       "currency": "JPY",
@@ -641,7 +641,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-10-23T10:29:37.745979+00:00"
+          "retrievedAt": "2026-10-24T09:46:35.707787+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -658,7 +658,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:42.976380+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.722214+00:00"
         },
         {
           "metric": "Employment",
@@ -675,7 +675,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Japan",
-          "retrievedAt": "2026-10-23T10:29:41.192495+00:00"
+          "retrievedAt": "2026-10-24T09:46:38.905589+00:00"
         },
         {
           "metric": "Real GDP",
@@ -692,7 +692,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Japan",
-          "retrievedAt": "2026-10-23T10:29:41.070522+00:00"
+          "retrievedAt": "2026-10-24T09:46:39.233409+00:00"
         }
       ],
       "reasons": [],
@@ -737,7 +737,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:37.745979+00:00",
+          "retrievedAt": "2026-10-24T09:46:35.707787+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -746,7 +746,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:42.976380+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.722214+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -755,7 +755,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:41.192495+00:00",
+          "retrievedAt": "2026-10-24T09:46:38.905589+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S"
         },
         {
@@ -764,14 +764,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:41.070522+00:00",
+          "retrievedAt": "2026-10-24T09:46:39.233409+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S"
         }
       ],
       "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "GBP": {
       "currency": "GBP",
@@ -794,7 +794,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-23T10:29:37.743284+00:00"
+          "retrievedAt": "2026-10-24T09:46:35.705088+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -811,7 +811,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:42.714764+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.863056+00:00"
         },
         {
           "metric": "Employment",
@@ -830,7 +830,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for United Kingdom",
-          "retrievedAt": "2026-10-23T10:29:40.710381+00:00"
+          "retrievedAt": "2026-10-24T09:46:39.296318+00:00"
         },
         {
           "metric": "Real GDP",
@@ -847,7 +847,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United Kingdom",
-          "retrievedAt": "2026-10-23T10:29:41.422752+00:00"
+          "retrievedAt": "2026-10-24T09:46:39.221324+00:00"
         }
       ],
       "reasons": [],
@@ -890,7 +890,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:37.743284+00:00",
+          "retrievedAt": "2026-10-24T09:46:35.705088+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -899,7 +899,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:42.714764+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.863056+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -908,7 +908,7 @@
           "latestDate": "2026-06-01",
           "periodEnd": "2026-07-31",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:40.710381+00:00",
+          "retrievedAt": "2026-10-24T09:46:39.296318+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S"
         },
         {
@@ -917,14 +917,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:41.422752+00:00",
+          "retrievedAt": "2026-10-24T09:46:39.221324+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S"
         }
       ],
       "watch": "UK CPI, wage-setting effects from energy prices, jobs and MPC votes",
       "score": 3,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "NZD": {
       "currency": "NZD",
@@ -947,7 +947,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-23T10:29:37.748527+00:00"
+          "retrievedAt": "2026-10-24T09:46:35.710426+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -964,7 +964,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-23T10:29:42.715726+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.863929+00:00"
         },
         {
           "metric": "Employment",
@@ -981,7 +981,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for New Zealand",
-          "retrievedAt": "2026-10-23T10:29:41.375899+00:00"
+          "retrievedAt": "2026-10-24T09:46:39.550319+00:00"
         },
         {
           "metric": "Real GDP",
@@ -998,7 +998,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for New Zealand",
-          "retrievedAt": "2026-10-23T10:29:41.554516+00:00"
+          "retrievedAt": "2026-10-24T09:46:39.532581+00:00"
         }
       ],
       "reasons": [],
@@ -1042,7 +1042,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:37.748527+00:00",
+          "retrievedAt": "2026-10-24T09:46:35.710426+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1051,7 +1051,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:42.715726+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.863929+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1060,7 +1060,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:41.375899+00:00",
+          "retrievedAt": "2026-10-24T09:46:39.550319+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S"
         },
         {
@@ -1069,14 +1069,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:41.554516+00:00",
+          "retrievedAt": "2026-10-24T09:46:39.532581+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S"
         }
       ],
       "watch": "New Zealand CPI, demand and labour-market data; new OCR path in the next policy statement",
       "score": 0,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "USD": {
       "currency": "USD",
@@ -1099,7 +1099,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPI",
           "title": "Personal Consumption Expenditures: Chain-type Price Index — year-on-year change",
-          "retrievedAt": "2026-10-23T10:29:43.127711+00:00"
+          "retrievedAt": "2026-10-24T09:46:40.882760+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -1116,7 +1116,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE",
           "title": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index) — year-on-year change",
-          "retrievedAt": "2026-10-23T10:29:43.507563+00:00"
+          "retrievedAt": "2026-10-24T09:46:41.186325+00:00"
         },
         {
           "metric": "Employment",
@@ -1133,7 +1133,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/UNRATE",
           "title": "Unemployment Rate",
-          "retrievedAt": "2026-10-23T10:29:41.711111+00:00"
+          "retrievedAt": "2026-10-24T09:46:39.784348+00:00"
         },
         {
           "metric": "Real GDP",
@@ -1150,7 +1150,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United States",
-          "retrievedAt": "2026-10-23T10:29:41.906011+00:00"
+          "retrievedAt": "2026-10-24T09:46:39.895230+00:00"
         }
       ],
       "reasons": [
@@ -1196,7 +1196,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:43.127711+00:00",
+          "retrievedAt": "2026-10-24T09:46:40.882760+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPI"
         },
         {
@@ -1205,7 +1205,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:43.507563+00:00",
+          "retrievedAt": "2026-10-24T09:46:41.186325+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE"
         },
         {
@@ -1214,7 +1214,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-23T10:29:41.711111+00:00",
+          "retrievedAt": "2026-10-24T09:46:39.784348+00:00",
           "source": "https://fred.stlouisfed.org/series/UNRATE"
         },
         {
@@ -1223,14 +1223,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-23T10:29:41.906011+00:00",
+          "retrievedAt": "2026-10-24T09:46:39.895230+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S"
         }
       ],
       "watch": "US CPI and employment trends; the next FOMC statement and economic projections",
       "score": 0,
       "guidanceDirection": "neutral",
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     }
   },
   "pairs": {
@@ -1248,7 +1248,7 @@
       "signedDirection": "Towards AUD",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1264,7 +1264,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "GBPCHF": {
       "base": "GBP",
@@ -1280,7 +1280,7 @@
       "signedDirection": "Towards GBP",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "AUDJPY": {
       "base": "AUD",
@@ -1296,7 +1296,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -1312,7 +1312,7 @@
       "signedDirection": "Towards NZD",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "USDJPY": {
       "base": "USD",
@@ -1328,7 +1328,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EURCHF": {
       "base": "EUR",
@@ -1344,7 +1344,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "GBPJPY": {
       "base": "GBP",
@@ -1360,7 +1360,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "AUDCAD": {
       "base": "AUD",
@@ -1376,7 +1376,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "CADCHF": {
       "base": "CAD",
@@ -1392,7 +1392,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EURAUD": {
       "base": "EUR",
@@ -1408,7 +1408,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "AUDNZD": {
       "base": "AUD",
@@ -1424,7 +1424,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "USDCAD": {
       "base": "USD",
@@ -1440,7 +1440,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "GBPCAD": {
       "base": "GBP",
@@ -1456,7 +1456,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "NZDJPY": {
       "base": "NZD",
@@ -1472,7 +1472,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EURUSD": {
       "base": "EUR",
@@ -1488,7 +1488,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "CHFJPY": {
       "base": "CHF",
@@ -1504,7 +1504,7 @@
       "signedDirection": "Towards JPY",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EURGBP": {
       "base": "EUR",
@@ -1520,7 +1520,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EURJPY": {
       "base": "EUR",
@@ -1536,7 +1536,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "NZDUSD": {
       "base": "NZD",
@@ -1552,7 +1552,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "CADJPY": {
       "base": "CAD",
@@ -1568,7 +1568,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "GBPNZD": {
       "base": "GBP",
@@ -1584,7 +1584,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "GBPAUD": {
       "base": "GBP",
@@ -1600,7 +1600,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "AUDUSD": {
       "base": "AUD",
@@ -1616,7 +1616,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "NZDCAD": {
       "base": "NZD",
@@ -1632,7 +1632,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EURCAD": {
       "base": "EUR",
@@ -1648,7 +1648,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "EURNZD": {
       "base": "EUR",
@@ -1664,7 +1664,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     },
     "GBPUSD": {
       "base": "GBP",
@@ -1680,7 +1680,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-26T07:23:08.192Z"
+      "expiresAt": "2026-10-26T09:46:41.303Z"
     }
   }
 }
