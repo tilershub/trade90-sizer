@@ -1,0 +1,31 @@
+---
+import Layout from "../../../../layouts/Trade90V2Layout.astro";
+import {approvedResearch,researchUrl} from "../../../../lib/trade90-research.js";
+import {bySymbol,pairUrl,reportDate} from "../../../../lib/trade90-v3.js";
+export function getStaticPaths(){
+ return approvedResearch().filter(a=>bySymbol[a.symbol]).map(article=>({
+  params:{pair:article.symbol.slice(0,3).toLowerCase()+"-"+article.symbol.slice(3).toLowerCase(),slug:article.slug},
+  props:{article}
+ }));
+}
+const {article}=Astro.props;
+const pair=bySymbol[article.symbol];
+const url=researchUrl(article);
+const articleSchema={"@context":"https://schema.org","@type":"Article","headline":article.title,"description":article.description,"datePublished":article.publishedAt,"dateModified":article.modifiedAt||article.publishedAt,"author":{"@type":"Organization","name":"TRADE90 Research"},"publisher":{"@id":"https://tradeninety.com/#publisher"},"mainEntityOfPage":"https://tradeninety.com"+url};
+---
+<Layout title={article.title} description={article.description} canonical={url}>
+ <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}/>
+ <main class="wrap research-page">
+  <nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/pairs/">Pairs</a> / <a href={pairUrl(pair.symbol)}>{pair.label}</a> / Research</nav>
+  <article>
+   <header><div class="eyebrow">TRADE90 RESEARCH · {pair.label}</div><h1>{article.title}</h1><p class="summary">{article.summary}</p><p class="dates">Published <time datetime={article.publishedAt}>{reportDate(article.publishedAt)}</time>{article.modifiedAt && article.modifiedAt!==article.publishedAt && <> · Updated <time datetime={article.modifiedAt}>{reportDate(article.modifiedAt)}</time></>}</p></header>
+   {article.sections.map(section=><section><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}</section>)}
+   <section><h2>Sources and verification</h2><ul>{article.sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a>{source.observationDate && <> · Observation {source.observationDate}</>}</li>)}</ul></section>
+   <aside>Research is informational, not investment advice. Model outlooks are conditional and do not predict currency prices. Check observation dates and original sources before making decisions.</aside>
+  </article>
+  <p><a href={pairUrl(pair.symbol)}>← Back to {pair.label} research hub</a></p>
+ </main>
+</Layout>
+<style>
+.research-page{padding:24px 0 60px}.research-page nav{font-size:.8rem;color:#94a3b8}.research-page article{max-width:820px;margin:30px auto}.eyebrow{color:#93c5fd;font-size:.75rem;font-weight:800;letter-spacing:.1em}.research-page h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;color:#f8fafc}.research-page h2{color:#f8fafc;font-size:1.4rem;margin:32px 0 10px}.research-page p,.research-page li{color:#cbd5e1;line-height:1.8;font-size:1rem}.research-page .summary{font-size:1.15rem}.dates{font-size:.78rem!important;color:#94a3b8!important}.research-page aside{border-left:3px solid #60a5fa;background:#13273a;padding:18px;color:#cbd5e1;border-radius:8px}.research-page a{color:#93c5fd;overflow-wrap:anywhere}
+</style>
