@@ -4,6 +4,7 @@ import PolicyOutlook from "../../components/Trade90PolicyOutlook.svelte";
 import DivergenceHero from "../../components/Trade90DivergenceHero.astro";
 import policyModel from "../../../public/data/policy-outlook.json";
 import MacroComparison from "../../components/Trade90MacroComparison.svelte";
+import YieldCurve from "../../components/Trade90YieldCurve.astro";
 import macroData from "../../../public/data/macro-history.json";
 import NextDecisions from "../../components/Trade90NextDecisions.svelte";
 import PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
@@ -45,8 +46,9 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
     <div class="bank-card"><div class="card-label">QUOTE · {pair.quote}</div><h2><a href={"/central-banks/"+pair.quoteBank.short.toLowerCase()+"/"}>{pair.quoteBank.short} · {pair.quoteBank.name}</a></h2><div class="value">{formatPercent(pair.quoteRate)}</div><p>{pair.quoteBank.benchmark}</p><p>Effective {reportDate(pair.quoteBank.effectiveDate)}</p><a href={pair.quoteBank.source} target="_blank" rel="noopener noreferrer">Official {pair.quoteBank.short} rate source ↗</a></div>
   </section>
   <p class="data-footnote">Rates are from the verified {reportDate(rateSnapshot.asOf)} snapshot; supported official decisions are checked automatically; this is not live market pricing. <a href="/data-policy/">Review sources, update frequency and licensing →</a></p>
-  <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">90-day outlook</a><a href="#economy">Macro analysis</a><a href="#decisions">Next decisions</a><a href="#research">Research articles</a><a href="#sources">Sources &amp; methodology</a></nav>
+  <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">90-day outlook</a><a href="#economy">Macro analysis</a><a href="#yield-curve">Bond yields</a><a href="#decisions">Next decisions</a><a href="#research">Research articles</a><a href="#sources">Sources &amp; methodology</a></nav>
   <section class="section" id="economy"><MacroComparison client:visible base={pair.base} quote={pair.quote} initialData={{...macroData,countries:{[pair.base]:macroData.countries[pair.base],[pair.quote]:macroData.countries[pair.quote]}}}/></section>
+  <YieldCurve pair={pair}/>
   <section class="section" id="decisions"><NextDecisions client:visible pair={pair}/></section>
   <section class="section article-section" id="research"><div class="eyebrow">ORIGINAL RESEARCH · EDITORIAL REVIEWED</div><h2>Latest {pair.label} research</h2>{publishedResearch.length ? <div class="research-links">{publishedResearch.slice(0,6).map(article=><a href={researchUrl(article)}><strong>{article.title}</strong><span><time datetime={article.publishedAt}>{reportDate(article.publishedAt)}</time> · {article.summary}</span></a>)}</div> : <p>Original research will appear here once the analysis, dates and primary sources are verified and approved. Explore the policy and macroeconomic evidence above in the meantime.</p>}</section>
   <details class="more-research"><summary>Central-bank guidance and policy updates <span>Expand detailed evidence</span></summary><section class="section" id="guidance"><PairGuidance pair={pair}/></section><section class="section" id="updates"><PolicyUpdates pair={pair}/></section><section class="section" id="official-releases"><OfficialPublications client:visible pair={pair}/></section></details>
