@@ -25,7 +25,8 @@ for(const entry of config.providers||[]){
  if(!allowed.has(entry.currency)||entry.enabled!==true)continue;
  if(entry.redistributionApproved!==true||!entry.licenseReviewedAt||!isDate(entry.licenseReviewedAt)){console.warn(entry.currency+': license not approved; skipped');continue;}
  if(!/^https:\/\//.test(entry.endpoint||'')||!/^https:\/\//.test(entry.source||''))throw Error(entry.currency+': invalid source URL');
- const url=new URL(entry.endpoint);
+ const endpoint=entry.endpoint.replaceAll('{year}',String(new Date().getUTCFullYear()));
+ const url=new URL(endpoint);
  if(!Array.isArray(entry.allowedHosts)||!entry.allowedHosts.includes(url.hostname))throw Error(entry.currency+': endpoint host not allowlisted');
  try{
   const response=await fetch(url,{headers:{'Accept':'application/json','User-Agent':'TRADE90-Yield-Research/1.0 (+https://tradeninety.com)'},signal:AbortSignal.timeout(20000)});
@@ -34,6 +35,7 @@ for(const entry of config.providers||[]){
   if(payload.currency!==entry.currency||!Array.isArray(payload.observations))throw Error('provider schema mismatch');
   const observations=payload.observations.filter(o=>isDate(o.date)&&Number.isFinite(o['2Y'])&&Number.isFinite(o['10Y'])&&o['2Y']!==0&&o['10Y']!==0&&Math.abs(o['2Y'])<100&&Math.abs(o['10Y'])<100).sort((a,b)=>b.date.localeCompare(a.date));
   if(!observations.length)throw Error('no valid observations');
+  if(Date.now()-Date.parse(observations[0].date+'T00:00:00Z')>10*86400000)throw Error('source observation older than 10 calendar days');
   const latest=observations[0],old=next.currencies[entry.currency];
   if(old&&old.asOf>latest.date){console.warn(entry.currency+': older observation ignored');continue;}
   next.currencies[entry.currency]={verified:true,asOf:latest.date,source:entry.source,license:entry.license,licenseReviewedAt:entry.licenseReviewedAt,provider:entry.endpoint,yields:{'2Y':latest['2Y'],'10Y':latest['10Y']}};
@@ -41,4 +43,5 @@ for(const entry of config.providers||[]){
  }catch(error){console.error(entry.currency+': '+error.message+'; retaining previous data');}
 }
 if(updates){next.asOf=new Date().toISOString();await fs.writeFile(file,JSON.stringify(next,null,2)+'\n');}
+if(config.providers?.filter(p=>p.enabled).length && !updates)process.exitCode=1;
 console.log('Yield data updated for '+updates+' currencies; unavailable currencies remain unpopulated.');
