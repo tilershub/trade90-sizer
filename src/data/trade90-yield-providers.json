@@ -1,5 +1,19 @@
 {
   "schemaVersion": 1,
   "notes": "Only add provider endpoints after confirming machine-readable JSON format, attribution and commercial redistribution rights. No feeds are approved yet.",
-  "providers": []
+  "providers": [
+    {
+      "currency": "USD",
+      "enabled": true,
+      "format": "us-treasury-csv",
+      "endpoint": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&_format=csv",
+      "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "allowedHosts": [
+        "home.treasury.gov"
+      ],
+      "redistributionApproved": true,
+      "license": "CC0-1.0 (data.gov catalog)",
+      "licenseReviewedAt": "2026-10-25"
+    }
+  ]
 }
