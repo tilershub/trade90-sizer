@@ -1,0 +1,27 @@
+---
+import yieldData from "../data/trade90-yield-curves.json";
+const {pair}=Astro.props;
+const countries={USD:"US Treasury",EUR:"German Bund (euro-area proxy)",GBP:"UK Gilt",JPY:"Japanese government bond",AUD:"Australian government bond",NZD:"New Zealand government bond",CAD:"Canadian government bond",CHF:"Swiss Confederation bond"};
+const base=yieldData.currencies?.[pair.base],quote=yieldData.currencies?.[pair.quote];
+const dateOk=s=>typeof s==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&Date.parse(s+"T00:00:00Z")<=Date.now();
+const verified=x=>x?.verified===true&&dateOk(x.asOf)&&typeof x.source==="string"&&/^https:\/\//.test(x.source)&&Number.isFinite(x.yields?.["2Y"])&&Number.isFinite(x.yields?.["10Y"]);
+const ready=verified(base)&&verified(quote)&&base.asOf===quote.asOf;
+const stale=ready&&(Date.now()-Date.parse(base.asOf+"T00:00:00Z"))>7*86400000;
+const spread=tenor=>Math.round((base.yields[tenor]-quote.yields[tenor])*100);
+const fmt=n=>(n>0?"+":"")+n+" bp";
+---
+<section class="yield-intel" id="yield-curve" aria-labelledby="yield-title">
+ <div class="yield-header"><div><div class="eyebrow">BOND MARKET CONTEXT</div><h2 id="yield-title">{pair.label} yield curve intelligence</h2><p>Compare government bond yields alongside policy-rate expectations. Yield spreads are not official policy-rate gaps or FX forecasts.</p></div><span class="data-state">{ready?(stale?"Historical snapshot":"Verified snapshot"):"Data pending"}</span></div>
+ {ready ? <>
+ <div class="yield-cards">
+  <div><span>2-year yield differential · {pair.base} − {pair.quote}</span><strong>{fmt(spread("2Y"))}</strong><small>Policy-sensitive market benchmark</small></div>
+  <div><span>10-year yield differential · {pair.base} − {pair.quote}</span><strong>{fmt(spread("10Y"))}</strong><small>Growth, inflation and term premium context</small></div>
+ </div>
+ <div class="yield-table-wrap"><table><caption>Verified government bond yield observations, percent per year</caption><thead><tr><th scope="col">Tenor</th><th scope="col">{pair.base}</th><th scope="col">{pair.quote}</th><th scope="col">Base − quote</th></tr></thead><tbody>{["2Y","10Y"].map(tenor=><tr><th scope="row">{tenor}</th><td>{base.yields[tenor].toFixed(2)}%</td><td>{quote.yields[tenor].toFixed(2)}%</td><td>{fmt(spread(tenor))}</td></tr>)}</tbody></table></div>
+ <p class="yield-foot">Observation date: <time datetime={base.asOf}>{base.asOf}</time>. {stale?"This is a historical snapshot; do not treat it as current market pricing.":"Daily observations are not live prices."} <a href={base.source} target="_blank" rel="noopener noreferrer">{countries[pair.base]} source ↗</a> · <a href={quote.source} target="_blank" rel="noopener noreferrer">{countries[pair.quote]} source ↗</a></p>
+ </> : <div class="yield-empty"><strong>Yield comparison awaiting verified data</strong><p>We will display 2Y and 10Y spreads once both government bond series have matching observation dates, verified sources and suitable reuse permissions. No estimated yields are shown.</p></div>}
+ <details><summary>How to interpret this for the 90-day outlook</summary><p>The 2-year spread is sensitive to relative rate expectations. The 10-year spread also reflects inflation, growth and term premiums. A change in government bond yields does not necessarily predict a central-bank decision or currency direction. German Bunds are a euro-area market proxy, not an ECB-issued sovereign bond.</p></details>
+</section>
+<style>
+.yield-intel{padding:22px;border:1px solid #334155;background:#101a2b;border-radius:14px;scroll-margin-top:90px}.yield-header{display:flex;justify-content:space-between;gap:16px;align-items:start}.yield-header h2{font-size:1.35rem;color:#f8fafc;margin:6px 0}.yield-header p,.yield-intel p{color:#a5b4c8;font-size:.83rem;line-height:1.65}.eyebrow{font-size:.69rem;letter-spacing:.1em;color:#60a5fa;font-weight:800}.data-state{border:1px solid #475569;border-radius:99px;padding:6px 10px;color:#cbd5e1;font-size:.7rem;white-space:nowrap}.yield-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}.yield-cards>div{background:#152238;border:1px solid #334155;border-radius:10px;padding:16px}.yield-cards span,.yield-cards small{display:block;color:#a5b4c8;font-size:.76rem}.yield-cards strong{display:block;font-size:1.65rem;color:#f8fafc;margin:8px 0}.yield-table-wrap{overflow-x:auto}.yield-intel table{width:100%;border-collapse:collapse;text-align:right;color:#cbd5e1;font-size:.84rem}.yield-intel th:first-child,.yield-intel td:first-child{text-align:left}.yield-intel th,.yield-intel td{padding:10px;border-bottom:1px solid #334155}.yield-intel caption{text-align:left;color:#94a3b8;font-size:.72rem;padding-bottom:8px}.yield-foot a{color:#93c5fd}.yield-empty{background:#152238;border:1px dashed #475569;border-radius:10px;padding:18px;margin:15px 0}.yield-empty strong{color:#e2e8f0}.yield-intel details{margin-top:15px;color:#cbd5e1}.yield-intel summary{cursor:pointer;font-weight:700;font-size:.83rem}@media(max-width:580px){.yield-intel{padding:15px}.yield-header{display:block}.data-state{display:inline-block;margin-top:8px}.yield-cards{grid-template-columns:1fr}}
+</style>
