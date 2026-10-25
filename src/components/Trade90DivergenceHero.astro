@@ -5,7 +5,7 @@ const {pair,model,snapshotDate}=Astro.props;
 const outlook=model?.pairs?.[pair.symbol],base=model?.banks?.[pair.base],quote=model?.banks?.[pair.quote];
 const until=Date.parse(outlook?.expiresAt||"");
 const valid=Number.isFinite(until)&&until>Date.now();
-const state=valid?outlook?.state||"unavailable":"unavailable";
+const state=valid?(outlook?.state==="uncertain"?"unclear":outlook?.state||"unavailable"):"unavailable";
 const states={
  widening:{label:"WIDENING",meaning:"The absolute policy-rate gap may grow",short:"Gap may widen"},
  narrowing:{label:"NARROWING",meaning:"The absolute policy-rate gap may shrink",short:"Gap may narrow"},
@@ -27,7 +27,7 @@ const catalysts=getNextPolicyDecisions(pair,new Date().toISOString().slice(0,10)
  <div class="hero-main">
   <div class="decision">
    <p class="prompt">Expected policy-rate difference · {pair.label}</p>
-   <h2 class="result" data-outlook-label>{presentation.label}</h2>
+   <div class="signal-heading"><span class="signal-icon" aria-hidden="true">{state==="widening"?"↗":state==="narrowing"?"↘":state==="unavailable"?"!":"↔"}</span><h2 class="result" data-outlook-label>{presentation.label}</h2></div>
    <p class="result-description" data-outlook-plain>{presentation.meaning}</p>
    <p class="interpretation">Direction of the <strong>interest-rate gap</strong> over the next 90 days, not a prediction of the {pair.label} exchange rate.</p>
   </div>
@@ -69,6 +69,7 @@ const catalysts=getNextPolicyDecisions(pair,new Date().toISOString().slice(0,10)
   el.classList.add("is-expired");
   const label=el.querySelector("[data-outlook-label]"),sub=el.querySelector("[data-outlook-plain]"),reason=el.querySelector("[data-outlook-reason]"),valid=el.querySelector("[data-outlook-validity]");
   if(label)label.textContent="UNAVAILABLE";
+  const icon=el.querySelector(".signal-icon");if(icon)icon.textContent="!";
   if(sub)sub.textContent="90-day model assessment expired";
   if(reason)reason.textContent="New validated model evidence is required. An older directional assessment is no longer displayed.";
   if(valid)valid.textContent="Assessment expired — awaiting verified refresh";
@@ -114,4 +115,5 @@ const catalysts=getNextPolicyDecisions(pair,new Date().toISOString().slice(0,10)
 .is-expired .result-description{color:var(--muted)}
 @media(max-width:750px){.outlook-hero{padding:14px 15px;margin:8px 0 16px}.topline{gap:4px;flex-wrap:wrap}.hero-main{flex-direction:column;align-items:stretch}.result{font-size:clamp(2.5rem,11vw,3.5rem)}.rate-fact{width:auto;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.rate-fact span{max-width:33%}.rate-fact strong{font-size:1.55rem;white-space:nowrap;margin:0}.hero-bottom{flex-direction:column;align-items:flex-start;gap:9px}.actions{justify-content:flex-start}.bank-biases>div{padding:9px}.reasoning{padding:10px 12px}.catalysts{gap:5px}}
 @media(max-width:380px){.bank-biases{grid-template-columns:1fr}.rate-fact span{font-size:.68rem}}
+.signal-heading{display:flex;align-items:center;gap:14px;min-width:0}.signal-icon{display:grid;place-items:center;flex:none;width:66px;height:66px;border-radius:16px;background:color-mix(in srgb,var(--signal) 13%,transparent);border:1px solid var(--signal);color:var(--signal);font-size:2.6rem;font-weight:800;line-height:1}.state-widening{--signal:#34d399}.state-narrowing{--signal:#fbbf24}.state-unclear,.state-unchanged,.state-unavailable,.is-expired{--signal:#94a3b8}@media(max-width:560px){.signal-heading{gap:10px}.signal-icon{width:48px;height:48px;border-radius:12px;font-size:2rem}.signal-heading .result{font-size:clamp(1.95rem,8vw,3rem)}}
 </style>
