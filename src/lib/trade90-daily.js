@@ -27,3 +27,27 @@ export function changesSince(previous,current,symbols) {
  return result;
 }
 export function upcomingDecisions(events,codes,today){return events.filter(e=>codes.includes(e.currency)&&e.date>=today).sort((a,b)=>a.date.localeCompare(b.date));}
+
+/** Evidence-change briefing, not a calibrated forecast or a trade signal. */
+export function evidenceBrief(previous,current,symbols){
+ if(!previous?.banks||!current?.banks)return [];
+ const codes=[...new Set(symbols.flatMap(s=>[s.slice(0,3),s.slice(3)]))];
+ return codes.map(code=>{
+  const old=previous.banks[code],next=current.banks[code];
+  if(!old||!next)return {code,status:'no-baseline',summary:'No comparable prior evidence snapshot.'};
+  const changed=[],revised=[],unchanged=[];
+  for(const d of next.drivers||[]){
+   const before=(old.drivers||[]).find(x=>x.metric===d.metric);
+   if(!before){changed.push(d.metric+' (newly tracked)');continue;}
+   const beforeDate=before.latest?.date,afterDate=d.latest?.date;
+   const beforeValue=before.latest?.value,afterValue=d.latest?.value;
+   if(beforeDate!==afterDate)changed.push(d.metric+' (new observation)');
+   else if(beforeValue!==afterValue)revised.push(d.metric+' (same-date revision)');
+   else if(before.text!==d.text)revised.push(d.metric+' (interpretation updated)');
+   else unchanged.push(d.metric);
+  }
+  const guidanceChanged=JSON.stringify(old.guidance)!==JSON.stringify(next.guidance);
+  const changedCount=changed.length+revised.length+(guidanceChanged?1:0);
+  return {code,status:changedCount?'review':'unchanged',changed,revised,guidanceChanged,summary:changedCount?changedCount+' evidence item(s) require review. This alone does not establish whether the policy outlook is stronger or weaker.':'No tracked evidence change detected since your saved baseline.'};
+ });
+}
