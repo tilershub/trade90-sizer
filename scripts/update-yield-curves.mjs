@@ -12,6 +12,14 @@ const existing=JSON.parse(await fs.readFile(file,'utf8'));
 const allowed=new Set(['USD','EUR','GBP','JPY','AUD','NZD','CAD','CHF']);
 const isDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'')&&Number.isFinite(Date.parse(s+'T00:00:00Z'))&&Date.parse(s+'T00:00:00Z')<=Date.now();
 const next={...existing,currencies:{...existing.currencies}};
+function parseTreasuryCsv(csv,currency,source){
+ const lines=csv.trim().split(/\r?\n/).map(line=>line.split(','));
+ const header=lines.shift().map(v=>v.replace(/^\"|\"$/g,'').trim());
+ const dateIndex=header.findIndex(h=>h==='Date'),two=header.findIndex(h=>/^2\s*(Yr|YR|Year)$/i.test(h)),ten=header.findIndex(h=>/^10\s*(Yr|YR|Year)$/i.test(h));
+ if(dateIndex<0||two<0||ten<0)throw Error('Treasury CSV tenor columns missing');
+ const observations=lines.map(row=>{const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(row[dateIndex]||'');return m?{date:m[3]+'-'+m[1].padStart(2,'0')+'-'+m[2].padStart(2,'0'),'2Y':Number(row[two]),'10Y':Number(row[ten])}:null;}).filter(Boolean);
+ return {currency,source,observations};
+}
 let updates=0;
 for(const entry of config.providers||[]){
  if(!allowed.has(entry.currency)||entry.enabled!==true)continue;
@@ -22,9 +30,9 @@ for(const entry of config.providers||[]){
  try{
   const response=await fetch(url,{headers:{'Accept':'application/json','User-Agent':'TRADE90-Yield-Research/1.0 (+https://tradeninety.com)'},signal:AbortSignal.timeout(20000)});
   if(!response.ok)throw Error('HTTP '+response.status);
-  const payload=await response.json();
+  const payload=entry.format==='us-treasury-csv' ? parseTreasuryCsv(await response.text(),entry.currency,entry.source) : await response.json();
   if(payload.currency!==entry.currency||!Array.isArray(payload.observations))throw Error('provider schema mismatch');
-  const observations=payload.observations.filter(o=>isDate(o.date)&&Number.isFinite(o['2Y'])&&Number.isFinite(o['10Y'])&&Math.abs(o['2Y'])<100&&Math.abs(o['10Y'])<100).sort((a,b)=>b.date.localeCompare(a.date));
+  const observations=payload.observations.filter(o=>isDate(o.date)&&Number.isFinite(o['2Y'])&&Number.isFinite(o['10Y'])&&o['2Y']!==0&&o['10Y']!==0&&Math.abs(o['2Y'])<100&&Math.abs(o['10Y'])<100).sort((a,b)=>b.date.localeCompare(a.date));
   if(!observations.length)throw Error('no valid observations');
   const latest=observations[0],old=next.currencies[entry.currency];
   if(old&&old.asOf>latest.date){console.warn(entry.currency+': older observation ignored');continue;}
