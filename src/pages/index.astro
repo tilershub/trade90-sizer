@@ -6,18 +6,23 @@ import RefreshStatus from "../components/Trade90RefreshStatus.svelte";
 import OfficialReleaseFeed from "../components/Trade90OfficialReleaseFeed.svelte";
 import {allTrade90Pairs,majors,pairUrl,rateSnapshot,reportDate,formatPercent} from "../lib/trade90-v3.js";
 import {formatBp} from "../lib/trade90-rates.js";
+import policyOutlook from "../../public/data/policy-outlook.json";
 import {officialPolicyDecisionCalendar,decisionCalendarReviewedAt} from "../data/trade90-decision-calendar.js";
 const mostGapped=allTrade90Pairs.slice(0,6);
+const outlookEntries=allTrade90Pairs.map(pair=>({pair,outlook:policyOutlook.pairs?.[pair.symbol]})).filter(item=>item.outlook);
+const outlookGeneratedAt=policyOutlook.generatedAt;
+const outlookExpiry=outlookEntries.reduce((earliest,item)=>!earliest||item.outlook.expiresAt<earliest?item.outlook.expiresAt:earliest,null);
+const outlookCounts={widening:outlookEntries.filter(item=>item.outlook.state==="widening").length,narrowing:outlookEntries.filter(item=>item.outlook.state==="narrowing").length,uncertain:outlookEntries.filter(item=>item.outlook.state==="uncertain").length};
 const lastBank=[...rateSnapshot.banks].sort((a,b)=>b.decisionDate.localeCompare(a.decisionDate))[0];
 const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().toISOString().slice(0,10)).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,4);
 ---
-<Layout title="Forex Central Bank Rates, Rate Gaps and Next Decisions" description="Compare sourced central-bank interest rates across 28 forex pairs. Explore EUR/USD, USD/JPY and other currency pairs, next policy decisions and current rate-gap rankings." canonical="/">
+<Layout title="90-Day Forex Interest Rate Divergence Outlook" description="Explore experimental 90-day interest-rate divergence outlooks for 28 forex pairs, with central-bank rates, source dates and upcoming policy decisions." canonical="/">
 <main class="wrap home">
  <section class="hero" aria-labelledby="hero-heading">
   <div class="hero-content">
    <div class="eyebrow">FOREX MONETARY POLICY RESEARCH · 8 BANKS · 28 PAIRS</div>
-   <h1 id="hero-heading">Your daily <em>central-bank research routine.</em></h1>
-   <p>Follow your currency pairs, understand what changed and prepare for upcoming policy decisions. Explore sourced rate comparisons and experimental 90-day policy outlooks.</p>
+   <h1 id="hero-heading">90-day <em>interest-rate divergence outlook.</em></h1>
+   <p>Explore experimental widening, narrowing and uncertain policy-rate differential outlooks across 28 forex pairs. Review official rates, economic evidence and upcoming central-bank decisions.</p>
    <p><a href="/daily/">Open your daily dashboard →</a></p>
    <PairFinder client:load pairs={majors.concat(allTrade90Pairs.filter(p=>p.base!=="USD" && p.quote!=="USD"))} limit={7}/>
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
@@ -30,6 +35,10 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
    </aside>
   </div>
  </section>
+ <section class="block outlook-block" id="outlook" aria-labelledby="outlook-heading"><div class="section-head"><div><div class="eyebrow">TRADE90 EXPERIMENTAL RESEARCH · 90 DAYS</div><h2 id="outlook-heading">90-day policy-rate divergence outlook</h2><p>Independent, conditional model assessments—not market-implied pricing or currency trading signals. A widening gap may favor either currency depending on the signed direction.</p></div><a href="/pairs/">Explore all 28 pairs →</a></div>
+ <div class="outlook-summary"><span>Widening <strong>{outlookCounts.widening}</strong></span><span>Narrowing <strong>{outlookCounts.narrowing}</strong></span><span>Uncertain <strong>{outlookCounts.uncertain}</strong></span></div>
+ <div class="outlook-grid">{outlookEntries.map(({pair,outlook})=><a class="outlook-card" href={pairUrl(pair.symbol)}><strong>{pair.label}</strong><span class:list={["outlook-state",outlook.state]}>{outlook.label}</span><small>{outlook.state==="widening"||outlook.state==="narrowing"?outlook.signedDirection:"Direction not established"}</small></a>)}</div>
+ <p class="minor">Model generated <time datetime={outlookGeneratedAt}>{new Date(outlookGeneratedAt).toLocaleString("en-GB",{timeZone:"UTC",dateStyle:"medium",timeStyle:"short"})} UTC</time> · Earliest pair validity expiry {outlookExpiry?new Date(outlookExpiry).toLocaleString("en-GB",{timeZone:"UTC",dateStyle:"medium",timeStyle:"short"})+" UTC":"not available"} · <a href="/methodology/">Methodology and limitations</a>. Generation is automated; it is not a new manual verification of underlying publications.</p></section>
  <section class="metrics" aria-label="Rate research snapshot">
   <a class="metric" href={pairUrl(mostGapped[0].symbol)}><span>Largest current absolute rate gap</span><strong>{formatBp(mostGapped[0].absBp)} <small>bp</small></strong><span>{mostGapped[0].label} · {mostGapped[0].higher} benchmark higher →</span></a>
   <a class="metric" href="/central-banks/"><span>Latest official policy decision</span><strong>{lastBank.short} · {formatPercent(lastBank.rate)}</strong><span>{reportDate(lastBank.decisionDate)} · Official decision source →</span></a>
@@ -40,7 +49,7 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
  <p class="minor">Official-rate figures are from {reportDate(rateSnapshot.asOf)}. A wider current gap doesn't imply a stronger currency or actual broker carry.</p></section>
  <section class="block" id="decisions"><div class="section-head"><div><div class="eyebrow">CENTRAL BANK CALENDAR</div><h2>Next major decisions to watch</h2><p>Scheduled announcements that can change the policy outlook. Dates are official calendars, not a forecast of market moves.</p></div><a href="/decisions/">Full decision calendar →</a></div><div class="decision-grid">{upcoming.map(e=><a class="decision" href="/decisions/"><span>{e.currency} · {e.bank}</span><strong><time datetime={e.date}>{reportDate(e.date)}</time></strong><small>{e.title} →</small></a>)}</div><p class="minor">Calendar reviewed {reportDate(decisionCalendarReviewedAt)}. Verify dates at the linked official banks; unexpected decisions may occur.</p></section>
  <section class="block" id="policy"><div class="section-head"><div><div class="eyebrow">SOURCE-LINKED PUBLICATIONS</div><h2>Latest central-bank policy updates</h2><p>Dated official decisions and meeting communications. This is a curated collection, not live breaking news.</p></div><a href="/central-banks/">All bank updates →</a></div><PolicyUpdates compact={true}/></section>
- <OfficialReleaseFeed client:visible limit={4}/>
+ 
  <section class="block" id="learn"><div class="section-head"><div><div class="eyebrow">LEARN</div><h2>Understand interest-rate divergence</h2><p>Evidence-based guides explain what policy gaps do—and do not—mean for forex traders.</p></div><a href="/learn/">All guides →</a></div><div class="guides"><a href="/learn/what-is-interest-rate-divergence/"><strong>What is interest-rate divergence?</strong><span>Understand signed and absolute rate differences →</span></a><a href="/learn/expected-rate-gaps/"><strong>How markets price expected rate moves</strong><span>Meeting probabilities, forwards and their limitations →</span></a><a href="/learn/high-interest-rates-currency-strength/"><strong>Do higher rates mean a stronger currency?</strong><span>Why policy gaps aren't trading signals →</span></a></div></section>
 </main>
 </Layout>
@@ -57,4 +66,5 @@ const upcoming=[...officialPolicyDecisionCalendar].filter(e=>e.date>=new Date().
 #policy :global(.policy-section){margin:0}#policy :global(.policy-header){display:none}#policy :global(.collection-note){margin-top:0}
 @media(max-width:850px){.pair-grid{grid-template-columns:repeat(2,1fr)}.decision-grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:1fr 1fr}.metrics .metric:last-child{grid-column:1/-1}}
 @media(max-width:570px){.hero{padding:33px 0 20px}.hero h1{font-size:2.28rem}.hero p{font-size:.9rem}.metrics{grid-template-columns:1fr;margin:14px 0 25px}.metrics .metric:last-child{grid-column:auto}.metric{padding:14px}.section-head{display:block}.section-head>a{display:inline-block;margin-top:10px}.pair-grid{grid-template-columns:1fr 1fr;gap:7px}.pair-card{padding:11px}.pair-card strong{font-size:1.22rem}.pair-top{font-size:.59rem;display:block}.pair-top span:last-child{display:none}.pair-bottom{display:block;font-size:.76rem}.pair-bottom span:last-child{display:block;margin-top:8px}.decision-grid{grid-template-columns:1fr 1fr;gap:7px}.decision{padding:12px}.decision strong{font-size:1rem}.guides{grid-template-columns:1fr}.block{padding:22px 0}}
+.outlook-block{padding-top:28px}.outlook-summary{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}.outlook-summary span{padding:9px 13px;border:1px solid #334155;border-radius:9px;background:#111c30;color:#cbd5e1;font-size:.82rem}.outlook-summary strong{color:#f8fafc;margin-left:7px}.outlook-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.outlook-card{display:flex;flex-direction:column;gap:8px;min-width:0;padding:13px;background:#111c30;border:1px solid #334155;border-radius:11px;text-decoration:none;color:#f8fafc}.outlook-card:hover{border-color:#60a5fa}.outlook-card strong{font-size:1.03rem}.outlook-card small{font-size:.7rem;color:#94a3b8}.outlook-state{font-size:.75rem;color:#cbd5e1}.outlook-state.widening{color:#6ee7b7}.outlook-state.narrowing{color:#fda4af}.outlook-state.uncertain{color:#fcd34d}@media(max-width:850px){.outlook-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:570px){.outlook-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.outlook-card{padding:11px}.outlook-card strong{font-size:.96rem}.outlook-block{padding-top:20px}}
 </style>
