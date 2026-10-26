@@ -593,3 +593,68 @@ html .info p{font-size:1rem;line-height:1.8}
 /* Astro page-local selectors can otherwise win ties after imported global CSS. */
 html[data-theme="light"] body main .info p {color:#334155 !important;}
 html[data-theme="light"] body main .info h2 {color:#102033 !important;}
+
+/* Contrast remediation: shared research surfaces, light/dark mode.
+ * Keep component semantics and signal colors; improve muted copy and links. */
+html:not([data-theme="light"]) {
+ --muted:#b8c7d7;
+ --read-muted:#b8c7d7;
+}
+html:not([data-theme="light"]) .home .minor,
+html:not([data-theme="light"]) .home .outlook-card small,
+html:not([data-theme="light"]) .home .section-head p,
+html:not([data-theme="light"]) .home .popular span,
+html:not([data-theme="light"]) .home .outlook-state,
+html:not([data-theme="light"]) .pair-page .card-label,
+html:not([data-theme="light"]) .pair-page .crumbs,
+html:not([data-theme="light"]) .pair-page .bank-card p,
+html:not([data-theme="light"]) .pair-page .gap-card p,
+html:not([data-theme="light"]) .pair-page .related-links a span,
+html:not([data-theme="light"]) .page-intro p,
+html:not([data-theme="light"]) .footer .fine,
+html:not([data-theme="light"]) .footer p {color:#cbd5e1}
+html:not([data-theme="light"]) .home .outlook-card small,
+html:not([data-theme="light"]) .home .minor {font-size:max(.82rem,13px)}
+/* Homepage and pair pages previously retained dark-only scoped colors in light mode. */
+html[data-theme="light"] .home .hero h1,
+html[data-theme="light"] .home .section-head h2,
+html[data-theme="light"] .home .outlook-card strong,
+html[data-theme="light"] .home .home-daily h2,
+html[data-theme="light"] .pair-page .pair-head h1,
+html[data-theme="light"] .pair-page .related-links a strong {color:#102033}
+html[data-theme="light"] .home .hero h1 em,
+html[data-theme="light"] .home .hero .eyebrow,
+html[data-theme="light"] .home .block .eyebrow {color:#1d4ed8}
+html[data-theme="light"] .home .hero p,
+html[data-theme="light"] .home .section-head p,
+html[data-theme="light"] .home .home-daily p,
+html[data-theme="light"] .home .outlook-card small,
+html[data-theme="light"] .home .outlook-state:not(.widening):not(.narrowing):not(.uncertain),
+html[data-theme="light"] .pair-page .headingline p {color:#334155}
+html[data-theme="light"] .home .outlook-card,
+html[data-theme="light"] .home .outlook-summary span,
+html[data-theme="light"] .home .home-daily,
+html[data-theme="light"] .home .data-status,
+html[data-theme="light"] .home .home-resources a,
+html[data-theme="light"] .pair-page .more-research {background:#fff;color:#102033;border-color:#cbd5e1}
+html[data-theme="light"] .home .data-status>span:not(.statusdot),
+html[data-theme="light"] .home .data-status>strong,
+html[data-theme="light"] .home .data-status>span strong,
+html[data-theme="light"] .home .outlook-summary strong,
+html[data-theme="light"] .pair-page .more-research>summary {color:#102033}
+html[data-theme="light"] .home .outlook-state.widening {color:#047857}
+html[data-theme="light"] .home .outlook-state.narrowing {color:#be123c}
+html[data-theme="light"] .home .outlook-state.uncertain {color:#92400e}
+html[data-theme="light"] .home .outlook-card:hover {background:#eff6ff;border-color:#1d4ed8}
+html[data-theme="light"] .home .data-status a,
+html[data-theme="light"] .home .home-resources a,
+html[data-theme="light"] .home .home-daily a {color:#1d4ed8}
+html[data-theme="light"] .pair-page .more-research>summary span {color:#475569}
+html[data-theme="light"] .pair-page .more-research .section {background:#fff}
+html[data-theme="light"] .page-intro p {color:#334155}
+html[data-theme="light"] .footer,
+html[data-theme="light"] .topbar {background:#020617;color:#f8fafc}
+html[data-theme="light"] .footer .brand,
+html[data-theme="light"] .topbar .brand {color:#f8fafc}
+html[data-theme="light"] .footer .footlinks a,
+html[data-theme="light"] .topbar .nav nav a {color:#e2e8f0}
