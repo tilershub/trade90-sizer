@@ -1,0 +1,23 @@
+---
+/** Reusable sponsored placement; never imply FTMO endorses TRADE90 research. */
+const {variant="banner"}=Astro.props;
+const href="https://join.ftmo.com/ePACbqdYAbKwZHXxkICk";
+const image="https://cdn.ftmo.com/aff-banner.1200x628";
+---
+<aside class:list={["ftmo-promo",variant]} aria-label="Sponsored FTMO affiliate promotion">
+ <div class="ftmo-top"><span class="ftmo-label">Advertisement · Affiliate link</span><span class="ftmo-brand">FTMO</span></div>
+ <a href={href} target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Visit FTMO through TRADE90's affiliate link (opens in new tab)">
+  <img src={image} alt="FTMO.com — For serious traders" width="1200" height="628" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+ </a>
+ <p>TRADE90 may earn a commission if you join through this link, at no additional cost to you. This advertisement is separate from our independent currency research. Trading involves risk.</p>
+</aside>
+<style>
+.ftmo-promo{max-width:760px;margin:24px auto;border:1px solid #334155;border-radius:12px;padding:14px;background:#111c30;color:#cbd5e1}
+.ftmo-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.ftmo-label{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.ftmo-brand{font-size:.8rem;color:#e2e8f0;font-weight:800}
+.ftmo-promo a{display:block;max-width:100%;border-radius:8px;overflow:hidden}
+.ftmo-promo img{display:block;width:100%;height:auto;aspect-ratio:1200/628;object-fit:contain}
+.ftmo-promo p{font-size:.73rem;line-height:1.55;color:#94a3b8;margin:10px 0 0}
+@media(max-width:600px){.ftmo-promo{margin:18px 0;padding:10px}}
+</style>
