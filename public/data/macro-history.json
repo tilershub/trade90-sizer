@@ -14,7 +14,7 @@
           "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN.M.N.CPI.PA._T.N.GY?startPeriod=2015",
           "sourceUpdated": null,
-          "retrievedAt": "2026-10-26T11:31:30.821278+00:00",
+          "retrievedAt": "2026-10-27T10:57:22.194386+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -592,7 +592,7 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Switzerland",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
           "sourceUpdated": "2026-09-15 3:14 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:33.460218+00:00",
+          "retrievedAt": "2026-10-27T10:57:24.540455+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -791,7 +791,7 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Switzerland",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:33.802645+00:00",
+          "retrievedAt": "2026-10-27T10:57:25.028537+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -995,7 +995,7 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Australia",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:33.584846+00:00",
+          "retrievedAt": "2026-10-27T10:57:24.553552+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -1570,7 +1570,7 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Australia",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:33.458352+00:00",
+          "retrievedAt": "2026-10-27T10:57:24.702783+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -1771,7 +1771,7 @@
           "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
           "sourceUpdated": null,
-          "retrievedAt": "2026-10-26T11:31:30.818079+00:00",
+          "retrievedAt": "2026-10-27T10:57:22.187642+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -1976,8 +1976,8 @@
           "sourceTitle": "Euro area (21 countries): Real GDP, quarter-on-quarter percentage change, seasonally and calendar adjusted",
           "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
           "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?lang=en&geo=EA21&na_item=B1GQ&unit=CLV_PCH_PRE&s_adj=SCA&freq=Q&sinceTimePeriod=2015-Q1",
-          "sourceUpdated": "2026-10-22T23:00:00+0200",
-          "retrievedAt": "2026-10-26T11:31:33.224249+00:00",
+          "sourceUpdated": "2026-10-26T23:00:00+0100",
+          "retrievedAt": "2026-10-27T10:57:24.061811+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -2178,7 +2178,7 @@
           "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?lang=en&geo=EA21&coicop18=TOTAL&unit=RCH_A&freq=M&sinceTimePeriod=2015-01",
           "sourceUpdated": "2026-10-16T23:00:00+0200",
-          "retrievedAt": "2026-10-26T11:31:32.716268+00:00",
+          "retrievedAt": "2026-10-27T10:57:23.732178+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -2759,7 +2759,7 @@
           "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
           "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?lang=en&geo=EA21&sex=T&age=TOTAL&unit=PC_ACT&s_adj=SA&freq=M&sinceTimePeriod=2015-01",
           "sourceUpdated": "2026-10-21T11:00:00+0200",
-          "retrievedAt": "2026-10-26T11:31:32.232074+00:00",
+          "retrievedAt": "2026-10-27T10:57:23.429000+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -3338,7 +3338,7 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
           "sourceUpdated": "2026-09-15 3:14 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:33.702905+00:00",
+          "retrievedAt": "2026-10-27T10:57:24.949171+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -3915,7 +3915,7 @@
           "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
           "sourceUpdated": null,
-          "retrievedAt": "2026-10-26T11:31:30.824339+00:00",
+          "retrievedAt": "2026-10-27T10:57:22.200462+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -4493,7 +4493,7 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Canada",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:33.865365+00:00",
+          "retrievedAt": "2026-10-27T10:57:24.981227+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -4699,7 +4699,7 @@
           "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN.M.N.CPI.PA._T.N.GY?startPeriod=2015",
           "sourceUpdated": null,
-          "retrievedAt": "2026-10-26T11:31:30.829957+00:00",
+          "retrievedAt": "2026-10-27T10:57:22.206403+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -5262,6 +5262,10 @@
             {
               "date": "2026-08-01",
               "value": 1.9
+            },
+            {
+              "date": "2026-09-01",
+              "value": 2.1
             }
           ]
         },
@@ -5273,7 +5277,7 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Japan",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.100230+00:00",
+          "retrievedAt": "2026-10-27T10:57:25.562937+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -5848,7 +5852,7 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Japan",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S",
           "sourceUpdated": "2026-09-15 3:09 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.218096+00:00",
+          "retrievedAt": "2026-10-27T10:57:25.710192+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -6052,7 +6056,7 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United Kingdom",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.181398+00:00",
+          "retrievedAt": "2026-10-27T10:57:25.334769+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -6251,7 +6255,7 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for United Kingdom",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
           "sourceUpdated": "2026-10-15 3:42 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:33.904597+00:00",
+          "retrievedAt": "2026-10-27T10:57:25.489800+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -6958,7 +6962,7 @@
           "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
           "sourceUpdated": null,
-          "retrievedAt": "2026-10-26T11:31:30.827318+00:00",
+          "retrievedAt": "2026-10-27T10:57:22.203553+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -7541,7 +7545,7 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for New Zealand",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.419738+00:00",
+          "retrievedAt": "2026-10-27T10:57:25.916388+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -7740,7 +7744,7 @@
           "sourceTitle": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for New Zealand",
           "sourceUrl": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
           "sourceUpdated": "2026-08-17 3:04 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.701726+00:00",
+          "retrievedAt": "2026-10-27T10:57:25.867334+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -7941,7 +7945,7 @@
           "sourceUrl": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+CHE+CAN+GBR+JPN+NZL.M+Q.N.CPI.PA._T.N.GY?startPeriod=2015",
           "sourceUpdated": null,
-          "retrievedAt": "2026-10-26T11:31:30.832509+00:00",
+          "retrievedAt": "2026-10-27T10:57:22.208971+00:00",
           "transform": null,
           "status": "ok",
           "points": [
@@ -8128,6 +8132,10 @@
             {
               "date": "2026-04-01",
               "value": 4.05819
+            },
+            {
+              "date": "2026-07-01",
+              "value": 3.71494
             }
           ]
         }
@@ -8144,7 +8152,7 @@
           "sourceTitle": "Unemployment Rate",
           "sourceUrl": "https://fred.stlouisfed.org/series/UNRATE",
           "sourceUpdated": "2026-10-02 8:24 AM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.892900+00:00",
+          "retrievedAt": "2026-10-27T10:57:26.404973+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -8719,7 +8727,7 @@
           "sourceTitle": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United States",
           "sourceUrl": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
           "sourceUpdated": "2026-10-15 3:41 PM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.794462+00:00",
+          "retrievedAt": "2026-10-27T10:57:26.427196+00:00",
           "transform": null,
           "provider": "FRED",
           "status": "ok",
@@ -8918,7 +8926,7 @@
           "sourceTitle": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
           "sourceUrl": "https://fred.stlouisfed.org/series/CPIAUCNS",
           "sourceUpdated": "2026-10-14 8:08 AM CDT",
-          "retrievedAt": "2026-10-26T11:31:34.468582+00:00",
+          "retrievedAt": "2026-10-27T10:57:26.061390+00:00",
           "transform": "yoy",
           "provider": "FRED",
           "status": "ok",
@@ -9488,5 +9496,5 @@
       }
     }
   },
-  "checkedAt": "2026-10-26T11:31:34.893275+00:00"
+  "checkedAt": "2026-10-27T10:57:26.428052+00:00"
 }
