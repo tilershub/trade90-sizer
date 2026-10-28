@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "monitored",
-  "lastScanAt": "2026-10-27T19:28:05.378Z",
+  "lastScanAt": "2026-10-28T18:54:10.133Z",
   "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
   "sources": [
     {
@@ -10,8 +10,12 @@
       "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
       "domain": "federalreserve.gov",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
+        {
+          "title": "Federal Reserve issues FOMC statement",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+        },
         {
           "title": "Minutes of the Board's discount rate meetings on August 17, September 9, and September 16, 2026",
           "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261013a.htm"
@@ -67,10 +71,6 @@
         {
           "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026",
           "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
-        },
-        {
-          "title": "Federal Reserve issues FOMC statement",
-          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm"
         }
       ]
     },
@@ -80,7 +80,7 @@
       "url": "https://www.ecb.europa.eu/rss/press.html",
       "domain": "ecb.europa.eu",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
         {
           "title": "Philip R. Lane: Euro liquidity lines and the international monetary system",
@@ -94,7 +94,7 @@
       "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
       "domain": "bankofengland.co.uk",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
         {
           "title": "Publication // Monetary Policy Report (MPR) 30 July 2026 Monetary Policy Report - July 2026 Monetary Policy Report - July 2026",
@@ -168,7 +168,7 @@
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "domain": "boj.or.jp",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
         {
           "title": "Speech by Board Member KOEDA in Kumamoto (Economic Activity, Prices, and Monetary Policy in Japan)",
@@ -254,7 +254,7 @@
       "url": "https://www.rba.gov.au/media-releases/",
       "domain": "rba.gov.au",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
         {
           "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
@@ -328,7 +328,7 @@
       "url": "https://www.rbnz.govt.nz/feeds/news",
       "domain": "rbnz.govt.nz",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
         {
           "title": "Updates to the October Monetary Policy Review and November Financial Stability Report",
@@ -362,8 +362,16 @@
       "url": "https://www.bankofcanada.ca/press/press-releases/",
       "domain": "bankofcanada.ca",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
+        {
+          "title": "Bank of Canada raises the policy rate by 25 basis points to 2½%",
+          "url": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/"
+        },
+        {
+          "title": "Monetary Policy Report Press Conference Opening Statement",
+          "url": "https://www.bankofcanada.ca/2026/10/opening-statement-2026-10-28/"
+        },
         {
           "title": "Bank of Canada maintains the policy rate at 2¼%",
           "url": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/"
@@ -392,7 +400,7 @@
       "url": "https://www.snb.ch/en/news-publications/media-releases",
       "domain": "snb.ch",
       "status": "available",
-      "lastSuccessAt": "2026-10-27T19:28:05.378Z",
+      "lastSuccessAt": "2026-10-28T18:54:10.133Z",
       "items": [
         {
           "title": "24.09.2026 Monetary policy assessment of 24 September 2026 &#65279;",

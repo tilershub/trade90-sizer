@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "automated_fail_closed",
-  "lastCheckedAt": "2026-10-27T23:50:12.624Z",
+  "lastCheckedAt": "2026-10-28T18:54:10.252Z",
   "changedBanks": [],
   "coverage": [
     {
@@ -76,6 +76,14 @@
     },
     {
       "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "USD",
+      "state": "not_verified"
+    },
+    {
+      "code": "CAD",
       "state": "not_verified"
     },
     {
