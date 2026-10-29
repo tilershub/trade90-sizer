@@ -1,4 +1,5 @@
 <script>
+  import {displayRate,displayBenchmark,midpointNote} from "../lib/trade90-rate-display.js";
   export let pairs=[];
   let query="";
   let currency="ALL";
@@ -19,7 +20,7 @@
 <p class="showing" aria-live="polite">Showing {visible.length} of 28 currency pairs · Verified official policy-rate snapshot</p>
 <div class="scroll"><table><thead><tr><th>Currency pair</th><th class="number">Signed gap</th><th class="number">Absolute gap</th><th>Higher benchmark</th><th class="hide-small">Selected policy rates</th><th class="entry"></th></tr></thead><tbody>
 {#each visible as p (p.symbol)}
-<tr><td><a class="pair-link" href={href(p)}>{p.label}</a></td><td class="number">{fmt(p.signedBp)} bp</td><td class="number">{p.absBp.toFixed(Number.isInteger(p.absBp)?0:1)} bp</td><td>{p.higher}</td><td class="hide-small">{p.baseRate}% / {p.quoteRate}%</td><td class="entry"><a href={href(p)} aria-label={"Explore "+p.label+" monetary policy details"}>Research →</a></td></tr>
+<tr><td><a class="pair-link" href={href(p)}>{p.label}</a></td><td class="number">{fmt(p.signedBp)} bp</td><td class="number">{p.absBp.toFixed(Number.isInteger(p.absBp)?0:1)} bp</td><td>{p.higher}</td><td class="hide-small">{displayRate(p.baseBank)} / {displayRate(p.quoteBank)}</td><td class="entry"><a href={href(p)} aria-label={"Explore "+p.label+" monetary policy details"}>Research →</a></td></tr>
 {/each}
 </tbody></table></div>
 {#if !visible.length}<p class="showing">No pairs match this search. Try one of the 28 supported symbols.</p>{/if}

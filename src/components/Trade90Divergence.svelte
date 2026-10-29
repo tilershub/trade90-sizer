@@ -1,4 +1,5 @@
 <script>
+  import {displayRate,displayBenchmark,midpointNote} from "../lib/trade90-rate-display.js";
   import { getPairs, formatBp } from "../lib/trade90-rates.js";
   import Trade90OutlookEvidence from "./Trade90OutlookEvidence.svelte";
   import Trade90ForwardRates from "./Trade90ForwardRates.svelte";
@@ -86,7 +87,7 @@
                 <td class="number boldnum">{formatBp(pair.absBp)} <small>bp</small></td>
                 <td class="number signed">{pair.signedBp > 0 ? "+" : ""}{formatBp(pair.signedBp)} <small>bp</small></td>
                 <td class="higher"><span class="currencychip">{pair.higher}</span></td>
-                <td class="extra">{pair.baseRate.toFixed(pair.baseRate===3.875?3:2)}% / {pair.quoteRate.toFixed(pair.quoteRate===3.875?3:2)}%</td>
+                <td class="extra">{displayRate(pair.baseBank)} / {displayRate(pair.quoteBank)}</td>
                 <td><button class="rowarrow" aria-label={"View " + pair.label} on:click={() => choosePair(pair.symbol)}>→</button></td>
               </tr>
             {/each}
@@ -116,7 +117,7 @@
       <h3 class="subheading">Latest verified central-bank decisions</h3>
       <div class="decisions">
         {#each lastDecisions as bank}
-          <div class="decision"><span class="day">{date(bank.decisionDate)}</span><div class="decisionbody"><strong>{bank.short} · {bank.code}</strong><span>{bank.decision} · {bank.benchmark} {bank.rate.toFixed(bank.rate === 3.875 ? 3 : 2)}%</span></div><a href={bank.source} target="_blank" rel="noopener noreferrer" aria-label={"Official " + bank.short + " decision source"}>Source ↗</a></div>
+          <div class="decision"><span class="day">{date(bank.decisionDate)}</span><div class="decisionbody"><strong>{bank.short} · {bank.code}</strong><span>{bank.decision} · {displayBenchmark(bank)} {displayRate(bank)}</span></div><a href={bank.source} target="_blank" rel="noopener noreferrer" aria-label={"Official " + bank.short + " decision source"}>Source ↗</a></div>
         {/each}
       </div>
     {:else}
@@ -132,12 +133,12 @@
       </div>
       <div class="compare">
         <div class="bankdetail">
-          <span class="smallcaps">BASE · {detail.base}</span><h4>{detail.baseBank.name}</h4><strong>{detail.baseBank.rate.toFixed(detail.baseBank.rate===3.875?3:2)}%</strong>
-          <p>{detail.baseBank.benchmark}</p><p>Effective {date(detail.baseBank.effectiveDate)}</p><a href={detail.baseBank.source} target="_blank" rel="noopener noreferrer">Official source ↗</a>
+          <span class="smallcaps">BASE · {detail.base}</span><h4>{detail.baseBank.name}</h4><strong>{displayRate(detail.baseBank)}</strong>
+          <p>{displayBenchmark(detail.baseBank)}</p><p>Effective {date(detail.baseBank.effectiveDate)}</p><a href={detail.baseBank.source} target="_blank" rel="noopener noreferrer">Official source ↗</a>
         </div>
         <div class="bankdetail">
-          <span class="smallcaps">QUOTE · {detail.quote}</span><h4>{detail.quoteBank.name}</h4><strong>{detail.quoteBank.rate.toFixed(detail.quoteBank.rate===3.875?3:2)}%</strong>
-          <p>{detail.quoteBank.benchmark}</p><p>Effective {date(detail.quoteBank.effectiveDate)}</p><a href={detail.quoteBank.source} target="_blank" rel="noopener noreferrer">Official source ↗</a>
+          <span class="smallcaps">QUOTE · {detail.quote}</span><h4>{detail.quoteBank.name}</h4><strong>{displayRate(detail.quoteBank)}</strong>
+          <p>{displayBenchmark(detail.quoteBank)}</p><p>Effective {date(detail.quoteBank.effectiveDate)}</p><a href={detail.quoteBank.source} target="_blank" rel="noopener noreferrer">Official source ↗</a>
         </div>
       </div>
       <div class="interpretation"><strong>{detail.higher === "Equal" ? "Equal policy benchmarks" : detail.higher + " has the higher policy rate"}</strong><p>The signed {detail.label} base-minus-quote spread is {detail.signedBp > 0 ? "+" : ""}{formatBp(detail.signedBp)} basis points. This measures two official benchmark rates, not the actual return from holding this currency pair.</p></div>
@@ -158,9 +159,9 @@
       {#each (activeTab === "details" ? [detail.baseBank, detail.quoteBank] : banks) as bank}
         <div class="bankcard">
           <div class="banktop"><strong>{bank.code}</strong><span>{bank.short}</span></div>
-          <div class="bankrate">{bank.rate.toFixed(bank.rate===3.875?3:2)}%</div>
+          <div class="bankrate">{displayRate(bank)}</div>
           <div class="bankname">{bank.name}</div>
-          {#if showAllSources}<div class="bankmeta">{bank.benchmark}<br />Effective {date(bank.effectiveDate)}<br /><a href={bank.source} target="_blank" rel="noopener noreferrer">Official publication ↗</a></div>{/if}
+          {#if showAllSources}<div class="bankmeta">{displayBenchmark(bank)}<br />Effective {date(bank.effectiveDate)}<br /><a href={bank.source} target="_blank" rel="noopener noreferrer">Official publication ↗</a></div>{/if}
         </div>
       {/each}
     </div>

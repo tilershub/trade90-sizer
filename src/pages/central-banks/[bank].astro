@@ -1,4 +1,5 @@
 ---
+import {displayRate,displayBenchmark,midpointNote} from "../../lib/trade90-rate-display.js";
 import Layout from "../../layouts/Trade90V2Layout.astro";
 import OfficialReleaseFeed from "../../components/Trade90OfficialReleaseFeed.svelte";
 import {rateSnapshot,allTrade90Pairs,pairUrl,reportDate,formatPercent,currencyContext} from "../../lib/trade90-v3.js";
@@ -9,14 +10,14 @@ const {bank}=Astro.props;
 const relatedPairs=allTrade90Pairs.filter(p=>p.base===bank.code||p.quote===bank.code);
 const releases=policyUpdates.filter(item=>item.currency===bank.code).slice(0,6);
 const schedules=officialPolicyDecisionCalendar.filter(e=>e.currency===bank.code&&e.date>=new Date().toISOString().slice(0,10)).slice(0,3);
-const description=bank.name+" monetary policy: official "+bank.benchmark+" "+formatPercent(bank.rate)+" verified "+reportDate(rateSnapshot.asOf)+", next decisions and seven related FX pairs.";
+const description=bank.name+" monetary policy: official "+displayBenchmark(bank)+" "+displayRate(bank)+" verified "+reportDate(rateSnapshot.asOf)+", next decisions and seven related FX pairs.";
 const url="/central-banks/"+bank.short.toLowerCase()+"/";
 ---
 <Layout title={bank.short+" Interest Rate & Policy Decisions"} description={description} canonical={url}>
 <main class="wrap hub">
 <nav class="crumbs"><a href="/">Home</a> › <a href="/central-banks/">Central banks</a> › <span>{bank.short}</span></nav>
 <header class="page-intro"><span class="eyebrow">{bank.code} · OFFICIAL POLICY SOURCE</span><h1>{bank.name} — Interest Rate &amp; Policy</h1><p>Explore the selected policy benchmark, original releases, next scheduled decisions and the seven forex currency pairs involving {bank.code}.</p></header>
-<section class="summary"><div class="rate"><span>Official benchmark · {bank.benchmark}</span><strong>{formatPercent(bank.rate)}</strong><span>Effective {reportDate(bank.effectiveDate)}</span></div><div class="details"><h2>Latest verified policy decision</h2><p><strong>{bank.decision}</strong> · {reportDate(bank.decisionDate)}. Rate data checked {reportDate(rateSnapshot.asOf)}; this is a curated snapshot rather than a real-time quote.</p><a href={bank.source} target="_blank" rel="noopener noreferrer">Read {bank.short} official decision ↗</a></div></section>
+<section class="summary"><div class="rate"><span>Official benchmark · {displayBenchmark(bank)}</span><strong>{displayRate(bank)}</strong>{bank.code==="USD"&&<span>{midpointNote(bank)}</span>}<span>Effective {reportDate(bank.effectiveDate)}</span></div><div class="details"><h2>Latest verified policy decision</h2><p><strong>{bank.decision}</strong> · {reportDate(bank.decisionDate)}. Rate data checked {reportDate(rateSnapshot.asOf)}; this is a curated snapshot rather than a real-time quote.</p><a href={bank.source} target="_blank" rel="noopener noreferrer">Read {bank.short} official decision ↗</a></div></section>
 <section class="part"><h2>Next policy decisions to watch</h2><p>Dates reviewed {reportDate(decisionCalendarReviewedAt)}. Official schedules can change, so confirm using <a href={officialDecisionSources[bank.code].url} target="_blank" rel="noopener noreferrer">{bank.short}'s published calendar ↗</a>.</p><div class="events">{schedules.length?schedules.map(e=><article><strong><time datetime={e.date}>{reportDate(e.date)}</time></strong><span>{e.title}</span><p>{e.watch}</p></article>):<article>No later announcement was verified in this collection. Refer to the official calendar.</article>}</div></section>
 <section class="part"><h2>Official {bank.short} policy updates</h2><p>Last reviewed {reportDate(policyCollectionAsOf)}. These source-dated records are not a breaking-news feed.</p><div class="news">{releases.map(e=><article><span>{reportDate(e.publishedDate)} · {e.type}</span><h3>{e.title}</h3><p>{e.summary}</p><a href={e.source} target="_blank" rel="noopener noreferrer">Original {bank.short} source ↗</a></article>)}</div></section>
 <OfficialReleaseFeed client:load currency={bank.code} limit={5}/>

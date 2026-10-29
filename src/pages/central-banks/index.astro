@@ -1,4 +1,5 @@
 ---
+import {displayRate,displayBenchmark,midpointNote} from "../../lib/trade90-rate-display.js";
 import Trade90V2Layout from "../../layouts/Trade90V2Layout.astro";
 import Trade90PolicyUpdates from "../../components/Trade90PolicyUpdates.svelte";
 import OfficialReleaseFeed from "../../components/Trade90OfficialReleaseFeed.svelte";
@@ -14,7 +15,7 @@ import {rateSnapshot,formatPercent} from "../../lib/trade90-v3.js";
       <h1>Central Bank Policy Updates</h1>
       <p>Follow actual monetary-policy decisions, minutes, statements and reports for the currencies traded on TRADE90. Read what banks really published, separate from what derivatives markets currently expect.</p>
     </header>
-    <section class="bankdirectory" aria-label="Explore individual central banks"><h2>Explore all eight central banks</h2><div class="banktiles">{rateSnapshot.banks.map(bank=><a href={"/central-banks/"+bank.short.toLowerCase()+"/"}><strong>{bank.code} · {bank.short}</strong><span>{bank.name}</span><small>{formatPercent(bank.rate)} · View policy and related pairs →</small></a>)}</div></section>
+    <section class="bankdirectory" aria-label="Explore individual central banks"><h2>Explore all eight central banks</h2><div class="banktiles">{rateSnapshot.banks.map(bank=><a href={"/central-banks/"+bank.short.toLowerCase()+"/"}><strong>{bank.code} · {bank.short}</strong><span>{bank.name}</span><small>{displayRate(bank)} · View policy and related pairs →</small></a>)}</div></section>
     <Trade90PolicyUpdates client:visible />
     <OfficialReleaseFeed client:visible limit={8} />
     <aside class="explainer">

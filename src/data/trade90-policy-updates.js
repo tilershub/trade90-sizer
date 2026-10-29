@@ -1,3 +1,4 @@
+import {displayRate,displayBenchmark,midpointNote} from "../lib/trade90-rate-display.js";
 import snapshot from "./trade90-policy-snapshot.json" with { type: "json" };
 import { PAIR_SYMBOLS } from "../lib/trade90-rates.js";
 
@@ -16,8 +17,8 @@ const decisionNote = (bank) => {
     : "Effective " + bank.effectiveDate + ".";
   const action = bank.decision.startsWith("Hike") ? "raised its benchmark rate" :
     bank.decision === "Hold" ? "kept its benchmark rate unchanged" : "announced an adjustment to its benchmark rate";
-  return bank.short + " " + action + "; Trade90's selected " + bank.benchmark.toLowerCase()
-    + " is " + bank.rate.toFixed(bank.rate===3.875?3:2) + "%. " + effective;
+  return bank.short + " " + action + "; Trade90's selected " + displayBenchmark(bank).toLowerCase()
+    + " is " + displayRate(bank) + ". " + effective + " " + midpointNote(bank);
 };
 
 // Beyond rate decisions: independently checked official central-bank documents.
@@ -64,7 +65,7 @@ const decisionUpdates = snapshot.banks.map(bank => ({
   type:"Rate decision",
   publishedDate:bank.decisionDate,
   meetingDate:bank.decisionDate,
-  title:bank.short+" "+(bank.decision==="Hold"?"holds":bank.decision.startsWith("Hike")?"raises":"adjusts")+" "+bank.benchmark+" · "+bank.rate.toFixed(bank.rate===3.875?3:2)+"%",
+  title:bank.short+" "+(bank.decision==="Hold"?"holds":bank.decision.startsWith("Hike")?"raises":"adjusts")+" "+displayBenchmark(bank)+" · "+displayRate(bank),
   summary:decisionNote(bank),
   source:bank.source,
   decision:bank.decision,
