@@ -6,26 +6,36 @@
  let status=refreshStatusAt(initialStatus,new Date().toISOString()),failed=false;
  onMount(()=>{
    let alive=true;
-   fetch('/data/refresh-status.json',{cache:'no-store',signal:AbortSignal.timeout(10000)})
+   const refresh=()=>fetch('/data/refresh-status.json',{cache:'no-store',signal:AbortSignal.timeout(10000)})
      .then(r=>{if(!r.ok)throw Error('Audit file unavailable');return r.json();})
-     .then(value=>{if(alive&&value?.schemaVersion===1)status=refreshStatusAt(value,new Date().toISOString());else if(alive)failed=true;})
+     .then(value=>{if(alive&&value?.schemaVersion===1){status=refreshStatusAt(value,new Date().toISOString());failed=false;}else if(alive)failed=true;})
      .catch(()=>{if(alive)failed=true;});
+   refresh();
+   const refreshTimer=setInterval(()=>{if(!document.hidden)refresh();},300000);
+   const visible=()=>{if(!document.hidden)refresh();};
+   document.addEventListener('visibilitychange',visible);
    const timer=setInterval(()=>{if(alive)status=refreshStatusAt(status,new Date().toISOString());},60000);
-   return ()=>{alive=false;clearInterval(timer)};
+   return ()=>{alive=false;clearInterval(timer);clearInterval(refreshTimer);document.removeEventListener('visibilitychange',visible)};
  });
  const when=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'UTC'})+' UTC':'Not recorded';
+ $: latestCheck=Object.entries(status?.categories||{}).filter(([key])=>key!=='model').map(([,value])=>value.checkedAt).filter(value=>value&&Number.isFinite(Date.parse(value))).sort((a,b)=>Date.parse(b)-Date.parse(a))[0];
  const day=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}):'Not recorded';
  const label=s=>s==='checked'?'Checked successfully':s==='partial'?'Partial coverage':s==='overdue'?'Check overdue':'Not available';
 </script>
 {#if compact}
  <div class="compact" aria-label="Latest verified research check information">
   {#if status}
+   <span class="last-checked"><b>Last checked:</b> <time datetime={latestCheck}>{when(latestCheck)}</time></span>
+   <span class="check-explanation">Data is checked daily, even when the figures stay unchanged. This time records the latest source check; individual coverage is listed below.</span>
+   <details class="check-details"><summary>Check details &amp; source coverage</summary>
    <span><b>Economic data check:</b> {when(status.categories.macro.checkedAt)} ({label(status.categories.macro.status)})</span>
    <span><b>Bank source scan:</b> {when(status.categories.sourceDiscovery.checkedAt)} ({label(status.categories.sourceDiscovery.status)})</span>
    <span><b>Rate decision verification:</b> {status.categories.rateDecisionChecks.okCount}/{status.categories.rateDecisionChecks.total} banks · {label(status.categories.rateDecisionChecks.status)}</span>
    {#if status.warnings?.length}<span class="attention">Some sources or reviews need attention. See details below.</span>{/if}
    {#if failed}<span>Live status refresh unavailable; showing the last published check.</span>{/if}
+   <span><b>Last benchmark dataset change:</b> {day(status.reviewed.benchmarkSnapshot)}</span>
    <a href="/data-policy/">See source health and analyst review dates →</a>
+   </details>
   {:else if failed}
    <a href="/data-policy/">View research update status and source dates →</a>
   {:else}
@@ -79,6 +89,9 @@
 {/if}
 <style>
  .compact{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.82rem;line-height:1.55;color:var(--muted)}
+ .last-checked{display:block;width:100%;font-size:1.05rem;font-weight:750;color:var(--ink)}
+ .check-explanation{display:block;width:100%}
+ .check-details{width:100%}.check-details summary{cursor:pointer;font-weight:650}.check-details>span{display:block;margin:5px 0}
  .compact b{color:var(--ink)}.compact a,.audit a{color:var(--blue)}
  .audit{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:20px;margin:18px 0}
  .audit h2{margin:0 0 7px;font-size:1.2rem}.audit h3{font-size:1rem;margin:21px 0 9px}

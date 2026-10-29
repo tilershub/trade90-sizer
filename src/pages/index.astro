@@ -2,7 +2,7 @@
 import Layout from "../layouts/Trade90V2Layout.astro";
 import PairFinder from "../components/Trade90PairFinder.svelte";
 import RefreshStatus from "../components/Trade90RefreshStatus.svelte";
-import {allTrade90Pairs,majors,pairUrl,rateSnapshot,reportDate} from "../lib/trade90-v3.js";
+import {allTrade90Pairs,majors,pairUrl} from "../lib/trade90-v3.js";
 import policyOutlook from "../../public/data/policy-outlook.json";
 const outlookEntries=allTrade90Pairs.map(pair=>({pair,outlook:policyOutlook.pairs?.[pair.symbol]})).filter(item=>item.outlook);
 const outlookGeneratedAt=policyOutlook.generatedAt;
@@ -23,9 +23,8 @@ const outlookCounts={widening:currentOutlooks.filter(item=>item.outlook.state===
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
    <aside class="data-status" aria-label="TRADE90 data freshness and availability">
      <strong><span class="statusdot" aria-hidden="true"></span> Daily data updates</strong>
-     <span>Last benchmark dataset change: <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Rates change when a verified decision takes effect. Latest source-check times and coverage are shown below.</span>
-     <span>Market-implied 3M / 6M / 12M feed: <strong>not connected</strong>.</span>
      <RefreshStatus compact={true} client:load />
+     <span>Market-implied 3M / 6M / 12M feed: <strong>not connected</strong>.</span>
      <a href="/data-policy/">View update frequency, sources and licensing →</a>
    </aside>
   </div>
