@@ -15337,6 +15337,1728 @@
           "expiresAt": "2026-10-30T00:00:00.000Z"
         }
       }
+    },
+    {
+      "generatedAt": "2026-10-29T12:48:18.496Z",
+      "modelVersion": "2.0.1",
+      "inputFingerprint": "1020ae9fe21816c0b2d851c6b4b565105e7b8694f3bc6ed15305245fab96eadc",
+      "states": {
+        "AUDCHF": "widening",
+        "USDCHF": "unavailable",
+        "GBPCHF": "widening",
+        "AUDJPY": "unclear",
+        "NZDCHF": "widening",
+        "USDJPY": "unavailable",
+        "CADCHF": "unavailable",
+        "EURCHF": "unclear",
+        "GBPJPY": "unclear",
+        "AUDCAD": "unavailable",
+        "EURAUD": "unclear",
+        "AUDNZD": "unclear",
+        "NZDJPY": "unclear",
+        "EURUSD": "unavailable",
+        "USDCAD": "unavailable",
+        "CADJPY": "unavailable",
+        "CHFJPY": "widening",
+        "EURGBP": "unclear",
+        "EURJPY": "unclear",
+        "GBPCAD": "unavailable",
+        "NZDUSD": "unavailable",
+        "GBPNZD": "unclear",
+        "GBPAUD": "unclear",
+        "AUDUSD": "unavailable",
+        "EURNZD": "unclear",
+        "NZDCAD": "unavailable",
+        "GBPUSD": "unavailable",
+        "EURCAD": "unavailable"
+      },
+      "rates": {
+        "AUD": 4.6,
+        "USD": 3.875,
+        "GBP": 3.75,
+        "NZD": 2.75,
+        "EUR": 2.5,
+        "CAD": 2.5,
+        "JPY": 1.25,
+        "CHF": 0
+      },
+      "pairs": {
+        "AUDCHF": {
+          "base": "AUD",
+          "quote": "CHF",
+          "signedGap": 4.6,
+          "higher": "AUD",
+          "horizonDays": 90,
+          "state": "widening",
+          "label": "Widening bias",
+          "reason": "AUD currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
+          "direction": 1,
+          "tone": "positive",
+          "signedDirection": "Towards AUD",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-31T12:48:18.496Z"
+        },
+        "USDCHF": {
+          "base": "USD",
+          "quote": "CHF",
+          "signedGap": 3.875,
+          "higher": "USD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "GBPCHF": {
+          "base": "GBP",
+          "quote": "CHF",
+          "signedGap": 3.75,
+          "higher": "GBP",
+          "horizonDays": 90,
+          "state": "widening",
+          "label": "Widening bias",
+          "reason": "GBP currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
+          "direction": 1,
+          "tone": "positive",
+          "signedDirection": "Towards GBP",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "AUDJPY": {
+          "base": "AUD",
+          "quote": "JPY",
+          "signedGap": 3.35,
+          "higher": "AUD",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-31T12:48:18.496Z"
+        },
+        "NZDCHF": {
+          "base": "NZD",
+          "quote": "CHF",
+          "signedGap": 2.75,
+          "higher": "NZD",
+          "horizonDays": 90,
+          "state": "widening",
+          "label": "Widening bias",
+          "reason": "NZD currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
+          "direction": 1,
+          "tone": "positive",
+          "signedDirection": "Towards NZD",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "USDJPY": {
+          "base": "USD",
+          "quote": "JPY",
+          "signedGap": 2.625,
+          "higher": "USD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "CADCHF": {
+          "base": "CAD",
+          "quote": "CHF",
+          "signedGap": 2.5,
+          "higher": "CAD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "EURCHF": {
+          "base": "EUR",
+          "quote": "CHF",
+          "signedGap": 2.5,
+          "higher": "EUR",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "GBPJPY": {
+          "base": "GBP",
+          "quote": "JPY",
+          "signedGap": 2.5,
+          "higher": "GBP",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "AUDCAD": {
+          "base": "AUD",
+          "quote": "CAD",
+          "signedGap": 2.1,
+          "higher": "AUD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "EURAUD": {
+          "base": "EUR",
+          "quote": "AUD",
+          "signedGap": -2.1,
+          "higher": "AUD",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "AUDNZD": {
+          "base": "AUD",
+          "quote": "NZD",
+          "signedGap": 1.85,
+          "higher": "AUD",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "NZDJPY": {
+          "base": "NZD",
+          "quote": "JPY",
+          "signedGap": 1.5,
+          "higher": "NZD",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "EURUSD": {
+          "base": "EUR",
+          "quote": "USD",
+          "signedGap": -1.375,
+          "higher": "USD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "USDCAD": {
+          "base": "USD",
+          "quote": "CAD",
+          "signedGap": 1.375,
+          "higher": "USD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "CADJPY": {
+          "base": "CAD",
+          "quote": "JPY",
+          "signedGap": 1.25,
+          "higher": "CAD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "CHFJPY": {
+          "base": "CHF",
+          "quote": "JPY",
+          "signedGap": -1.25,
+          "higher": "JPY",
+          "horizonDays": 90,
+          "state": "widening",
+          "label": "Widening bias",
+          "reason": "JPY currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
+          "direction": -1,
+          "tone": "negative",
+          "signedDirection": "Towards JPY",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-31T12:48:18.496Z"
+        },
+        "EURGBP": {
+          "base": "EUR",
+          "quote": "GBP",
+          "signedGap": -1.25,
+          "higher": "GBP",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "EURJPY": {
+          "base": "EUR",
+          "quote": "JPY",
+          "signedGap": 1.25,
+          "higher": "EUR",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "GBPCAD": {
+          "base": "GBP",
+          "quote": "CAD",
+          "signedGap": 1.25,
+          "higher": "GBP",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "NZDUSD": {
+          "base": "NZD",
+          "quote": "USD",
+          "signedGap": -1.125,
+          "higher": "USD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "GBPNZD": {
+          "base": "GBP",
+          "quote": "NZD",
+          "signedGap": 1,
+          "higher": "GBP",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "GBPAUD": {
+          "base": "GBP",
+          "quote": "AUD",
+          "signedGap": -0.85,
+          "higher": "AUD",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "AUDUSD": {
+          "base": "AUD",
+          "quote": "USD",
+          "signedGap": 0.725,
+          "higher": "AUD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "EURNZD": {
+          "base": "EUR",
+          "quote": "NZD",
+          "signedGap": -0.25,
+          "higher": "NZD",
+          "horizonDays": 90,
+          "state": "unclear",
+          "label": "Uncertain",
+          "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "NZDCAD": {
+          "base": "NZD",
+          "quote": "CAD",
+          "signedGap": 0.25,
+          "higher": "NZD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "GBPUSD": {
+          "base": "GBP",
+          "quote": "USD",
+          "signedGap": -0.125,
+          "higher": "USD",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "EURCAD": {
+          "base": "EUR",
+          "quote": "CAD",
+          "signedGap": 0,
+          "higher": "Equal",
+          "horizonDays": 90,
+          "state": "unavailable",
+          "label": "Insufficient current evidence",
+          "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+          "direction": 0,
+          "tone": "neutral",
+          "signedDirection": "No supported direction",
+          "crossingRisk": false,
+          "unchangedPossible": true,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        }
+      },
+      "evidence": {
+        "CHF": {
+          "currency": "CHF",
+          "state": "hold",
+          "label": "Conditional hold bias",
+          "economicPressure": "Balanced or conflicting pressure",
+          "drivers": [
+            {
+              "metric": "Headline CPI",
+              "text": "Within the model reference zone; rising",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 0.99006
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 0.4512
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+              "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
+              "retrievedAt": "2026-10-29T12:48:08.077419+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "CPI excluding food and energy, year-on-year; broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 0.5988
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 0.38377
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+              "title": "CPI excluding food and energy, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.529877+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 5.03241
+              },
+              "previous": {
+                "date": "2025-10-01",
+                "value": 5.07263
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
+              "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Switzerland",
+              "retrievedAt": "2026-10-29T12:48:10.043635+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "Two quarters above the economy’s prior five-year median",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 1.88475
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.63205
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
+              "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Switzerland",
+              "retrievedAt": "2026-10-29T12:48:10.390948+00:00"
+            }
+          ],
+          "reasons": [],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+            "Headline and underlying inflation trends differ; energy, food or other components may matter.",
+            "Hold is a conditional research baseline supported by policy context, not a commitment by the bank."
+          ],
+          "guidance": {
+            "currency": "CHF",
+            "bank": "Swiss National Bank",
+            "short": "SNB",
+            "publishedDate": "2026-09-24",
+            "stance": "Rate hold · Conditional inflation outlook",
+            "headline": "SNB held at zero as its conditional inflation forecast stayed in target",
+            "guidance": "The SNB maintained a 0% policy rate. Its published inflation forecast assumed a constant policy rate and was within its price-stability range; that assumption is not a promise to hold future rates.",
+            "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
+            "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
+            "evidence": "Official monetary policy assessment",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "hold_context",
+              "rationale": "The conditional inflation forecast stays within price stability under an unchanged-rate assumption; the bank judges policy appropriate. This supports a research hold baseline, not a promise.",
+              "publishedDate": "2026-09-24",
+              "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
+              "reviewedAt": "2026-10-20"
+            },
+            "latestDecisionDate": "2026-09-24"
+          },
+          "framework": {
+            "measure": "Headline CPI",
+            "reference": 1,
+            "low": 0,
+            "high": 2,
+            "description": "Price stability: non-negative inflation below 2%",
+            "source": "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy/strategy"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:08.077419+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.529877+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:10.043635+00:00",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:10.390948+00:00",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S"
+            }
+          ],
+          "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
+          "score": 1,
+          "guidanceDirection": "hold_context",
+          "expiresAt": "2026-10-31T12:48:18.496Z"
+        },
+        "AUD": {
+          "currency": "AUD",
+          "state": "hike_hold",
+          "label": "Hike or hold bias",
+          "economicPressure": "Tightening pressure",
+          "drivers": [
+            {
+              "metric": "Monthly headline CPI",
+              "text": "Above the model reference zone; rising",
+              "signal": 2,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 4.34
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 3.75229
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "title": "Headline CPI, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.050917+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "CPI excluding food and energy, year-on-year; broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.58
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 3.74669
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "title": "CPI excluding food and energy, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.155981+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment rising",
+              "signal": -1,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 4.6463
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 4.39241
+              },
+              "frequency": "Monthly",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
+              "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Australia",
+              "retrievedAt": "2026-10-29T12:48:10.134255+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "No sustained growth signal relative to recent history",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.4195
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.28623
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
+              "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Australia",
+              "retrievedAt": "2026-10-29T12:48:10.159363+00:00"
+            }
+          ],
+          "reasons": [],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+            "OECD CPI excluding food and energy is not the RBA trimmed-mean measure. Monthly model CPI and quarterly comparison-chart CPI cover different periods.",
+            "Headline and underlying inflation trends differ; energy, food or other components may matter.",
+            "Rising unemployment offsets inflation pressure and could favour holding."
+          ],
+          "guidance": {
+            "currency": "AUD",
+            "bank": "Reserve Bank of Australia",
+            "short": "RBA",
+            "publishedDate": "2026-09-29",
+            "stance": "Further tightening possible if needed",
+            "headline": "RBA raised its cash target and left room for another increase",
+            "guidance": "After raising its cash-rate target to 4.60%, the RBA said inflation was still too high and that it could increase rates further if necessary. Its next decision remains data-dependent.",
+            "watch": "Australian inflation, wages, employment and evidence of slowing demand",
+            "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+            "evidence": "Official Monetary Policy Board decision",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "tightening",
+              "rationale": "The Board explicitly retains further increases if needed; easing labour conditions remain an offset.",
+              "publishedDate": "2026-09-29",
+              "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
+              "reviewedAt": "2026-10-20"
+            },
+            "latestDecisionDate": "2026-09-29"
+          },
+          "framework": {
+            "measure": "Monthly headline CPI",
+            "reference": 2.5,
+            "low": 2,
+            "high": 3,
+            "description": "2–3% inflation target, focused on the midpoint",
+            "source": "https://www.rba.gov.au/education/resources/explainers/australias-inflation-target.html"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.050917+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.155981+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-08-01",
+              "periodEnd": "2026-08-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:10.134255+00:00",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:10.159363+00:00",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S"
+            }
+          ],
+          "watch": "Australian inflation, wages, employment and evidence of slowing demand",
+          "score": 1,
+          "guidanceDirection": "tightening",
+          "expiresAt": "2026-10-31T12:48:18.496Z"
+        },
+        "EUR": {
+          "currency": "EUR",
+          "state": "uncertain",
+          "label": "Policy direction uncertain",
+          "economicPressure": "Tightening pressure",
+          "drivers": [
+            {
+              "metric": "Headline HICP",
+              "text": "Above the model reference zone; rising",
+              "signal": 2,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.8
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 2.8
+              },
+              "frequency": "Monthly",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+              "title": "Euro area (21 countries): Headline HICP, ECOICOP version 2, year-on-year percentage change",
+              "retrievedAt": "2026-10-29T12:48:09.190053+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "HICP excluding energy, food, alcohol and tobacco, year-on-year; broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 2.5
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 2.4
+              },
+              "frequency": "Monthly",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+              "title": "HICP excluding energy, food, alcohol and tobacco, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.513584+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 6.4
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 6.4
+              },
+              "frequency": "Monthly",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
+              "title": "Euro area (21 countries): Unemployment, total labour force, seasonally adjusted",
+              "retrievedAt": "2026-10-29T12:48:08.808840+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "No sustained growth signal relative to recent history",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.6
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0
+              },
+              "frequency": "Quarterly",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
+              "title": "Euro area (21 countries): Real GDP, quarter-on-quarter percentage change, seasonally and calendar adjusted",
+              "retrievedAt": "2026-10-29T12:48:09.610522+00:00"
+            }
+          ],
+          "reasons": [
+            "The evidence does not establish a sufficiently supported hike, cut or hold bias"
+          ],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+            "Headline and underlying inflation trends differ; energy, food or other components may matter."
+          ],
+          "guidance": {
+            "currency": "EUR",
+            "bank": "European Central Bank",
+            "short": "ECB",
+            "publishedDate": "2026-09-10",
+            "stance": "Data-dependent · Meeting by meeting",
+            "headline": "ECB commits to inflation target, not a predetermined rate path",
+            "guidance": "The Governing Council assesses inflation and economic data at each meeting; its communication does not commit to a specific future policy-rate trajectory.",
+            "watch": "Euro-area inflation, wage growth and the ECB's updated projections",
+            "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
+            "evidence": "Official monetary policy decisions",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "neutral",
+              "rationale": "Meeting-by-meeting decisions do not establish a future hold.",
+              "publishedDate": "2026-09-10",
+              "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
+              "reviewedAt": "2026-10-16"
+            },
+            "latestDecisionDate": "2026-09-10"
+          },
+          "framework": {
+            "measure": "Headline HICP",
+            "reference": 2,
+            "low": 1.75,
+            "high": 2.25,
+            "description": "2% medium-term objective",
+            "source": "https://www.ecb.europa.eu/mopo/strategy/pricestab/html/index.en.html"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:09.190053+00:00",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.513584+00:00",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-08-01",
+              "periodEnd": "2026-08-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:08.808840+00:00",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:09.610522+00:00",
+              "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table"
+            }
+          ],
+          "watch": "Euro-area inflation, wage growth and the ECB's updated projections",
+          "score": 2,
+          "guidanceDirection": "neutral",
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "CAD": {
+          "currency": "CAD",
+          "state": "unavailable",
+          "label": "Policy outlook unavailable",
+          "economicPressure": "Balanced or conflicting pressure",
+          "drivers": [
+            {
+              "metric": "Headline CPI",
+              "text": "Above the model reference zone; broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.09278
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 2.79805
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
+              "retrievedAt": "2026-10-29T12:48:08.080449+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "CPI excluding food and energy, year-on-year; broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 1.76877
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 1.5969
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+              "title": "CPI excluding food and energy, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.532809+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment falling",
+              "signal": 1,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 6.4
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 6.6
+              },
+              "frequency": "Monthly",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
+              "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada",
+              "retrievedAt": "2026-10-29T12:48:10.443829+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "No sustained growth signal relative to recent history",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.81974
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.08119
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
+              "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Canada",
+              "retrievedAt": "2026-10-29T12:48:10.532910+00:00"
+            }
+          ],
+          "reasons": [
+            "Official guidance is unreviewed, expired or superseded by a newer decision"
+          ],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+            "Exclusion-based CPI is not the Bank of Canada’s CPI-trim or CPI-median."
+          ],
+          "guidance": {
+            "currency": "CAD",
+            "bank": "Bank of Canada",
+            "short": "BoC",
+            "publishedDate": "2026-09-02",
+            "stance": "Rate hold · Watching inflation upside",
+            "headline": "BoC held at 2.25%, with more uncertainty around inflation",
+            "guidance": "The Governing Council kept its overnight target unchanged, said upside inflation risks had increased, and remained prepared to adjust policy as needed. It did not announce a precommitted hike.",
+            "watch": "Canadian inflation excluding energy, recovery durability and trade-policy effects",
+            "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
+            "evidence": "Official rate decision press release",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "neutral",
+              "rationale": "The current hold does not constitute forward hold guidance.",
+              "publishedDate": "2026-09-02",
+              "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
+              "reviewedAt": "2026-10-16"
+            },
+            "latestDecisionDate": "2026-10-28"
+          },
+          "framework": {
+            "measure": "Headline CPI",
+            "reference": 2,
+            "low": 1.75,
+            "high": 2.25,
+            "description": "2% midpoint of the 1–3% control range",
+            "source": "https://www.bankofcanada.ca/core-functions/monetary-policy/"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:08.080449+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.532809+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-08-01",
+              "periodEnd": "2026-08-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:10.443829+00:00",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:10.532910+00:00",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S"
+            }
+          ],
+          "watch": "Canadian inflation excluding energy, recovery durability and trade-policy effects",
+          "score": 1,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "JPY": {
+          "currency": "JPY",
+          "state": "hike_hold",
+          "label": "Hike or hold bias",
+          "economicPressure": "Balanced or conflicting pressure",
+          "drivers": [
+            {
+              "metric": "Headline CPI",
+              "text": "Within the model reference zone; rising",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 2.1
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 1.6
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+              "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
+              "retrievedAt": "2026-10-29T12:48:08.086046+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "CPI excluding food and energy, year-on-year; rising",
+              "signal": 1,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 2.2
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 1.3
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+              "title": "CPI excluding food and energy, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.531357+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-08-01",
+                "value": 2.5
+              },
+              "previous": {
+                "date": "2026-05-01",
+                "value": 2.5
+              },
+              "frequency": "Monthly",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S",
+              "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Japan",
+              "retrievedAt": "2026-10-29T12:48:10.784366+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "Two quarters above the economy’s prior five-year median",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.36046
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.4782
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S",
+              "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Japan",
+              "retrievedAt": "2026-10-29T12:48:10.942332+00:00"
+            }
+          ],
+          "reasons": [],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+            "OECD CPI excluding food and energy differs from Japan’s commonly cited CPI excluding fresh food."
+          ],
+          "guidance": {
+            "currency": "JPY",
+            "bank": "Bank of Japan",
+            "short": "BoJ",
+            "publishedDate": "2026-09-18",
+            "stance": "Conditional further tightening",
+            "headline": "BoJ September decision retained a conditional tightening path",
+            "guidance": "After its September rate increase, the BoJ said further adjustments would depend on economic activity, prices and financial conditions. It described underlying inflation approaching its objective, while retaining uncertainty about timing and pace.",
+            "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
+            "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
+            "evidence": "Official September monetary policy decision",
+            "reviewedAt": "2026-10-20",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "tightening",
+              "rationale": "The September decision retains conditional further adjustment; timing remains uncertain.",
+              "publishedDate": "2026-09-18",
+              "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
+              "reviewedAt": "2026-10-20"
+            },
+            "latestDecisionDate": "2026-09-18"
+          },
+          "framework": {
+            "measure": "Headline CPI",
+            "reference": 2,
+            "low": 1.75,
+            "high": 2.25,
+            "description": "2% medium-term objective",
+            "source": "https://www.boj.or.jp/en/mopo/outline/target.htm"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:08.086046+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.531357+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-08-01",
+              "periodEnd": "2026-08-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:10.784366+00:00",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:10.942332+00:00",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S"
+            }
+          ],
+          "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
+          "score": 1,
+          "guidanceDirection": "tightening",
+          "expiresAt": "2026-10-31T12:48:18.496Z"
+        },
+        "GBP": {
+          "currency": "GBP",
+          "state": "hike_hold",
+          "label": "Hike or hold bias",
+          "economicPressure": "Tightening pressure",
+          "drivers": [
+            {
+              "metric": "Headline CPI",
+              "text": "Above the model reference zone; rising",
+              "signal": 2,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.6
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 2.8
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
+              "retrievedAt": "2026-10-29T12:48:08.083362+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "CPI excluding food and energy, year-on-year; rising",
+              "signal": 1,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.1
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 2.8
+              },
+              "frequency": "Monthly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "title": "CPI excluding food and energy, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.156982+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-06-01",
+                "value": 4.9,
+                "periodEnd": "2026-07-31"
+              },
+              "previous": {
+                "date": "2026-03-01",
+                "value": 4.9,
+                "periodEnd": "2026-04-30"
+              },
+              "frequency": "Monthly",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
+              "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for United Kingdom",
+              "retrievedAt": "2026-10-29T12:48:10.664581+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "Two quarters above the economy’s prior five-year median",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.53261
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.64121
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
+              "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United Kingdom",
+              "retrievedAt": "2026-10-29T12:48:10.786184+00:00"
+            }
+          ],
+          "reasons": [],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets."
+          ],
+          "guidance": {
+            "currency": "GBP",
+            "bank": "Bank of England",
+            "short": "BoE",
+            "publishedDate": "2026-09-17",
+            "stance": "Rate hold · Upside inflation risks",
+            "headline": "Six MPC members held; three preferred a 25 bp hike",
+            "guidance": "The September MPC maintained Bank Rate at 3.75% by 6–3. It highlighted energy-driven upside inflation risks and said it stood ready to act if necessary.",
+            "watch": "UK CPI, wage-setting effects from energy prices, jobs and MPC votes",
+            "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+            "evidence": "MPC summary and minutes",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "neutral",
+              "rationale": "Upside inflation risk and a split vote are context, not a promised hike.",
+              "publishedDate": "2026-09-17",
+              "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+              "reviewedAt": "2026-10-16"
+            },
+            "latestDecisionDate": "2026-09-17"
+          },
+          "framework": {
+            "measure": "Headline CPI",
+            "reference": 2,
+            "low": 1.75,
+            "high": 2.25,
+            "description": "2% medium-term objective",
+            "source": "https://www.bankofengland.co.uk/monetary-policy/inflation"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:08.083362+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.156982+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-06-01",
+              "periodEnd": "2026-07-31",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:10.664581+00:00",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:10.786184+00:00",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S"
+            }
+          ],
+          "watch": "UK CPI, wage-setting effects from energy prices, jobs and MPC votes",
+          "score": 3,
+          "guidanceDirection": "neutral",
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "NZD": {
+          "currency": "NZD",
+          "state": "hike_hold",
+          "label": "Hike or hold bias",
+          "economicPressure": "Tightening pressure",
+          "drivers": [
+            {
+              "metric": "Headline CPI",
+              "text": "Above the model reference zone; rising",
+              "signal": 2,
+              "latest": {
+                "date": "2026-07-01",
+                "value": 3.71494
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 3.07929
+              },
+              "frequency": "Quarterly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
+              "retrievedAt": "2026-10-29T12:48:08.088572+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "CPI excluding food and energy, year-on-year; broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-07-01",
+                "value": 2.4541
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 2.32815
+              },
+              "frequency": "Quarterly",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
+              "title": "CPI excluding food and energy, year-on-year",
+              "retrievedAt": "2026-10-29T12:48:12.157939+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment rising",
+              "signal": -1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 5.6
+              },
+              "previous": {
+                "date": "2025-10-01",
+                "value": 5.4
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
+              "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for New Zealand",
+              "retrievedAt": "2026-10-29T12:48:11.140273+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "Two quarters above the economy’s prior five-year median",
+              "signal": 1,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.3601
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 1.05475
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
+              "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for New Zealand",
+              "retrievedAt": "2026-10-29T12:48:11.077124+00:00"
+            }
+          ],
+          "reasons": [],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+            "Headline and underlying inflation trends differ; energy, food or other components may matter.",
+            "Rising unemployment offsets inflation pressure and could favour holding."
+          ],
+          "guidance": {
+            "currency": "NZD",
+            "bank": "Reserve Bank of New Zealand",
+            "short": "RBNZ",
+            "publishedDate": "2026-09-02",
+            "stance": "Conditional further tightening projected",
+            "headline": "RBNZ projections allowed for further OCR increases",
+            "guidance": "The September Monetary Policy Statement projected further OCR increases conditional on its central economic outlook, to bring inflation back toward 2%. This is the bank's conditional projection, not a market-implied quote.",
+            "watch": "New Zealand CPI, demand and labour-market data; new OCR path in the next policy statement",
+            "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
+            "evidence": "Official Monetary Policy Statement",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "tightening",
+              "rationale": "The published conditional policy projection allows further tightening.",
+              "publishedDate": "2026-09-02",
+              "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
+              "reviewedAt": "2026-10-16"
+            },
+            "latestDecisionDate": "2026-09-02"
+          },
+          "framework": {
+            "measure": "Headline CPI",
+            "reference": 2,
+            "low": 1.75,
+            "high": 2.25,
+            "description": "1–3% medium-term range, focused on 2%",
+            "source": "https://www.rbnz.govt.nz/monetary-policy/about-monetary-policy/history-of-the-remit-and-policy-targets-agreement"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-07-01",
+              "periodEnd": "2026-09-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:08.088572+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-07-01",
+              "periodEnd": "2026-09-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:12.157939+00:00",
+              "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:11.140273+00:00",
+              "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:11.077124+00:00",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S"
+            }
+          ],
+          "watch": "New Zealand CPI, demand and labour-market data; new OCR path in the next policy statement",
+          "score": 2,
+          "guidanceDirection": "tightening",
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        },
+        "USD": {
+          "currency": "USD",
+          "state": "unavailable",
+          "label": "Policy outlook unavailable",
+          "economicPressure": "Tightening pressure",
+          "drivers": [
+            {
+              "metric": "Headline PCE",
+              "text": "Above the model reference zone; broadly steady",
+              "signal": 2,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.64887
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 3.45301
+              },
+              "frequency": "Monthly",
+              "source": "https://fred.stlouisfed.org/series/PCEPI",
+              "title": "Personal Consumption Expenditures: Chain-type Price Index — year-on-year change",
+              "retrievedAt": "2026-10-29T12:48:12.306322+00:00"
+            },
+            {
+              "metric": "Underlying inflation",
+              "text": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index) — year-on-year change; broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 3.12116
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 3.04123
+              },
+              "frequency": "Monthly",
+              "source": "https://fred.stlouisfed.org/series/PCEPILFE",
+              "title": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index) — year-on-year change",
+              "retrievedAt": "2026-10-29T12:48:12.575442+00:00"
+            },
+            {
+              "metric": "Employment",
+              "text": "Unemployment broadly steady",
+              "signal": 0,
+              "latest": {
+                "date": "2026-09-01",
+                "value": 4.2
+              },
+              "previous": {
+                "date": "2026-06-01",
+                "value": 4.2
+              },
+              "frequency": "Monthly",
+              "source": "https://fred.stlouisfed.org/series/UNRATE",
+              "title": "Unemployment Rate",
+              "retrievedAt": "2026-10-29T12:48:11.395527+00:00"
+            },
+            {
+              "metric": "Real GDP",
+              "text": "No sustained growth signal relative to recent history",
+              "signal": 0,
+              "latest": {
+                "date": "2026-04-01",
+                "value": 0.55049
+              },
+              "previous": {
+                "date": "2026-01-01",
+                "value": 0.61721
+              },
+              "frequency": "Quarterly",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
+              "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United States",
+              "retrievedAt": "2026-10-29T12:48:11.597581+00:00"
+            }
+          ],
+          "reasons": [
+            "Official guidance is unreviewed, expired or superseded by a newer decision"
+          ],
+          "cautions": [
+            "Core definitions differ across countries; these are supporting indicators, not separate official targets."
+          ],
+          "guidance": {
+            "currency": "USD",
+            "bank": "Federal Reserve",
+            "short": "Fed",
+            "publishedDate": "2026-09-16",
+            "stance": "Recent rate increase · No fixed future path",
+            "headline": "Inflation remains elevated after September rate increase",
+            "guidance": "The FOMC increased its target range to 3.75–4.00% and emphasized its 2% inflation objective. The statement did not promise a specific move at the next meeting.",
+            "watch": "US CPI and employment trends; the next FOMC statement and economic projections",
+            "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+            "evidence": "Official FOMC statement",
+            "notMarketPricing": true,
+            "assessment": {
+              "bias": "neutral",
+              "rationale": "The decision leaves future adjustments dependent on incoming information.",
+              "publishedDate": "2026-09-16",
+              "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+              "reviewedAt": "2026-10-16"
+            },
+            "latestDecisionDate": "2026-10-28"
+          },
+          "framework": {
+            "measure": "Headline PCE",
+            "reference": 2,
+            "low": 1.75,
+            "high": 2.25,
+            "description": "2% longer-run headline PCE objective",
+            "source": "https://www.federalreserve.gov/faqs/economy_14400.htm"
+          },
+          "coverage": [
+            {
+              "key": "inflation",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.306322+00:00",
+              "source": "https://fred.stlouisfed.org/series/PCEPI"
+            },
+            {
+              "key": "core",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:12.575442+00:00",
+              "source": "https://fred.stlouisfed.org/series/PCEPILFE"
+            },
+            {
+              "key": "unemployment",
+              "usable": true,
+              "latestDate": "2026-09-01",
+              "periodEnd": "2026-09-01",
+              "frequency": "Monthly",
+              "retrievedAt": "2026-10-29T12:48:11.395527+00:00",
+              "source": "https://fred.stlouisfed.org/series/UNRATE"
+            },
+            {
+              "key": "gdp",
+              "usable": true,
+              "latestDate": "2026-04-01",
+              "periodEnd": "2026-06-30",
+              "frequency": "Quarterly",
+              "retrievedAt": "2026-10-29T12:48:11.597581+00:00",
+              "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S"
+            }
+          ],
+          "watch": "US CPI and employment trends; the next FOMC statement and economic projections",
+          "score": 2,
+          "expiresAt": "2026-10-30T00:00:00.000Z"
+        }
+      }
     }
   ]
 }

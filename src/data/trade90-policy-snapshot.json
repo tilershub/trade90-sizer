@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-15",
+  "asOf": "2026-10-29",
   "status": "verified_snapshot",
-  "description": "Eight official policy-rate benchmarks verified against central-bank publications on 15 October 2026. Not a real-time data feed. Publish an updated verified snapshot after any new rate decision.",
+  "description": "Official-source automated verified decision observations, with last verified unchanged bank records retained. Not a streaming market feed.",
   "forwardRatesAvailable": false,
   "banks": [
     {
@@ -26,10 +26,10 @@
         3.75,
         4
       ],
-      "decision": "Hike +25 bp",
-      "decisionDate": "2026-09-16",
-      "effectiveDate": "2026-09-17",
-      "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+      "decision": "Hold",
+      "decisionDate": "2026-10-28",
+      "effectiveDate": "2026-10-29",
+      "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
     },
     {
       "code": "GBP",
@@ -69,11 +69,11 @@
       "name": "Bank of Canada",
       "short": "BoC",
       "benchmark": "Target for overnight rate",
-      "rate": 2.25,
-      "decision": "Hold",
-      "decisionDate": "2026-09-02",
-      "effectiveDate": "2026-09-02",
-      "source": "https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/"
+      "rate": 2.5,
+      "decision": "Hike +25 bp",
+      "decisionDate": "2026-10-28",
+      "effectiveDate": "2026-10-28",
+      "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/"
     },
     {
       "code": "JPY",

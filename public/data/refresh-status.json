@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "auditedAt": "2026-10-28T14:07:32.394Z",
+  "auditedAt": "2026-10-29T12:48:18.572Z",
   "disclaimer": "Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.",
   "categories": {
     "macro": {
-      "checkedAt": "2026-10-28T11:37:28.045577+00:00",
+      "checkedAt": "2026-10-29T12:48:11.597985+00:00",
       "okCount": 24,
       "total": 24,
       "status": "checked"
     },
     "extra": {
-      "checkedAt": "2026-10-28T11:37:29.542476+00:00",
+      "checkedAt": "2026-10-29T12:48:12.575836+00:00",
       "okCount": 10,
       "total": 10,
       "status": "checked"
     },
     "sourceDiscovery": {
-      "checkedAt": "2026-10-27T19:28:05.378Z",
+      "checkedAt": "2026-10-29T12:48:17.014Z",
       "okCount": 8,
       "total": 8,
       "status": "checked"
     },
     "rateDecisionChecks": {
-      "checkedAt": "2026-10-27T23:50:12.624Z",
-      "okCount": 5,
+      "checkedAt": "2026-10-29T12:48:17.066Z",
+      "okCount": 3,
       "total": 8,
       "status": "partial"
     },
     "model": {
-      "generatedAt": "2026-10-28T13:07:34.911Z",
+      "generatedAt": "2026-10-29T12:48:18.496Z",
       "activePairs": 28,
       "totalPairs": 28,
       "status": "checked"
     }
   },
   "reviewed": {
-    "benchmarkSnapshot": "2026-10-15",
+    "benchmarkSnapshot": "2026-10-29",
     "policyPublications": "2026-10-15",
     "meetingCalendar": "2026-10-15",
     "policyStatements": "2026-10-16",
@@ -47,6 +47,72 @@
       "category": "rateDecisionChecks",
       "reason": "Not all inputs could be verified",
       "status": "partial"
+    },
+    {
+      "category": "policyPublications",
+      "reason": "Curated material has not received a new documented review within 14 days",
+      "status": "manual_review_due"
+    },
+    {
+      "category": "meetingCalendar",
+      "reason": "Curated material has not received a new documented review within 14 days",
+      "status": "manual_review_due"
+    },
+    {
+      "category": "marketReports",
+      "reason": "Curated material has not received a new documented review within 14 days",
+      "status": "manual_review_due"
+    }
+  ],
+  "bankChecks": [
+    {
+      "code": "AUD",
+      "state": "No safely verified new decision",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
+    },
+    {
+      "code": "USD",
+      "state": "Verified new decision",
+      "checkedAt": "2026-10-29T12:48:17.066Z",
+      "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+      "decisionDate": "2026-10-28",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
+    },
+    {
+      "code": "GBP",
+      "state": "Decision matches published benchmark",
+      "checkedAt": "2026-10-29T12:48:17.066Z",
+      "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+      "decisionDate": "2026-09-17",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
+    },
+    {
+      "code": "NZD",
+      "state": "No parseable decision in official feed",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
+    },
+    {
+      "code": "EUR",
+      "state": "No parseable decision in official feed",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
+    },
+    {
+      "code": "CAD",
+      "state": "Verified new decision",
+      "checkedAt": "2026-10-29T12:48:17.066Z",
+      "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+      "decisionDate": "2026-10-28",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
+    },
+    {
+      "code": "JPY",
+      "state": "No parseable decision in official feed",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
+    },
+    {
+      "code": "CHF",
+      "state": "No safely verified new decision",
+      "attemptedAt": "2026-10-29T12:48:17.066Z"
     }
   ]
 }

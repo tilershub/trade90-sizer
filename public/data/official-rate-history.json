@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "code": "USD",
+    "previousRatePct": 3.875,
+    "ratePct": 3.875,
+    "benchmark": "Federal funds target range midpoint",
+    "decisionDate": "2026-10-28",
+    "effectiveDate": "2026-10-29",
+    "officialSource": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "publishedBy": "trade90-autonomous-verified-policy-publisher",
+    "recordedAt": "2026-10-29T12:48:17.066Z"
+  },
+  {
+    "code": "CAD",
+    "previousRatePct": 2.25,
+    "ratePct": 2.5,
+    "benchmark": "Target for overnight rate",
+    "decisionDate": "2026-10-28",
+    "effectiveDate": "2026-10-28",
+    "officialSource": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+    "publishedBy": "trade90-autonomous-verified-policy-publisher",
+    "recordedAt": "2026-10-29T12:48:17.066Z"
+  }
+]
