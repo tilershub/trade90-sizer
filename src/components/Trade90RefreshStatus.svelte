@@ -51,6 +51,12 @@
      <time datetime={status.categories.model.generatedAt||undefined}>Generated {when(status.categories.model.generatedAt)}</time>
     </div>
    </div>
+   {#if status.bankChecks?.length}
+    <h3>Latest rate verification by bank</h3>
+    {#each status.bankChecks as bank}
+     <p><b>{bank.code}:</b> {bank.state}{#if bank.checkedAt} · Verified {when(bank.checkedAt)}{/if}</p>
+    {/each}
+   {/if}
    <h3>Curated source material — original review dates</h3>
    <div class="manual-grid">
     <p><b>Official-rate snapshot dated:</b> {day(status.reviewed.benchmarkSnapshot)}</p>

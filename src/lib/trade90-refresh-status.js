@@ -14,7 +14,7 @@ export function buildRefreshStatus({macro,extras,sourceMonitor,rateMonitor,polic
  const good=s=>s?.status==='ok'&&recent(s.retrievedAt,8,nowIso);
  const scan=sourceMonitor?.sources||[];
  const rateCoverage=rateMonitor?.coverage||[];
- const directlyValidated=x=>/matches published benchmark|matches|verified new decision/i.test(x?.state||'');
+ const directlyValidated=x=>/^(Decision matches published benchmark|Verified new decision)$/i.test(x?.state||'');
  const generated=policyModel?.generatedAt;
  const expiries=Object.values(policyModel?.pairs||{}).map(p=>p?.expiresAt);
  const currentPairs=expiries.filter(t=>t&&Date.parse(t)>Date.parse(nowIso)).length;
@@ -44,7 +44,7 @@ export function buildRefreshStatus({macro,extras,sourceMonitor,rateMonitor,polic
  }
  if(manualDates.length!==8)warnings.push({category:'oldestPolicyAssessment',reason:'Some policy assessment review records are missing',status:'manual_review_due'});
  if(byBank.size<8)warnings.push({category:'meetingCalendar',reason:'Not all eight central banks have a forthcoming dated meeting in the curated calendar',status:'manual_review_due'});
- return {schemaVersion:1,auditedAt:nowIso,disclaimer:'Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.',categories,reviewed,warnings};
+ return {schemaVersion:1,auditedAt:nowIso,disclaimer:'Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.',categories,reviewed,warnings,bankChecks:rateCoverage};
 }
 
 // Re-evaluate persisted status against the visitor's clock, without inventing checks.

@@ -122,11 +122,11 @@ assert.equal(policyAudit.bankCount,8);
 assert.equal(policyUpdates.length,12);
 assert.equal(policyCollectionAsOf,"2026-10-15");
 assert.equal(new Set(policyUpdates.filter(e=>e.type==="Rate decision").map(e=>e.currency)).size,8);
-assert.equal(policyUpdates[0].id,"fed-fomc-minutes-2026-10-07");
+assert.deepEqual(policyUpdates.map(item=>item.publishedDate),policyUpdates.map(item=>item.publishedDate).sort().reverse(),"Updated decisions stay in newest-first order");
 assert.equal(policyUpdateRelatedPairs("USD").length,7);
 for(const item of policyUpdates){
  assert.ok(item.source.startsWith("https://"));
- assert.ok(item.publishedDate <= policyCollectionAsOf);
+ assert.ok(item.publishedDate <= (item.type==="Rate decision"?snapshot.asOf:policyCollectionAsOf));
  assert.equal(policyUpdateRelatedPairs(item.currency).length,7);
  if(item.type !== "Rate decision")assert.equal(item.observedRatePct,undefined,"non-decision sources must not change the actual benchmark");
 }

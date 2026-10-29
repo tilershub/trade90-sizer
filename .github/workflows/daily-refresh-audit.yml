@@ -8,6 +8,7 @@ on:
     paths:
       - "scripts/daily-refresh.mjs"
       - "scripts/auto-policy-rates.mjs"
+      - "src/lib/trade90-refresh-status.js"
       - ".github/workflows/daily-refresh-audit.yml"
 permissions:
   contents: write

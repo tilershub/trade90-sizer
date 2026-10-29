@@ -109,7 +109,7 @@ export function validatePolicyUpdates(items=policyUpdates) {
     if(!bankCodes.includes(item.currency))return {valid:false,reason:"Unsupported currency"};
     if(!["Rate decision","Minutes","Policy statement","Policy report"].includes(item.type))return {valid:false,reason:"Unknown policy publication type"};
     if(!/^\d{4}-\d\d-\d\d$/.test(item.publishedDate)||!Number.isFinite(Date.parse(item.publishedDate+"T00:00:00Z")))return {valid:false,reason:"Invalid publication date"};
-    if(item.publishedDate>policyCollectionAsOf) return {valid:false,reason:"Publication date beyond collection date"};
+    if(item.publishedDate>(item.type==="Rate decision"?snapshot.asOf:policyCollectionAsOf)) return {valid:false,reason:"Publication date beyond collection date"};
     if(typeof item.title!=="string"||item.title.length<15||typeof item.summary!=="string"||item.summary.length<70)return {valid:false,reason:"Missing factual description"};
     try {
       const url=new URL(item.source);

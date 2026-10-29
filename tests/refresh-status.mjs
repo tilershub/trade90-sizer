@@ -33,3 +33,6 @@ assert.equal(aged.categories.macro.status,'overdue');
 assert.equal(aged.categories.rateDecisionChecks.status,'overdue');
 assert.equal(aged.categories.macro.checkedAt,report.categories.macro.checkedAt);
 assert.equal(report.categories.macro.status,'checked','Visitor aging must not mutate source report');
+
+const unverified=buildRefreshStatus({...base,rateMonitor:{...base.rateMonitor,coverage:[{code:'AUD',state:'No safely verified new decision'}]}},now);
+assert.equal(unverified.categories.rateDecisionChecks.okCount,0,'A negative verification message must never count as success');
