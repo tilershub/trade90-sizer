@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - "scripts/daily-refresh.mjs"
+      - "scripts/auto-policy-rates.mjs"
       - ".github/workflows/daily-refresh-audit.yml"
 permissions:
   contents: write

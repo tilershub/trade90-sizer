@@ -128,7 +128,7 @@ export function updateSnapshot(snapshot,proposals,today){
   const reason=decisionSafety(c,bank,today);verdicts.push({code:bank.code,reason});
   if(reason!=="publish")return bank;
   changed.push(bank.code);
-  const record={...bank,rate:c.rate,source:c.source,decision:c.decision,decisionDate:c.decisionDate,effectiveDate:c.effectiveDate};
+  const record={...bank,rate:c.rate,source:c.source,decision:Math.abs(c.rate-bank.rate)<0.000001?"Hold":(c.rate>bank.rate?"Hike +":"Cut -")+Math.round(Math.abs(c.rate-bank.rate)*100)+" bp",decisionDate:c.decisionDate,effectiveDate:c.effectiveDate};
   if(c.range)record.range=c.range;
   return record;
  });

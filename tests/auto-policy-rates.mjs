@@ -82,3 +82,7 @@ try{
  assert.equal(result.coverage.find(x=>x.code==='USD').state,'No safely verified new decision');
  assert.equal(result.failures.filter(x=>x.code==='USD').length,1);
 }finally{process.chdir(cwd);fs.rmSync(tmp,{recursive:true,force:true});}
+
+assert.ok(results.next.banks.every(bank=>typeof bank.decision==='string'&&bank.decision.length>0),'Every automated update must retain the decision label required by pages');
+const held=updateSnapshot(baseline,[{...fedParsed,rate:3.875,range:[3.75,4]}],'2026-10-30');
+assert.equal(held.next.banks.find(b=>b.code==='USD').decision,'Hold');
