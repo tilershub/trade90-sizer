@@ -1,5 +1,6 @@
 ---
 import {displayRate,displayBenchmark,midpointNote} from "../../lib/trade90-rate-display.js";
+import RefreshStatus from "../../components/Trade90RefreshStatus.svelte";
 import FtmoAffiliate from "../../components/Trade90FtmoAffiliate.astro";
 import Layout from "../../layouts/Trade90V2Layout.astro";
 import PolicyOutlook from "../../components/Trade90PolicyOutlook.svelte";
@@ -23,8 +24,8 @@ const {pair}=Astro.props;
 const explanation=pairInsight(pair);
 const previous=getPairPolicyUpdates(pair).slice(0,3);
 const publishedResearch=researchForPair(pair.symbol);
-const title=pair.label+" 90-Day Policy Rate Outlook & Fundamental Analysis";
-const description="Explore TRADE90’s experimental 90-day "+pair.label+" policy-rate divergence outlook: widening, narrowing or uncertain. Compare official interest rates, inflation, GDP, jobs and central-bank decisions.";
+const title=pair.label+" Interest Rate Differential & Policy Outlook";
+const description="Compare the "+pair.label+" interest rate differential, "+pair.baseBank.short+" and "+pair.quoteBank.short+" policy rates, source dates and economic evidence. Explore the conditional 90-day outlook.";
 const permalink=pairUrl(pair.symbol);
 const relevant=allTrade90Pairs.filter(p=>p.symbol!==pair.symbol && (p.base===pair.base||p.quote===pair.base||p.base===pair.quote||p.quote===pair.quote)).slice(0,6);
 const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -38,8 +39,16 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
   <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>›</span><a href="/pairs/">Currency pairs</a><span>›</span><span aria-current="page">{pair.label}</span></nav>
   <header class="pair-head">
    <div class="eyebrow">MONETARY POLICY RESEARCH · {pair.baseBank.short} / {pair.quoteBank.short}</div>
-   <div class="headingline"><div><h1>{pair.label} 90-Day Policy Rate Outlook</h1><p>Will the difference between {pair.baseBank.short} and {pair.quoteBank.short} policy rates widen, narrow or remain uncertain? Follow TRADE90's conditional research assessment and source-linked evidence.</p></div><a class="otherpair" href="/pairs/">Explore all pairs →</a></div>
+   <div class="headingline"><div><h1>{pair.label} Interest Rate Differential</h1><p>Will the difference between {pair.baseBank.short} and {pair.quoteBank.short} policy rates widen, narrow or remain uncertain? Follow TRADE90's conditional research assessment and source-linked evidence.</p></div><a class="otherpair" href="/pairs/">Explore all pairs →</a></div>
   </header>
+  <section class="section article-section" aria-labelledby="rate-answer">
+   <h2 id="rate-answer">What is the {pair.label} interest-rate difference?</h2>
+   <p>The published {pair.baseBank.short} benchmark is <strong>{displayRate(pair.baseBank)}</strong> and the {pair.quoteBank.short} benchmark is <strong>{displayRate(pair.quoteBank)}</strong>. The signed {pair.base} minus {pair.quote} differential is <strong>{pair.signedBp>0?"+":""}{formatBp(pair.signedBp)} basis points</strong>.</p>
+   <p>Calculation: ({formatPercent(pair.baseBank.rate)} − {formatPercent(pair.quoteBank.rate)}) × 100 = {formatBp(pair.signedBp)} basis points. {pair.base==="USD"||pair.quote==="USD" ? "The calculation uses the midpoint of the Fed’s target range." : "One percentage point equals 100 basis points."} A negative result means the quote currency has the higher benchmark; a positive result means the base currency does.</p>
+   <p>These are published policy benchmarks. Check each bank’s effective date and official source below before using the comparison.</p>
+   <RefreshStatus compact={true} client:visible />
+   <p><a href="#policy-outlook">Explore the conditional 90-day outlook ↓</a> · <a href="/learn/what-is-interest-rate-divergence/">How interest-rate divergence works →</a></p>
+  </section>
   <DivergenceHero pair={pair} model={policyModel} snapshotDate={rateSnapshot.asOf}/>
   
   <section class="comparison" aria-label={"Official "+pair.label+" policy benchmark comparison"}>
@@ -47,7 +56,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
     <div class="gap-card"><div class="card-label">SIGNED BASE − QUOTE GAP</div><div class="gap-value">{pair.signedBp>0?"+":""}{formatBp(pair.signedBp)} <small>bp</small></div><strong>{pair.higher==="Equal"?"Equal benchmarks":pair.higher+" has the higher selected benchmark"}</strong><p>Absolute difference: {formatBp(pair.absBp)} bp</p><p>This is not a forecast of the {pair.label} exchange rate or actual broker swap yield.</p></div>
     <div class="bank-card"><div class="card-label">QUOTE · {pair.quote}</div><h2><a href={"/central-banks/"+pair.quoteBank.short.toLowerCase()+"/"}>{pair.quoteBank.short} · {pair.quoteBank.name}</a></h2><div class="value">{displayRate(pair.quoteBank)}</div><p>{displayBenchmark(pair.quoteBank)}</p>{pair.quoteBank.code==="USD"&&<p>{midpointNote(pair.quoteBank)}</p>}<p>Effective {reportDate(pair.quoteBank.effectiveDate)}</p><a href={pair.quoteBank.source} target="_blank" rel="noopener noreferrer">Official {pair.quoteBank.short} rate source ↗</a></div>
   </section>
-  <p class="data-footnote">Rates are from the verified {reportDate(rateSnapshot.asOf)} snapshot; supported official decisions are checked automatically; this is not live market pricing. <a href="/data-policy/">Review sources, update frequency and licensing →</a></p>
+  <p class="data-footnote">Benchmark dataset last changed {reportDate(rateSnapshot.asOf)}. Effective dates differ by bank; a successful source check does not necessarily mean a new decision was verified. This is not live market pricing. <a href="/data-policy/">Review sources, update frequency and licensing →</a></p>
   <nav class="page-nav" aria-label="On this page"><a href="#policy-outlook">90-day outlook</a><a href="#economy">Macro analysis</a><a href="#yield-curve">Bond yields</a><a href="#decisions">Next decisions</a><a href="#research">Research articles</a><a href="#sources">Sources &amp; methodology</a></nav>
   <section class="section" id="economy"><MacroComparison client:visible base={pair.base} quote={pair.quote} initialData={{...macroData,countries:{[pair.base]:macroData.countries[pair.base],[pair.quote]:macroData.countries[pair.quote]}}}/></section>
   <YieldCurve pair={pair}/>

@@ -11,13 +11,13 @@ const featuredOutlooks=outlookEntries.filter(item=>Date.parse(item.outlook.expir
 const currentOutlooks=outlookEntries.filter(item=>Date.parse(item.outlook.expiresAt)>Date.now());
 const outlookCounts={widening:currentOutlooks.filter(item=>item.outlook.state==="widening").length,narrowing:currentOutlooks.filter(item=>item.outlook.state==="narrowing").length,uncertain:currentOutlooks.filter(item=>item.outlook.state==="uncertain"||item.outlook.state==="unclear").length};
 ---
-<Layout title="90-Day Forex Interest Rate Divergence Outlook" description="Explore experimental 90-day interest-rate divergence outlooks for 28 forex pairs, with central-bank rates, source dates and upcoming policy decisions." canonical="/">
+<Layout title="Forex Interest Rate Differentials & Central Bank Rates" description="Compare interest rate differentials across 28 forex pairs. See central-bank benchmarks, daily source-check dates and experimental 90-day policy outlooks." canonical="/">
 <main class="wrap home">
  <section class="hero" aria-labelledby="hero-heading">
   <div class="hero-content">
    <div class="eyebrow">FOREX MONETARY POLICY RESEARCH · 8 BANKS · 28 PAIRS</div>
-   <h1 id="hero-heading">90-day <em>interest-rate divergence outlook.</em></h1>
-   <p>Explore experimental widening, narrowing and uncertain policy-rate differential outlooks across 28 forex pairs. Review official rates, economic evidence and upcoming central-bank decisions.</p>
+   <h1 id="hero-heading">Compare forex <em>interest-rate differentials.</em></h1>
+   <p>Compare the published rates behind EUR/USD, GBP/USD, USD/JPY and 25 other currency pairs. Check official sources, see when data was last checked, and explore what could widen or narrow each policy-rate gap.</p>
    <p><a href="/daily/">Open your daily dashboard →</a></p>
    <PairFinder client:load pairs={majors.concat(allTrade90Pairs.filter(p=>p.base!=="USD" && p.quote!=="USD"))} limit={7}/>
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
@@ -38,6 +38,14 @@ const outlookCounts={widening:currentOutlooks.filter(item=>item.outlook.state===
  <section class="home-daily" aria-labelledby="daily-heading">
   <div><div class="eyebrow">YOUR DAILY RESEARCH ROUTINE</div><h2 id="daily-heading">What changed for your currency pairs?</h2><p>Review changes in policy outlooks, source-dated macroeconomic evidence and upcoming decisions in one place. An automated refresh alone does not mean the outlook changed.</p></div>
   <a href="/daily/">Open daily dashboard →</a>
+ </section>
+ <section class="block" aria-labelledby="guides-heading">
+  <div class="section-head"><div><h2 id="guides-heading">Understand the rates behind your currency pair</h2><p>Start with the calculation, then check the economic evidence and its limits.</p></div></div>
+  <div class="guides">
+   <a href="/learn/what-is-interest-rate-divergence/"><strong>What is an interest-rate differential?</strong><span>Understand signed gaps, basis points and how central-bank policies can diverge.</span></a>
+   <a href="/learn/forex-fundamental-analysis/"><strong>A forex fundamental analysis checklist</strong><span>Compare rates, inflation, employment and growth across both sides of a pair.</span></a>
+   <a href="/learn/high-interest-rates-currency-strength/"><strong>Does a higher rate mean a stronger currency?</strong><span>Learn why a policy-rate advantage alone does not establish an exchange-rate forecast.</span></a>
+  </div>
  </section>
  <nav class="home-resources" aria-label="More TRADE90 research"><a href="/rate-gaps/">Compare official rate gaps →</a><a href="/decisions/">Central-bank calendar →</a><a href="/central-banks/">Official policy publications →</a><a href="/learn/">Research guides →</a><a href="/methodology/">Methodology →</a></nav>
 </main>
