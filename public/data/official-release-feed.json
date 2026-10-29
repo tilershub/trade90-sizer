@@ -1,9 +1,23 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-10-29T13:13:53.952Z",
-  "lastSourceScanAt": "2026-10-29T13:13:53.952Z",
+  "lastCompiledAt": "2026-10-29T18:59:54.871Z",
+  "lastSourceScanAt": "2026-10-29T18:59:54.871Z",
   "items": [
+    {
+      "code": "EUR",
+      "bank": "ECB",
+      "title": "Christine Lagarde, Boris Vujčić: Monetary policy statement",
+      "url": "https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/2026/html/ecb.is261029~5c5ffe99e5.en.html",
+      "firstSeenAt": "2026-10-29T18:59:54.871Z"
+    },
+    {
+      "code": "EUR",
+      "bank": "ECB",
+      "title": "Monetary policy decisions",
+      "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+      "firstSeenAt": "2026-10-29T18:59:54.871Z"
+    },
     {
       "code": "CAD",
       "bank": "BoC",

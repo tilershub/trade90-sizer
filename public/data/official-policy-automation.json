@@ -1,62 +1,66 @@
 {
   "schemaVersion": 1,
   "status": "automated_fail_closed",
-  "lastCheckedAt": "2026-10-29T13:13:54.053Z",
+  "lastCheckedAt": "2026-10-29T18:59:55.024Z",
   "changedBanks": [],
   "coverage": [
     {
       "code": "AUD",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     },
     {
       "code": "USD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-10-29T13:13:54.053Z",
+      "checkedAt": "2026-10-29T18:59:55.024Z",
       "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     },
     {
       "code": "GBP",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-10-29T13:13:54.053Z",
+      "checkedAt": "2026-10-29T18:59:55.024Z",
       "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
       "decisionDate": "2026-09-17",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     },
     {
       "code": "NZD",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     },
     {
       "code": "EUR",
-      "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "state": "No safely verified new decision",
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     },
     {
       "code": "CAD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-10-29T13:13:54.053Z",
+      "checkedAt": "2026-10-29T18:59:55.024Z",
       "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     },
     {
       "code": "JPY",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     },
     {
       "code": "CHF",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-10-29T13:13:54.053Z"
+      "attemptedAt": "2026-10-29T18:59:55.024Z"
     }
   ],
   "failures": [
     {
       "code": "AUD",
+      "state": "not_verified"
+    },
+    {
+      "code": "EUR",
       "state": "not_verified"
     },
     {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "monitored",
-  "lastScanAt": "2026-10-29T13:13:53.952Z",
+  "lastScanAt": "2026-10-29T18:59:54.871Z",
   "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
   "sources": [
     {
@@ -10,7 +10,7 @@
       "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
       "domain": "federalreserve.gov",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
         {
           "title": "Federal Reserve issues FOMC statement",
@@ -80,8 +80,16 @@
       "url": "https://www.ecb.europa.eu/rss/press.html",
       "domain": "ecb.europa.eu",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
+        {
+          "title": "Christine Lagarde, Boris Vujčić: Monetary policy statement",
+          "url": "https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/2026/html/ecb.is261029~5c5ffe99e5.en.html"
+        },
+        {
+          "title": "Monetary policy decisions",
+          "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html"
+        },
         {
           "title": "Philip R. Lane: Euro liquidity lines and the international monetary system",
           "url": "https://www.ecb.europa.eu/press/key/date/2026/html/ecb.sp261021~401d6c4b70.en.html"
@@ -94,7 +102,7 @@
       "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
       "domain": "bankofengland.co.uk",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
         {
           "title": "Publication // Monetary Policy Report (MPR) 30 July 2026 Monetary Policy Report - July 2026 Monetary Policy Report - July 2026",
@@ -168,7 +176,7 @@
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "domain": "boj.or.jp",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
         {
           "title": "Speech by Board Member KOEDA in Kumamoto (Economic Activity, Prices, and Monetary Policy in Japan)",
@@ -254,7 +262,7 @@
       "url": "https://www.rba.gov.au/media-releases/",
       "domain": "rba.gov.au",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
         {
           "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
@@ -328,7 +336,7 @@
       "url": "https://www.rbnz.govt.nz/feeds/news",
       "domain": "rbnz.govt.nz",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
         {
           "title": "Updates to the October Monetary Policy Review and November Financial Stability Report",
@@ -362,7 +370,7 @@
       "url": "https://www.bankofcanada.ca/press/press-releases/",
       "domain": "bankofcanada.ca",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
         {
           "title": "Bank of Canada raises the policy rate by 25 basis points to 2½%",
@@ -400,7 +408,7 @@
       "url": "https://www.snb.ch/en/news-publications/media-releases",
       "domain": "snb.ch",
       "status": "available",
-      "lastSuccessAt": "2026-10-29T13:13:53.952Z",
+      "lastSuccessAt": "2026-10-29T18:59:54.871Z",
       "items": [
         {
           "title": "24.09.2026 Monetary policy assessment of 24 September 2026 &#65279;",
