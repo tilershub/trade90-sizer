@@ -40,7 +40,7 @@ export function parseOfficialDecision(item,code,html){
  if(code==="USD"){
   m=p.match(/monetary(20\d{2})(\d{2})(\d{2})a\.htm$/);
   decisionDate=m&&dateParts(m[1],m[2],m[3]);
-  const match=[...t.matchAll(/target range for the federal funds rate[\s\S]{0,140}?\bto\s+(\d{1,2}(?:[ -](?:1\/4|1\/2|3\/4))?)\s+to\s+(\d{1,2}(?:[ -](?:1\/4|1\/2|3\/4))?)\s+percent/gi)];
+  const match=[...t.matchAll(/target range for the federal funds rate[\s\S]{0,140}?\b(?:at|to)\s+(\d{1,2}(?:[ -](?:1\/4|1\/2|3\/4))?)\s+to\s+(\d{1,2}(?:[ -](?:1\/4|1\/2|3\/4))?)\s+percent/gi)];
   if(match.length!==1||!/Committee decided/i.test(t))return null;
   const low=fraction(match[0][1]),hi=fraction(match[0][2]);
   if(low===null||hi===null||Math.abs(hi-low-.25)>1e-7)return null;
@@ -67,7 +67,7 @@ export function parseOfficialDecision(item,code,html){
  if(code==="CAD"){
   m=p.match(/fad-press-release-(20\d{2})-(\d{2})-(\d{2})/);
   decisionDate=m&&dateParts(m[1],m[2],m[3]);
-  rate=pct(t.match(/target for the overnight rate\s+(?:at|to)\s+(\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);eff=decisionDate;
+  rate=pct(t.match(/target for the overnight rate\s+(?:by\s+\d+(?:\.\d+)?\s+basis points\s+)?(?:at|to)\s+(\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);eff=decisionDate;
  }
  if(code==="CHF"){
   m=p.match(/pre_(20\d{2})(\d{2})(\d{2})/);decisionDate=m&&dateParts(m[1],m[2],m[3]);
@@ -168,10 +168,10 @@ export async function runAutomaticRateCheck({fetcher=fetch,now=()=>new Date().to
       catch(e){parsed=null;}
     }
     const state=decisionSafety(parsed,bank,today);
-    if(state==="publish"){proposals.push(parsed);coverage.push({code:bank.code,state:"Verified new decision"});verified=true;break;}
-    if(state==="unchanged"){coverage.push({code:bank.code,state:"Decision matches published benchmark"});verified=true;break;}
-    if(state!=="older_decision"){failures.push({code:bank.code,state,url:record.url});}
-   }catch(e){failures.push({code:bank.code,state:String(e.message||e).slice(0,140),url:record.url});}
+    if(state==="publish"){proposals.push(parsed);coverage.push({code:bank.code,state:"Verified new decision",checkedAt:stamp,source:record.url,decisionDate:parsed.decisionDate});verified=true;break;}
+    if(state==="unchanged"){coverage.push({code:bank.code,state:"Decision matches published benchmark",checkedAt:stamp,source:record.url,decisionDate:parsed.decisionDate});verified=true;break;}
+    if(state!=="older_decision"){failures.push({code:bank.code,state,url:record.url});break;}
+   }catch(e){failures.push({code:bank.code,state:String(e.message||e).slice(0,140),url:record.url});break;}
   }
   if(!verified)coverage.push({code:bank.code,state:"No safely verified new decision"});
  }
@@ -190,12 +190,12 @@ export async function runAutomaticRateCheck({fetcher=fetch,now=()=>new Date().to
  const statusPath=resolve("public/data/official-policy-automation.json");
  let prior=null;try{prior=JSON.parse(readFileSync(statusPath,"utf8"))}catch{}
  const publicStatus={schemaVersion:1,status:"automated_fail_closed",lastCheckedAt:stamp,changedBanks:output.changed,
-  coverage:coverage.map(x=>({code:x.code,state:x.state})),
+  coverage:coverage.map(x=>({...x,attemptedAt:stamp})),
   failures:failures.map(x=>({code:x.code,state:x.state})).slice(0,16),
   explanation:"Strict policy decision parsing: only source-confirmed, dated, effective bank decisions are published; other bank observations retain their last verified values."};
  const last=Date.parse(prior?.lastCheckedAt||""),elapsed=Date.parse(stamp)-last;
  const changes=output.changed.length||JSON.stringify(publicStatus.coverage)!==JSON.stringify(prior?.coverage)||JSON.stringify(publicStatus.failures)!==JSON.stringify(prior?.failures);
- if(changes||!Number.isFinite(elapsed)||elapsed>=23*60*60*1000)writeFileSync(statusPath,JSON.stringify(publicStatus,null,2)+"\n");
+ writeFileSync(statusPath,JSON.stringify(publicStatus,null,2)+"\n");
  console.log(JSON.stringify({changed:report.changed,coverage:coverage.map(x=>x.code+":"+x.state),failures:failures.length}));
  return report;
 }

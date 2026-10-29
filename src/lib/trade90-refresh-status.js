@@ -46,3 +46,12 @@ export function buildRefreshStatus({macro,extras,sourceMonitor,rateMonitor,polic
  if(byBank.size<8)warnings.push({category:'meetingCalendar',reason:'Not all eight central banks have a forthcoming dated meeting in the curated calendar',status:'manual_review_due'});
  return {schemaVersion:1,auditedAt:nowIso,disclaimer:'Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.',categories,reviewed,warnings};
 }
+
+// Re-evaluate persisted status against the visitor's clock, without inventing checks.
+export function refreshStatusAt(report,nowIso){
+ if(!report?.categories)return report;
+ const categories=Object.fromEntries(Object.entries(report.categories).map(([key,value])=>[key,{...value,status:ageDays(value.checkedAt||value.generatedAt,nowIso)>1.5?'overdue':value.status}]));
+ const warnings=[...(report.warnings||[])];
+ for(const [category,value] of Object.entries(categories))if(value.status==='overdue'&&!warnings.some(w=>w.category===category&&w.status==='overdue'))warnings.push({category,status:'overdue',reason:'Automatic data check is overdue'});
+ return {...report,categories,warnings};
+}

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {buildRefreshStatus} from '../src/lib/trade90-refresh-status.js';
+import {buildRefreshStatus,refreshStatusAt} from '../src/lib/trade90-refresh-status.js';
 const now='2026-10-23T07:30:00Z';
 const simple={status:'ok',retrievedAt:'2026-10-23T06:00:00Z',points:[{date:'2026-08-01',value:1}]};
 const base={
@@ -27,3 +27,9 @@ const partiallyChecked=buildRefreshStatus({...base,rateMonitor:{...base.rateMoni
 assert.equal(partiallyChecked.categories.rateDecisionChecks.status,'partial','Attempted checks do not equal confirmed verification');
 assert.equal(partiallyChecked.reviewed.benchmarkSnapshot,'2026-10-15');
 console.log('Daily freshness report: checked-vs-curated, overdue, partial coverage and immutable review dates verified.');
+
+const aged=refreshStatusAt(report,'2026-10-26T10:00:00Z');
+assert.equal(aged.categories.macro.status,'overdue');
+assert.equal(aged.categories.rateDecisionChecks.status,'overdue');
+assert.equal(aged.categories.macro.checkedAt,report.categories.macro.checkedAt);
+assert.equal(report.categories.macro.status,'checked','Visitor aging must not mutate source report');

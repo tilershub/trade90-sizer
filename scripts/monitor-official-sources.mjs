@@ -153,7 +153,7 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
  const previousLinks=JSON.stringify((priorFeed?.items||[]).map(x=>x.url).sort());
  const newLinks=JSON.stringify(feed.items.map(x=>x.url).sort());
  const feedElapsed=Date.parse(feed.lastCompiledAt)-Date.parse(priorFeed?.lastCompiledAt||"");
- if(newLinks!==previousLinks||!Number.isFinite(feedElapsed)||feedElapsed>=23*3600000){
+ {
   mkdirSync(dirname(feedPath),{recursive:true});
   writeFileSync(feedPath,JSON.stringify(feed,null,2)+"\n");
  }
@@ -161,9 +161,8 @@ export async function runMonitor({fetcher=fetch,now=()=>new Date().toISOString()
  const previousTime=Date.parse(prior.lastScanAt||"");
  const elapsed=Date.parse(snapshot.lastScanAt)-previousTime;
  const healthChanged=(prior.sources||[]).some(old=>old.status!==snapshot.sources.find(x=>x.code===old.code)?.status);
- const publish=changes.length>0||healthChanged||!(elapsed>=0&&elapsed<23*60*60*1000);
- // Scan each hour, but don't rebuild the public website every hour when
- // sources haven't changed. Public monitor timestamps mean PUBLISHED scans.
+ const publish=true;
+ // Persist every attempted scan so downstream verification uses this run, not yesterday's cached feed.
  if(publish){mkdirSync(dirname(file),{recursive:true});writeFileSync(file,JSON.stringify(snapshot,null,2)+"\n");}
  const report=changes.length?"Automatically detected "+changes.length+" official publication link(s):\n\n"+changes.slice(0,16).map(x=>"- "+x.code+" "+x.bank+": ["+x.title+"]("+x.url+")").join("\n")+"\n\nLINK DISCOVERY ONLY. Do not change policy rates without verified benchmark and effective date.":"";
  writeFileSync("/tmp/trade90-source-alert.md",report);

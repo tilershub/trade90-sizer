@@ -1,14 +1,17 @@
 <script>
  import {onMount} from 'svelte';
+ import initialStatus from '../../public/data/refresh-status.json';
+ import {refreshStatusAt} from '../lib/trade90-refresh-status.js';
  export let compact=false;
- let status=null,failed=false;
+ let status=refreshStatusAt(initialStatus,new Date().toISOString()),failed=false;
  onMount(()=>{
    let alive=true;
-   fetch('/data/refresh-status.json',{cache:'no-store'})
+   fetch('/data/refresh-status.json',{cache:'no-store',signal:AbortSignal.timeout(10000)})
      .then(r=>{if(!r.ok)throw Error('Audit file unavailable');return r.json();})
-     .then(value=>{if(alive&&value?.schemaVersion===1)status=value;else if(alive)failed=true;})
+     .then(value=>{if(alive&&value?.schemaVersion===1)status=refreshStatusAt(value,new Date().toISOString());else if(alive)failed=true;})
      .catch(()=>{if(alive)failed=true;});
-   return ()=>{alive=false};
+   const timer=setInterval(()=>{if(alive)status=refreshStatusAt(status,new Date().toISOString());},60000);
+   return ()=>{alive=false;clearInterval(timer)};
  });
  const when=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'UTC'})+' UTC':'Not recorded';
  const day=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}):'Not recorded';
@@ -19,6 +22,9 @@
   {#if status}
    <span><b>Economic data check:</b> {when(status.categories.macro.checkedAt)} ({label(status.categories.macro.status)})</span>
    <span><b>Bank source scan:</b> {when(status.categories.sourceDiscovery.checkedAt)} ({label(status.categories.sourceDiscovery.status)})</span>
+   <span><b>Rate decision verification:</b> {status.categories.rateDecisionChecks.okCount}/{status.categories.rateDecisionChecks.total} banks · {label(status.categories.rateDecisionChecks.status)}</span>
+   {#if status.warnings?.length}<span class="attention">Some sources or reviews need attention. See details below.</span>{/if}
+   {#if failed}<span>Live status refresh unavailable; showing the last published check.</span>{/if}
    <a href="/data-policy/">See source health and analyst review dates →</a>
   {:else if failed}
    <a href="/data-policy/">View research update status and source dates →</a>

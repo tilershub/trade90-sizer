@@ -1,7 +1,5 @@
 name: Refresh country economic histories
 on:
-  schedule:
-    - cron: '43 5 * * *'
   workflow_dispatch:
   push:
     branches: [main]

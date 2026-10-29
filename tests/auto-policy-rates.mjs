@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
-import {officialDecisionLink,parseOfficialDecision,completeFedDecision,decisionSafety,updateSnapshot,appendRateHistory} from "../scripts/auto-policy-rates.mjs";
-import baseline from "../src/data/trade90-policy-snapshot.json" with {type:"json"};
+import {officialDecisionLink,parseOfficialDecision,completeFedDecision,decisionSafety,updateSnapshot,appendRateHistory,runAutomaticRateCheck} from "../scripts/auto-policy-rates.mjs";
+import seed from "../src/data/trade90-policy-snapshot.json" with {type:"json"};
+// Test rates/dates must remain fixed when the production updater advances.
+const fixture={AUD:[4.6,'2026-09-29'],USD:[3.875,'2026-09-16'],GBP:[3.75,'2026-09-17'],NZD:[2.75,'2026-09-02'],EUR:[2.5,'2026-09-10'],CAD:[2.25,'2026-09-02'],JPY:[1.25,'2026-09-18'],CHF:[0,'2026-09-24']};
+const baseline={...seed,banks:seed.banks.map(b=>({...b,rate:fixture[b.code][0],decisionDate:fixture[b.code][1]}))};
 const cases=[
  ["USD",{title:"Federal Reserve issues FOMC statement",url:"https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"},"The Federal Reserve issues FOMC statement. The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 4 to 4-1/4 percent.",4.125],
  ["EUR",{title:"Monetary policy decisions",url:"https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~abc123.en.html"},"Monetary policy decisions. Key ECB interest rates. Accordingly, the interest rates on the deposit facility, the main refinancing operations and the marginal lending facility will be increased to 2.75%, 2.90% and 3.10% respectively, with effect from 4 November 2026.",2.75],
@@ -56,3 +59,26 @@ assert.equal(appendRateHistory(audit,baseline,results.next,results.changed,"2026
 assert.deepEqual(appendRateHistory(audit,baseline,baseline,[],"2026-10-30T13:00:00Z"),audit,"No invented audit updates on an unchanged run");
 
 console.log("Autonomous central-bank publication parser: 7 official bank adapters, effective-date safety, exact Fed range cross-check, 28-pair arithmetic, no speculative changes.");
+
+// Regression: a real hold uses "at", and a Canadian hike includes the size before "to".
+const hold=parseOfficialDecision(cases[0][1],'USD','The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent.');
+assert.equal(hold.rate,3.875);
+assert.equal(hold.effectiveDate,null);
+const cadHike=parseOfficialDecision(cases[5][1],'CAD','The Bank of Canada today increased its target for the overnight rate by 25 basis points to 2.5%, with the Bank Rate at 2.75%.');
+assert.equal(cadHike.rate,2.5);
+
+// A failed newest decision must not silently fall through to a verified old one.
+const fs=await import('node:fs');
+const os=await import('node:os');
+const path=await import('node:path');
+const cwd=process.cwd(),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'trade90-rate-test-'));
+try{
+ process.chdir(tmp);
+ fs.mkdirSync('src/data',{recursive:true});fs.mkdirSync('public/data',{recursive:true});
+ fs.writeFileSync('src/data/trade90-policy-snapshot.json',JSON.stringify(baseline));
+ fs.writeFileSync('public/data/official-source-monitor.json',JSON.stringify({sources:[{code:'USD',items:[cases[0][1],{...cases[0][1],url:baseline.banks.find(b=>b.code==='USD').source}]}]}));
+ const result=await runAutomaticRateCheck({now:()=> '2026-10-29T12:00:00Z',fetcher:async url=>({ok:true,url,headers:new Headers({'content-type':'text/html'}),text:async()=>'<p>Unsupported decision content</p>'})});
+ assert.equal(result.changed.length,0);
+ assert.equal(result.coverage.find(x=>x.code==='USD').state,'No safely verified new decision');
+ assert.equal(result.failures.filter(x=>x.code==='USD').length,1);
+}finally{process.chdir(cwd);fs.rmSync(tmp,{recursive:true,force:true});}

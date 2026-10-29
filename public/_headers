@@ -59,3 +59,10 @@
   Referrer-Policy: no-referrer
 /daily/*
   Cache-Control: no-cache, max-age=0, must-revalidate
+
+# Data/status JSON must follow each published daily refresh.
+/data/*
+  Cache-Control: no-store, max-age=0
+  CDN-Cache-Control: no-store
+/data-policy/*
+  Cache-Control: no-cache, max-age=0, must-revalidate

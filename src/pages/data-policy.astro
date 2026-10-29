@@ -16,7 +16,7 @@ const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numer
    <h1>TRADE90 Data Sources &amp; Update Policy</h1>
    <p>Trade90 is a source-linked forex monetary-policy research website. <strong>Our published official rates and bank updates are dated curated observations, not continuously refreshing market data.</strong> This page explains where the figures come from, how often they currently change, and what we do not publish.</p>
   </header>
-  <RefreshStatus client:visible />
+  <RefreshStatus client:load />
   <section class="status-overview" aria-label="Current published data status">
    <div><span>Official policy-rate snapshot</span><strong><time datetime={snapshot.asOf}>{format(snapshot.asOf)}</time></strong><small>Published static bank benchmarks for eight currencies</small></div>
    <div><span>Official policy publication review</span><strong><time datetime={policyCollectionAsOf}>{format(policyCollectionAsOf)}</time></strong><small>Dated decisions, minutes and statements</small></div>

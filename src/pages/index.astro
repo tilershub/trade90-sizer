@@ -22,10 +22,10 @@ const outlookCounts={widening:currentOutlooks.filter(item=>item.outlook.state===
    <PairFinder client:load pairs={majors.concat(allTrade90Pairs.filter(p=>p.base!=="USD" && p.quote!=="USD"))} limit={7}/>
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
    <aside class="data-status" aria-label="TRADE90 data freshness and availability">
-     <strong><span class="statusdot" aria-hidden="true"></span> Verified official-rate snapshot</strong>
-     <span>Published snapshot dated <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Hourly automated official-source checks attempt to publish only strictly verified rate decisions; unsupported formats remain unchanged.</span>
+     <strong><span class="statusdot" aria-hidden="true"></span> Daily data updates</strong>
+     <span>Last benchmark dataset change: <time datetime={rateSnapshot.asOf}>{reportDate(rateSnapshot.asOf)}</time> · Rates change when a verified decision takes effect. Latest source-check times and coverage are shown below.</span>
      <span>Market-implied 3M / 6M / 12M feed: <strong>not connected</strong>.</span>
-     <RefreshStatus compact={true} client:visible />
+     <RefreshStatus compact={true} client:load />
      <a href="/data-policy/">View update frequency, sources and licensing →</a>
    </aside>
   </div>
