@@ -11,6 +11,7 @@
   const fmt=v=>(v>0?"+":"")+v.toFixed(Number.isInteger(v)?0:1);
 </script>
 <section class="full-table" aria-label="All 28 central bank rate gaps">
+<p>USD is displayed as the official Fed target range. Rate gaps involving USD use its midpoint.</p>
 <div class="tools">
 <label>Search pair<input type="search" bind:value={query} placeholder="EUR/USD, AUDJPY…" aria-label="Find a currency pair"/></label>
 <label>Currency<select bind:value={currency} aria-label="Currency filter"><option value="ALL">All currencies</option>{#each ["USD","EUR","GBP","JPY","AUD","NZD","CAD","CHF"] as code}<option value={code}>{code}</option>{/each}</select></label>
