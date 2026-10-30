@@ -1,0 +1,1 @@
+TRADE90 production refresh requested 2026-10-30. Homepage daily update panel removed in PR 103; model uncertainty fallback updated. This file confirms a build includes the post-merge main branch.
