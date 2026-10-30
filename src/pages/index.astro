@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Trade90V2Layout.astro";
 import PairFinder from "../components/Trade90PairFinder.svelte";
-import RefreshStatus from "../components/Trade90RefreshStatus.svelte";
 import {allTrade90Pairs,majors,pairUrl} from "../lib/trade90-v3.js";
 import policyOutlook from "../../public/data/policy-outlook.json";
 const outlookEntries=allTrade90Pairs.map(pair=>({pair,outlook:policyOutlook.pairs?.[pair.symbol]})).filter(item=>item.outlook);
@@ -22,12 +21,7 @@ const outlookCounts={widening:currentOutlooks.filter(item=>item.outlook.state===
    <p><a class="primary-action" href="#outlook">Explore 90-day divergence →</a> <a href="/pairs/">Compare all 28 pairs →</a></p>
    <PairFinder client:load pairs={majors.concat(allTrade90Pairs.filter(p=>p.base!=="USD" && p.quote!=="USD"))} limit={7}/>
    <div class="popular"><span>Explore popular pairs:</span>{["EURUSD","GBPUSD","USDJPY","AUDUSD"].map(symbol=><a href={pairUrl(symbol)}>{symbol.slice(0,3)}/{symbol.slice(3)}</a>)}<a href="/pairs/">All 28 →</a></div>
-   <aside class="data-status" aria-label="TRADE90 data freshness and availability">
-     <strong><span class="statusdot" aria-hidden="true"></span> Daily data updates</strong>
-     <RefreshStatus compact={true} client:load />
-     <span>Market-implied 3M / 6M / 12M feed: <strong>not connected</strong>.</span>
-     <a href="/data-policy/">View update frequency, sources and licensing →</a>
-   </aside>
+   <aside class="data-status"><strong>Source-linked policy research, not live FX pricing.</strong> <a href="/data-policy/">Data sources and methodology →</a></aside>
   </div>
  </section>
  <section class="block outlook-block" id="outlook" aria-labelledby="outlook-heading"><div class="section-head"><div><div class="eyebrow">TRADE90 EXPERIMENTAL RESEARCH · 90 DAYS</div><h2 id="outlook-heading">90-day policy-rate divergence outlook</h2><p>Independent, conditional model assessments—not market-implied pricing or currency trading signals. A widening gap may favor either currency depending on the signed direction.</p></div><a href="/pairs/">Explore all 28 pairs →</a></div>
