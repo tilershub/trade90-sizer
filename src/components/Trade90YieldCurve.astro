@@ -5,21 +5,24 @@ const countries={USD:"US Treasury",EUR:"German Bund (euro-area proxy)",GBP:"UK G
 const base=yieldData.currencies?.[pair.base],quote=yieldData.currencies?.[pair.quote];
 const dateOk=s=>typeof s==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&Date.parse(s+"T00:00:00Z")<=Date.now();
 const verified=x=>x?.verified===true&&dateOk(x.asOf)&&typeof x.source==="string"&&/^https:\/\//.test(x.source)&&Number.isFinite(x.yields?.["2Y"])&&Number.isFinite(x.yields?.["10Y"]);
-const ready=verified(base)&&verified(quote)&&base.asOf===quote.asOf;
-const stale=ready&&(Date.now()-Date.parse(base.asOf+"T00:00:00Z"))>7*86400000;
+const ready=verified(base)&&verified(quote);
+const datesMatch=ready&&base.asOf===quote.asOf;
+const daysApart=ready?Math.abs(Date.parse(base.asOf+"T00:00:00Z")-Date.parse(quote.asOf+"T00:00:00Z"))/86400000:null;
+const comparable=ready&&daysApart<=3;
+const stale=ready&&[base,quote].some(x=>(Date.now()-Date.parse(x.asOf+"T00:00:00Z"))>7*86400000);
 const spread=tenor=>Math.round((base.yields[tenor]-quote.yields[tenor])*100);
 const fmt=n=>(n>0?"+":"")+n+" bp";
 ---
 <section class="yield-intel" id="yield-curve" aria-labelledby="yield-title">
- <div class="yield-header"><div><div class="eyebrow">BOND MARKET CONTEXT</div><h2 id="yield-title">{pair.label} yield curve intelligence</h2><p>Compare government bond yields alongside policy-rate expectations. Yield spreads are not official policy-rate gaps or FX forecasts.</p></div><span class="data-state">{ready?(stale?"Historical snapshot":"Verified snapshot"):"Data pending"}</span></div>
- {ready ? <>
+ <div class="yield-header"><div><div class="eyebrow">BOND MARKET CONTEXT</div><h2 id="yield-title">{pair.label} yield curve intelligence</h2><p>Compare government bond yields alongside policy-rate expectations. Yield spreads are not official policy-rate gaps or FX forecasts.</p></div><span class="data-state">{comparable?(stale?"Historical snapshot":"Verified snapshot"):ready?"Dates not comparable":"Data pending"}</span></div>
+ {comparable ? <>
  <div class="yield-cards">
   <div><span>2-year yield differential · {pair.base} − {pair.quote}</span><strong>{fmt(spread("2Y"))}</strong><small>Policy-sensitive market benchmark</small></div>
   <div><span>10-year yield differential · {pair.base} − {pair.quote}</span><strong>{fmt(spread("10Y"))}</strong><small>Growth, inflation and term premium context</small></div>
  </div>
  <div class="yield-table-wrap"><table><caption>Verified government bond yield observations, percent per year</caption><thead><tr><th scope="col">Tenor</th><th scope="col">{pair.base}</th><th scope="col">{pair.quote}</th><th scope="col">Base − quote</th></tr></thead><tbody>{["2Y","10Y"].map(tenor=><tr><th scope="row">{tenor}</th><td>{base.yields[tenor].toFixed(2)}%</td><td>{quote.yields[tenor].toFixed(2)}%</td><td>{fmt(spread(tenor))}</td></tr>)}</tbody></table></div>
- <p class="yield-foot">Observation date: <time datetime={base.asOf}>{base.asOf}</time>. {stale?"This is a historical snapshot; do not treat it as current market pricing.":"Daily observations are not live prices."} <a href={base.source} target="_blank" rel="noopener noreferrer">{countries[pair.base]} source ↗</a> · <a href={quote.source} target="_blank" rel="noopener noreferrer">{countries[pair.quote]} source ↗</a></p>
- </> : <div class="yield-empty"><strong>Yield comparison awaiting verified data</strong><p>We will display 2Y and 10Y spreads once both government bond series have matching observation dates, verified sources and suitable reuse permissions. No estimated yields are shown.</p></div>}
+ <p class="yield-foot">Observation dates: {pair.base} <time datetime={base.asOf}>{base.asOf}</time> · {pair.quote} <time datetime={quote.asOf}>{quote.asOf}</time>. {!datesMatch&&"Dates differ by "+daysApart+" day(s); this is an asynchronous comparison, not a same-day spread."} {stale?"This is a historical snapshot; do not treat it as current market pricing.":"Daily observations are not live prices."} <a href={base.source} target="_blank" rel="noopener noreferrer">{countries[pair.base]} source ↗</a> · <a href={quote.source} target="_blank" rel="noopener noreferrer">{countries[pair.quote]} source ↗</a></p>
+ </> : <div class="yield-empty"><strong>{ready?"Yield observations have incompatible dates":"Yield comparison awaiting verified data"}</strong><p>{ready?"Both currencies have verified observations, but their dates differ by more than three days. A spread would be misleading; review the source dates before comparing.":"We will display 2Y and 10Y spreads once both government bond series have verified sources and suitable reuse permissions, with observations no more than three days apart. No estimated yields are shown."}</p></div>}
  <details><summary>How to interpret this for the 90-day outlook</summary><p>The 2-year spread is sensitive to relative rate expectations. The 10-year spread also reflects inflation, growth and term premiums. A change in government bond yields does not necessarily predict a central-bank decision or currency direction. German Bunds are a euro-area market proxy, not an ECB-issued sovereign bond.</p></details>
 </section>
 <style>
