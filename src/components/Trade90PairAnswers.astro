@@ -4,7 +4,7 @@ const { pair, snapshotDate } = Astro.props;
 const baseHigher = pair.signedBp > 0;
 const quoteHigher = pair.signedBp < 0;
 const status = baseHigher ? pair.base : quoteHigher ? pair.quote : "neither currency";
-const signed = (pair.signedBp > 0 ? "+" : "") + Math.round(pair.signedBp);
+const signed = (pair.signedBp > 0 ? "+" : "") + pair.signedBp;
 const questions = [
   {q:`Which currency has the higher policy benchmark in ${pair.label}?`,a:baseHigher || quoteHigher ? `${status} has the higher selected policy benchmark. The ${pair.base} minus ${pair.quote} difference is ${signed} basis points.` : `Both currencies have equal selected policy benchmarks, a 0 basis-point difference.`},
   {q:`Does the ${pair.label} interest-rate gap predict the exchange rate?`,a:"No. Policy-rate differences alone do not predict spot exchange rates. Market expectations, inflation, growth, risk sentiment and positioning can all influence price."},
