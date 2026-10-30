@@ -1,0 +1,26 @@
+---
+/** Source-grounded answer snippets shared by all 28 pair pages. */
+const { pair, snapshotDate } = Astro.props;
+const baseHigher = pair.signedBp > 0;
+const quoteHigher = pair.signedBp < 0;
+const status = baseHigher ? pair.base : quoteHigher ? pair.quote : "neither currency";
+const signed = (pair.signedBp > 0 ? "+" : "") + Math.round(pair.signedBp);
+const questions = [
+  {q:`Which currency has the higher policy benchmark in ${pair.label}?`,a:baseHigher || quoteHigher ? `${status} has the higher selected policy benchmark. The ${pair.base} minus ${pair.quote} difference is ${signed} basis points.` : `Both currencies have equal selected policy benchmarks, a 0 basis-point difference.`},
+  {q:`Does the ${pair.label} interest-rate gap predict the exchange rate?`,a:"No. Policy-rate differences alone do not predict spot exchange rates. Market expectations, inflation, growth, risk sentiment and positioning can all influence price."},
+  {q:`How is the ${pair.label} policy-rate differential calculated?`,a:`Subtract the ${pair.quote} policy benchmark from the ${pair.base} benchmark and multiply the percentage-point difference by 100 to obtain basis points. A negative result means the quote currency has the higher benchmark.`},
+  {q:`Is this ${pair.label} analysis live?`,a:"No. These are published policy benchmarks, not live FX quotes. Check the effective dates and linked official central-bank sources for each benchmark."}
+];
+---
+<section class="section article-section pair-answers" aria-labelledby="pair-questions">
+  <div class="eyebrow">QUICK ANSWERS · METHODOLOGY</div>
+  <h2 id="pair-questions">Frequently asked questions about {pair.label}</h2>
+  <p>Answers use the published benchmark snapshot dated {snapshotDate || "as shown above"}. They are not trading signals.</p>
+  {questions.map(({q,a})=><div class="answer"><h3>{q}</h3><p>{a}</p></div>)}
+  <p>For effective dates, methodology and source links, review the benchmark comparison and <a href="#sources">supporting evidence</a> above.</p>
+</section>
+<style>
+.pair-answers .answer{border-top:1px solid #334155;padding:10px 0}
+.pair-answers .answer h3{margin:8px 0;color:#e2e8f0;font-size:1rem}
+.pair-answers .answer p{margin:4px 0;color:#cbd5e1;line-height:1.7}
+</style>
