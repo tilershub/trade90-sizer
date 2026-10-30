@@ -25,17 +25,19 @@ const {pair}=Astro.props;
 const explanation=pairInsight(pair);
 const previous=getPairPolicyUpdates(pair).slice(0,3);
 const publishedResearch=researchForPair(pair.symbol);
-const title=pair.label+" Interest Rate Differential & Policy Outlook";
-const description="Compare the "+pair.label+" interest rate differential, "+pair.baseBank.short+" and "+pair.quoteBank.short+" policy rates, source dates and economic evidence. Explore the conditional 90-day outlook.";
+const title=pair.label+" Interest Rate Differential, Macro Data & 90-Day Outlook";
+const description=pair.label+" policy-rate gap: "+(pair.signedBp>0?"+":"")+formatBp(pair.signedBp)+" basis points. Compare "+pair.baseBank.short+" and "+pair.quoteBank.short+" benchmarks, macro drivers, sources and conditional 90-day outlook.";
 const permalink=pairUrl(pair.symbol);
 const relevant=allTrade90Pairs.filter(p=>p.symbol!==pair.symbol && (p.base===pair.base||p.quote===pair.base||p.base===pair.quote||p.quote===pair.quote)).slice(0,6);
 const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
  {"@type":"ListItem","position":1,"name":"Home","item":"https://tradeninety.com/"},
  {"@type":"ListItem","position":2,"name":"Currency pairs","item":"https://tradeninety.com/pairs/"},
  {"@type":"ListItem","position":3,"name":pair.label,"item":"https://tradeninety.com"+permalink}]};
+const dataPage={"@context":"https://schema.org","@type":"Dataset","@id":"https://tradeninety.com"+permalink+"#benchmark-data","name":pair.label+" selected central-bank policy benchmark comparison","description":"A source-linked comparison of published central-bank policy benchmarks; not live FX pricing or a currency forecast.","url":"https://tradeninety.com"+permalink,"inLanguage":"en","temporalCoverage":rateSnapshot.asOf,"variableMeasured":[{"@type":"PropertyValue","name":pair.baseBank.short+" selected policy benchmark","value":pair.baseBank.rate,"unitText":"percent"},{"@type":"PropertyValue","name":pair.quoteBank.short+" selected policy benchmark","value":pair.quoteBank.rate,"unitText":"percent"},{"@type":"PropertyValue","name":"Signed base-minus-quote differential","value":pair.signedBp,"unitText":"basis points"}],"measurementTechnique":"Published policy benchmarks compared using the base-minus-quote convention; Federal Reserve range midpoint used when applicable.","isAccessibleForFree":true};
 ---
 <Layout title={title} description={description} canonical={permalink}>
  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}/>
+ <script type="application/ld+json" set:html={JSON.stringify(dataPage)}/>
  <main class="wrap pair-page">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>›</span><a href="/pairs/">Currency pairs</a><span>›</span><span aria-current="page">{pair.label}</span></nav>
   <header class="pair-head">
