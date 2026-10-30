@@ -83,7 +83,7 @@ export function bankOutlook(currency,data,guidance,now=Date.now(),additional={})
  if(severeLabour||contraction)result.cautions.push('Material activity weakness makes the policy trade-off more uncertain.');
  const annotation=g?.assessment;
  const guidanceValid=g&&validAge(g.publishedDate,90,now)&&validAge(annotation?.reviewedAt,14,now)&&annotation?.publishedDate===g.publishedDate&&annotation?.source===g.source&&(!g.latestDecisionDate||g.latestDecisionDate<=g.publishedDate);
- if(!guidanceValid){result.reasons.push('Official guidance is unreviewed, expired or superseded by a newer decision');return result;}
+ if(!guidanceValid){result.state='uncertain';result.label=labels.uncertain;result.reasons.push('Current official policy guidance has not been verified; economic indicators alone cannot establish a directional policy forecast');result.cautions.push('Automated evidence-only assessment; not a verified central-bank policy direction.');return result;}
  let state='uncertain';
  const bias=annotation.bias;
  if(!['tightening','easing','neutral','hold_context'].includes(bias)){result.reasons.push('Unsupported guidance classification');return result;}
