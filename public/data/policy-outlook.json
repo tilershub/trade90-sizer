@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "modelVersion": "2.0.1",
   "experimental": true,
-  "generatedAt": "2026-10-30T11:39:25.459Z",
+  "generatedAt": "2026-10-30T13:05:52.778Z",
   "inputFingerprint": "6ca4a8247eeb028b9ccc563ed942898283ad6c775264b63dfe2d67e08a94d308",
   "horizonDays": 90,
   "banks": {
@@ -157,7 +157,7 @@
       "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
       "score": 1,
       "guidanceDirection": "hold_context",
-      "expiresAt": "2026-11-01T11:39:25.459Z"
+      "expiresAt": "2026-11-01T13:05:52.778Z"
     },
     "AUD": {
       "currency": "AUD",
@@ -311,7 +311,7 @@
       "watch": "Australian inflation, wages, employment and evidence of slowing demand",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-01T11:39:25.459Z"
+      "expiresAt": "2026-11-01T13:05:52.778Z"
     },
     "EUR": {
       "currency": "EUR",
@@ -770,7 +770,7 @@
       "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-01T11:39:25.459Z"
+      "expiresAt": "2026-11-01T13:05:52.778Z"
     },
     "GBP": {
       "currency": "GBP",
@@ -1248,7 +1248,7 @@
       "signedDirection": "Towards AUD",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-11-01T11:39:25.459Z"
+      "expiresAt": "2026-11-01T13:05:52.778Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1296,7 +1296,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-11-01T11:39:25.459Z"
+      "expiresAt": "2026-11-01T13:05:52.778Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -1504,7 +1504,7 @@
       "signedDirection": "Towards JPY",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-11-01T11:39:25.459Z"
+      "expiresAt": "2026-11-01T13:05:52.778Z"
     },
     "EURGBP": {
       "base": "EUR",
