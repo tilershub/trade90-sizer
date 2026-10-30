@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "node scripts/refresh-yield-curves.mjs && node scripts/build-policy-outlook.mjs && node scripts/build-refresh-status.mjs && astro build && node scripts/publish-sitemap.mjs",
     "preview": "astro preview",
-    "refresh:yields": "node scripts/refresh-yield-curves.mjs"
+    "refresh:yields": "node scripts/refresh-yield-curves.mjs",
+    "audit:model": "node scripts/audit-model-coverage.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
