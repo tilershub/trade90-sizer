@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-10-29T23:20:56.995Z",
-  "lastSourceScanAt": "2026-10-29T23:20:56.995Z",
+  "lastCompiledAt": "2026-10-30T05:57:28.208Z",
+  "lastSourceScanAt": "2026-10-30T05:57:28.208Z",
   "items": [
+    {
+      "code": "JPY",
+      "bank": "BoJ",
+      "title": "Statement on Monetary Policy&nbsp;[PDF&nbsp;172KB]",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k261030a.pdf",
+      "firstSeenAt": "2026-10-30T05:57:28.208Z"
+    },
     {
       "code": "EUR",
       "bank": "ECB",

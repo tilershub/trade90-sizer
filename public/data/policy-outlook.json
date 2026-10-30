@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "modelVersion": "2.0.1",
   "experimental": true,
-  "generatedAt": "2026-10-29T23:20:59.533Z",
+  "generatedAt": "2026-10-30T05:57:31.298Z",
   "inputFingerprint": "1020ae9fe21816c0b2d851c6b4b565105e7b8694f3bc6ed15305245fab96eadc",
   "horizonDays": 90,
   "banks": {
@@ -157,7 +157,7 @@
       "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
       "score": 1,
       "guidanceDirection": "hold_context",
-      "expiresAt": "2026-10-31T23:20:59.533Z"
+      "expiresAt": "2026-11-01T05:57:31.298Z"
     },
     "AUD": {
       "currency": "AUD",
@@ -311,12 +311,12 @@
       "watch": "Australian inflation, wages, employment and evidence of slowing demand",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-31T23:20:59.533Z"
+      "expiresAt": "2026-11-01T05:57:31.298Z"
     },
     "EUR": {
       "currency": "EUR",
-      "state": "uncertain",
-      "label": "Policy direction uncertain",
+      "state": "unavailable",
+      "label": "Policy outlook unavailable",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -389,7 +389,7 @@
         }
       ],
       "reasons": [
-        "The evidence does not establish a sufficiently supported hike, cut or hold bias"
+        "Official guidance is unreviewed, expired or superseded by a newer decision"
       ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
@@ -464,7 +464,6 @@
       ],
       "watch": "Euro-area inflation, wage growth and the ECB's updated projections",
       "score": 2,
-      "guidanceDirection": "neutral",
       "expiresAt": "2026-10-30T00:00:00.000Z"
     },
     "CAD": {
@@ -771,12 +770,12 @@
       "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
       "score": 1,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-10-31T23:20:59.533Z"
+      "expiresAt": "2026-11-01T05:57:31.298Z"
     },
     "GBP": {
       "currency": "GBP",
-      "state": "hike_hold",
-      "label": "Hike or hold bias",
+      "state": "unavailable",
+      "label": "Policy outlook unavailable",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -850,7 +849,9 @@
           "retrievedAt": "2026-10-29T22:01:51.927957+00:00"
         }
       ],
-      "reasons": [],
+      "reasons": [
+        "Official guidance is unreviewed, expired or superseded by a newer decision"
+      ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets."
       ],
@@ -923,13 +924,12 @@
       ],
       "watch": "UK CPI, wage-setting effects from energy prices, jobs and MPC votes",
       "score": 3,
-      "guidanceDirection": "neutral",
       "expiresAt": "2026-10-30T00:00:00.000Z"
     },
     "NZD": {
       "currency": "NZD",
-      "state": "hike_hold",
-      "label": "Hike or hold bias",
+      "state": "unavailable",
+      "label": "Policy outlook unavailable",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -1001,7 +1001,9 @@
           "retrievedAt": "2026-10-29T22:01:52.335059+00:00"
         }
       ],
-      "reasons": [],
+      "reasons": [
+        "Official guidance is unreviewed, expired or superseded by a newer decision"
+      ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
         "Headline and underlying inflation trends differ; energy, food or other components may matter.",
@@ -1076,7 +1078,6 @@
       ],
       "watch": "New Zealand CPI, demand and labour-market data; new OCR path in the next policy statement",
       "score": 2,
-      "guidanceDirection": "tightening",
       "expiresAt": "2026-10-30T00:00:00.000Z"
     },
     "USD": {
@@ -1247,7 +1248,7 @@
       "signedDirection": "Towards AUD",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-31T23:20:59.533Z"
+      "expiresAt": "2026-11-01T05:57:31.298Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1271,12 +1272,12 @@
       "signedGap": 3.75,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "widening",
-      "label": "Widening bias",
-      "reason": "GBP currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
-      "direction": 1,
-      "tone": "positive",
-      "signedDirection": "Towards GBP",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "direction": 0,
+      "tone": "neutral",
+      "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
       "expiresAt": "2026-10-30T00:00:00.000Z"
@@ -1295,7 +1296,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-31T23:20:59.533Z"
+      "expiresAt": "2026-11-01T05:57:31.298Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -1303,12 +1304,12 @@
       "signedGap": 2.75,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "widening",
-      "label": "Widening bias",
-      "reason": "NZD currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
-      "direction": 1,
-      "tone": "positive",
-      "signedDirection": "Towards NZD",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "direction": 0,
+      "tone": "neutral",
+      "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
       "expiresAt": "2026-10-30T00:00:00.000Z"
@@ -1351,9 +1352,9 @@
       "signedGap": 2.5,
       "higher": "EUR",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1367,9 +1368,9 @@
       "signedGap": 2.5,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1399,9 +1400,9 @@
       "signedGap": -2.1,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1415,9 +1416,9 @@
       "signedGap": 1.85,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1431,9 +1432,9 @@
       "signedGap": 1.5,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1503,7 +1504,7 @@
       "signedDirection": "Towards JPY",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-31T23:20:59.533Z"
+      "expiresAt": "2026-11-01T05:57:31.298Z"
     },
     "EURGBP": {
       "base": "EUR",
@@ -1511,9 +1512,9 @@
       "signedGap": -1.25,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1527,9 +1528,9 @@
       "signedGap": 1.25,
       "higher": "EUR",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1575,9 +1576,9 @@
       "signedGap": 1,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1591,9 +1592,9 @@
       "signedGap": -0.85,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "Both banks have the same directional bias. Without the timing and size of their moves, relative divergence is unresolved.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
@@ -1623,9 +1624,9 @@
       "signedGap": -0.25,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
+      "state": "unavailable",
+      "label": "Insufficient current evidence",
+      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
