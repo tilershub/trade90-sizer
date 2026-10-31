@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {MODEL_VERSION,bankOutlook,pairOutlook,changeSignal,usableSeries,observationPeriodEnd} from '../src/lib/trade90-policy-model.js';
 const now=Date.parse('2026-10-20T00:00:00Z');
-assert.equal(MODEL_VERSION,'2.0.2','Guidance-expiry fallback changes prospective model classifications');
+assert.equal(MODEL_VERSION,'2.0.3','Evidence provenance and date-validation change requires versioning');
 assert.equal(changeSignal(3.3,3,.3),1);
 assert.equal(changeSignal(6.4,6.6,.2),-1);
 assert.equal(changeSignal(5.6,5.4,.2),1);
@@ -62,6 +62,19 @@ assert.equal(uncertain.guidanceDirection,undefined,'Do not manufacture a policy 
 assert.equal(pairOutlook(pair,{AUD:{state:'hike_hold'},CHF:uncertain},'2026-10-19',now).state,'unclear','Current macro with stale guidance produces uncertain pair instead of unavailable');
 const missingReview=structuredClone(low);delete missingReview.guidance.CHF.assessment;
 assert.equal(run(missingReview).state,'uncertain','No editorial review must not block macro-only uncertainty');
+assert.deepEqual(run(hike).scoreComponents, {inflation:2,employment:-1,growth:0,total:1,headlineTrend:1,underlyingTrend:1});
+assert.equal(uncertain.reasonCode,'policy_review_due');
+assert.equal(uncertain.evidenceStatus.macro,'validated');
+assert.equal(test('uncertain','hold').reasonCode,'unresolved_policy_direction');
+assert.equal(pairOutlook(pair,{AUD:{state:'uncertain',score:2,reasonCode:'policy_review_due'},CHF:{state:'hold',score:1}},'2026-10-19',now).reasonCode,'policy_review_due');
+const diagnostic=pairOutlook(pair,{AUD:{state:'hike_hold',score:2},CHF:{state:'hold',score:-1}},'2026-10-19',now);
+assert.deepEqual(diagnostic.macroComparison,{baseScore:2,quoteScore:-1,scoreDifference:3,forecast:false});
+assert.equal(test('hike_hold','hold',pair,'2026-08-01').reasonCode,'stale_benchmark_snapshot');
+assert.equal(test('unavailable','hold').reasonCode,'missing_macro_evidence');
+const badCalendar=monthly([1,2,3,4]);badCalendar.points[1].date='2026-02-30';
+assert.equal(usableSeries(badCalendar,now),false,'Invalid calendar dates must not normalize silently');
+const badPeriod=monthly([1,2,3,4]);badPeriod.points.at(-1).periodEnd='2026-02-30';
+assert.equal(usableSeries(badPeriod,now),false,'Invalid observation period end must not pass');
 const bad=monthly([1,2,3,4]);bad.points[1].value=NaN;assert.equal(usableSeries(bad,now),false);
 const dup=monthly([1,2,3,4]);dup.points[1].date=dup.points[0].date;assert.equal(usableSeries(dup,now),false);
 const usd=bankOutlook('USD',{countries:{USD:low.data.countries.CHF}},{},now,{});assert.equal(usd.state,'unavailable','US cannot substitute CPI for missing PCE');
