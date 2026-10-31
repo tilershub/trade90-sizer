@@ -115,7 +115,7 @@ assert.equal(marginal.state,'unclear','Difference smaller than research screenin
 const zeroGap=buildPairDivergenceWorkflow({...pair,baseRate:2,quoteRate:2},
  macroPair,{state:'unclear'},null,{valid:false,reason:'No feed'},now);
 assert.equal(zeroGap.state,'widening','Qualitative pressure divergence from equal starting rates is only an exploratory possibility');
-const reverseMacro=buildPairDivergenceWorkflow({base:'CHF',quote:'AUD',baseRate:4,quoteRate:2},
+const reverseMacro=buildPairDivergenceWorkflow({base:'CHF',quote:'AUD',baseRate:2,quoteRate:4},
  macroPair,{state:'unclear'},null,{valid:false,reason:'No feed'},now);
 assert.equal(reverseMacro.state,macroWiden.state,'Reversing the pair quote direction must not change whether the absolute gap widens or narrows');
 const noScores=calculate(noLicensed,{AUD:{...macroHigh,score:null},CHF:macroLow},{state:'unclear'});
