@@ -3,11 +3,14 @@ import crypto from 'node:crypto';
 import {MODEL_VERSION,bankOutlook,pairOutlook} from '../src/lib/trade90-policy-model.js';
 import {policyGuidance} from '../src/data/trade90-policy-guidance.js';
 import {allTrade90Pairs} from '../src/lib/trade90-v3.js';
+import {getExpectedRows} from '../src/lib/trade90-forward-rates.js';
+import {DIVERGENCE_WORKFLOW_VERSION,buildPairDivergenceWorkflow} from '../src/lib/trade90-divergence-workflow.js';
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const macro=read('public/data/macro-history.json');
 const extra=fs.existsSync('public/data/policy-inputs.json')?read('public/data/policy-inputs.json'):{countries:{}};
 const snapshot=read('src/data/trade90-policy-snapshot.json');
 const assessments=read('src/data/trade90-policy-assessments.json');
+const forwards=read('public/data/forward-rate-snapshot.json');
 const guidance=Object.fromEntries(Object.entries(policyGuidance).map(([c,g])=>[c,{...g,assessment:assessments[c],latestDecisionDate:snapshot.banks.find(b=>b.code===c)?.decisionDate}]));
 const now=Date.now(),generatedAt=new Date(now).toISOString();
 const banks=Object.fromEntries(Object.keys(macro.countries).map(c=>[c,bankOutlook(c,macro,guidance,now,extra)]));
@@ -27,16 +30,20 @@ for(const bank of Object.values(banks)){
  }
  bank.expiresAt=new Date(Math.min(...limits.filter(Number.isFinite))).toISOString();
 }
+// Market pricing is the first stage. Missing licensed provider data is not replaced
+// with a synthetic forecast or a manually maintained policy-rate ranking.
+const forwardRows=getExpectedRows(forwards,snapshot.banks,'3M',now);
+const forwardBySymbol=Object.fromEntries(forwardRows.rows.map(r=>[r.symbol,r]));
 const pairs=Object.fromEntries(allTrade90Pairs.map(p=>{
- const result=pairOutlook(p,banks,snapshot.asOf,now);
- result.expiresAt=new Date(Math.min(Date.parse(banks[p.base].expiresAt),Date.parse(banks[p.quote].expiresAt))).toISOString();
+ const qualitative=pairOutlook(p,banks,snapshot.asOf,now);
+ const result=buildPairDivergenceWorkflow(p,banks,qualitative,forwardBySymbol[p.symbol],forwardRows.health,now);
  return [p.symbol,result];
 }));
 // Successful polling is not new economic evidence. Revisions, source/status changes,
 // policy annotations and classifications still change the fingerprint.
 const semantic=(value)=>Array.isArray(value)?value.map(semantic):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).filter(([k])=>!['retrievedAt','checkedAt','sourceUpdated','generatedAt','expiresAt'].includes(k)).map(([k,v])=>[k,semantic(v)])):value;
-const fingerprint=crypto.createHash('sha256').update(JSON.stringify(semantic({version:MODEL_VERSION,macro,extra,guidance,snapshot}))).digest('hex');
-const output={schemaVersion:2,modelVersion:MODEL_VERSION,experimental:true,generatedAt,inputFingerprint:fingerprint,horizonDays:90,banks,pairs};
+const fingerprint=crypto.createHash('sha256').update(JSON.stringify(semantic({version:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,macro,extra,guidance,snapshot,forwards}))).digest('hex');
+const output={schemaVersion:3,modelVersion:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,experimental:true,generatedAt,inputFingerprint:fingerprint,horizonDays:90,marketHorizon:'3M',marketCoverage:{validated:forwardRows.health.valid,currencyPairCount:forwardRows.availableCount,totalPairs:28,reason:forwardRows.health.reason},banks,pairs};
 fs.writeFileSync('public/data/policy-outlook.json',JSON.stringify(output,null,2)+'\n');
 const path='public/data/policy-outlook-history.json';
 const history=fs.existsSync(path)?read(path):{schemaVersion:1,records:[]};

@@ -10,6 +10,9 @@ on:
       - "scripts/auto-policy-rates.mjs"
       - "scripts/build-policy-outlook.mjs"
       - "src/lib/trade90-policy-model.js"
+      - "src/lib/trade90-divergence-workflow.js"
+      - "src/lib/trade90-forward-rates.js"
+      - "public/data/forward-rate-snapshot.json"
       - "src/data/trade90-policy-guidance.js"
       - "src/data/trade90-policy-assessments.json"
       - "tests/policy-model.mjs"
@@ -48,6 +51,7 @@ jobs:
           node tests/trade90-v2.mjs
           node tests/trade90-v3.mjs
           node tests/policy-model.mjs
+          node tests/divergence-workflow.mjs
       - name: Publish the complete daily update
         run: |
           git add public/data/ src/data/trade90-policy-snapshot.json src/data/trade90-yield-curves.json

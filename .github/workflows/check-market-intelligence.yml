@@ -14,6 +14,8 @@ on:
       - "src/**"
       - "public/**"
       - "scripts/publish-forward-rates.mjs"
+      - "scripts/build-policy-outlook.mjs"
+      - "tests/divergence-workflow.mjs"
       - "tests/trade90-v2.mjs"
       - "scripts/auto-policy-rates.mjs"
       - "scripts/monitor-official-sources.mjs"
@@ -72,6 +74,8 @@ jobs:
         run: node tests/trade90-position-size.mjs
       - name: Verify policy forecast rules and quarterly freshness
         run: node tests/policy-model.mjs
+      - name: Validate four-stage divergence workflow and licensing safeguards
+        run: node tests/divergence-workflow.mjs
       - name: Verify daily data freshness and manual-review provenance
         run: node tests/refresh-status.mjs
       - name: Recalculate model in CI and audit outputs
