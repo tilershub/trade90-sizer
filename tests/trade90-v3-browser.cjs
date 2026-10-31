@@ -38,7 +38,7 @@ const base="http://127.0.0.1:4321";
   assert.equal(await page.locator(".bank-card a[href^='https://']").count(),2,"Both bank cards need official sources");
   assert.equal(await page.locator('#policy-evidence').count(),1,"Evidence deep link must resolve");
   assert.equal(await page.locator('.outlook-hero a[href="#policy-evidence"]').count(),1);
-  await page.locator("#policy-evidence summary").click();
+  await page.locator("#policy-evidence > summary").click();
   assert.equal(await page.locator("#policy-evidence .bank").count(),2,"Evidence details should include both banks");
   assert.equal(await page.locator('link[rel="canonical"]').getAttribute("href"),"https://tradeninety.com/pairs/eur-usd/");
   assert.ok((await page.locator('script[type="application/ld+json"]').count())>=2);
