@@ -1,48 +1,48 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-10-31T14:45:03.027Z",
-  "completedAt": "2026-10-31T14:45:16.083Z",
+  "startedAt": "2026-10-31T15:08:49.692Z",
+  "completedAt": "2026-10-31T15:09:04.142Z",
   "status": "completed",
   "steps": [
     {
       "name": "macro",
-      "startedAt": "2026-10-31T14:45:03.028Z",
-      "finishedAt": "2026-10-31T14:45:08.115Z",
+      "startedAt": "2026-10-31T15:08:49.692Z",
+      "finishedAt": "2026-10-31T15:08:55.678Z",
       "success": true,
       "error": null
     },
     {
       "name": "policyInputs",
-      "startedAt": "2026-10-31T14:45:08.115Z",
-      "finishedAt": "2026-10-31T14:45:09.581Z",
+      "startedAt": "2026-10-31T15:08:55.678Z",
+      "finishedAt": "2026-10-31T15:08:57.274Z",
       "success": true,
       "error": null
     },
     {
       "name": "officialSources",
-      "startedAt": "2026-10-31T14:45:09.581Z",
-      "finishedAt": "2026-10-31T14:45:13.542Z",
+      "startedAt": "2026-10-31T15:08:57.274Z",
+      "finishedAt": "2026-10-31T15:09:01.630Z",
       "success": true,
       "error": null
     },
     {
       "name": "officialRates",
-      "startedAt": "2026-10-31T14:45:13.542Z",
-      "finishedAt": "2026-10-31T14:45:15.953Z",
+      "startedAt": "2026-10-31T15:09:01.630Z",
+      "finishedAt": "2026-10-31T15:09:04.027Z",
       "success": true,
       "error": null
     },
     {
       "name": "model",
-      "startedAt": "2026-10-31T14:45:15.953Z",
-      "finishedAt": "2026-10-31T14:45:16.033Z",
+      "startedAt": "2026-10-31T15:09:04.027Z",
+      "finishedAt": "2026-10-31T15:09:04.102Z",
       "success": true,
       "error": null
     },
     {
       "name": "freshness",
-      "startedAt": "2026-10-31T14:45:16.033Z",
-      "finishedAt": "2026-10-31T14:45:16.083Z",
+      "startedAt": "2026-10-31T15:09:04.102Z",
+      "finishedAt": "2026-10-31T15:09:04.142Z",
       "success": true,
       "error": null
     }
