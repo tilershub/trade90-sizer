@@ -98,7 +98,7 @@ jobs:
             import fs from "node:fs";
             const pages=[
               ["dist/index.html",/TRADE90/i],
-              ["dist/pairs/eur-usd/index.html",/EUR\\/USD/i],
+              ["dist/pairs/eur-usd/index.html",/EUR.USD/i],
               ["dist/central-banks/index.html",/central bank/i],
               ["dist/tools/position-size-calculator/index.html",/position size/i]
             ];
