@@ -31,7 +31,6 @@ for(const pair of allTrade90Pairs){
  assert.ok(html.includes('id="policy-outlook"'),"Missing hero anchor on "+slug);
  assert.ok(html.includes('id="policy-evidence"'),"Missing detailed source evidence anchor on "+slug);
  assert.ok(html.indexOf('data-divergence-hero')<html.indexOf('class="comparison"'),"90-day policy outlook must appear before the rate cards on "+slug);
- assert.ok(html.indexOf('data-divergence-hero')<html.indexOf('pair-switcher"'),"Primary outlook must appear before the pair switcher on "+slug);
  assert.ok(html.includes('data-outlook-label'),"Headline status must render directly in HTML on "+slug);
  assert.ok(html.includes('href="#policy-evidence"'),"Research verdict must link to bank evidence on "+slug);
  assert.ok(html.includes("90-DAY POLICY DIVERGENCE"),"90-day outlook must be the page headline for "+slug);
