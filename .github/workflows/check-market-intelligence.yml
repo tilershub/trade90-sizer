@@ -94,7 +94,7 @@ jobs:
           test -f dist/tools/index.html
           test -f dist/tools/position-size-calculator/index.html
           grep -q 'Position Size Calculator' dist/tools/position-size-calculator/index.html
-          grep -q 'Your daily' dist/index.html
+          grep -q 'YOUR DAILY RESEARCH ROUTINE' dist/index.html
           grep -q 'EUR/USD 90-Day Policy Rate Outlook' dist/pairs/eur-usd/index.html
           grep -q 'Next Major Decisions to Watch' dist/pairs/eur-usd/index.html
           grep -q 'Central Bank Policy Updates' dist/central-banks/index.html
