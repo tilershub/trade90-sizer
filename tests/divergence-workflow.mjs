@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {getExpectedRows} from '../src/lib/trade90-forward-rates.js';
-import {DIVERGENCE_WORKFLOW_VERSION,MARKET_GAP_MATERIALITY_BP,buildPairDivergenceWorkflow} from '../src/lib/trade90-divergence-workflow.js';
+import {DIVERGENCE_WORKFLOW_VERSION,MARKET_GAP_MATERIALITY_BP,MACRO_SCORE_CONTRAST,buildPairDivergenceWorkflow} from '../src/lib/trade90-divergence-workflow.js';
 const now=Date.parse('2026-10-31T12:00:00Z');
 const observed='2026-10-31T11:00:00Z';
 const source='https://test-source.example.com/official-licensed-fixture';
@@ -33,11 +33,15 @@ const calculate=(snapshot,b=banks,q=qualitative,time=now)=>{
  const calculated=getExpectedRows(snapshot,currentBanks,'3M',time);
  return buildPairDivergenceWorkflow(pair,b,q,calculated.rows.find(x=>x.symbol==='AUDCHF'),calculated.health,time);
 };
-assert.equal(DIVERGENCE_WORKFLOW_VERSION,'1.0.0');
+assert.equal(DIVERGENCE_WORKFLOW_VERSION,'1.1.0');
+assert.equal(MACRO_SCORE_CONTRAST,2);
 assert.equal(MARKET_GAP_MATERIALITY_BP,5);
 const noFeed=calculate({schemaVersion:1,status:'awaiting_licensed_data',dataKind:'market_implied_policy_level',rates:{},license:{publicRedisplayAuthorized:false}});
-assert.equal(noFeed.state,'unclear');
-assert.equal(noFeed.reasonCode,'market_implied_path_unavailable');
+assert.equal(noFeed.state,'widening','Reviewed policy direction should not disappear when licensed market data is absent');
+assert.equal(noFeed.reasonCode,'reviewed_policy_scenario');
+assert.equal(noFeed.classificationBasis,'reviewed_policy_scenario');
+assert.equal(noFeed.evidenceTier,'reviewed_qualitative');
+assert.equal(noFeed.uncalibratedResearchScenario,true);
 assert.equal(noFeed.market.expectedSignedGapBp,null);
 assert.equal(noFeed.qualitativeCandidate.state,'widening','Preserve reviewed qualitative candidate without pretending it is verified 3M pricing');
 assert.equal(noFeed.qualitativeCandidate.is90DayForecast,false);
@@ -77,14 +81,47 @@ const noMacro=calculate(makeSnapshot(4.25,2),{AUD:{...banks.AUD,evidenceStatus:{
 assert.equal(noMacro.state,'unavailable');
 assert.equal(noMacro.reasonCode,'macro_evidence_incomplete');
 const unauthorized=calculate(makeSnapshot(4.25,2,false));
-assert.equal(unauthorized.state,'unclear');
+assert.equal(unauthorized.state,'widening','No licensed source should mean qualitative scenario, not fabricated priced forecast');
 assert.equal(unauthorized.market.baseExpectedRatePct,null,'Never publish unlicensed quantitative prices');
 const stale=calculate(makeSnapshot(4.25,2),banks,qualitative,now+5*86400000);
-assert.equal(stale.state,'unclear');
+assert.equal(stale.state,'widening','A stale market feed must leave the independent research scenario available when underlying research is current');
 assert.equal(stale.market.baseExpectedRatePct,null);
 const partial=calculate({...makeSnapshot(4.25,2),rates:{AUD:makeSnapshot(4.25,2).rates.AUD}});
-assert.equal(partial.state,'unclear');
+assert.equal(partial.state,'widening','Partial feed must not masquerade as a verified price but should not erase reviewed research');
 assert.equal(partial.market.baseExpectedRatePct,null);
+// Source-independent macro screen: only a material *relative* economic-pressure
+// difference can produce an exploratory scenario; never an implied bp forecast.
+const macroHigh=bank('AUD','uncertain',3,false);
+const macroLow=bank('CHF','uncertain',1,false);
+const macroPair={AUD:macroHigh,CHF:macroLow};
+const noLicensed={schemaVersion:1,status:'awaiting_licensed_data',dataKind:'market_implied_policy_level',rates:{},license:{publicRedisplayAuthorized:false}};
+const macroWiden=calculate(noLicensed,macroPair,{state:'unclear',reasonCode:'policy_review_due'});
+assert.equal(macroWiden.state,'widening');
+assert.equal(macroWiden.classificationBasis,'macro_pressure_screen');
+assert.equal(macroWiden.evidenceTier,'exploratory_macro');
+assert.equal(macroWiden.expectedAbsoluteGapChangeBp,null);
+assert.equal(macroWiden.expectedGapBp,null);
+assert.equal(macroWiden.backtestedProbability,null);
+assert.equal(macroWiden.macroDirectionalScreen.scoreDifference,2);
+assert.equal(macroWiden.stages.comparison.status,'research_scenario');
+const macroNarrow=buildPairDivergenceWorkflow(
+ {...pair,baseRate:2,quoteRate:4},macroPair,{state:'unclear'},
+ getExpectedRows(noLicensed,currentBanks,'3M',now).rows.find(x=>x.symbol==='AUDCHF'),{valid:false,reason:'No feed'},now
+);
+assert.equal(macroNarrow.state,'narrowing','Higher macro pressure in the lower-rate currency implies a possible narrowing of the absolute gap');
+assert.equal(macroNarrow.expectedAbsoluteGapChangeBp,null);
+const marginal=calculate(noLicensed,{AUD:bank('AUD','uncertain',2,false),CHF:macroLow},{state:'unclear'});
+assert.equal(marginal.state,'unclear','Difference smaller than research screening threshold is insufficient');
+const zeroGap=buildPairDivergenceWorkflow({...pair,baseRate:2,quoteRate:2},
+ macroPair,{state:'unclear'},null,{valid:false,reason:'No feed'},now);
+assert.equal(zeroGap.state,'widening','Qualitative pressure divergence from equal starting rates is only an exploratory possibility');
+const reverseMacro=buildPairDivergenceWorkflow({base:'CHF',quote:'AUD',baseRate:4,quoteRate:2},
+ macroPair,{state:'unclear'},null,{valid:false,reason:'No feed'},now);
+assert.equal(reverseMacro.state,macroWiden.state,'Reversing the pair quote direction must not change whether the absolute gap widens or narrows');
+const noScores=calculate(noLicensed,{AUD:{...macroHigh,score:null},CHF:macroLow},{state:'unclear'});
+assert.equal(noScores.state,'unavailable','Invalid source metrics cannot yield directional scenarios');
+const bothHold=calculate(noLicensed,{AUD:bank('AUD','hold',1),CHF:bank('CHF','hold',1)},{state:'unchanged'});
+assert.equal(bothHold.state,'unclear','Shared hold bias alone should not create artificial widening or narrowing');
 const reversedPair={base:'CHF',quote:'AUD',baseRate:2,quoteRate:4};
 const two={AUD:bank('AUD','uncertain',2,false),CHF:bank('CHF','uncertain',0,false)};
 const rows=getExpectedRows(makeSnapshot(4.25,2),currentBanks,'3M',now);
