@@ -25,7 +25,7 @@ function researchSummary(bank){
 
 export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,forwardHealth,now=Date.now()){
  const a=banks?.[pair.base],b=banks?.[pair.quote];
- const macroOk=[a,b].every(x=>x?.evidenceStatus?.macro==='validated' && Number.isFinite(x.score));
+ const macroOk=[a,b].every(x=>x?.state!=='unavailable' && x?.evidenceStatus?.macro==='validated' && Number.isFinite(x.score));
  const policyOk=[a,b].every(x=>x?.policyEvidenceReviewed===true && ['hike_hold','cut_hold','hold'].includes(x.state));
  const marketOk=forwardHealth?.valid===true && forwardRow?.available===true;
  const crossing=marketOk && Math.sign(forwardRow.currentSignedBp)!==0 &&
