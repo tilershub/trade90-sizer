@@ -13,7 +13,13 @@ const now=Date.now(),generatedAt=new Date(now).toISOString();
 const banks=Object.fromEntries(Object.keys(macro.countries).map(c=>[c,bankOutlook(c,macro,guidance,now,extra)]));
 const DAY=86400000;
 for(const bank of Object.values(banks)){
- const limits=[now+2*DAY,Date.parse(snapshot.asOf)+45*DAY,Date.parse(bank.guidance?.publishedDate)+90*DAY,Date.parse(bank.guidance?.assessment?.reviewedAt)+14*DAY];
+ // A stale editorial guidance review must not expire otherwise valid macro-only
+ // uncertainty. Use its deadlines only when issuing a reviewed policy assessment.
+ const limits=[now+2*DAY,Date.parse(snapshot.asOf)+45*DAY];
+ if(bank.policyEvidenceReviewed){
+  limits.push(Date.parse(bank.guidance?.publishedDate)+90*DAY);
+  limits.push(Date.parse(bank.guidance?.assessment?.reviewedAt)+14*DAY);
+ }
  for(const c of bank.coverage||[])if(c.usable){
   limits.push(Date.parse(c.retrievedAt)+7*DAY);
   // Expire against each series's actual period end; do not infer it from another driver.
