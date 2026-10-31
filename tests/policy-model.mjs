@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {MODEL_VERSION,bankOutlook,pairOutlook,changeSignal,usableSeries,observationPeriodEnd} from '../src/lib/trade90-policy-model.js';
 const now=Date.parse('2026-10-20T00:00:00Z');
-assert.equal(MODEL_VERSION,'3.0.0','Evidence provenance and date-validation change requires versioning');
+assert.equal(MODEL_VERSION,'3.1.0','Evidence provenance and date-validation change requires versioning');
 assert.equal(changeSignal(3.3,3,.3),1);
 assert.equal(changeSignal(6.4,6.6,.2),-1);
 assert.equal(changeSignal(5.6,5.4,.2),1);
