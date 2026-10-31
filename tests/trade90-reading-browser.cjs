@@ -27,7 +27,7 @@ async function inspect(page,selector,route){
  const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
  try{
   const routes={
-   "/":[".home .hero p",".home .data-status a",".home .section-head p",".home .outlook-grid .outlook-card strong",".home .guides a strong"],
+   "/":[".home .hero p",".home .data-status > a",".home .section-head p",".home .outlook-grid .outlook-card strong",".home .guides a strong"],
    "/pairs/eur-usd/":[".pair-head p",".outlook-hero .reasoning p",".outlook-hero .bank-biases strong",".pair-page .bank-card p",".pair-page .data-footnote"],
    "/rate-gaps/":[".page-intro p",".full-table th",".full-table td"],
    "/central-banks/":[".page-intro p",".bankdirectory .banktiles strong"],
