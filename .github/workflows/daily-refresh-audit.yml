@@ -50,7 +50,7 @@ jobs:
           node tests/policy-model.mjs
       - name: Publish the complete daily update
         run: |
-          git add public/data/ src/data/trade90-policy-snapshot.json
+          git add public/data/ src/data/trade90-policy-snapshot.json src/data/trade90-yield-curves.json
           if ! git diff --cached --quiet; then
             git config user.name 'trade90-daily[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

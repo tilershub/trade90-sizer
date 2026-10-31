@@ -7,6 +7,7 @@ const steps=[
  ['policyInputs',process.env.PYTHON||'python3',['scripts/update-policy-inputs.py']],
  ['officialSources',process.execPath,['scripts/monitor-official-sources.mjs']],
  ['officialRates',process.execPath,['scripts/auto-policy-rates.mjs']],
+ ['yields',process.execPath,['scripts/refresh-yield-curves.mjs']],
  ['model',process.execPath,['scripts/build-policy-outlook.mjs']],
  ['freshness',process.execPath,['scripts/build-refresh-status.mjs']]
 ];
