@@ -1,10 +1,11 @@
 {
-  "schemaVersion": 3,
-  "modelVersion": "3.0.0",
-  "workflowVersion": "1.0.0",
+  "schemaVersion": 4,
+  "scenarioPolicy": "market_verified_or_qualitative_research",
+  "modelVersion": "3.1.0",
+  "workflowVersion": "1.1.0",
   "experimental": true,
-  "generatedAt": "2026-10-31T16:54:08.355Z",
-  "inputFingerprint": "567a8a0f91c4b02241acd4007e38337b260306e1286118c72cab1f57135f4168",
+  "generatedAt": "2026-10-31T17:10:10.019Z",
+  "inputFingerprint": "96f173d409adc9cdd7031d1201782d4a4d298f65b750ef04a151c877ab0cba99",
   "horizonDays": 90,
   "marketHorizon": "3M",
   "marketCoverage": {
@@ -35,7 +36,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-10-31T16:53:55.443769+00:00"
+          "retrievedAt": "2026-10-31T17:09:55.638227+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -52,7 +53,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T16:54:00.129503+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.779920+00:00"
         },
         {
           "metric": "Employment",
@@ -69,7 +70,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Switzerland",
-          "retrievedAt": "2026-10-31T16:53:57.381928+00:00"
+          "retrievedAt": "2026-10-31T17:09:58.886046+00:00"
         },
         {
           "metric": "Real GDP",
@@ -86,7 +87,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Switzerland",
-          "retrievedAt": "2026-10-31T16:53:57.697131+00:00"
+          "retrievedAt": "2026-10-31T17:09:59.404487+00:00"
         }
       ],
       "reasons": [],
@@ -131,7 +132,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:55.443769+00:00",
+          "retrievedAt": "2026-10-31T17:09:55.638227+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -140,7 +141,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.129503+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.779920+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -149,7 +150,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:57.381928+00:00",
+          "retrievedAt": "2026-10-31T17:09:58.886046+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S"
         },
         {
@@ -158,7 +159,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:57.697131+00:00",
+          "retrievedAt": "2026-10-31T17:09:59.404487+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S"
         }
       ],
@@ -179,7 +180,7 @@
       },
       "policyEvidenceReviewed": true,
       "guidanceDirection": "hold_context",
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "AUD": {
       "currency": "AUD",
@@ -202,7 +203,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "Headline CPI, year-on-year",
-          "retrievedAt": "2026-10-31T16:53:59.986068+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.699736+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -219,7 +220,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T16:54:00.084924+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.370274+00:00"
         },
         {
           "metric": "Employment",
@@ -236,7 +237,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Australia",
-          "retrievedAt": "2026-10-31T16:53:57.417505+00:00"
+          "retrievedAt": "2026-10-31T17:09:58.943901+00:00"
         },
         {
           "metric": "Real GDP",
@@ -253,7 +254,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Australia",
-          "retrievedAt": "2026-10-31T16:53:57.244608+00:00"
+          "retrievedAt": "2026-10-31T17:09:59.176327+00:00"
         }
       ],
       "reasons": [],
@@ -299,7 +300,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:59.986068+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.699736+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -308,7 +309,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.084924+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.370274+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -317,7 +318,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:57.417505+00:00",
+          "retrievedAt": "2026-10-31T17:09:58.943901+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S"
         },
         {
@@ -326,7 +327,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:57.244608+00:00",
+          "retrievedAt": "2026-10-31T17:09:59.176327+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S"
         }
       ],
@@ -347,7 +348,7 @@
       },
       "policyEvidenceReviewed": true,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EUR": {
       "currency": "EUR",
@@ -370,7 +371,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "Euro area (21 countries): Headline HICP, ECOICOP version 2, year-on-year percentage change",
-          "retrievedAt": "2026-10-31T16:53:56.572838+00:00"
+          "retrievedAt": "2026-10-31T17:09:57.627265+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -387,7 +388,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "HICP excluding energy, food, alcohol and tobacco, year-on-year",
-          "retrievedAt": "2026-10-31T16:54:00.395044+00:00"
+          "retrievedAt": "2026-10-31T17:10:02.256397+00:00"
         },
         {
           "metric": "Employment",
@@ -404,7 +405,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
           "title": "Euro area (21 countries): Unemployment, total labour force, seasonally adjusted",
-          "retrievedAt": "2026-10-31T16:53:56.238881+00:00"
+          "retrievedAt": "2026-10-31T17:09:57.137727+00:00"
         },
         {
           "metric": "Real GDP",
@@ -421,7 +422,7 @@
           "frequency": "Quarterly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
           "title": "Euro area (21 countries): Real GDP, quarter-on-quarter percentage change, seasonally and calendar adjusted",
-          "retrievedAt": "2026-10-31T16:53:56.878423+00:00"
+          "retrievedAt": "2026-10-31T17:09:58.132486+00:00"
         }
       ],
       "reasons": [
@@ -468,7 +469,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:56.572838+00:00",
+          "retrievedAt": "2026-10-31T17:09:57.627265+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -477,7 +478,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.395044+00:00",
+          "retrievedAt": "2026-10-31T17:10:02.256397+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -486,7 +487,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:56.238881+00:00",
+          "retrievedAt": "2026-10-31T17:09:57.137727+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table"
         },
         {
@@ -495,7 +496,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:56.878423+00:00",
+          "retrievedAt": "2026-10-31T17:09:58.132486+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table"
         }
       ],
@@ -515,7 +516,7 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "CAD": {
       "currency": "CAD",
@@ -538,7 +539,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-31T16:53:55.446834+00:00"
+          "retrievedAt": "2026-10-31T17:09:55.644295+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -555,7 +556,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T16:54:00.132627+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.783187+00:00"
         },
         {
           "metric": "Employment",
@@ -572,7 +573,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada",
-          "retrievedAt": "2026-10-31T16:53:57.877440+00:00"
+          "retrievedAt": "2026-10-31T17:09:59.625598+00:00"
         },
         {
           "metric": "Real GDP",
@@ -589,7 +590,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Canada",
-          "retrievedAt": "2026-10-31T16:53:57.918446+00:00"
+          "retrievedAt": "2026-10-31T17:09:59.729223+00:00"
         }
       ],
       "reasons": [
@@ -636,7 +637,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:55.446834+00:00",
+          "retrievedAt": "2026-10-31T17:09:55.644295+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -645,7 +646,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.132627+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.783187+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -654,7 +655,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:57.877440+00:00",
+          "retrievedAt": "2026-10-31T17:09:59.625598+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S"
         },
         {
@@ -663,7 +664,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:57.918446+00:00",
+          "retrievedAt": "2026-10-31T17:09:59.729223+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S"
         }
       ],
@@ -683,7 +684,7 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "JPY": {
       "currency": "JPY",
@@ -706,7 +707,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-10-31T16:53:55.452567+00:00"
+          "retrievedAt": "2026-10-31T17:09:55.650236+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -723,7 +724,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T16:54:00.131073+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.781572+00:00"
         },
         {
           "metric": "Employment",
@@ -740,7 +741,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Japan",
-          "retrievedAt": "2026-10-31T16:53:58.223849+00:00"
+          "retrievedAt": "2026-10-31T17:10:00.062429+00:00"
         },
         {
           "metric": "Real GDP",
@@ -757,7 +758,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Japan",
-          "retrievedAt": "2026-10-31T16:53:58.395885+00:00"
+          "retrievedAt": "2026-10-31T17:10:00.293946+00:00"
         }
       ],
       "reasons": [],
@@ -802,7 +803,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:55.452567+00:00",
+          "retrievedAt": "2026-10-31T17:09:55.650236+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -811,7 +812,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.131073+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.781572+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -820,7 +821,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:58.223849+00:00",
+          "retrievedAt": "2026-10-31T17:10:00.062429+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S"
         },
         {
@@ -829,7 +830,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:58.395885+00:00",
+          "retrievedAt": "2026-10-31T17:10:00.293946+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S"
         }
       ],
@@ -850,7 +851,7 @@
       },
       "policyEvidenceReviewed": true,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "GBP": {
       "currency": "GBP",
@@ -873,7 +874,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-31T16:53:55.449882+00:00"
+          "retrievedAt": "2026-10-31T17:09:55.647497+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -890,7 +891,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T16:54:00.086019+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.371342+00:00"
         },
         {
           "metric": "Employment",
@@ -909,7 +910,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for United Kingdom",
-          "retrievedAt": "2026-10-31T16:53:58.132946+00:00"
+          "retrievedAt": "2026-10-31T17:09:59.892246+00:00"
         },
         {
           "metric": "Real GDP",
@@ -926,7 +927,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United Kingdom",
-          "retrievedAt": "2026-10-31T16:53:58.313737+00:00"
+          "retrievedAt": "2026-10-31T17:10:00.039944+00:00"
         }
       ],
       "reasons": [
@@ -972,7 +973,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:55.449882+00:00",
+          "retrievedAt": "2026-10-31T17:09:55.647497+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -981,7 +982,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.086019+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.371342+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -990,7 +991,7 @@
           "latestDate": "2026-06-01",
           "periodEnd": "2026-07-31",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:58.132946+00:00",
+          "retrievedAt": "2026-10-31T17:09:59.892246+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S"
         },
         {
@@ -999,7 +1000,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:58.313737+00:00",
+          "retrievedAt": "2026-10-31T17:10:00.039944+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S"
         }
       ],
@@ -1019,7 +1020,7 @@
         "underlyingTrend": 1
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "NZD": {
       "currency": "NZD",
@@ -1042,7 +1043,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-31T16:53:55.455149+00:00"
+          "retrievedAt": "2026-10-31T17:09:55.652767+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -1059,7 +1060,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T16:54:00.087017+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.372281+00:00"
         },
         {
           "metric": "Employment",
@@ -1076,7 +1077,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for New Zealand",
-          "retrievedAt": "2026-10-31T16:53:58.751374+00:00"
+          "retrievedAt": "2026-10-31T17:10:00.409067+00:00"
         },
         {
           "metric": "Real GDP",
@@ -1093,7 +1094,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for New Zealand",
-          "retrievedAt": "2026-10-31T16:53:58.747396+00:00"
+          "retrievedAt": "2026-10-31T17:10:00.406702+00:00"
         }
       ],
       "reasons": [
@@ -1141,7 +1142,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:55.455149+00:00",
+          "retrievedAt": "2026-10-31T17:09:55.652767+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1150,7 +1151,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:54:00.087017+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.372281+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1159,7 +1160,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:58.751374+00:00",
+          "retrievedAt": "2026-10-31T17:10:00.409067+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S"
         },
         {
@@ -1168,7 +1169,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:58.747396+00:00",
+          "retrievedAt": "2026-10-31T17:10:00.406702+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S"
         }
       ],
@@ -1188,7 +1189,7 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "USD": {
       "currency": "USD",
@@ -1211,7 +1212,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPI",
           "title": "Personal Consumption Expenditures: Chain-type Price Index — year-on-year change",
-          "retrievedAt": "2026-10-31T16:54:00.345533+00:00"
+          "retrievedAt": "2026-10-31T17:10:01.840700+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -1228,7 +1229,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE",
           "title": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index) — year-on-year change",
-          "retrievedAt": "2026-10-31T16:54:00.958143+00:00"
+          "retrievedAt": "2026-10-31T17:10:02.211022+00:00"
         },
         {
           "metric": "Employment",
@@ -1245,7 +1246,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/UNRATE",
           "title": "Unemployment Rate",
-          "retrievedAt": "2026-10-31T16:53:58.688407+00:00"
+          "retrievedAt": "2026-10-31T17:10:00.755509+00:00"
         },
         {
           "metric": "Real GDP",
@@ -1262,7 +1263,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United States",
-          "retrievedAt": "2026-10-31T16:53:59.308855+00:00"
+          "retrievedAt": "2026-10-31T17:10:00.748840+00:00"
         }
       ],
       "reasons": [
@@ -1308,7 +1309,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.345533+00:00",
+          "retrievedAt": "2026-10-31T17:10:01.840700+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPI"
         },
         {
@@ -1317,7 +1318,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:54:00.958143+00:00",
+          "retrievedAt": "2026-10-31T17:10:02.211022+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE"
         },
         {
@@ -1326,7 +1327,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T16:53:58.688407+00:00",
+          "retrievedAt": "2026-10-31T17:10:00.755509+00:00",
           "source": "https://fred.stlouisfed.org/series/UNRATE"
         },
         {
@@ -1335,7 +1336,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T16:53:59.308855+00:00",
+          "retrievedAt": "2026-10-31T17:10:00.748840+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S"
         }
       ],
@@ -1355,7 +1356,7 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     }
   },
   "pairs": {
@@ -1365,11 +1366,14 @@
       "signedGap": 4.6,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Reviewed central-bank policy biases suggest the absolute gap may widen. This is a conditional research scenario; no future policy-rate levels, basis-point changes or probabilities are estimated. Market-implied 3M policy pricing is not connected.",
+      "reasonCode": "reviewed_policy_scenario",
+      "classificationBasis": "reviewed_policy_scenario",
+      "evidenceTier": "reviewed_qualitative",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -1442,9 +1446,9 @@
           "qualitativeReasonCode": "reviewed_relative_policy_bias"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "reviewed_policy_scenario"
         }
       },
       "market": {
@@ -1528,11 +1532,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards AUD",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1542,9 +1552,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -1619,7 +1632,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -1703,11 +1716,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "GBPCHF": {
       "base": "GBP",
@@ -1715,11 +1734,14 @@
       "signedGap": 3.75,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (GBP 3, CHF 1). Relative macro pressure suggests a possible widening of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -1792,9 +1814,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -1878,11 +1900,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "widening",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "AUDJPY": {
       "base": "AUD",
@@ -1892,9 +1920,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -1969,7 +2000,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -2053,11 +2084,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -2067,9 +2104,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -2144,7 +2184,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -2228,11 +2268,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "USDJPY": {
       "base": "USD",
@@ -2242,9 +2288,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -2319,7 +2368,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -2403,11 +2452,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "CADCHF": {
       "base": "CAD",
@@ -2417,9 +2472,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -2494,7 +2552,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -2578,11 +2636,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EURCHF": {
       "base": "EUR",
@@ -2590,11 +2654,14 @@
       "signedGap": 2.5,
       "higher": "EUR",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (EUR 3, CHF 1). Relative macro pressure suggests a possible widening of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -2667,9 +2734,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -2753,11 +2820,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "widening",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "GBPJPY": {
       "base": "GBP",
@@ -2765,11 +2838,14 @@
       "signedGap": 2.5,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (GBP 3, JPY 1). Relative macro pressure suggests a possible widening of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -2842,9 +2918,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -2928,11 +3004,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "widening",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "AUDCAD": {
       "base": "AUD",
@@ -2942,9 +3024,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -3019,7 +3104,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -3103,11 +3188,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EURAUD": {
       "base": "EUR",
@@ -3115,11 +3206,14 @@
       "signedGap": -2.1,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "narrowing",
+      "label": "Narrowing scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (EUR 3, AUD 1). Relative macro pressure suggests a possible narrowing of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -3192,9 +3286,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -3278,11 +3372,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "narrowing",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "AUDNZD": {
       "base": "AUD",
@@ -3292,9 +3392,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -3369,7 +3472,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -3453,11 +3556,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": -1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "NZDJPY": {
       "base": "NZD",
@@ -3467,9 +3576,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -3544,7 +3656,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -3628,11 +3740,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EURUSD": {
       "base": "EUR",
@@ -3642,9 +3760,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -3719,7 +3840,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -3803,11 +3924,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "USDCAD": {
       "base": "USD",
@@ -3817,9 +3944,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -3894,7 +4024,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -3978,11 +4108,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "CADJPY": {
       "base": "CAD",
@@ -3992,9 +4128,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -4069,7 +4208,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -4153,11 +4292,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "CHFJPY": {
       "base": "CHF",
@@ -4165,11 +4310,14 @@
       "signedGap": -1.25,
       "higher": "JPY",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Reviewed central-bank policy biases suggest the absolute gap may widen. This is a conditional research scenario; no future policy-rate levels, basis-point changes or probabilities are estimated. Market-implied 3M policy pricing is not connected.",
+      "reasonCode": "reviewed_policy_scenario",
+      "classificationBasis": "reviewed_policy_scenario",
+      "evidenceTier": "reviewed_qualitative",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -4242,9 +4390,9 @@
           "qualitativeReasonCode": "reviewed_relative_policy_bias"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "reviewed_policy_scenario"
         }
       },
       "market": {
@@ -4328,11 +4476,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": -1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards JPY",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EURGBP": {
       "base": "EUR",
@@ -4342,9 +4496,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -4419,7 +4576,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -4503,11 +4660,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EURJPY": {
       "base": "EUR",
@@ -4515,11 +4678,14 @@
       "signedGap": 1.25,
       "higher": "EUR",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (EUR 3, JPY 1). Relative macro pressure suggests a possible widening of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -4592,9 +4758,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -4678,11 +4844,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "widening",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "GBPCAD": {
       "base": "GBP",
@@ -4690,11 +4862,14 @@
       "signedGap": 1.25,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (GBP 3, CAD 1). Relative macro pressure suggests a possible widening of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -4767,9 +4942,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -4853,11 +5028,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "widening",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "NZDUSD": {
       "base": "NZD",
@@ -4867,9 +5048,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -4944,7 +5128,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -5028,11 +5212,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 0,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "GBPNZD": {
       "base": "GBP",
@@ -5042,9 +5232,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -5119,7 +5312,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -5203,11 +5396,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "GBPAUD": {
       "base": "GBP",
@@ -5215,11 +5414,14 @@
       "signedGap": -0.85,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "narrowing",
+      "label": "Narrowing scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (GBP 3, AUD 1). Relative macro pressure suggests a possible narrowing of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -5292,9 +5494,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -5378,11 +5580,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "narrowing",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "AUDUSD": {
       "base": "AUD",
@@ -5392,9 +5600,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -5469,7 +5680,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -5553,11 +5764,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": -1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EURNZD": {
       "base": "EUR",
@@ -5567,9 +5784,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -5644,7 +5864,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -5728,11 +5948,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "NZDCAD": {
       "base": "NZD",
@@ -5742,9 +5968,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -5819,7 +6048,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -5903,11 +6132,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "GBPUSD": {
       "base": "GBP",
@@ -5917,9 +6152,12 @@
       "horizonDays": 90,
       "state": "unclear",
       "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
       "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -5994,7 +6232,7 @@
         "comparison": {
           "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -6078,11 +6316,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
+      "macroDirectionalScreen": {
+        "state": "unclear",
+        "scoreDifference": 1,
+        "minimumContrast": 2,
+        "forecast": false
+      },
       "direction": 0,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     },
     "EURCAD": {
       "base": "EUR",
@@ -6090,11 +6334,14 @@
       "signedGap": 0,
       "higher": "Equal",
       "horizonDays": 90,
-      "state": "unclear",
-      "label": "Uncertain",
-      "reason": "The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.",
-      "reasonCode": "market_implied_path_unavailable",
-      "classificationBasis": "insufficient_market_evidence",
+      "state": "widening",
+      "label": "Widening scenario",
+      "reason": "Economic-pressure scores differ by 2 model points (EUR 3, CAD 1). Relative macro pressure suggests a possible widening of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
+      "uncalibratedResearchScenario": true,
+      "backtestedProbability": null,
       "stages": {
         "market": {
           "status": "pending",
@@ -6167,9 +6414,9 @@
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "unresolved",
+          "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "market_implied_path_unavailable"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -6253,11 +6500,17 @@
       "expectedGapBp": null,
       "expectedAbsoluteGapChangeBp": null,
       "crossingRisk": false,
-      "direction": 0,
+      "macroDirectionalScreen": {
+        "state": "widening",
+        "scoreDifference": 2,
+        "minimumContrast": 2,
+        "forecast": false
+      },
+      "direction": 1,
       "tone": "neutral",
-      "signedDirection": "No verified market path",
+      "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T16:54:08.355Z"
+      "expiresAt": "2026-11-02T17:10:10.019Z"
     }
   }
 }
