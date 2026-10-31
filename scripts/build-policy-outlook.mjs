@@ -50,7 +50,7 @@ for(const [code,bank] of Object.entries(banks)){
   bank.reasons.push('A newer dated official policy decision was found. Earlier editorial guidance is superseded until its decision and rate are verified.');
  }
 }
-fs.writeFileSync('public/data/automated-policy-review.json',JSON.stringify(automatedReview,null,2)+'\\n');
+fs.writeFileSync('public/data/automated-policy-review.json',JSON.stringify(automatedReview,null,2)+'\n');
 // Market pricing is the first stage. Missing licensed provider data is not replaced
 // with a synthetic forecast or a manually maintained policy-rate ranking.
 const forwardRows=getExpectedRows(forwards,snapshot.banks,'3M',now);
@@ -71,7 +71,7 @@ const pairs=Object.fromEntries(allTrade90Pairs.map(p=>{
 // Successful polling is not new economic evidence. Revisions, source/status changes,
 // policy annotations and classifications still change the fingerprint.
 const semantic=(value)=>Array.isArray(value)?value.map(semantic):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).filter(([k])=>!['retrievedAt','checkedAt','sourceUpdated','generatedAt','expiresAt'].includes(k)).map(([k,v])=>[k,semantic(v)])):value;
-const fingerprint=crypto.createHash('sha256').update(JSON.stringify(semantic({version:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,autoVersion:AUTO_POLICY_VERSION,macro,extra,guidance,snapshot,forwards,rateMonitor,sourceMonitor,automatedReview}))).digest('hex');
+const fingerprint=crypto.createHash('sha256').update(JSON.stringify(semantic({version:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,autoVersion:AUTO_POLICY_VERSION,macro,extra,guidance,snapshot,forwards,automaticAssessments:automatedReview.banks}))).digest('hex');
 const output={schemaVersion:5,automatedPolicyCoverage:{assessed:automatedReview.assessedBanks,total:automatedReview.totalBanks,verifiedDecisions:automatedReview.directlyVerifiedDecisions,unverifiedNewDecisions:automatedReview.flaggedNewOfficialDecisions,generatedAt},scenarioPolicy:'market_verified_or_qualitative_research',modelVersion:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,experimental:true,generatedAt,inputFingerprint:fingerprint,horizonDays:90,marketHorizon:'3M',marketCoverage:{validated:forwardRows.health.valid,currencyPairCount:forwardRows.availableCount,totalPairs:28,reason:forwardRows.health.reason},banks,pairs};
 fs.writeFileSync('public/data/policy-outlook.json',JSON.stringify(output,null,2)+'\n');
 const path='public/data/policy-outlook-history.json';
