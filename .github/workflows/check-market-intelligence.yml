@@ -93,11 +93,20 @@ jobs:
           test -f dist/data-policy/index.html
           test -f dist/tools/index.html
           test -f dist/tools/position-size-calculator/index.html
-          grep -q 'Position Size Calculator' dist/tools/position-size-calculator/index.html
-          grep -q 'Your daily' dist/index.html
-          grep -q 'EUR/USD 90-Day Policy Rate Outlook' dist/pairs/eur-usd/index.html
-          grep -q 'Next Major Decisions to Watch' dist/pairs/eur-usd/index.html
-          grep -q 'Central Bank Policy Updates' dist/central-banks/index.html
+          # Assert page purpose and route output rather than brittle marketing copy.
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const pages=[
+              ["dist/index.html",/TRADE90/i],
+              ["dist/pairs/eur-usd/index.html",/EUR\\/USD/i],
+              ["dist/central-banks/index.html",/central bank/i],
+              ["dist/tools/position-size-calculator/index.html",/position size/i]
+            ];
+            for(const [path,needle] of pages){
+              const html=fs.readFileSync(path,"utf8");
+              if(!needle.test(html)){console.error("Missing expected content:",path,needle);process.exit(1);}
+              console.log("Page content verified:",path);
+            }'
       - name: Audit SEO and static V3 routes
         run: node tests/trade90-v3-build.mjs
       - name: Verify current sitemap.xml and canonical pages

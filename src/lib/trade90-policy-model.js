@@ -1,5 +1,5 @@
 import {policyFrameworks} from '../data/trade90-policy-frameworks.js';
-export const MODEL_VERSION='2.0.1';
+export const MODEL_VERSION='2.0.2';
 const DAY=86400000;
 const age=(v,now)=>(now-Date.parse(v))/DAY;
 const validAge=(v,max,now)=>Number.isFinite(age(v,now))&&age(v,now)>=0&&age(v,now)<=max;
@@ -83,10 +83,25 @@ export function bankOutlook(currency,data,guidance,now=Date.now(),additional={})
  if(severeLabour||contraction)result.cautions.push('Material activity weakness makes the policy trade-off more uncertain.');
  const annotation=g?.assessment;
  const guidanceValid=g&&validAge(g.publishedDate,90,now)&&validAge(annotation?.reviewedAt,14,now)&&annotation?.publishedDate===g.publishedDate&&annotation?.source===g.source&&(!g.latestDecisionDate||g.latestDecisionDate<=g.publishedDate);
- if(!guidanceValid){result.reasons.push('Official guidance is unreviewed, expired or superseded by a newer decision');return result;}
+ // Current macro observations can support an evidence-based uncertainty assessment
+ // even when an editorial summary is stale. Never manufacture a directional policy
+ // signal, nor treat a successful source poll as a new manual guidance review.
+ result.policyEvidenceReviewed=Boolean(guidanceValid);
+ if(!guidanceValid){
+  result.state='uncertain';
+  result.label=labels.uncertain;
+  result.reasons.push('Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued');
+  result.cautions.push('Economic indicators are source-checked, but the prior central-bank commentary is not treated as current.');
+  return result;
+ }
  let state='uncertain';
  const bias=annotation.bias;
- if(!['tightening','easing','neutral','hold_context'].includes(bias)){result.reasons.push('Unsupported guidance classification');return result;}
+ if(!['tightening','easing','neutral','hold_context'].includes(bias)){
+  result.state='uncertain';result.label=labels.uncertain;
+  result.policyEvidenceReviewed=false;
+  result.reasons.push('Unsupported policy guidance classification; no directional policy assessment is issued');
+  return result;
+ }
  if(bias==='tightening'&&inflation>=0&&score>=0&&!severeLabour&&!contraction)state='hike_hold';
  else if(bias==='easing'&&inflation<=0&&score<=0)state='cut_hold';
  else if(bias==='neutral'&&inflation===2&&score>=3&&!severeLabour&&!contraction)state='hike_hold';
