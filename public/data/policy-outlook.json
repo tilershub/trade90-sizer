@@ -1,9 +1,9 @@
 {
   "schemaVersion": 2,
-  "modelVersion": "2.0.1",
+  "modelVersion": "2.0.2",
   "experimental": true,
-  "generatedAt": "2026-10-31T11:15:15.179Z",
-  "inputFingerprint": "6ca4a8247eeb028b9ccc563ed942898283ad6c775264b63dfe2d67e08a94d308",
+  "generatedAt": "2026-10-31T14:45:15.995Z",
+  "inputFingerprint": "1de04dafeb92d5d6ea66dac028bc8c1164f8c5f4b4d8a21376ab5fae8ea45672",
   "horizonDays": 90,
   "banks": {
     "CHF": {
@@ -27,7 +27,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-10-31T11:15:01.935486+00:00"
+          "retrievedAt": "2026-10-31T14:45:04.099741+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -44,7 +44,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:08.411495+00:00"
+          "retrievedAt": "2026-10-31T14:45:09.034148+00:00"
         },
         {
           "metric": "Employment",
@@ -61,7 +61,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Switzerland",
-          "retrievedAt": "2026-10-31T11:15:05.738851+00:00"
+          "retrievedAt": "2026-10-31T14:45:06.348491+00:00"
         },
         {
           "metric": "Real GDP",
@@ -78,7 +78,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Switzerland",
-          "retrievedAt": "2026-10-31T11:15:05.951009+00:00"
+          "retrievedAt": "2026-10-31T14:45:06.754112+00:00"
         }
       ],
       "reasons": [],
@@ -123,7 +123,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:01.935486+00:00",
+          "retrievedAt": "2026-10-31T14:45:04.099741+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -132,7 +132,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.411495+00:00",
+          "retrievedAt": "2026-10-31T14:45:09.034148+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -141,7 +141,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:05.738851+00:00",
+          "retrievedAt": "2026-10-31T14:45:06.348491+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S"
         },
         {
@@ -150,14 +150,15 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:05.951009+00:00",
+          "retrievedAt": "2026-10-31T14:45:06.754112+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S"
         }
       ],
       "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
       "score": 1,
+      "policyEvidenceReviewed": true,
       "guidanceDirection": "hold_context",
-      "expiresAt": "2026-11-02T11:15:15.179Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "AUD": {
       "currency": "AUD",
@@ -180,7 +181,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "Headline CPI, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:07.792720+00:00"
+          "retrievedAt": "2026-10-31T14:45:09.031931+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -197,7 +198,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:08.190438+00:00"
+          "retrievedAt": "2026-10-31T14:45:08.928994+00:00"
         },
         {
           "metric": "Employment",
@@ -214,7 +215,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Australia",
-          "retrievedAt": "2026-10-31T11:15:05.938215+00:00"
+          "retrievedAt": "2026-10-31T14:45:06.648957+00:00"
         },
         {
           "metric": "Real GDP",
@@ -231,7 +232,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Australia",
-          "retrievedAt": "2026-10-31T11:15:06.072142+00:00"
+          "retrievedAt": "2026-10-31T14:45:06.486845+00:00"
         }
       ],
       "reasons": [],
@@ -277,7 +278,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:07.792720+00:00",
+          "retrievedAt": "2026-10-31T14:45:09.031931+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -286,7 +287,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.190438+00:00",
+          "retrievedAt": "2026-10-31T14:45:08.928994+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -295,7 +296,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:05.938215+00:00",
+          "retrievedAt": "2026-10-31T14:45:06.648957+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S"
         },
         {
@@ -304,19 +305,20 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:06.072142+00:00",
+          "retrievedAt": "2026-10-31T14:45:06.486845+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S"
         }
       ],
       "watch": "Australian inflation, wages, employment and evidence of slowing demand",
       "score": 1,
+      "policyEvidenceReviewed": true,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-02T11:15:15.179Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EUR": {
       "currency": "EUR",
-      "state": "unavailable",
-      "label": "Policy outlook unavailable",
+      "state": "uncertain",
+      "label": "Policy direction uncertain",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -334,7 +336,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "Euro area (21 countries): Headline HICP, ECOICOP version 2, year-on-year percentage change",
-          "retrievedAt": "2026-10-31T11:15:04.126848+00:00"
+          "retrievedAt": "2026-10-31T14:45:05.663552+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -351,7 +353,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "HICP excluding energy, food, alcohol and tobacco, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:08.736377+00:00"
+          "retrievedAt": "2026-10-31T14:45:09.349674+00:00"
         },
         {
           "metric": "Employment",
@@ -368,7 +370,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
           "title": "Euro area (21 countries): Unemployment, total labour force, seasonally adjusted",
-          "retrievedAt": "2026-10-31T11:15:03.579061+00:00"
+          "retrievedAt": "2026-10-31T14:45:05.316504+00:00"
         },
         {
           "metric": "Real GDP",
@@ -385,15 +387,16 @@
           "frequency": "Quarterly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
           "title": "Euro area (21 countries): Real GDP, quarter-on-quarter percentage change, seasonally and calendar adjusted",
-          "retrievedAt": "2026-10-31T11:15:05.478923+00:00"
+          "retrievedAt": "2026-10-31T14:45:05.996500+00:00"
         }
       ],
       "reasons": [
-        "Official guidance is unreviewed, expired or superseded by a newer decision"
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
       ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
-        "Headline and underlying inflation trends differ; energy, food or other components may matter."
+        "Headline and underlying inflation trends differ; energy, food or other components may matter.",
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "EUR",
@@ -431,7 +434,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:04.126848+00:00",
+          "retrievedAt": "2026-10-31T14:45:05.663552+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -440,7 +443,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.736377+00:00",
+          "retrievedAt": "2026-10-31T14:45:09.349674+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -449,7 +452,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:03.579061+00:00",
+          "retrievedAt": "2026-10-31T14:45:05.316504+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table"
         },
         {
@@ -458,18 +461,19 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:05.478923+00:00",
+          "retrievedAt": "2026-10-31T14:45:05.996500+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table"
         }
       ],
       "watch": "Euro-area inflation, wage growth and the ECB's updated projections",
       "score": 3,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "policyEvidenceReviewed": false,
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "CAD": {
       "currency": "CAD",
-      "state": "unavailable",
-      "label": "Policy outlook unavailable",
+      "state": "uncertain",
+      "label": "Policy direction uncertain",
       "economicPressure": "Balanced or conflicting pressure",
       "drivers": [
         {
@@ -487,7 +491,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-31T11:15:01.938658+00:00"
+          "retrievedAt": "2026-10-31T14:45:04.103262+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -504,7 +508,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:08.414626+00:00"
+          "retrievedAt": "2026-10-31T14:45:09.037216+00:00"
         },
         {
           "metric": "Employment",
@@ -521,7 +525,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada",
-          "retrievedAt": "2026-10-31T11:15:06.282753+00:00"
+          "retrievedAt": "2026-10-31T14:45:06.934160+00:00"
         },
         {
           "metric": "Real GDP",
@@ -538,15 +542,16 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Canada",
-          "retrievedAt": "2026-10-31T11:15:06.265804+00:00"
+          "retrievedAt": "2026-10-31T14:45:07.044743+00:00"
         }
       ],
       "reasons": [
-        "Official guidance is unreviewed, expired or superseded by a newer decision"
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
       ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
-        "Exclusion-based CPI is not the Bank of Canada’s CPI-trim or CPI-median."
+        "Exclusion-based CPI is not the Bank of Canada’s CPI-trim or CPI-median.",
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "CAD",
@@ -584,7 +589,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:01.938658+00:00",
+          "retrievedAt": "2026-10-31T14:45:04.103262+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -593,7 +598,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.414626+00:00",
+          "retrievedAt": "2026-10-31T14:45:09.037216+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -602,7 +607,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:06.282753+00:00",
+          "retrievedAt": "2026-10-31T14:45:06.934160+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S"
         },
         {
@@ -611,13 +616,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:06.265804+00:00",
+          "retrievedAt": "2026-10-31T14:45:07.044743+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S"
         }
       ],
       "watch": "Canadian inflation excluding energy, recovery durability and trade-policy effects",
       "score": 1,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "policyEvidenceReviewed": false,
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "JPY": {
       "currency": "JPY",
@@ -640,7 +646,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-10-31T11:15:01.944443+00:00"
+          "retrievedAt": "2026-10-31T14:45:04.109085+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -657,7 +663,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:08.413044+00:00"
+          "retrievedAt": "2026-10-31T14:45:09.035715+00:00"
         },
         {
           "metric": "Employment",
@@ -674,7 +680,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Japan",
-          "retrievedAt": "2026-10-31T11:15:06.549727+00:00"
+          "retrievedAt": "2026-10-31T14:45:07.424759+00:00"
         },
         {
           "metric": "Real GDP",
@@ -691,7 +697,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Japan",
-          "retrievedAt": "2026-10-31T11:15:06.642194+00:00"
+          "retrievedAt": "2026-10-31T14:45:07.582661+00:00"
         }
       ],
       "reasons": [],
@@ -736,7 +742,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:01.944443+00:00",
+          "retrievedAt": "2026-10-31T14:45:04.109085+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -745,7 +751,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.413044+00:00",
+          "retrievedAt": "2026-10-31T14:45:09.035715+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -754,7 +760,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:06.549727+00:00",
+          "retrievedAt": "2026-10-31T14:45:07.424759+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S"
         },
         {
@@ -763,19 +769,20 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:06.642194+00:00",
+          "retrievedAt": "2026-10-31T14:45:07.582661+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S"
         }
       ],
       "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
       "score": 1,
+      "policyEvidenceReviewed": true,
       "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-02T11:15:15.179Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "GBP": {
       "currency": "GBP",
-      "state": "unavailable",
-      "label": "Policy outlook unavailable",
+      "state": "uncertain",
+      "label": "Policy direction uncertain",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -793,7 +800,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-31T11:15:01.941725+00:00"
+          "retrievedAt": "2026-10-31T14:45:04.106351+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -810,7 +817,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:08.191580+00:00"
+          "retrievedAt": "2026-10-31T14:45:08.930068+00:00"
         },
         {
           "metric": "Employment",
@@ -829,7 +836,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for United Kingdom",
-          "retrievedAt": "2026-10-31T11:15:06.286351+00:00"
+          "retrievedAt": "2026-10-31T14:45:07.083968+00:00"
         },
         {
           "metric": "Real GDP",
@@ -846,14 +853,15 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United Kingdom",
-          "retrievedAt": "2026-10-31T11:15:06.503121+00:00"
+          "retrievedAt": "2026-10-31T14:45:07.329881+00:00"
         }
       ],
       "reasons": [
-        "Official guidance is unreviewed, expired or superseded by a newer decision"
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
       ],
       "cautions": [
-        "Core definitions differ across countries; these are supporting indicators, not separate official targets."
+        "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "GBP",
@@ -891,7 +899,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:01.941725+00:00",
+          "retrievedAt": "2026-10-31T14:45:04.106351+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -900,7 +908,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.191580+00:00",
+          "retrievedAt": "2026-10-31T14:45:08.930068+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -909,7 +917,7 @@
           "latestDate": "2026-06-01",
           "periodEnd": "2026-07-31",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:06.286351+00:00",
+          "retrievedAt": "2026-10-31T14:45:07.083968+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S"
         },
         {
@@ -918,18 +926,19 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:06.503121+00:00",
+          "retrievedAt": "2026-10-31T14:45:07.329881+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S"
         }
       ],
       "watch": "UK CPI, wage-setting effects from energy prices, jobs and MPC votes",
       "score": 3,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "policyEvidenceReviewed": false,
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "NZD": {
       "currency": "NZD",
-      "state": "unavailable",
-      "label": "Policy outlook unavailable",
+      "state": "uncertain",
+      "label": "Policy direction uncertain",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -947,7 +956,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-10-31T11:15:01.947045+00:00"
+          "retrievedAt": "2026-10-31T14:45:04.111703+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -964,7 +973,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-10-31T11:15:08.192592+00:00"
+          "retrievedAt": "2026-10-31T14:45:08.931016+00:00"
         },
         {
           "metric": "Employment",
@@ -981,7 +990,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for New Zealand",
-          "retrievedAt": "2026-10-31T11:15:06.707674+00:00"
+          "retrievedAt": "2026-10-31T14:45:07.672474+00:00"
         },
         {
           "metric": "Real GDP",
@@ -998,16 +1007,17 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for New Zealand",
-          "retrievedAt": "2026-10-31T11:15:06.820960+00:00"
+          "retrievedAt": "2026-10-31T14:45:07.807098+00:00"
         }
       ],
       "reasons": [
-        "Official guidance is unreviewed, expired or superseded by a newer decision"
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
       ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
         "Headline and underlying inflation trends differ; energy, food or other components may matter.",
-        "Rising unemployment offsets inflation pressure and could favour holding."
+        "Rising unemployment offsets inflation pressure and could favour holding.",
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "NZD",
@@ -1045,7 +1055,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:01.947045+00:00",
+          "retrievedAt": "2026-10-31T14:45:04.111703+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1054,7 +1064,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:08.192592+00:00",
+          "retrievedAt": "2026-10-31T14:45:08.931016+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1063,7 +1073,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:06.707674+00:00",
+          "retrievedAt": "2026-10-31T14:45:07.672474+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S"
         },
         {
@@ -1072,18 +1082,19 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:06.820960+00:00",
+          "retrievedAt": "2026-10-31T14:45:07.807098+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S"
         }
       ],
       "watch": "New Zealand CPI, demand and labour-market data; new OCR path in the next policy statement",
       "score": 2,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "policyEvidenceReviewed": false,
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "USD": {
       "currency": "USD",
-      "state": "unavailable",
-      "label": "Policy outlook unavailable",
+      "state": "uncertain",
+      "label": "Policy direction uncertain",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -1101,7 +1112,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPI",
           "title": "Personal Consumption Expenditures: Chain-type Price Index — year-on-year change",
-          "retrievedAt": "2026-10-31T11:15:08.199844+00:00"
+          "retrievedAt": "2026-10-31T14:45:09.214974+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -1118,7 +1129,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE",
           "title": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index) — year-on-year change",
-          "retrievedAt": "2026-10-31T11:15:08.462415+00:00"
+          "retrievedAt": "2026-10-31T14:45:09.567390+00:00"
         },
         {
           "metric": "Employment",
@@ -1135,7 +1146,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/UNRATE",
           "title": "Unemployment Rate",
-          "retrievedAt": "2026-10-31T11:15:07.161241+00:00"
+          "retrievedAt": "2026-10-31T14:45:08.036561+00:00"
         },
         {
           "metric": "Real GDP",
@@ -1152,14 +1163,15 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United States",
-          "retrievedAt": "2026-10-31T11:15:07.123930+00:00"
+          "retrievedAt": "2026-10-31T14:45:08.094083+00:00"
         }
       ],
       "reasons": [
-        "Official guidance is unreviewed, expired or superseded by a newer decision"
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
       ],
       "cautions": [
-        "Core definitions differ across countries; these are supporting indicators, not separate official targets."
+        "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "USD",
@@ -1197,7 +1209,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.199844+00:00",
+          "retrievedAt": "2026-10-31T14:45:09.214974+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPI"
         },
         {
@@ -1206,7 +1218,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:08.462415+00:00",
+          "retrievedAt": "2026-10-31T14:45:09.567390+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE"
         },
         {
@@ -1215,7 +1227,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-10-31T11:15:07.161241+00:00",
+          "retrievedAt": "2026-10-31T14:45:08.036561+00:00",
           "source": "https://fred.stlouisfed.org/series/UNRATE"
         },
         {
@@ -1224,13 +1236,14 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-10-31T11:15:07.123930+00:00",
+          "retrievedAt": "2026-10-31T14:45:08.094083+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S"
         }
       ],
       "watch": "US CPI and employment trends; the next FOMC statement and economic projections",
       "score": 2,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "policyEvidenceReviewed": false,
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     }
   },
   "pairs": {
@@ -1248,7 +1261,7 @@
       "signedDirection": "Towards AUD",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T11:15:15.179Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1256,15 +1269,15 @@
       "signedGap": 3.875,
       "higher": "USD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "GBPCHF": {
       "base": "GBP",
@@ -1272,15 +1285,15 @@
       "signedGap": 3.75,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "AUDJPY": {
       "base": "AUD",
@@ -1296,7 +1309,7 @@
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T11:15:15.179Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -1304,15 +1317,15 @@
       "signedGap": 2.75,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "USDJPY": {
       "base": "USD",
@@ -1320,15 +1333,15 @@
       "signedGap": 2.625,
       "higher": "USD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "CADCHF": {
       "base": "CAD",
@@ -1336,15 +1349,15 @@
       "signedGap": 2.5,
       "higher": "CAD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EURCHF": {
       "base": "EUR",
@@ -1352,15 +1365,15 @@
       "signedGap": 2.5,
       "higher": "EUR",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "GBPJPY": {
       "base": "GBP",
@@ -1368,15 +1381,15 @@
       "signedGap": 2.5,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "AUDCAD": {
       "base": "AUD",
@@ -1384,15 +1397,15 @@
       "signedGap": 2.1,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EURAUD": {
       "base": "EUR",
@@ -1400,15 +1413,15 @@
       "signedGap": -2.1,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "AUDNZD": {
       "base": "AUD",
@@ -1416,15 +1429,15 @@
       "signedGap": 1.85,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "NZDJPY": {
       "base": "NZD",
@@ -1432,15 +1445,15 @@
       "signedGap": 1.5,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EURUSD": {
       "base": "EUR",
@@ -1448,15 +1461,15 @@
       "signedGap": -1.375,
       "higher": "USD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "USDCAD": {
       "base": "USD",
@@ -1464,15 +1477,15 @@
       "signedGap": 1.375,
       "higher": "USD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "CADJPY": {
       "base": "CAD",
@@ -1480,15 +1493,15 @@
       "signedGap": 1.25,
       "higher": "CAD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "CHFJPY": {
       "base": "CHF",
@@ -1504,7 +1517,7 @@
       "signedDirection": "Towards JPY",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-11-02T11:15:15.179Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EURGBP": {
       "base": "EUR",
@@ -1512,15 +1525,15 @@
       "signedGap": -1.25,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EURJPY": {
       "base": "EUR",
@@ -1528,15 +1541,15 @@
       "signedGap": 1.25,
       "higher": "EUR",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "GBPCAD": {
       "base": "GBP",
@@ -1544,15 +1557,15 @@
       "signedGap": 1.25,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "NZDUSD": {
       "base": "NZD",
@@ -1560,15 +1573,15 @@
       "signedGap": -1.125,
       "higher": "USD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "GBPNZD": {
       "base": "GBP",
@@ -1576,15 +1589,15 @@
       "signedGap": 1,
       "higher": "GBP",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "GBPAUD": {
       "base": "GBP",
@@ -1592,15 +1605,15 @@
       "signedGap": -0.85,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "AUDUSD": {
       "base": "AUD",
@@ -1608,15 +1621,15 @@
       "signedGap": 0.725,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EURNZD": {
       "base": "EUR",
@@ -1624,15 +1637,15 @@
       "signedGap": -0.25,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "NZDCAD": {
       "base": "NZD",
@@ -1640,15 +1653,15 @@
       "signedGap": 0.25,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "GBPUSD": {
       "base": "GBP",
@@ -1656,15 +1669,15 @@
       "signedGap": -0.125,
       "higher": "USD",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     },
     "EURCAD": {
       "base": "EUR",
@@ -1672,15 +1685,15 @@
       "signedGap": 0,
       "higher": "Equal",
       "horizonDays": 90,
-      "state": "unavailable",
-      "label": "Insufficient current evidence",
-      "reason": "Both currencies require current macro inputs, reviewed policy guidance and a recent policy-rate snapshot.",
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "At least one bank’s policy direction remains uncertain. Read the economic pressure and opposing evidence below.",
       "direction": 0,
       "tone": "neutral",
       "signedDirection": "No supported direction",
       "crossingRisk": false,
       "unchangedPossible": true,
-      "expiresAt": "2026-10-30T00:00:00.000Z"
+      "expiresAt": "2026-11-02T14:45:15.995Z"
     }
   }
 }
