@@ -1,6 +1,20 @@
 {
   "schemaVersion": 1,
-  "asOf": null,
-  "notes": "Verified, licensed daily government yield observations only. No example figures in production.",
-  "currencies": {}
+  "asOf": "2026-10-30",
+  "notes": "Verified observed 2Y and 10Y government bond yields. Missing currency coverage is intentionally left blank. Snapshot dates are observations, not retrieval dates.",
+  "currencies": {
+    "USD": {
+      "verified": true,
+      "asOf": "2026-10-30",
+      "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "series": {
+        "2Y": "Daily Treasury par yield curve: 2 Yr",
+        "10Y": "Daily Treasury par yield curve: 10 Yr"
+      },
+      "yields": {
+        "2Y": 4.56,
+        "10Y": 4.94
+      }
+    }
+  }
 }
