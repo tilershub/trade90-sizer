@@ -46,7 +46,7 @@
  <div class="interpretation">
   <strong>How to interpret this result</strong>
   {#if !expired && (state==='widening'||state==='narrowing')}
-   <p>The model compares the two banks' policy biases. It suggests the <b>absolute difference between policy rates</b> may {state==='widening'?'increase':'decrease'} over 90 days. {result?.signedDirection}. Either bank may still hold; the model cannot estimate how many basis points the rates would change.</p>
+   <p>Verified 3M market-implied policy levels suggest the <b>absolute difference between policy rates</b> may {state==='widening'?'increase':'decrease'} over 90 days. {result?.signedDirection}. This is a market-expectations snapshot, not a calibrated forecast of what banks will actually do.</p>
   {:else if !expired && state==='unchanged'}
    <p>Both banks have supported conditional hold baselines. This does not guarantee that either policy rate will stay unchanged.</p>
   {:else}
@@ -54,6 +54,22 @@
   {/if}
   <p class="no-price">This is <b>not</b> a bullish or bearish forecast for {result?.base}/{result?.quote}, a prediction of FX returns or a broker swap-rate estimate.</p>
  </div>
+ {/if}
+ {#if result?.stages}
+ <section class="model-stages" aria-label="Market, macro, policy and gap comparison">
+  <h3>Four-stage evidence assessment</h3>
+  <p><b>01 · Market-implied 3M policy rates:</b> {result.stages.market.status==='verified'?'Verified provider observation':'Not connected or unverified'}.
+   {#if result.stages.market.status==='verified'}
+     {result.base}: {rate(result.stages.market.baseExpectedRatePct)} · {result.quote}: {rate(result.stages.market.quoteExpectedRatePct)} · expected absolute-gap change {result.stages.market.expectedAbsoluteGapChangeBp} bp.
+     <a href={result.stages.market.sources[0]} target="_blank" rel="noopener noreferrer">Base data source ↗</a> · <a href={result.stages.market.sources[1]} target="_blank" rel="noopener noreferrer">Quote data source ↗</a>.
+   {:else}{result.stages.market.reason}{/if}</p>
+  <p><b>02 · Macroeconomic evidence:</b> {result.stages.macro.status}; economic score {result.base}: {result.stages.macro.base.score??'—'}, {result.quote}: {result.stages.macro.quote.score??'—'}. Scores describe fundamentals, not the number of basis points expected.</p>
+  <p><b>03 · Central-bank evidence:</b> {result.stages.policy.status==='reviewed'?'Both central-bank interpretations reviewed':'At least one central-bank interpretation needs review or has unresolved evidence'}.</p>
+  <p><b>04 · Relative policy-rate gap:</b> {result.reasonCode?.replaceAll('_',' ')}. {result.stages.market.crossingRisk?'Implied rates cross; absolute-gap direction is calculated separately.':''}</p>
+  {#if result.qualitativeCandidate&&['widening','narrowing','unchanged'].includes(result.qualitativeCandidate.state)}
+    <p><b>Separate qualitative policy candidate:</b> {result.qualitativeCandidate.label}. This is not a market-implied rate forecast and should not be counted as one.</p>
+  {/if}
+ </section>
  {/if}
  <div class="bank-grid">
   {#each banks as bank}
@@ -86,7 +102,7 @@
  <details class="about">
   <summary>What is included, what is missing, and how to read the rate gap</summary>
   <p>The current rules evaluate headline and underlying inflation, unemployment, GDP and source-reviewed central-bank guidance. The inflation measures are not always the same as each bank's preferred policy measure.</p>
-  <p>Wage growth, inflation expectations, services inflation, policy projections, credit conditions and market-implied policy paths are not yet scored. The current thresholds have not been calibrated against historical forecast outcomes.</p>
+  <p>Market-implied policy paths enter only when the licensed 3M dataset is verified. Without them, qualitative policy candidates are disclosed separately. Wage growth, inflation expectations, services inflation, policy projections and credit conditions are not yet scored. The current thresholds have not been calibrated against historical forecast outcomes.</p>
   <p>Rates are compared as base minus quote; a negative signed gap can become more negative even when the absolute gap widens. Widening or narrowing should never be interpreted as an FX buy/sell signal. If both banks have similar directional biases, timing and move sizes may make the relative gap uncertain. <a href="/policy-model/">Read the complete model rules and limitations ↗</a></p>
  </details>
  <p class="meta bottom">Model generated {when(data?.generatedAt)} · Valid until {when(result?.expiresAt)} · <a href="/data/policy-outlook-history.json">Historical assessment archive ↗</a></p>
@@ -131,4 +147,5 @@ a{color:var(--blue);text-underline-offset:3px}
 li{font-size:.8rem;line-height:1.65;color:var(--muted);margin:6px 0}
 .bottom{margin:14px 0 0}
 @media(max-width:650px){.outlook{padding:15px}.heading{flex-wrap:wrap}.heading h2{font-size:1.2rem}.metrics{grid-template-columns:1fr}.metrics>div{padding:10px}.bank-grid{grid-template-columns:1fr}.method-link{white-space:normal}.bank{padding:13px}.verdict{padding:13px}}
+.model-stages{padding:14px 16px;border:1px solid var(--line);border-radius:9px;background:var(--soft);margin:15px 0}.model-stages h3{font-size:1.03rem;color:var(--ink);margin:0 0 8px}.model-stages p{font-size:.8rem;line-height:1.7;color:var(--muted)}.model-stages b{color:var(--ink)}.model-stages a{color:var(--blue)}
 </style>
