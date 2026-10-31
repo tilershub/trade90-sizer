@@ -14,6 +14,10 @@ const states={
  unavailable:{label:"UNAVAILABLE",meaning:"A fresh source-validated outlook is needed",short:"Assessment unavailable"}
 };
 const presentation=states[state]||states.unavailable;
+const steps=outlook?.stages;
+const ready=steps?.market?.status==="verified";
+const qualitative=outlook?.qualitativeCandidate;
+const fmtBp=v=>Number.isFinite(v)?(v>0?"+":"")+v.toFixed(1)+" bp":"Not available";
 const when=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZone:"UTC"})+" UTC":"Not recorded";
 const day=v=>v&&Number.isFinite(Date.parse(v+"T12:00:00Z"))?new Date(v+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",timeZone:"UTC"}):"Date not confirmed";
 const currentGap=(pair.signedBp>0?"+":"")+formatBp(pair.signedBp);
@@ -22,14 +26,14 @@ const catalysts=getNextPolicyDecisions(pair,new Date().toISOString().slice(0,10)
 <section class:list={["outlook-hero","state-"+state]} id="policy-outlook" aria-label={pair.label+" 90-day policy-rate divergence outlook"} data-divergence-hero data-expires-at={outlook?.expiresAt||""}>
  <div class="topline">
   <span class="eyebrow">TRADE90 RESEARCH · 90-DAY POLICY DIVERGENCE</span>
-  <span class="research-type">Experimental directional model</span>
+  <span class="research-type">{ready?"Licensed 3M market-implied comparison":"Market-implied path not connected"}</span>
  </div>
  <div class="hero-main">
   <div class="decision">
-   <p class="prompt">Expected policy-rate difference · {pair.label}</p>
+   <p class="prompt">90-day divergence research · {pair.label}</p>
    <div class="signal-heading"><span class="signal-icon" aria-hidden="true">{state==="widening"?"↗":state==="narrowing"?"↘":state==="unavailable"?"!":"↔"}</span><h2 class="result" data-outlook-label>{presentation.label}</h2></div>
    <p class="result-description" data-outlook-plain>{presentation.meaning}</p>
-   <p class="interpretation">Direction of the <strong>interest-rate gap</strong> over the next 90 days, not a prediction of the {pair.label} exchange rate.</p>
+   <p class="interpretation">{ready?"The verified 3-month policy-rate pricing is a proxy for the 90-day horizon—not a promise about future central-bank decisions.":"The model does not substitute a qualitative policy bias for missing market-implied policy rates."} This is not a {pair.label} FX price forecast.</p>
   </div>
   <div class="rate-fact">
    <span>Last published official rate gap</span>
@@ -38,9 +42,20 @@ const catalysts=getNextPolicyDecisions(pair,new Date().toISOString().slice(0,10)
   </div>
  </div>
  <div class="reasoning">
-  <strong>Why this outlook?</strong>
+  <strong>Why this assessment?</strong>
   <p data-outlook-reason>{valid?outlook?.reason||presentation.meaning:"Assessment expired. Fresh validated evidence is required before displaying a direction."}</p>
  </div>
+ {steps && <section class="workflow-evidence" aria-label="Four-stage divergence workflow">
+  <h3>How TRADE90 reached this assessment</h3>
+  <div class="workflow-grid">
+   <div><span>01 · MARKET EXPECTATIONS</span><strong>{ready?"Verified 3M pricing":"Forward pricing pending"}</strong><small>{ready?`Absolute gap movement: ${fmtBp(steps.market.expectedAbsoluteGapChangeBp)}`:steps.market.reason||"No verified 3M market-implied path"}</small></div>
+   <div><span>02 · ECONOMIC FUNDAMENTALS</span><strong>{steps.macro.status==="validated"?"Macro inputs checked":"Evidence incomplete"}</strong><small>{pair.base}: {steps.macro.base.score??"—"} · {pair.quote}: {steps.macro.quote.score??"—"} (descriptive scores only)</small></div>
+   <div><span>03 · CENTRAL-BANK CONTEXT</span><strong>{steps.policy.status==="reviewed"?"Reviewed policy evidence":"Review due or unresolved"}</strong><small>Source-dated official policy interpretation, not futures pricing</small></div>
+   <div><span>04 · RELATIVE POLICY GAP</span><strong>{state==="widening"?"Market-implied widening":state==="narrowing"?"Market-implied narrowing":"Direction not established"}</strong><small>{steps.market.crossingRisk?"Signed policy gap crosses zero · crossing risk":ready?"3M absolute policy-gap comparison":"No 90-day numeric gap estimate"}</small></div>
+  </div>
+  {ready&&<p class="market-prices">Source-implied 3M policy levels: {pair.base} {steps.market.baseExpectedRatePct?.toFixed(2)}% · {pair.quote} {steps.market.quoteExpectedRatePct?.toFixed(2)}% · <strong>expected signed gap {fmtBp(steps.market.expectedSignedGapBp)}</strong> · <a href={steps.market.sources[0]} target="_blank" rel="noopener noreferrer">Base source ↗</a> · <a href={steps.market.sources[1]} target="_blank" rel="noopener noreferrer">Quote source ↗</a></p>}
+  {!ready&&qualitative&&["widening","narrowing","unchanged"].includes(qualitative.state)&&<p class="candidate-note"><strong>Qualitative research candidate:</strong> {qualitative.label}. This is based on reviewed policy biases only and is <strong>not</strong> a verified market-implied 90-day forecast.</p>}
+ </section>}
  <div class="bank-biases" aria-label="Central-bank policies behind the outlook">
   <div><span>{pair.base} · {pair.baseBank.short}</span><strong>{valid?base?.label||"Direction not supported":"Awaiting fresh model inputs"}</strong></div>
   <div><span>{pair.quote} · {pair.quoteBank.short}</span><strong>{valid?quote?.label||"Direction not supported":"Awaiting fresh model inputs"}</strong></div>
@@ -116,4 +131,5 @@ const catalysts=getNextPolicyDecisions(pair,new Date().toISOString().slice(0,10)
 @media(max-width:750px){.outlook-hero{padding:14px 15px;margin:8px 0 16px}.topline{gap:4px;flex-wrap:wrap}.hero-main{flex-direction:column;align-items:stretch}.result{font-size:clamp(2.5rem,11vw,3.5rem)}.rate-fact{width:auto;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.rate-fact span{max-width:33%}.rate-fact strong{font-size:1.55rem;white-space:nowrap;margin:0}.hero-bottom{flex-direction:column;align-items:flex-start;gap:9px}.actions{justify-content:flex-start}.bank-biases>div{padding:9px}.reasoning{padding:10px 12px}.catalysts{gap:5px}}
 @media(max-width:380px){.bank-biases{grid-template-columns:1fr}.rate-fact span{font-size:.68rem}}
 .signal-heading{display:flex;align-items:center;gap:14px;min-width:0}.signal-icon{display:grid;place-items:center;flex:none;width:66px;height:66px;border-radius:16px;background:color-mix(in srgb,var(--signal) 13%,transparent);border:1px solid var(--signal);color:var(--signal);font-size:2.6rem;font-weight:800;line-height:1}.state-widening{--signal:#34d399}.state-narrowing{--signal:#fbbf24}.state-unclear,.state-unchanged,.state-unavailable,.is-expired{--signal:#94a3b8}@media(max-width:560px){.signal-heading{gap:10px}.signal-icon{width:48px;height:48px;border-radius:12px;font-size:2rem}.signal-heading .result{font-size:clamp(1.95rem,8vw,3rem)}}
+.workflow-evidence{margin:12px 0;padding:15px;border:1px solid #334155;border-radius:10px;background:#101d30}.workflow-evidence h3{margin:0 0 12px;font-size:.92rem;color:#f8fafc}.workflow-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.workflow-grid>div{min-width:0;border:1px solid #334155;border-radius:8px;padding:10px;background:#14263c}.workflow-grid span{display:block;color:#93c5fd;font-size:.62rem;font-weight:800;letter-spacing:.045em}.workflow-grid strong{display:block;color:#f8fafc;font-size:.83rem;margin:5px 0}.workflow-grid small{display:block;color:#b8c8db;font-size:.72rem;line-height:1.55}.market-prices,.candidate-note{margin:11px 0 0;font-size:.76rem;line-height:1.6;color:#cbd5e1}.market-prices a{color:#bfdbfe}.candidate-note strong{color:#e2e8f0}@media(max-width:850px){.workflow-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:450px){.workflow-grid{grid-template-columns:1fr 1fr}.workflow-evidence{padding:10px}.workflow-grid>div{padding:8px}}
 </style>
