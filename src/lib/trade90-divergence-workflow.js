@@ -43,7 +43,7 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
    quoteExpectedRatePct:marketOk?forwardRow.quoteForwardPct:null,
    expectedSignedGapBp:marketOk?forwardRow.expectedSignedBp:null,
    currentSignedGapBp:marketOk?forwardRow.currentSignedBp:null,
-   expectedAbsoluteGapChangeBp, marketDirection,
+   expectedAbsoluteGapChangeBp:expectedAbsoluteChangeBp, marketDirection,
    crossingRisk:crossing,
    sources:marketOk?[forwardRow.sourceBase,forwardRow.sourceQuote]:[],
    materialityThresholdBp:MARKET_GAP_MATERIALITY_BP,
