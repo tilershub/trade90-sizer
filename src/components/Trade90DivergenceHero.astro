@@ -17,7 +17,7 @@ const presentation=states[state]||states.unavailable;
 const steps=outlook?.stages;
 const ready=steps?.market?.status==="verified";
 const qualitative=outlook?.qualitativeCandidate;
-const researchTier=outlook?.evidenceTier==='reviewed_qualitative'?'Reviewed policy scenario':outlook?.evidenceTier==='exploratory_macro'?'Exploratory macro-pressure scenario':outlook?.evidenceTier==='verified_market'?'Market-implied scenario':'Evidence inconclusive';
+const researchTier=outlook?.evidenceTier==='reviewed_qualitative'?'Reviewed policy scenario':outlook?.evidenceTier==='exploratory_macro'?'Exploratory macro-pressure scenario':outlook?.evidenceTier==='automated_provisional'?'Automated provisional policy scenario':outlook?.evidenceTier==='verified_market'?'Market-implied scenario':'Evidence inconclusive';
 const fmtBp=v=>Number.isFinite(v)?(v>0?"+":"")+v.toFixed(1)+" bp":"Not available";
 const when=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZone:"UTC"})+" UTC":"Not recorded";
 const day=v=>v&&Number.isFinite(Date.parse(v+"T12:00:00Z"))?new Date(v+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",timeZone:"UTC"}):"Date not confirmed";
@@ -51,7 +51,7 @@ const catalysts=getNextPolicyDecisions(pair,new Date().toISOString().slice(0,10)
   <div class="workflow-grid">
    <div><span>01 · MARKET EXPECTATIONS</span><strong>{ready?"Verified 3M pricing":"Forward pricing pending"}</strong><small>{ready?`Absolute gap movement: ${fmtBp(steps.market.expectedAbsoluteGapChangeBp)}`:steps.market.reason||"No verified 3M market-implied path"}</small></div>
    <div><span>02 · ECONOMIC FUNDAMENTALS</span><strong>{steps.macro.status==="validated"?"Macro inputs checked":"Evidence incomplete"}</strong><small>{pair.base}: {steps.macro.base.score??"—"} · {pair.quote}: {steps.macro.quote.score??"—"} (descriptive scores only)</small></div>
-   <div><span>03 · CENTRAL-BANK CONTEXT</span><strong>{steps.policy.status==="reviewed"?"Reviewed policy evidence":"Review due or unresolved"}</strong><small>Source-dated official policy interpretation, not futures pricing</small></div>
+   <div><span>03 · CENTRAL-BANK CONTEXT</span><strong>{steps.policy.status==="reviewed"?"Reviewed policy evidence":steps.policy.status==="automated_provisional"?"Automated provisional evidence":"Review due or unresolved"}</strong><small>Source-dated official decisions; provisional automated assessments never pose as human-reviewed statements</small></div>
    <div><span>04 · RELATIVE POLICY GAP</span><strong>{state==="widening"||state==="narrowing"?(ready?"Market-implied ":"Research scenario: ")+state:"Direction not established"}</strong><small>{steps.market.crossingRisk?"Signed policy gap crosses zero · crossing risk":ready?"3M absolute policy-gap comparison":"No 90-day numeric gap estimate"}</small></div>
   </div>
   {!ready&&outlook?.uncalibratedResearchScenario&&<p class="candidate-note"><strong>Evidence level: {researchTier}.</strong> {outlook?.reason} Market-implied 3M gap change and forecast probabilities remain unavailable.</p>}

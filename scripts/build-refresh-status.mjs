@@ -12,6 +12,7 @@ const report=buildRefreshStatus({
  extras:read('public/data/policy-inputs.json'),
  sourceMonitor:read('public/data/official-source-monitor.json'),
  rateMonitor:read('public/data/official-policy-automation.json'),
+ automatedReview:read('public/data/automated-policy-review.json'),
  policyModel:read('public/data/policy-outlook.json'),
  rateSnapshot:read('src/data/trade90-policy-snapshot.json'),
  assessments:read('src/data/trade90-policy-assessments.json'),

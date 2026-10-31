@@ -64,7 +64,7 @@
      <a href={result.stages.market.sources[0]} target="_blank" rel="noopener noreferrer">Base data source ↗</a> · <a href={result.stages.market.sources[1]} target="_blank" rel="noopener noreferrer">Quote data source ↗</a>.
    {:else}{result.stages.market.reason}{/if}</p>
   <p><b>02 · Macroeconomic evidence:</b> {result.stages.macro.status}; economic score {result.base}: {result.stages.macro.base.score??'—'}, {result.quote}: {result.stages.macro.quote.score??'—'}. Scores describe fundamentals, not the number of basis points expected.</p>
-  <p><b>03 · Central-bank evidence:</b> {result.stages.policy.status==='reviewed'?'Both central-bank interpretations reviewed':'At least one central-bank interpretation needs review or has unresolved evidence'}.</p>
+  <p><b>03 · Central-bank evidence:</b> {result.stages.policy.status==='reviewed'?'Both central-bank interpretations reviewed':result.stages.policy.status==='automated_provisional'?'Automated provisional bank-pressure assessment, not a reviewed official policy statement':'At least one central-bank statement is not freshly reviewed; an automated provisional economic assessment may still be available'}.</p>
   <p><b>04 · Relative policy-rate gap:</b> {result.reasonCode?.replaceAll('_',' ')}. {result.stages.market.crossingRisk?'Implied rates cross; absolute-gap direction is calculated separately.':''}</p>
   {#if result.qualitativeCandidate&&['widening','narrowing','unchanged'].includes(result.qualitativeCandidate.state)}
     <p><b>Separate qualitative policy candidate:</b> {result.qualitativeCandidate.label}. This is not a market-implied rate forecast and should not be counted as one.</p>
@@ -77,6 +77,15 @@
     <article class="bank">
      <div class="bank-title"><h3>{bank.currency} <span>Central-bank outlook</span></h3><strong class="bank-label">{expired?'Expired':bank.label}</strong></div>
      <p><b>Economic pressure:</b> {bank.economicPressure}</p>
+     {#if bank.automatedAssessment}
+      <p class="coverage"><b>Automated policy check:</b> {bank.automatedAssessment.status.replaceAll('_',' ')} · {bank.automatedAssessment.label}.
+       {#if bank.automatedAssessment.evidence.verifiedDecisionThisRun} Latest recorded benchmark decision directly cross-checked.{:else} Latest recorded decision not directly reverified in this run.{/if}
+       <a href={bank.automatedAssessment.evidence.decisionSource} target="_blank" rel="noopener noreferrer">Recorded official decision ↗</a>
+      </p>
+      {#if bank.automatedAssessment.evidence.newerOfficialDecision}
+       <p class="caution">Newer official publication needs verification: <a href={bank.automatedAssessment.evidence.newerOfficialDecision.url} target="_blank" rel="noopener noreferrer">{bank.automatedAssessment.evidence.newerOfficialDecision.date} ↗</a>. Older guidance is not considered updated.</p>
+      {/if}
+     {/if}
      <p class="coverage">Validated input coverage: {bank.coverage?.filter(c=>c.usable).length||0}/{bank.coverage?.length||4} series · Predictive accuracy not yet established</p>
      {#if bank.reasons?.length}<p class="caution">{bank.reasons.join(' · ')}</p>{/if}
      <div class="drivers">

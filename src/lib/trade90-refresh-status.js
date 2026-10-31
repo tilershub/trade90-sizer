@@ -7,7 +7,7 @@ const info=(checkedAt,okCount,total,limit,now)=>{
  const completed=total>0 && okCount===total;
  return {checkedAt:iso(checkedAt),okCount,total,status:!recent(checkedAt,limit,now)?'overdue':completed?'checked':'partial'};
 };
-export function buildRefreshStatus({macro,extras,sourceMonitor,rateMonitor,policyModel,rateSnapshot,calendarReviewedAt,publicationReviewedAt,marketReportsReviewedAt,guidanceReviewedAt,assessments,upcomingByBank=[]},nowIso){
+export function buildRefreshStatus({macro,extras,sourceMonitor,rateMonitor,automatedReview,policyModel,rateSnapshot,calendarReviewedAt,publicationReviewedAt,marketReportsReviewedAt,guidanceReviewedAt,assessments,upcomingByBank=[]},nowIso){
  if(!Number.isFinite(Date.parse(nowIso)))throw Error('Valid audit time required');
  const macroSeries=Object.values(macro?.countries||{}).flatMap(c=>Object.values(c?.series||{}));
  const extraSeries=Object.values(extras?.countries||{}).flatMap(c=>Object.values(c?.series||{}));
@@ -28,6 +28,13 @@ export function buildRefreshStatus({macro,extras,sourceMonitor,rateMonitor,polic
   rateDecisionChecks:info(rateMonitor?.lastCheckedAt,rateCoverage.filter(directlyValidated).length,8,1.5,nowIso),
   model:{generatedAt:iso(generated),activePairs:currentPairs,totalPairs:expiries.length,status:!recent(generated,1.5,nowIso)?'overdue':currentPairs===expiries.length?'checked':'partial'}
  };
+ if(automatedReview){
+  // Machine evaluation coverage is separate from confirmed official decision
+  // parsing and from signed-off editorial interpretation.
+  categories.automatedPolicyReview=info(automatedReview.generatedAt,
+   Object.values(automatedReview.banks||{}).filter(b=>b.status==='assessed').length,
+   8,1.5,nowIso);
+ }
  const reviewed={
   benchmarkSnapshot:rateSnapshot?.asOf||null,
   policyPublications:publicationReviewedAt||null,
@@ -44,7 +51,7 @@ export function buildRefreshStatus({macro,extras,sourceMonitor,rateMonitor,polic
  }
  if(manualDates.length!==8)warnings.push({category:'oldestPolicyAssessment',reason:'Some policy assessment review records are missing',status:'manual_review_due'});
  if(byBank.size<8)warnings.push({category:'meetingCalendar',reason:'Not all eight central banks have a forthcoming dated meeting in the curated calendar',status:'manual_review_due'});
- return {schemaVersion:1,auditedAt:nowIso,disclaimer:'Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.',categories,reviewed,warnings,bankChecks:rateCoverage};
+ return {schemaVersion:2,automaticPolicySummary:automatedReview?{evaluatedBanks:Object.keys(automatedReview.banks||{}).length,assessedBanks:automatedReview.assessedBanks,directlyVerifiedDecisions:automatedReview.directlyVerifiedDecisions,flaggedNewOfficialDecisions:automatedReview.flaggedNewOfficialDecisions,checkedAt:automatedReview.generatedAt,isEditorialReview:false}:null,auditedAt:nowIso,disclaimer:'Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.',categories,reviewed,warnings,bankChecks:rateCoverage};
 }
 
 // Re-evaluate persisted status against the visitor's clock, without inventing checks.
