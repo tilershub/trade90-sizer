@@ -8,6 +8,11 @@ on:
     paths:
       - "scripts/daily-refresh.mjs"
       - "scripts/auto-policy-rates.mjs"
+      - "scripts/build-policy-outlook.mjs"
+      - "src/lib/trade90-policy-model.js"
+      - "src/data/trade90-policy-guidance.js"
+      - "src/data/trade90-policy-assessments.json"
+      - "tests/policy-model.mjs"
       - "src/lib/trade90-refresh-status.js"
       - ".github/workflows/daily-refresh-audit.yml"
 permissions:
