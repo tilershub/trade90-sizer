@@ -43,7 +43,7 @@ const pairs=Object.fromEntries(allTrade90Pairs.map(p=>{
 // policy annotations and classifications still change the fingerprint.
 const semantic=(value)=>Array.isArray(value)?value.map(semantic):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).filter(([k])=>!['retrievedAt','checkedAt','sourceUpdated','generatedAt','expiresAt'].includes(k)).map(([k,v])=>[k,semantic(v)])):value;
 const fingerprint=crypto.createHash('sha256').update(JSON.stringify(semantic({version:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,macro,extra,guidance,snapshot,forwards}))).digest('hex');
-const output={schemaVersion:3,modelVersion:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,experimental:true,generatedAt,inputFingerprint:fingerprint,horizonDays:90,marketHorizon:'3M',marketCoverage:{validated:forwardRows.health.valid,currencyPairCount:forwardRows.availableCount,totalPairs:28,reason:forwardRows.health.reason},banks,pairs};
+const output={schemaVersion:4,scenarioPolicy:'market_verified_or_qualitative_research',modelVersion:MODEL_VERSION,workflowVersion:DIVERGENCE_WORKFLOW_VERSION,experimental:true,generatedAt,inputFingerprint:fingerprint,horizonDays:90,marketHorizon:'3M',marketCoverage:{validated:forwardRows.health.valid,currencyPairCount:forwardRows.availableCount,totalPairs:28,reason:forwardRows.health.reason},banks,pairs};
 fs.writeFileSync('public/data/policy-outlook.json',JSON.stringify(output,null,2)+'\n');
 const path='public/data/policy-outlook-history.json';
 const history=fs.existsSync(path)?read(path):{schemaVersion:1,records:[]};

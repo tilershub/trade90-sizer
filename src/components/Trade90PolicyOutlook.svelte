@@ -46,7 +46,7 @@
  <div class="interpretation">
   <strong>How to interpret this result</strong>
   {#if !expired && (state==='widening'||state==='narrowing')}
-   <p>Verified 3M market-implied policy levels suggest the <b>absolute difference between policy rates</b> may {state==='widening'?'increase':'decrease'} over 90 days. {result?.signedDirection}. This is a market-expectations snapshot, not a calibrated forecast of what banks will actually do.</p>
+   <p>{result?.market?.status==='verified'?'Verified three-month market-implied policy levels':'Source-dated macro and central-bank research'} suggest a <b>possible {state}</b> of the absolute policy-rate difference. {result?.signedDirection}. {result?.uncalibratedResearchScenario?'This is a qualitative scenario, not a priced or calibrated 90-day prediction. No move size or probability is estimated.':'Market pricing is not a guarantee of central-bank decisions.'}</p>
   {:else if !expired && state==='unchanged'}
    <p>Both banks have supported conditional hold baselines. This does not guarantee that either policy rate will stay unchanged.</p>
   {:else}
