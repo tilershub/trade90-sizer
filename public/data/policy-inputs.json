@@ -336,7 +336,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.779920+00:00",
+          "retrievedAt": "2026-10-31T17:32:31.398543+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN+CAN.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -676,7 +676,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.781572+00:00",
+          "retrievedAt": "2026-10-31T17:32:31.399651+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN+CAN.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1016,7 +1016,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.783187+00:00",
+          "retrievedAt": "2026-10-31T17:32:31.400741+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN+CAN.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1104,7 +1104,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.699736+00:00",
+          "retrievedAt": "2026-10-31T17:32:30.909124+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS.M+Q.N.CPI.PA._T.N.GY?startPeriod=2020"
         },
         "coreInflation": {
@@ -1188,7 +1188,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.370274+00:00",
+          "retrievedAt": "2026-10-31T17:32:30.916503+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+GBR+NZL.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1528,7 +1528,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.371342+00:00",
+          "retrievedAt": "2026-10-31T17:32:30.917300+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+GBR+NZL.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1652,7 +1652,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.372281+00:00",
+          "retrievedAt": "2026-10-31T17:32:30.918045+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+GBR+NZL.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1992,7 +1992,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:02.256397+00:00",
+          "retrievedAt": "2026-10-31T17:32:31.384323+00:00",
           "geography": "EA21",
           "sourceUpdated": "2026-10-16T23:00:00+0200",
           "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?lang=en&geo=EA21&coicop18=TOT_X_NRG_FOOD&unit=RCH_A&freq=M&sinceTimePeriod=2020-01"
@@ -2574,7 +2574,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:01.840700+00:00",
+          "retrievedAt": "2026-10-31T17:32:30.983013+00:00",
           "sourceUpdated": "2026-10-29 7:43 AM CDT",
           "retrievalUrl": "https://fred.stlouisfed.org/data/PCEPI.txt",
           "transform": "year-on-year from index"
@@ -3152,7 +3152,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-10-31T17:10:02.211022+00:00",
+          "retrievedAt": "2026-10-31T17:32:31.219816+00:00",
           "sourceUpdated": "2026-10-29 7:43 AM CDT",
           "retrievalUrl": "https://fred.stlouisfed.org/data/PCEPILFE.txt",
           "transform": "year-on-year from index"
@@ -3160,5 +3160,5 @@
       }
     }
   },
-  "checkedAt": "2026-10-31T17:10:02.256869+00:00"
+  "checkedAt": "2026-10-31T17:32:31.401163+00:00"
 }
