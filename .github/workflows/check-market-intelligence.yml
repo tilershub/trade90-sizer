@@ -76,6 +76,8 @@ jobs:
         run: node tests/policy-model.mjs
       - name: Validate four-stage divergence workflow and licensing safeguards
         run: node tests/divergence-workflow.mjs
+      - name: Verify automatic assessments across eight central banks
+        run: node tests/auto-policy-review.mjs
       - name: Verify daily data freshness and manual-review provenance
         run: node tests/refresh-status.mjs
       - name: Recalculate model in CI and audit outputs
