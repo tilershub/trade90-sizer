@@ -103,7 +103,7 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
      is90DayForecast:false},
    sourceStatus:marketOk?'verified_market_path':'market_data_unavailable',
    expectedGapBp:marketOk?forwardRow.expectedSignedBp:null,
-   expectedAbsoluteGapChangeBp, crossingRisk:crossing,
+   expectedAbsoluteGapChangeBp:expectedAbsoluteChangeBp, crossingRisk:crossing,
    direction:marketOk?Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp):0,
    tone:'neutral',signedDirection:marketOk?
      (Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp)>0?`Towards ${pair.base}`:
