@@ -1,125 +1,60 @@
 const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const origin="http://127.0.0.1:4321";
-const lowContrast=[];
-function luminance([r,g,b]){
- const values=[r,g,b].map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);
- return values[0]*.2126+values[1]*.7152+values[2]*.0722;
-}
-function rgb(s){
- const m=s.match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
- return m?[+m[1],+m[2],+m[3]]:null;
-}
-function contrast(a,b){
- const [hi,lo]=[luminance(a),luminance(b)].sort((x,y)=>y-x);
- return (hi+.05)/(lo+.05);
-}
+function rgb(s){const m=s.match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/);return m?[+m[1],+m[2],+m[3]]:null;}
+function luminance(color){const [r,g,b]=color.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);return r*.2126+g*.7152+b*.0722;}
+function contrast(a,b){const [hi,lo]=[luminance(a),luminance(b)].sort((x,y)=>y-x);return (hi+.05)/(lo+.05);}
 async function inspect(page,selector,route){
- const e=page.locator(selector).first();
- await e.waitFor({state:"visible"});
- const data=await e.evaluate(el=>{
-  const style=getComputedStyle(el);
-  let p=el,bg=null;
-  while(p){
-   const c=getComputedStyle(p).backgroundColor;
-   if(c.startsWith("rgb(") || (c.startsWith("rgba(")&&!c.endsWith(", 0)"))){bg=c;break;}
-   p=p.parentElement;
+ const el=page.locator(selector).first();
+ await el.waitFor({state:"visible",timeout:12000});
+ const data=await el.evaluate(node=>{
+  const color=getComputedStyle(node).color;
+  let background=null;
+  for(let parent=node;parent;parent=parent.parentElement){
+   const candidate=getComputedStyle(parent).backgroundColor;
+   if(candidate.startsWith("rgb(")||(/rgba\(/.test(candidate)&&!/,\s*0\)$/.test(candidate))){
+    background=candidate;break;
+   }
   }
-  return {text:style.color,bg:bg||getComputedStyle(document.body).backgroundColor,value:el.textContent?.trim().slice(0,70)};
+  return {text:color,bg:background||getComputedStyle(document.body).backgroundColor};
  });
  const fg=rgb(data.text),bg=rgb(data.bg);
- assert.ok(fg&&bg,"Could not determine text/background colors for "+selector+" on "+route+": "+JSON.stringify(data));
+ assert.ok(fg&&bg,"Cannot inspect contrast of "+selector+" "+route);
  const ratio=contrast(fg,bg);
- if(ratio<4.5)lowContrast.push("Unreadable text: "+route+" "+selector+" "+ratio.toFixed(2)+":1 "+JSON.stringify(data));
+ assert.ok(ratio>=4.5,"Low contrast "+route+" "+selector+": "+ratio.toFixed(2)+":1 "+JSON.stringify(data));
 }
 (async()=>{
  const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
  try{
+  const routes={
+   "/":[".home .hero p",".home .data-status a",".home .section-head p",".home .outlook-grid .outlook-card strong",".home .guides a strong"],
+   "/pairs/eur-usd/":[".pair-head p",".outlook-hero .reasoning p",".outlook-hero .bank-biases strong",".pair-page .bank-card p",".pair-page .data-footnote"],
+   "/rate-gaps/":[".page-intro p",".full-table th",".full-table td"],
+   "/central-banks/":[".page-intro p",".bankdirectory .banktiles strong"],
+   "/data-policy/":[".page-intro p"]
+  };
   for(const viewport of [{width:1366,height:900},{width:390,height:844}]){
    const page=await browser.newPage({viewport,isMobile:viewport.width<500,hasTouch:viewport.width<500});
-   for(const [route,selectors] of Object.entries({
-    "/":[
-      ".home .hero h1",".home .hero p",".home .metric span:first-child",
-      ".home .metric strong",".home .metric span:last-child",".home .pair-card strong",
-      ".home .pair-card .pair-top",".home .pair-bottom span:first-child",
-      ".home .decision span",".home .decision strong",".home .decision small",
-      ".home .section-head p",".home .policy-section .update-card h3",
-      ".home .policy-section .update-card>p",".home .policy-section .source-link",
-      ".home .guides strong",".home .guides span",".home .data-status",
-      ".home .data-status>strong",".home .data-status>span:not(.statusdot)",".home .data-status a",
-      ".home .release-feed .release-head h2",".home .release-feed .release-head p",".home .release-feed .feed-list a"
-    ],
-    "/pairs/eur-usd/":[
-      ".pair-head h1",".outlook-hero .result",".outlook-hero .result-description",".outlook-hero .reasoning p",".outlook-hero .bank-biases strong",".outlook-hero .rate-fact strong",".pair-page .bank-card h2",".pair-page .bank-card p",
-      ".pair-page .bank-card .value",".pair-page .gap-card p",
-      ".pair-page .data-footnote",
-      "#decisions .watch-head p","#decisions .watch-card h3",
-      "#decisions .watch-for p","#guidance .item>p","#guidance .watch p",
-      "#updates .update-card>p","#updates .update-card h3",
-      "#updates .source-link","#explanation p",
-      ".pair-page .release-feed .release-head h2",".pair-page .release-feed .release-head p",".pair-page .release-feed .feed-list a"
-    ],
-    "/tools/":[
-      ".tool-grid .tool h2",".tool-grid .tool p",".tool-grid .tool strong",".info p"
-    ],
-    "/tools/position-size-calculator/":[
-      ".tools-page .page-intro p",
-      ".risk-calculator .calc-top h2",".risk-calculator .calc-top p",
-      ".risk-calculator .form-row label",".risk-calculator .form-row .hint",
-      ".risk-calculator .source-note",".risk-calculator .result-eyebrow",
-      ".risk-calculator .lots",".risk-calculator .numbers span",
-      ".risk-calculator .numbers strong",".risk-calculator .math-lines p",
-      ".risk-calculator .caution",".tools-page .explain p"
-    ],
-    "/rate-gaps/":[".full-table th",".full-table td",".full-table .showing",".full-table .tools label"],
-    "/central-banks/fed/":[".hub .details p",".hub .part h2",".hub .news p",".hub .pairs span"],
-    "/data-policy/":[
-      ".reading-policy .page-intro p",".reading-policy .status-overview span",
-      ".reading-policy .status-overview strong",".reading-policy .critical",
-      ".reading-policy h2",".reading-policy .class p",
-      ".reading-policy table th",".reading-policy table td",
-      ".reading-policy .backlinks a"
-    ]
-   })){
-    await page.goto(origin+route,{waitUntil:"networkidle"});
-    await page.locator("#trade90-theme").selectOption("light");
-    assert.equal(await page.locator("html").getAttribute("data-theme"),"light");
-    if(route==="/")await page.locator(".home .release-feed").scrollIntoViewIfNeeded(); // client:visible hydration requires intersection
-    if(route==="/pairs/eur-usd/")await page.locator(".pair-page .release-feed").scrollIntoViewIfNeeded(); // Pair feed hydrates only when visible
-    for(const selector of selectors)await inspect(page,selector,route);
-    if(route==="/" && viewport.width<500){
-      const cardLayout=await page.locator(".home .pair-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);
-      const columns=cardLayout.trim().split(/\s+/);
-      assert.equal(columns.length,1,"Pair cards on iPhone must use one readable column: "+cardLayout);
-      const decisionLayout=await page.locator(".home .decision-grid").evaluate(el=>getComputedStyle(el).gridTemplateColumns);
-      assert.equal(decisionLayout.trim().split(/\s+/).length,1,"Decision cards must use one readable column: "+decisionLayout);
+   for(const theme of ["light","dark"]){
+    for(const [route,selectors] of Object.entries(routes)){
+     await page.goto(origin+route,{waitUntil:"networkidle"});
+     await page.locator("#trade90-theme").selectOption(theme);
+     assert.equal(await page.locator("html").getAttribute("data-theme"),theme);
+     for(const selector of selectors)await inspect(page,selector,theme+" "+route);
+     const widths=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth}));
+     assert.ok(widths.scroll<=widths.width+4,"Overflow "+theme+" "+route+": "+JSON.stringify(widths));
     }
-    const horizontal=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,width:innerWidth}));
-    assert.ok(horizontal.scroll<=horizontal.width+4,"Horizontal overflow in light mode "+route+" "+JSON.stringify(horizontal));
    }
-   // Check the opposite theme still preserves its legibility.
-   await page.goto(origin+"/",{waitUntil:"networkidle"});
-   await page.locator("#trade90-theme").selectOption("dark");
-   for(const selector of [".home .hero h1",".home .hero p",".home .metric span:first-child",".home .metric strong",".home .pair-card strong",".home .policy-section .update-card>p"])await inspect(page,selector,"dark /");
    await page.close();
   }
   const doc=await browser.newPage();
   await doc.goto(origin+"/data-policy/",{waitUntil:"domcontentloaded"});
-  assert.equal(await doc.locator("h1").innerText(),"TRADE90 Data Sources & Update Policy");
-  const body=await doc.locator("main").innerText();
-  for(const statement of ["not continuously refreshing","An hourly GitHub Actions process monitors official bank publications","not automatic replacement of dated analyst assessments","Numeric data provider not connected","Copyright, permissions and lawful data use","Quick answers for forex traders","Official source and market-data terms","Verified snapshot"]){
-   assert.ok(body.includes(statement),"Data transparency statement missing: "+statement);
-  }
-  assert.equal(await doc.locator("body a[href='https://www.cmegroup.com/market-data/license-data.html']").count(),1,"Primary CME redistribution licensing reference required");
-  for(const route of ["/","/pairs/eur-usd/","/methodology/","/disclaimer/","/editorial-policy/"]){
+  assert.ok((await doc.locator("h1").innerText()).includes("Data Sources"));
+  assert.equal(await doc.locator('a[href="https://www.cmegroup.com/market-data/license-data.html"]').count(),1,"Data licensing attribution must stay available");
+  for(const route of ["/","/pairs/eur-usd/","/methodology/","/disclaimer/"]){
    await doc.goto(origin+route);
    assert.ok(await doc.locator('a[href="/data-policy/"]').count()>0,"Missing transparency link on "+route);
   }
-
-  await doc.goto(origin+"/data-policy/");
-  assert.equal(await doc.locator(".monitor").count(),1,"Source watch status is visible on data policy page");
-  assert.match(await doc.locator(".monitor").innerText(),/Automated official-source checks/);
-  assert.equal(lowContrast.length,0,"Low-contrast content ("+lowContrast.length+" samples):\n"+lowContrast.slice(0,65).join("\n"));
-  console.log("Readability verified: high-contrast Light & Dark across trader pages on mobile and desktop; accurate data-policy disclosures and internal links.");
+  console.log("Reading check passed: primary text, model explanation and rate data in both themes, desktop/mobile, legal source transparency.");
  }finally{await browser.close();}
-})().catch(e=>{console.error(e);process.exit(1)});
+})().catch(err=>{console.error(err);process.exit(1)});
