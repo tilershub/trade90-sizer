@@ -72,7 +72,7 @@ const small=calculate(makeSnapshot(4.02,2),banks,qualitative);
 assert.equal(small.state,'unclear');
 assert.equal(small.reasonCode,'small_market_gap_change');
 const missing=calculate(makeSnapshot(4.25,2),{AUD:bank('AUD','unavailable'),CHF:banks.CHF});
-assert.equal(missing.state,'widening','State alone does not make an otherwise valid economic dataset invalid');
+assert.equal(missing.state,'unavailable','An unavailable bank must not be treated as fully validated');
 const noMacro=calculate(makeSnapshot(4.25,2),{AUD:{...banks.AUD,evidenceStatus:{macro:'unavailable'}},CHF:banks.CHF});
 assert.equal(noMacro.state,'unavailable');
 assert.equal(noMacro.reasonCode,'macro_evidence_incomplete');
