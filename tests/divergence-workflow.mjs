@@ -33,7 +33,7 @@ const calculate=(snapshot,b=banks,q=qualitative,time=now)=>{
  const calculated=getExpectedRows(snapshot,currentBanks,'3M',time);
  return buildPairDivergenceWorkflow(pair,b,q,calculated.rows.find(x=>x.symbol==='AUDCHF'),calculated.health,time);
 };
-assert.equal(DIVERGENCE_WORKFLOW_VERSION,'1.1.0');
+assert.equal(DIVERGENCE_WORKFLOW_VERSION,'1.2.0');
 assert.equal(MACRO_SCORE_CONTRAST,2);
 assert.equal(MARKET_GAP_MATERIALITY_BP,5);
 const noFeed=calculate({schemaVersion:1,status:'awaiting_licensed_data',dataKind:'market_implied_policy_level',rates:{},license:{publicRedisplayAuthorized:false}});
