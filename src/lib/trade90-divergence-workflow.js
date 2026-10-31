@@ -9,10 +9,12 @@
 
 import {MAX_FRESH_AGE_MS} from './trade90-forward-rates.js';
 
-export const DIVERGENCE_WORKFLOW_VERSION='1.0.0';
+export const DIVERGENCE_WORKFLOW_VERSION='1.1.0';
+// Conservative research screen, NOT a policy-rate change or probability estimate.
+export const MACRO_SCORE_CONTRAST=2;
 export const MARKET_GAP_MATERIALITY_BP=5; // Explicit uncalibrated research guardrail, not statistically optimized.
 const round=v=>Math.round(v*1000)/1000;
-const labelFor={widening:'Market-implied widening',narrowing:'Market-implied narrowing',unclear:'Uncertain',unavailable:'Insufficient verified evidence'};
+const labelFor={widening:'Widening scenario',narrowing:'Narrowing scenario',unclear:'Uncertain',unavailable:'Insufficient current evidence'};
 
 function researchSummary(bank){
  return {currency:bank?.currency||null,pressure:bank?.economicPressure||'Unavailable',
@@ -57,8 +59,16 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
    qualitativeBias:qualitative?.state||'unavailable',qualitativeReason:qualitative?.reason||null,
    qualitativeReasonCode:qualitative?.reasonCode||null};
  const stages={market,macro,policy,comparison:{status:'unresolved',marketVersusPolicy:'not_comparable'}};
+ // The fallback is a qualitative *scenario screen* and must never be mistaken
+ // for a quantified, statistically validated 90-day policy-path projection.
+ const scoreDifference=macroOk?round(a.score-b.score):null;
+ const macroDirection=macroOk&&Math.abs(scoreDifference)>=MACRO_SCORE_CONTRAST?
+   (pair.baseRate===pair.quoteRate||Math.sign(scoreDifference)===Math.sign(pair.baseRate-pair.quoteRate)?'widening':'narrowing'):null;
+ const reviewedDirection=policyOk&&['widening','narrowing'].includes(qualitative?.state)?qualitative.state:null;
  let state='unclear',reasonCode='market_implied_path_unavailable',reason='';
  let classificationBasis='insufficient_market_evidence';
+ let evidenceTier='undetermined';
+ let directionalSignal=0;
  if(!Number.isFinite(pair.baseRate)||!Number.isFinite(pair.quoteRate) || qualitative?.reasonCode==='stale_benchmark_snapshot'||qualitative?.reasonCode==='invalid_benchmark'){
    state='unavailable';reasonCode='invalid_official_benchmark';
    reason='A verified, current pair of official benchmark rates is required to compare policy gaps.';
@@ -66,19 +76,41 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
    state='unavailable';reasonCode='macro_evidence_incomplete';
    reason='At least one currency lacks validated macroeconomic indicators. Market pricing, if present, is shown for context only.';
  }else if(!marketOk){
-   reason='The verified 3-month market-implied policy-rate path for both currencies is not available. Macro and central-bank evidence remain visible, but the model does not invent a 90-day gap classification.';
-   reasonCode='market_implied_path_unavailable';
+   // Independent fallback: published economic observations and genuinely
+   // reviewed policy interpretations are still useful without a paid feed.
+   if(reviewedDirection){
+     state=reviewedDirection;
+     reasonCode='reviewed_policy_scenario';
+     classificationBasis='reviewed_policy_scenario';
+     evidenceTier='reviewed_qualitative';
+     directionalSignal=qualitative.direction||0;
+     reason=`Reviewed central-bank policy biases suggest the absolute gap may ${state==='widening'?'widen':'narrow'}. This is a conditional research scenario; no future policy-rate levels, basis-point changes or probabilities are estimated. Market-implied 3M policy pricing is not connected.`;
+   }else if(macroDirection){
+     state=macroDirection;
+     reasonCode='macro_pressure_scenario';
+     classificationBasis='macro_pressure_screen';
+     evidenceTier='exploratory_macro';
+     directionalSignal=Math.sign(scoreDifference);
+     reason=`Economic-pressure scores differ by ${Math.abs(scoreDifference)} model points (${pair.base} ${a.score}, ${pair.quote} ${b.score}). Relative macro pressure suggests a possible ${state} of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. ${policyOk?'Reviewed policy context does not establish a separate directional pair bias.':'Central-bank policy interpretations remain unreviewed or unresolved.'} Market-implied 3M pricing is unavailable.`;
+   }else {
+     reason='Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.';
+     reasonCode='insufficient_directional_evidence';
+   }
  }else if(marketDirection==='unclear'){
    reasonCode='small_market_gap_change';
    classificationBasis='market_implied_policy_levels';
+   evidenceTier='verified_market';
    reason='The implied change in the absolute policy-rate gap is smaller than the disclosed 5 bp research materiality threshold. A directional classification would overstate the evidence.';
  }else if(policyOk && ['widening','narrowing'].includes(qualitative?.state) && qualitative.state!==marketDirection){
    reasonCode='market_policy_disagreement';
    classificationBasis='conflicting_verified_layers';
+   evidenceTier='conflicting_evidence';
    reason='Verified market-implied rate paths and reviewed qualitative central-bank biases point in opposite directions. The combined conclusion is uncertain rather than falsely choosing one.';
    stages.comparison.marketVersusPolicy='conflict';
  }else {
    state=marketDirection;
+   evidenceTier='verified_market';
+   directionalSignal=Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp);
    reasonCode=policyOk?'market_implied_supported_by_policy_review':'market_implied_policy_review_pending';
    classificationBasis=policyOk?'market_implied_and_reviewed_context':'market_implied_only';
    reason=`Verified 3M market-implied policy levels indicate that the absolute gap ${state==='widening'?'increases':'decreases'} by ${Math.abs(expectedAbsoluteChangeBp).toFixed(1)} bp. ${policyOk?'Reviewed central-bank policy evidence is available for context.':'One or both central-bank outlook reviews are pending, so this is market pricing only, not an independently confirmed policy forecast.'}${crossing?' The implied signed differential crosses zero.':''}`;
@@ -87,7 +119,7 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
  if(stages.comparison.marketVersusPolicy==='not_comparable' && marketOk){
    stages.comparison.marketVersusPolicy=policyOk?'unresolved':'review_pending';
  }
- stages.comparison.status=state==='unavailable'?'insufficient_data':state==='unclear'?'unresolved':'market_implied_direction';
+ stages.comparison.status=state==='unavailable'?'insufficient_data':state==='unclear'?'unresolved':marketOk?'market_implied_direction':'research_scenario';
  stages.comparison.reasonCode=reasonCode;
  const futureDeadline=marketOk?Date.parse(forwardRow.observedAt)+MAX_FRESH_AGE_MS:Infinity;
  const baseExpiry=Date.parse(a?.expiresAt),quoteExpiry=Date.parse(b?.expiresAt);
@@ -96,7 +128,9 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
  const signedGap=Number.isFinite(pair.baseRate)&&Number.isFinite(pair.quoteRate)?round(pair.baseRate-pair.quoteRate):null;
  const result={
    base:pair.base,quote:pair.quote,signedGap,higher:signedGap>0?pair.base:signedGap<0?pair.quote:'Equal',
-   horizonDays:90,state,label:labelFor[state],reason,reasonCode,classificationBasis,
+   horizonDays:90,state,label:labelFor[state],reason,reasonCode,classificationBasis,evidenceTier,
+   uncalibratedResearchScenario:!marketOk&&['widening','narrowing'].includes(state),
+   backtestedProbability:null,
    stages,market,macro,policy,
    qualitativeCandidate:{state:qualitative?.state||'unavailable',label:qualitative?.label||'Unavailable',
      reason:qualitative?.reason||null,reasonCode:qualitative?.reasonCode||null,
@@ -104,11 +138,13 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
    sourceStatus:marketOk?'verified_market_path':'market_data_unavailable',
    expectedGapBp:marketOk?forwardRow.expectedSignedBp:null,
    expectedAbsoluteGapChangeBp:expectedAbsoluteChangeBp, crossingRisk:crossing,
-   direction:marketOk?Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp):0,
-   tone:'neutral',signedDirection:marketOk?
-     (Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp)>0?`Towards ${pair.base}`:
-       Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp)<0?`Towards ${pair.quote}`:'No supported direction'):
-       'No verified market path',
+   macroDirectionalScreen:{state:macroDirection||'unclear',scoreDifference,minimumContrast:MACRO_SCORE_CONTRAST,forecast:false},
+   direction:marketOk?Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp):directionalSignal,
+   tone:'neutral',signedDirection:directionalSignal?
+      (directionalSignal>0?`Indicative pressure towards ${pair.base}`:`Indicative pressure towards ${pair.quote}`):
+      marketOk?(Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp)>0?`Market pricing towards ${pair.base}`:
+       Math.sign(forwardRow.expectedSignedBp-forwardRow.currentSignedBp)<0?`Market pricing towards ${pair.quote}`:'No supported direction'):
+       'Direction not established',
    unchangedPossible:true,expiresAt:expiry
  };
  // No probabilities, future prices, or empirical accuracy implied by these rules.
