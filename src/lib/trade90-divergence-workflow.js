@@ -9,7 +9,7 @@
 
 import {MAX_FRESH_AGE_MS} from './trade90-forward-rates.js';
 
-export const DIVERGENCE_WORKFLOW_VERSION='1.1.0';
+export const DIVERGENCE_WORKFLOW_VERSION='1.2.0';
 // Conservative research screen, NOT a policy-rate change or probability estimate.
 export const MACRO_SCORE_CONTRAST=2;
 export const MARKET_GAP_MATERIALITY_BP=5; // Explicit uncalibrated research guardrail, not statistically optimized.
@@ -25,7 +25,7 @@ function researchSummary(bank){
    reasonCode:bank?.reasonCode||'missing_bank'};
 }
 
-export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,forwardHealth,now=Date.now()){
+export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,forwardHealth,now=Date.now(),automaticScenario=null){
  const a=banks?.[pair.base],b=banks?.[pair.quote];
  const macroOk=[a,b].every(x=>x?.state!=='unavailable' && x?.evidenceStatus?.macro==='validated' && Number.isFinite(x.score));
  const policyOk=[a,b].every(x=>x?.policyEvidenceReviewed===true && ['hike_hold','cut_hold','hold'].includes(x.state));
@@ -53,9 +53,11 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
  };
  const macro={status:macroOk?'validated':'incomplete',base:researchSummary(a),quote:researchSummary(b),
    comparison:'Descriptive independent economic pressure only; no probabilities or expected basis-point moves'};
- const policy={status:policyOk?'reviewed':'review_due_or_conflicting',
-   base:{state:a?.state||'unavailable',reviewed:a?.policyEvidenceReviewed===true,source:a?.guidance?.source||null},
-   quote:{state:b?.state||'unavailable',reviewed:b?.policyEvidenceReviewed===true,source:b?.guidance?.source||null},
+ const qualifiedAutomated=[a,b].every(x=>x?.policyEvidenceReviewed===true&&['hike_hold','cut_hold','hold'].includes(x.state)||x?.automatedAssessment?.status==='assessed'&&['hike_hold','cut_hold'].includes(x.automatedAssessment.state));
+ const automatedDirection=qualifiedAutomated&&['widening','narrowing'].includes(automaticScenario?.state)?automaticScenario.state:null;
+ const policy={status:policyOk?'reviewed':automatedDirection?'automated_provisional':'review_due_or_conflicting',
+   base:{state:a?.state||'unavailable',reviewed:a?.policyEvidenceReviewed===true,source:a?.guidance?.source||null,automatic:a?.automatedAssessment||null},
+   quote:{state:b?.state||'unavailable',reviewed:b?.policyEvidenceReviewed===true,source:b?.guidance?.source||null,automatic:b?.automatedAssessment||null},
    qualitativeBias:qualitative?.state||'unavailable',qualitativeReason:qualitative?.reason||null,
    qualitativeReasonCode:qualitative?.reasonCode||null};
  const stages={market,macro,policy,comparison:{status:'unresolved',marketVersusPolicy:'not_comparable'}};
@@ -85,6 +87,13 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
      evidenceTier='reviewed_qualitative';
      directionalSignal=qualitative.direction||0;
      reason=`Reviewed central-bank policy biases suggest the absolute gap may ${state==='widening'?'widen':'narrow'}. This is a conditional research scenario; no future policy-rate levels, basis-point changes or probabilities are estimated. Market-implied 3M policy pricing is not connected.`;
+   }else if(automatedDirection){
+     state=automatedDirection;
+     reasonCode='automated_policy_scenario';
+     classificationBasis='automated_conditional_policy_pressure';
+     evidenceTier='automated_provisional';
+     directionalSignal=automaticScenario.direction||0;
+     reason=`Automated assessment of the latest recorded official rate decisions and source-validated economic indicators suggests a conditional ${state} scenario. This is a machine-generated policy-pressure screen, NOT a human-reviewed interpretation of the new official statement, nor a predicted rate change. ${[a,b].map(x=>x.currency+': '+(x.automatedAssessment?.reason||'retains separately reviewed conditional guidance')).join(' ')}`;
    }else if(macroDirection){
      state=macroDirection;
      reasonCode='macro_pressure_scenario';
@@ -132,6 +141,7 @@ export function buildPairDivergenceWorkflow(pair,banks,qualitative,forwardRow,fo
    uncalibratedResearchScenario:!marketOk&&['widening','narrowing'].includes(state),
    backtestedProbability:null,
    stages,market,macro,policy,
+   automaticCandidate:{state:automaticScenario?.state||'unavailable',label:automaticScenario?.label||'Unavailable',reasonCode:automaticScenario?.reasonCode||null,isVerifiedStatementInterpretation:false},
    qualitativeCandidate:{state:qualitative?.state||'unavailable',label:qualitative?.label||'Unavailable',
      reason:qualitative?.reason||null,reasonCode:qualitative?.reasonCode||null,
      is90DayForecast:false},
