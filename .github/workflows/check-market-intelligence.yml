@@ -84,6 +84,10 @@ jobs:
         run: |
           npm run refresh:model
           node scripts/audit-model-coverage.mjs
+      - name: Retrieve and audit sovereign yield curve feeds
+        run: |
+          node scripts/refresh-yield-curves.mjs
+          node tests/yield-curves.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes
