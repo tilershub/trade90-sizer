@@ -66,6 +66,17 @@ const base="http://127.0.0.1:4321";
    assert.equal(await page.locator("#policy-evidence").count(),1,route);
    assert.ok(outlook.pairs[symbol],"Missing model output "+symbol);
   }
+  await page.goto(base+"/yield-curves/",{waitUntil:"networkidle"});
+  assert.ok(await page.getByRole("heading",{name:"Yield Curve Intelligence"}).isVisible());
+  await page.locator('select[aria-label="Yield curve country"]').selectOption("AUD");
+  assert.ok((await page.locator('.dashboard .market-note').innerText()).includes("Australia"));
+  await page.locator('select[aria-label="Compare country"]').selectOption("USD");
+  assert.ok((await page.locator('.dashboard .cross h3').innerText()).includes("AUD − USD"));
+  await page.locator('select[aria-label="Historical window"]').selectOption("30");
+  assert.ok((await page.locator('.dashboard .trend').innerText()).includes("30 days"));
+  await page.goto(base+"/pairs/eur-usd/",{waitUntil:"networkidle"});
+  assert.equal(await page.locator('.yield-mini').count(),1);
+  assert.equal(await page.locator('.yield-mini a[href^="/yield-curves/"]').count(),1);
   await page.goto(base+"/rate-gaps/",{waitUntil:"networkidle"});
   assert.equal(await page.locator(".full-table tbody tr").count(),28);
   await page.goto(base+"/pairs/",{waitUntil:"networkidle"});
@@ -75,7 +86,7 @@ const base="http://127.0.0.1:4321";
   await page.goto(base+"/decisions/",{waitUntil:"networkidle"});
   assert.ok(await page.getByRole("heading",{name:/Next Major Interest Rate Decisions/}).isVisible());
   const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
-  for(const route of ["/","/rate-gaps/","/pairs/eur-usd/","/central-banks/","/decisions/"]){
+  for(const route of ["/","/yield-curves/","/rate-gaps/","/pairs/eur-usd/","/central-banks/","/decisions/"]){
    await mobile.goto(base+route,{waitUntil:"networkidle"});
    const size=await mobile.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:window.innerWidth}));
    assert.ok(size.scroll<=size.viewport+4,"Mobile overflow: "+route+" "+JSON.stringify(size));
