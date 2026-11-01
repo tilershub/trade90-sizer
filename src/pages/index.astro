@@ -46,6 +46,10 @@ const outlookCounts={widening:currentOutlooks.filter(item=>item.outlook.state===
   <div><div class="eyebrow">YOUR DAILY RESEARCH ROUTINE</div><h2 id="daily-heading">What changed for your currency pairs?</h2><p>Review changes in policy outlooks, source-dated macroeconomic evidence and upcoming decisions in one place. An automated refresh alone does not mean the outlook changed.</p></div>
   <a href="/daily/">Open daily dashboard →</a>
  </section>
+ <section class="yield-discovery" aria-label="Independent bond-market research">
+  <div><span class="eyebrow">SECOND RESEARCH TOOL</span><h2>Yield Curve Intelligence</h2><p>Explore government bond yield curves, 2Y–10Y slopes and historical steepening or flattening. Independent of the 90-day policy-gap model.</p></div>
+  <a href="/yield-curves/">Explore bond yield curves →</a>
+ </section>
  <section class="block" aria-labelledby="guides-heading">
   <div class="section-head"><div><h2 id="guides-heading">Understand the rates behind your currency pair</h2><p>Start with the calculation, then check the economic evidence and its limits.</p></div></div>
   <div class="guides">
@@ -118,4 +122,5 @@ const outlookCounts={widening:currentOutlooks.filter(item=>item.outlook.state===
 :global(html[data-theme="light"] .home .outlook-filter[aria-pressed="true"]){background:#dbeafe;color:#1e3a8a;border-color:#2563eb}
 :global(html[data-theme="light"] .home .outlook-filter strong){color:#0f172a}
 :global(html[data-theme="light"] .home .outlook-filter-result),:global(html[data-theme="light"] .home .outlook-empty){color:#475569}
+.yield-discovery{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;border-top:1px solid #334155}.yield-discovery h2{font-size:1.25rem;color:#f8fafc;margin:4px 0}.yield-discovery p{font-size:.8rem;color:#a5b4c8;line-height:1.6;max-width:650px;margin:0}.yield-discovery a{color:#bfdbfe;flex:none;font-size:.82rem;font-weight:740}@media(max-width:620px){.yield-discovery{display:block}.yield-discovery a{display:inline-block;margin-top:10px}}:global(html[data-theme="light"] .yield-discovery h2){color:#0f172a}:global(html[data-theme="light"] .yield-discovery p){color:#475569}
 </style>

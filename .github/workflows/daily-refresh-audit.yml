@@ -8,6 +8,9 @@ on:
     paths:
       - "scripts/daily-refresh.mjs"
       - "scripts/refresh-yield-curves.mjs"
+      - "scripts/build-yield-evaluation.mjs"
+      - "src/lib/trade90-yield-evaluation.js"
+      - "src/lib/trade90-yield-research.js"
       - "src/components/Trade90YieldCurveDashboard.svelte"
       - "src/pages/yield-curves/index.astro"
       - "scripts/auto-policy-rates.mjs"
@@ -58,6 +61,7 @@ jobs:
           node tests/divergence-workflow.mjs
           node tests/auto-policy-review.mjs
           node tests/yield-curves.mjs
+          node tests/yield-research.mjs
       - name: Publish the complete daily update
         run: |
           git add public/data/ src/data/trade90-policy-snapshot.json src/data/trade90-yield-curves.json

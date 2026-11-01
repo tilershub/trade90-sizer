@@ -8,7 +8,7 @@
  let windowDays='90';
  const today=Date.parse(new Date().toISOString().slice(0,10)+'T00:00:00Z');
  const age=x=>x?.asOf?Math.floor((today-Date.parse(x.asOf+'T00:00:00Z'))/86400000):null;
- const valid=x=>x?.verified===true&&x?.yields&&Number.isFinite(x.yields['2Y'])&&Number.isFinite(x.yields['10Y']);
+ const valid=x=>x?.verified===true&&x?.yields&&Number.isFinite(x.yields['2Y'])&&Number.isFinite(x.yields['10Y'])&&Number.isFinite(age(x))&&age(x)>=0&&age(x)<=(x.frequency==='monthly'?50:x.frequency==='weekly_publication'?12:7);
  const bp=v=>Number.isFinite(v)?(v>0?'+':'')+Math.round(v)+' bp':'—';
  const pct=v=>Number.isFinite(v)?v.toFixed(2)+'%':'—';
  const getRows=x=>(x?.history||[]).filter(r=>r&&Number.isFinite(r['2Y'])&&Number.isFinite(r['10Y'])).sort((a,b)=>a.date.localeCompare(b.date));
@@ -25,7 +25,8 @@
  $: dateCut=new Date(today-Number(windowDays)*86400000).toISOString().slice(0,10);
  $: rows=getRows(current).filter(r=>r.date>=dateCut);
  $: curves=graph(rows);
- $: matched=valid(current)&&valid(other)&&Math.abs(Date.parse(current.asOf)-Date.parse(other.asOf))<=3*86400000;
+ $: instrumentsCompatible=Boolean(current?.kind&&other?.kind&&current.kind===other.kind);
+ $: matched=valid(current)&&valid(other)&&instrumentsCompatible&&Math.abs(Date.parse(current.asOf)-Date.parse(other.asOf))<=3*86400000;
  $: compare2=matched?(current.yields['2Y']-other.yields['2Y'])*100:null;
  $: compare10=matched?(current.yields['10Y']-other.yields['10Y'])*100:null;
  $: spread=valid(current)?(current.yields['10Y']-current.yields['2Y'])*100:null;
@@ -72,7 +73,7 @@
  {#if compare}
  <section class="cross"><h3>{currency} − {compare} sovereign yield spreads</h3>
  {#if matched}<div class="change-grid"><div><span>2-year spread</span><strong>{bp(compare2)}</strong></div><div><span>10-year spread</span><strong>{bp(compare10)}</strong></div><div><span>Observation dates</span><strong>{current.asOf} / {other.asOf}</strong></div></div><p>These government yield measures may use different instruments, methodologies and compounding; the comparison is research context, not an identical-instrument or policy-path spread.</p>
- {:else}<p class="empty">A spread cannot be shown because both verified curves are not available within three calendar days of each other. No cross-country value is fabricated.</p>{/if}
+ {:else}<p class="empty">A spread is withheld unless both curves are current, from the same yield-definition category, and observed within three days. Benchmark/par/fitted spot measures must not be treated as identical. No value is fabricated.</p>{/if}
  </section>{/if}
  {#if current}<p class="source">Data: <a href={current.source} target="_blank" rel="noopener noreferrer">{current.provider} ↗</a>. Daily or monthly frequency is source-specific. Stale data and retrieval failures are retained as historical context and labelled accordingly.</p>{/if}
 </section>
