@@ -92,6 +92,8 @@ jobs:
         run: |
           node scripts/refresh-yield-curves.mjs
           node tests/yield-curves.mjs
+          node scripts/build-yield-evaluation.mjs
+          node tests/yield-research.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes
