@@ -8,7 +8,7 @@
    let alive=true;
    const refresh=()=>fetch('/data/refresh-status.json',{cache:'no-store',signal:AbortSignal.timeout(10000)})
      .then(r=>{if(!r.ok)throw Error('Audit file unavailable');return r.json();})
-     .then(value=>{if(alive&&value?.schemaVersion===1){status=refreshStatusAt(value,new Date().toISOString());failed=false;}else if(alive)failed=true;})
+     .then(value=>{if(alive&&[1,2].includes(value?.schemaVersion)){status=refreshStatusAt(value,new Date().toISOString());failed=false;}else if(alive)failed=true;})
      .catch(()=>{if(alive)failed=true;});
    refresh();
    const refreshTimer=setInterval(()=>{if(!document.hidden)refresh();},300000);
