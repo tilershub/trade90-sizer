@@ -8,7 +8,6 @@ on:
     paths:
       - "scripts/daily-refresh.mjs"
       - "scripts/refresh-yield-curves.mjs"
-      - "src/data/trade90-yield-curves.json"
       - "src/components/Trade90YieldCurveDashboard.svelte"
       - "src/pages/yield-curves/index.astro"
       - "scripts/auto-policy-rates.mjs"
