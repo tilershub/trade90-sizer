@@ -37,6 +37,11 @@ async function gbp(){
  if(!Array.isArray(records)||!records.length)throw Error('BoE nominal spot curve contained no dated 2Y and 10Y values');
  return records;
 }
+async function nzdSpreadsheet(){
+ const proc=spawnSync(process.env.PYTHON||'python3',['scripts/extract-rbnz-yields.py'],{encoding:'utf8',timeout:35000,maxBuffer:2*1024*1024});
+ if(proc.error||proc.status!==0)throw Error('RBNZ B2 spreadsheet: '+String(proc.stderr||proc.error?.message||'failed').trim().slice(0,210));
+ const rows=JSON.parse(proc.stdout||'[]');if(!Array.isArray(rows)||!rows.length)throw Error('RBNZ B2 workbook missing matched 2Y/10Y observations');return rows;
+}
 async function nzd(){
  const html=await get('https://www.rbnz.govt.nz/en/statistics/series/exchange-and-interest-rates/wholesale-interest-rates');
  // The on-page official B2 daily-close table has Date, OCR, overnight facilities,
@@ -54,7 +59,7 @@ async function nzd(){
 }
 async function chf(){const url='https://data.snb.ch/api/cube/rendoblim/data/csv/en?dimSel=D0(2J,10J)&fromDate=2025-01';const raw=await get(url);const rows=raw.split(/\r?\n/).filter(x=>x&&!x.startsWith('#'));const sep=rows.find(x=>x.includes(';'))?';':',';const h=rows[0]?.split(sep).map(x=>x.toLowerCase().trim())||[];const di=h.findIndex(x=>/date|period/.test(x)),mi=h.findIndex(x=>/item|maturity|d0/.test(x)),vi=h.findIndex(x=>/value/.test(x));if([di,mi,vi].some(x=>x<0))throw Error('SNB monthly schema unavailable; preview '+rows.slice(0,7).join(' || ').slice(0,490));const d=new Map();for(const line of rows.slice(1)){const x=line.split(sep),date=x[di]?.trim(),m=x[mi]?.trim(),val=rate(x[vi]);if(!/^(2J|10J)$/.test(m)||val===null||!/\d{4}-\d{2}/.test(date))continue;const key=date.slice(0,7)+'-01';const item=d.get(key)||{date:key};item[m==='2J'?'2Y':'10Y']=val;d.set(key,item)}return [...d.values()].map(x=>row(x.date,x['2Y'],x['10Y']))}
 async function fred(code){const key=process.env.FRED_API_KEY;let config={};try{config=JSON.parse(process.env.TRADE90_FRED_YIELD_SERIES||'{}')}catch{}const ids=config[code];if(!key||!Array.isArray(ids)||ids.length!==2||ids.some(x=>!/^[A-Z0-9_]+$/.test(x)))throw Error('Source adapter not yet configured; requires exact validated 2Y/10Y source mapping');async function series(id){const u='https://api.stlouisfed.org/fred/series/observations?series_id='+id+'&api_key='+encodeURIComponent(key)+'&file_type=json&sort_order=desc&limit=400';const d=JSON.parse(await get(u));return(d.observations||[]).map(x=>({date:x.date,value:rate(x.value)})).filter(x=>x.value!==null)}return mergeTenors(await series(ids[0]),await series(ids[1]))}
-const adapters={USD:usd,EUR:eur,CAD:cad,AUD:aud,JPY:jpy,CHF:chf,GBP:async()=>{try{return await gbp()}catch(e){if(process.env.FRED_API_KEY)return fred('GBP');throw e}},NZD:async()=>{try{return await nzd()}catch(e){if(process.env.FRED_API_KEY)return fred('NZD');throw e}}};
+const adapters={USD:usd,EUR:eur,CAD:cad,AUD:aud,JPY:jpy,CHF:chf,GBP:async()=>{try{return await gbp()}catch(e){if(process.env.FRED_API_KEY)return fred('GBP');throw e}},NZD:async()=>{try{return await nzdSpreadsheet()}catch(sheetError){try{return await nzd()}catch(htmlError){if(process.env.FRED_API_KEY)return fred('NZD');throw Error(sheetError.message+'; HTML: '+htmlError.message)}}}};
 const currencies={},health={};const run=await Promise.allSettled(codes.map(async code=>({code,history:normalized(await adapters[code]())})));
 for(let i=0;i<codes.length;i++){
  const code=codes[i],result=run[i],meta=sources[code],old=previous.currencies?.[code];
