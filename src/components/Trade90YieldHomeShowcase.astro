@@ -1,0 +1,113 @@
+---
+import yieldData from "../data/trade90-yield-curves.json";
+import {YIELD_CURRENCIES,curveAt,normalizeYieldHistory} from "../lib/trade90-yield-research.js";
+
+const now=new Date().toISOString();
+const records=Object.fromEntries(YIELD_CURRENCIES.map(code=>[code,curveAt(yieldData.currencies?.[code],now)]));
+const availableCount=Object.values(records).filter(r=>r.status==="current").length;
+const names={USD:"US Treasury",EUR:"Euro area",GBP:"UK gilts",JPY:"Japan JGBs",AUD:"Australia",NZD:"New Zealand",CAD:"Canada",CHF:"Switzerland"};
+const featured=["USD","EUR","GBP","JPY"].map(code=>({code,name:names[code],data:records[code]}));
+const source=yieldData.currencies?.USD;
+const usd=records.USD;
+const cutoff=usd.date?new Date(Date.parse(usd.date+"T00:00:00Z")-90*86400000).toISOString().slice(0,10):null;
+const history=cutoff?normalizeYieldHistory(source?.history||[]).filter(row=>row.date>=cutoff):[];
+const chartReady=usd.status==="current"&&history.length>1;
+const vals=history.flatMap(row=>[row["2Y"],row["10Y"]]);
+const lower=vals.length?Math.floor((Math.min(...vals)-.1)*10)/10:0;
+const upper=vals.length?Math.ceil((Math.max(...vals)+.1)*10)/10:1;
+const range=Math.max(.15,upper-lower);
+const coord=(key)=>history.map((p,i)=>[
+  40+(i/Math.max(1,history.length-1))*600,
+  177-(p[key]-lower)/range*129
+].map(x=>x.toFixed(1)).join(",")).join(" ");
+const path2=coord("2Y"),path10=coord("10Y");
+const pct=v=>Number.isFinite(v)?v.toFixed(2)+"%":"—";
+const bp=v=>Number.isFinite(v)?(v>0?"+":"")+v.toFixed(0)+" bp":"—";
+---
+<section class="yield-showcase" aria-labelledby="yield-showcase-heading">
+ <div class="yield-head">
+  <div>
+   <div class="eyebrow">BOND MARKET RESEARCH · INDEPENDENT TOOL</div>
+   <h2 id="yield-showcase-heading">Yield Curve Intelligence</h2>
+   <p>Go beyond central-bank policy rates. Explore how 2-year and 10-year sovereign yields are changing, whether curves are steepening or flattening, and what the bond market may be revealing.</p>
+  </div>
+  <a class="yield-primary" href="/yield-curves/">Explore Yield Curves <span aria-hidden="true">→</span></a>
+ </div>
+ <div class="yield-showcase-body">
+  <div class="yield-chart-panel">
+   <div class="yield-chart-heading">
+    <div><span class="yield-kicker">90-DAY MARKET HISTORY</span><h3>US Treasury yields</h3></div>
+    {chartReady?<span class="yield-data-chip">{usd.date} observation</span>:<span class="yield-data-chip">Verified history pending</span>}
+   </div>
+   {chartReady?<>
+    <div class="yield-current-readings" aria-label="Latest source-verified Treasury yields">
+     <span><i class="yield-dot yield-two"></i> 2Y <strong>{pct(usd.yields["2Y"])}</strong></span>
+     <span><i class="yield-dot yield-ten"></i> 10Y <strong>{pct(usd.yields["10Y"])}</strong></span>
+     <span class="yield-slope">10Y–2Y slope <strong>{bp(usd.slopeBp)}</strong></span>
+    </div>
+    <figure class="yield-figure">
+     <svg viewBox="0 0 680 213" role="img" aria-label={"Historical US Treasury 2-year and 10-year yields from "+history[0].date+" to "+usd.date}>
+      <line x1="40" y1="48" x2="640" y2="48" stroke="currentColor" stroke-opacity=".16"/>
+      <line x1="40" y1="112.5" x2="640" y2="112.5" stroke="currentColor" stroke-opacity=".16"/>
+      <line x1="40" y1="177" x2="640" y2="177" stroke="currentColor" stroke-opacity=".26"/>
+      <text x="4" y="53" fill="currentColor" font-size="13">{upper.toFixed(1)}%</text>
+      <text x="4" y="181" fill="currentColor" font-size="13">{lower.toFixed(1)}%</text>
+      <polyline points={path2} fill="none" stroke="#60a5fa" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <polyline points={path10} fill="none" stroke="#34d399" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="40" y="203" font-size="12" fill="currentColor">{history[0].date}</text>
+      <text x="640" y="203" text-anchor="end" font-size="12" fill="currentColor">{usd.date}</text>
+     </svg>
+    </figure>
+    <p class="yield-source">Source: <a href={source.source} rel="noopener noreferrer" target="_blank">US Treasury ↗</a> · Historical government bond yields, not predicted policy rates.</p>
+   </>:<p class="yield-chart-empty">The chart requires recent, verified US Treasury history. <a href="/yield-curves/?currency=USD">View source status →</a></p>}
+  </div>
+  <div class="yield-country-panel">
+   <div class="yield-country-heading"><h3>Explore sovereign yield curves</h3><span>{availableCount} of 8 with current observations</span></div>
+   <div class="yield-country-grid">
+    {featured.map(({code,name,data})=><a class="yield-country" href={"/yield-curves/?currency="+code} aria-label={"Explore "+name+" yield curves"}>
+     <span class="yield-country-top"><strong>{code}</strong><span aria-hidden="true">↗</span></span>
+     <span class="yield-country-name">{name}</span>
+     <span class="yield-country-slope">{data.status==="current"?bp(data.slopeBp):"Data pending"}</span>
+     <span class="yield-country-caption">{data.status==="current"?"2Y–10Y slope · "+data.date:"Source status available"}</span>
+    </a>)}
+   </div>
+   <p class="yield-method-note">Each curve uses its publisher's own yield definition. Cross-country rates are not automatically comparable; bond yields are not forecasts of FX performance.</p>
+   <a class="yield-all" href="/yield-curves/">Compare all eight currencies and their history →</a>
+  </div>
+ </div>
+</section>
+<style>
+.yield-showcase{padding:30px 0 35px;border-top:1px solid #334155}
+.yield-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:22px}
+.yield-head .eyebrow{font-size:.7rem;font-weight:830;letter-spacing:.09em;color:#93c5fd}
+.yield-head h2{font-size:clamp(1.65rem,3.1vw,2.25rem);letter-spacing:-.038em;line-height:1.2;color:#f8fafc;margin:7px 0 9px}
+.yield-head p{font-size:.88rem;line-height:1.65;color:#c5d3e3;max-width:730px;margin:0}
+.yield-primary{display:inline-flex;align-items:center;gap:12px;white-space:nowrap;color:#fff;background:#2563eb;padding:12px 16px;border-radius:10px;text-decoration:none;font-size:.85rem;font-weight:780;min-height:45px}
+.yield-primary:hover{background:#1d4ed8}
+.yield-showcase-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px}
+.yield-chart-panel,.yield-country-panel{min-width:0;border:1px solid #334155;border-radius:15px;background:#111c30;padding:18px}
+.yield-chart-heading,.yield-country-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.yield-kicker{display:block;color:#93c5fd;font-size:.67rem;letter-spacing:.05em;font-weight:790}
+.yield-chart-heading h3,.yield-country-heading h3{margin:4px 0 0;font-size:1.06rem;color:#f8fafc}
+.yield-data-chip{font-size:.69rem;color:#cbd5e1;border:1px solid #475569;border-radius:30px;padding:4px 8px;white-space:nowrap}
+.yield-current-readings{display:flex;flex-wrap:wrap;gap:11px 19px;margin:20px 0 2px;font-size:.76rem;color:#cbd5e1}
+.yield-current-readings strong{color:#f8fafc;margin-left:3px;font-variant-numeric:tabular-nums}
+.yield-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.yield-two{background:#60a5fa}.yield-ten{background:#34d399}
+.yield-figure{margin:10px 0 4px}.yield-figure svg{display:block;width:100%;height:auto;overflow:visible;color:#94a3b8}
+.yield-source,.yield-method-note{font-size:.72rem;line-height:1.55;color:#aebdd0}
+.yield-source{margin:8px 0 0}.yield-source a{color:#93c5fd}
+.yield-country-heading{align-items:center;margin-bottom:13px}.yield-country-heading span{font-size:.71rem;color:#b8c7d7;text-align:right}
+.yield-country-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.yield-country{display:flex;flex-direction:column;gap:5px;padding:13px;border-radius:11px;border:1px solid #3b4f6b;background:#14283f;text-decoration:none;min-width:0}
+.yield-country:hover{background:#1a3552;border-color:#60a5fa}.yield-country-top{display:flex;justify-content:space-between;align-items:center;color:#f8fafc}.yield-country-top strong{font-size:1.08rem}.yield-country-top span{color:#93c5fd}
+.yield-country-name{font-size:.73rem;color:#cbd5e1}.yield-country-slope{font-size:1.19rem;font-weight:780;color:#f8fafc;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.yield-country-caption{font-size:.66rem;color:#b1bfd3;line-height:1.35}
+.yield-method-note{margin:14px 0 9px}.yield-all{color:#bfdbfe;font-size:.78rem;font-weight:760}
+.yield-chart-empty{margin:38px 0;font-size:.84rem;color:#cbd5e1}.yield-chart-empty a{color:#93c5fd}
+@media(max-width:900px){.yield-showcase-body{grid-template-columns:1fr}.yield-chart-panel,.yield-country-panel{padding:16px}}
+@media(max-width:620px){.yield-showcase{padding:25px 0}.yield-head{display:block}.yield-head h2{font-size:1.8rem}.yield-head p{font-size:.83rem}.yield-primary{margin-top:16px}.yield-chart-panel,.yield-country-panel{padding:13px}.yield-current-readings{gap:9px 13px}.yield-chart-heading{flex-wrap:wrap}.yield-data-chip{font-size:.65rem}.yield-country-grid{gap:8px}.yield-country{padding:10px}.yield-country-slope{font-size:1.05rem}}
+:global(html[data-theme="light"]) .yield-head h2,:global(html[data-theme="light"]) .yield-chart-heading h3,:global(html[data-theme="light"]) .yield-country-heading h3,:global(html[data-theme="light"]) .yield-country-top strong,:global(html[data-theme="light"]) .yield-country-slope,:global(html[data-theme="light"]) .yield-current-readings strong{color:#102033}
+:global(html[data-theme="light"]) .yield-chart-panel,:global(html[data-theme="light"]) .yield-country-panel,:global(html[data-theme="light"]) .yield-country{background:#f8fafc;border-color:#cbd5e1}
+:global(html[data-theme="light"]) .yield-head p,:global(html[data-theme="light"]) .yield-country-name,:global(html[data-theme="light"]) .yield-country-caption,:global(html[data-theme="light"]) .yield-source,:global(html[data-theme="light"]) .yield-method-note,:global(html[data-theme="light"]) .yield-current-readings,:global(html[data-theme="light"]) .yield-country-heading span,:global(html[data-theme="light"]) .yield-data-chip{color:#475569}
+:global(html[data-theme="light"]) .yield-country:hover{background:#e0eaf7}
+:global(html[data-theme="light"]) .yield-all,:global(html[data-theme="light"]) .yield-source a,:global(html[data-theme="light"]) .yield-country-top span{color:#1d4ed8}
+</style>
