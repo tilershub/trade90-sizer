@@ -9,7 +9,7 @@ const diff2=both?pairYieldSpread(yieldData.currencies?.[pair.base],yieldData.cur
 const delta=v=>Number.isFinite(v)?(v>0?"+":"")+Math.round(v)+" bp":"Not available";
 const percent=v=>Number.isFinite(v)?v.toFixed(2)+"%":"—";
 ---
-<section class="bond-context" id="yield-curve" aria-labelledby="bond-context-heading">
+<section class="bond-context yield-mini" id="yield-curve" aria-labelledby="bond-context-heading">
  <div class="bond-head">
   <div><div class="eyebrow">ADDITIONAL BOND-MARKET CONTEXT</div><h2 id="bond-context-heading">{pair.label} · Yield Curve Snapshot</h2></div>
   <a href={"/yield-curves/?currency="+pair.base+"&quote="+pair.quote}>Explore Yield Curve Intelligence →</a>
