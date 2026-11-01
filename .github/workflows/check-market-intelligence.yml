@@ -5,6 +5,10 @@ on:
     paths:
       - "package.json"
       - "scripts/publish-sitemap.mjs"
+      - "scripts/refresh-yield-curves.mjs"
+      - "scripts/extract-boe-yields.py"
+      - "scripts/extract-rbnz-yields.py"
+      - "tests/yield-curves.mjs"
       - "scripts/submit-indexnow.mjs"
       - "tests/indexnow.mjs"
       - ".github/workflows/indexnow-discovery.yml"
