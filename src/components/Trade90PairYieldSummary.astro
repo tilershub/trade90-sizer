@@ -1,0 +1,35 @@
+---
+import yieldData from "../data/trade90-yield-curves.json";
+import {curveAt,pairYieldSpread} from "../lib/trade90-yield-research.js";
+const {pair}=Astro.props;
+const now=new Date().toISOString();
+const base=curveAt(yieldData.currencies?.[pair.base],now),quote=curveAt(yieldData.currencies?.[pair.quote],now);
+const both=base.status==="current"&&quote.status==="current";
+const diff2=both?pairYieldSpread(yieldData.currencies?.[pair.base],yieldData.currencies?.[pair.quote],"2Y",now):null;
+const delta=v=>Number.isFinite(v)?(v>0?"+":"")+Math.round(v)+" bp":"Not available";
+const percent=v=>Number.isFinite(v)?v.toFixed(2)+"%":"—";
+---
+<section class="bond-context" id="yield-curve" aria-labelledby="bond-context-heading">
+ <div class="bond-head">
+  <div><div class="eyebrow">ADDITIONAL BOND-MARKET CONTEXT</div><h2 id="bond-context-heading">{pair.label} · Yield Curve Snapshot</h2></div>
+  <a href={"/yield-curves/?currency="+pair.base+"&quote="+pair.quote}>Explore Yield Curve Intelligence →</a>
+ </div>
+ {both ? <>
+  <div class="bond-metrics">
+   <div><small>{pair.base} 2Y / 10Y</small><strong>{percent(base.yields["2Y"])} / {percent(base.yields["10Y"])}</strong><span>Own-curve slope {delta(base.slopeBp)}</span></div>
+   <div><small>{pair.quote} 2Y / 10Y</small><strong>{percent(quote.yields["2Y"])} / {percent(quote.yields["10Y"])}</strong><span>Own-curve slope {delta(quote.slopeBp)}</span></div>
+  </div>
+  {diff2?.status==="current"?<p class="bond-note">2Y observed yield differential: <strong>{delta(diff2.spreadBp)}</strong>. Sources are same-type government yield measures and observations are dated within three days, though issuer and compounding conventions may differ.</p>:<p class="bond-note">Cross-country 2Y yield spread withheld: {diff2?.reason||"Source definitions or dates are not comparable."}</p>}
+  <p class="bond-source">Observed: {pair.base} <time datetime={base.date}>{base.date}</time>, {pair.quote} <time datetime={quote.date}>{quote.date}</time>. These are government bond yields, not central-bank policy rates.</p>
+ </> : <>
+  <p class="bond-note">Full paired yield comparison is not available yet. {pair.base}: {base.status==="current"?"verified "+base.date:base.status}; {pair.quote}: {quote.status==="current"?"verified "+quote.date:quote.status}. Historical or missing observations are not presented as current spreads.</p>
+ </>}
+ <p class="bond-disclaimer">Bond yields may react to expectations, liquidity and term premiums. They are <strong>not inputs</strong> to TRADE90's 90-day policy-rate divergence classification.</p>
+</section>
+<style>
+.bond-context{padding:16px 18px;background:#111c30;border:1px solid #334155;border-radius:12px;scroll-margin-top:100px}.bond-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px}.bond-head .eyebrow{font-size:.65rem;color:#93c5fd;letter-spacing:.08em;font-weight:800}.bond-head h2{font-size:1.08rem;color:#f8fafc;margin:4px 0}.bond-head a{color:#bfdbfe;font-size:.82rem}.bond-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:12px 0}.bond-metrics>div{background:#16283f;border:1px solid #334155;border-radius:9px;padding:11px}.bond-metrics small,.bond-metrics span{display:block;color:#cbd5e1;font-size:.72rem}.bond-metrics strong{display:block;color:#f8fafc;font-size:1.12rem;margin:5px 0}.bond-note,.bond-source,.bond-disclaimer{font-size:.75rem;color:#b8c8db;line-height:1.6;margin:9px 0 0}.bond-note strong{color:#f8fafc}.bond-disclaimer{font-size:.7rem;margin-top:10px}@media(max-width:530px){.bond-context{padding:12px}.bond-metrics{grid-template-columns:1fr}.bond-head a{font-size:.76rem}}
+:global(html[data-theme="light"]) .bond-context,:global(html[data-theme="light"]) .bond-metrics>div{background:#fff;border-color:#cbd5e1}
+:global(html[data-theme="light"]) .bond-head h2,:global(html[data-theme="light"]) .bond-metrics strong,:global(html[data-theme="light"]) .bond-note strong{color:#0f172a}
+:global(html[data-theme="light"]) .bond-note,:global(html[data-theme="light"]) .bond-source,:global(html[data-theme="light"]) .bond-disclaimer,:global(html[data-theme="light"]) .bond-metrics small,:global(html[data-theme="light"]) .bond-metrics span{color:#475569}
+:global(html[data-theme="light"]) .bond-head a{color:#1d4ed8}
+</style>
