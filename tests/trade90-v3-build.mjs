@@ -20,6 +20,13 @@ assert.match(home,/website appearance|Website appearance/i);
 const index=read("pairs/index.html");
 const all=read("rate-gaps/index.html");
 const decisions=read("decisions/index.html");
+const curves=read("yield-curves/index.html");
+assert.match(curves,/Yield Curve Intelligence/);
+assert.match(curves,/2-year\/10-year slope/i);
+assert.match(curves,/client:load|astro-island|yield-curve/i);
+assert.match(curves,/not.*policy-rate/i);
+
+
 assert.match(index,/Explore a Forex Currency Pair/);
 assert.match(all,/Compare All 28 Forex Rate Gaps/);
 assert.match(decisions,/Next Major Interest Rate Decisions/);
