@@ -58,6 +58,7 @@ jobs:
           node tests/policy-model.mjs
           node tests/divergence-workflow.mjs
           node tests/auto-policy-review.mjs
+          node tests/yield-curves.mjs
       - name: Publish the complete daily update
         run: |
           git add public/data/ src/data/trade90-policy-snapshot.json src/data/trade90-yield-curves.json
