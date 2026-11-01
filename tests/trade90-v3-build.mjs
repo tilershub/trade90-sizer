@@ -47,6 +47,7 @@ for(const pair of allTrade90Pairs){
  assert.ok(html.includes('data-outlook-label'),"Headline status must render directly in HTML on "+slug);
  assert.ok(html.includes('href="#policy-evidence"'),"Research verdict must link to bank evidence on "+slug);
  assert.ok(html.includes("90-DAY POLICY DIVERGENCE"),"90-day outlook must be the page headline for "+slug);
+ assert.ok(html.includes('href="/yield-curves/?currency='),"Compact bond context link missing on "+slug);
  assert.ok(html.includes('href="/daily/"'),"Daily changes link missing from primary outlook on "+slug);
  
  assert.ok(html.includes(pair.baseBank.source),"No source for base "+slug);
