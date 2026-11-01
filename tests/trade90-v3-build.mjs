@@ -5,6 +5,16 @@ const builtRoot=new URL("../dist/",import.meta.url);
 const read=path=>readFileSync(new URL(path,builtRoot),"utf8");
 const home=read("index.html");
 assert.match(home,/YOUR DAILY RESEARCH ROUTINE/i);
+assert.match(home,/aria-labelledby="yield-showcase-heading"/,"Yield showcase should have a dedicated accessible homepage section");
+assert.match(home,/90-DAY MARKET HISTORY/,"Yield showcase should display a historical chart preview");
+assert.match(home,/US Treasury yields/,"Show clearly defined benchmark source");
+assert.match(home,/href="\/yield-curves\/\?currency=USD"/,"Link the USD preview to the full tool");
+assert.match(home,/href="\/yield-curves\/\?currency=JPY"/,"Preview at least four country-specific research views");
+assert.match(home,/of 8 with current observations/,"Expose real yield-source coverage");
+assert.ok(home.indexOf('id="outlook"')<home.indexOf('id="yield-showcase-heading"'),"Divergence must remain the lead research feature");
+assert.ok(home.indexOf('id="yield-showcase-heading"')<home.indexOf('id="daily-heading"'),"Yield showcase should be prominent, not hidden in footer links");
+assert.doesNotMatch(home,/class="yield-discovery"/,"Retired mini yield link should be replaced");
+
 assert.doesNotMatch(home,/aria-label="TRADE90 data freshness and availability"/,"Long refresh notice must not take homepage space");
 assert.match(home,/href="\/data-policy\/"/,"Research update details remain accessible");
 for(const category of ["widening","narrowing","unclear","all"]){

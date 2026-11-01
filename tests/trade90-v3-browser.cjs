@@ -31,6 +31,15 @@ const base="http://127.0.0.1:4321";
    assert.ok((await page.locator('#outlook-filter-result').innerText()).includes(String(expected)));
   }
 
+  const yieldShowcase=page.locator('.yield-showcase');
+  assert.equal(await yieldShowcase.count(),1,"Yield Curve Intelligence needs a dedicated homepage section");
+  assert.ok(await yieldShowcase.getByRole('heading',{name:'Yield Curve Intelligence'}).isVisible());
+  assert.equal(await yieldShowcase.locator('.yield-country').count(),4,"Show four source-dated currency previews");
+  assert.equal(await yieldShowcase.locator('.yield-figure svg').count(),1,"Use historical Treasury yield data, not a decorative placeholder");
+  assert.ok((await yieldShowcase.locator('.yield-country-heading').innerText()).includes("of 8"));
+  assert.ok(await yieldShowcase.locator('a[href="/yield-curves/?currency=USD"]').count()===1);
+  const yieldLink=yieldShowcase.locator('a.yield-primary');
+  assert.equal(await yieldLink.getAttribute('href'),'/yield-curves/');
   assert.equal(await page.locator(".board tbody tr").count(),0,"Do not embed full rate terminal on homepage");
   assert.equal(await page.locator('.desktop-links a[href="/tools/position-size-calculator/"]').count(),1);
   for(const theme of ["light","dark"]){
@@ -92,6 +101,8 @@ const base="http://127.0.0.1:4321";
    assert.ok(size.scroll<=size.viewport+4,"Mobile overflow: "+route+" "+JSON.stringify(size));
   }
   await mobile.goto(base+"/",{waitUntil:"networkidle"});
+  assert.ok(await mobile.locator('.yield-showcase').isVisible(),"Yield Curve Intelligence must remain visible on mobile");
+  assert.equal(await mobile.locator('.yield-showcase .yield-country').count(),4);
   await mobile.locator('[data-outlook-filter="narrowing"]').click();
   const mobileNarrowing=Number(await mobile.locator('[data-filter-count="narrowing"]').innerText());
   assert.equal(await mobile.locator('.outlook-grid [data-outlook-card]:visible').count(),mobileNarrowing);
