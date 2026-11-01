@@ -8,7 +8,7 @@ export function daysBetween(a,b){return validDate(a)&&validDate(b)?Math.abs((Dat
 export function normalizeYieldHistory(rows,{maxRows=450}={}){
  const data=new Map();
  for(const r of rows||[]){
-  const y2=Number(r?.['2Y']),y10=Number(r?.['10Y']);
+  const y2=r?.['2Y']==null?NaN:Number(r['2Y']),y10=r?.['10Y']==null?NaN:Number(r['10Y']);
   if(validDate(r?.date)&&Number.isFinite(y2)&&Number.isFinite(y10)&&y2>-5&&y2<35&&y10>-5&&y10<35) data.set(r.date,{date:r.date,'2Y':y2,'10Y':y10});
  }
  return [...data.values()].sort((a,b)=>a.date.localeCompare(b.date)).slice(-maxRows);
@@ -17,13 +17,14 @@ export function curveAt(currencyData,now=new Date().toISOString()){
  const rows=normalizeYieldHistory(currencyData?.history||[]);
  const latest=rows.at(-1);
  const today=now.slice(0,10);
- if(!latest||!currencyData?.verified||!validDate(today)||latest.date>today)return {status:'missing',date:null,slopeBp:null,history:rows};
+ if(!latest||!validDate(today)||latest.date>today)return {status:'missing',date:null,slopeBp:null,history:rows};
  const age=daysBetween(today,latest.date);
- const sourceAge=age>YIELD_MAX_AGE_DAYS?'stale':'current';
+ const limit=currencyData.frequency==='monthly'?50:currencyData.frequency==='weekly_publication'?12:YIELD_MAX_AGE_DAYS;
+ const sourceAge=!currencyData.verified||age>limit?'stale':'current';
  return {status:sourceAge,date:latest.date,ageDays:age,history:rows,
   yields:{'2Y':latest['2Y'],'10Y':latest['10Y']},
   slopeBp:Math.round((latest['10Y']-latest['2Y'])*1000)/10,
-  yieldType:currencyData.yieldType||'unclassified',
+  yieldType:currencyData.kind||currencyData.yieldType||'unclassified',
   provider:currencyData.provider||null,source:currencyData.source||null};
 }
 export function historySlopeChange(rows,lookbackDays,nowDate){
