@@ -4,7 +4,7 @@ Select original 2Y and 10Y columns only; reject swaps and missing observations.
 """
 import datetime as dt,io,json,re,sys,urllib.request,zipfile
 from xml.etree import ElementTree as ET
-URL="https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b2/hb2-daily-close.xlsx"
+URL="https://rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b2/hb2-daily-close.xlsx"
 NS={"m":"http://schemas.openxmlformats.org/spreadsheetml/2006/main","r":"http://schemas.openxmlformats.org/officeDocument/2006/relationships"}
 def index(ref):
  m=re.match(r'([A-Z]+)',ref or '')
