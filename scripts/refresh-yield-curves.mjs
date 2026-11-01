@@ -29,9 +29,24 @@ async function eur(){const basic='https://data-api.ecb.europa.eu/service/data/YC
 async function cad(){const json=JSON.parse(await get('https://www.bankofcanada.ca/valet/observations/V39051,V39055/json?recent=400'));return(json.observations||[]).map(x=>row(x.d,x.V39051?.v,x.V39055?.v))}
 async function aud(){const csv=parseCSV(await get('https://www.rba.gov.au/statistics/tables/csv/f2-data.csv'));let d=-1,a=-1,b=-1;for(let i=0;i<Math.min(csv.length,20);i++){const cells=csv[i];const ia=cells.indexOf('FCMYGBAG2D'),ib=cells.indexOf('FCMYGBAG10D');if(ia>=0&&ib>=0){a=ia;b=ib;d=0;break}}if(a<0||b<0)throw Error('RBA F2 identifiers not found');return csv.map(x=>row(x[d],x[a],x[b]))}
 async function jpy(){const url='https://www.mof.go.jp/jgbs/reference/interest_rate/jgbcme.csv';const csv=parseCSV(await get(url));let h=csv.findIndex(x=>/^date$/i.test(x[0]||''));if(h<0)throw Error('MOF date heading missing');const cols=csv[h].map(x=>x.trim().toLowerCase().replace(/\s/g,''));const i2=cols.findIndex(x=>/^(2|2y|2yr|2years?)$/.test(x)),i10=cols.findIndex(x=>/^(10|10y|10yr|10years?)$/.test(x));if(i2<0||i10<0)throw Error('MOF 2Y/10Y columns missing');return csv.slice(h+1).map(x=>row(x[0],x[i2],x[i10]))}
+async function nzd(){
+ const html=await get('https://www.rbnz.govt.nz/en/statistics/series/exchange-and-interest-rates/wholesale-interest-rates');
+ // The on-page official B2 daily-close table has Date, OCR, overnight facilities,
+ // bank bills, government bond tenors (1Y, 2Y, 5Y, 10Y), and swaps.
+ const clean=x=>x.replace(/<[^>]*>/g,' ').replace(/&nbsp;|&#160;/g,' ').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim();
+ const found=[];
+ for(const tr of html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi)||[]){
+  const cells=[...tr.matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)].map(m=>clean(m[1]));
+  if(cells.length<12||!/^\d{1,2}\s+[A-Za-z]{3}\s+20\d{2}$/.test(cells[0]))continue;
+  const record=row(cells[0],cells[9],cells[11]);
+  if(record)found.push(record);
+ }
+ if(!found.length)throw Error('RBNZ B2 HTML rows missing/changed; use exact-series approved fallback');
+ return found;
+}
 async function chf(){const url='https://data.snb.ch/api/cube/rendoblim/data/csv/en?dimSel=D0(2J,10J)&fromDate=2025-01';const raw=await get(url);const rows=raw.split(/\r?\n/).filter(x=>x&&!x.startsWith('#'));const sep=rows.find(x=>x.includes(';'))?';':',';const h=rows[0]?.split(sep).map(x=>x.toLowerCase().trim())||[];const di=h.findIndex(x=>/date|period/.test(x)),mi=h.findIndex(x=>/item|maturity|d0/.test(x)),vi=h.findIndex(x=>/value/.test(x));if([di,mi,vi].some(x=>x<0))throw Error('SNB monthly schema unavailable');const d=new Map();for(const line of rows.slice(1)){const x=line.split(sep),date=x[di]?.trim(),m=x[mi]?.trim(),val=rate(x[vi]);if(!/^(2J|10J)$/.test(m)||val===null||!/\d{4}-\d{2}/.test(date))continue;const key=date.slice(0,7)+'-01';const item=d.get(key)||{date:key};item[m==='2J'?'2Y':'10Y']=val;d.set(key,item)}return [...d.values()].map(x=>row(x.date,x['2Y'],x['10Y']))}
 async function fred(code){const key=process.env.FRED_API_KEY;let config={};try{config=JSON.parse(process.env.TRADE90_FRED_YIELD_SERIES||'{}')}catch{}const ids=config[code];if(!key||!Array.isArray(ids)||ids.length!==2||ids.some(x=>!/^[A-Z0-9_]+$/.test(x)))throw Error('Source adapter not yet configured; requires exact validated 2Y/10Y source mapping');async function series(id){const u='https://api.stlouisfed.org/fred/series/observations?series_id='+id+'&api_key='+encodeURIComponent(key)+'&file_type=json&sort_order=desc&limit=400';const d=JSON.parse(await get(u));return(d.observations||[]).map(x=>({date:x.date,value:rate(x.value)})).filter(x=>x.value!==null)}return mergeTenors(await series(ids[0]),await series(ids[1]))}
-const adapters={USD:usd,EUR:eur,CAD:cad,AUD:aud,JPY:jpy,CHF:chf,GBP:()=>fred('GBP'),NZD:()=>fred('NZD')};
+const adapters={USD:usd,EUR:eur,CAD:cad,AUD:aud,JPY:jpy,CHF:chf,GBP:()=>fred('GBP'),NZD:async()=>{try{return await nzd()}catch(e){if(process.env.FRED_API_KEY)return fred('NZD');throw e}}};
 const currencies={},health={};const run=await Promise.allSettled(codes.map(async code=>({code,history:normalized(await adapters[code]())})));
 for(let i=0;i<codes.length;i++){
  const code=codes[i],result=run[i],meta=sources[code],old=previous.currencies?.[code];
