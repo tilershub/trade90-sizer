@@ -5,6 +5,12 @@ const builtRoot=new URL("../dist/",import.meta.url);
 const read=path=>readFileSync(new URL(path,builtRoot),"utf8");
 const home=read("index.html");
 assert.match(home,/YOUR DAILY RESEARCH ROUTINE/i);
+assert.doesNotMatch(home,/aria-label="TRADE90 data freshness and availability"/,"Long refresh notice must not take homepage space");
+assert.match(home,/href="\/data-policy\/"/,"Research update details remain accessible");
+for(const category of ["widening","narrowing","unclear","all"]){
+ assert.ok(home.includes('data-outlook-filter="'+category+'"'),"Filter missing: "+category);
+}
+assert.equal((home.match(/data-outlook-card(?:\s|>)/g)||[]).length,28,"All 28 pair cards must be present for client filtering");
 assert.match(home,/What changed for your currency pairs\?/i);
 assert.match(home,/href="\/pairs\/eur-usd\/"/,"Homepage should link to most requested pair");
 assert.doesNotMatch(home,/Most Important Divergences for Forex Traders Right Now/,"Old V2 homepage has been retired");
