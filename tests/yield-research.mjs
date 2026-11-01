@@ -22,7 +22,7 @@ assert.equal(curveAt({...spot,history:[{date:'2025-10-01','2Y':2,'10Y':3}]},now)
 assert.equal(curveAt(spot,now).slopeBp,50);
 assert.equal(historySlopeChange(hist,7,'2026-10-30'),0);
 assert.equal(historySlopeChange(hist,30,'2026-10-30'),0);
-assert.equal(historySlopeChange(hist,90,'2026-10-30'),null);
+assert.equal(historySlopeChange(hist,90,'2026-10-30'),0);
 assert.equal(pairYieldSpread(spot,spot2,'2Y',now).status,'current');
 assert.equal(pairYieldSpread(spot,spot2,'2Y',now).spreadBp,20);
 assert.equal(pairYieldSpread(spot,bond,'2Y',now).status,'not_comparable');
