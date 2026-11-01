@@ -15,6 +15,22 @@ const base="http://127.0.0.1:4321";
   assert.equal(await page.locator("#trade90-pair-search").count(),1);
   assert.equal(await page.locator(".outlook-summary strong").count(),4,"Four coverage counters must be visible");
   assert.ok(await page.locator(".outlook-grid a").count()>0,"Show available research pairs");
+  assert.equal(await page.locator(".hero .data-status").count(),0,"Large data-refresh notice should be off the homepage");
+  assert.ok(await page.locator('.home-resources a[href="/data-policy/"]').count()===1,"Keep a concise source-status link");
+  const currentCount=Number(await page.locator('[data-filter-count="all"]').innerText());
+  assert.ok(currentCount>=0&&currentCount<=28,"Only valid pair assessments can appear");
+  for(const [category,countKey] of [["widening","widening"],["narrowing","narrowing"],["unclear","unclear"],["all","all"]]){
+   const filter=page.locator('[data-outlook-filter="'+category+'"]');
+   await filter.click();
+   assert.equal(await filter.getAttribute("aria-pressed"),"true","Selected filter must be announced");
+   const expected=Number(await page.locator('[data-filter-count="'+countKey+'"]').innerText());
+   const visible=await page.locator('.outlook-grid [data-outlook-card]:visible').count();
+   assert.equal(visible,expected,"Filter must show the correct pairs: "+category);
+   const categories=await page.locator('.outlook-grid [data-outlook-card]:visible').evaluateAll(cards=>cards.map(x=>x.dataset.outlookState));
+   assert.ok(category==="all"||categories.every(state=>state===category),"Wrong pairs shown for "+category);
+   assert.ok((await page.locator('#outlook-filter-result').innerText()).includes(String(expected)));
+  }
+
   assert.equal(await page.locator(".board tbody tr").count(),0,"Do not embed full rate terminal on homepage");
   assert.equal(await page.locator('.desktop-links a[href="/tools/position-size-calculator/"]').count(),1);
   for(const theme of ["light","dark"]){
@@ -65,6 +81,11 @@ const base="http://127.0.0.1:4321";
    assert.ok(size.scroll<=size.viewport+4,"Mobile overflow: "+route+" "+JSON.stringify(size));
   }
   await mobile.goto(base+"/",{waitUntil:"networkidle"});
+  await mobile.locator('[data-outlook-filter="narrowing"]').click();
+  const mobileNarrowing=Number(await mobile.locator('[data-filter-count="narrowing"]').innerText());
+  assert.equal(await mobile.locator('.outlook-grid [data-outlook-card]:visible').count(),mobileNarrowing);
+  assert.equal(await mobile.locator('[data-outlook-filter="narrowing"]').getAttribute("aria-pressed"),"true");
+  assert.ok((await mobile.evaluate(()=>document.documentElement.scrollWidth))<=390+4,"Mobile status filters must not overflow");
   await mobile.locator(".mobile-menu summary").click();
   assert.ok(await mobile.locator('.mobile-menu nav a[href="/pairs/"]').isVisible());
   console.log("Current V3 browser passed: actual homepage, policy evidence, benchmark math, 28 pairs, eight bank hubs, mobile and theme.");
