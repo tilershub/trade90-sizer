@@ -17,7 +17,7 @@ const sources={
  CHF:{name:'SNB Swiss Confederation fitted yield curve (monthly)',kind:'fitted_sovereign_spot',frequency:'monthly',url:'https://data.snb.ch/en/topics/ziredev/cube/rendoblim'}
 };
 const isDate=s=>typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&Number.isFinite(Date.parse(s+'T00:00:00Z'))&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s&&s<=today;
-const rate=x=>{const n=Number(String(x??'').replace(/,/g,'').trim());return Number.isFinite(n)&&n>-10&&n<35?n:null};
+const rate=x=>{const raw=String(x??'').replace(/,/g,'').trim();if(!raw||raw==='.'||raw==='-'||raw==='..')return null;const n=Number(raw);return Number.isFinite(n)&&n>-10&&n<35?n:null};
 const toDate=x=>{x=String(x||'').trim();if(isDate(x))return x;let m=x.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})$/);if(m){let d=m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');return isDate(d)?d:null;}m=x.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);if(m){let d=m[3]+'-'+m[1].padStart(2,'0')+'-'+m[2].padStart(2,'0');return isDate(d)?d:null;}let d=Date.parse(x);return Number.isFinite(d)?new Date(d).toISOString().slice(0,10):null};
 const row=(date,two,ten)=>{const asOf=toDate(date),r2=rate(two),r10=rate(ten);return asOf&&r2!==null&&r10!==null?{date:asOf,'2Y':r2,'10Y':r10}:null};
 function parseCSV(text){const lines=String(text).replace(/^\uFEFF/,'').split(/\r?\n/);return lines.map(line=>{let res=[],s='',quoted=false;for(let i=0;i<line.length;i++){let c=line[i];if(c==='"'&&quoted&&line[i+1]==='"'){s+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){res.push(s.trim());s=''}else{s+=c}}res.push(s.trim());return res})}
