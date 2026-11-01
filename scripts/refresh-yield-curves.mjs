@@ -29,7 +29,19 @@ async function usd(){const yr=now.getUTCFullYear(),u='https://home.treasury.gov/
 async function eur(){const basic='https://data-api.ecb.europa.eu/service/data/YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_';async function series(t){const csv=parseCSV(await get(basic+t+'?lastNObservations=400&format=csvdata'));const h=csv.shift();const d=h.indexOf('TIME_PERIOD'),v=h.indexOf('OBS_VALUE');if(d<0||v<0)throw Error('ECB CSV field schema changed');return csv.filter(x=>x[d]&&x[v]).map(x=>({date:x[d],value:rate(x[v])})).filter(x=>x.value!==null)}return mergeTenors(await series('2Y'),await series('10Y'))}
 async function cad(){const json=JSON.parse(await get('https://www.bankofcanada.ca/valet/observations/BD.CDN.2YR.DQ.YLD,BD.CDN.10YR.DQ.YLD/json?recent=400'));return(json.observations||[]).map(x=>row(x.d,x['BD.CDN.2YR.DQ.YLD']?.v,x['BD.CDN.10YR.DQ.YLD']?.v))}
 async function aud(){const csv=parseCSV(await get('https://www.rba.gov.au/statistics/tables/csv/f2-data.csv'));let d=-1,a=-1,b=-1;for(let i=0;i<Math.min(csv.length,20);i++){const cells=csv[i];const ia=cells.indexOf('FCMYGBAG2D'),ib=cells.indexOf('FCMYGBAG10D');if(ia>=0&&ib>=0){a=ia;b=ib;d=0;break}}if(a<0||b<0)throw Error('RBA F2 identifiers not found');return csv.map(x=>row(x[d],x[a],x[b]))}
-async function jpy(){const url='https://www.mof.go.jp/jgbs/reference/interest_rate/jgbcm.csv';const csv=parseCSV(await get(url));let h=csv.findIndex(x=>/^date$/i.test(x[0]||''));if(h<0)throw Error('MOF date heading missing; first rows '+JSON.stringify(csv.slice(0,4)).slice(0,330));const cols=csv[h].map(x=>x.trim().toLowerCase().replace(/\s/g,''));const i2=cols.findIndex(x=>/^(2|2y|2yr|2years?)$/.test(x)),i10=cols.findIndex(x=>/^(10|10y|10yr|10years?)$/.test(x));if(i2<0||i10<0)throw Error('MOF 2Y/10Y columns missing');return csv.slice(h+1).map(x=>row(x[0],x[i2],x[i10]))}
+async function jpy(){
+ const csv=parseCSV(await get('https://www.mof.go.jp/jgbs/reference/interest_rate/jgbcm.csv'));
+ // Japanese MOF current-month exports use Reiwa dates (R8.10.30 => 2026-10-30),
+ // one date column and exact year-maturity column labels (1年,2年,...10年).
+ const h=csv.findIndex(r=>r.length>=12&&/^1[^0-9]/.test(r[1]||'')&&/^2[^0-9]/.test(r[2]||'')&&/^10[^0-9]/.test(r[10]||''));
+ if(h<0)throw Error('MOF maturity header changed');
+ const toJpDate=v=>{
+  const m=String(v||'').match(/^R(\d+)\.(\d{1,2})\.(\d{1,2})$/i);
+  if(m){const year=2018+Number(m[1]),date=year+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');return isDate(date)?date:null}
+  return toDate(v);
+ };
+ return csv.slice(h+1).map(x=>row(toJpDate(x[0]),x[2],x[10]));
+}
 async function gbp(){
  const result=spawnSync(process.env.PYTHON||'python3',['scripts/extract-boe-yields.py'],{encoding:'utf8',timeout:40000,maxBuffer:2*1024*1024});
  if(result.error||result.status!==0)throw Error('BoE published nominal gilt ZIP parser: '+String(result.stderr||result.error?.message||'failed').trim().slice(0,220));
@@ -57,7 +69,24 @@ async function nzd(){
  if(!found.length)throw Error('RBNZ B2 HTML rows missing/changed; use exact-series approved fallback');
  return found;
 }
-async function chf(){const url='https://data.snb.ch/api/cube/rendoblim/data/csv/en?dimSel=D0(2J,10J)&fromDate=2025-01';const raw=await get(url);const rows=raw.split(/\r?\n/).filter(x=>x&&!x.startsWith('#'));const sep=rows.find(x=>x.includes(';'))?';':',';const h=rows[0]?.split(sep).map(x=>x.toLowerCase().trim())||[];const di=h.findIndex(x=>/date|period/.test(x)),mi=h.findIndex(x=>/item|maturity|d0/.test(x)),vi=h.findIndex(x=>/value/.test(x));if([di,mi,vi].some(x=>x<0))throw Error('SNB monthly schema unavailable; preview '+rows.slice(0,7).join(' || ').slice(0,490));const d=new Map();for(const line of rows.slice(1)){const x=line.split(sep),date=x[di]?.trim(),m=x[mi]?.trim(),val=rate(x[vi]);if(!/^(2J|10J)$/.test(m)||val===null||!/\d{4}-\d{2}/.test(date))continue;const key=date.slice(0,7)+'-01';const item=d.get(key)||{date:key};item[m==='2J'?'2Y':'10Y']=val;d.set(key,item)}return [...d.values()].map(x=>row(x.date,x['2Y'],x['10Y']))}
+async function chf(){
+ const url='https://data.snb.ch/api/cube/rendoblim/data/csv/en?dimSel=D0(2J,10J)&fromDate=2025-01';
+ const raw=await get(url),lines=raw.split(/\r?\n/).filter(Boolean);
+ // SNB prepends CubeId and PublishingDate metadata rows before the
+ // semicolon-delimited Date;D0;Value table.
+ const cells=line=>line.split(';').map(x=>x.trim().replace(/^"|"$/g,''));
+ const header=lines.findIndex(line=>{const x=cells(line).map(y=>y.toLowerCase());return x.includes('date')&&x.includes('d0')&&x.includes('value')});
+ if(header<0)throw Error('SNB CSV Date/D0/Value table missing');
+ const keys=cells(lines[header]).map(x=>x.toLowerCase()),di=keys.indexOf('date'),mi=keys.indexOf('d0'),vi=keys.indexOf('value');
+ const dates=new Map();
+ for(const line of lines.slice(header+1)){
+  const x=cells(line),date=x[di],m=x[mi],value=rate(x[vi]);
+  if(!/^(2J|10J)$/.test(m)||value===null||!/^\d{4}-\d{2}$/.test(date||''))continue;
+  const d=date+'-01',item=dates.get(d)||{date:d};
+  item[m==='2J'?'2Y':'10Y']=value;dates.set(d,item);
+ }
+ return [...dates.values()].map(x=>row(x.date,x['2Y'],x['10Y']));
+}
 async function fred(code){const key=process.env.FRED_API_KEY;let config={};try{config=JSON.parse(process.env.TRADE90_FRED_YIELD_SERIES||'{}')}catch{}const ids=config[code];if(!key||!Array.isArray(ids)||ids.length!==2||ids.some(x=>!/^[A-Z0-9_]+$/.test(x)))throw Error('Source adapter not yet configured; requires exact validated 2Y/10Y source mapping');async function series(id){const u='https://api.stlouisfed.org/fred/series/observations?series_id='+id+'&api_key='+encodeURIComponent(key)+'&file_type=json&sort_order=desc&limit=400';const d=JSON.parse(await get(u));return(d.observations||[]).map(x=>({date:x.date,value:rate(x.value)})).filter(x=>x.value!==null)}return mergeTenors(await series(ids[0]),await series(ids[1]))}
 const adapters={USD:usd,EUR:eur,CAD:cad,AUD:aud,JPY:jpy,CHF:chf,GBP:async()=>{try{return await gbp()}catch(e){if(process.env.FRED_API_KEY)return fred('GBP');throw e}},NZD:async()=>{try{return await nzdSpreadsheet()}catch(sheetError){try{return await nzd()}catch(htmlError){if(process.env.FRED_API_KEY)return fred('NZD');throw Error(sheetError.message+'; HTML: '+htmlError.message)}}}};
 const currencies={},health={};const run=await Promise.allSettled(codes.map(async code=>({code,history:normalized(await adapters[code]())})));
