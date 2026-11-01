@@ -1,22 +1,113 @@
-import fs from "node:fs/promises";
-const output="src/data/trade90-yield-curves.json";
-const current=JSON.parse(await fs.readFile(output,"utf8"));
-const today=new Date();
-const year=today.getUTCFullYear();
-const treasuryUrl=`https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/${year}/all?type=daily_treasury_yield_curve&field_tdr_date_value=${year}&page&_format=csv`;
-function csvRows(raw){return raw.trim().split(/\r?\n/).map(line=>{const out=[];let field="",quoted=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'&&line[i+1]==='"'&&quoted){field+='"';i++;}else if(c==='"'){quoted=!quoted;}else if(c===","&&!quoted){out.push(field);field="";}else field+=c;}out.push(field);return out;});}
-function dateISO(value){const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(value||"");return m?`${m[3]}-${m[1].padStart(2,"0")}-${m[2].padStart(2,"0")}`:null;}
-async function fetchText(url){const response=await fetch(url,{headers:{"User-Agent":"Trade90Research/1.0 (source-linked public data)"},signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error(`HTTP ${response.status} for ${url}`);return response.text();}
-async function usTreasury(){const rows=csvRows(await fetchText(treasuryUrl));const headers=rows.shift().map(x=>x.trim().toLowerCase());const idx=names=>headers.findIndex(h=>names.includes(h));const di=idx(["date"]),i2=idx(["2 yr","2-year","2 year"]),i10=idx(["10 yr","10-year","10 year"]);if([di,i2,i10].some(i=>i<0))throw Error("Treasury CSV headers missing");const records=rows.map(r=>({asOf:dateISO(r[di]),two:Number(r[i2]),ten:Number(r[i10])})).filter(x=>x.asOf&&Number.isFinite(x.two)&&Number.isFinite(x.ten)&&x.two>0&&x.ten>0&&x.asOf<=today.toISOString().slice(0,10)).sort((a,b)=>b.asOf.localeCompare(a.asOf));if(!records.length)throw Error("Treasury CSV has no usable observations");const r=records[0];return {verified:true,asOf:r.asOf,source:"https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",series:{"2Y":"Daily Treasury par yield curve: 2 Yr","10Y":"Daily Treasury par yield curve: 10 Yr"},yields:{"2Y":r.two,"10Y":r.ten}};}
-async function fredCurrency(code,ids,key){if(!Array.isArray(ids)||ids.length!==2||ids.some(id=>!/^[A-Z0-9_]+$/.test(id)))throw Error(`Invalid FRED series mapping for ${code}`);const fetchSeries=async id=>{const u=new URL("https://api.stlouisfed.org/fred/series/observations");u.searchParams.set("series_id",id);u.searchParams.set("api_key",key);u.searchParams.set("file_type","json");u.searchParams.set("sort_order","desc");u.searchParams.set("limit","14");const data=JSON.parse(await fetchText(u));return (data.observations||[]).filter(x=>x.value!=="."&&Number.isFinite(Number(x.value))&&x.date<=today.toISOString().slice(0,10)).map(x=>({date:x.date,value:Number(x.value)}));};const [two,ten]=await Promise.all(ids.map(fetchSeries));const dates=new Set(ten.map(x=>x.date));const common=two.find(x=>dates.has(x.date));if(!common)throw Error(`No matching FRED 2Y/10Y dates for ${code}`);return {verified:true,asOf:common.date,source:`https://fred.stlouisfed.org/series/${ids[0]}`,series:{"2Y":ids[0],"10Y":ids[1]},yields:{"2Y":common.value,"10Y":ten.find(x=>x.date===common.date).value}};}
-const currencies={...current.currencies};const failures=[];
-try{currencies.USD=await usTreasury();console.log("USD Treasury:",currencies.USD.asOf);}catch(e){failures.push("USD: "+e.message);}
-let configured={};try{configured=JSON.parse(process.env.TRADE90_FRED_YIELD_SERIES||"{}");}catch{throw Error("TRADE90_FRED_YIELD_SERIES must be valid JSON");}
-if(process.env.FRED_API_KEY){for(const code of ["EUR","GBP","JPY","AUD","NZD","CAD","CHF"]){if(!configured[code])continue;try{currencies[code]=await fredCurrency(code,configured[code],process.env.FRED_API_KEY);console.log(code,currencies[code].asOf);}catch(e){failures.push(code+": "+e.message);}}}
-for(const [code,value] of Object.entries(currencies)){if(!value?.verified||!value.asOf||!value.yields||!Number.isFinite(value.yields["2Y"])||!Number.isFinite(value.yields["10Y"]))delete currencies[code];}
-const dates=Object.values(currencies).map(x=>x.asOf).sort();
-const next={schemaVersion:1,asOf:dates.at(-1)||null,notes:"Verified observed 2Y and 10Y government bond yields. Missing currency coverage is intentionally left blank. Snapshot dates are observations, not retrieval dates.",currencies};
-await fs.writeFile(output,JSON.stringify(next,null,2)+"\n");
-console.log("Yield coverage:",Object.keys(currencies).join(", ")||"none");
-if(failures.length)console.warn("Yield provider failures:",failures.join("; "));
-if(!Object.keys(currencies).length)process.exitCode=1;
+// Source-validated daily (or explicitly monthly) sovereign yield curves.
+// The series are NOT equivalent to OIS futures or policy-rate forecasts.
+// Strict 2Y/10Y matching, observed dates, and transparent source status.
+import fs from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+const file='src/data/trade90-yield-curves.json';
+const previous=JSON.parse(await fs.readFile(file,'utf8'));
+const now=new Date(),today=now.toISOString().slice(0,10),todayMs=Date.parse(today+'T00:00:00Z');
+const codes=['USD','EUR','GBP','JPY','AUD','NZD','CAD','CHF'];
+const sources={
+ USD:{name:'US Treasury par yield',kind:'sovereign_par_yield',frequency:'daily',url:'https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve'},
+ EUR:{name:'ECB euro-area AAA government spot curve',kind:'fitted_sovereign_spot',frequency:'daily',url:'https://data.ecb.europa.eu/data/datasets/YC'},
+ GBP:{name:'Bank of England nominal gilt fitted spot curve',kind:'fitted_sovereign_spot',frequency:'daily',url:'https://www.bankofengland.co.uk/statistics/yield-curves'},
+ JPY:{name:'Japan Ministry of Finance constant-maturity JGB yield',kind:'sovereign_constant_maturity',frequency:'daily',url:'https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/index.htm'},
+ AUD:{name:'RBA Australian government bond assessed closing yield',kind:'sovereign_assessed_yield',frequency:'weekly_publication',url:'https://www.rba.gov.au/statistics/tables/'},
+ NZD:{name:'RBNZ wholesale government benchmark closing yields',kind:'sovereign_benchmark_yield',frequency:'daily',url:'https://www.rbnz.govt.nz/en/statistics/series/exchange-and-interest-rates/wholesale-interest-rates'},
+ CAD:{name:'Bank of Canada selected government bond benchmark yields',kind:'sovereign_benchmark_yield',frequency:'daily',url:'https://www.bankofcanada.ca/rates/interest-rates/canadian-bonds/'},
+ CHF:{name:'SNB Swiss Confederation fitted yield curve (monthly)',kind:'fitted_sovereign_spot',frequency:'monthly',url:'https://data.snb.ch/en/topics/ziredev/cube/rendoblim'}
+};
+const isDate=s=>typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&Number.isFinite(Date.parse(s+'T00:00:00Z'))&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s&&s<=today;
+const rate=x=>{const raw=String(x??'').replace(/,/g,'').trim();if(!raw||raw==='.'||raw==='-'||raw==='..')return null;const n=Number(raw);return Number.isFinite(n)&&n>-10&&n<35?n:null};
+const toDate=x=>{x=String(x||'').trim();if(isDate(x))return x;let m=x.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})$/);if(m){let d=m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');return isDate(d)?d:null;}m=x.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);if(m){let d=m[3]+'-'+m[1].padStart(2,'0')+'-'+m[2].padStart(2,'0');return isDate(d)?d:null;}let d=Date.parse(x);return Number.isFinite(d)?new Date(d).toISOString().slice(0,10):null};
+const row=(date,two,ten)=>{const asOf=toDate(date),r2=rate(two),r10=rate(ten);return asOf&&r2!==null&&r10!==null?{date:asOf,'2Y':r2,'10Y':r10}:null};
+function parseCSV(text){const lines=String(text).replace(/^\uFEFF/,'').split(/\r?\n/);return lines.map(line=>{let res=[],s='',quoted=false;for(let i=0;i<line.length;i++){let c=line[i];if(c==='"'&&quoted&&line[i+1]==='"'){s+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){res.push(s.trim());s=''}else{s+=c}}res.push(s.trim());return res})}
+async function get(url,timeout=23000){const r=await fetch(url,{headers:{'User-Agent':'TRADE90 research data collection (https://tradeninety.com/data-policy/)','Accept':'text/csv, application/json, text/plain, text/html;q=0.8'},signal:AbortSignal.timeout(timeout)});if(!r.ok)throw Error('HTTP '+r.status+' at '+new URL(url).hostname);return r.text()}
+function normalized(raw){const byDate=new Map();for(const x of raw){if(x&&isDate(x.date)&&Number.isFinite(x['2Y'])&&Number.isFinite(x['10Y']))byDate.set(x.date,x)}return [...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date)).slice(-400)}
+function mergeTenors(a,b){const map=new Map(a.map(x=>[x.date,x.value]));return normalized(b.map(x=>row(x.date,map.get(x.date),x.value)))}
+async function usd(){const yr=now.getUTCFullYear(),u='https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/'+yr+'/all?type=daily_treasury_yield_curve&field_tdr_date_value='+yr+'&page&_format=csv';const csv=parseCSV(await get(u));const h=csv.shift().map(x=>x.toLowerCase());const i=(...names)=>h.findIndex(x=>names.includes(x));const d=i('date'),a=i('2 yr','2-year','2 year'),b=i('10 yr','10-year','10 year');if([d,a,b].some(x=>x<0))throw Error('Treasury maturity headers changed');return csv.map(x=>row(x[d],x[a],x[b]))}
+async function eur(){const basic='https://data-api.ecb.europa.eu/service/data/YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_';async function series(t){const csv=parseCSV(await get(basic+t+'?lastNObservations=400&format=csvdata'));const h=csv.shift();const d=h.indexOf('TIME_PERIOD'),v=h.indexOf('OBS_VALUE');if(d<0||v<0)throw Error('ECB CSV field schema changed');return csv.filter(x=>x[d]&&x[v]).map(x=>({date:x[d],value:rate(x[v])})).filter(x=>x.value!==null)}return mergeTenors(await series('2Y'),await series('10Y'))}
+async function cad(){const json=JSON.parse(await get('https://www.bankofcanada.ca/valet/observations/BD.CDN.2YR.DQ.YLD,BD.CDN.10YR.DQ.YLD/json?recent=400'));return(json.observations||[]).map(x=>row(x.d,x['BD.CDN.2YR.DQ.YLD']?.v,x['BD.CDN.10YR.DQ.YLD']?.v))}
+async function aud(){const csv=parseCSV(await get('https://www.rba.gov.au/statistics/tables/csv/f2-data.csv'));let d=-1,a=-1,b=-1;for(let i=0;i<Math.min(csv.length,20);i++){const cells=csv[i];const ia=cells.indexOf('FCMYGBAG2D'),ib=cells.indexOf('FCMYGBAG10D');if(ia>=0&&ib>=0){a=ia;b=ib;d=0;break}}if(a<0||b<0)throw Error('RBA F2 identifiers not found');return csv.map(x=>row(x[d],x[a],x[b]))}
+async function jpy(){
+ const csv=parseCSV(await get('https://www.mof.go.jp/jgbs/reference/interest_rate/jgbcm.csv'));
+ // Japanese MOF current-month exports use Reiwa dates (R8.10.30 => 2026-10-30),
+ // one date column and exact year-maturity column labels (1年,2年,...10年).
+ const h=csv.findIndex(r=>r.length>=12&&/^1[^0-9]/.test(r[1]||'')&&/^2[^0-9]/.test(r[2]||'')&&/^10[^0-9]/.test(r[10]||''));
+ if(h<0)throw Error('MOF maturity header changed');
+ const toJpDate=v=>{
+  const m=String(v||'').match(/^R(\d+)\.(\d{1,2})\.(\d{1,2})$/i);
+  if(m){const year=2018+Number(m[1]),date=year+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');return isDate(date)?date:null}
+  return toDate(v);
+ };
+ return csv.slice(h+1).map(x=>row(toJpDate(x[0]),x[2],x[10]));
+}
+async function gbp(){
+ const result=spawnSync(process.env.PYTHON||'python3',['scripts/extract-boe-yields.py'],{encoding:'utf8',timeout:40000,maxBuffer:2*1024*1024});
+ if(result.error||result.status!==0)throw Error('BoE published nominal gilt ZIP parser: '+String(result.stderr||result.error?.message||'failed').trim().slice(0,220));
+ const records=JSON.parse(result.stdout||'[]');
+ if(!Array.isArray(records)||!records.length)throw Error('BoE nominal spot curve contained no dated 2Y and 10Y values');
+ return records;
+}
+async function nzdSpreadsheet(){
+ const proc=spawnSync(process.env.PYTHON||'python3',['scripts/extract-rbnz-yields.py'],{encoding:'utf8',timeout:35000,maxBuffer:2*1024*1024});
+ if(proc.error||proc.status!==0)throw Error('RBNZ B2 spreadsheet: '+String(proc.stderr||proc.error?.message||'failed').trim().slice(0,210));
+ const rows=JSON.parse(proc.stdout||'[]');if(!Array.isArray(rows)||!rows.length)throw Error('RBNZ B2 workbook missing matched 2Y/10Y observations');return rows;
+}
+async function nzd(){
+ const html=await get('https://www.rbnz.govt.nz/en/statistics/series/exchange-and-interest-rates/wholesale-interest-rates');
+ // The on-page official B2 daily-close table has Date, OCR, overnight facilities,
+ // bank bills, government bond tenors (1Y, 2Y, 5Y, 10Y), and swaps.
+ const clean=x=>x.replace(/<[^>]*>/g,' ').replace(/&nbsp;|&#160;/g,' ').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim();
+ const found=[];
+ for(const tr of html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi)||[]){
+  const cells=[...tr.matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)].map(m=>clean(m[1]));
+  if(cells.length<12||!/^\d{1,2}\s+[A-Za-z]{3}\s+20\d{2}$/.test(cells[0]))continue;
+  const record=row(cells[0],cells[9],cells[11]);
+  if(record)found.push(record);
+ }
+ if(!found.length)throw Error('RBNZ B2 HTML rows missing/changed; use exact-series approved fallback');
+ return found;
+}
+async function chf(){
+ const url='https://data.snb.ch/api/cube/rendoblim/data/csv/en?dimSel=D0(2J,10J)&fromDate=2025-01';
+ const raw=await get(url),lines=raw.split(/\r?\n/).filter(Boolean);
+ // SNB prepends CubeId and PublishingDate metadata rows before the
+ // semicolon-delimited Date;D0;Value table.
+ const cells=line=>line.split(';').map(x=>x.trim().replace(/^"|"$/g,''));
+ const header=lines.findIndex(line=>{const x=cells(line).map(y=>y.toLowerCase());return x.includes('date')&&x.includes('d0')&&x.includes('value')});
+ if(header<0)throw Error('SNB CSV Date/D0/Value table missing');
+ const keys=cells(lines[header]).map(x=>x.toLowerCase()),di=keys.indexOf('date'),mi=keys.indexOf('d0'),vi=keys.indexOf('value');
+ const dates=new Map();
+ for(const line of lines.slice(header+1)){
+  const x=cells(line),date=x[di],m=x[mi],value=rate(x[vi]);
+  if(!/^(2J|10J)$/.test(m)||value===null||!/^\d{4}-\d{2}$/.test(date||''))continue;
+  const d=date+'-01',item=dates.get(d)||{date:d};
+  item[m==='2J'?'2Y':'10Y']=value;dates.set(d,item);
+ }
+ return [...dates.values()].map(x=>row(x.date,x['2Y'],x['10Y']));
+}
+async function fred(code){const key=process.env.FRED_API_KEY;let config={};try{config=JSON.parse(process.env.TRADE90_FRED_YIELD_SERIES||'{}')}catch{}const ids=config[code];if(!key||!Array.isArray(ids)||ids.length!==2||ids.some(x=>!/^[A-Z0-9_]+$/.test(x)))throw Error('Source adapter not yet configured; requires exact validated 2Y/10Y source mapping');async function series(id){const u='https://api.stlouisfed.org/fred/series/observations?series_id='+id+'&api_key='+encodeURIComponent(key)+'&file_type=json&sort_order=desc&limit=400';const d=JSON.parse(await get(u));return(d.observations||[]).map(x=>({date:x.date,value:rate(x.value)})).filter(x=>x.value!==null)}return mergeTenors(await series(ids[0]),await series(ids[1]))}
+const adapters={USD:usd,EUR:eur,CAD:cad,AUD:aud,JPY:jpy,CHF:chf,GBP:async()=>{try{return await gbp()}catch(e){if(process.env.FRED_API_KEY)return fred('GBP');throw e}},NZD:async()=>{try{return await nzdSpreadsheet()}catch(sheetError){try{return await nzd()}catch(htmlError){if(process.env.FRED_API_KEY)return fred('NZD');throw Error(sheetError.message+'; HTML: '+htmlError.message)}}}};
+const currencies={},health={};const run=await Promise.allSettled(codes.map(async code=>({code,history:normalized(await adapters[code]())})));
+for(let i=0;i<codes.length;i++){
+ const code=codes[i],result=run[i],meta=sources[code],old=previous.currencies?.[code];
+ let history=[],error=null;
+ if(result.status==='fulfilled'&&result.value.history.length)history=result.value.history;
+ else error=result.status==='rejected'?String(result.reason?.message||result.reason):'No matched source observations';
+ if(old?.history?.length){history=normalized([...old.history,...history])}
+ if(!history.length&&old?.verified&&old.asOf){history=normalized([row(old.asOf,old.yields?.['2Y'],old.yields?.['10Y'])])}
+ const latest=history.at(-1);
+ const age=latest?(todayMs-Date.parse(latest.date+'T00:00:00Z'))/86400000:null;
+ const maxAge=meta.frequency==='monthly'?50:meta.frequency==='weekly_publication'?12:8;
+ const verified=Boolean(latest&&age>=0&&age<=maxAge&&!error);
+ const status=verified?'current':latest?'stale_or_source_failed':'unavailable';
+ if(latest){currencies[code]={verified,asOf:latest.date,source:meta.url,kind:meta.kind,frequency:meta.frequency,provider:meta.name,yields:{'2Y':latest['2Y'],'10Y':latest['10Y']},history}}
+ health[code]={status,source:meta.url,kind:meta.kind,frequency:meta.frequency,latestObservation:latest?.date||null,historyPoints:history.length,checkedAt:now.toISOString(),error:error||null,observationAgeDays:age};
+ console.log(code+': '+status+' '+(latest?.date||'—')+' '+(error||''));
+}
+const summary={total:8,current:codes.filter(c=>health[c].status==='current').length,stale:codes.filter(c=>health[c].status==='stale_or_source_failed').length,unavailable:codes.filter(c=>health[c].status==='unavailable').length};
+const output={schemaVersion:2,asOf:codes.map(c=>currencies[c]?.asOf).filter(Boolean).sort().at(-1)||null,generatedAt:now.toISOString(),coverage:summary,notes:'2Y and 10Y sovereign yields. Instrument definitions and publication frequencies differ; pair spreads are context only. Never use this file as policy-rate forecasts.',currencies,health};
+await fs.writeFile(file,JSON.stringify(output,null,2)+'\n');
+await fs.writeFile('public/data/yield-curve-status.json',JSON.stringify({schemaVersion:1,generatedAt:output.generatedAt,coverage:summary,health},null,2)+'\n');
+if(!summary.current)process.exitCode=1;

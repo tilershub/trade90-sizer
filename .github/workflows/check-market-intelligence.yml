@@ -5,6 +5,10 @@ on:
     paths:
       - "package.json"
       - "scripts/publish-sitemap.mjs"
+      - "scripts/refresh-yield-curves.mjs"
+      - "scripts/extract-boe-yields.py"
+      - "scripts/extract-rbnz-yields.py"
+      - "tests/yield-curves.mjs"
       - "scripts/submit-indexnow.mjs"
       - "tests/indexnow.mjs"
       - ".github/workflows/indexnow-discovery.yml"
@@ -84,6 +88,10 @@ jobs:
         run: |
           npm run refresh:model
           node scripts/audit-model-coverage.mjs
+      - name: Retrieve and audit sovereign yield curve feeds
+        run: |
+          node scripts/refresh-yield-curves.mjs
+          node tests/yield-curves.mjs
       - name: Build Astro website
         run: npm run build
       - name: Verify generated homepage, methodology and education routes

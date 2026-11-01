@@ -20,6 +20,13 @@ assert.match(home,/website appearance|Website appearance/i);
 const index=read("pairs/index.html");
 const all=read("rate-gaps/index.html");
 const decisions=read("decisions/index.html");
+const curves=read("yield-curves/index.html");
+assert.match(curves,/Yield Curve Intelligence/);
+assert.match(curves,/2-year\/10-year slope/i);
+assert.match(curves,/client:load|astro-island|yield-curve/i);
+assert.match(curves,/not.*policy-rate/i);
+
+
 assert.match(index,/Explore a Forex Currency Pair/);
 assert.match(all,/Compare All 28 Forex Rate Gaps/);
 assert.match(decisions,/Next Major Interest Rate Decisions/);
@@ -40,6 +47,7 @@ for(const pair of allTrade90Pairs){
  assert.ok(html.includes('data-outlook-label'),"Headline status must render directly in HTML on "+slug);
  assert.ok(html.includes('href="#policy-evidence"'),"Research verdict must link to bank evidence on "+slug);
  assert.ok(html.includes("90-DAY POLICY DIVERGENCE"),"90-day outlook must be the page headline for "+slug);
+ assert.ok(html.includes('href="/yield-curves/?currency='),"Compact bond context link missing on "+slug);
  assert.ok(html.includes('href="/daily/"'),"Daily changes link missing from primary outlook on "+slug);
  
  assert.ok(html.includes(pair.baseBank.source),"No source for base "+slug);
