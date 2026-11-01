@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-01T04:07:06.786Z",
+  "purpose": "Independent research validation only; not used by policy divergence engine",
+  "horizonDays": 90,
+  "minimumIndependentOutcomes": 30,
+  "status": "insufficient_verified_policy_outcomes",
+  "completedBacktestOutcomes": 0,
+  "comparablePairCountWithCompleteRateHistory": 0,
+  "recordedPolicyDecisionEvents": 2,
+  "hitRate": null,
+  "confidence": null,
+  "improvementVsMacroBaseline": null,
+  "productionModelUsesYieldCurves": false,
+  "limitations": [
+    "A complete historical policy-rate path for both currencies, with source-dated starting and 90-day outcome levels, is required before scoring yield inputs.",
+    "Historical bonds may differ by benchmark conventions and observation dates; compare compatible instrument definitions.",
+    "Backtesting must use information available only at the forecast timestamp and hold out later dates for evaluation.",
+    "No Widening/Narrowing label or model weight is changed by this diagnostic."
+  ],
+  "coverage": {
+    "USD": {
+      "sourceStatus": "current",
+      "historyPoints": 209,
+      "earliestObservation": "2026-01-02",
+      "latestObservation": "2026-10-30",
+      "recordedPolicyDecisions": 1,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    },
+    "EUR": {
+      "sourceStatus": "current",
+      "historyPoints": 400,
+      "earliestObservation": "2025-04-07",
+      "latestObservation": "2026-10-29",
+      "recordedPolicyDecisions": 0,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    },
+    "GBP": {
+      "sourceStatus": "current",
+      "historyPoints": 21,
+      "earliestObservation": "2026-10-01",
+      "latestObservation": "2026-10-29",
+      "recordedPolicyDecisions": 0,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    },
+    "JPY": {
+      "sourceStatus": "current",
+      "historyPoints": 20,
+      "earliestObservation": "2026-10-01",
+      "latestObservation": "2026-10-29",
+      "recordedPolicyDecisions": 0,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    },
+    "AUD": {
+      "sourceStatus": "current",
+      "historyPoints": 400,
+      "earliestObservation": "2025-03-31",
+      "latestObservation": "2026-10-28",
+      "recordedPolicyDecisions": 0,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    },
+    "NZD": {
+      "sourceStatus": "missing",
+      "historyPoints": 0,
+      "earliestObservation": null,
+      "latestObservation": null,
+      "recordedPolicyDecisions": 0,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    },
+    "CAD": {
+      "sourceStatus": "current",
+      "historyPoints": 400,
+      "earliestObservation": "2025-03-24",
+      "latestObservation": "2026-10-29",
+      "recordedPolicyDecisions": 1,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    },
+    "CHF": {
+      "sourceStatus": "stale",
+      "historyPoints": 7,
+      "earliestObservation": "2025-01-01",
+      "latestObservation": "2025-07-01",
+      "recordedPolicyDecisions": 0,
+      "outcomesWithAtLeast90DaysElapsed": 0
+    }
+  }
+}
