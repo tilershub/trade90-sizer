@@ -3,6 +3,7 @@ import Layout from "../layouts/Trade90V2Layout.astro";
 import SourceWatch from "../components/Trade90SourceWatch.svelte";
 import RefreshStatus from "../components/Trade90RefreshStatus.svelte";
 import snapshot from "../data/trade90-policy-snapshot.json";
+import yieldData from "../data/trade90-yield-curves.json";
 import {policyCollectionAsOf} from "../data/trade90-policy-updates.js";
 import {decisionCalendarReviewedAt} from "../data/trade90-decision-calendar.js";
 import {outlookAsOf} from "../data/trade90-policy-outlook.js";
@@ -25,6 +26,18 @@ const format=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{year:"numer
   </section>
   <p class="critical"><strong>Current refresh status:</strong> Trade90's public policy-rate and decision-calendar records are updated through a curated publication workflow. An hourly GitHub Actions process monitors official bank publications, automatically publishes bank-owned source links, and attempts strict, bank-specific verification of rate decisions. Only documents with an approved source, explicitly parsed benchmark and verified effective date may update the eight-bank rate snapshot. This is **not complete coverage**: some bank release feeds omit decisions, PDF-only decisions lack a verified parser, and ambiguous effective dates are deliberately withheld. Meeting calendars and policy summaries remain separately curated; the market-implied forward feed is not connected. A daily research-health audit now publishes source-check times and highlights outstanding review gaps; it does not automatically recertify curated summaries, calendars or older reported market-pricing research. The site may be out of date between checks. Passing a build does not mean external rates or news were refreshed.</p>
   <section class="yield-source-info"><h2>Government bond yield curve sources</h2><p>Yield Curve Intelligence uses source-specific 2-year and 10-year government bond observations, not policy-rate futures. The daily pipeline records source failures and missing country coverage rather than inserting a synthetic yield. Each national measure may have its own instrument type, publication frequency and redistribution restrictions. <a href="/yield-curves/">Inspect yield-curve availability by currency →</a></p></section>
+  <section class="yield-source-report" aria-labelledby="yield-source-heading">
+    <h2 id="yield-source-heading">Yield Curve Intelligence — source coverage</h2>
+    <p><strong>{yieldData.coverage?.current||0} of 8</strong> government bond yield curves have currently verified observations. The source-retrieval date does not change the observation date. Missing or stale yields are not added to the policy-rate divergence model.</p>
+    <div class="yield-source-grid">
+     {["USD","EUR","GBP","JPY","AUD","NZD","CAD","CHF"].map(code=><div>
+       <strong>{code}</strong><span>{yieldData.health?.[code]?.status||"unavailable"}</span>
+       <small>{yieldData.health?.[code]?.latestObservation||"No verified observation"} · {yieldData.health?.[code]?.frequency||"Unknown publication frequency"}</small>
+       {yieldData.health?.[code]?.error&&<small>Source limitation: {yieldData.health[code].error}</small>}
+     </div>)}
+    </div>
+    <p><a href="/yield-curves/">Open Yield Curve Intelligence →</a> · Source series and original publication dates are preserved. NZD source access and the stale CHF historical dataset are not silently backfilled.</p>
+  </section>
   <SourceWatch client:visible />
   <section aria-labelledby="automatic-publications"><h2 id="automatic-publications">Automatically discovered official publications</h2><p>TRADE90's hourly source watcher now maintains a continuously updated, source-linked publication archive for all eight central banks. The latest links are displayed directly on <a href="/central-banks/">the central-bank updates page</a> and on relevant <a href="/pairs/">currency-pair pages</a> without manual publishing. The time a link was <strong>first detected is not its original release date</strong>, and discovering a link does not prove that a rate changed. The older curated editorial summaries and future-rate estimates remain separate datasets.</p><p>Strictly validated official policy decisions can update the rate snapshot and an <a href="/data/official-rate-history.json" download="trade90-rate-decision-history.json" type="application/json">downloadable rate-decision history (JSON)</a> automatically. Unsupported or ambiguous documents are held back, and source-health failures are recorded rather than replaced with invented figures. Published decisions may arrive later than the bank's actual announcement because checking, validation and website deployment are not instantaneous.</p></section>
   <section>
@@ -118,4 +131,4 @@ html[data-theme="light"] .critical{background:#ecfdf5;color:#102033}
 html[data-theme="light"] th{background:#e2e8f0;color:#102033}
 html[data-theme="light"] td{border-color:#cbd5e1}
 @media(max-width:700px){.status-overview,.classes{grid-template-columns:1fr}.reading-policy>section:not(.status-overview){margin:25px 0}.reading-policy h2{font-size:1.23rem}th{min-width:155px}.status-overview>div,.class{padding:15px}}
-</style>
+.yield-source-report{margin:24px 0;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.yield-source-report h2{font-size:1.15rem;color:var(--ink)}.yield-source-report p{font-size:.82rem;color:var(--muted);line-height:1.7}.yield-source-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.yield-source-grid>div{padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--soft);min-width:0}.yield-source-grid strong,.yield-source-grid span,.yield-source-grid small{display:block;overflow-wrap:anywhere}.yield-source-grid span{font-size:.8rem;color:var(--muted)}.yield-source-grid small{font-size:.7rem;color:var(--muted)}@media(max-width:720px){.yield-source-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}\n</style>
