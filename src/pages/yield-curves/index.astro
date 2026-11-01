@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import Dashboard from "../../components/Trade90YieldCurveDashboard.svelte";
+import yieldData from "../../data/trade90-yield-curves.json";
+const codes=["USD","EUR","GBP","JPY","AUD","NZD","CAD","CHF"];
+const names={USD:"US Treasuries",EUR:"Euro-area government bonds",GBP:"UK gilts",JPY:"Japanese JGBs",AUD:"Australian government bonds",NZD:"New Zealand government bonds",CAD:"Government of Canada bonds",CHF:"Swiss Confederation bonds"};
+const coverage=yieldData.coverage||{current:codes.filter(c=>yieldData.currencies?.[c]?.verified).length,total:8};
+---
+<Layout title="Yield Curve Intelligence | Government Bond Yields and Sovereign Spreads" description="Explore source-linked 2-year and 10-year government bond yields across eight currencies, yield-curve slope and historical changes, and comparable cross-country bond spreads." canonical="/yield-curves/">
+ <main class="wrap yield-page">
+  <nav class="crumbs"><a href="/">Home</a><span>›</span><span>Yield Curve Intelligence</span></nav>
+  <header class="page-intro">
+   <div class="eyebrow">TRADE90 · INDEPENDENT BOND MARKET RESEARCH</div>
+   <h1>Yield Curve Intelligence</h1>
+   <p>How are short- and long-term sovereign yields changing? Explore the 2-year/10-year slope, recent steepening or flattening, and cross-country bond yield spreads. These are <strong>not</strong> central-bank policy-rate futures or exchange-rate predictions.</p>
+  </header>
+  <p class="availability"><strong>{coverage.current}/8</strong> country curves have source-verified observations inside their allowed publication windows. <a href="/data-policy/">Review source status →</a> · <a href="/pairs/">Return to policy-rate divergence →</a></p>
+  <Dashboard client:load/>
+  <section class="universe" aria-label="Eight countries and their coverage">
+   <h2>Available sources by country</h2>
+   <div class="country-grid">
+    {codes.map(code=><div class="country">
+     <strong>{code}</strong><span>{names[code]}</span><small>{yieldData.health?.[code]?.status|| (yieldData.currencies?.[code]?.verified?"current":"awaiting verified feed")}</small>
+     <a href={yieldData.health?.[code]?.source||"#sources"} target={yieldData.health?.[code]?.source?"_blank":undefined} rel="noopener noreferrer">{yieldData.health?.[code]?.source?"Source ↗":"See methodology"}</a>
+    </div>)}
+   </div>
+  </section>
+  <section class="definitions" id="sources">
+   <h2>How to interpret this tool</h2>
+   <p><strong>Yield-curve slope:</strong> 10-year government bond yield minus the 2-year yield. An increase is steepening; a decrease is flattening. Either movement can result from short- or long-term rates changing and is not automatically positive or negative for a currency.</p>
+   <p><strong>Source differences matter:</strong> US Treasury par yields, ECB fitted euro-area AAA spot rates, Canadian benchmark yields and other national measures do not represent identical instruments. Cross-market spreads are informative but not directly equivalent to OIS-derived future policy rates.</p>
+   <p><strong>Historical data:</strong> changes need real earlier observations, not inferred rates. A monthly series is explicitly labelled monthly. Currentness is based on observation time and source publication frequency—not on the most recent build date. No unverified value is silently presented as live.</p>
+   <p>This section is independent of the <a href="/">TRADE90 policy-rate divergence research model</a>; yield-curve movements have not been added to the 90-day classification engine.</p>
+  </section>
+ </main>
+</Layout>
+<style>
+.yield-page{padding-bottom:35px}.yield-page .crumbs{display:flex;gap:9px;margin:20px 0 0;font-size:.78rem;color:var(--muted)}.yield-page .crumbs a{color:var(--blue)}.yield-page .page-intro{padding-bottom:5px}.yield-page .page-intro .eyebrow{font-size:.69rem;color:var(--blue);font-weight:800}.yield-page .page-intro p{max-width:900px;font-size:.94rem;line-height:1.7}.availability{padding:12px 15px;background:var(--soft);border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:.84rem;line-height:1.6}.availability strong{color:var(--ink)}.availability a,.definitions a{color:var(--blue)}.universe,.definitions{padding:27px 0;border-top:1px solid var(--line);margin-top:28px}.universe h2,.definitions h2{font-size:1.25rem;margin:0 0 14px;color:var(--ink)}.country-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.country{border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:15px;display:grid;gap:6px}.country strong{color:var(--ink);font-size:1.14rem}.country span,.country small{color:var(--muted);font-size:.77rem}.country a{color:var(--blue);font-size:.78rem}.definitions p{font-size:.88rem;max-width:950px;color:var(--muted);line-height:1.8}@media(max-width:760px){.country-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.yield-page .page-intro h1{font-size:2.1rem}}
+</style>
