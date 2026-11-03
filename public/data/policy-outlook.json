@@ -5,13 +5,13 @@
     "total": 8,
     "verifiedDecisions": 3,
     "unverifiedNewDecisions": 2,
-    "generatedAt": "2026-11-02T23:54:22.223Z"
+    "generatedAt": "2026-11-03T00:03:53.535Z"
   },
   "scenarioPolicy": "market_verified_or_qualitative_research",
   "modelVersion": "3.2.0",
   "workflowVersion": "1.2.0",
   "experimental": true,
-  "generatedAt": "2026-11-02T23:54:22.223Z",
+  "generatedAt": "2026-11-03T00:03:53.535Z",
   "inputFingerprint": "3b5c3613431d7f57c2c91fad23cd0ea4fcf02f0684b46c948e96be8fddca7713",
   "horizonDays": 90,
   "marketHorizon": "3M",
@@ -24,8 +24,8 @@
   "banks": {
     "CHF": {
       "currency": "CHF",
-      "state": "hold",
-      "label": "Conditional hold bias",
+      "state": "uncertain",
+      "label": "Policy direction uncertain",
       "economicPressure": "Balanced or conflicting pressure",
       "drivers": [
         {
@@ -43,7 +43,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-11-02T13:51:47.001236+00:00"
+          "retrievedAt": "2026-11-03T00:03:20.745109+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -60,7 +60,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:52.106644+00:00"
+          "retrievedAt": "2026-11-03T00:03:27.785516+00:00"
         },
         {
           "metric": "Employment",
@@ -77,7 +77,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Switzerland",
-          "retrievedAt": "2026-11-02T13:51:49.573310+00:00"
+          "retrievedAt": "2026-11-03T00:03:23.630443+00:00"
         },
         {
           "metric": "Real GDP",
@@ -94,14 +94,16 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Switzerland",
-          "retrievedAt": "2026-11-02T13:51:50.015431+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.113093+00:00"
         }
       ],
-      "reasons": [],
+      "reasons": [
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
+      ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
         "Headline and underlying inflation trends differ; energy, food or other components may matter.",
-        "Hold is a conditional research baseline supported by policy context, not a commitment by the bank."
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "CHF",
@@ -139,7 +141,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:47.001236+00:00",
+          "retrievedAt": "2026-11-03T00:03:20.745109+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -148,7 +150,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:52.106644+00:00",
+          "retrievedAt": "2026-11-03T00:03:27.785516+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -157,7 +159,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:49.573310+00:00",
+          "retrievedAt": "2026-11-03T00:03:23.630443+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCHQ156S"
         },
         {
@@ -166,15 +168,15 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:50.015431+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.113093+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CHQ657S"
         }
       ],
       "watch": "Swiss inflation, franc exchange-rate developments and global uncertainty",
-      "reasonCode": "reviewed_policy_bias",
+      "reasonCode": "policy_review_due",
       "evidenceStatus": {
         "macro": "validated",
-        "policy": "reviewed_current",
+        "policy": "review_due",
         "automatedPolicy": "assessed"
       },
       "score": 1,
@@ -186,12 +188,11 @@
         "headlineTrend": 1,
         "underlyingTrend": 0
       },
-      "policyEvidenceReviewed": true,
-      "guidanceDirection": "hold_context",
-      "expiresAt": "2026-11-03T00:00:00.000Z",
+      "policyEvidenceReviewed": false,
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "CHF",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -218,8 +219,8 @@
     },
     "AUD": {
       "currency": "AUD",
-      "state": "hike_hold",
-      "label": "Hike or hold bias",
+      "state": "uncertain",
+      "label": "Policy direction uncertain",
       "economicPressure": "Tightening pressure",
       "drivers": [
         {
@@ -237,7 +238,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "Headline CPI, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:51.951152+00:00"
+          "retrievedAt": "2026-11-03T00:03:27.194866+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -254,7 +255,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:51.785892+00:00"
+          "retrievedAt": "2026-11-03T00:03:26.770289+00:00"
         },
         {
           "metric": "Employment",
@@ -271,7 +272,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Australia",
-          "retrievedAt": "2026-11-02T13:51:49.605028+00:00"
+          "retrievedAt": "2026-11-03T00:03:23.581649+00:00"
         },
         {
           "metric": "Real GDP",
@@ -288,15 +289,18 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Australia",
-          "retrievedAt": "2026-11-02T13:51:49.825666+00:00"
+          "retrievedAt": "2026-11-03T00:03:24.226212+00:00"
         }
       ],
-      "reasons": [],
+      "reasons": [
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
+      ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
         "OECD CPI excluding food and energy is not the RBA trimmed-mean measure. Monthly model CPI and quarterly comparison-chart CPI cover different periods.",
         "Headline and underlying inflation trends differ; energy, food or other components may matter.",
-        "Rising unemployment offsets inflation pressure and could favour holding."
+        "Rising unemployment offsets inflation pressure and could favour holding.",
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "AUD",
@@ -334,7 +338,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:51.951152+00:00",
+          "retrievedAt": "2026-11-03T00:03:27.194866+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -343,7 +347,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:51.785892+00:00",
+          "retrievedAt": "2026-11-03T00:03:26.770289+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -352,7 +356,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:49.605028+00:00",
+          "retrievedAt": "2026-11-03T00:03:23.581649+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTAUM156S"
         },
         {
@@ -361,15 +365,15 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:49.825666+00:00",
+          "retrievedAt": "2026-11-03T00:03:24.226212+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01AUQ657S"
         }
       ],
       "watch": "Australian inflation, wages, employment and evidence of slowing demand",
-      "reasonCode": "reviewed_policy_bias",
+      "reasonCode": "policy_review_due",
       "evidenceStatus": {
         "macro": "validated",
-        "policy": "reviewed_current",
+        "policy": "review_due",
         "automatedPolicy": "assessed"
       },
       "score": 1,
@@ -381,12 +385,11 @@
         "headlineTrend": 1,
         "underlyingTrend": 0
       },
-      "policyEvidenceReviewed": true,
-      "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-03T00:00:00.000Z",
+      "policyEvidenceReviewed": false,
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "AUD",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -432,7 +435,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "Euro area (21 countries): Headline HICP, ECOICOP version 2, year-on-year percentage change",
-          "retrievedAt": "2026-11-02T13:51:48.700659+00:00"
+          "retrievedAt": "2026-11-03T00:03:22.530280+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -449,7 +452,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
           "title": "HICP excluding energy, food, alcohol and tobacco, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:52.293749+00:00"
+          "retrievedAt": "2026-11-03T00:03:27.680052+00:00"
         },
         {
           "metric": "Employment",
@@ -466,7 +469,7 @@
           "frequency": "Monthly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
           "title": "Euro area (21 countries): Unemployment, total labour force, seasonally adjusted",
-          "retrievedAt": "2026-11-02T13:51:48.360396+00:00"
+          "retrievedAt": "2026-11-03T00:03:22.030213+00:00"
         },
         {
           "metric": "Real GDP",
@@ -483,7 +486,7 @@
           "frequency": "Quarterly",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
           "title": "Euro area (21 countries): Real GDP, quarter-on-quarter percentage change, seasonally and calendar adjusted",
-          "retrievedAt": "2026-11-02T13:51:49.020354+00:00"
+          "retrievedAt": "2026-11-03T00:03:23.157445+00:00"
         }
       ],
       "reasons": [
@@ -530,7 +533,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:48.700659+00:00",
+          "retrievedAt": "2026-11-03T00:03:22.530280+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -539,7 +542,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:52.293749+00:00",
+          "retrievedAt": "2026-11-03T00:03:27.680052+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table"
         },
         {
@@ -548,7 +551,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:48.360396+00:00",
+          "retrievedAt": "2026-11-03T00:03:22.030213+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table"
         },
         {
@@ -557,7 +560,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:49.020354+00:00",
+          "retrievedAt": "2026-11-03T00:03:23.157445+00:00",
           "source": "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table"
         }
       ],
@@ -578,10 +581,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-04T23:54:22.223Z",
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "EUR",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -629,7 +632,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-11-02T13:51:47.004294+00:00"
+          "retrievedAt": "2026-11-03T00:03:20.748195+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -646,7 +649,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:52.109718+00:00"
+          "retrievedAt": "2026-11-03T00:03:27.788540+00:00"
         },
         {
           "metric": "Employment",
@@ -663,7 +666,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada",
-          "retrievedAt": "2026-11-02T13:51:50.013971+00:00"
+          "retrievedAt": "2026-11-03T00:03:24.004860+00:00"
         },
         {
           "metric": "Real GDP",
@@ -680,7 +683,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Canada",
-          "retrievedAt": "2026-11-02T13:51:50.154453+00:00"
+          "retrievedAt": "2026-11-03T00:03:24.450469+00:00"
         }
       ],
       "reasons": [
@@ -727,7 +730,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:47.004294+00:00",
+          "retrievedAt": "2026-11-03T00:03:20.748195+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -736,7 +739,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:52.109718+00:00",
+          "retrievedAt": "2026-11-03T00:03:27.788540+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -745,7 +748,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:50.013971+00:00",
+          "retrievedAt": "2026-11-03T00:03:24.004860+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTCAM156S"
         },
         {
@@ -754,7 +757,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:50.154453+00:00",
+          "retrievedAt": "2026-11-03T00:03:24.450469+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01CAQ657S"
         }
       ],
@@ -775,10 +778,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-04T23:54:22.223Z",
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "CAD",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -824,7 +827,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 2018)",
-          "retrievedAt": "2026-11-02T13:51:47.010093+00:00"
+          "retrievedAt": "2026-11-03T00:03:20.753969+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -841,7 +844,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:52.108167+00:00"
+          "retrievedAt": "2026-11-03T00:03:27.787021+00:00"
         },
         {
           "metric": "Employment",
@@ -858,7 +861,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Japan",
-          "retrievedAt": "2026-11-02T13:51:50.492739+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.138674+00:00"
         },
         {
           "metric": "Real GDP",
@@ -875,15 +878,16 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for Japan",
-          "retrievedAt": "2026-11-02T13:51:50.701965+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.543823+00:00"
         }
       ],
       "reasons": [
-        "A newer dated official policy decision was found. Earlier editorial guidance is superseded until its decision and rate are verified."
+        "Official policy guidance is expired, unreviewed or superseded; no directional policy assessment is issued"
       ],
       "cautions": [
         "Core definitions differ across countries; these are supporting indicators, not separate official targets.",
-        "OECD CPI excluding food and energy differs from Japan’s commonly cited CPI excluding fresh food."
+        "OECD CPI excluding food and energy differs from Japan’s commonly cited CPI excluding fresh food.",
+        "Economic indicators are source-checked, but the prior central-bank commentary is not treated as current."
       ],
       "guidance": {
         "currency": "JPY",
@@ -922,7 +926,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:47.010093+00:00",
+          "retrievedAt": "2026-11-03T00:03:20.753969+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -931,7 +935,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:52.108167+00:00",
+          "retrievedAt": "2026-11-03T00:03:27.787021+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL"
         },
         {
@@ -940,7 +944,7 @@
           "latestDate": "2026-08-01",
           "periodEnd": "2026-08-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:50.492739+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.138674+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTJPM156S"
         },
         {
@@ -949,15 +953,15 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:50.701965+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.543823+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01JPQ657S"
         }
       ],
       "watch": "Japan's wage and inflation trend, financial conditions and the October Outlook Report",
-      "reasonCode": "new_official_decision_unverified",
+      "reasonCode": "policy_review_due",
       "evidenceStatus": {
         "macro": "validated",
-        "policy": "superseded_official_release",
+        "policy": "review_due",
         "automatedPolicy": "new_decision_requires_verification"
       },
       "score": 1,
@@ -970,11 +974,10 @@
         "underlyingTrend": 1
       },
       "policyEvidenceReviewed": false,
-      "guidanceDirection": "tightening",
-      "expiresAt": "2026-11-03T00:00:00.000Z",
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "JPY",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1022,7 +1025,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-11-02T13:51:47.007322+00:00"
+          "retrievedAt": "2026-11-03T00:03:20.751264+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -1039,7 +1042,7 @@
           "frequency": "Monthly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:51.786985+00:00"
+          "retrievedAt": "2026-11-03T00:03:26.771364+00:00"
         },
         {
           "metric": "Employment",
@@ -1058,7 +1061,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for United Kingdom",
-          "retrievedAt": "2026-11-02T13:51:50.338352+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.183880+00:00"
         },
         {
           "metric": "Real GDP",
@@ -1075,7 +1078,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United Kingdom",
-          "retrievedAt": "2026-11-02T13:51:50.373640+00:00"
+          "retrievedAt": "2026-11-03T00:03:24.870763+00:00"
         }
       ],
       "reasons": [
@@ -1121,7 +1124,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:47.007322+00:00",
+          "retrievedAt": "2026-11-03T00:03:20.751264+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1130,7 +1133,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:51.786985+00:00",
+          "retrievedAt": "2026-11-03T00:03:26.771364+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1139,7 +1142,7 @@
           "latestDate": "2026-06-01",
           "periodEnd": "2026-07-31",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:50.338352+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.183880+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S"
         },
         {
@@ -1148,7 +1151,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:50.373640+00:00",
+          "retrievedAt": "2026-11-03T00:03:24.870763+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01GBQ657S"
         }
       ],
@@ -1169,10 +1172,10 @@
         "underlyingTrend": 1
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-04T23:54:22.223Z",
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "GBP",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1218,7 +1221,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "National headline CPI, all items, year-on-year percentage change (COICOP 1999)",
-          "retrievedAt": "2026-11-02T13:51:47.012640+00:00"
+          "retrievedAt": "2026-11-03T00:03:20.756584+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -1235,7 +1238,7 @@
           "frequency": "Quarterly",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL",
           "title": "CPI excluding food and energy, year-on-year",
-          "retrievedAt": "2026-11-02T13:51:51.787935+00:00"
+          "retrievedAt": "2026-11-03T00:03:26.772325+00:00"
         },
         {
           "metric": "Employment",
@@ -1252,7 +1255,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S",
           "title": "Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for New Zealand",
-          "retrievedAt": "2026-11-02T13:51:50.678167+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.442366+00:00"
         },
         {
           "metric": "Real GDP",
@@ -1269,7 +1272,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for New Zealand",
-          "retrievedAt": "2026-11-02T13:51:50.793648+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.488218+00:00"
         }
       ],
       "reasons": [
@@ -1317,7 +1320,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:47.012640+00:00",
+          "retrievedAt": "2026-11-03T00:03:20.756584+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1326,7 +1329,7 @@
           "latestDate": "2026-07-01",
           "periodEnd": "2026-09-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:51.787935+00:00",
+          "retrievedAt": "2026-11-03T00:03:26.772325+00:00",
           "source": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
         },
         {
@@ -1335,7 +1338,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:50.678167+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.442366+00:00",
           "source": "https://fred.stlouisfed.org/series/LRHUTTTTNZQ156S"
         },
         {
@@ -1344,7 +1347,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:50.793648+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.488218+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01NZQ657S"
         }
       ],
@@ -1365,10 +1368,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-04T23:54:22.223Z",
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "NZD",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1414,7 +1417,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPI",
           "title": "Personal Consumption Expenditures: Chain-type Price Index — year-on-year change",
-          "retrievedAt": "2026-11-02T13:51:52.078711+00:00"
+          "retrievedAt": "2026-11-03T00:03:27.135087+00:00"
         },
         {
           "metric": "Underlying inflation",
@@ -1431,7 +1434,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE",
           "title": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index) — year-on-year change",
-          "retrievedAt": "2026-11-02T13:51:52.338162+00:00"
+          "retrievedAt": "2026-11-03T00:03:27.365964+00:00"
         },
         {
           "metric": "Employment",
@@ -1448,7 +1451,7 @@
           "frequency": "Monthly",
           "source": "https://fred.stlouisfed.org/series/UNRATE",
           "title": "Unemployment Rate",
-          "retrievedAt": "2026-11-02T13:51:51.028266+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.862607+00:00"
         },
         {
           "metric": "Real GDP",
@@ -1465,7 +1468,7 @@
           "frequency": "Quarterly",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S",
           "title": "National Accounts: GDP by Expenditure: Constant Prices: Gross Domestic Product: Total for United States",
-          "retrievedAt": "2026-11-02T13:51:51.111231+00:00"
+          "retrievedAt": "2026-11-03T00:03:25.857598+00:00"
         }
       ],
       "reasons": [
@@ -1511,7 +1514,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:52.078711+00:00",
+          "retrievedAt": "2026-11-03T00:03:27.135087+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPI"
         },
         {
@@ -1520,7 +1523,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:52.338162+00:00",
+          "retrievedAt": "2026-11-03T00:03:27.365964+00:00",
           "source": "https://fred.stlouisfed.org/series/PCEPILFE"
         },
         {
@@ -1529,7 +1532,7 @@
           "latestDate": "2026-09-01",
           "periodEnd": "2026-09-01",
           "frequency": "Monthly",
-          "retrievedAt": "2026-11-02T13:51:51.028266+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.862607+00:00",
           "source": "https://fred.stlouisfed.org/series/UNRATE"
         },
         {
@@ -1538,7 +1541,7 @@
           "latestDate": "2026-04-01",
           "periodEnd": "2026-06-30",
           "frequency": "Quarterly",
-          "retrievedAt": "2026-11-02T13:51:51.111231+00:00",
+          "retrievedAt": "2026-11-03T00:03:25.857598+00:00",
           "source": "https://fred.stlouisfed.org/series/NAEXKP01USQ657S"
         }
       ],
@@ -1559,10 +1562,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-04T23:54:22.223Z",
+      "expiresAt": "2026-11-05T00:03:53.535Z",
       "automatedAssessment": {
         "currency": "USD",
-        "checkedAt": "2026-11-02T23:54:22.223Z",
+        "checkedAt": "2026-11-03T00:03:53.535Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1595,13 +1598,13 @@
       "signedGap": 4.6,
       "higher": "AUD",
       "horizonDays": 90,
-      "state": "widening",
-      "label": "Widening scenario",
-      "reason": "Reviewed central-bank policy biases suggest the absolute gap may widen. This is a conditional research scenario; no future policy-rate levels, basis-point changes or probabilities are estimated. Market-implied 3M policy pricing is not connected.",
-      "reasonCode": "reviewed_policy_scenario",
-      "classificationBasis": "reviewed_policy_scenario",
-      "evidenceTier": "reviewed_qualitative",
-      "uncalibratedResearchScenario": true,
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
+      "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
       "backtestedProbability": null,
       "stages": {
         "market": {
@@ -1636,9 +1639,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hike_hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "quote": {
             "currency": "CHF",
@@ -1652,21 +1655,21 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
         "policy": {
-          "status": "reviewed",
+          "status": "review_due_or_conflicting",
           "base": {
-            "state": "hike_hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -1692,12 +1695,12 @@
             }
           },
           "quote": {
-            "state": "hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -1722,14 +1725,14 @@
               "reason": "Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold."
             }
           },
-          "qualitativeBias": "widening",
-          "qualitativeReason": "AUD currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
-          "qualitativeReasonCode": "reviewed_relative_policy_bias"
+          "qualitativeBias": "unclear",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "research_scenario",
+          "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "reviewed_policy_scenario"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -1764,9 +1767,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hike_hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "quote": {
           "currency": "CHF",
@@ -1780,21 +1783,21 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
       "policy": {
-        "status": "reviewed",
+        "status": "review_due_or_conflicting",
         "base": {
-          "state": "hike_hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -1820,12 +1823,12 @@
           }
         },
         "quote": {
-          "state": "hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -1850,21 +1853,21 @@
             "reason": "Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold."
           }
         },
-        "qualitativeBias": "widening",
-        "qualitativeReason": "AUD currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
-        "qualitativeReasonCode": "reviewed_relative_policy_bias"
+        "qualitativeBias": "unclear",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
-        "state": "widening",
-        "label": "Widening bias",
-        "reasonCode": "reviewed_relative_policy_bias",
+        "state": "unclear",
+        "label": "Uncertain",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
-        "state": "widening",
-        "label": "Widening bias",
-        "reason": "AUD currently has the higher policy rate. Relative policy biases support widening. An unchanged gap remains possible because either bank may hold.",
-        "reasonCode": "reviewed_relative_policy_bias",
+        "state": "unclear",
+        "label": "Uncertain",
+        "reason": "A source-bound policy assessment needs renewed review for AUD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
       "sourceStatus": "market_data_unavailable",
@@ -1877,11 +1880,11 @@
         "minimumContrast": 2,
         "forecast": false
       },
-      "direction": 1,
+      "direction": 0,
       "tone": "neutral",
-      "signedDirection": "Indicative pressure towards AUD",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1889,13 +1892,13 @@
       "signedGap": 3.875,
       "higher": "USD",
       "horizonDays": 90,
-      "state": "widening",
-      "label": "Widening scenario",
-      "reason": "Automated assessment of the latest recorded official rate decisions and source-validated economic indicators suggests a conditional widening scenario. This is a machine-generated policy-pressure screen, NOT a human-reviewed interpretation of the new official statement, nor a predicted rate change. USD: Source-validated inflation pressure and the total macro score support a conditional tightening-versus-hold research scenario. This is NOT a verified forward-looking central-bank statement or a predicted rate increase. CHF: Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold.",
-      "reasonCode": "automated_policy_scenario",
-      "classificationBasis": "automated_conditional_policy_pressure",
-      "evidenceTier": "automated_provisional",
-      "uncalibratedResearchScenario": true,
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
+      "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
       "backtestedProbability": null,
       "stages": {
         "market": {
@@ -1946,21 +1949,21 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
         "policy": {
-          "status": "automated_provisional",
+          "status": "review_due_or_conflicting",
           "base": {
             "state": "uncertain",
             "reviewed": false,
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -1986,12 +1989,12 @@
             }
           },
           "quote": {
-            "state": "hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2017,13 +2020,13 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for USD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "research_scenario",
+          "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "automated_policy_scenario"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -2074,21 +2077,21 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
       "policy": {
-        "status": "automated_provisional",
+        "status": "review_due_or_conflicting",
         "base": {
           "state": "uncertain",
           "reviewed": false,
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2114,12 +2117,12 @@
           }
         },
         "quote": {
-          "state": "hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2145,19 +2148,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for USD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
-        "state": "widening",
-        "label": "Widening bias",
-        "reasonCode": "reviewed_relative_policy_bias",
+        "state": "unclear",
+        "label": "Uncertain",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for USD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -2171,11 +2174,11 @@
         "minimumContrast": 2,
         "forecast": false
       },
-      "direction": 1,
+      "direction": 0,
       "tone": "neutral",
-      "signedDirection": "Indicative pressure towards USD",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "GBPCHF": {
       "base": "GBP",
@@ -2185,10 +2188,10 @@
       "horizonDays": 90,
       "state": "widening",
       "label": "Widening scenario",
-      "reason": "Automated assessment of the latest recorded official rate decisions and source-validated economic indicators suggests a conditional widening scenario. This is a machine-generated policy-pressure screen, NOT a human-reviewed interpretation of the new official statement, nor a predicted rate change. GBP: Source-validated inflation pressure and the total macro score support a conditional tightening-versus-hold research scenario. This is NOT a verified forward-looking central-bank statement or a predicted rate increase. CHF: Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold.",
-      "reasonCode": "automated_policy_scenario",
-      "classificationBasis": "automated_conditional_policy_pressure",
-      "evidenceTier": "automated_provisional",
+      "reason": "Economic-pressure scores differ by 2 model points (GBP 3, CHF 1). Relative macro pressure suggests a possible widening of the absolute policy-rate gap, assuming central banks respond in that direction. This is an exploratory scenario, NOT a verified 90-day policy forecast. Central-bank policy interpretations remain unreviewed or unresolved. Market-implied 3M pricing is unavailable.",
+      "reasonCode": "macro_pressure_scenario",
+      "classificationBasis": "macro_pressure_screen",
+      "evidenceTier": "exploratory_macro",
       "uncalibratedResearchScenario": true,
       "backtestedProbability": null,
       "stages": {
@@ -2240,21 +2243,21 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
         "policy": {
-          "status": "automated_provisional",
+          "status": "review_due_or_conflicting",
           "base": {
             "state": "uncertain",
             "reviewed": false,
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2280,12 +2283,12 @@
             }
           },
           "quote": {
-            "state": "hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2311,13 +2314,13 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
           "status": "research_scenario",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "automated_policy_scenario"
+          "reasonCode": "macro_pressure_scenario"
         }
       },
       "market": {
@@ -2368,21 +2371,21 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
       "policy": {
-        "status": "automated_provisional",
+        "status": "review_due_or_conflicting",
         "base": {
           "state": "uncertain",
           "reviewed": false,
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2408,12 +2411,12 @@
           }
         },
         "quote": {
-          "state": "hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2439,19 +2442,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
-        "state": "widening",
-        "label": "Widening bias",
-        "reasonCode": "reviewed_relative_policy_bias",
+        "state": "unclear",
+        "label": "Uncertain",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for GBP and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -2469,7 +2472,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "AUDJPY": {
       "base": "AUD",
@@ -2518,9 +2521,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hike_hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "quote": {
             "currency": "JPY",
@@ -2536,19 +2539,19 @@
             },
             "state": "uncertain",
             "reviewed": false,
-            "reasonCode": "new_official_decision_unverified"
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
         "policy": {
           "status": "review_due_or_conflicting",
           "base": {
-            "state": "hike_hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2579,7 +2582,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2607,8 +2610,8 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "The evidence for JPY does not establish a supported future policy direction.",
-          "qualitativeReasonCode": "unresolved_policy_direction"
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
           "status": "unresolved",
@@ -2648,9 +2651,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hike_hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "quote": {
           "currency": "JPY",
@@ -2666,19 +2669,19 @@
           },
           "state": "uncertain",
           "reviewed": false,
-          "reasonCode": "new_official_decision_unverified"
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
       "policy": {
         "status": "review_due_or_conflicting",
         "base": {
-          "state": "hike_hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2709,7 +2712,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2737,20 +2740,20 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "The evidence for JPY does not establish a supported future policy direction.",
-        "qualitativeReasonCode": "unresolved_policy_direction"
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "unresolved_policy_direction",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "The evidence for JPY does not establish a supported future policy direction.",
-        "reasonCode": "unresolved_policy_direction",
+        "reason": "A source-bound policy assessment needs renewed review for AUD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
       "sourceStatus": "market_data_unavailable",
@@ -2767,7 +2770,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -2775,13 +2778,13 @@
       "signedGap": 2.75,
       "higher": "NZD",
       "horizonDays": 90,
-      "state": "widening",
-      "label": "Widening scenario",
-      "reason": "Automated assessment of the latest recorded official rate decisions and source-validated economic indicators suggests a conditional widening scenario. This is a machine-generated policy-pressure screen, NOT a human-reviewed interpretation of the new official statement, nor a predicted rate change. NZD: Source-validated inflation pressure and the total macro score support a conditional tightening-versus-hold research scenario. This is NOT a verified forward-looking central-bank statement or a predicted rate increase. CHF: Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold.",
-      "reasonCode": "automated_policy_scenario",
-      "classificationBasis": "automated_conditional_policy_pressure",
-      "evidenceTier": "automated_provisional",
-      "uncalibratedResearchScenario": true,
+      "state": "unclear",
+      "label": "Uncertain",
+      "reason": "Verified market-implied policy paths are unavailable, and neither reviewed central-bank divergence nor a material relative macro-pressure contrast establishes a directional research scenario.",
+      "reasonCode": "insufficient_directional_evidence",
+      "classificationBasis": "insufficient_market_evidence",
+      "evidenceTier": "undetermined",
+      "uncalibratedResearchScenario": false,
       "backtestedProbability": null,
       "stages": {
         "market": {
@@ -2832,21 +2835,21 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
         "policy": {
-          "status": "automated_provisional",
+          "status": "review_due_or_conflicting",
           "base": {
             "state": "uncertain",
             "reviewed": false,
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2872,12 +2875,12 @@
             }
           },
           "quote": {
-            "state": "hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2903,13 +2906,13 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
-          "status": "research_scenario",
+          "status": "unresolved",
           "marketVersusPolicy": "not_comparable",
-          "reasonCode": "automated_policy_scenario"
+          "reasonCode": "insufficient_directional_evidence"
         }
       },
       "market": {
@@ -2960,21 +2963,21 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
       "policy": {
-        "status": "automated_provisional",
+        "status": "review_due_or_conflicting",
         "base": {
           "state": "uncertain",
           "reviewed": false,
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3000,12 +3003,12 @@
           }
         },
         "quote": {
-          "state": "hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3031,19 +3034,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
-        "state": "widening",
-        "label": "Widening bias",
-        "reasonCode": "reviewed_relative_policy_bias",
+        "state": "unclear",
+        "label": "Uncertain",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for NZD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -3057,11 +3060,11 @@
         "minimumContrast": 2,
         "forecast": false
       },
-      "direction": 1,
+      "direction": 0,
       "tone": "neutral",
-      "signedDirection": "Indicative pressure towards NZD",
+      "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "USDJPY": {
       "base": "USD",
@@ -3128,7 +3131,7 @@
             },
             "state": "uncertain",
             "reviewed": false,
-            "reasonCode": "new_official_decision_unverified"
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -3140,7 +3143,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3171,7 +3174,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3199,7 +3202,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for USD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -3258,7 +3261,7 @@
           },
           "state": "uncertain",
           "reviewed": false,
-          "reasonCode": "new_official_decision_unverified"
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -3270,7 +3273,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3301,7 +3304,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3329,19 +3332,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for USD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "unresolved_policy_direction",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for USD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -3359,7 +3362,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "CADCHF": {
       "base": "CAD",
@@ -3424,9 +3427,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -3438,7 +3441,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3464,12 +3467,12 @@
             }
           },
           "quote": {
-            "state": "hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3495,7 +3498,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -3552,9 +3555,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -3566,7 +3569,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3592,12 +3595,12 @@
           }
         },
         "quote": {
-          "state": "hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3623,7 +3626,7 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
@@ -3635,7 +3638,7 @@
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for CAD and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -3653,7 +3656,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "EURCHF": {
       "base": "EUR",
@@ -3718,9 +3721,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -3732,7 +3735,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3760,12 +3763,12 @@
             }
           },
           "quote": {
-            "state": "hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3791,7 +3794,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -3848,9 +3851,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -3862,7 +3865,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3890,12 +3893,12 @@
           }
         },
         "quote": {
-          "state": "hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3921,7 +3924,7 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
@@ -3933,7 +3936,7 @@
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for EUR and CHF. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -3951,7 +3954,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "GBPJPY": {
       "base": "GBP",
@@ -4018,7 +4021,7 @@
             },
             "state": "uncertain",
             "reviewed": false,
-            "reasonCode": "new_official_decision_unverified"
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -4030,7 +4033,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4061,7 +4064,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4089,7 +4092,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -4148,7 +4151,7 @@
           },
           "state": "uncertain",
           "reviewed": false,
-          "reasonCode": "new_official_decision_unverified"
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -4160,7 +4163,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4191,7 +4194,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4219,19 +4222,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "unresolved_policy_direction",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for GBP and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -4249,7 +4252,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "AUDCAD": {
       "base": "AUD",
@@ -4298,9 +4301,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hike_hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "quote": {
             "currency": "CAD",
@@ -4323,12 +4326,12 @@
         "policy": {
           "status": "review_due_or_conflicting",
           "base": {
-            "state": "hike_hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4359,7 +4362,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4385,7 +4388,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -4426,9 +4429,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hike_hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "quote": {
           "currency": "CAD",
@@ -4451,12 +4454,12 @@
       "policy": {
         "status": "review_due_or_conflicting",
         "base": {
-          "state": "hike_hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4487,7 +4490,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4513,7 +4516,7 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
@@ -4525,7 +4528,7 @@
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for AUD and CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -4543,7 +4546,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "EURAUD": {
       "base": "EUR",
@@ -4608,9 +4611,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hike_hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -4622,7 +4625,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4650,12 +4653,12 @@
             }
           },
           "quote": {
-            "state": "hike_hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4681,7 +4684,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR and AUD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -4738,9 +4741,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hike_hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -4752,7 +4755,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4780,12 +4783,12 @@
           }
         },
         "quote": {
-          "state": "hike_hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4811,7 +4814,7 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR and AUD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
@@ -4823,7 +4826,7 @@
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for EUR and AUD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -4841,7 +4844,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "AUDNZD": {
       "base": "AUD",
@@ -4890,9 +4893,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hike_hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "quote": {
             "currency": "NZD",
@@ -4915,12 +4918,12 @@
         "policy": {
           "status": "review_due_or_conflicting",
           "base": {
-            "state": "hike_hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4951,7 +4954,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4977,7 +4980,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -5018,9 +5021,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hike_hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "quote": {
           "currency": "NZD",
@@ -5043,12 +5046,12 @@
       "policy": {
         "status": "review_due_or_conflicting",
         "base": {
-          "state": "hike_hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5079,7 +5082,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5105,19 +5108,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "matching_policy_bias",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for AUD and NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -5135,7 +5138,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "NZDJPY": {
       "base": "NZD",
@@ -5202,7 +5205,7 @@
             },
             "state": "uncertain",
             "reviewed": false,
-            "reasonCode": "new_official_decision_unverified"
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -5214,7 +5217,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5245,7 +5248,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5273,7 +5276,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -5332,7 +5335,7 @@
           },
           "state": "uncertain",
           "reviewed": false,
-          "reasonCode": "new_official_decision_unverified"
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -5344,7 +5347,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5375,7 +5378,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5403,19 +5406,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for NZD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "unresolved_policy_direction",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for NZD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for NZD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -5433,7 +5436,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "EURUSD": {
       "base": "EUR",
@@ -5512,7 +5515,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5545,7 +5548,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5642,7 +5645,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5675,7 +5678,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5731,7 +5734,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "USDCAD": {
       "base": "USD",
@@ -5810,7 +5813,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5841,7 +5844,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5938,7 +5941,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5969,7 +5972,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6025,7 +6028,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "CADJPY": {
       "base": "CAD",
@@ -6092,7 +6095,7 @@
             },
             "state": "uncertain",
             "reviewed": false,
-            "reasonCode": "new_official_decision_unverified"
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -6104,7 +6107,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6135,7 +6138,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6163,7 +6166,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -6222,7 +6225,7 @@
           },
           "state": "uncertain",
           "reviewed": false,
-          "reasonCode": "new_official_decision_unverified"
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -6234,7 +6237,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6265,7 +6268,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6293,7 +6296,7 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for CAD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
@@ -6305,7 +6308,7 @@
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for CAD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for CAD and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -6323,7 +6326,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "CHFJPY": {
       "base": "CHF",
@@ -6372,9 +6375,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "quote": {
             "currency": "JPY",
@@ -6390,19 +6393,19 @@
             },
             "state": "uncertain",
             "reviewed": false,
-            "reasonCode": "new_official_decision_unverified"
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
         "policy": {
           "status": "review_due_or_conflicting",
           "base": {
-            "state": "hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6433,7 +6436,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6461,8 +6464,8 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "The evidence for JPY does not establish a supported future policy direction.",
-          "qualitativeReasonCode": "unresolved_policy_direction"
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for CHF and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
           "status": "unresolved",
@@ -6502,9 +6505,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "quote": {
           "currency": "JPY",
@@ -6520,19 +6523,19 @@
           },
           "state": "uncertain",
           "reviewed": false,
-          "reasonCode": "new_official_decision_unverified"
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
       "policy": {
         "status": "review_due_or_conflicting",
         "base": {
-          "state": "hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6563,7 +6566,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6591,20 +6594,20 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "The evidence for JPY does not establish a supported future policy direction.",
-        "qualitativeReasonCode": "unresolved_policy_direction"
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for CHF and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "unresolved_policy_direction",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "The evidence for JPY does not establish a supported future policy direction.",
-        "reasonCode": "unresolved_policy_direction",
+        "reason": "A source-bound policy assessment needs renewed review for CHF and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
       "sourceStatus": "market_data_unavailable",
@@ -6621,7 +6624,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "EURGBP": {
       "base": "EUR",
@@ -6700,7 +6703,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6733,7 +6736,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6830,7 +6833,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6863,7 +6866,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6919,7 +6922,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "EURJPY": {
       "base": "EUR",
@@ -6986,7 +6989,7 @@
             },
             "state": "uncertain",
             "reviewed": false,
-            "reasonCode": "new_official_decision_unverified"
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -6998,7 +7001,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7031,7 +7034,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7059,7 +7062,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -7118,7 +7121,7 @@
           },
           "state": "uncertain",
           "reviewed": false,
-          "reasonCode": "new_official_decision_unverified"
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -7130,7 +7133,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7163,7 +7166,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7191,7 +7194,7 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for EUR and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
@@ -7203,7 +7206,7 @@
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for EUR. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for EUR and JPY. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -7221,7 +7224,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "GBPCAD": {
       "base": "GBP",
@@ -7300,7 +7303,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7331,7 +7334,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7428,7 +7431,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7459,7 +7462,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7515,7 +7518,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "NZDUSD": {
       "base": "NZD",
@@ -7594,7 +7597,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7625,7 +7628,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7722,7 +7725,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7753,7 +7756,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7809,7 +7812,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "GBPNZD": {
       "base": "GBP",
@@ -7888,7 +7891,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7919,7 +7922,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8016,7 +8019,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8047,7 +8050,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8103,7 +8106,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "GBPAUD": {
       "base": "GBP",
@@ -8168,9 +8171,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hike_hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
         },
@@ -8182,7 +8185,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8208,12 +8211,12 @@
             }
           },
           "quote": {
-            "state": "hike_hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8239,7 +8242,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP and AUD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -8296,9 +8299,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hike_hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "comparison": "Descriptive independent economic pressure only; no probabilities or expected basis-point moves"
       },
@@ -8310,7 +8313,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8336,12 +8339,12 @@
           }
         },
         "quote": {
-          "state": "hike_hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8367,19 +8370,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for GBP and AUD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "matching_policy_bias",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for GBP. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for GBP and AUD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -8397,7 +8400,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards GBP",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "AUDUSD": {
       "base": "AUD",
@@ -8446,9 +8449,9 @@
               "headlineTrend": 1,
               "underlyingTrend": 0
             },
-            "state": "hike_hold",
-            "reviewed": true,
-            "reasonCode": "reviewed_policy_bias"
+            "state": "uncertain",
+            "reviewed": false,
+            "reasonCode": "policy_review_due"
           },
           "quote": {
             "currency": "USD",
@@ -8471,12 +8474,12 @@
         "policy": {
           "status": "review_due_or_conflicting",
           "base": {
-            "state": "hike_hold",
-            "reviewed": true,
+            "state": "uncertain",
+            "reviewed": false,
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8507,7 +8510,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8533,7 +8536,7 @@
             }
           },
           "qualitativeBias": "unclear",
-          "qualitativeReason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+          "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
           "qualitativeReasonCode": "policy_review_due"
         },
         "comparison": {
@@ -8574,9 +8577,9 @@
             "headlineTrend": 1,
             "underlyingTrend": 0
           },
-          "state": "hike_hold",
-          "reviewed": true,
-          "reasonCode": "reviewed_policy_bias"
+          "state": "uncertain",
+          "reviewed": false,
+          "reasonCode": "policy_review_due"
         },
         "quote": {
           "currency": "USD",
@@ -8599,12 +8602,12 @@
       "policy": {
         "status": "review_due_or_conflicting",
         "base": {
-          "state": "hike_hold",
-          "reviewed": true,
+          "state": "uncertain",
+          "reviewed": false,
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8635,7 +8638,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8661,19 +8664,19 @@
           }
         },
         "qualitativeBias": "unclear",
-        "qualitativeReason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "qualitativeReason": "A source-bound policy assessment needs renewed review for AUD and USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "qualitativeReasonCode": "policy_review_due"
       },
       "automaticCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reasonCode": "matching_policy_bias",
+        "reasonCode": "policy_review_due",
         "isVerifiedStatementInterpretation": false
       },
       "qualitativeCandidate": {
         "state": "unclear",
         "label": "Uncertain",
-        "reason": "A source-bound policy assessment needs renewed review for USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
+        "reason": "A source-bound policy assessment needs renewed review for AUD and USD. Current economic data is validated, but its score alone cannot forecast the bank's next move.",
         "reasonCode": "policy_review_due",
         "is90DayForecast": false
       },
@@ -8691,7 +8694,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-03T00:00:00.000Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "EURNZD": {
       "base": "EUR",
@@ -8770,7 +8773,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8803,7 +8806,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8900,7 +8903,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8933,7 +8936,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8989,7 +8992,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "NZDCAD": {
       "base": "NZD",
@@ -9068,7 +9071,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -9099,7 +9102,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -9196,7 +9199,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -9227,7 +9230,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -9283,7 +9286,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "GBPUSD": {
       "base": "GBP",
@@ -9362,7 +9365,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -9393,7 +9396,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -9490,7 +9493,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -9521,7 +9524,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -9577,7 +9580,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     },
     "EURCAD": {
       "base": "EUR",
@@ -9656,7 +9659,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -9689,7 +9692,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-02T23:54:22.223Z",
+              "checkedAt": "2026-11-03T00:03:53.535Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -9786,7 +9789,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -9819,7 +9822,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-02T23:54:22.223Z",
+            "checkedAt": "2026-11-03T00:03:53.535Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -9875,7 +9878,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-04T23:54:22.223Z"
+      "expiresAt": "2026-11-05T00:03:53.535Z"
     }
   }
 }

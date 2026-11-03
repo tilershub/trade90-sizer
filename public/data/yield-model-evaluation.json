@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-02T13:52:19.088Z",
+  "generatedAt": "2026-11-03T00:03:53.470Z",
   "purpose": "Independent research validation only; not used by policy divergence engine",
   "horizonDays": 90,
   "minimumIndependentOutcomes": 30,
@@ -21,9 +21,9 @@
   "coverage": {
     "USD": {
       "sourceStatus": "current",
-      "historyPoints": 209,
+      "historyPoints": 210,
       "earliestObservation": "2026-01-02",
-      "latestObservation": "2026-10-30",
+      "latestObservation": "2026-11-02",
       "recordedPolicyDecisions": 1,
       "outcomesWithAtLeast90DaysElapsed": 0
     },
@@ -70,8 +70,8 @@
     "CAD": {
       "sourceStatus": "current",
       "historyPoints": 400,
-      "earliestObservation": "2025-03-24",
-      "latestObservation": "2026-10-29",
+      "earliestObservation": "2025-03-25",
+      "latestObservation": "2026-10-30",
       "recordedPolicyDecisions": 1,
       "outcomesWithAtLeast90DaysElapsed": 0
     },

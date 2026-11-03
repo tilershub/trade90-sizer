@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "asOf": "2026-10-30",
-  "generatedAt": "2026-11-02T13:51:59.423Z",
+  "asOf": "2026-11-02",
+  "generatedAt": "2026-11-03T00:03:35.138Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -12,14 +12,14 @@
   "currencies": {
     "USD": {
       "verified": true,
-      "asOf": "2026-10-30",
+      "asOf": "2026-11-02",
       "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
       "kind": "sovereign_par_yield",
       "frequency": "daily",
       "provider": "US Treasury par yield",
       "yields": {
-        "2Y": 4.56,
-        "10Y": 4.94
+        "2Y": 4.59,
+        "10Y": 4.91
       },
       "history": [
         {
@@ -1066,6 +1066,11 @@
           "date": "2026-10-30",
           "2Y": 4.56,
           "10Y": 4.94
+        },
+        {
+          "date": "2026-11-02",
+          "2Y": 4.59,
+          "10Y": 4.91
         }
       ]
     },
@@ -5342,21 +5347,16 @@
     },
     "CAD": {
       "verified": true,
-      "asOf": "2026-10-29",
+      "asOf": "2026-10-30",
       "source": "https://www.bankofcanada.ca/rates/interest-rates/canadian-bonds/",
       "kind": "sovereign_benchmark_yield",
       "frequency": "daily",
       "provider": "Bank of Canada selected government bond benchmark yields",
       "yields": {
-        "2Y": 3.36,
-        "10Y": 3.84
+        "2Y": 3.28,
+        "10Y": 3.78
       },
       "history": [
-        {
-          "date": "2025-03-24",
-          "2Y": 2.54,
-          "10Y": 3.06
-        },
         {
           "date": "2025-03-25",
           "2Y": 2.56,
@@ -7351,6 +7351,11 @@
           "date": "2026-10-29",
           "2Y": 3.36,
           "10Y": 3.84
+        },
+        {
+          "date": "2026-10-30",
+          "2Y": 3.28,
+          "10Y": 3.78
         }
       ]
     },
@@ -7410,11 +7415,11 @@
       "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
       "kind": "sovereign_par_yield",
       "frequency": "daily",
-      "latestObservation": "2026-10-30",
-      "historyPoints": 209,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "latestObservation": "2026-11-02",
+      "historyPoints": 210,
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": null,
-      "observationAgeDays": 3
+      "observationAgeDays": 1
     },
     "EUR": {
       "status": "current",
@@ -7423,9 +7428,9 @@
       "frequency": "daily",
       "latestObservation": "2026-10-30",
       "historyPoints": 400,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": null,
-      "observationAgeDays": 3
+      "observationAgeDays": 4
     },
     "GBP": {
       "status": "current",
@@ -7434,9 +7439,9 @@
       "frequency": "daily",
       "latestObservation": "2026-10-30",
       "historyPoints": 22,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": null,
-      "observationAgeDays": 3
+      "observationAgeDays": 4
     },
     "JPY": {
       "status": "current",
@@ -7445,9 +7450,9 @@
       "frequency": "daily",
       "latestObservation": "2026-10-30",
       "historyPoints": 21,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": null,
-      "observationAgeDays": 3
+      "observationAgeDays": 4
     },
     "AUD": {
       "status": "current",
@@ -7456,9 +7461,9 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-10-28",
       "historyPoints": 400,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": null,
-      "observationAgeDays": 5
+      "observationAgeDays": 6
     },
     "NZD": {
       "status": "unavailable",
@@ -7467,7 +7472,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -7476,9 +7481,9 @@
       "source": "https://www.bankofcanada.ca/rates/interest-rates/canadian-bonds/",
       "kind": "sovereign_benchmark_yield",
       "frequency": "daily",
-      "latestObservation": "2026-10-29",
+      "latestObservation": "2026-10-30",
       "historyPoints": 400,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": null,
       "observationAgeDays": 4
     },
@@ -7489,9 +7494,9 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-02T13:51:59.423Z",
+      "checkedAt": "2026-11-03T00:03:35.138Z",
       "error": null,
-      "observationAgeDays": 489
+      "observationAgeDays": 490
     }
   }
 }
