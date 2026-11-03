@@ -3,7 +3,7 @@ import Layout from "../../layouts/Trade90V2Layout.astro";
 import Finder from "../../components/Trade90PairFinder.svelte";
 import {allTrade90Pairs,majors,crosses,pairUrl,rateSnapshot,reportDate} from "../../lib/trade90-v3.js";
 ---
-<Layout title="Forex Pair Research: 28 Currency Comparisons" description="Explore 28 dedicated forex currency pair research pages. See policy-rate divergence, two-bank source records, forward pricing status and upcoming decisions." canonical="/pairs/">
+<Layout title="Forex Pair Research: 28 Currency Comparisons" description="Explore 28 dedicated forex currency pair research pages. See policy-rate divergence, two-bank source records, macroeconomic evidence, conditional divergence scenarios and upcoming decisions." canonical="/pairs/">
 <main class="wrap">
 <header class="page-intro"><div class="eyebrow">28 pair research hubs</div><h1>Explore a Forex Currency Pair</h1><p>Choose a pair to compare its two central banks, current official interest-rate difference, next decisions and verified publications. Policy rates checked {reportDate(rateSnapshot.asOf)}.</p></header>
 <Finder client:load pairs={allTrade90Pairs} limit={28}/>
