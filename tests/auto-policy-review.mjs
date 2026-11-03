@@ -64,7 +64,7 @@ const output=buildPairDivergenceWorkflow(
  {base:'USD',quote:'CHF',baseRate:3.875,quoteRate:0},
  {...{USD:{...strong,automatedAssessment:usd}},CHF:chf},
  {state:'unclear',reasonCode:'policy_review_due'},
- null,{valid:false,reason:'No licensed market data'},Date.parse(now),
+ Date.parse(now),
  {state:'widening',direction:1,reasonCode:'reviewed_relative_policy_bias'}
 );
 assert.equal(output.state,'widening');
