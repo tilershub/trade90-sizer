@@ -46,7 +46,7 @@
  <div class="interpretation">
   <strong>How to interpret this result</strong>
   {#if !expired && (state==='widening'||state==='narrowing')}
-   <p>{result?.market?.status==='verified'?'Verified three-month market-implied policy levels':'Source-dated macro and central-bank research'} suggest a <b>possible {state}</b> of the absolute policy-rate difference. {result?.signedDirection}. {result?.uncalibratedResearchScenario?'This is a qualitative scenario, not a priced or calibrated 90-day prediction. No move size or probability is estimated.':'Market pricing is not a guarantee of central-bank decisions.'}</p>
+   <p>Source-dated macro and central-bank research suggest a <b>possible {state}</b> of the absolute policy-rate difference. {result?.signedDirection}. This is not a calibrated 90-day prediction. No rate-change size or probability is estimated.</p>
   {:else if !expired && state==='unchanged'}
    <p>Both banks have supported conditional hold baselines. This does not guarantee that either policy rate will stay unchanged.</p>
   {:else}
@@ -56,18 +56,13 @@
  </div>
  {/if}
  {#if result?.stages}
- <section class="model-stages" aria-label="Market, macro, policy and gap comparison">
-  <h3>Four-stage evidence assessment</h3>
-  <p><b>01 · Market-implied 3M policy rates:</b> {result.stages.market.status==='verified'?'Verified provider observation':'Not connected or unverified'}.
-   {#if result.stages.market.status==='verified'}
-     {result.base}: {rate(result.stages.market.baseExpectedRatePct)} · {result.quote}: {rate(result.stages.market.quoteExpectedRatePct)} · expected absolute-gap change {result.stages.market.expectedAbsoluteGapChangeBp} bp.
-     <a href={result.stages.market.sources[0]} target="_blank" rel="noopener noreferrer">Base data source ↗</a> · <a href={result.stages.market.sources[1]} target="_blank" rel="noopener noreferrer">Quote data source ↗</a>.
-   {:else}{result.stages.market.reason}{/if}</p>
-  <p><b>02 · Macroeconomic evidence:</b> {result.stages.macro.status}; economic score {result.base}: {result.stages.macro.base.score??'—'}, {result.quote}: {result.stages.macro.quote.score??'—'}. Scores describe fundamentals, not the number of basis points expected.</p>
-  <p><b>03 · Central-bank evidence:</b> {result.stages.policy.status==='reviewed'?'Both central-bank interpretations reviewed':result.stages.policy.status==='automated_provisional'?'Automated provisional bank-pressure assessment, not a reviewed official policy statement':'At least one central-bank statement is not freshly reviewed; an automated provisional economic assessment may still be available'}.</p>
-  <p><b>04 · Relative policy-rate gap:</b> {result.reasonCode?.replaceAll('_',' ')}. {result.stages.market.crossingRisk?'Implied rates cross; absolute-gap direction is calculated separately.':''}</p>
+ <section class="model-stages" aria-label="Macroeconomic and central-bank policy evidence">
+  <h3>Three-stage evidence assessment</h3>
+  <p><b>01 · Macroeconomic evidence:</b> {result.stages.macro.status}; economic score {result.base}: {result.stages.macro.base.score??'—'}, {result.quote}: {result.stages.macro.quote.score??'—'}. Inflation, employment and growth scores are descriptive and do not predict future basis-point moves.</p>
+  <p><b>02 · Central-bank evidence:</b> {result.stages.policy.status==='reviewed'?'Both central-bank interpretations reviewed':result.stages.policy.status==='automated_provisional'?'Automated provisional policy context, not a reviewed official statement':'At least one bank has policy guidance due for review or unresolved'}.</p>
+  <p><b>03 · Relative policy-rate gap:</b> {result.reasonCode?.replaceAll('_',' ')}. A directional scenario is published only when the source-dated evidence supports it; conflicting inputs produce an uncertain result.</p>
   {#if result.qualitativeCandidate&&['widening','narrowing','unchanged'].includes(result.qualitativeCandidate.state)}
-    <p><b>Separate qualitative policy candidate:</b> {result.qualitativeCandidate.label}. This is not a market-implied rate forecast and should not be counted as one.</p>
+   <p><b>Reviewed policy candidate:</b> {result.qualitativeCandidate.label}. This is a conditional research assessment, not a numerical forecast.</p>
   {/if}
  </section>
  {/if}
@@ -111,7 +106,7 @@
  <details class="about">
   <summary>What is included, what is missing, and how to read the rate gap</summary>
   <p>The current rules evaluate headline and underlying inflation, unemployment, GDP and source-reviewed central-bank guidance. The inflation measures are not always the same as each bank's preferred policy measure.</p>
-  <p>Market-implied policy paths enter only when the licensed 3M dataset is verified. Without them, qualitative policy candidates are disclosed separately. Wage growth, inflation expectations, services inflation, policy projections and credit conditions are not yet scored. The current thresholds have not been calibrated against historical forecast outcomes.</p>
+  <p>TRADE90 uses only source-dated macroeconomic indicators and central-bank policy evidence. Wage growth, inflation expectations, services inflation, policy projections and credit conditions are not yet scored. The current thresholds have not been calibrated against historical forecast outcomes.</p>
   <p>Rates are compared as base minus quote; a negative signed gap can become more negative even when the absolute gap widens. Widening or narrowing should never be interpreted as an FX buy/sell signal. If both banks have similar directional biases, timing and move sizes may make the relative gap uncertain. <a href="/policy-model/">Read the complete model rules and limitations ↗</a></p>
  </details>
  <p class="meta bottom">Model generated {when(data?.generatedAt)} · Valid until {when(result?.expiresAt)} · <a href="/data/policy-outlook-history.json">Historical assessment archive ↗</a></p>
