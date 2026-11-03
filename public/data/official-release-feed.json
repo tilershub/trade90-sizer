@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-03T00:03:32.184Z",
-  "lastSourceScanAt": "2026-11-03T00:03:32.184Z",
+  "lastCompiledAt": "2026-11-03T06:56:10.599Z",
+  "lastSourceScanAt": "2026-11-03T06:56:10.599Z",
   "items": [
+    {
+      "code": "AUD",
+      "bank": "RBA",
+      "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
+      "url": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
+      "firstSeenAt": "2026-11-03T06:56:10.599Z"
+    },
     {
       "code": "EUR",
       "bank": "ECB",
