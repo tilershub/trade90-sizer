@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-03T22:31:44.880Z",
+  "generatedAt": "2026-11-04T13:17:50.928Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -15,18 +15,18 @@
       "frequency": "daily",
       "latestObservation": "2026-11-03",
       "historyPoints": 211,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": null,
-      "observationAgeDays": 0
+      "observationAgeDays": 1
     },
     "EUR": {
       "status": "current",
       "source": "https://data.ecb.europa.eu/data/datasets/YC",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-02",
+      "latestObservation": "2026-11-03",
       "historyPoints": 400,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -35,9 +35,9 @@
       "source": "https://www.bankofengland.co.uk/statistics/yield-curves",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-02",
-      "historyPoints": 23,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "latestObservation": "2026-11-03",
+      "historyPoints": 24,
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -46,11 +46,11 @@
       "source": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/index.htm",
       "kind": "sovereign_constant_maturity",
       "frequency": "daily",
-      "latestObservation": "2026-10-30",
-      "historyPoints": 21,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "latestObservation": "2026-11-02",
+      "historyPoints": 22,
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": null,
-      "observationAgeDays": 4
+      "observationAgeDays": 2
     },
     "AUD": {
       "status": "current",
@@ -59,9 +59,9 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-10-28",
       "historyPoints": 400,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": null,
-      "observationAgeDays": 6
+      "observationAgeDays": 7
     },
     "NZD": {
       "status": "unavailable",
@@ -70,7 +70,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -81,9 +81,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-02",
       "historyPoints": 400,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "CHF": {
       "status": "stale_or_source_failed",
@@ -92,9 +92,9 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-03T22:31:44.880Z",
+      "checkedAt": "2026-11-04T13:17:50.928Z",
       "error": null,
-      "observationAgeDays": 490
+      "observationAgeDays": 491
     }
   }
 }
