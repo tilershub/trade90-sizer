@@ -82,6 +82,10 @@ jobs:
         run: node tests/divergence-workflow.mjs
       - name: Verify automatic assessments across eight central banks
         run: node tests/auto-policy-review.mjs
+      - name: Verify research refresh contracts and historical guidance
+        run: |
+          node tests/research-presentation.mjs
+          node tests/daily-dashboard.mjs
       - name: Verify daily data freshness and manual-review provenance
         run: node tests/refresh-status.mjs
       - name: Recalculate model in CI and audit outputs
