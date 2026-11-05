@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-05T06:57:10.434Z",
-  "lastSourceScanAt": "2026-11-05T06:57:10.434Z",
+  "lastCompiledAt": "2026-11-05T13:30:25.012Z",
+  "lastSourceScanAt": "2026-11-05T13:30:25.012Z",
   "items": [
+    {
+      "code": "EUR",
+      "bank": "ECB",
+      "title": "Isabel Schnabel: Navigating stormy waters: reflections on monetary policy",
+      "url": "https://www.ecb.europa.eu/press/key/date/2026/html/ecb.sp261105_1~5e97d9d5a0.en.html",
+      "firstSeenAt": "2026-11-05T13:30:25.012Z"
+    },
     {
       "code": "JPY",
       "bank": "BoJ",

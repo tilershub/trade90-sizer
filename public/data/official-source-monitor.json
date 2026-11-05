@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "status": "monitored",
-  "lastScanAt": "2026-11-05T06:57:10.434Z",
+  "status": "partial",
+  "lastScanAt": "2026-11-05T13:30:25.012Z",
   "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
   "sources": [
     {
@@ -10,7 +10,7 @@
       "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
       "domain": "federalreserve.gov",
       "status": "available",
-      "lastSuccessAt": "2026-11-05T06:57:10.434Z",
+      "lastSuccessAt": "2026-11-05T13:30:25.012Z",
       "items": [
         {
           "title": "Federal Reserve issues FOMC statement",
@@ -80,8 +80,12 @@
       "url": "https://www.ecb.europa.eu/rss/press.html",
       "domain": "ecb.europa.eu",
       "status": "available",
-      "lastSuccessAt": "2026-11-05T06:57:10.434Z",
+      "lastSuccessAt": "2026-11-05T13:30:25.012Z",
       "items": [
+        {
+          "title": "Isabel Schnabel: Navigating stormy waters: reflections on monetary policy",
+          "url": "https://www.ecb.europa.eu/press/key/date/2026/html/ecb.sp261105_1~5e97d9d5a0.en.html"
+        },
         {
           "title": "Decisions taken by the Governing Council of the ECB (in addition to decisions setting interest rates)",
           "url": "https://www.ecb.europa.eu/press/govcdec/otherdec/2026/html/ecb.gc261030~e40f864093.en.html"
@@ -101,7 +105,7 @@
       "bank": "BoE",
       "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
       "domain": "bankofengland.co.uk",
-      "status": "available",
+      "status": "unavailable",
       "lastSuccessAt": "2026-11-05T06:57:10.434Z",
       "items": [
         {
@@ -176,7 +180,7 @@
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "domain": "boj.or.jp",
       "status": "available",
-      "lastSuccessAt": "2026-11-05T06:57:10.434Z",
+      "lastSuccessAt": "2026-11-05T13:30:25.012Z",
       "items": [
         {
           "title": "Minutes of the Monetary Policy Meeting on September 17 and 18, 2026[PDF&nbsp;353KB]",
@@ -262,7 +266,7 @@
       "url": "https://www.rba.gov.au/media-releases/",
       "domain": "rba.gov.au",
       "status": "available",
-      "lastSuccessAt": "2026-11-05T06:57:10.434Z",
+      "lastSuccessAt": "2026-11-05T13:30:25.012Z",
       "items": [
         {
           "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
@@ -336,7 +340,7 @@
       "url": "https://www.rbnz.govt.nz/feeds/news",
       "domain": "rbnz.govt.nz",
       "status": "available",
-      "lastSuccessAt": "2026-11-05T06:57:10.434Z",
+      "lastSuccessAt": "2026-11-05T13:30:25.012Z",
       "items": [
         {
           "title": "Updates to the October Monetary Policy Review and November Financial Stability Report",
@@ -366,7 +370,7 @@
       "url": "https://www.bankofcanada.ca/press/press-releases/",
       "domain": "bankofcanada.ca",
       "status": "available",
-      "lastSuccessAt": "2026-11-05T06:57:10.434Z",
+      "lastSuccessAt": "2026-11-05T13:30:25.012Z",
       "items": [
         {
           "title": "Bank of Canada raises the policy rate by 25 basis points to 2½%",
@@ -404,7 +408,7 @@
       "url": "https://www.snb.ch/en/news-publications/media-releases",
       "domain": "snb.ch",
       "status": "available",
-      "lastSuccessAt": "2026-11-05T06:57:10.434Z",
+      "lastSuccessAt": "2026-11-05T13:30:25.012Z",
       "items": [
         {
           "title": "24.09.2026 Monetary policy assessment of 24 September 2026 &#65279;",
