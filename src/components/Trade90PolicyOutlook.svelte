@@ -96,7 +96,7 @@
      <details class="evidence">
       <summary>Official guidance, opposing evidence &amp; input details</summary>
       {#if bank.framework}<p><b>Inflation objective:</b> {bank.framework.description}. <a href={bank.framework.source} target="_blank" rel="noopener noreferrer">Official framework ↗</a></p>{/if}
-      {#if bank.guidance}<p><b>Central-bank statement:</b> {bank.guidance.guidance} <a href={bank.guidance.source} target="_blank" rel="noopener noreferrer">Original statement ↗</a></p><p class="meta">Published {bank.guidance.publishedDate} · Review {bank.guidance.assessment?.reviewedAt||'Unavailable'}</p>{/if}
+      {#if bank.guidance}<p><b>{bank.policyEvidenceReviewed?'Current reviewed statement':'Historical statement · excluded from current policy assessment'}:</b> {bank.guidance.guidance} <a href={bank.guidance.source} target="_blank" rel="noopener noreferrer">Original statement ↗</a></p><p class="meta">Published {bank.guidance.publishedDate} · Review {bank.guidance.assessment?.reviewedAt||'Unavailable'}</p>{/if}
       {#if bank.cautions?.length}<ul>{#each bank.cautions as note}<li>{note}</li>{/each}</ul>{/if}
      </details>
     </article>

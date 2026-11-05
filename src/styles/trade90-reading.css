@@ -652,9 +652,13 @@ html[data-theme="light"] .home .home-daily a {color:#1d4ed8}
 html[data-theme="light"] .pair-page .more-research>summary span {color:#475569}
 html[data-theme="light"] .pair-page .more-research .section {background:#fff}
 html[data-theme="light"] .page-intro p {color:#334155}
-html[data-theme="light"] .footer,
-html[data-theme="light"] .topbar {background:#020617;color:#f8fafc}
-html[data-theme="light"] .footer .brand,
-html[data-theme="light"] .topbar .brand {color:#f8fafc}
-html[data-theme="light"] .footer .footlinks a,
-html[data-theme="light"] .topbar .nav nav a {color:#e2e8f0}
+html[data-theme="light"] .footer {background:#e9eff5;color:#334155}
+html[data-theme="light"] .footer .brand {color:#102033}
+html[data-theme="light"] .footer .footlinks a {color:#334155}
+/* One explicit foreground/background pair; no dark-only nav override. */
+html[data-theme="light"] body .topbar {background:#fff;color:#102033}
+html[data-theme="light"] body .topbar .nav nav a {color:#334155}
+html[data-theme="light"] body .topbar .nav nav a:hover {color:#1d4ed8}
+html[data-theme="dark"] body .topbar {background:#020617;color:#f8fafc}
+html[data-theme="dark"] body .topbar .nav nav a {color:#e2e8f0}
+html .topbar a:focus-visible {outline:3px solid #3b82f6;outline-offset:4px}

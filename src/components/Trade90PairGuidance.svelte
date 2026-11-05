@@ -1,29 +1,41 @@
 <script>
-  import {getGuidanceForPair,policyGuidance,policyGuidanceReviewedAt} from "../data/trade90-policy-guidance.js";
+  import model from '../../public/data/policy-outlook.json';
+  import snapshot from '../data/trade90-policy-snapshot.json';
+  import {policyContext} from '../lib/trade90-research-presentation.js';
   export let pair;
-  const dateLabel=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
-  $: selected=getGuidanceForPair(pair);
-  $: label=pair?.label || ((pair?.base||"")+"/"+(pair?.quote||""));
+  const dateLabel=s=>s?new Date(s+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}):'Unavailable';
+  $: selected=[pair?.base,pair?.quote].filter(Boolean).map(code=>({code,bank:model.banks[code],context:policyContext(model.banks[code],snapshot.banks.find(b=>b.code===code))}));
+  $: label=pair?.label || ((pair?.base||'')+'/'+(pair?.quote||''));
 </script>
-<section class="guidance" aria-label={"Central bank outlook and forward guidance for "+label}>
+<section class="guidance" aria-label={'Central bank outlook and forward guidance for '+label}>
  <header class="heading">
-  <span class="eyebrow">Official statements · {label}</span>
+  <span class="eyebrow">Official decisions · {label}</span>
   <h2>Central Bank Policy Outlook &amp; Forward Guidance</h2>
-  <p>Compare what the two central banks have actually communicated. These are dated summaries of official policy, not market-priced rate expectations or trade recommendations.</p>
+  <p>Latest recorded decisions, automated policy context and separately dated historical commentary.</p>
  </header>
  <div class="grid">
-  {#each selected as item (item.currency)}
+  {#each selected as item (item.code)}
    <article class="item">
-    <div class="line"><strong>{item.currency} · {item.short}</strong><time datetime={item.publishedDate}>{dateLabel(item.publishedDate)}</time></div>
-    <div class="stance">{item.stance}</div>
-    <h3>{item.headline}</h3>
-    <p>{item.guidance}</p>
-    <div class="watch"><strong>What could change the outlook?</strong><p>{item.watch}</p></div>
-    <a href={item.source} target="_blank" rel="noopener noreferrer">{item.evidence} ↗</a>
+    <div class="line"><strong>{item.code}</strong><time datetime={item.context.decisionDate}>{dateLabel(item.context.decisionDate)}</time></div>
+    <div class="stance">Latest recorded official decision</div>
+    <h3>{item.context.headline}</h3>
+    <p>Effective {dateLabel(item.context.effectiveDate)}. A past decision does not establish the next policy move.</p>
+    {#if item.context.source}<a href={item.context.source} target="_blank" rel="noopener noreferrer">Official decision ↗</a>{/if}
+    {#if item.context.newer}<p class="pending">A newer decision publication dated {dateLabel(item.context.newer.date)} needs verification. The recorded benchmark above has not yet been updated. <a href={item.context.newer.url} target="_blank" rel="noopener noreferrer">Read newer publication ↗</a></p>{/if}
+    <h3>{item.context.label}</h3><p>{item.context.interpretation}</p>
+    {#if item.context.checkedAt}<p class="foot">Automated assessment: {item.context.checkedAt.replace('T',' ').slice(0,16)} UTC</p>{/if}
+    <div class="watch"><strong>What could change the outlook?</strong><p>{item.bank?.watch}</p></div>
+    {#if item.context.guidance && !item.context.current}
+     <details><summary>{item.context.historicalLabel} · {dateLabel(item.context.guidance.publishedDate)}</summary>
+      <h3>{item.context.guidance.headline}</h3><p>{item.context.guidance.guidance}</p>
+      <p>Historical context only; excluded from the current reviewed-policy assessment.</p>
+      <a href={item.context.guidance.source} target="_blank" rel="noopener noreferrer">Historical statement ↗</a>
+     </details>
+    {/if}
    </article>
   {/each}
  </div>
- <p class="foot">Review date: {dateLabel(policyGuidanceReviewedAt)}. Different central-bank statements are not directly comparable forecasts. The next policy decision may materially change the guidance.</p>
+ <p class="foot">Decision dates, automated checks and editorial review dates are separate. Automated context is not a human-reviewed interpretation of a statement.</p>
 </section>
 <style>
 .guidance{padding:23px 24px 22px;border-top:1px solid #334155;color:#e2e8f0}
@@ -42,6 +54,6 @@
 .watch strong{color:#b7f7dc;font-size:.76rem}
 .watch p{color:#cbd5e1;font-size:.75rem;margin:5px 0 0}
 .item a{color:#93c5fd;font-size:.78rem;font-weight:680}
-.foot{color:#94a3b8;font-size:.73rem;line-height:1.6;margin:15px 0 0}
+summary{cursor:pointer;font-size:.85rem;line-height:1.6}details{margin-top:14px}details p,.pending{font-size:.9rem;line-height:1.65}.item h3{margin-top:14px}.foot{color:#94a3b8;font-size:.73rem;line-height:1.6;margin:15px 0 0}
 @media(max-width:680px){.guidance{padding:18px 14px}.grid{grid-template-columns:1fr}.item{padding:14px}.heading h2{font-size:1.18rem}}
 </style>

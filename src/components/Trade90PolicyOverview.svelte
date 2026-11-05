@@ -44,8 +44,8 @@
 
  <section id="policy-outlook" class="section" aria-labelledby="central-bank-guidance">
   <div class="intro">
-   <div><span class="eyebrow">Policy communication</span><h2 id="central-bank-guidance">Central Bank Policy Outlook &amp; Forward Guidance</h2><p>What each bank most recently communicated about inflation and the direction of policy risks. These are <strong>official-source summaries</strong>, not futures-implied rate paths.</p></div>
-   <span class="snapshot">Guidance reviewed {date(policyGuidanceReviewedAt)}</span>
+   <div><span class="eyebrow">Historical policy communication</span><h2 id="central-bank-guidance">Central Bank Policy Outlook &amp; Forward Guidance</h2><p>Historical central-bank commentary from the dates shown. Open a pair for current decision evidence and automated context. These are <strong>official-source summaries</strong>, not futures-implied rate paths.</p></div>
+   <span class="snapshot">Historical review {date(policyGuidanceReviewedAt)}</span>
   </div>
   <div class="guidance-grid">
    {#each guidance as bank (bank.currency)}
