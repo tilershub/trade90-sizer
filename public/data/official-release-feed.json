@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-05T13:30:25.012Z",
-  "lastSourceScanAt": "2026-11-05T13:30:25.012Z",
+  "lastCompiledAt": "2026-11-05T15:34:19.156Z",
+  "lastSourceScanAt": "2026-11-05T15:34:19.156Z",
   "items": [
+    {
+      "code": "GBP",
+      "bank": "BoE",
+      "title": "News // Monetary Policy Committee (MPC) 04 February 2027 Monetary Policy Summary and minutes of the... Monetary Policy Summary and minutes of the Monetary Policy Committee meeting - February 2027 (to be published...",
+      "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2027/february-2027",
+      "firstSeenAt": "2026-11-05T15:34:19.156Z"
+    },
     {
       "code": "EUR",
       "bank": "ECB",
@@ -308,7 +315,7 @@
     {
       "code": "GBP",
       "bank": "BoE",
-      "title": "Publication // Monetary Policy Report (MPR) 05 November 2026 Monetary Policy Report - November 2026 (to... Monetary Policy Report - November 2026 (to be published at 12pm)",
+      "title": "Publication // Monetary Policy Report (MPR) 05 November 2026 Monetary Policy Report - November 2026 Monetary Policy Report - November 2026",
       "url": "https://www.bankofengland.co.uk/monetary-policy-report/2026/november-2026",
       "firstSeenAt": "2026-10-17T12:41:15.375Z"
     },
@@ -399,7 +406,7 @@
     {
       "code": "GBP",
       "bank": "BoE",
-      "title": "News // Monetary Policy Committee (MPC) 05 November 2026 Monetary Policy Summary and minutes of the... Monetary Policy Summary and minutes of the Monetary Policy Committee meeting - November 2026 (to be published...",
+      "title": "News // Monetary Policy Committee (MPC) 05 November 2026 Bank rate increased to 4% - November 2026... Bank rate increased to 4% - November 2026 Monetary Policy Summary and Minutes",
       "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
       "firstSeenAt": "2026-10-17T12:41:15.375Z"
     },
