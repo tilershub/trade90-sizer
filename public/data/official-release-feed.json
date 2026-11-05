@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-05T15:34:19.156Z",
-  "lastSourceScanAt": "2026-11-05T15:34:19.156Z",
+  "lastCompiledAt": "2026-11-05T22:04:53.153Z",
+  "lastSourceScanAt": "2026-11-05T22:04:53.153Z",
   "items": [
+    {
+      "code": "CAD",
+      "bank": "BoC",
+      "title": "Joint Statement of the Government of Canada and the Bank of Canada on the Renewal of the Monetary Policy Framework",
+      "url": "https://www.bankofcanada.ca/2026/11/joint-statement-of-the-government-of-canada-and-the-bank-of-canada-on-the-renewal-of-the-monetary-policy-framework-2026/",
+      "firstSeenAt": "2026-11-05T22:04:53.153Z"
+    },
     {
       "code": "GBP",
       "bank": "BoE",
