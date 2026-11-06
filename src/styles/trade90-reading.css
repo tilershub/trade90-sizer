@@ -662,3 +662,7 @@ html[data-theme="light"] body .topbar .nav nav a:hover {color:#1d4ed8}
 html[data-theme="dark"] body .topbar {background:#020617;color:#f8fafc}
 html[data-theme="dark"] body .topbar .nav nav a {color:#e2e8f0}
 html .topbar a:focus-visible {outline:3px solid #3b82f6;outline-offset:4px}
+
+/* Keep learning-page callouts readable under the light/system theme. */
+html[data-theme="light"] .article .tool,
+html[data-theme="light"] .article .sources{background:#eff6ff;border-color:#cbd5e1;color:#334155}
