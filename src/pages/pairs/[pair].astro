@@ -1,6 +1,7 @@
 ---
 import {displayRate,displayBenchmark,midpointNote} from "../../lib/trade90-rate-display.js";
 import RefreshStatus from "../../components/Trade90RefreshStatus.svelte";
+import {lessons} from "../../data/v2-lessons.js";
 import FtmoAffiliate from "../../components/Trade90FtmoAffiliate.astro";
 import Layout from "../../layouts/Trade90V2Layout.astro";
 import PairAnswers from "../../components/Trade90PairAnswers.astro";
@@ -28,6 +29,7 @@ const publishedResearch=researchForPair(pair.symbol);
 const title=pair.label+" Interest Rate Differential, Macro Data & 90-Day Outlook";
 const description=pair.label+" policy-rate gap: "+(pair.signedBp>0?"+":"")+formatBp(pair.signedBp)+" basis points. Compare "+pair.baseBank.short+" and "+pair.quoteBank.short+" benchmarks, macro drivers, sources and conditional 90-day outlook.";
 const permalink=pairUrl(pair.symbol);
+const relatedGuides=lessons.filter(lesson=>lesson.relatedPairs.includes(pairSlug(pair.symbol)));
 const relevant=allTrade90Pairs.filter(p=>p.symbol!==pair.symbol && (p.base===pair.base||p.quote===pair.base||p.base===pair.quote||p.quote===pair.quote)).slice(0,6);
 const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
  {"@type":"ListItem","position":1,"name":"Home","item":"https://tradeninety.com/"},
@@ -70,6 +72,7 @@ const dataPage={"@context":"https://schema.org","@type":"Dataset","@id":"https:/
   <PairAnswers pair={pair} snapshotDate={reportDate(rateSnapshot.asOf)}/>
   <FtmoAffiliate/>
   <section class="section related"><div class="section-heading"><h2>Explore related currency pairs</h2><a href="/pairs/">All 28 pairs →</a></div><div class="related-links">{relevant.map(p=><a href={pairUrl(p.symbol)}><strong>{p.label}</strong><span>{p.signedBp>0?"+":""}{formatBp(p.signedBp)} bp</span></a>)}</div></section>
+ <section class="section article-section"><h2>Understand this policy comparison</h2><ul>{relatedGuides.map(guide=><li><a href={"/learn/"+guide.slug+"/"}>{guide.title}</a></li>)}<li><a href="/learn/central-bank-policy-divergence-checklist/">Central-bank policy research checklist</a></li></ul></section>
  </main>
 </Layout>
 <style>

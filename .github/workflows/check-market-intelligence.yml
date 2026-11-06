@@ -134,7 +134,9 @@ jobs:
       - name: Audit SEO and static V3 routes
         run: node tests/trade90-v3-build.mjs
       - name: Verify current sitemap.xml and canonical pages
-        run: node tests/trade90-sitemap.mjs
+        run: |
+          node tests/trade90-sitemap.mjs
+          node tests/learning-seo.mjs
       - name: Desktop and mobile interaction checks
         run: |
           npm install --no-save playwright@1.56.1
