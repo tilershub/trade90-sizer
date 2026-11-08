@@ -1,62 +1,62 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-11-08T12:12:53.934Z",
-  "completedAt": "2026-11-08T12:13:25.799Z",
+  "startedAt": "2026-11-08T21:22:29.105Z",
+  "completedAt": "2026-11-08T21:23:03.334Z",
   "status": "completed",
   "steps": [
     {
       "name": "macro",
-      "startedAt": "2026-11-08T12:12:53.935Z",
-      "finishedAt": "2026-11-08T12:12:59.580Z",
+      "startedAt": "2026-11-08T21:22:29.105Z",
+      "finishedAt": "2026-11-08T21:22:34.816Z",
       "success": true,
       "error": null
     },
     {
       "name": "policyInputs",
-      "startedAt": "2026-11-08T12:12:59.580Z",
-      "finishedAt": "2026-11-08T12:13:01.145Z",
+      "startedAt": "2026-11-08T21:22:34.816Z",
+      "finishedAt": "2026-11-08T21:22:36.056Z",
       "success": true,
       "error": null
     },
     {
       "name": "officialSources",
-      "startedAt": "2026-11-08T12:13:01.145Z",
-      "finishedAt": "2026-11-08T12:13:05.062Z",
+      "startedAt": "2026-11-08T21:22:36.056Z",
+      "finishedAt": "2026-11-08T21:22:42.762Z",
       "success": true,
       "error": null
     },
     {
       "name": "officialRates",
-      "startedAt": "2026-11-08T12:13:05.062Z",
-      "finishedAt": "2026-11-08T12:13:07.573Z",
+      "startedAt": "2026-11-08T21:22:42.762Z",
+      "finishedAt": "2026-11-08T21:22:44.275Z",
       "success": true,
       "error": null
     },
     {
       "name": "yields",
-      "startedAt": "2026-11-08T12:13:07.573Z",
-      "finishedAt": "2026-11-08T12:13:25.571Z",
+      "startedAt": "2026-11-08T21:22:44.275Z",
+      "finishedAt": "2026-11-08T21:23:03.111Z",
       "success": true,
       "error": null
     },
     {
       "name": "yieldEvaluation",
-      "startedAt": "2026-11-08T12:13:25.571Z",
-      "finishedAt": "2026-11-08T12:13:25.621Z",
+      "startedAt": "2026-11-08T21:23:03.111Z",
+      "finishedAt": "2026-11-08T21:23:03.159Z",
       "success": true,
       "error": null
     },
     {
       "name": "model",
-      "startedAt": "2026-11-08T12:13:25.621Z",
-      "finishedAt": "2026-11-08T12:13:25.747Z",
+      "startedAt": "2026-11-08T21:23:03.159Z",
+      "finishedAt": "2026-11-08T21:23:03.279Z",
       "success": true,
       "error": null
     },
     {
       "name": "freshness",
-      "startedAt": "2026-11-08T12:13:25.747Z",
-      "finishedAt": "2026-11-08T12:13:25.799Z",
+      "startedAt": "2026-11-08T21:23:03.279Z",
+      "finishedAt": "2026-11-08T21:23:03.334Z",
       "success": true,
       "error": null
     }
