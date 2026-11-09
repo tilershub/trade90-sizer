@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-08T21:22:44.304Z",
+  "generatedAt": "2026-11-09T14:23:36.842Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -15,18 +15,18 @@
       "frequency": "daily",
       "latestObservation": "2026-11-06",
       "historyPoints": 214,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": null,
-      "observationAgeDays": 2
+      "observationAgeDays": 3
     },
     "EUR": {
       "status": "current",
       "source": "https://data.ecb.europa.eu/data/datasets/YC",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-05",
+      "latestObservation": "2026-11-06",
       "historyPoints": 400,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": null,
       "observationAgeDays": 3
     },
@@ -35,9 +35,9 @@
       "source": "https://www.bankofengland.co.uk/statistics/yield-curves",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-05",
-      "historyPoints": 26,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "latestObservation": "2026-11-06",
+      "historyPoints": 27,
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": null,
       "observationAgeDays": 3
     },
@@ -46,9 +46,9 @@
       "source": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/index.htm",
       "kind": "sovereign_constant_maturity",
       "frequency": "daily",
-      "latestObservation": "2026-11-05",
-      "historyPoints": 24,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "latestObservation": "2026-11-06",
+      "historyPoints": 25,
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": null,
       "observationAgeDays": 3
     },
@@ -59,9 +59,9 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-04",
       "historyPoints": 400,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": null,
-      "observationAgeDays": 4
+      "observationAgeDays": 5
     },
     "NZD": {
       "status": "unavailable",
@@ -70,7 +70,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -79,9 +79,9 @@
       "source": "https://www.bankofcanada.ca/rates/interest-rates/canadian-bonds/",
       "kind": "sovereign_benchmark_yield",
       "frequency": "daily",
-      "latestObservation": "2026-11-05",
+      "latestObservation": "2026-11-06",
       "historyPoints": 400,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": null,
       "observationAgeDays": 3
     },
@@ -92,9 +92,9 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-08T21:22:44.304Z",
+      "checkedAt": "2026-11-09T14:23:36.842Z",
       "error": null,
-      "observationAgeDays": 495
+      "observationAgeDays": 496
     }
   }
 }

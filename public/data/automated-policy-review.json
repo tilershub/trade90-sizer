@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "model": "automated_provisional_policy_review",
   "methodVersion": "1.0.0",
-  "generatedAt": "2026-11-08T21:23:03.200Z",
+  "generatedAt": "2026-11-09T14:23:55.825Z",
   "meaning": "Eight automatically assessed macro/decision contexts. Not a statement interpretation, not market pricing or editorial review.",
   "totalBanks": 8,
-  "assessedBanks": 5,
+  "assessedBanks": 3,
   "directlyVerifiedDecisions": 2,
   "flaggedNewOfficialDecisions": 2,
   "banks": {
     "USD": {
       "currency": "USD",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -37,7 +37,7 @@
     },
     "EUR": {
       "currency": "EUR",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -65,7 +65,7 @@
     },
     "GBP": {
       "currency": "GBP",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -89,7 +89,7 @@
     },
     "JPY": {
       "currency": "JPY",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -100,7 +100,7 @@
       "label": "No supported automated direction",
       "status": "new_decision_requires_verification",
       "evidence": {
-        "macro": "validated",
+        "macro": "unavailable",
         "benchmarkRate": 1.25,
         "decisionDate": "2026-09-18",
         "decisionSource": "https://www.boj.or.jp/en/mopo/measures/term_cond/yoryo36.htm",
@@ -117,7 +117,7 @@
     },
     "AUD": {
       "currency": "AUD",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -126,24 +126,22 @@
       "probability": null,
       "state": "uncertain",
       "label": "No supported automated direction",
-      "status": "assessed",
+      "status": "macro_unavailable",
       "evidence": {
-        "macro": "validated",
+        "macro": "unavailable",
         "benchmarkRate": 4.6,
         "decisionDate": "2026-09-29",
         "decisionSource": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
         "verifiedDecisionThisRun": false,
         "sourceScanCurrent": true,
         "newerOfficialDecision": null,
-        "sourceCheck": "No safely verified new decision",
-        "macroScore": 1,
-        "inflationPillar": 2
+        "sourceCheck": "No safely verified new decision"
       },
-      "reason": "Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold."
+      "reason": "Required current macroeconomic evidence is missing"
     },
     "NZD": {
       "currency": "NZD",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -169,7 +167,7 @@
     },
     "CAD": {
       "currency": "CAD",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -178,24 +176,22 @@
       "probability": null,
       "state": "uncertain",
       "label": "No supported automated direction",
-      "status": "assessed",
+      "status": "macro_unavailable",
       "evidence": {
-        "macro": "validated",
+        "macro": "unavailable",
         "benchmarkRate": 2.5,
         "decisionDate": "2026-10-28",
         "decisionSource": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
         "verifiedDecisionThisRun": true,
         "sourceScanCurrent": true,
         "newerOfficialDecision": null,
-        "sourceCheck": "Decision matches published benchmark",
-        "macroScore": 1,
-        "inflationPillar": 0
+        "sourceCheck": "Decision matches published benchmark"
       },
-      "reason": "Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold."
+      "reason": "Required current macroeconomic evidence is missing"
     },
     "CHF": {
       "currency": "CHF",
-      "checkedAt": "2026-11-08T21:23:03.200Z",
+      "checkedAt": "2026-11-09T14:23:55.825Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,

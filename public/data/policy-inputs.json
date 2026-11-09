@@ -333,10 +333,14 @@
             {
               "date": "2026-09-01",
               "value": 0.5988
+            },
+            {
+              "date": "2026-10-01",
+              "value": 0.79808
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.734426+00:00",
+          "retrievedAt": "2026-11-09T14:23:28.854791+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN+CAN.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -676,7 +680,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.737267+00:00",
+          "retrievedAt": "2026-11-09T14:23:28.855607+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN+CAN.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1016,7 +1020,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.740024+00:00",
+          "retrievedAt": "2026-11-09T14:23:28.856399+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/CHE+JPN+CAN.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1104,7 +1108,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.569979+00:00",
+          "retrievedAt": "2026-11-09T14:23:28.920598+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS.M+Q.N.CPI.PA._T.N.GY?startPeriod=2020"
         },
         "coreInflation": {
@@ -1188,7 +1192,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.400558+00:00",
+          "retrievedAt": "2026-11-09T14:23:28.788885+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+GBR+NZL.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1528,7 +1532,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.401677+00:00",
+          "retrievedAt": "2026-11-09T14:23:28.789464+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+GBR+NZL.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1652,7 +1656,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.402626+00:00",
+          "retrievedAt": "2026-11-09T14:23:28.790008+00:00",
           "retrievalUrl": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+GBR+NZL.M+Q.N.CPI.PA._TXCP01_NRG.N.GY?startPeriod=2020"
         }
       }
@@ -1996,7 +2000,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.899805+00:00",
+          "retrievedAt": "2026-11-09T14:23:29.235038+00:00",
           "geography": "EA21",
           "sourceUpdated": "2026-11-04T11:00:00+0100",
           "retrievalUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?lang=en&geo=EA21&coicop18=TOT_X_NRG_FOOD&unit=RCH_A&freq=M&sinceTimePeriod=2020-01"
@@ -2578,7 +2582,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:35.704836+00:00",
+          "retrievedAt": "2026-11-09T14:23:29.121108+00:00",
           "sourceUpdated": "2026-10-29 7:43 AM CDT",
           "retrievalUrl": "https://fred.stlouisfed.org/data/PCEPI.txt",
           "transform": "year-on-year from index"
@@ -3156,7 +3160,7 @@
             }
           ],
           "status": "ok",
-          "retrievedAt": "2026-11-08T21:22:36.042643+00:00",
+          "retrievedAt": "2026-11-09T14:23:29.505125+00:00",
           "sourceUpdated": "2026-10-29 7:43 AM CDT",
           "retrievalUrl": "https://fred.stlouisfed.org/data/PCEPILFE.txt",
           "transform": "year-on-year from index"
@@ -3164,5 +3168,5 @@
       }
     }
   },
-  "checkedAt": "2026-11-08T21:22:36.043066+00:00"
+  "checkedAt": "2026-11-09T14:23:29.505396+00:00"
 }
