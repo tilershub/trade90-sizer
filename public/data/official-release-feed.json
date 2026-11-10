@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-09T18:53:17.772Z",
-  "lastSourceScanAt": "2026-11-09T18:53:17.772Z",
+  "lastCompiledAt": "2026-11-10T00:52:10.389Z",
+  "lastSourceScanAt": "2026-11-10T00:52:10.389Z",
   "items": [
+    {
+      "code": "JPY",
+      "bank": "BoJ",
+      "title": "Summary of Opinions at the Monetary Policy Meeting on October 29 and 30, 2026[PDF&nbsp;200KB]",
+      "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/opinion_2026/opi261030.pdf",
+      "firstSeenAt": "2026-11-10T00:52:10.389Z"
+    },
     {
       "code": "JPY",
       "bank": "BoJ",
