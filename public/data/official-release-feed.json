@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-10T13:47:23.798Z",
-  "lastSourceScanAt": "2026-11-10T13:47:23.798Z",
+  "lastCompiledAt": "2026-11-10T17:55:34.090Z",
+  "lastSourceScanAt": "2026-11-10T17:55:34.090Z",
   "items": [
+    {
+      "code": "EUR",
+      "bank": "ECB",
+      "title": "Philip R. Lane: The science and practice of monetary policy communication: the ECB experience",
+      "url": "https://www.ecb.europa.eu/press/key/date/2026/html/ecb.sp261110_1~9725b7aa07.en.html",
+      "firstSeenAt": "2026-11-10T17:55:34.090Z"
+    },
     {
       "code": "JPY",
       "bank": "BoJ",
