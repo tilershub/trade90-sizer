@@ -11,7 +11,7 @@ export function getStaticPaths(){
 const {article}=Astro.props;
 const pair=bySymbol[article.symbol];
 const url=researchUrl(article);
-const articleSchema={"@context":"https://schema.org","@type":"Article","headline":article.title,"description":article.description,"datePublished":article.publishedAt,"dateModified":article.modifiedAt||article.publishedAt,"author":{"@type":"Organization","name":"TRADE90 Research"},"publisher":{"@id":"https://tradeninety.com/#publisher"},"mainEntityOfPage":"https://tradeninety.com"+url};
+const articleSchema={"@context":"https://schema.org","@type":"Article","headline":article.title,"description":article.description,"datePublished":article.publishedAt,"dateModified":article.modifiedAt||article.publishedAt,"author":{"@type":"Person","@id":"https://tradeninety.com/about/#charitha-amarasinghe","name":"Charitha Amarasinghe","url":"https://tradeninety.com/about/#charitha-amarasinghe"},"publisher":{"@id":"https://tradeninety.com/#publisher"},"mainEntityOfPage":"https://tradeninety.com"+url};
 ---
 <Layout title={article.title} description={article.description} canonical={url}>
  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}/>

@@ -5,7 +5,7 @@ export function getStaticPaths(){
  return lessons.map(lesson=>({params:{slug:lesson.slug},props:{lesson}}));
 }
 const {lesson}=Astro.props;
-const article={"@context":"https://schema.org","@type":"Article","@id":"https://tradeninety.com/learn/"+lesson.slug+"/#article",headline:lesson.title,description:lesson.description,dateModified:lesson.updated,inLanguage:"en",mainEntityOfPage:"https://tradeninety.com/learn/"+lesson.slug+"/",author:{"@type":"Organization",name:"TRADE90",url:"https://tradeninety.com/about/#publisher"},publisher:{"@type":"Organization",name:"TRADE90",url:"https://tradeninety.com/"},citation:lesson.sources.map(source=>source.url)};
+const article={"@context":"https://schema.org","@type":"Article","@id":"https://tradeninety.com/learn/"+lesson.slug+"/#article",headline:lesson.title,description:lesson.description,dateModified:lesson.updated,inLanguage:"en",mainEntityOfPage:"https://tradeninety.com/learn/"+lesson.slug+"/",author:{"@type":"Person","@id":"https://tradeninety.com/about/#charitha-amarasinghe",name:"Charitha Amarasinghe",url:"https://tradeninety.com/about/#charitha-amarasinghe",worksFor:{"@type":"Organization",name:"TRADE90",url:"https://tradeninety.com/"}},publisher:{"@type":"Organization",name:"TRADE90",url:"https://tradeninety.com/"},citation:lesson.sources.map(source=>source.url)};
 const questions=lesson.sections.filter(section=>section.heading.endsWith("?"));
 const faq={"@context":"https://schema.org","@type":"FAQPage",mainEntity:questions.map(section=>({"@type":"Question",name:section.heading,acceptedAnswer:{"@type":"Answer",text:section.paragraphs.join(" ")}}))};
 const related=lessons.filter(item=>lesson.related.includes(item.slug));
@@ -18,7 +18,7 @@ const breadcrumbs={"@context":"https://schema.org","@type":"BreadcrumbList","ite
 <script type="application/ld+json" set:html={JSON.stringify(article)}/><script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}/>{questions.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(faq)}/>}<main class="wrap">
  <article class="article">
   <header class="page-intro"><span class="eyebrow">Trade90 · Monetary policy explained</span><h1>{lesson.title}</h1><p>{lesson.description}</p></header>
-  <p>Published by <a href="/about/#publisher">TRADE90</a> · Updated <time datetime={lesson.updated}>{lesson.updated}</time> · <a href="/editorial-policy/">Editorial standards and corrections</a></p>
+  <p>By <a href="/about/#publisher" rel="author">Charitha Amarasinghe</a>, <a href="/about/#publisher">TRADE90</a> · Updated <time datetime={lesson.updated}>{lesson.updated}</time> · <a href="/editorial-policy/">Editorial standards and corrections</a></p>
   <p class="answer"><strong>Quick answer:</strong> {lesson.answer}</p>
   <p class="tool"><strong>Want to see current numbers?</strong> <a href="/">Open the 28-pair central bank rate comparison →</a></p>
   {lesson.sections.map(section=><section><h2>{section.heading}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}</section>)}

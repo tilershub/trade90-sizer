@@ -9,7 +9,7 @@ for(const lesson of lessons){
  assert.ok(article,lesson.slug+' Article schema');
  assert.equal(article.headline,lesson.title);
  assert.equal(article.dateModified,lesson.updated);
- assert.equal(article.author['@type'],'Organization');
+ assert.equal(article.author['@type'],'Person');assert.equal(article.author.name,'Charitha Amarasinghe');
  assert.ok(html.includes(`datetime="${article.dateModified}"`));
  assert.equal(article.citation.length,lesson.sources.length);
  assert.ok(html.includes('Quick answer:'));
