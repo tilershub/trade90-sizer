@@ -62,7 +62,7 @@ const bp=v=>Number.isFinite(v)?(v>0?"+":"")+v.toFixed(0)+" bp":"—";
    </>:<p class="yield-chart-empty">The chart requires recent, verified US Treasury history. <a href="/yield-curves/?currency=USD">View source status →</a></p>}
   </div>
   <div class="yield-country-panel">
-   <div class="yield-country-heading"><h3>Explore sovereign yield curves</h3><span>{availableCount} of 8 with current observations</span></div>
+   <div class="yield-country-heading"><h3>Explore sovereign yield curves</h3><span>{featured.length} shown · {availableCount} of 8 with current observations</span></div>
    <div class="yield-country-grid">
     {featured.map(({code,name,data})=><a class="yield-country" href={"/yield-curves/?currency="+code} aria-label={"Explore "+name+" yield curves"}>
      <span class="yield-country-top"><strong>{code}</strong><span aria-hidden="true">↗</span></span>

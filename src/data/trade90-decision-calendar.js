@@ -7,7 +7,7 @@ export const decisionCalendarReviewedAt = "2026-10-15";
 export const officialDecisionSources = {
   USD:{bank:"Federal Reserve",short:"Fed",url:"https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
     watch:"Interest-rate decision, FOMC statement and Chair's press conference"},
-  EUR:{bank:"European Central Bank",short:"ECB",url:"https://www.ecb.europa.eu/press/pr/date/2025/html/ecb.pr250424~2643533670.en.html",
+  EUR:{bank:"European Central Bank",short:"ECB",url:"https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
     watch:"Deposit facility rate decision and monetary policy press conference"},
   GBP:{bank:"Bank of England",short:"BoE",url:"https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates",
     watch:"Bank Rate decision, MPC vote and Monetary Policy Report"},
@@ -69,6 +69,8 @@ export function validatePolicyDecisionCalendar(entries=officialPolicyDecisionCal
   if(!Array.isArray(entries)||entries.length<8)return {valid:false,reason:"Missing official decision schedules"};
   for(const [currency,source] of Object.entries(officialDecisionSources)){
     if(!/^https:\/\//.test(source.url))return {valid:false,reason:"Invalid official calendar link"};
+    // A calendar source must be a standing schedule page, never a single dated press release that goes stale.
+    if(/\/date\/\d{4}\//.test(source.url))return {valid:false,reason:"Dated press release used as calendar link for "+currency};
     const dates=entries.filter(event=>event.currency===currency);
     if(!dates.length)return {valid:false,reason:"Missing calendar for "+currency};
     if(dates.some(event=>!validDate(event.date)||(event.startDate&&(!validDate(event.startDate)||event.startDate>event.date))))return {valid:false,reason:"Invalid announcement date for "+currency};
