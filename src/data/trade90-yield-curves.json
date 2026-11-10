@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "asOf": "2026-11-09",
-  "generatedAt": "2026-11-10T00:52:12.614Z",
+  "generatedAt": "2026-11-10T13:47:25.424Z",
   "coverage": {
     "total": 8,
-    "current": 5,
-    "stale": 2,
+    "current": 6,
+    "stale": 1,
     "unavailable": 1
   },
   "notes": "2Y and 10Y sovereign yields. Instrument definitions and publication frequencies differ; pair spreads are context only. Never use this file as policy-rate forecasts.",
@@ -1100,22 +1100,17 @@
       ]
     },
     "EUR": {
-      "verified": false,
-      "asOf": "2026-11-06",
+      "verified": true,
+      "asOf": "2026-11-09",
       "source": "https://data.ecb.europa.eu/data/datasets/YC",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
       "provider": "ECB euro-area AAA government spot curve",
       "yields": {
-        "2Y": 2.930495511,
-        "10Y": 3.2855888131
+        "2Y": 2.9391258274,
+        "10Y": 3.2719578055
       },
       "history": [
-        {
-          "date": "2025-04-15",
-          "2Y": 1.7747438536,
-          "10Y": 2.6309014142
-        },
         {
           "date": "2025-04-16",
           "2Y": 1.7290503897,
@@ -3110,19 +3105,24 @@
           "date": "2026-11-06",
           "2Y": 2.930495511,
           "10Y": 3.2855888131
+        },
+        {
+          "date": "2026-11-09",
+          "2Y": 2.9391258274,
+          "10Y": 3.2719578055
         }
       ]
     },
     "GBP": {
       "verified": true,
-      "asOf": "2026-11-06",
+      "asOf": "2026-11-09",
       "source": "https://www.bankofengland.co.uk/statistics/yield-curves",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
       "provider": "Bank of England nominal gilt fitted spot curve",
       "yields": {
-        "2Y": 4.5660880395048675,
-        "10Y": 5.141921489474688
+        "2Y": 4.556867564845618,
+        "10Y": 5.126764884405161
       },
       "history": [
         {
@@ -3259,6 +3259,11 @@
           "date": "2026-11-06",
           "2Y": 4.5660880395048675,
           "10Y": 5.141921489474688
+        },
+        {
+          "date": "2026-11-09",
+          "2Y": 4.556867564845618,
+          "10Y": 5.126764884405161
         }
       ]
     },
@@ -7492,31 +7497,31 @@
       "frequency": "daily",
       "latestObservation": "2026-11-09",
       "historyPoints": 215,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
+      "checkedAt": "2026-11-10T13:47:25.424Z",
       "error": null,
       "observationAgeDays": 1
     },
     "EUR": {
-      "status": "stale_or_source_failed",
+      "status": "current",
       "source": "https://data.ecb.europa.eu/data/datasets/YC",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-06",
+      "latestObservation": "2026-11-09",
       "historyPoints": 400,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
-      "error": "The operation was aborted due to timeout",
-      "observationAgeDays": 4
+      "checkedAt": "2026-11-10T13:47:25.424Z",
+      "error": null,
+      "observationAgeDays": 1
     },
     "GBP": {
       "status": "current",
       "source": "https://www.bankofengland.co.uk/statistics/yield-curves",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-06",
-      "historyPoints": 27,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
+      "latestObservation": "2026-11-09",
+      "historyPoints": 28,
+      "checkedAt": "2026-11-10T13:47:25.424Z",
       "error": null,
-      "observationAgeDays": 4
+      "observationAgeDays": 1
     },
     "JPY": {
       "status": "current",
@@ -7525,7 +7530,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-09",
       "historyPoints": 26,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
+      "checkedAt": "2026-11-10T13:47:25.424Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7536,7 +7541,7 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-04",
       "historyPoints": 400,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
+      "checkedAt": "2026-11-10T13:47:25.424Z",
       "error": null,
       "observationAgeDays": 6
     },
@@ -7547,7 +7552,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
+      "checkedAt": "2026-11-10T13:47:25.424Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -7558,7 +7563,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-06",
       "historyPoints": 400,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
+      "checkedAt": "2026-11-10T13:47:25.424Z",
       "error": null,
       "observationAgeDays": 4
     },
@@ -7569,7 +7574,7 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-10T00:52:12.614Z",
+      "checkedAt": "2026-11-10T13:47:25.424Z",
       "error": null,
       "observationAgeDays": 497
     }
