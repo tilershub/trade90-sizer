@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-10T17:55:34.090Z",
-  "lastSourceScanAt": "2026-11-10T17:55:34.090Z",
+  "lastCompiledAt": "2026-11-10T22:32:47.758Z",
+  "lastSourceScanAt": "2026-11-10T22:32:47.758Z",
   "items": [
+    {
+      "code": "CAD",
+      "bank": "BoC",
+      "title": "Summary of Governing Council deliberations: Fixed announcement date of October&nbsp;28, 2026",
+      "url": "https://www.bankofcanada.ca/2026/11/summary-of-governing-council-deliberations-fixed-announcement-date-of-october-28-2026/",
+      "firstSeenAt": "2026-11-10T22:32:47.758Z"
+    },
     {
       "code": "EUR",
       "bank": "ECB",
