@@ -1,54 +1,54 @@
 {
   "schemaVersion": 1,
   "status": "automated_fail_closed",
-  "lastCheckedAt": "2026-11-10T23:28:39.231Z",
+  "lastCheckedAt": "2026-11-11T06:38:54.055Z",
   "changedBanks": [],
   "coverage": [
     {
       "code": "AUD",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     },
     {
       "code": "USD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-10T23:28:39.231Z",
+      "checkedAt": "2026-11-11T06:38:54.055Z",
       "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     },
     {
       "code": "GBP",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     },
     {
       "code": "NZD",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     },
     {
       "code": "EUR",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     },
     {
       "code": "CAD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-10T23:28:39.231Z",
+      "checkedAt": "2026-11-11T06:38:54.055Z",
       "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     },
     {
       "code": "JPY",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     },
     {
       "code": "CHF",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-10T23:28:39.231Z"
+      "attemptedAt": "2026-11-11T06:38:54.055Z"
     }
   ],
   "failures": [
