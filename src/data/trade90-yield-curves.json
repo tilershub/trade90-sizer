@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "asOf": "2026-11-10",
-  "generatedAt": "2026-11-11T12:58:13.501Z",
+  "generatedAt": "2026-11-11T23:43:33.241Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -7512,7 +7512,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-10",
       "historyPoints": 216,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7523,7 +7523,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-10",
       "historyPoints": 400,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7534,7 +7534,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-10",
       "historyPoints": 29,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7545,7 +7545,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-10",
       "historyPoints": 27,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7556,7 +7556,7 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-04",
       "historyPoints": 400,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": null,
       "observationAgeDays": 7
     },
@@ -7567,7 +7567,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -7578,7 +7578,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-09",
       "historyPoints": 400,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": null,
       "observationAgeDays": 2
     },
@@ -7589,7 +7589,7 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-11T12:58:13.501Z",
+      "checkedAt": "2026-11-11T23:43:33.241Z",
       "error": null,
       "observationAgeDays": 498
     }
