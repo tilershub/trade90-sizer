@@ -25,7 +25,11 @@ export default defineConfig({
       }
     }),
     robotsTxt({
-      policy: [{userAgent:"*",allow:"/"}],
+      policy: [
+        {userAgent:"*",allow:"/"},
+        // AI answer engines are welcome to read and cite the research pages.
+        ...["GPTBot","OAI-SearchBot","ChatGPT-User","ClaudeBot","Claude-SearchBot","Claude-User","PerplexityBot","Perplexity-User","Google-Extended","Applebot-Extended","CCBot","bingbot"].map(userAgent=>({userAgent,allow:"/"}))
+      ],
       sitemap:"https://tradeninety.com/sitemap.xml"
     })
   ]

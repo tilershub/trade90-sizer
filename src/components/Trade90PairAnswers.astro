@@ -1,17 +1,28 @@
 ---
 /** Source-grounded answer snippets shared by all 28 pair pages. */
+import {displayRate,displayBenchmark} from "../lib/trade90-rate-display.js";
+import {getNextPolicyDecisions} from "../data/trade90-decision-calendar.js";
 const { pair, snapshotDate } = Astro.props;
+const day=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"});
+const rateAnswer=bank=>`The ${bank.name} (${bank.short}) ${displayBenchmark(bank).toLowerCase()} is ${displayRate(bank)}, effective ${day(bank.effectiveDate)}. The latest verified decision was "${bank.decision}" on ${day(bank.decisionDate)}.`;
+const upcoming=getNextPolicyDecisions(pair).filter(e=>e.date);
+const nextAnswer=upcoming.length?upcoming.map(e=>`${e.bank}: ${day(e.date)} (${e.title})`).join("; ")+". Official schedules can change, so confirm on each bank's published calendar.":"No upcoming decision is confirmed in the TRADE90 calendar. Check each bank's official calendar.";
 const baseHigher = pair.signedBp > 0;
 const quoteHigher = pair.signedBp < 0;
 const status = baseHigher ? pair.base : quoteHigher ? pair.quote : "neither currency";
 const signed = (pair.signedBp > 0 ? "+" : "") + pair.signedBp;
 const questions = [
+  {q:`What is the current ${pair.baseBank.short} interest rate?`,a:rateAnswer(pair.baseBank)},
+  {q:`What is the current ${pair.quoteBank.short} interest rate?`,a:rateAnswer(pair.quoteBank)},
+  {q:`When are the next ${pair.baseBank.short} and ${pair.quoteBank.short} interest rate decisions?`,a:nextAnswer},
   {q:`Which currency has the higher policy benchmark in ${pair.label}?`,a:baseHigher || quoteHigher ? `${status} has the higher selected policy benchmark. The ${pair.base} minus ${pair.quote} difference is ${signed} basis points.` : `Both currencies have equal selected policy benchmarks, a 0 basis-point difference.`},
   {q:`Does the ${pair.label} interest-rate gap predict the exchange rate?`,a:"No. Policy-rate differences alone do not predict spot exchange rates. Market expectations, inflation, growth, risk sentiment and positioning can all influence price."},
   {q:`How is the ${pair.label} policy-rate differential calculated?`,a:`Subtract the ${pair.quote} policy benchmark from the ${pair.base} benchmark and multiply the percentage-point difference by 100 to obtain basis points. A negative result means the quote currency has the higher benchmark.`},
   {q:`Is this ${pair.label} analysis live?`,a:"No. These are published policy benchmarks, not live FX quotes. Check the effective dates and linked official central-bank sources for each benchmark."}
 ];
+const faqSchema={"@context":"https://schema.org","@type":"FAQPage","@id":"https://tradeninety.com/pairs/"+pair.symbol.slice(0,3).toLowerCase()+"-"+pair.symbol.slice(3).toLowerCase()+"/#faq","mainEntity":questions.map(({q,a})=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))};
 ---
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}/>
 <section class="section article-section pair-answers" aria-labelledby="pair-questions">
   <div class="eyebrow">QUICK ANSWERS · METHODOLOGY</div>
   <h2 id="pair-questions">Frequently asked questions about {pair.label}</h2>
