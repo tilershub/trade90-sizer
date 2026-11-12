@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-11T23:43:30.597Z",
-  "lastSourceScanAt": "2026-11-11T23:43:30.597Z",
+  "lastCompiledAt": "2026-11-12T03:52:15.388Z",
+  "lastSourceScanAt": "2026-11-12T03:52:15.388Z",
   "items": [
+    {
+      "code": "JPY",
+      "bank": "BoJ",
+      "title": "Speech by Board Member ASADA in Nagasaki (Economic Activity, Prices, and Monetary Policy in Japan)",
+      "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko261112a.htm",
+      "firstSeenAt": "2026-11-12T03:52:15.388Z"
+    },
     {
       "code": "CAD",
       "bank": "BoC",
