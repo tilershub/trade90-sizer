@@ -48,6 +48,48 @@ class DirectProviderTest(unittest.TestCase):
     def test_eurostat_rejects_unfiltered_geography(self):
         raw={'source':'ESTAT','id':['geo','freq','time'],'dimension':{'geo':{'category':{'index':{'EA21':0,'EA20':1}}},'freq':{'category':{'index':{'M':0}}},'time':{'category':{'index':{}}}}}
         with self.assertRaises(ValueError):m.parse_eurostat(raw,{'geo':'EA21','freq':'M'})
+    @staticmethod
+    def ons(months=30,cdid='MGSX',latest=None):
+        import datetime as dt
+        today=dt.date.today();end=latest or (today.year*12+today.month-1-2)
+        names=list(m.ONS_MONTHS)
+        rows=[{'date':f'{(end-i)//12} {names[(end-i)%12]}','value':'4.8','sourceDataset':'LMS'} for i in range(months-1,-1,-1)]
+        return {'description':{'cdid':cdid,'title':'Unemployment rate (aged 16 and over, seasonally adjusted): %','releaseDate':'2026-11-10T07:00:00.000Z'},'months':rows,'years':[{'date':'2025','value':'4.6'}]}
+    def test_ons_middle_month_period_end(self):
+        import datetime as dt
+        raw=self.ons(latest=2026*12+7);raw['months'][-1]['value']='5.0'  # label 2026 AUG = Jul-Sep
+        _,points=m.parse_ons_unemployment(raw)
+        self.assertEqual(points[-1],{'date':'2026-08-01','value':5.0,'periodEnd':'2026-09-30'})
+        self.assertEqual(points[-2]['periodEnd'],'2026-08-31')
+    def test_ons_rejects_wrong_series_gaps_and_bad_values(self):
+        with self.assertRaises(ValueError):m.parse_ons_unemployment(self.ons(cdid='MGSC'))
+        with self.assertRaises(ValueError):m.parse_ons_unemployment(self.ons(months=10))
+        gap=self.ons();del gap['months'][-3]
+        with self.assertRaises(ValueError):m.parse_ons_unemployment(gap)
+        bad=self.ons();bad['months'][-1]['value']='48'
+        with self.assertRaises(ValueError):m.parse_ons_unemployment(bad)
+        label=self.ons();label['months'][-1]['date']='2026 Q3'
+        with self.assertRaises(ValueError):m.parse_ons_unemployment(label)
+        import datetime as dt
+        today=dt.date.today()
+        with self.assertRaises(ValueError):m.parse_ons_unemployment(self.ons(latest=today.year*12+today.month-1))
+    def test_ons_failure_falls_back_to_fred(self):
+        def fail(url,accept='text/csv'): raise ValueError('blocked')
+        with patch.object(m,'download',side_effect=fail):
+            self.assertEqual(m.ons_direct(),{})
+    def test_ons_success_and_second_url(self):
+        calls=[]
+        def fake(url,accept='text/csv'):
+            calls.append(url)
+            if 'api.beta.ons.gov.uk' in url: raise ValueError('beta down')
+            if 'ons.gov.uk' in url: return json.dumps(self.ons())
+            raise ValueError('other provider not under test')
+        with patch.object(m,'download',side_effect=fake):
+            series=m.ons_direct()[('GBP','unemployment')]
+        self.assertEqual(series['seriesId'],'MGSX');self.assertEqual(series['status'],'ok')
+        self.assertEqual(series['source'],'Office for National Statistics')
+        self.assertTrue(series['retrievalUrl'].startswith('https://www.ons.gov.uk/'))
+        self.assertIn('periodEnd',series['points'][-1])
     def test_stale_source_not_success(self):
         self.assertEqual(m.freshness([{'date':'2021-01-01','value':2}],'Monthly'),'stale')
 if __name__=='__main__':unittest.main()

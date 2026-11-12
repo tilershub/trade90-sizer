@@ -109,6 +109,63 @@ def parse_eurostat(raw, dimensions, quarterly=False):
     if len(points)<8:raise ValueError('Insufficient Eurostat history')
     return points
 
+ONS_UNEMPLOYMENT_URI='/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms'
+ONS_MONTHS={m:i+1 for i,m in enumerate(('JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'))}
+
+def parse_ons_unemployment(raw):
+    """UK unemployment rate (ONS series MGSX, aged 16+, seasonally adjusted).
+    ONS labels each rolling three-month Labour Force Survey average with its MIDDLE
+    month, so the observation period ends at the end of the following month."""
+    description=raw.get('description') or {}
+    if str(description.get('cdid','')).upper()!='MGSX': raise ValueError('Unexpected ONS series')
+    if 'unemployment rate' not in str(description.get('title','')).lower(): raise ValueError('Unexpected ONS title')
+    if '%' not in str(description.get('title',''))+str(description.get('unit','')): raise ValueError('Unexpected ONS unit')
+    today=dt.date.today().isoformat();values={}
+    for row in raw.get('months') or []:
+        match=re.fullmatch(r'(\d{4}) ([A-Z]{3})',str(row.get('date','')).strip().upper())
+        if not match or match.group(2) not in ONS_MONTHS: raise ValueError('Invalid ONS month label')
+        if row.get('sourceDataset') not in (None,'','LMS'): raise ValueError('Unexpected ONS dataset')
+        text=str(row.get('value','')).strip()
+        if not text: continue
+        value=float(text)
+        if not math.isfinite(value) or not 0<value<25: raise ValueError('Invalid ONS unemployment observation')
+        date=f'{match.group(1)}-{ONS_MONTHS[match.group(2)]:02d}-01'
+        if date in values: raise ValueError('Duplicate ONS month')
+        d=dt.date.fromisoformat(date);month=d.year*12+d.month-1+2
+        period_end=(dt.date(month//12,month%12+1,1)-dt.timedelta(days=1)).isoformat()
+        # A rolling period that has not finished cannot be a published estimate.
+        if period_end>today: raise ValueError('ONS observation period ends in the future')
+        values[date]={'date':date,'value':round(value,5),'periodEnd':period_end}
+    points=[values[d] for d in sorted(values) if d>='2015-01-01']
+    if len(points)<24: raise ValueError('Insufficient ONS history')
+    for previous,current in zip(points[-24:],points[-23:]):
+        a,b=dt.date.fromisoformat(previous['date']),dt.date.fromisoformat(current['date'])
+        if (b.year*12+b.month)-(a.year*12+a.month)!=1: raise ValueError('Gap in recent ONS monthly history')
+    return description,points
+
+def ons_unemployment():
+    errors=[]
+    # Documented beta API first; the website JSON view of the same series second.
+    for url in ('https://api.beta.ons.gov.uk/v1/data?uri='+ONS_UNEMPLOYMENT_URI,'https://www.ons.gov.uk'+ONS_UNEMPLOYMENT_URI+'/data'):
+        try:
+            description,points=parse_ons_unemployment(json.loads(download(url,'application/json')))
+            return {'seriesId':'MGSX','country':'United Kingdom','frequency':'Monthly','source':'Office for National Statistics','provider':'ONS API',
+                'sourceTitle':'Unemployment rate (aged 16 and over, seasonally adjusted), rolling three-month average labelled by its middle month',
+                'sourceUrl':'https://www.ons.gov.uk'+ONS_UNEMPLOYMENT_URI,'retrievalUrl':url,'sourceUpdated':description.get('releaseDate'),
+                'retrievedAt':dt.datetime.now(dt.timezone.utc).isoformat(),'transform':None,'status':freshness(points,'Monthly'),'points':points}
+        except Exception as e: errors.append(str(e))
+    raise ValueError('ONS unavailable: '+'; '.join(errors))
+
+def ons_direct():
+    """UK unemployment straight from the ONS, about two months ahead of the OECD mirror.
+    Any failure returns nothing so the FRED/OECD series is used instead."""
+    try:
+        series=ons_unemployment()
+        if series['status']=='ok': return {('GBP','unemployment'):series}
+        print('ONS unemployment is stale; using FRED/OECD',flush=True)
+    except Exception as e: print('ONS:',e,flush=True)
+    return {}
+
 def direct_series():
     result={}
     iso={'AUD':'AUS','CHF':'CHE','CAD':'CAN','GBP':'GBR','JPY':'JPN','NZD':'NZL'}
@@ -169,6 +226,8 @@ def main():
     try: direct=direct_series()
     except Exception as e:
         print('Direct provider error:',e,flush=True); direct={}
+    # Independent of the OECD/Eurostat batch above, so one provider failing cannot drop the other.
+    if any(s[0]=='GBP' and s[1]=='unemployment' for s in specs()): direct.update(ons_direct())
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
         jobs={pool.submit(lambda spec: direct.get((spec[0],spec[1])) or retrieve(spec),s):s for s in specs()}
         for job in concurrent.futures.as_completed(jobs):
