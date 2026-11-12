@@ -1,5 +1,5 @@
 import {policyFrameworks} from '../data/trade90-policy-frameworks.js';
-export const MODEL_VERSION='4.0.0';
+export const MODEL_VERSION='4.0.1';
 const DAY=86400000;
 const age=(v,now)=>(now-Date.parse(v))/DAY;
 const validAge=(v,max,now)=>Number.isFinite(age(v,now))&&age(v,now)>=0&&age(v,now)<=max;
@@ -14,9 +14,13 @@ export const changeSignal=(latest,prior,threshold)=>{
 export function observationPeriodEnd(series,point){
  if(!point)return null;
  if(point.periodEnd)return point.periodEnd;
- if(series?.frequency!=='Quarterly')return point.date;
  const date=new Date(`${point.date}T00:00:00Z`);
  if(!Number.isFinite(date.getTime()))return point.date;
+ // Monthly series label the FIRST day of the month they describe. Age them from the
+ // month end, exactly as quarterly labels are aged from the quarter end; otherwise a
+ // complete month loses up to 30 days of validity relative to quarterly evidence.
+ if(series?.frequency==='Monthly')return date.getUTCDate()===1?new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth()+1,0)).toISOString().slice(0,10):point.date;
+ if(series?.frequency!=='Quarterly')return point.date;
  // Only derive period end from a standard first-day quarterly label.
  // Non-standard observation dates must not receive an artificially extended validity.
  if(date.getUTCDate()!==1||date.getUTCMonth()%3!==0)return point.date;
