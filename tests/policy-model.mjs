@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {MODEL_VERSION,bankOutlook,pairOutlook,changeSignal,usableSeries,observationPeriodEnd} from '../src/lib/trade90-policy-model.js';
 const now=Date.parse('2026-10-20T00:00:00Z');
-assert.equal(MODEL_VERSION,'4.0.0','Evidence provenance and date-validation change requires versioning');
+assert.equal(MODEL_VERSION,'4.0.1','Evidence provenance and date-validation change requires versioning');
 assert.equal(changeSignal(3.3,3,.3),1);
 assert.equal(changeSignal(6.4,6.6,.2),-1);
 assert.equal(changeSignal(5.6,5.4,.2),1);
@@ -85,4 +85,13 @@ quarter.retrievedAt='2027-02-01';
 assert.equal(usableSeries(quarter,Date.parse('2027-02-01T00:00:00Z')),false,'Quarterly data expires after period end');
 assert.equal(observationPeriodEnd({frequency:'Quarterly'},{date:'2026-01-01',periodEnd:'2026-03-31'}),'2026-03-31');
 assert.equal(observationPeriodEnd({frequency:'Quarterly'},{date:'2026-05-15',value:1}),'2026-05-15','Nonstandard quarterly dates should not artificially extend evidence life');
+// Monthly first-day labels describe the whole month and are aged from month end.
+assert.equal(observationPeriodEnd({frequency:'Monthly'},{date:'2026-08-01',value:1}),'2026-08-31');
+assert.equal(observationPeriodEnd({frequency:'Monthly'},{date:'2028-02-01',value:1}),'2028-02-29','Leap-year month end');
+assert.equal(observationPeriodEnd({frequency:'Monthly'},{date:'2026-08-15',value:1}),'2026-08-15','Nonstandard monthly dates should not extend evidence life');
+assert.equal(observationPeriodEnd({frequency:'Monthly'},{date:'2026-06-01',periodEnd:'2026-07-31'}),'2026-07-31','Explicit period end wins');
+const august={frequency:'Monthly',status:'ok',retrievedAt:'2026-11-12',points:['05','06','07','08'].map((m,i)=>({date:`2026-${m}-01`,value:4+i/10}))};
+assert.equal(usableSeries(august,Date.parse('2026-11-12T14:00:00Z')),true,'August data is 73 days past month end on 12 Nov and remains current');
+assert.equal(usableSeries({...august,retrievedAt:'2026-12-08'},Date.parse('2026-12-09T00:00:00Z')),true,'Valid through 100 days after month end');
+assert.equal(usableSeries({...august,retrievedAt:'2026-12-10'},Date.parse('2026-12-10T12:00:00Z')),false,'Monthly data still expires 100 days after month end');
 console.log('Policy v2: thresholds, four colours, reversal, uncertainty, policy context and input validation passed');
