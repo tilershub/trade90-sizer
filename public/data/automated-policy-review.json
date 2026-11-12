@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "model": "automated_provisional_policy_review",
   "methodVersion": "1.0.0",
-  "generatedAt": "2026-11-12T15:18:25.973Z",
+  "generatedAt": "2026-11-12T22:52:36.247Z",
   "meaning": "Eight automatically assessed macro/decision contexts. Not a statement interpretation, not market pricing or editorial review.",
   "totalBanks": 8,
-  "assessedBanks": 5,
+  "assessedBanks": 6,
   "directlyVerifiedDecisions": 2,
   "flaggedNewOfficialDecisions": 2,
   "banks": {
     "USD": {
       "currency": "USD",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -37,7 +37,7 @@
     },
     "EUR": {
       "currency": "EUR",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -65,31 +65,33 @@
     },
     "GBP": {
       "currency": "GBP",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
       "provisional": true,
       "expectedChangeBp": null,
       "probability": null,
-      "state": "uncertain",
-      "label": "No supported automated direction",
-      "status": "macro_unavailable",
+      "state": "hike_hold",
+      "label": "Automated tightening-pressure scenario",
+      "status": "assessed",
       "evidence": {
-        "macro": "unavailable",
+        "macro": "validated",
         "benchmarkRate": 3.75,
         "decisionDate": "2026-09-17",
         "decisionSource": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
         "verifiedDecisionThisRun": false,
         "sourceScanCurrent": true,
         "newerOfficialDecision": null,
-        "sourceCheck": "No safely verified new decision"
+        "sourceCheck": "No safely verified new decision",
+        "macroScore": 4,
+        "inflationPillar": 2
       },
-      "reason": "Required current macroeconomic evidence is missing"
+      "reason": "Source-validated inflation pressure and the total macro score support a conditional tightening-versus-hold research scenario. This is NOT a verified forward-looking central-bank statement or a predicted rate increase."
     },
     "JPY": {
       "currency": "JPY",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -117,7 +119,7 @@
     },
     "AUD": {
       "currency": "AUD",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -143,7 +145,7 @@
     },
     "NZD": {
       "currency": "NZD",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -169,7 +171,7 @@
     },
     "CAD": {
       "currency": "CAD",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -195,7 +197,7 @@
     },
     "CHF": {
       "currency": "CHF",
-      "checkedAt": "2026-11-12T15:18:25.973Z",
+      "checkedAt": "2026-11-12T22:52:36.247Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
