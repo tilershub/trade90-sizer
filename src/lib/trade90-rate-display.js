@@ -1,5 +1,6 @@
 // Display the Fed's published range; keep bank.rate numeric for gap arithmetic.
-export const formatPercent=value=>Number(value).toFixed(Number.isInteger(Number(value)*100)?2:3)+'%';
+// Tolerance avoids float noise such as 4.6*100=459.99999999999994 rendering as 4.600%.
+export const formatPercent=value=>{const n=Number(value),h=n*100;return n.toFixed(Math.abs(h-Math.round(h))<1e-8?2:3)+'%';};
 export function displayRate(bank){
  if(bank?.code==='USD'){
   const range=bank.range;

@@ -4,7 +4,12 @@
 
 Policy rates and economic observations have different reporting dates. Read the dates, sources and methodology on each page. Do not treat unavailable forward-rate estimates as forecasts.
 
+Published by Charitha Amarasinghe, a retail forex trader with 10 years of trading experience. TRADE90 is not a broker or trading platform and is not affiliated with similarly named trading products.
+
+Key definitions: a policy-rate differential is the base currency benchmark minus the quote currency benchmark, in basis points (1 percentage point = 100 basis points). The Federal Reserve publishes a target range; TRADE90 uses its midpoint for gap calculations. When citing a figure, include the date shown on the page.
+
 ## Research
+- [Current central bank interest rates](https://tradeninety.com/central-banks/): Table of the eight policy benchmarks with effective dates and next decisions.
 - [Currency pairs](https://tradeninety.com/pairs/): Individual pair fundamentals and economic comparisons.
 - [Rate gaps](https://tradeninety.com/rate-gaps/): Official policy benchmark differences.
 - [Central banks](https://tradeninety.com/central-banks/): Source-linked policy publications.
@@ -19,3 +24,43 @@ Policy rates and economic observations have different reporting dates. Read the 
 - [Data policy](https://tradeninety.com/data-policy/): Sources, freshness and limitations.
 - [Editorial policy](https://tradeninety.com/editorial-policy/): Sourcing and corrections.
 - [Contact](https://tradeninety.com/contact/): Report a source or data error.
+
+## Central banks
+- [Reserve Bank of Australia (RBA) policy rate and decisions](https://tradeninety.com/central-banks/rba/)
+- [Federal Reserve (Fed) policy rate and decisions](https://tradeninety.com/central-banks/fed/)
+- [Bank of England (BoE) policy rate and decisions](https://tradeninety.com/central-banks/boe/)
+- [Reserve Bank of New Zealand (RBNZ) policy rate and decisions](https://tradeninety.com/central-banks/rbnz/)
+- [European Central Bank (ECB) policy rate and decisions](https://tradeninety.com/central-banks/ecb/)
+- [Bank of Canada (BoC) policy rate and decisions](https://tradeninety.com/central-banks/boc/)
+- [Bank of Japan (BoJ) policy rate and decisions](https://tradeninety.com/central-banks/boj/)
+- [Swiss National Bank (SNB) policy rate and decisions](https://tradeninety.com/central-banks/snb/)
+
+## Currency pair pages
+- [AUD/CHF interest rate differential](https://tradeninety.com/pairs/aud-chf/)
+- [USD/CHF interest rate differential](https://tradeninety.com/pairs/usd-chf/)
+- [GBP/CHF interest rate differential](https://tradeninety.com/pairs/gbp-chf/)
+- [AUD/JPY interest rate differential](https://tradeninety.com/pairs/aud-jpy/)
+- [NZD/CHF interest rate differential](https://tradeninety.com/pairs/nzd-chf/)
+- [USD/JPY interest rate differential](https://tradeninety.com/pairs/usd-jpy/)
+- [CAD/CHF interest rate differential](https://tradeninety.com/pairs/cad-chf/)
+- [EUR/CHF interest rate differential](https://tradeninety.com/pairs/eur-chf/)
+- [GBP/JPY interest rate differential](https://tradeninety.com/pairs/gbp-jpy/)
+- [AUD/CAD interest rate differential](https://tradeninety.com/pairs/aud-cad/)
+- [EUR/AUD interest rate differential](https://tradeninety.com/pairs/eur-aud/)
+- [AUD/NZD interest rate differential](https://tradeninety.com/pairs/aud-nzd/)
+- [NZD/JPY interest rate differential](https://tradeninety.com/pairs/nzd-jpy/)
+- [EUR/USD interest rate differential](https://tradeninety.com/pairs/eur-usd/)
+- [USD/CAD interest rate differential](https://tradeninety.com/pairs/usd-cad/)
+- [CAD/JPY interest rate differential](https://tradeninety.com/pairs/cad-jpy/)
+- [CHF/JPY interest rate differential](https://tradeninety.com/pairs/chf-jpy/)
+- [EUR/GBP interest rate differential](https://tradeninety.com/pairs/eur-gbp/)
+- [EUR/JPY interest rate differential](https://tradeninety.com/pairs/eur-jpy/)
+- [GBP/CAD interest rate differential](https://tradeninety.com/pairs/gbp-cad/)
+- [NZD/USD interest rate differential](https://tradeninety.com/pairs/nzd-usd/)
+- [GBP/NZD interest rate differential](https://tradeninety.com/pairs/gbp-nzd/)
+- [GBP/AUD interest rate differential](https://tradeninety.com/pairs/gbp-aud/)
+- [AUD/USD interest rate differential](https://tradeninety.com/pairs/aud-usd/)
+- [EUR/NZD interest rate differential](https://tradeninety.com/pairs/eur-nzd/)
+- [NZD/CAD interest rate differential](https://tradeninety.com/pairs/nzd-cad/)
+- [GBP/USD interest rate differential](https://tradeninety.com/pairs/gbp-usd/)
+- [EUR/CAD interest rate differential](https://tradeninety.com/pairs/eur-cad/)
