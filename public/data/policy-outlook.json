@@ -5,13 +5,13 @@
     "total": 8,
     "verifiedDecisions": 2,
     "unverifiedNewDecisions": 2,
-    "generatedAt": "2026-11-12T15:18:25.973Z"
+    "generatedAt": "2026-11-12T20:53:43.966Z"
   },
   "scenarioPolicy": "macro_and_central_bank_policy_evidence_only",
   "modelVersion": "4.0.1",
   "workflowVersion": "2.0.0",
   "experimental": true,
-  "generatedAt": "2026-11-12T15:18:25.973Z",
+  "generatedAt": "2026-11-12T20:53:43.966Z",
   "inputFingerprint": "07b7610cd01f774434c36be6ada165d23d8d00bd5cb377c9ef732e0ac02efdf4",
   "horizonDays": 90,
   "banks": {
@@ -181,10 +181,10 @@
         "underlyingTrend": 1
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "CHF",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -378,10 +378,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "AUD",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -573,10 +573,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "EUR",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -770,10 +770,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "CAD",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -966,10 +966,10 @@
         "underlyingTrend": 1
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "JPY",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1080,10 +1080,10 @@
         "policy": "unreviewed",
         "automatedPolicy": "macro_unavailable"
       },
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "GBP",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1274,10 +1274,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "NZD",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1468,10 +1468,10 @@
         "underlyingTrend": 0
       },
       "policyEvidenceReviewed": false,
-      "expiresAt": "2026-11-14T15:18:25.973Z",
+      "expiresAt": "2026-11-14T20:53:43.966Z",
       "automatedAssessment": {
         "currency": "USD",
-        "checkedAt": "2026-11-12T15:18:25.973Z",
+        "checkedAt": "2026-11-12T20:53:43.966Z",
         "assessmentMethod": "deterministic_macro_plus_official_decision_context",
         "isEditorialReview": false,
         "isVerifiedStatementInterpretation": false,
@@ -1557,7 +1557,7 @@
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -1588,7 +1588,7 @@
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -1667,7 +1667,7 @@
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -1698,7 +1698,7 @@
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -1754,7 +1754,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "USDCHF": {
       "base": "USD",
@@ -1815,7 +1815,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -1846,7 +1846,7 @@
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -1925,7 +1925,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -1956,7 +1956,7 @@
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2012,7 +2012,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "GBPCHF": {
       "base": "GBP",
@@ -2066,7 +2066,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2095,7 +2095,7 @@
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2167,7 +2167,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2196,7 +2196,7 @@
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2252,7 +2252,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "AUDJPY": {
       "base": "AUD",
@@ -2313,7 +2313,7 @@
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2344,7 +2344,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2425,7 +2425,7 @@
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2456,7 +2456,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2514,7 +2514,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "NZDCHF": {
       "base": "NZD",
@@ -2575,7 +2575,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2606,7 +2606,7 @@
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2685,7 +2685,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2716,7 +2716,7 @@
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2772,7 +2772,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "USDJPY": {
       "base": "USD",
@@ -2833,7 +2833,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2864,7 +2864,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -2945,7 +2945,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -2976,7 +2976,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3034,7 +3034,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "CADCHF": {
       "base": "CAD",
@@ -3095,7 +3095,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3126,7 +3126,7 @@
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3205,7 +3205,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3236,7 +3236,7 @@
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3292,7 +3292,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "EURCHF": {
       "base": "EUR",
@@ -3353,7 +3353,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3386,7 +3386,7 @@
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3465,7 +3465,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3498,7 +3498,7 @@
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3554,7 +3554,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "GBPJPY": {
       "base": "GBP",
@@ -3608,7 +3608,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3637,7 +3637,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3711,7 +3711,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3740,7 +3740,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -3798,7 +3798,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "AUDCAD": {
       "base": "AUD",
@@ -3859,7 +3859,7 @@
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3890,7 +3890,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -3969,7 +3969,7 @@
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4000,7 +4000,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4056,7 +4056,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "EURAUD": {
       "base": "EUR",
@@ -4117,7 +4117,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4150,7 +4150,7 @@
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4229,7 +4229,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4262,7 +4262,7 @@
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4318,7 +4318,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "AUDNZD": {
       "base": "AUD",
@@ -4379,7 +4379,7 @@
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4410,7 +4410,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4489,7 +4489,7 @@
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4520,7 +4520,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4576,7 +4576,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "NZDJPY": {
       "base": "NZD",
@@ -4637,7 +4637,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4668,7 +4668,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4749,7 +4749,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4780,7 +4780,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -4838,7 +4838,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "EURUSD": {
       "base": "EUR",
@@ -4899,7 +4899,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -4932,7 +4932,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5011,7 +5011,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5044,7 +5044,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5100,7 +5100,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "USDCAD": {
       "base": "USD",
@@ -5161,7 +5161,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5192,7 +5192,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5271,7 +5271,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5302,7 +5302,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5358,7 +5358,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "CADJPY": {
       "base": "CAD",
@@ -5419,7 +5419,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5450,7 +5450,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5531,7 +5531,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5562,7 +5562,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5620,7 +5620,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "CHFJPY": {
       "base": "CHF",
@@ -5681,7 +5681,7 @@
             "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
             "automatic": {
               "currency": "CHF",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5712,7 +5712,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5793,7 +5793,7 @@
           "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
           "automatic": {
             "currency": "CHF",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5824,7 +5824,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -5882,7 +5882,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "EURGBP": {
       "base": "EUR",
@@ -5936,7 +5936,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -5969,7 +5969,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6039,7 +6039,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6072,7 +6072,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6126,7 +6126,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "EURJPY": {
       "base": "EUR",
@@ -6187,7 +6187,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6220,7 +6220,7 @@
             "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
             "automatic": {
               "currency": "JPY",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6301,7 +6301,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6334,7 +6334,7 @@
           "source": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918a.pdf",
           "automatic": {
             "currency": "JPY",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6392,7 +6392,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "GBPCAD": {
       "base": "GBP",
@@ -6446,7 +6446,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6475,7 +6475,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6547,7 +6547,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6576,7 +6576,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6632,7 +6632,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "NZDUSD": {
       "base": "NZD",
@@ -6693,7 +6693,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6724,7 +6724,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6803,7 +6803,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6834,7 +6834,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -6890,7 +6890,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "GBPNZD": {
       "base": "GBP",
@@ -6944,7 +6944,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -6973,7 +6973,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7045,7 +7045,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7074,7 +7074,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7130,7 +7130,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "GBPAUD": {
       "base": "GBP",
@@ -7184,7 +7184,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7213,7 +7213,7 @@
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7285,7 +7285,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7314,7 +7314,7 @@
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7370,7 +7370,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "AUDUSD": {
       "base": "AUD",
@@ -7431,7 +7431,7 @@
             "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
             "automatic": {
               "currency": "AUD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7462,7 +7462,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7541,7 +7541,7 @@
           "source": "https://www.rba.gov.au/media-releases/2026/mr-26-27.html",
           "automatic": {
             "currency": "AUD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7572,7 +7572,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7628,7 +7628,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "EURNZD": {
       "base": "EUR",
@@ -7689,7 +7689,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7722,7 +7722,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7801,7 +7801,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7834,7 +7834,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -7890,7 +7890,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "NZDCAD": {
       "base": "NZD",
@@ -7951,7 +7951,7 @@
             "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
             "automatic": {
               "currency": "NZD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -7982,7 +7982,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8061,7 +8061,7 @@
           "source": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-statement/monetary-policy-statement-filtered-listing-page/2026/sep-0209/monetary-policy-statement-september-2026/web-version",
           "automatic": {
             "currency": "NZD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8092,7 +8092,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8148,7 +8148,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "GBPUSD": {
       "base": "GBP",
@@ -8202,7 +8202,7 @@
             "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
             "automatic": {
               "currency": "GBP",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8231,7 +8231,7 @@
             "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
             "automatic": {
               "currency": "USD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8303,7 +8303,7 @@
           "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
           "automatic": {
             "currency": "GBP",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8332,7 +8332,7 @@
           "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
           "automatic": {
             "currency": "USD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8388,7 +8388,7 @@
       "tone": "neutral",
       "signedDirection": "Direction not established",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     },
     "EURCAD": {
       "base": "EUR",
@@ -8449,7 +8449,7 @@
             "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
             "automatic": {
               "currency": "EUR",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8482,7 +8482,7 @@
             "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
             "automatic": {
               "currency": "CAD",
-              "checkedAt": "2026-11-12T15:18:25.973Z",
+              "checkedAt": "2026-11-12T20:53:43.966Z",
               "assessmentMethod": "deterministic_macro_plus_official_decision_context",
               "isEditorialReview": false,
               "isVerifiedStatementInterpretation": false,
@@ -8561,7 +8561,7 @@
           "source": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260910~314e508016.en.html",
           "automatic": {
             "currency": "EUR",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8594,7 +8594,7 @@
           "source": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
           "automatic": {
             "currency": "CAD",
-            "checkedAt": "2026-11-12T15:18:25.973Z",
+            "checkedAt": "2026-11-12T20:53:43.966Z",
             "assessmentMethod": "deterministic_macro_plus_official_decision_context",
             "isEditorialReview": false,
             "isVerifiedStatementInterpretation": false,
@@ -8650,7 +8650,7 @@
       "tone": "neutral",
       "signedDirection": "Indicative pressure towards EUR",
       "unchangedPossible": true,
-      "expiresAt": "2026-11-14T15:18:25.973Z"
+      "expiresAt": "2026-11-14T20:53:43.966Z"
     }
   }
 }
