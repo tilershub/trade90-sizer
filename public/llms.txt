@@ -64,3 +64,20 @@ Key definitions: a policy-rate differential is the base currency benchmark minus
 - [NZD/CAD interest rate differential](https://tradeninety.com/pairs/nzd-cad/)
 - [GBP/USD interest rate differential](https://tradeninety.com/pairs/gbp-usd/)
 - [EUR/CAD interest rate differential](https://tradeninety.com/pairs/eur-cad/)
+
+## Learning guides
+- [Forex Fundamental Analysis: A Two-Country Checklist](https://tradeninety.com/learn/forex-fundamental-analysis/): Forex fundamental analysis compares the economic and policy conditions on both sides of a currency pair.
+- [What Is Interest Rate Divergence in Forex?](https://tradeninety.com/learn/what-is-interest-rate-divergence/): An interest rate differential is the base currency’s selected policy rate minus the quote currency’s rate.
+- [Policy Scenarios vs Market-Implied Interest Rate Expectations](https://tradeninety.com/learn/expected-rate-gaps/): A published rate gap measures existing policy benchmarks.
+- [Do Higher Interest Rates Mean a Stronger Currency?](https://tradeninety.com/learn/high-interest-rates-currency-strength/): No.
+- [Central Bank Policy Divergence: A Research Checklist](https://tradeninety.com/learn/central-bank-policy-divergence-checklist/): Compare the two banks’ current benchmarks, the dated evidence that might change each policy stance, and the next decisions that could test your view.
+- [Yield Curves and Currency Trends: What to Compare](https://tradeninety.com/learn/yield-curves-and-currency-trends/): A yield curve summarises government bond yields across maturities.
+- [Fed vs ECB Policy Stance: How to Research EUR/USD](https://tradeninety.com/learn/fed-vs-ecb-policy-divergence/): Compare their selected policy benchmarks and effective dates, then examine each bank’s policy statement and economic evidence.
+- [What Is a Carry Trade in Forex? Returns, Risks and Rate Gaps](https://tradeninety.com/learn/forex-carry-trade-explained/): A forex carry trade means holding a higher-interest-rate currency funded by a lower-interest-rate currency to earn the rate gap.
+- [How Do Interest Rates Affect Forex? A Trader’s Guide](https://tradeninety.com/learn/how-interest-rates-affect-forex/): Interest rates affect forex because they change the return on holding a currency.
+- [Forex Swap Rates vs Central Bank Rates: Why Your Rollover Differs](https://tradeninety.com/learn/forex-swap-rates-vs-central-bank-rates/): A forex swap, or rollover, is the daily interest adjustment on a position held overnight.
+- [Hawkish vs Dovish: How to Read Central Bank Language](https://tradeninety.com/learn/hawkish-vs-dovish-central-banks/): Hawkish describes a central bank or policymaker leaning towards higher interest rates to control inflation.
+- [Basis Points vs Pips: What Forex Traders Need to Know](https://tradeninety.com/learn/basis-points-vs-pips/): A basis point is one hundredth of a percentage point (0.01%) and is used for interest rates and yields.
+- [How to Prepare for a Central Bank Rate Decision](https://tradeninety.com/learn/how-to-prepare-for-central-bank-rate-decisions/): Before a rate decision, know the exact release time, the current rate, what the market expects, and what would count as a surprise.
+- [Real Interest Rates in Forex: Why Inflation Changes the Rate Gap](https://tradeninety.com/learn/real-interest-rates-forex/): A real interest rate is the nominal interest rate minus inflation.
+- [The 8 Major Central Banks Every Forex Trader Should Know](https://tradeninety.com/learn/major-central-banks-forex-guide/): The eight major central banks in forex are the Federal Reserve (USD), European Central Bank (EUR), Bank of England (GBP), Bank of Japan (JPY), Swiss National Bank (CHF), Bank of Canada (CAD), Reserve Bank of Australia (AUD) and Reserve Bank of New Zealand (NZD).
