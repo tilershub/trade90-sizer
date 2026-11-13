@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-12T22:52:36.195Z",
+  "generatedAt": "2026-11-13T13:27:10.042Z",
   "purpose": "Independent research validation only; not used by policy divergence engine",
   "horizonDays": 90,
   "minimumIndependentOutcomes": 30,
@@ -30,32 +30,32 @@
     "EUR": {
       "sourceStatus": "current",
       "historyPoints": 400,
-      "earliestObservation": "2025-04-22",
-      "latestObservation": "2026-11-11",
+      "earliestObservation": "2025-04-23",
+      "latestObservation": "2026-11-12",
       "recordedPolicyDecisions": 0,
       "outcomesWithAtLeast90DaysElapsed": 0
     },
     "GBP": {
       "sourceStatus": "current",
-      "historyPoints": 30,
+      "historyPoints": 31,
       "earliestObservation": "2026-10-01",
-      "latestObservation": "2026-11-11",
+      "latestObservation": "2026-11-12",
       "recordedPolicyDecisions": 0,
       "outcomesWithAtLeast90DaysElapsed": 0
     },
     "JPY": {
       "sourceStatus": "current",
-      "historyPoints": 28,
+      "historyPoints": 29,
       "earliestObservation": "2026-10-01",
-      "latestObservation": "2026-11-11",
+      "latestObservation": "2026-11-12",
       "recordedPolicyDecisions": 0,
       "outcomesWithAtLeast90DaysElapsed": 0
     },
     "AUD": {
       "sourceStatus": "current",
       "historyPoints": 400,
-      "earliestObservation": "2025-04-07",
-      "latestObservation": "2026-11-04",
+      "earliestObservation": "2025-04-14",
+      "latestObservation": "2026-11-11",
       "recordedPolicyDecisions": 0,
       "outcomesWithAtLeast90DaysElapsed": 0
     },
