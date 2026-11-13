@@ -5,7 +5,7 @@ import {allTrade90Pairs,majors,crosses,pairUrl,rateSnapshot,reportDate} from "..
 ---
 <Layout title="Forex Pair Research: 28 Currency Comparisons" description="Explore 28 dedicated forex currency pair research pages. See policy-rate divergence, two-bank source records, forward pricing status and upcoming decisions." canonical="/pairs/">
 <main class="wrap">
-<header class="page-intro"><div class="eyebrow">28 pair research hubs</div><h1>Explore a Forex Currency Pair</h1><p>Choose a pair to compare its two central banks, current official interest-rate difference, next decisions and verified publications. Policy rates checked {reportDate(rateSnapshot.asOf)}.</p></header>
+<header class="page-intro"><div class="eyebrow">28 pair research hubs</div><h1>Explore a Forex Currency Pair</h1><p>Choose a pair to compare its two central banks, current official interest-rate difference, next decisions and verified publications. Benchmark dataset last changed {reportDate(rateSnapshot.asOf)}.</p></header>
 <Finder client:load pairs={allTrade90Pairs} limit={28}/>
 <section><div class="head"><h2>USD major pairs</h2><a href="/rate-gaps/">Full rate comparison →</a></div><div class="grid">{majors.map(p=><a href={pairUrl(p.symbol)}><strong>{p.label}</strong><small>{p.baseBank.short} / {p.quoteBank.short}</small><span>Research →</span></a>)}</div></section>
 <section><div class="head"><h2>Cross-currency pairs</h2></div><div class="grid">{crosses.map(p=><a href={pairUrl(p.symbol)}><strong>{p.label}</strong><small>{p.baseBank.short} / {p.quoteBank.short}</small><span>Research →</span></a>)}</div></section>
