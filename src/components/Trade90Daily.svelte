@@ -7,7 +7,8 @@
  import {outlookLabels,effectiveState,captureView,changesSince,upcomingDecisions,evidenceBrief} from '../lib/trade90-daily.js';
  import {officialPolicyDecisionCalendar,decisionCalendarReviewedAt} from '../data/trade90-decision-calendar.js';
  export let initialData;
- let data=initialData, selected=[], previous=null, ready=false, busy=false, error='', storageError=false, now=Date.now(), feed=null, lastRefreshAt=null;
+ export let initialFeed=null;
+ let data=initialData, selected=[], previous=null, ready=false, busy=false, error='', storageError=false, now=Date.now(), feed=initialFeed, lastRefreshAt=null;
  let user=null,accountReady=false,cloudVersion=null,cloudLoaded=false,syncBusy=false,syncMessage='',syncError=false,authClient=null;
  const watchKey='trade90-daily-pairs-v1',viewKey='trade90-daily-view-v1';
  const link=s=>'/pairs/'+s.slice(0,3).toLowerCase()+'-'+s.slice(3).toLowerCase()+'/#policy-outlook';
@@ -45,7 +46,7 @@
     cloudLoaded=true;syncMessage=saved?'Account dashboard loaded.':'Choose pairs and save to start your account dashboard.';
    }
   }catch{syncError=true;syncMessage='Account dashboard could not load. Reload to try again; no cloud data has been overwritten.';}
-  accountReady=true;await refresh();
+  accountReady=true;
  }
  async function saveAccount(){
   if(!user||!cloudLoaded||syncBusy)return;syncBusy=true;syncError=false;
@@ -60,7 +61,7 @@
   if(error){syncError=true;syncMessage='Sign-out failed. Please try again.';return;}
   user=null;previous=null;selected=[];window.location.replace('/daily/');
  }
- onMount(()=>{try{const stored=JSON.parse(localStorage.getItem(watchKey)||'null');selected=Array.isArray(stored)?[...new Set(stored.filter(s=>symbols.includes(s)))]:['EURUSD','AUDCHF','USDJPY'];const v=JSON.parse(localStorage.getItem(viewKey)||'null');if(v?.version===1&&Date.parse(v.viewedAt)<=Date.now())previous=v;}catch{storageError=true;selected=['EURUSD','AUDCHF','USDJPY'];}ready=true;initAccount();const {data:authListener}=getAuthClient().auth.onAuthStateChange((_event,session)=>{if(accountReady&&(session?.user?.id||null)!==(user?.id||null)){user=null;selected=[];previous=null;cloudLoaded=false;accountReady=false;setTimeout(()=>window.location.reload(),0);}});const timer=setInterval(()=>{now=Date.now();if(!document.hidden)refresh();},300000);return()=>{clearInterval(timer);authListener.subscription.unsubscribe();};});
+onMount(()=>{try{const stored=JSON.parse(localStorage.getItem(watchKey)||'null');selected=Array.isArray(stored)?[...new Set(stored.filter(s=>symbols.includes(s)))]:['EURUSD','AUDCHF','USDJPY'];const v=JSON.parse(localStorage.getItem(viewKey)||'null');if(v?.version===1&&Date.parse(v.viewedAt)<=Date.now())previous=v;}catch{storageError=true;selected=['EURUSD','AUDCHF','USDJPY'];}ready=true;refresh();initAccount();const {data:authListener}=getAuthClient().auth.onAuthStateChange((_event,session)=>{if(accountReady&&(session?.user?.id||null)!==(user?.id||null)){user=null;selected=[];previous=null;cloudLoaded=false;accountReady=false;setTimeout(()=>window.location.reload(),0);}});const timer=setInterval(()=>{now=Date.now();if(!document.hidden)refresh();},300000);return()=>{clearInterval(timer);authListener.subscription.unsubscribe();};});
 </script>
 <div class="daily">
  <section aria-label="Account"><div class="toolbar"><div><strong>{user?'Your account dashboard':'Make this dashboard yours'}</strong><p>{user?'Your account watchlist is separate from this browser’s guest watchlist. Save after editing pairs or reviewing research to update your cross-device baseline.':'Sign in or create an account with Google to save a dashboard across devices. Guest mode remains available.'}</p></div>{#if !accountReady}<span>Checking account…</span>{:else if user}<div><button on:click={saveAccount} disabled={!cloudLoaded||syncBusy||busy}>{syncBusy?'Saving…':'Save dashboard'}</button> <button on:click={logout} disabled={syncBusy}>Sign out</button></div>{:else}<a href="/sign-in/">Sign in / Create account →</a>{/if}</div>{#if syncMessage}<p role="status" class:notice={syncError}>{syncMessage}</p>{/if}</section>
