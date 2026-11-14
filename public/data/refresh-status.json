@@ -5,44 +5,44 @@
     "assessedBanks": 6,
     "directlyVerifiedDecisions": 2,
     "flaggedNewOfficialDecisions": 2,
-    "checkedAt": "2026-11-14T19:15:40.643Z",
+    "checkedAt": "2026-11-14T21:42:23.296Z",
     "isEditorialReview": false
   },
-  "auditedAt": "2026-11-14T19:15:40.770Z",
+  "auditedAt": "2026-11-14T21:42:23.419Z",
   "disclaimer": "Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.",
   "categories": {
     "macro": {
-      "checkedAt": "2026-11-14T12:31:22.454264+00:00",
+      "checkedAt": "2026-11-14T21:41:53.824067+00:00",
       "okCount": 24,
       "total": 24,
       "status": "checked"
     },
     "extra": {
-      "checkedAt": "2026-11-14T12:31:23.787397+00:00",
+      "checkedAt": "2026-11-14T21:41:55.412303+00:00",
       "okCount": 10,
       "total": 10,
       "status": "checked"
     },
     "sourceDiscovery": {
-      "checkedAt": "2026-11-14T19:15:37.492Z",
+      "checkedAt": "2026-11-14T21:41:59.912Z",
       "okCount": 8,
       "total": 8,
       "status": "checked"
     },
     "rateDecisionChecks": {
-      "checkedAt": "2026-11-14T19:15:37.655Z",
+      "checkedAt": "2026-11-14T21:41:59.958Z",
       "okCount": 2,
       "total": 8,
       "status": "partial"
     },
     "model": {
-      "generatedAt": "2026-11-14T19:15:40.643Z",
+      "generatedAt": "2026-11-14T21:42:23.296Z",
       "activePairs": 28,
       "totalPairs": 28,
       "status": "checked"
     },
     "automatedPolicyReview": {
-      "checkedAt": "2026-11-14T19:15:40.643Z",
+      "checkedAt": "2026-11-14T21:42:23.296Z",
       "okCount": 6,
       "total": 8,
       "status": "partial"
@@ -97,48 +97,48 @@
     {
       "code": "AUD",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     },
     {
       "code": "USD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-14T19:15:37.655Z",
+      "checkedAt": "2026-11-14T21:41:59.958Z",
       "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     },
     {
       "code": "GBP",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     },
     {
       "code": "NZD",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     },
     {
       "code": "EUR",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     },
     {
       "code": "CAD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-14T19:15:37.655Z",
+      "checkedAt": "2026-11-14T21:41:59.958Z",
       "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     },
     {
       "code": "JPY",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     },
     {
       "code": "CHF",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-14T19:15:37.655Z"
+      "attemptedAt": "2026-11-14T21:41:59.958Z"
     }
   ]
 }
