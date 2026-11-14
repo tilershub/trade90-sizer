@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-13T22:54:17.326Z",
+  "generatedAt": "2026-11-14T12:31:29.573Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -15,9 +15,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-13",
       "historyPoints": 218,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": null,
-      "observationAgeDays": 0
+      "observationAgeDays": 1
     },
     "EUR": {
       "status": "current",
@@ -26,9 +26,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-12",
       "historyPoints": 400,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "GBP": {
       "status": "current",
@@ -37,9 +37,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-12",
       "historyPoints": 31,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "JPY": {
       "status": "current",
@@ -48,9 +48,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-12",
       "historyPoints": 29,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "AUD": {
       "status": "current",
@@ -59,9 +59,9 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-11",
       "historyPoints": 400,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": null,
-      "observationAgeDays": 2
+      "observationAgeDays": 3
     },
     "NZD": {
       "status": "unavailable",
@@ -70,7 +70,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -81,9 +81,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-12",
       "historyPoints": 400,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "CHF": {
       "status": "stale_or_source_failed",
@@ -92,9 +92,9 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-13T22:54:17.326Z",
+      "checkedAt": "2026-11-14T12:31:29.573Z",
       "error": null,
-      "observationAgeDays": 500
+      "observationAgeDays": 501
     }
   }
 }
