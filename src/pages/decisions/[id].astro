@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import { decisionArchive, contentNow } from "../../lib/trade90-content-data.js";
+import { archiveRateText, decisionVerb } from "../../lib/trade90-decision-archive.js";
+import { longDate, formatBpSigned } from "../../lib/trade90-weekly.js";
+import { allTrade90Pairs, pairUrl } from "../../lib/trade90-v3.js";
+import { officialPolicyDecisionCalendar } from "../../data/trade90-decision-calendar.js";
+import { lessons } from "../../data/v2-lessons.js";
+const guide=["hawkish-vs-dovish-central-banks","central-bank-policy-divergence-checklist"].map(slug=>lessons.find(l=>l.slug===slug)).find(Boolean);
+export function getStaticPaths(){
+  const all=decisionArchive();
+  return all.map(decision=>({params:{id:decision.id},props:{decision,newer:all.filter(d=>d.code===decision.code&&d.decisionDate>decision.decisionDate).sort((a,b)=>a.decisionDate.localeCompare(b.decisionDate))[0]||null}}));
+}
+const { decision: d, newer } = Astro.props;
+const path="/decisions/"+d.id+"/", url="https://tradeninety.com"+path;
+const today=new Date(contentNow()).toISOString().slice(0,10);
+const benchmark=(d.code==="USD"?"federal funds target range":d.benchmark.charAt(0).toLowerCase()+d.benchmark.slice(1)).replace(/^sNB/,"SNB").replace(/^official Cash Rate/,"Official Cash Rate").replace(/^bank Rate/,"Bank Rate");
+const rate=archiveRateText(d), before=archiveRateText(d,d.previousRatePct), verb=decisionVerb(d), size=d.changeBp===null?null:Math.abs(d.changeBp);
+const when=longDate(d.decisionDate), effective=longDate(d.effectiveDate);
+const headlineTail={held:"Rate Held at "+rate,raised:"Rate Raised to "+rate,cut:"Rate Cut to "+rate,adjusted:"Rate Set at "+rate}[verb];
+const title=d.short+" Interest Rate Decision, "+when+": "+headlineTail;
+const answer="On "+when+" the "+d.bank+" ("+d.short+") "+(
+  verb==="held"?"held its "+benchmark+" at "+rate+".":
+  verb==="adjusted"?"set its "+benchmark+" at "+rate+". TRADE90 has not verified the size of the change from the previous level.":
+  verb+" its "+benchmark+" by "+size+" basis points, from "+before+" to "+rate+".")
+  +(d.effectiveDate!==d.decisionDate?" The rate took effect on "+effective+".":"");
+const pairs=allTrade90Pairs.filter(p=>p.base===d.code||p.quote===d.code);
+const effect=p=>d.changeBp===null?null:(p.base===d.code?d.changeBp:-d.changeBp);
+const next=officialPolicyDecisionCalendar.filter(e=>e.currency===d.code&&e.date>=today).sort((a,b)=>a.date.localeCompare(b.date))[0]||null;
+const gapAnswer=d.changeBp===null?"TRADE90 has not verified the size of this change, so its effect on "+d.code+" rate gaps is not quantified here. Current gaps are shown on each pair page."
+ :d.changeBp===0?"A hold leaves the "+d.code+" benchmark unchanged, so this decision did not by itself change the policy-rate gap on any "+d.code+" pair."
+ :"A "+size+" basis point "+(d.changeBp>0?"increase":"reduction")+" in the "+d.code+" benchmark "+(d.changeBp>0?"raises":"lowers")+" the policy-rate gap by "+size+" bp on pairs where "+d.code+" is the base currency and "+(d.changeBp>0?"lowers":"raises")+" it by "+size+" bp where "+d.code+" is the quote currency, assuming the other benchmark is unchanged.";
+const faq=[
+ {q:"What did the "+d.short+" decide on "+when+"?",a:answer},
+ {q:"What is the "+d.short+" interest rate after the "+when+" decision?",a:"After the decision the "+d.bank+" "+benchmark+" was "+rate+", effective "+effective+"."+(newer?" A later "+d.short+" decision on "+longDate(newer.decisionDate)+" has since been recorded.":"")},
+ {q:"How did the "+d.short+" decision affect "+d.code+" interest rate gaps?",a:gapAnswer},
+ {q:"When is the next "+d.short+" interest rate decision?",a:next?"The next scheduled "+d.short+" decision in the TRADE90 calendar is "+longDate(next.date)+" ("+next.title+"). Official schedules can change, so confirm on the "+d.short+" calendar.":"No upcoming "+d.short+" decision is confirmed in the TRADE90 calendar. Check the official "+d.short+" calendar."}
+];
+const PID="https://tradeninety.com/about/#charitha-amarasinghe";
+const article={"@context":"https://schema.org","@type":"Article","@id":url+"#article",headline:title,description:answer,datePublished:d.decisionDate,dateModified:(d.correctedAt||d.recordedAt).slice(0,10),mainEntityOfPage:url,
+ author:{"@type":"Person","@id":PID,name:"Charitha Amarasinghe",url:PID},publisher:{"@id":"https://tradeninety.com/#publisher"},citation:[d.source],about:{"@type":"Organization",name:d.bank}};
+const crumbs={"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:"https://tradeninety.com/"},{"@type":"ListItem",position:2,name:"Decisions",item:"https://tradeninety.com/decisions/"},{"@type":"ListItem",position:3,name:d.short+" "+when,item:url}]};
+const faqSchema={"@context":"https://schema.org","@type":"FAQPage","@id":url+"#faq",mainEntity:faq.map(({q,a})=>({"@type":"Question",name:q,acceptedAnswer:{"@type":"Answer",text:a}}))};
+const description=answer.length>158?answer.slice(0,155).replace(/\s+\S*$/,"")+"…":answer;
+---
+<Layout title={title} description={description} canonical={path}>
+<script type="application/ld+json" set:html={JSON.stringify(article)}/><script type="application/ld+json" set:html={JSON.stringify(crumbs)}/><script type="application/ld+json" set:html={JSON.stringify(faqSchema)}/>
+<main class="wrap dec">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/decisions/">Decisions</a> / {d.short} {when}</nav>
+<header class="page-intro"><div class="eyebrow">{d.code} · {d.bank}</div><h1>{d.short} interest rate decision, {when}</h1><p class="direct-answer">{answer}</p><p class="byline">By <a href="/about/#publisher" rel="author">Charitha Amarasinghe</a>, TRADE90 · Verified against the <a href={d.source} target="_blank" rel="noopener noreferrer">official {d.short} publication ↗</a></p></header>
+{newer && <p class="dec-note"><strong>A newer {d.short} decision is available:</strong> <a href={"/decisions/"+newer.id+"/"}>{longDate(newer.decisionDate)} →</a></p>}
+<section class="dec-part"><h2>Decision at a glance</h2>
+<div class="dec-tablewrap"><table><tbody>
+<tr><th scope="row">Central bank</th><td><a href={"/central-banks/"+d.short.toLowerCase()+"/"}>{d.bank} ({d.short})</a></td></tr>
+<tr><th scope="row">Decision</th><td><strong>{d.decision}</strong></td></tr>
+<tr><th scope="row">Benchmark</th><td>{d.code==="USD"?"Federal funds target range":d.benchmark}</td></tr>
+<tr><th scope="row">Rate before</th><td>{before||"Not verified by TRADE90"}</td></tr>
+<tr><th scope="row">Rate after</th><td><strong>{rate}</strong></td></tr>
+<tr><th scope="row">Change</th><td>{d.changeBp===null?"Not verified":d.changeBp===0?"0 bp (hold)":formatBpSigned(d.changeBp)}</td></tr>
+<tr><th scope="row">Decision date</th><td><time datetime={d.decisionDate}>{when}</time></td></tr>
+<tr><th scope="row">Effective date</th><td><time datetime={d.effectiveDate}>{effective}</time></td></tr>
+<tr><th scope="row">Next scheduled decision</th><td>{next?<time datetime={next.date}>{longDate(next.date)}</time>:"See the official calendar"}</td></tr>
+</tbody></table></div>
+{d.code==="USD" && <p class="dec-small">The Fed publishes a target range. TRADE90 uses its midpoint for rate-gap arithmetic.</p>}
+</section>
+<section class="dec-part"><h2>What it meant for {d.code} rate gaps</h2><p>{gapAnswer}</p>
+<div class="dec-tablewrap"><table><thead><tr><th scope="col">Pair</th><th scope="col">Effect of this decision</th><th scope="col">Current policy-rate gap</th></tr></thead>
+<tbody>{pairs.map(p=><tr><th scope="row"><a href={pairUrl(p.symbol)}>{p.label}</a></th><td>{effect(p)===null?"Not quantified":effect(p)===0?"No change":formatBpSigned(effect(p))}</td><td>{formatBpSigned(p.signedBp)}</td></tr>)}</tbody></table></div>
+<p class="dec-small">“Current” gaps use today's published benchmarks for both currencies and may include later decisions by either central bank. A policy-rate gap is not a broker swap rate or an exchange-rate forecast.</p>
+</section>
+<section class="dec-part" id="faq"><h2>{d.short} decision questions</h2>{faq.map(({q,a})=><div class="dec-qa"><h3>{q}</h3><p>{a}</p></div>)}</section>
+<section class="dec-part"><h2>Keep researching</h2><p><a href={"/central-banks/"+d.short.toLowerCase()+"/"}>{d.short} rate and publications →</a> · <a href="/decisions/">Decision calendar →</a> · <a href="/weekly/">Weekly digest →</a>{guide && <> · <a href={"/learn/"+guide.slug+"/"}>{guide.title} →</a></>}</p></section>
+</main>
+</Layout>
+<style>.dec{padding-bottom:34px}.crumbs{font-size:.75rem;padding-top:18px;color:#94a3b8}.crumbs a{color:#93c5fd}.byline{font-size:.78rem!important;color:#94a3b8!important}.dec-note{border:1px solid #854d0e;background:#27200f;color:#fde68a;border-radius:10px;padding:12px 15px;font-size:.84rem}.dec-note a{color:#fde68a}.dec-part{border:1px solid #334155;background:#111c30;border-radius:13px;padding:20px;margin-top:18px}.dec-part h2{color:#f8fafc;font-size:1.22rem;margin:0 0 10px}.dec-part p{color:#b6c5d5;font-size:.86rem;line-height:1.7}.dec-tablewrap{overflow-x:auto;border:1px solid #334155;border-radius:10px}.dec-part table{width:100%;border-collapse:collapse;font-size:.84rem}.dec-part th,.dec-part td{text-align:left;padding:9px 12px;border-bottom:1px solid #334155;color:#cbd5e1}.dec-part thead th{background:#17263a;color:#f8fafc;font-size:.72rem}.dec-part tbody tr:last-child th,.dec-part tbody tr:last-child td{border-bottom:0}.dec-part td strong{color:#d1fae5}.dec-small{font-size:.76rem!important;color:#94a3b8!important;margin-top:10px}.dec-qa{border-top:1px solid #334155;padding:10px 0}.dec-qa h3{font-size:.98rem;color:#e2e8f0;margin:6px 0}</style>
