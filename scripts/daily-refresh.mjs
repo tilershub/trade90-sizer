@@ -9,6 +9,7 @@ const steps=[
  ['officialRates',process.execPath,['scripts/auto-policy-rates.mjs']],
  ['yields',process.execPath,['scripts/refresh-yield-curves.mjs']],
  ['yieldEvaluation',process.execPath,['scripts/build-yield-evaluation.mjs']],
+ ['decisionArchive',process.execPath,['scripts/build-decision-archive.mjs']],
  ['model',process.execPath,['scripts/build-policy-outlook.mjs']],
  ['freshness',process.execPath,['scripts/build-refresh-status.mjs']]
 ];

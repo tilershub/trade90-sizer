@@ -13,6 +13,9 @@ on:
       - "astro.config.mjs"
       - ".github/workflows/indexnow-discovery.yml"
   workflow_dispatch:
+  schedule:
+    # Tuesday 04:00 UTC: after the first daily rebuild of the week has published the new weekly digest.
+    - cron: "0 4 * * 2"
 permissions:
   contents: read
 concurrency:
@@ -52,5 +55,5 @@ jobs:
         if: github.event_name == 'push'
         run: node scripts/submit-indexnow.mjs --changed-file=/tmp/trade90-index-changes.txt
       - name: Submit all valid URLs to IndexNow (manual request)
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
         run: node scripts/submit-indexnow.mjs

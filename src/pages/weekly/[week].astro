@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import Digest from "../../components/Trade90WeeklyDigest.astro";
+import { weeklyDigests } from "../../lib/trade90-content-data.js";
+import { digestFaq } from "../../lib/trade90-weekly.js";
+export function getStaticPaths(){
+  const { completed } = weeklyDigests();
+  return completed.map((digest,i)=>({params:{week:digest.slug},props:{digest,newer:completed[i-1]||null,older:completed[i+1]||null}}));
+}
+const { digest: d, newer, older } = Astro.props;
+const path="/weekly/"+d.slug+"/";
+const url="https://tradeninety.com"+path;
+const title="Central Bank Rates This Week: "+d.rangeLabel;
+const description=d.summary.length>158?d.summary.slice(0,155).replace(/\s+\S*$/,"")+"…":d.summary;
+const published=new Date(Date.parse(d.end+"T00:00:00Z")+86400000).toISOString().slice(0,10);
+const faq=digestFaq(d);
+const PID="https://tradeninety.com/about/#charitha-amarasinghe";
+const article={"@context":"https://schema.org","@type":"Article","@id":url+"#article",headline:title,description:d.summary,datePublished:published,dateModified:published,mainEntityOfPage:url,
+ author:{"@type":"Person","@id":PID,name:"Charitha Amarasinghe",url:PID},publisher:{"@id":"https://tradeninety.com/#publisher"},isBasedOn:"https://tradeninety.com/data/policy-outlook-history.json"};
+const crumbs={"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:"https://tradeninety.com/"},{"@type":"ListItem",position:2,name:"Weekly digest",item:"https://tradeninety.com/weekly/"},{"@type":"ListItem",position:3,name:d.rangeLabel,item:url}]};
+const faqSchema={"@context":"https://schema.org","@type":"FAQPage","@id":url+"#faq",mainEntity:faq.map(({q,a})=>({"@type":"Question",name:q,acceptedAnswer:{"@type":"Answer",text:a}}))};
+---
+<Layout title={title} description={description} canonical={path}>
+<script type="application/ld+json" set:html={JSON.stringify(article)}/><script type="application/ld+json" set:html={JSON.stringify(crumbs)}/><script type="application/ld+json" set:html={JSON.stringify(faqSchema)}/>
+<main class="wrap wk">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/weekly/">Weekly digest</a> / {d.rangeLabel}</nav>
+<header class="page-intro"><div class="eyebrow">Weekly central bank digest · {d.slug.toUpperCase().replace("-"," ")}</div><h1>Central bank rates and rate gaps: week of {d.rangeLabel}</h1><p class="direct-answer">{d.summary}</p><p class="byline">By <a href="/about/#publisher" rel="author">Charitha Amarasinghe</a>, TRADE90 · Published <time datetime={published}>{published}</time> · Generated from dated model snapshots</p></header>
+<Digest digest={d} />
+<nav class="wk-pager" aria-label="Other weeks">{older?<a href={"/weekly/"+older.slug+"/"}>← {older.rangeLabel}</a>:<span></span>}<a href="/weekly/">All weekly digests</a>{newer?<a href={"/weekly/"+newer.slug+"/"}>{newer.rangeLabel} →</a>:<span></span>}</nav>
+</main>
+</Layout>
+<style>.wk{padding-bottom:34px}.crumbs{font-size:.75rem;padding-top:18px;color:#94a3b8}.crumbs a{color:#93c5fd}.byline{font-size:.78rem!important;color:#94a3b8!important}.wk-pager{display:flex;justify-content:space-between;gap:12px;margin-top:22px;font-size:.84rem}</style>

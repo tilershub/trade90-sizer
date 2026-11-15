@@ -1,0 +1,52 @@
+---
+import { pairUrl } from "../lib/trade90-v3.js";
+import { formatBpSigned, stateLabel, longDate, digestFaq } from "../lib/trade90-weekly.js";
+import { archiveRateText, decisionVerb } from "../lib/trade90-decision-archive.js";
+const { digest: d } = Astro.props;
+const faq = digestFaq(d);
+const pct = n => n.toFixed(Math.abs(n * 100 - Math.round(n * 100)) < 1e-8 ? 2 : 3) + "%";
+const outcome = o => o.short + " " + decisionVerb(o) + " its benchmark" + (o.changeBp ? " by " + Math.abs(o.changeBp) + " bp" : "") + " at " + archiveRateText(o);
+---
+<p class="wk-meta">Compares the model snapshot of <time datetime={d.closingAt}>{longDate(d.closingAt.slice(0,10))}</time> with the last snapshot before the week began (<time datetime={d.baselineAt}>{longDate(d.baselineAt.slice(0,10))}</time>).{!d.complete && " This week is still in progress and the figures update daily."}</p>
+{d.modelChanged && <p class="wk-note"><strong>Model update this week:</strong> the policy model moved from version {d.modelFrom} to {d.modelTo}. Outlook changes below can reflect that methodology change as well as new evidence. <a href="/policy-model/">Version history →</a></p>}
+
+<section class="wk-part"><h2>Policy rate changes</h2>
+{d.rateChanges.length ? <ul>{d.rateChanges.map(c=><li><strong>{c.code}</strong>: {pct(c.from)} → {pct(c.to)} ({formatBpSigned(c.changeBp)}){c.decision && <> · <a href={"/decisions/"+c.decision.id+"/"}>{c.decision.short} decision, {longDate(c.decision.decisionDate)}</a></>}</li>)}</ul>
+ : <p>No tracked central bank changed its policy benchmark {d.complete?"during the week":"so far this week"}. All 28 policy-rate gaps are unchanged from the previous week.</p>}
+</section>
+
+<section class="wk-part"><h2>Decisions scheduled this week</h2>
+{d.decisionsThisWeek.length ? <ul>{d.decisionsThisWeek.map(e=><li><time datetime={e.date}>{longDate(e.date)}</time> · <strong>{e.currency}</strong> {e.title}{e.outcome ? <> — <a href={"/decisions/"+e.outcome.id+"/"}>{outcome(e.outcome)}</a></> : " — outcome not yet verified by TRADE90"}</li>)}</ul>
+ : <p>No scheduled policy decisions from the eight tracked central banks fell in this week.</p>}
+</section>
+
+<section class="wk-part"><h2>Outlook changes</h2>
+{d.stateChanges.length ? <div class="wk-tablewrap"><table><thead><tr><th scope="col">Pair</th><th scope="col">Previous outlook</th><th scope="col">Current outlook</th><th scope="col">Rate gap</th></tr></thead>
+ <tbody>{d.stateChanges.map(r=><tr><th scope="row"><a href={pairUrl(r.symbol)}>{r.label}</a></th><td>{stateLabel(r.prevState)}</td><td><strong>{stateLabel(r.state)}</strong></td><td>{r.gapBp===null?"—":formatBpSigned(r.gapBp)}</td></tr>)}</tbody></table></div>
+ : <p>No 90-day policy-gap outlook changed {d.complete?"during the week":"so far this week"}.</p>}
+<p class="wk-small">Outlooks are experimental, conditional research scenarios based on published policy and macroeconomic evidence. They are not forecasts of exchange rates or trading signals. <a href="/policy-model/">How the model works →</a></p>
+</section>
+
+<section class="wk-part"><h2>All 28 policy-rate gaps</h2>
+<p>Current outlook mix: {d.counts.widening||0} may widen, {d.counts.narrowing||0} may narrow, {d.counts.unclear||0} uncertain{d.counts.unchanged?", "+d.counts.unchanged+" may hold":""}{d.counts.unavailable?", "+d.counts.unavailable+" unavailable":""}.</p>
+<div class="wk-tablewrap"><table><thead><tr><th scope="col">Pair</th><th scope="col">Policy-rate gap</th><th scope="col">Change in week</th><th scope="col">90-day outlook</th></tr></thead>
+<tbody>{d.gapRows.map(r=><tr><th scope="row"><a href={pairUrl(r.symbol)}>{r.label}</a></th><td>{r.gapBp===null?"—":formatBpSigned(r.gapBp)}</td><td>{r.changeBp===null?"—":r.changeBp===0?"0 bp":formatBpSigned(r.changeBp)}</td><td class={r.stateChanged?"wk-changed":""}>{stateLabel(r.state)}{r.stateChanged && " ●"}</td></tr>)}</tbody></table></div>
+<p class="wk-small">Gap = base-currency benchmark minus quote-currency benchmark, in basis points. The Fed target range is represented by its midpoint. ● marks an outlook that changed this week.</p>
+</section>
+
+<section class="wk-part"><h2>Coming up</h2>
+{d.upcoming.length ? <ul>{d.upcoming.map(e=><li><time datetime={e.date}>{longDate(e.date)}</time> · <strong>{e.currency}</strong> {e.title}</li>)}</ul>
+ : <p>No tracked central bank has a scheduled decision in the two weeks after this one.{d.nextScheduled[0] && <> The next in the calendar is <strong>{d.nextScheduled[0].currency}</strong> on <time datetime={d.nextScheduled[0].date}>{longDate(d.nextScheduled[0].date)}</time> ({d.nextScheduled[0].title}).</>}</p>}
+<p><a href="/decisions/">Full decision calendar →</a></p>
+</section>
+
+<section class="wk-part" id="faq"><h2>Questions this digest answers</h2>
+{faq.map(({q,a})=><div class="wk-qa"><h3>{q}</h3><p>{a}</p></div>)}
+</section>
+<style>
+.wk-meta{color:#94a3b8;font-size:.8rem}.wk-note{border:1px solid #854d0e;background:#27200f;color:#fde68a;border-radius:10px;padding:12px 15px;font-size:.84rem}.wk-note a{color:#fde68a}
+.wk-part{border:1px solid #334155;background:#111c30;border-radius:13px;padding:20px;margin-top:18px}.wk-part h2{color:#f8fafc;font-size:1.22rem;margin:0 0 10px}.wk-part p,.wk-part li{color:#b6c5d5;font-size:.86rem;line-height:1.7}.wk-part ul{margin:0;padding-left:18px}.wk-part strong{color:#e2e8f0}
+.wk-tablewrap{overflow-x:auto;border:1px solid #334155;border-radius:10px}.wk-part table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:520px}.wk-part th,.wk-part td{text-align:left;padding:9px 12px;border-bottom:1px solid #334155;color:#cbd5e1}.wk-part thead th{background:#17263a;color:#f8fafc;font-size:.72rem;letter-spacing:.03em}.wk-part tbody tr:last-child th,.wk-part tbody tr:last-child td{border-bottom:0}.wk-changed{color:#fde68a!important;font-weight:700}
+@media(max-width:600px){.wk-part{padding:15px}.wk-part table{min-width:0;font-size:.74rem}.wk-part th,.wk-part td{padding:8px 6px}}
+.wk-small{font-size:.76rem!important;color:#94a3b8!important;margin-top:10px}.wk-qa{border-top:1px solid #334155;padding:10px 0}.wk-qa h3{font-size:.98rem;color:#e2e8f0;margin:6px 0}
+</style>
