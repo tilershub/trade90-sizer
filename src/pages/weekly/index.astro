@@ -1,0 +1,23 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import Digest from "../../components/Trade90WeeklyDigest.astro";
+import { weeklyDigests } from "../../lib/trade90-content-data.js";
+const { completed, current } = weeklyDigests();
+const lead = current || completed[0] || null;
+const crumbs={"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:[{"@type":"ListItem",position:1,name:"Home",item:"https://tradeninety.com/"},{"@type":"ListItem",position:2,name:"Weekly digest",item:"https://tradeninety.com/weekly/"}]};
+---
+<Layout title="Central Bank Rates This Week: Weekly Forex Rate Gap Digest" description="What changed this week across the Fed, ECB, BoE, BoJ, SNB, BoC, RBA and RBNZ: policy rate changes, all 28 forex rate gaps, outlook changes and upcoming decisions." canonical="/weekly/">
+<script type="application/ld+json" set:html={JSON.stringify(crumbs)}/>
+<main class="wrap wk">
+<header class="page-intro"><div class="eyebrow">Weekly central bank digest</div><h1>Central bank rates this week</h1><p>A dated record of what changed across eight central banks and 28 forex pairs: policy rates, rate gaps, 90-day outlooks and the decisions coming next. Each week is generated from TRADE90's published model snapshots and kept as a permanent page.</p><p class="byline"><a href="/rss.xml">Subscribe by RSS</a> · A new permanent page is added early each week</p></header>
+{lead ? <>
+ <h2 class="wk-lead">{current ? "This week so far: " : "Latest week: "}{lead.rangeLabel}</h2>
+ <p class="direct-answer">{lead.summary}</p>
+ <Digest digest={lead} />
+</> : <p>The first weekly digest will be published once a full week of model snapshots is available.</p>}
+<section class="wk-archive"><h2>Weekly archive</h2>
+{completed.length ? <ul>{completed.map(d=><li><a href={"/weekly/"+d.slug+"/"}>Week of {d.rangeLabel}</a><span>{d.summary}</span></li>)}</ul> : <p>Completed weeks will be listed here. The first archive page is published on the Monday after the week ends.</p>}
+</section>
+</main>
+</Layout>
+<style>.wk{padding-bottom:34px}.byline{font-size:.8rem!important;color:#94a3b8!important}.wk-lead{font-size:1.35rem;margin:22px 0 6px;color:#f8fafc}.wk-archive{margin-top:26px}.wk-archive h2{font-size:1.25rem}.wk-archive ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}.wk-archive li{border:1px solid #334155;background:#111c30;border-radius:10px;padding:14px}.wk-archive li a{font-weight:700;display:block}.wk-archive li span,.wk-archive p{color:#a5b4c8;font-size:.82rem}</style>

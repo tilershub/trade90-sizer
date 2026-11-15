@@ -137,6 +137,8 @@ jobs:
         run: |
           node tests/trade90-sitemap.mjs
           node tests/learning-seo.mjs
+          node tests/weekly-digest.mjs
+          node tests/content-pages-build.mjs
       - name: Desktop and mobile interaction checks
         run: |
           npm install --no-save playwright@1.56.1

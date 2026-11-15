@@ -21,6 +21,8 @@ export default defineConfig({
         if (p === "/") return {...item,priority:1.0,changefreq:"weekly"};
         if (p === "/methodology/" || p === "/learn/") return {...item,priority:0.8,changefreq:"monthly"};
         if (p.startsWith("/learn/")) return {...item,priority:0.7,changefreq:"monthly"};
+        if (p === "/weekly/") return {...item,priority:0.8,changefreq:"daily"};
+        if (p.startsWith("/weekly/") || /^\/decisions\/[a-z]+-\d{4}-\d{2}-\d{2}\/$/.test(p)) return {...item,priority:0.6,changefreq:"yearly"};
         return {...item,priority:0.4,changefreq:"monthly"};
       }
     }),
