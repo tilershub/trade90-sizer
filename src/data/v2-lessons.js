@@ -455,5 +455,668 @@ export const lessons = [
     ],
     "updated": "2026-11-06",
     "answer": "Compare their selected policy benchmarks and effective dates, then examine each bank’s policy statement and economic evidence. For EUR/USD, subtract the US benchmark from the euro-area benchmark because EUR is the base currency."
+  },
+  {
+    "slug": "forex-carry-trade-explained",
+    "title": "What Is a Carry Trade in Forex? Returns, Risks and Rate Gaps",
+    "description": "A carry trade earns the interest-rate gap between two currencies but carries exchange-rate risk. Learn how carry works, what swap rates change and why carry trades unwind.",
+    "answer": "A forex carry trade means holding a higher-interest-rate currency funded by a lower-interest-rate currency to earn the rate gap. The interest is small and steady; the exchange-rate risk is large and sudden, so a carry trade can lose far more from a currency move than it earns in interest.",
+    "sections": [
+      {
+        "heading": "What is a carry trade in forex?",
+        "paragraphs": [
+          "A carry trade is a position that is long a currency with a higher interest rate and short a currency with a lower interest rate. The trader aims to collect the difference between the two rates for as long as the position is held. The low-rate currency is called the funding currency and the high-rate currency is called the target or investment currency.",
+          "In a hypothetical example, if one currency has a policy rate of 4.00% and another has a policy rate of 0.50%, the policy-rate gap is 3.50 percentage points, or 350 basis points. That gap is the starting point for carry, not the amount a retail trader actually receives."
+        ]
+      },
+      {
+        "heading": "How the return on a carry trade is built",
+        "paragraphs": [
+          "The total return has two parts: the interest earned from the rate gap and the change in the exchange rate. The interest part accrues slowly, day by day. The exchange-rate part can move by more in a single session than the interest earns in several months.",
+          "With leverage, both parts are multiplied. A position leveraged ten times earns ten times the interest on the trader’s own capital, but a 2% adverse currency move becomes a 20% loss on that capital. Carry is therefore a risk-taking strategy that is paid a small premium, not a low-risk income stream."
+        ]
+      },
+      {
+        "heading": "Why retail carry is smaller than the policy-rate gap",
+        "paragraphs": [
+          "Retail forex positions held overnight are charged or credited a swap, also called rollover. Swap rates are derived from short-term money-market rates and forward pricing, and brokers add their own markup. The credit on the long high-rate side is usually smaller than the headline policy-rate gap, and the charge on the opposite side is usually larger.",
+          "It is possible for both the long and the short swap on a pair to be negative. Always read the broker’s contract specification for the current long and short swap before assuming a position earns interest. Because spot forex settles two business days after the trade, many brokers apply a triple rollover midweek to cover the weekend."
+        ]
+      },
+      {
+        "heading": "Why do carry trades unwind suddenly?",
+        "paragraphs": [
+          "Carry trades tend to be crowded: many participants hold the same high-rate currencies against the same funding currencies. When risk appetite falls, or when the funding-currency central bank signals higher rates, traders close positions at the same time. The high-rate currency falls and the funding currency rises, which forces further closures.",
+          "The pattern is often described as gains that build gradually and losses that arrive quickly. A period of low volatility can make carry look safe until the unwind begins, which is why position size and a defined exit matter more in carry than the size of the rate gap."
+        ]
+      },
+      {
+        "heading": "Does a wider interest-rate gap make a carry trade safer?",
+        "paragraphs": [
+          "No. A wider gap increases the interest earned, but it does not reduce exchange-rate risk. Very high interest rates frequently exist because inflation is high or because investors demand compensation for currency or political risk. Economic theory, through uncovered interest parity, suggests that a higher-rate currency should on average depreciate by enough to offset its rate advantage. In practice that relationship is unreliable over short periods, which is why carry sometimes pays and sometimes fails badly.",
+          "What matters for the future of a carry trade is how the gap is expected to change. A gap that is narrowing because the high-rate central bank is cutting, or because the funding-currency central bank is tightening, removes the reason for holding the position."
+        ]
+      },
+      {
+        "heading": "A research checklist before considering carry",
+        "paragraphs": [
+          "Identify the policy benchmark and its effective date for both currencies. Calculate the signed gap in basis points. Check whether each central bank’s recent guidance points towards a wider or narrower gap. Compare inflation in both economies, because a high nominal rate with higher inflation may offer no real advantage. Finally, read your broker’s actual long and short swap, your margin requirement and the pair’s recent daily range.",
+          "TRADE90 publishes the policy-rate gap and a conditional 90-day policy outlook for 28 pairs. These are research inputs. They are not swap quotes, forecasts of exchange rates or recommendations to hold a position."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "BIS research and publications",
+        "url": "https://www.bis.org/publications/research"
+      },
+      {
+        "name": "New York Fed reference rates",
+        "url": "https://www.newyorkfed.org/markets/reference-rates"
+      },
+      {
+        "name": "Federal Reserve monetary policy and FOMC publications",
+        "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+      },
+      {
+        "name": "ECB key interest rates",
+        "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html"
+      }
+    ],
+    "relatedPairs": [
+      "aud-jpy",
+      "nzd-jpy",
+      "usd-jpy",
+      "usd-chf"
+    ],
+    "related": [
+      "what-is-interest-rate-divergence",
+      "high-interest-rates-currency-strength",
+      "forex-swap-rates-vs-central-bank-rates"
+    ],
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "how-interest-rates-affect-forex",
+    "title": "How Do Interest Rates Affect Forex? A Trader’s Guide",
+    "description": "Interest rates move currencies mainly through expectations. Learn the mechanism, why priced-in decisions can disappoint and which rate measures forex traders compare.",
+    "answer": "Interest rates affect forex because they change the return on holding a currency. Markets move mainly when the expected path of rates changes, not when an already-expected decision is announced. A rate rise that was fully anticipated can leave a currency unchanged or even weaker.",
+    "sections": [
+      {
+        "heading": "How do interest rates affect exchange rates?",
+        "paragraphs": [
+          "A currency’s interest rate is the return available on short-term deposits and bonds in that currency. When a country’s rates rise relative to another’s, assets in that currency become more attractive to hold, which can increase demand for the currency. When its rates fall relative to another’s, the opposite pressure applies.",
+          "The important word is relative. A forex pair always compares two economies, so a central bank raising rates does not automatically strengthen its currency if the other central bank is raising rates faster."
+        ]
+      },
+      {
+        "heading": "Expectations matter more than the decision",
+        "paragraphs": [
+          "Exchange rates respond to new information. Traders and investors form a view of each central bank’s future rate path well before a meeting, and that view is reflected in prices. If a central bank delivers exactly what was expected, there is little new information and the reaction is often small.",
+          "The largest moves usually follow a surprise: a decision that differs from expectations, or guidance that changes how many further rises or cuts are expected. This is why a currency can fall after a rate increase when the accompanying statement suggests the increases are finished."
+        ]
+      },
+      {
+        "heading": "Policy rates, market rates and bond yields",
+        "paragraphs": [
+          "The policy rate is the benchmark a central bank sets or targets, such as the federal funds target range or the ECB deposit facility rate. Market rates, including overnight reference rates and interest-rate futures, show where traders expect policy to go. Government bond yields reflect expected policy over longer periods plus compensation for risk.",
+          "Forex traders commonly compare two-year government yields between two economies because that maturity is sensitive to the expected policy path over the next couple of years. The current policy-rate gap describes today; yield gaps describe what the market expects."
+        ]
+      },
+      {
+        "heading": "Why inflation changes the picture",
+        "paragraphs": [
+          "A nominal interest rate does not show how much purchasing power a holder gains. If a currency pays 5% while its inflation runs at 6%, the real return is negative. Central banks also raise rates because inflation is high, so a high rate can be a sign of a problem as well as an attraction.",
+          "Comparing rates alongside inflation, unemployment and growth gives a more complete view of whether a central bank is likely to tighten, hold or ease from here."
+        ]
+      },
+      {
+        "heading": "Why can a currency fall after a rate hike?",
+        "paragraphs": [
+          "There are three common reasons. First, the increase was already priced in, so traders who bought in anticipation take profit. Second, the statement or press conference signalled fewer future increases than expected, sometimes called a dovish hike. Third, the increase raised concern about economic growth or financial stability, reducing demand for the currency’s assets.",
+          "The reverse also happens: a currency can rise after a cut if the central bank signals that the cut is not the start of a longer easing cycle."
+        ]
+      },
+      {
+        "heading": "Is the interest-rate differential enough to predict a currency?",
+        "paragraphs": [
+          "No. The differential is one input. Trade flows, government finances, political events, commodity prices and global risk appetite also move exchange rates, and they can dominate for long periods. Safe-haven currencies can strengthen during market stress even when their interest rates are low.",
+          "Use the differential to frame research questions: is the gap widening or narrowing, why, and is that change already expected? TRADE90’s pair pages show the current policy-rate gap and the evidence for each central bank so the two sides can be compared on the same basis."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Federal Reserve monetary policy and FOMC publications",
+        "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+      },
+      {
+        "name": "ECB monetary policy strategy",
+        "url": "https://www.ecb.europa.eu/mopo/strategy/html/index.en.html"
+      },
+      {
+        "name": "Bank of England: interest rates",
+        "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+      },
+      {
+        "name": "RBA education explainers",
+        "url": "https://www.rba.gov.au/education/resources/explainers/"
+      },
+      {
+        "name": "BIS research and publications",
+        "url": "https://www.bis.org/publications/research"
+      }
+    ],
+    "relatedPairs": [
+      "eur-usd",
+      "gbp-usd",
+      "usd-jpy",
+      "aud-usd"
+    ],
+    "related": [
+      "high-interest-rates-currency-strength",
+      "what-is-interest-rate-divergence",
+      "real-interest-rates-forex",
+      "hawkish-vs-dovish-central-banks"
+    ],
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "forex-swap-rates-vs-central-bank-rates",
+    "title": "Forex Swap Rates vs Central Bank Rates: Why Your Rollover Differs",
+    "description": "Broker swap (rollover) rates are not the central bank rate gap. Learn how swaps are calculated, why both sides can be negative and what triple-swap day means.",
+    "answer": "A forex swap, or rollover, is the daily interest adjustment on a position held overnight. It is based on short-term market rates for the two currencies plus your broker’s markup, not directly on central bank policy rates. That is why your swap is usually less favourable than the policy-rate gap and can be negative in both directions.",
+    "sections": [
+      {
+        "heading": "What is a swap rate in forex?",
+        "paragraphs": [
+          "When a spot forex position is held past the broker’s daily cut-off, it is rolled to the next value date. The rollover involves an interest adjustment: in principle you earn interest on the currency you are long and pay interest on the currency you are short. The net amount credited to or debited from the account is the swap.",
+          "Brokers quote swaps per lot, in points or in account currency, with a separate value for long and short positions. The values change as market interest rates change and can be revised at any time."
+        ]
+      },
+      {
+        "heading": "How swap rates are derived",
+        "paragraphs": [
+          "Wholesale rollover pricing comes from the forward market, where the cost of moving a position by one day is expressed in forward points. Those points reflect the difference between short-term money-market rates in the two currencies, which usually sit close to, but not exactly at, the central bank policy rates.",
+          "A retail broker then applies its own adjustment. The result is that the credit on the favourable side is reduced and the charge on the unfavourable side is increased. Two brokers can quote noticeably different swaps on the same pair on the same day."
+        ]
+      },
+      {
+        "heading": "Why is my swap negative on both long and short?",
+        "paragraphs": [
+          "When the interest-rate gap between two currencies is small, the broker’s markup can be larger than the gap itself. The favourable side then becomes a charge as well, so both long and short positions pay. This is common on pairs where the two policy rates are close together.",
+          "It also happens on instruments where the broker applies a financing charge on the full position value regardless of direction. The contract specification is the only reliable place to check."
+        ]
+      },
+      {
+        "heading": "Triple-swap day and holidays",
+        "paragraphs": [
+          "Spot forex normally settles two business days after the trade date. A position rolled on Wednesday moves its value date from Friday to Monday, which covers three calendar days, so many brokers apply three days of swap on Wednesday. Some instruments and some brokers use a different day.",
+          "Public holidays in either currency’s home market can add further days to a single rollover. A position that looks inexpensive to hold on a normal night can cost several times more around holidays."
+        ]
+      },
+      {
+        "heading": "Policy rate, market rate and swap compared",
+        "paragraphs": [
+          "The policy rate is set or targeted by the central bank and changes only at policy decisions. Short-term market rates are set by trading and move daily with expectations. The broker swap is a retail price built on market rates with a markup. Each step moves further from the published central bank figure.",
+          "TRADE90 publishes policy-rate gaps because they are official, dated and comparable across 28 pairs. They show the direction and approximate size of the interest advantage between two currencies. They do not tell you what your broker will credit or charge."
+        ]
+      },
+      {
+        "heading": "Can I estimate my swap from the policy-rate gap?",
+        "paragraphs": [
+          "Only roughly. The sign of the policy-rate gap usually indicates which direction is more likely to earn a credit, and a wider gap usually means a larger credit on that side. The exact amount depends on market rates, the broker’s markup, the position size and the number of days in the rollover.",
+          "Before holding a position for more than a few days, check the current long and short swap in your trading platform and multiply by the number of nights, including the triple-swap day. Islamic or swap-free accounts replace swaps with other fees, which should be compared on the same basis."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "New York Fed reference rates",
+        "url": "https://www.newyorkfed.org/markets/reference-rates"
+      },
+      {
+        "name": "BIS research and publications",
+        "url": "https://www.bis.org/publications/research"
+      },
+      {
+        "name": "CME Group interest rates education",
+        "url": "https://www.cmegroup.com/education.html"
+      },
+      {
+        "name": "ECB key interest rates",
+        "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html"
+      }
+    ],
+    "relatedPairs": [
+      "eur-usd",
+      "usd-jpy",
+      "eur-chf",
+      "aud-jpy"
+    ],
+    "related": [
+      "forex-carry-trade-explained",
+      "what-is-interest-rate-divergence",
+      "basis-points-vs-pips"
+    ],
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "hawkish-vs-dovish-central-banks",
+    "title": "Hawkish vs Dovish: How to Read Central Bank Language",
+    "description": "Hawkish means leaning towards higher rates; dovish means leaning towards lower rates. Learn to read statements, votes and projections without over-interpreting them.",
+    "answer": "Hawkish describes a central bank or policymaker leaning towards higher interest rates to control inflation. Dovish describes leaning towards lower rates to support growth and employment. Markets react to whether the tone is more hawkish or more dovish than expected, not to the label itself.",
+    "sections": [
+      {
+        "heading": "What do hawkish and dovish mean?",
+        "paragraphs": [
+          "A hawkish stance prioritises bringing inflation down and accepts higher interest rates, or rates staying high for longer, to achieve it. A dovish stance places more weight on supporting economic activity and employment and is more willing to lower rates or delay increases.",
+          "The terms describe a direction of lean, not a fixed position. The same policymaker can sound hawkish when inflation is rising and dovish when unemployment is rising. A neutral stance means the bank sees the risks as roughly balanced."
+        ]
+      },
+      {
+        "heading": "Where the tone appears",
+        "paragraphs": [
+          "The policy statement is the first source: compare its wording with the previous statement and note what was added, removed or changed. The press conference then shows how the head of the central bank answers questions about the next move. Minutes, published some weeks later by several banks, reveal how much disagreement there was.",
+          "Some banks publish additional signals. The Federal Reserve releases policymakers’ rate projections four times a year, often called the dot plot. The Bank of England publishes how each member of its nine-person committee voted, so a 5–4 decision carries a different message from a 9–0 decision."
+        ]
+      },
+      {
+        "heading": "What is a hawkish cut or a dovish hike?",
+        "paragraphs": [
+          "A hawkish cut is a rate reduction accompanied by guidance that further cuts are unlikely or will be slow. A dovish hike is a rate increase accompanied by guidance that it may be the last. In both cases the guidance pulls in the opposite direction from the decision.",
+          "Currencies often respond more to the guidance than to the decision, because the guidance changes the expected path of rates over the following months while the decision itself was usually anticipated."
+        ]
+      },
+      {
+        "heading": "Common phrases and what they usually signal",
+        "paragraphs": [
+          "Phrases such as ‘inflation remains too high’, ‘further tightening may be appropriate’ and ‘higher for longer’ lean hawkish. Phrases such as ‘risks to growth have increased’, ‘policy is restrictive’ and ‘inflation is returning to target’ lean dovish. ‘Data dependent’ and ‘meeting by meeting’ signal that the bank is avoiding a commitment.",
+          "Treat these as indications, not rules. The meaning depends on what the same bank said last time. A phrase that sounded hawkish six months ago can be dovish today if it replaces stronger wording."
+        ]
+      },
+      {
+        "heading": "Mistakes to avoid when reading central banks",
+        "paragraphs": [
+          "Do not judge tone from a headline. Read the actual statement and compare it with the previous one. Do not treat one policymaker’s speech as the committee’s view. Do not assume that hawkish means the currency will rise; if markets expected an even more hawkish message, the currency can fall.",
+          "Avoid mixing the two sides of a pair. For EUR/USD, a hawkish ECB matters only relative to the Federal Reserve’s stance at the same time."
+        ]
+      },
+      {
+        "heading": "How does TRADE90 classify central bank stance?",
+        "paragraphs": [
+          "TRADE90 records each bank’s latest decision and published guidance with its date and official source, then combines that with inflation, unemployment and growth evidence to describe a conditional policy direction for each currency. When the evidence is incomplete, out of date or mixed, the outlook is shown as uncertain or unavailable instead of being forced into a hawkish or dovish label.",
+          "The classification is experimental research based on published information. It is not a prediction of the next decision and it is not a trading signal."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Federal Reserve: FOMC meeting calendars and statements",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+      },
+      {
+        "name": "ECB monetary policy strategy",
+        "url": "https://www.ecb.europa.eu/mopo/strategy/html/index.en.html"
+      },
+      {
+        "name": "Bank of England: interest rates",
+        "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+      },
+      {
+        "name": "Federal Reserve monetary policy and FOMC publications",
+        "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+      }
+    ],
+    "relatedPairs": [
+      "eur-usd",
+      "gbp-usd",
+      "usd-jpy"
+    ],
+    "related": [
+      "how-to-prepare-for-central-bank-rate-decisions",
+      "central-bank-policy-divergence-checklist",
+      "fed-vs-ecb-policy-divergence",
+      "how-interest-rates-affect-forex"
+    ],
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "basis-points-vs-pips",
+    "title": "Basis Points vs Pips: What Forex Traders Need to Know",
+    "description": "A basis point measures interest rates (0.01 percentage point); a pip measures price (usually 0.0001). Learn the difference, with conversions and worked examples.",
+    "answer": "A basis point is one hundredth of a percentage point (0.01%) and is used for interest rates and yields. A pip is the standard unit of price movement in a currency pair, 0.0001 for most pairs and 0.01 for yen pairs. Basis points describe rate gaps; pips describe exchange-rate moves.",
+    "sections": [
+      {
+        "heading": "What is a basis point?",
+        "paragraphs": [
+          "A basis point, written bp or bps, equals 0.01 percentage point. One hundred basis points equal one percentage point. A central bank that moves its policy rate from 4.00% to 4.25% has raised it by 25 basis points.",
+          "Basis points remove ambiguity. Saying a 4% rate rose ‘by 1%’ could mean it became 5% or 4.04%. Saying it rose by 100 basis points can only mean it became 5%."
+        ]
+      },
+      {
+        "heading": "What is a pip in forex?",
+        "paragraphs": [
+          "A pip is the conventional smallest whole unit of price change in a currency pair. For most pairs it is the fourth decimal place, so a move in EUR/USD from 1.1000 to 1.1001 is one pip. For pairs quoted against the Japanese yen it is the second decimal place, so a move in USD/JPY from 150.00 to 150.01 is one pip.",
+          "Most platforms quote one further decimal place, called a pipette or fractional pip, which is one tenth of a pip. On a standard lot of 100,000 units, one pip is worth 10 units of the quote currency; on a mini lot of 10,000 units it is worth 1 unit."
+        ]
+      },
+      {
+        "heading": "How rate gaps are expressed in basis points",
+        "paragraphs": [
+          "An interest-rate differential is the base currency’s rate minus the quote currency’s rate. In a hypothetical example, a base rate of 2.50% and a quote rate of 3.75% give a gap of −1.25 percentage points, or −125 basis points. The negative sign means the quote currency has the higher rate.",
+          "When a central bank publishes a target range, a single number is needed for the calculation. TRADE90 uses the midpoint of the Federal Reserve’s target range, so a range of 3.75% to 4.00% is treated as 3.875%."
+        ]
+      },
+      {
+        "heading": "Percent versus percentage points",
+        "paragraphs": [
+          "A change from 2% to 3% is an increase of one percentage point, or 100 basis points. It is also a 50% increase in the rate itself. Mixing these two descriptions is one of the most common errors in financial writing, and it produces very different impressions of the same change.",
+          "When you read that rates ‘rose 0.5%’, check whether the writer means 50 basis points. In central bank reporting it almost always does."
+        ]
+      },
+      {
+        "heading": "Can you convert basis points into pips?",
+        "paragraphs": [
+          "No, not directly. Basis points measure interest rates and pips measure exchange-rate prices, so there is no fixed conversion between them. A 25 basis point rate change has moved a currency pair by more than 100 pips on some occasions and by almost nothing on others, depending on whether the change was expected.",
+          "The one place the two meet is in forward and swap pricing, where an interest-rate gap over a period of time is translated into forward points, which are quoted in pips. That calculation depends on the spot rate and the number of days, so it is not a constant ratio."
+        ]
+      },
+      {
+        "heading": "How many basis points is a typical central bank move?",
+        "paragraphs": [
+          "Most major central banks change rates in steps of 25 basis points. Moves of 50 basis points or more are used when a bank wants to act more quickly, and some banks have used smaller steps when rates were very low. The size of a move is itself a signal: a larger-than-usual step is read as urgency.",
+          "The decision calendar and central bank pages on TRADE90 list each bank’s latest decision and current benchmark so the size and date of recent changes can be checked against the official source."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Federal Reserve monetary policy and FOMC publications",
+        "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+      },
+      {
+        "name": "ECB key interest rates",
+        "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html"
+      },
+      {
+        "name": "Bank of England: interest rates",
+        "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+      },
+      {
+        "name": "CME Group interest rates education",
+        "url": "https://www.cmegroup.com/education.html"
+      }
+    ],
+    "relatedPairs": [
+      "eur-usd",
+      "usd-jpy",
+      "gbp-usd"
+    ],
+    "related": [
+      "what-is-interest-rate-divergence",
+      "forex-swap-rates-vs-central-bank-rates",
+      "forex-fundamental-analysis"
+    ],
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "how-to-prepare-for-central-bank-rate-decisions",
+    "title": "How to Prepare for a Central Bank Rate Decision",
+    "description": "A step-by-step research routine for Fed, ECB, BoE and other rate decisions: expectations, statement changes, projections, press conference and execution risk.",
+    "answer": "Before a rate decision, know the exact release time, the current rate, what the market expects, and what would count as a surprise. During the release, compare the decision and statement with those expectations. Spreads widen and prices gap around the announcement, so decide in advance whether you will hold, reduce or stay out.",
+    "sections": [
+      {
+        "heading": "Step 1: confirm the schedule from the official source",
+        "paragraphs": [
+          "Every major central bank publishes its meeting dates in advance. Check the date and the time in your own time zone, including daylight-saving changes. Note whether the decision comes with a press conference, new economic projections or a monetary policy report, because those meetings carry more information.",
+          "Announcement times follow each bank’s routine. The Federal Reserve typically releases its statement at 2:00 pm Eastern Time with a press conference at 2:30 pm. The ECB typically announces at 14:15 Central European Time with a press conference at 14:45. The Bank of England typically announces at 12:00 noon UK time. Always confirm on the bank’s own calendar."
+        ]
+      },
+      {
+        "heading": "Step 2: establish what is expected",
+        "paragraphs": [
+          "Find the consensus forecast for the decision and, where available, the probability implied by interest-rate futures. If a 25 basis point cut is almost fully priced, the cut itself is not news. The question becomes what the bank says about the following meetings.",
+          "Write down three scenarios before the release: more hawkish than expected, in line, and more dovish than expected. For each one, note what the decision and the key statement wording would look like. This prevents interpreting the outcome after seeing the price move."
+        ]
+      },
+      {
+        "heading": "Step 3: review the evidence the bank is watching",
+        "paragraphs": [
+          "Read the previous statement and identify the conditions the bank attached to its next move. Then check the data published since: inflation, unemployment, wages and growth. A bank that said it needed ‘further evidence of inflation returning to target’ will be judged against the inflation releases that followed.",
+          "Do the same for the other currency in the pair. A decision moves a pair through the change in the gap between the two expected rate paths, so the other central bank’s stance is half of the analysis."
+        ]
+      },
+      {
+        "heading": "Step 4: read the release in order",
+        "paragraphs": [
+          "Start with the decision and the vote, if it is published. Next compare the statement with the previous one, line by line; changes in wording about inflation, growth and future policy are the signal. Then look at any projections for rates, inflation and growth. Finally, follow the press conference, where answers frequently move markets more than the statement.",
+          "The first price move is not always the lasting one. Initial reactions to the headline are often reversed once the statement and the press conference are absorbed."
+        ]
+      },
+      {
+        "heading": "What happens to spreads and execution during a rate decision?",
+        "paragraphs": [
+          "Liquidity falls in the seconds around the announcement. Spreads widen, sometimes to many times their normal size, and prices can jump past stop-loss levels so that orders are filled at a worse price than requested. Pending orders placed close to the market can be triggered by the spread alone.",
+          "These are execution risks that exist regardless of whether the directional view is right. Many traders reduce position size, widen or remove nearby orders, or wait until the press conference has finished before acting."
+        ]
+      },
+      {
+        "heading": "Should you trade the decision or wait?",
+        "paragraphs": [
+          "That depends on your method and risk tolerance; there is no universally correct answer. Trading the release offers the largest moves and the worst execution. Waiting gives up the first move in exchange for normal spreads and a clearer picture of the bank’s message. Holding an existing position through the release means accepting gap risk on its full size.",
+          "Whatever you choose, decide before the announcement and record the reason. TRADE90’s decision calendar lists upcoming meetings for the eight major central banks with links to each official schedule, and each pair page shows the current rate gap going into the decision."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Federal Reserve: FOMC meeting calendars and statements",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+      },
+      {
+        "name": "ECB Governing Council meeting calendar",
+        "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html"
+      },
+      {
+        "name": "Bank of England: interest rates",
+        "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+      },
+      {
+        "name": "CME Group interest rates education",
+        "url": "https://www.cmegroup.com/education.html"
+      }
+    ],
+    "relatedPairs": [
+      "eur-usd",
+      "gbp-usd",
+      "usd-jpy",
+      "aud-usd"
+    ],
+    "related": [
+      "hawkish-vs-dovish-central-banks",
+      "central-bank-policy-divergence-checklist",
+      "how-interest-rates-affect-forex"
+    ],
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "real-interest-rates-forex",
+    "title": "Real Interest Rates in Forex: Why Inflation Changes the Rate Gap",
+    "description": "The real interest rate is the nominal rate minus inflation. Learn how to compare real rate gaps between two currencies and the pitfalls of mixing inflation measures.",
+    "answer": "A real interest rate is the nominal interest rate minus inflation. In forex, comparing real rates shows whether a currency’s interest advantage survives after inflation. A currency with a high nominal rate but higher inflation can have a lower real rate than a low-rate currency.",
+    "sections": [
+      {
+        "heading": "What is a real interest rate?",
+        "paragraphs": [
+          "The nominal interest rate is the published rate, such as a central bank’s policy rate. The real interest rate adjusts it for the change in prices. As an approximation, the real rate equals the nominal rate minus the inflation rate. A policy rate of 4.00% with inflation of 3.00% gives a real rate of about 1.00%.",
+          "A positive real rate means savings grow faster than prices. A negative real rate means prices are rising faster than the interest earned, so purchasing power falls even though interest is paid."
+        ]
+      },
+      {
+        "heading": "Backward-looking and forward-looking real rates",
+        "paragraphs": [
+          "Subtracting the latest year-on-year inflation figure gives a backward-looking, or ex post, real rate. It is easy to calculate from published data but describes the past twelve months. Subtracting expected inflation gives a forward-looking, or ex ante, real rate, which is closer to what matters for decisions but depends on which measure of expectations is used.",
+          "Be clear about which one you are using. During periods when inflation is falling quickly, the backward-looking real rate understates how restrictive policy has become."
+        ]
+      },
+      {
+        "heading": "How to calculate a real rate differential for a pair",
+        "paragraphs": [
+          "Calculate the real rate for each currency, then subtract the quote currency’s real rate from the base currency’s. In a hypothetical example, the base currency has a policy rate of 4.00% and inflation of 3.50%, giving a real rate of 0.50%. The quote currency has a policy rate of 2.00% and inflation of 1.00%, giving a real rate of 1.00%.",
+          "The nominal gap is +200 basis points in favour of the base currency, but the real gap is −50 basis points in favour of the quote currency. The nominal comparison and the real comparison point in opposite directions."
+        ]
+      },
+      {
+        "heading": "Why does the real rate matter for currencies?",
+        "paragraphs": [
+          "Inflation erodes the value of a currency over time. A country with persistently higher inflation tends to see its currency lose value against countries with lower inflation, which can offset or exceed its nominal interest advantage. Real rates combine both effects in one measure.",
+          "Real rates also indicate how tight policy is. A central bank with a clearly positive real rate is restraining its economy and may have room to cut; one with a negative real rate while inflation is above target may need to tighten further. Both observations feed into the expected path of the nominal gap."
+        ]
+      },
+      {
+        "heading": "Pitfalls when comparing real rates",
+        "paragraphs": [
+          "Use the same type of inflation measure on both sides. Headline and core inflation can differ substantially, and the euro area’s HICP is constructed differently from national CPI measures. Use the same period basis: do not subtract a quarterly inflation figure from one country and a monthly figure from another without noting the difference in timing.",
+          "Check the dates. A policy rate from this month combined with an inflation reading from four months ago can give a misleading real rate, particularly after a large rate change."
+        ]
+      },
+      {
+        "heading": "Is a higher real interest rate always better for a currency?",
+        "paragraphs": [
+          "No. A higher real rate is supportive in principle, but it can also reflect weak growth, financial stress or a central bank that is expected to cut soon. Exchange rates respond to how the real rate gap is expected to change, and to factors outside interest rates altogether.",
+          "TRADE90 shows each economy’s policy benchmark alongside its inflation, unemployment and growth observations with their dates and sources, so nominal and real comparisons can be made from the same page. The figures are research inputs, not forecasts."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "OECD consumer prices methodology and data",
+        "url": "https://data-explorer.oecd.org/vis?df[ag]=OECD.SDD.TPS&df[id]=DSD_PRICES@DF_PRICES_ALL"
+      },
+      {
+        "name": "Federal Reserve monetary policy and FOMC publications",
+        "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+      },
+      {
+        "name": "ECB monetary policy strategy",
+        "url": "https://www.ecb.europa.eu/mopo/strategy/html/index.en.html"
+      },
+      {
+        "name": "RBA education explainers",
+        "url": "https://www.rba.gov.au/education/resources/explainers/"
+      }
+    ],
+    "relatedPairs": [
+      "eur-usd",
+      "usd-jpy",
+      "gbp-usd",
+      "usd-chf"
+    ],
+    "related": [
+      "how-interest-rates-affect-forex",
+      "forex-fundamental-analysis",
+      "high-interest-rates-currency-strength"
+    ],
+    "updated": "2026-11-13"
+  },
+  {
+    "slug": "major-central-banks-forex-guide",
+    "title": "The 8 Major Central Banks Every Forex Trader Should Know",
+    "description": "A reference guide to the Fed, ECB, BoE, BoJ, SNB, BoC, RBA and RBNZ: each bank’s currency, policy benchmark, inflation goal and meeting frequency.",
+    "answer": "The eight major central banks in forex are the Federal Reserve (USD), European Central Bank (EUR), Bank of England (GBP), Bank of Japan (JPY), Swiss National Bank (CHF), Bank of Canada (CAD), Reserve Bank of Australia (AUD) and Reserve Bank of New Zealand (NZD). Their currencies form the 28 major and cross pairs.",
+    "sections": [
+      {
+        "heading": "Which central banks matter most for forex?",
+        "paragraphs": [
+          "Eight central banks issue the currencies that make up the major and cross pairs most retail traders use. Each sets a policy interest rate that anchors short-term borrowing costs in its currency. Combining the eight currencies in pairs produces 28 distinct pairs, from EUR/USD to NZD/CHF.",
+          "Each bank has its own benchmark, its own inflation goal and its own meeting schedule. Comparing two of them correctly starts with knowing what each one actually publishes."
+        ]
+      },
+      {
+        "heading": "Federal Reserve (USD) and European Central Bank (EUR)",
+        "paragraphs": [
+          "The Federal Reserve’s policy committee, the FOMC, sets a target range for the federal funds rate, published as a lower and an upper bound. It has a dual mandate of maximum employment and stable prices, with a longer-run inflation goal of 2%. The FOMC has eight scheduled meetings a year and publishes policymakers’ projections at four of them.",
+          "The European Central Bank’s Governing Council sets three key rates for the euro area; the deposit facility rate is the one that steers market rates. The ECB targets inflation of 2% over the medium term and normally holds eight monetary policy meetings a year, each followed by a press conference."
+        ]
+      },
+      {
+        "heading": "Bank of England (GBP) and Bank of Japan (JPY)",
+        "paragraphs": [
+          "The Bank of England’s Monetary Policy Committee sets Bank Rate. Its inflation target of 2% is set by the UK government. The nine-member committee meets eight times a year and publishes how each member voted, along with minutes, at the time of the decision.",
+          "The Bank of Japan’s Policy Board sets a short-term policy interest rate and has a price stability target of 2%. It holds eight monetary policy meetings a year. After a long period of very low and negative rates, changes in Bank of Japan policy receive close attention because the yen has frequently been used as a funding currency."
+        ]
+      },
+      {
+        "heading": "Swiss National Bank (CHF) and Bank of Canada (CAD)",
+        "paragraphs": [
+          "The Swiss National Bank sets the SNB policy rate and defines price stability as annual inflation of less than 2%. It conducts scheduled monetary policy assessments four times a year, fewer than the other major banks, which makes each one more significant. The SNB has also been willing to intervene in currency markets.",
+          "The Bank of Canada sets a target for the overnight rate. Its inflation target is 2%, the midpoint of a 1% to 3% control range. It has eight fixed announcement dates a year and publishes a Monetary Policy Report with four of them."
+        ]
+      },
+      {
+        "heading": "Reserve Bank of Australia (AUD) and Reserve Bank of New Zealand (NZD)",
+        "paragraphs": [
+          "The Reserve Bank of Australia sets the cash rate target and aims to keep inflation between 2% and 3%. It moved to eight meetings a year in 2024, each followed by a press conference. The Australian dollar is also sensitive to commodity prices and to economic conditions in Asia.",
+          "The Reserve Bank of New Zealand sets the Official Cash Rate. Its target is inflation between 1% and 3%, with a focus on the 2% midpoint. It normally makes seven scheduled decisions a year."
+        ]
+      },
+      {
+        "heading": "How should you compare two central banks?",
+        "paragraphs": [
+          "First compare like with like: note whether each benchmark is a single rate or a range, and record its effective date. Second, calculate the signed gap as the base currency’s rate minus the quote currency’s rate. Third, compare each bank’s position relative to its own inflation goal, because a bank with inflation above target is under different pressure from one with inflation below target. Fourth, check the meeting calendars: the bank that meets next can change the gap first.",
+          "Mandates, targets and meeting schedules are reviewed from time to time, so confirm details on each bank’s own website. TRADE90’s central bank pages list the current benchmark, latest decision and next scheduled decision for all eight, each linked to the official source."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Federal Reserve monetary policy and FOMC publications",
+        "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+      },
+      {
+        "name": "ECB monetary policy strategy",
+        "url": "https://www.ecb.europa.eu/mopo/strategy/html/index.en.html"
+      },
+      {
+        "name": "Bank of England: interest rates",
+        "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+      },
+      {
+        "name": "Bank of Japan: monetary policy",
+        "url": "https://www.boj.or.jp/en/mopo/index.htm"
+      },
+      {
+        "name": "Swiss National Bank",
+        "url": "https://www.snb.ch/en/"
+      },
+      {
+        "name": "Bank of Canada: monetary policy",
+        "url": "https://www.bankofcanada.ca/core-functions/monetary-policy/"
+      },
+      {
+        "name": "Reserve Bank of Australia: monetary policy",
+        "url": "https://www.rba.gov.au/monetary-policy/"
+      },
+      {
+        "name": "Reserve Bank of New Zealand: monetary policy",
+        "url": "https://www.rbnz.govt.nz/monetary-policy"
+      }
+    ],
+    "relatedPairs": [
+      "eur-usd",
+      "gbp-usd",
+      "usd-jpy",
+      "usd-chf",
+      "usd-cad",
+      "aud-usd",
+      "nzd-usd"
+    ],
+    "related": [
+      "central-bank-policy-divergence-checklist",
+      "fed-vs-ecb-policy-divergence",
+      "how-to-prepare-for-central-bank-rate-decisions"
+    ],
+    "updated": "2026-11-13"
   }
 ];
