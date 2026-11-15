@@ -1,54 +1,54 @@
 {
   "schemaVersion": 1,
   "status": "automated_fail_closed",
-  "lastCheckedAt": "2026-11-15T11:08:07.608Z",
+  "lastCheckedAt": "2026-11-15T12:58:18.923Z",
   "changedBanks": [],
   "coverage": [
     {
       "code": "AUD",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     },
     {
       "code": "USD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-15T11:08:07.608Z",
+      "checkedAt": "2026-11-15T12:58:18.923Z",
       "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     },
     {
       "code": "GBP",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     },
     {
       "code": "NZD",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     },
     {
       "code": "EUR",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     },
     {
       "code": "CAD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-15T11:08:07.608Z",
+      "checkedAt": "2026-11-15T12:58:18.923Z",
       "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     },
     {
       "code": "JPY",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     },
     {
       "code": "CHF",
       "state": "No safely verified new decision",
-      "attemptedAt": "2026-11-15T11:08:07.608Z"
+      "attemptedAt": "2026-11-15T12:58:18.923Z"
     }
   ],
   "failures": [
@@ -66,7 +66,7 @@
     },
     {
       "code": "CHF",
-      "state": "not_verified"
+      "state": "fetch failed"
     }
   ],
   "explanation": "Strict policy decision parsing: only source-confirmed, dated, effective bank decisions are published; other bank observations retain their last verified values."
