@@ -87,7 +87,9 @@ async function postFacebook(item, env, fetcher) {
 
 export async function run({ env = process.env, fetcher = fetch, now = new Date(), state, dryRun = false }) {
   const channels = channelsFromEnv(env);
-  const feed = await fetcher(FEED_URL, { headers: { Accept: "application/rss+xml" }, signal: AbortSignal.timeout(20000) });
+  let feed;
+  try { feed = await fetcher(FEED_URL, { headers: { Accept: "application/rss+xml" }, signal: AbortSignal.timeout(20000) }); }
+  catch (error) { return { state, changed: false, failures: 1, log: ["Feed could not be reached (" + (error?.cause?.code || error.message) + "); nothing posted."] }; }
   if (!feed.ok) return { state, changed: false, log: ["Feed not available yet (HTTP " + feed.status + "); nothing to do."] };
   const items = parseFeed(await feed.text());
   const next = { schemaVersion: 1, seededAt: state?.seededAt || null, posted: { ...(state?.posted || {}) } };

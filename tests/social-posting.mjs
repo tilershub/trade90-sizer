@@ -62,4 +62,6 @@ const before = calls.length; const dry = await run({ env, fetcher: net(), now, s
 assert.equal(calls.slice(before).filter(c => c[1] === 'POST').length, 0); assert.equal(dry.changed, false); assert.ok(dry.log.some(l => l.startsWith('[dry run] x:')));
 const down = await run({ env, fetcher: async () => ({ ok: false, status: 404 }), now, state: base });
 assert.equal(down.changed, false); assert.match(down.log[0], /Feed not available/);
+const offline = await run({ env, fetcher: async () => { throw Object.assign(new TypeError('fetch failed'), { cause: { code: 'ENOTFOUND' } }); }, now, state: base });
+assert.equal(offline.changed, false); assert.equal(offline.failures, 1); assert.match(offline.log[0], /could not be reached \(ENOTFOUND\)/);
 console.log('Social posting passed: OAuth signature vector, feed parsing, post composition, seeding, limits, retries and secret hygiene.');
