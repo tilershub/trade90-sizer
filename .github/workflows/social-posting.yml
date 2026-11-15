@@ -1,0 +1,53 @@
+name: TRADE90 social posting
+on:
+  schedule:
+    # Daily 05:20 UTC, after the overnight data refresh and rebuild.
+    - cron: "20 5 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Show what would be posted without posting"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: trade90-data-publication
+  cancel-in-progress: false
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tests/social-posting.mjs
+      - name: Share new feed items
+        id: post
+        continue-on-error: true
+        env:
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+        run: node scripts/post-social.mjs
+      - name: Record what was shared
+        run: |
+          git add scripts/state/social-posted.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git config user.name 'trade90-daily[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'data: record shared feed items'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Fail visibly if a post was rejected
+        if: steps.post.outcome == 'failure'
+        run: exit 1
