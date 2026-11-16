@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-16T02:49:00.602Z",
-  "lastSourceScanAt": "2026-11-16T02:49:00.602Z",
+  "lastCompiledAt": "2026-11-16T11:37:24.472Z",
+  "lastSourceScanAt": "2026-11-16T11:37:24.472Z",
   "items": [
+    {
+      "code": "JPY",
+      "bank": "BoJ",
+      "title": "Speech by Board Member TAKATA at a Meeting Held by the Tokushima Association of Corporate Executives (Economic Activity, Prices, and Monetary Policy in Japan: Japan's Money and Capital Market Transformation -- Will a Par",
+      "url": "https://www.boj.or.jp/en/about/press/koen_2026/ko261116a.htm",
+      "firstSeenAt": "2026-11-16T11:37:24.472Z"
+    },
     {
       "code": "JPY",
       "bank": "BoJ",
