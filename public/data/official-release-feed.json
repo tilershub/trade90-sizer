@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-16T14:01:38.174Z",
-  "lastSourceScanAt": "2026-11-16T14:01:38.174Z",
+  "lastCompiledAt": "2026-11-16T22:15:18.584Z",
+  "lastSourceScanAt": "2026-11-16T22:15:18.584Z",
   "items": [
+    {
+      "code": "CAD",
+      "bank": "BoC",
+      "title": "Act now or wait? How monetary policy should respond to supply shocks",
+      "url": "https://www.bankofcanada.ca/2026/11/sparks-at-bank-article-2026-25/",
+      "firstSeenAt": "2026-11-16T22:15:18.584Z"
+    },
     {
       "code": "JPY",
       "bank": "BoJ",
