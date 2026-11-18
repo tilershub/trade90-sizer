@@ -1,9 +1,23 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-18T14:35:18.595Z",
-  "lastSourceScanAt": "2026-11-18T14:35:18.595Z",
+  "lastCompiledAt": "2026-11-18T22:03:52.202Z",
+  "lastSourceScanAt": "2026-11-18T22:03:52.202Z",
   "items": [
+    {
+      "code": "CAD",
+      "bank": "BoC",
+      "title": "Setting the scenario: Monetary policy communications in uncertain times",
+      "url": "https://www.bankofcanada.ca/2026/11/setting-the-scenario-monetary-policy-communications-in-uncertain-times/",
+      "firstSeenAt": "2026-11-18T22:03:52.202Z"
+    },
+    {
+      "code": "USD",
+      "bank": "Fed",
+      "title": "Minutes of the Federal Open Market Committee, October 27-28, 2026",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261118a.htm",
+      "firstSeenAt": "2026-11-18T22:03:52.202Z"
+    },
     {
       "code": "EUR",
       "bank": "ECB",
