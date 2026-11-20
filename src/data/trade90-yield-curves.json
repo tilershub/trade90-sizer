@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "asOf": "2026-11-19",
-  "generatedAt": "2026-11-20T14:23:39.953Z",
+  "asOf": "2026-11-20",
+  "generatedAt": "2026-11-20T23:22:07.375Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -12,14 +12,14 @@
   "currencies": {
     "USD": {
       "verified": true,
-      "asOf": "2026-11-19",
+      "asOf": "2026-11-20",
       "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
       "kind": "sovereign_par_yield",
       "frequency": "daily",
       "provider": "US Treasury par yield",
       "yields": {
-        "2Y": 4.76,
-        "10Y": 5.04
+        "2Y": 4.63,
+        "10Y": 4.92
       },
       "history": [
         {
@@ -1131,6 +1131,11 @@
           "date": "2026-11-19",
           "2Y": 4.76,
           "10Y": 5.04
+        },
+        {
+          "date": "2026-11-20",
+          "2Y": 4.63,
+          "10Y": 4.92
         }
       ]
     },
@@ -7610,11 +7615,11 @@
       "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
       "kind": "sovereign_par_yield",
       "frequency": "daily",
-      "latestObservation": "2026-11-19",
-      "historyPoints": 222,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "latestObservation": "2026-11-20",
+      "historyPoints": 223,
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 0
     },
     "EUR": {
       "status": "current",
@@ -7623,7 +7628,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-19",
       "historyPoints": 400,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7634,7 +7639,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-19",
       "historyPoints": 36,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7645,7 +7650,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-19",
       "historyPoints": 34,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7656,7 +7661,7 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-18",
       "historyPoints": 400,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": null,
       "observationAgeDays": 2
     },
@@ -7667,7 +7672,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -7678,7 +7683,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-19",
       "historyPoints": 400,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7689,7 +7694,7 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-20T14:23:39.953Z",
+      "checkedAt": "2026-11-20T23:22:07.375Z",
       "error": null,
       "observationAgeDays": 507
     }

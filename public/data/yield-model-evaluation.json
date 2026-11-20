@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-20T14:24:00.065Z",
+  "generatedAt": "2026-11-20T23:22:27.476Z",
   "purpose": "Independent research validation only; not used by policy divergence engine",
   "horizonDays": 90,
   "minimumIndependentOutcomes": 30,
@@ -21,9 +21,9 @@
   "coverage": {
     "USD": {
       "sourceStatus": "current",
-      "historyPoints": 222,
+      "historyPoints": 223,
       "earliestObservation": "2026-01-02",
-      "latestObservation": "2026-11-19",
+      "latestObservation": "2026-11-20",
       "recordedPolicyDecisions": 1,
       "outcomesWithAtLeast90DaysElapsed": 0
     },
