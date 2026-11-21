@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T13:43:54.966Z",
+  "generatedAt": "2026-11-21T22:26:40.552Z",
   "purpose": "Independent research validation only; not used by policy divergence engine",
   "horizonDays": 90,
   "minimumIndependentOutcomes": 30,
