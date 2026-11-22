@@ -2,7 +2,7 @@
 /** Source-grounded answer snippets shared by all 28 pair pages. */
 import {displayRate,displayBenchmark} from "../lib/trade90-rate-display.js";
 import {getNextPolicyDecisions} from "../data/trade90-decision-calendar.js";
-const { pair, snapshotDate } = Astro.props;
+const { pair, snapshotDate, latestMove } = Astro.props;
 const day=s=>new Date(s+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"});
 const rateAnswer=bank=>`The ${bank.name} (${bank.short}) ${displayBenchmark(bank).toLowerCase()} is ${displayRate(bank)}, effective ${day(bank.effectiveDate)}. The latest verified decision was "${bank.decision}" on ${day(bank.decisionDate)}.`;
 const upcoming=getNextPolicyDecisions(pair).filter(e=>e.date);
@@ -12,6 +12,7 @@ const quoteHigher = pair.signedBp < 0;
 const status = baseHigher ? pair.base : quoteHigher ? pair.quote : "neither currency";
 const signed = (pair.signedBp > 0 ? "+" : "") + pair.signedBp;
 const questions = [
+  ...(latestMove ? [{q:`How did the latest central bank decision change the ${pair.label} interest rate gap?`,a:latestMove}] : []),
   {q:`What is the current ${pair.baseBank.short} interest rate?`,a:rateAnswer(pair.baseBank)},
   {q:`What is the current ${pair.quoteBank.short} interest rate?`,a:rateAnswer(pair.quoteBank)},
   {q:`When are the next ${pair.baseBank.short} and ${pair.quoteBank.short} interest rate decisions?`,a:nextAnswer},
