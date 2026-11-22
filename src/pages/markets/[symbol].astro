@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import UsRateContext from "../../components/Trade90UsRateContext.astro";
+import FtmoAffiliate from "../../components/Trade90FtmoAffiliate.astro";
+import { markets } from "../../data/trade90-markets.js";
+import { lessons } from "../../data/v2-lessons.js";
+import { loadUsContext } from "../../lib/trade90-us-data.js";
+import { usDate, usShortDate } from "../../lib/trade90-us-context.js";
+import { allTrade90Pairs, pairUrl } from "../../lib/trade90-v3.js";
+export function getStaticPaths() { return markets.map(m => ({ params: { symbol: m.slug }, props: { m } })); }
+const { m } = Astro.props;
+const ctx = loadUsContext();
+const next = ctx.upcoming[0] || null;
+const path = "/markets/" + m.slug + "/", url = "https://tradeninety.com" + path;
+const asOf = [ctx.fed.effectiveDate, ctx.yieldsAsOf, ctx.lastDecision?.decisionDate].filter(Boolean).sort().pop();
+const answer = m.lead + " The Fed funds target range is " + ctx.fedRange + (ctx.y10 !== null ? " and the 10-year Treasury yield is " + ctx.y10.toFixed(2) + "% (" + usShortDate(ctx.yieldsAsOf) + ")" : "") + "." + (next ? " The next Fed decision is " + usDate(next.date) + " at 2:00 p.m. " + next.zone + "." : "");
+const description = m.symbol + " and Fed rates: Fed funds " + ctx.fedRange + (ctx.y10 !== null ? ", 10-year yield " + ctx.y10.toFixed(2) + "%" : "") + (next ? ", next Fed decision " + usShortDate(next.date) : "") + ". How interest rates move " + (m.slug === "xauusd" ? "gold" : "the " + m.name) + ".";
+const nextFaq = next ? [["When is the next Fed decision that could move " + m.symbol + "?", "The next FOMC rate decision is " + usDate(next.date) + ", with the statement at 2:00 p.m. " + next.zone + " (" + next.statementUtcText + ") and the press conference at 2:30 p.m. " + next.zone + "."]] : [];
+const faq = [...m.faq, ...nextFaq];
+const guides = m.relatedLearn.map(slug => lessons.find(l => l.slug === slug)).filter(Boolean);
+const pairs = m.relatedPairs.map(s => allTrade90Pairs.find(p => pairUrl(p.symbol) === "/pairs/" + s + "/")).filter(Boolean);
+const others = (await import("../../data/trade90-markets.js")).markets.filter(x => x.slug !== m.slug);
+const PID = "https://tradeninety.com/about/#charitha-amarasinghe";
+const schemas = [
+  { "@context": "https://schema.org", "@type": "Article", "@id": url + "#article", headline: m.title, description: answer, dateModified: asOf, mainEntityOfPage: url, author: { "@type": "Person", "@id": PID, name: "Charitha Amarasinghe", url: PID }, publisher: { "@id": "https://tradeninety.com/#publisher" }, about: m.longName },
+  { "@context": "https://schema.org", "@type": "FAQPage", "@id": url + "#faq", mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://tradeninety.com/" }, { "@type": "ListItem", position: 2, name: "Markets", item: "https://tradeninety.com/markets/" }, { "@type": "ListItem", position: 3, name: m.symbol, item: url }] }
+];
+---
+<Layout title={m.title} description={description.length > 158 ? description.slice(0, 155).replace(/\s+\S*$/, "") + "…" : description} canonical={path}>
+{schemas.map(s => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+<main class="wrap mkt">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/markets/">Markets</a> › <span>{m.symbol}</span></nav>
+  <header class="page-intro">
+    <div class="eyebrow">{m.symbol} · {m.name} · Fed rate research</div>
+    <h1>{m.h1}</h1>
+    <p class="direct-answer">{answer}</p>
+    <p class="byline">By <a href="/about/#publisher" rel="author">Charitha Amarasinghe</a>, TRADE90 · Data updated <time datetime={asOf}>{usDate(asOf)}</time> · Research, not trading advice</p>
+  </header>
+  <section class="section article-section"><h2>What is {m.symbol}?</h2><p>{m.whatIs}</p></section>
+  <UsRateContext ctx={ctx} heading={"US rates that matter for " + m.symbol + " today"} />
+  <section class="section article-section"><h2>How Fed interest rates affect {m.symbol}</h2>
+    {m.mechanisms.map(([h, p]) => <><h3>{h}</h3><p>{p}</p></>)}
+    <h3>When the relationship breaks down</h3><p>{m.caveat}</p>
+  </section>
+  <section class="section article-section"><h2>What to watch on Fed decision day</h2>
+    <ul>{m.fedDay.map(x => <li>{x}</li>)}</ul>
+    {next && <p>Next decision: <strong>{usDate(next.date)}</strong>, statement at 2:00 p.m. {next.zone} ({next.statementUtcText}), press conference at 2:30 p.m. {next.zone}. <a href="/next-fed-meeting/">Full FOMC schedule →</a></p>}
+    <p>Broker contracts on {m.name} can trade with wider spreads and price gaps around 2:00 p.m. ET, and their prices can differ slightly from the underlying {m.slug === "xauusd" ? "spot gold price" : "cash index"}. Check your broker's trading hours and contract specification.</p>
+  </section>
+  <section class="section article-section" id="faq"><h2>{m.symbol} and interest rate questions</h2>{faq.map(([q, a]) => <div class="mkt-qa"><h3>{q}</h3><p>{a}</p></div>)}</section>
+  <FtmoAffiliate/>
+  <section class="section article-section"><h2>Keep researching</h2>
+    <p>Other markets: {others.map((o, i) => <>{i > 0 && " · "}<a href={"/markets/" + o.slug + "/"}>{o.symbol} ({o.name})</a></>)}</p>
+    <p>Related currency pairs: {pairs.map((p, i) => <>{i > 0 && " · "}<a href={pairUrl(p.symbol)}>{p.label}</a></>)}</p>
+    <ul>{guides.map(g => <li><a href={"/learn/" + g.slug + "/"}>{g.title}</a></li>)}<li><a href="/central-banks/fed/">Fed interest rate today</a></li><li><a href="/weekly/">Weekly central bank digest</a></li></ul>
+  </section>
+</main>
+</Layout>
+<style>.mkt{padding-bottom:34px}.mkt .section{margin-top:28px}.mkt .section h2{font-size:1.3rem;margin-bottom:8px}.crumbs{font-size:.75rem;padding-top:18px}.byline{font-size:.8rem}.mkt-qa{border-top:1px solid var(--read-line,#334155);padding:10px 0}.mkt-qa h3{font-size:.98rem;margin:6px 0}.mkt h3{font-size:1.02rem;margin:14px 0 4px}</style>

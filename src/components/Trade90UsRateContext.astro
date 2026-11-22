@@ -1,0 +1,27 @@
+---
+// Dated US rate inputs: Fed range, next FOMC, Treasury yields, CPI and approximate real rates.
+import { usDate, usShortDate, signedPct } from "../lib/trade90-us-context.js";
+const { ctx, heading = "US interest-rate inputs today" } = Astro.props;
+const next = ctx.upcoming[0];
+const monthLabel = iso => { const d = new Date(iso + "T12:00:00Z"); return d.toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" }); };
+const q = iso => { const d = new Date(iso + "T12:00:00Z"); return d.getUTCFullYear() + " Q" + (Math.floor(d.getUTCMonth() / 3) + 1); };
+---
+<section class="section article-section usctx" aria-labelledby="usctx-h">
+  <h2 id="usctx-h">{heading}</h2>
+  <div class="usctx-wrap"><table><tbody>
+    <tr><th scope="row">Fed funds target range</th><td><strong>{ctx.fedRange}</strong></td><td>{ctx.lastDecision ? "Set at the " + usShortDate(ctx.lastDecision.decisionDate) + " meeting" : "Effective " + usShortDate(ctx.fed.effectiveDate)} · <a href="/central-banks/fed/">Fed page</a></td></tr>
+    {ctx.lastDecision && <tr><th scope="row">Last Fed decision</th><td>{ctx.lastDecision.decision}</td><td><a href={"/decisions/" + ctx.lastDecision.id + "/"}>{usShortDate(ctx.lastDecision.decisionDate)}</a></td></tr>}
+    {next && <tr><th scope="row">Next Fed decision</th><td><strong>{usShortDate(next.date)}</strong></td><td>2:00 p.m. {next.zone} ({next.statementUtcText}) · <a href="/next-fed-meeting/">Schedule</a></td></tr>}
+    {ctx.y2 !== null && <tr><th scope="row">2-year Treasury yield</th><td>{ctx.y2.toFixed(2)}%</td><td>{usShortDate(ctx.yieldsAsOf)} · US Treasury</td></tr>}
+    {ctx.y10 !== null && <tr><th scope="row">10-year Treasury yield</th><td>{ctx.y10.toFixed(2)}%</td><td>{usShortDate(ctx.yieldsAsOf)} · US Treasury</td></tr>}
+    {ctx.cpi && <tr><th scope="row">CPI inflation (year on year)</th><td>{ctx.cpi.value.toFixed(2)}%</td><td>{monthLabel(ctx.cpi.date)} · BLS via FRED</td></tr>}
+    {ctx.realFed !== null && <tr><th scope="row">Approx. real Fed rate</th><td>{signedPct(ctx.realFed)}</td><td>Fed midpoint minus CPI</td></tr>}
+    {ctx.real10 !== null && <tr><th scope="row">Approx. real 10-year yield</th><td>{signedPct(ctx.real10)}</td><td>10-year yield minus CPI</td></tr>}
+    {ctx.unemployment && <tr><th scope="row">Unemployment rate</th><td>{ctx.unemployment.value.toFixed(1)}%</td><td>{monthLabel(ctx.unemployment.date)}</td></tr>}
+  </tbody></table></div>
+  {ctx.twoYearMinusFedBp !== null && <p>The 2-year Treasury yield is <strong>{Math.abs(ctx.twoYearMinusFedBp)} bp {ctx.twoYearMinusFedBp >= 0 ? "above" : "below"}</strong> the midpoint of the Fed's range. Two-year yields reflect where investors expect policy rates to average over the next two years, plus a term premium, so a yield {ctx.twoYearMinusFedBp >= 0 ? "above" : "below"} the policy rate is consistent with markets pricing {ctx.twoYearMinusFedBp >= 0 ? "higher" : "lower"} rates ahead. It is not a forecast.</p>}
+  <p class="usctx-note">“Real” rates here are approximate and backward-looking: the nominal rate minus the latest year-on-year CPI. They are not inflation-protected (TIPS) yields. TRADE90 does not show live prices.</p>
+</section>
+<style>
+.usctx-wrap{overflow-x:auto;border:1px solid var(--read-line,#334155);border-radius:10px;margin:10px 0}.usctx table{width:100%;border-collapse:collapse;font-size:.84rem}.usctx th,.usctx td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--read-line,#334155);color:var(--read-body,#cbd5e1);vertical-align:top}.usctx th{font-weight:650;color:var(--read-ink,#f8fafc)}.usctx tbody tr:last-child th,.usctx tbody tr:last-child td{border-bottom:0}.usctx-note{font-size:.78rem;color:var(--read-muted,#94a3b8)}
+</style>

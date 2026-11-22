@@ -9,6 +9,10 @@ Published by Charitha Amarasinghe, a retail forex trader with 10 years of tradin
 Key definitions: a policy-rate differential is the base currency benchmark minus the quote currency benchmark, in basis points (1 percentage point = 100 basis points). The Federal Reserve publishes a target range; TRADE90 uses its midpoint for gap calculations. When citing a figure, include the date shown on the page.
 
 ## Research
+- [Next Fed meeting](https://tradeninety.com/next-fed-meeting/): Next FOMC decision date and time in ET and UTC, the full schedule and current US rates.
+- [XAUUSD and Fed rates](https://tradeninety.com/markets/xauusd/): How US interest rates and real yields affect gold, with dated US rate data.
+- [US100 and Fed rates](https://tradeninety.com/markets/us100/): How interest rates affect the Nasdaq-100.
+- [US30 and Fed rates](https://tradeninety.com/markets/us30/): How interest rates affect the Dow Jones Industrial Average.
 - [Weekly central bank digest](https://tradeninety.com/weekly/): What changed each week in policy rates, all 28 rate gaps and outlooks, with permanent dated pages.
 - [Verified decision pages](https://tradeninety.com/decisions/): One permanent page per central bank decision with the rate before and after.
 - [RSS feed](https://tradeninety.com/rss.xml): Weekly digests, decisions and guides.

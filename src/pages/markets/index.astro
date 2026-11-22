@@ -1,0 +1,16 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import { markets } from "../../data/trade90-markets.js";
+import { loadUsContext } from "../../lib/trade90-us-data.js";
+import { usShortDate } from "../../lib/trade90-us-context.js";
+const ctx = loadUsContext(); const next = ctx.upcoming[0];
+---
+<Layout title="Gold, Nasdaq 100 & Dow: Fed Interest Rate Research" description={"How Fed interest rates move XAUUSD, US100 and US30. Fed funds " + ctx.fedRange + (next ? ", next Fed decision " + usShortDate(next.date) : "") + "."} canonical="/markets/">
+<main class="wrap mkt">
+  <header class="page-intro"><div class="eyebrow">Markets · Fed rate research</div><h1>How Fed interest rates move gold and US stock indices</h1>
+  <p class="direct-answer">The Fed funds target range is {ctx.fedRange}.{next && <> The next Fed decision is {usShortDate(next.date)} at 2:00 p.m. {next.zone}.</>} These pages explain how that rate, Treasury yields and inflation feed into three markets US traders follow closely.</p></header>
+  <section class="section article-section"><ul class="mkt-list">{markets.map(m => <li><a href={"/markets/" + m.slug + "/"}><strong>{m.symbol} · {m.name}</strong></a><span>{m.lead}</span></li>)}</ul>
+  <p><a href="/next-fed-meeting/">Next Fed meeting and FOMC schedule →</a></p></section>
+</main>
+</Layout>
+<style>.mkt{padding-bottom:34px}.mkt-list{list-style:none;padding:0;display:grid;gap:10px}.mkt-list li{border:1px solid var(--read-line,#334155);border-radius:10px;padding:14px}.mkt-list a{display:block;font-size:1.05rem}.mkt-list span{font-size:.86rem}</style>

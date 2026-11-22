@@ -27,6 +27,16 @@ export const officialDecisionSources = {
 export const officialPolicyDecisionCalendar = [
   {currency:"USD",date:"2026-10-28",startDate:"2026-10-27",title:"FOMC policy decision"},
   {currency:"USD",date:"2026-12-09",startDate:"2026-12-08",title:"FOMC policy decision and projections"},
+  // 2027 schedule as revised by the Fed on 12 Nov 2026 (federalreserve.gov/newsevents/pressreleases/monetary20261112a.htm).
+  // The 26-27 Oct 2027 meeting is strategy-only with no policy decision, so it is not listed.
+  {currency:"USD",date:"2027-01-27",startDate:"2027-01-26",title:"FOMC policy decision"},
+  {currency:"USD",date:"2027-03-17",startDate:"2027-03-16",title:"FOMC policy decision"},
+  {currency:"USD",date:"2027-04-28",startDate:"2027-04-27",title:"FOMC policy decision"},
+  {currency:"USD",date:"2027-06-09",startDate:"2027-06-08",title:"FOMC policy decision"},
+  {currency:"USD",date:"2027-07-28",startDate:"2027-07-27",title:"FOMC policy decision"},
+  {currency:"USD",date:"2027-09-15",startDate:"2027-09-14",title:"FOMC policy decision"},
+  {currency:"USD",date:"2027-11-17",startDate:"2027-11-16",title:"FOMC policy decision"},
+  {currency:"USD",date:"2028-01-26",startDate:"2028-01-25",title:"FOMC policy decision"},
   {currency:"EUR",date:"2026-10-29",title:"Governing Council monetary policy decision"},
   {currency:"EUR",date:"2026-12-17",title:"Governing Council monetary policy decision"},
   {currency:"GBP",date:"2026-11-05",title:"MPC rate decision and Monetary Policy Report"},

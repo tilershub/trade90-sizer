@@ -137,6 +137,7 @@ jobs:
         run: |
           node tests/trade90-sitemap.mjs
           node tests/learning-seo.mjs
+          node tests/fed-and-markets.mjs
           node tests/weekly-digest.mjs
           node tests/content-pages-build.mjs
           node tests/social-posting.mjs

@@ -27,7 +27,8 @@ for (const d of archive) {
   const article = found.find(s => s['@type'] === 'Article');
   assert.equal(article.datePublished, d.decisionDate); assert.deepEqual(article.citation, [d.source]);
   const faq = found.find(s => s['@type'] === 'FAQPage');
-  assert.equal(faq.mainEntity.length, 4);
+  assert.equal(faq.mainEntity.length, 5);
+  assert.match(faq.mainEntity[0].name, /^Did the .+ (raise|cut) interest rates on .+\?$/, "Decision-day yes/no question comes first");
   for (const q of faq.mainEntity) assert.ok(html.includes('<h3>' + q.name + '</h3>') || html.includes(q.name), d.id + ' FAQ schema matches visible question');
   assert.ok(found.some(s => s['@type'] === 'BreadcrumbList'));
   assert.ok(sitemap.includes('https://tradeninety.com/decisions/' + d.id + '/'), 'Decision page missing from sitemap: ' + d.id);

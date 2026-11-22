@@ -18,7 +18,12 @@ const benchmark=(d.code==="USD"?"federal funds target range":d.benchmark.charAt(
 const rate=archiveRateText(d), before=archiveRateText(d,d.previousRatePct), verb=decisionVerb(d), size=d.changeBp===null?null:Math.abs(d.changeBp);
 const when=longDate(d.decisionDate), effective=longDate(d.effectiveDate);
 const headlineTail={held:"Rate Held at "+rate,raised:"Rate Raised to "+rate,cut:"Rate Cut to "+rate,adjusted:"Rate Set at "+rate}[verb];
-const title=d.short+" Interest Rate Decision, "+when+": "+headlineTail;
+const shortWhen=(()=>{const x=new Date(d.decisionDate+"T12:00:00Z");return x.getUTCDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][x.getUTCMonth()]+" "+x.getUTCFullYear();})();
+const title=d.short+" Rate Decision "+shortWhen+": "+headlineTail.replace(/^Rate /,"");
+// The yes/no question people search on decision day ("did the Fed raise rates?").
+const raised=verb==="raised", cut=verb==="cut";
+const didQ="Did the "+d.short+" "+(cut?"cut":"raise")+" interest rates on "+when+"?";
+const didA=(verb==="adjusted"?"The "+d.short+" set its "+benchmark+" at "+rate+" on "+when+".":(raised||cut?"Yes. ":"No. ")+"The "+d.bank+" "+(raised?"raised":cut?"cut":"held")+" its "+benchmark+(raised||cut?" by "+size+" basis points to ":" at ")+rate+" on "+when+".");
 const answer="On "+when+" the "+d.bank+" ("+d.short+") "+(
   verb==="held"?"held its "+benchmark+" at "+rate+".":
   verb==="adjusted"?"set its "+benchmark+" at "+rate+". TRADE90 has not verified the size of the change from the previous level.":
@@ -31,6 +36,7 @@ const gapAnswer=d.changeBp===null?"TRADE90 has not verified the size of this cha
  :d.changeBp===0?"A hold leaves the "+d.code+" benchmark unchanged, so this decision did not by itself change the policy-rate gap on any "+d.code+" pair."
  :"A "+size+" basis point "+(d.changeBp>0?"increase":"reduction")+" in the "+d.code+" benchmark "+(d.changeBp>0?"raises":"lowers")+" the policy-rate gap by "+size+" bp on pairs where "+d.code+" is the base currency and "+(d.changeBp>0?"lowers":"raises")+" it by "+size+" bp where "+d.code+" is the quote currency, assuming the other benchmark is unchanged.";
 const faq=[
+ {q:didQ,a:didA},
  {q:"What did the "+d.short+" decide on "+when+"?",a:answer},
  {q:"What is the "+d.short+" interest rate after the "+when+" decision?",a:"After the decision the "+d.bank+" "+benchmark+" was "+rate+", effective "+effective+"."+(newer?" A later "+d.short+" decision on "+longDate(newer.decisionDate)+" has since been recorded.":"")},
  {q:"How did the "+d.short+" decision affect "+d.code+" interest rate gaps?",a:gapAnswer},
