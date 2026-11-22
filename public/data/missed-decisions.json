@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "meaning": "Scheduled central-bank decisions whose announcement date has passed but which TRADE90 has not yet recorded.",
+  "missed": [],
+  "changedAt": "2026-11-22T10:49:55.789Z"
+}
