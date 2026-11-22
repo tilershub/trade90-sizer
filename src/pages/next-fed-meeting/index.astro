@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Trade90V2Layout.astro";
+import UsRateContext from "../../components/Trade90UsRateContext.astro";
+import { loadUsContext } from "../../lib/trade90-us-data.js";
+import { usDate, usShortDate } from "../../lib/trade90-us-context.js";
+const ctx = loadUsContext();
+const next = ctx.upcoming[0] || null;
+const later = ctx.upcoming.slice(1, 9);
+const last = ctx.lastDecision;
+const url = "https://tradeninety.com/next-fed-meeting/";
+const title = next ? "Next Fed Meeting: " + usShortDate(next.date) + " at 2:00 PM " + next.zone : "Next Fed Meeting: FOMC Schedule and Times";
+const lastText = last ? (last.changeBp === 0 ? "held rates at " + ctx.fedRange : last.changeBp > 0 ? "raised rates by " + last.changeBp + " bp to " + ctx.fedRange : last.changeBp < 0 ? "cut rates by " + Math.abs(last.changeBp) + " bp to " + ctx.fedRange : "set the range at " + ctx.fedRange) + " on " + usDate(last.decisionDate) : null;
+const answer = next
+  ? "The next Federal Reserve (FOMC) meeting is " + (next.startDate ? usDate(next.startDate).replace(/^(\w+ \d+), (\d{4})$/, "$1–" + new Date(next.date + "T12:00:00Z").getUTCDate() + ", $2") : usDate(next.date)) + ". The rate decision is announced on " + usDate(next.date) + " at 2:00 p.m. " + next.zone + " (" + next.statementUtcText + "), followed by the Chair's press conference at 2:30 p.m. " + next.zone + "." + (next.projections ? " This meeting includes new economic projections (the dot plot)." : "")
+  : "No upcoming FOMC meeting is listed in the TRADE90 calendar. Check the Federal Reserve's official calendar.";
+const description = (next ? "Next Fed meeting: " + usShortDate(next.date) + ", decision at 2:00 PM " + next.zone + " (" + next.statementUtcText + "). " : "") + "Fed funds rate now " + ctx.fedRange + ". Full 2027 FOMC schedule with times.";
+const faq = [
+  { q: "When is the next Fed meeting?", a: answer },
+  { q: "What time does the Fed announce its rate decision?", a: "The FOMC releases its policy statement at 2:00 p.m. Eastern Time on the second day of each meeting, and the Chair's press conference begins at 2:30 p.m. Eastern Time. That is 18:00 UTC when US daylight saving time is in effect and 19:00 UTC in winter." },
+  { q: "What is the Fed interest rate right now?", a: "The federal funds target range is " + ctx.fedRange + (lastText ? ". At its last meeting the Fed " + lastText + "." : ".") },
+  { q: "How many times does the Fed meet in 2027?", a: "The Fed's revised schedule, published on November 12, 2026, lists eight FOMC meetings in 2027. Seven end with a policy decision; the October 26–27 meeting is reserved for discussion of longer-term strategy, with no rate decision. The last decision of 2027 is scheduled for November 17." },
+  { q: "Will the Fed raise or cut rates at the next meeting?", a: "TRADE90 does not forecast Fed decisions. Market pricing, such as futures-implied probabilities, shows what investors expect; the 2-year Treasury yield is one public indicator" + (ctx.twoYearMinusFedBp !== null ? ", and it is currently " + Math.abs(ctx.twoYearMinusFedBp) + " bp " + (ctx.twoYearMinusFedBp >= 0 ? "above" : "below") + " the midpoint of the Fed's range" : "") + "." }
+];
+const PID = "https://tradeninety.com/about/#charitha-amarasinghe";
+const schemas = [
+  { "@context": "https://schema.org", "@type": "FAQPage", "@id": url + "#faq", mainEntity: faq.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://tradeninety.com/" }, { "@type": "ListItem", position: 2, name: "Next Fed meeting", item: url }] },
+  ...ctx.upcoming.slice(0, 8).map(m => ({ "@context": "https://schema.org", "@type": "Event", name: "FOMC monetary policy decision", startDate: m.statementUtc, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode", location: { "@type": "VirtualLocation", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" }, organizer: { "@type": "Organization", name: "Federal Reserve", url: "https://www.federalreserve.gov/" }, description: m.title + ". Statement at 2:00 p.m. ET; press conference at 2:30 p.m. ET." }))
+];
+---
+<Layout title={title} description={description} canonical="/next-fed-meeting/">
+{schemas.map(s => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+<main class="wrap fedmeet">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/central-banks/fed/">Fed</a> › <span>Next Fed meeting</span></nav>
+  <header class="page-intro">
+    <div class="eyebrow">Federal Reserve · FOMC schedule</div>
+    <h1>When is the next Fed meeting?</h1>
+    <p class="direct-answer">{answer}</p>
+    <p class="byline">Fed funds rate now: <strong>{ctx.fedRange}</strong>{last && <> · Last decision: <a href={"/decisions/" + last.id + "/"}>{usShortDate(last.decisionDate)}</a></>} · By <a href="/about/#publisher" rel="author">Charitha Amarasinghe</a>, TRADE90</p>
+  </header>
+  {next && <section class="section article-section fm-next"><h2>Next decision: {usDate(next.date)}</h2>
+    <div class="fm-times">
+      <div><span>Statement</span><strong>2:00 p.m. {next.zone}</strong><em>{next.statementUtcText}</em></div>
+      <div><span>Press conference</span><strong>2:30 p.m. {next.zone}</strong><em>{next.pressUtcText}</em></div>
+      <div><span>Projections (dot plot)</span><strong>{next.projections ? "Yes" : "Not listed"}</strong><em>{next.projections ? "Summary of Economic Projections" : "Statement and press conference"}</em></div>
+    </div>
+    <p>Times are the Fed's standard schedule. The meeting runs {next.startDate ? usDate(next.startDate) + " to " + usDate(next.date) : usDate(next.date)}; the decision comes on the second day. Confirm on the <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener noreferrer">Federal Reserve calendar ↗</a>.</p>
+  </section>}
+  {later.length > 0 && <section class="section article-section"><h2>Upcoming FOMC rate decisions</h2>
+    <div class="fm-wrap"><table><thead><tr><th scope="col">Decision date</th><th scope="col">Meeting</th><th scope="col">Statement (ET)</th><th scope="col">UTC</th></tr></thead>
+    <tbody>{ctx.upcoming.slice(0, 9).map(m => <tr><td><strong>{usShortDate(m.date)}</strong></td><td>{m.startDate ? usShortDate(m.startDate).replace(/, \d{4}$/, "") + "–" + new Date(m.date + "T12:00:00Z").getUTCDate() : "—"}</td><td>2:00 p.m. {m.zone}</td><td>{m.statementUtcText}</td></tr>)}</tbody></table></div>
+    <p class="fm-note">2027 dates follow the Fed's revised schedule of November 12, 2026. The October 26–27, 2027 meeting is strategy-only and has no rate decision, so it is not listed. Dates are tentative until confirmed at the preceding meeting.</p>
+  </section>}
+  <UsRateContext ctx={ctx} heading="Where US rates stand going into the meeting" />
+  <section class="section article-section"><h2>What moves markets on Fed day</h2>
+    <p>Markets react to the difference between what the Fed does and what was expected. A fully expected decision can leave the dollar, gold and stock indices little changed, while a change in the statement's guidance or in the projections can move them sharply. Read the statement against the previous one, then the projections if published, then the press conference.</p>
+    <p>Spreads widen and prices can jump in the minutes around 2:00 p.m. ET. See <a href="/learn/how-to-prepare-for-central-bank-rate-decisions/">how to prepare for a rate decision</a> and <a href="/learn/hawkish-vs-dovish-central-banks/">how to read hawkish and dovish language</a>.</p>
+    <p>How the Fed affects specific markets: <a href="/markets/xauusd/">gold (XAUUSD)</a> · <a href="/markets/us100/">Nasdaq 100 (US100)</a> · <a href="/markets/us30/">Dow Jones (US30)</a> · <a href="/pairs/eur-usd/">EUR/USD</a> · <a href="/pairs/usd-jpy/">USD/JPY</a> · <a href="/pairs/gbp-usd/">GBP/USD</a></p>
+  </section>
+  <section class="section article-section" id="faq"><h2>Fed meeting questions</h2>{faq.map(({ q, a }) => <div class="fm-qa"><h3>{q}</h3><p>{a}</p></div>)}</section>
+</main>
+</Layout>
+<style>
+.fedmeet{padding-bottom:34px}.fedmeet .section{margin-top:28px}.fedmeet .section h2{font-size:1.3rem;margin-bottom:8px}.crumbs{font-size:.75rem;padding-top:18px}.byline{font-size:.82rem}
+.fm-times{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.fm-times div{border:1px solid var(--read-line,#334155);border-radius:10px;padding:12px}.fm-times span{display:block;font-size:.72rem;color:var(--read-muted,#94a3b8);text-transform:uppercase;letter-spacing:.05em}.fm-times strong{display:block;font-size:1.15rem;color:var(--read-ink,#f8fafc)}.fm-times em{font-style:normal;font-size:.8rem;color:var(--read-muted,#94a3b8)}
+.fm-wrap{overflow-x:auto;border:1px solid var(--read-line,#334155);border-radius:10px;margin:10px 0}.fm-wrap table{width:100%;border-collapse:collapse;font-size:.84rem}.fm-wrap th,.fm-wrap td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--read-line,#334155);color:var(--read-body,#cbd5e1)}.fm-wrap thead th{background:var(--read-soft,#17263a);color:var(--read-ink,#f8fafc);font-size:.72rem}.fm-wrap tbody tr:last-child td{border-bottom:0}.fm-note{font-size:.78rem;color:var(--read-muted,#94a3b8)}
+.fm-qa{border-top:1px solid var(--read-line,#334155);padding:10px 0}.fm-qa h3{font-size:.98rem;margin:6px 0}
+@media(max-width:640px){.fm-times{grid-template-columns:1fr}}
+</style>
