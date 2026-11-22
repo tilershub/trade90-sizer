@@ -1,69 +1,69 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-11-22T13:37:21.195Z",
-  "completedAt": "2026-11-22T13:37:53.825Z",
+  "startedAt": "2026-11-22T22:48:26.197Z",
+  "completedAt": "2026-11-22T22:48:57.486Z",
   "status": "completed",
   "steps": [
     {
       "name": "macro",
-      "startedAt": "2026-11-22T13:37:21.195Z",
-      "finishedAt": "2026-11-22T13:37:26.670Z",
+      "startedAt": "2026-11-22T22:48:26.198Z",
+      "finishedAt": "2026-11-22T22:48:31.580Z",
       "success": true,
       "error": null
     },
     {
       "name": "policyInputs",
-      "startedAt": "2026-11-22T13:37:26.670Z",
-      "finishedAt": "2026-11-22T13:37:28.024Z",
+      "startedAt": "2026-11-22T22:48:31.580Z",
+      "finishedAt": "2026-11-22T22:48:32.972Z",
       "success": true,
       "error": null
     },
     {
       "name": "officialSources",
-      "startedAt": "2026-11-22T13:37:28.024Z",
-      "finishedAt": "2026-11-22T13:37:31.651Z",
+      "startedAt": "2026-11-22T22:48:32.972Z",
+      "finishedAt": "2026-11-22T22:48:36.580Z",
       "success": true,
       "error": null
     },
     {
       "name": "officialRates",
-      "startedAt": "2026-11-22T13:37:31.651Z",
-      "finishedAt": "2026-11-22T13:37:32.820Z",
+      "startedAt": "2026-11-22T22:48:36.580Z",
+      "finishedAt": "2026-11-22T22:48:38.125Z",
       "success": true,
       "error": null
     },
     {
       "name": "yields",
-      "startedAt": "2026-11-22T13:37:32.820Z",
-      "finishedAt": "2026-11-22T13:37:53.521Z",
+      "startedAt": "2026-11-22T22:48:38.125Z",
+      "finishedAt": "2026-11-22T22:48:57.184Z",
       "success": true,
       "error": null
     },
     {
       "name": "yieldEvaluation",
-      "startedAt": "2026-11-22T13:37:53.521Z",
-      "finishedAt": "2026-11-22T13:37:53.570Z",
+      "startedAt": "2026-11-22T22:48:57.184Z",
+      "finishedAt": "2026-11-22T22:48:57.232Z",
       "success": true,
       "error": null
     },
     {
       "name": "decisionArchive",
-      "startedAt": "2026-11-22T13:37:53.570Z",
-      "finishedAt": "2026-11-22T13:37:53.613Z",
+      "startedAt": "2026-11-22T22:48:57.232Z",
+      "finishedAt": "2026-11-22T22:48:57.273Z",
       "success": true,
       "error": null
     },
     {
       "name": "model",
-      "startedAt": "2026-11-22T13:37:53.613Z",
-      "finishedAt": "2026-11-22T13:37:53.773Z",
+      "startedAt": "2026-11-22T22:48:57.273Z",
+      "finishedAt": "2026-11-22T22:48:57.430Z",
       "success": true,
       "error": null
     },
     {
       "name": "freshness",
-      "startedAt": "2026-11-22T13:37:53.773Z",
-      "finishedAt": "2026-11-22T13:37:53.825Z",
+      "startedAt": "2026-11-22T22:48:57.430Z",
+      "finishedAt": "2026-11-22T22:48:57.486Z",
       "success": true,
       "error": null
     }
