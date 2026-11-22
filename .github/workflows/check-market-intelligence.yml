@@ -141,6 +141,7 @@ jobs:
           node tests/content-pages-build.mjs
           node tests/social-posting.mjs
           node tests/missed-decisions.mjs
+          node tests/pair-seo.mjs
       - name: Desktop and mobile interaction checks
         run: |
           npm install --no-save playwright@1.56.1
