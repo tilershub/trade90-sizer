@@ -20,5 +20,60 @@
     "officialSource": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
     "publishedBy": "trade90-autonomous-verified-policy-publisher",
     "recordedAt": "2026-10-29T12:48:17.066Z"
+  },
+  {
+    "code": "AUD",
+    "previousRatePct": 4.6,
+    "ratePct": 4.85,
+    "benchmark": "Cash rate target",
+    "decisionDate": "2026-11-03",
+    "effectiveDate": "2026-11-04",
+    "officialSource": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
+    "publishedBy": "trade90-verified-correction (missed by the automatic parser)",
+    "recordedAt": "2026-11-22T11:00:00.000Z"
+  },
+  {
+    "code": "GBP",
+    "previousRatePct": 3.75,
+    "ratePct": 4,
+    "benchmark": "Bank Rate",
+    "decisionDate": "2026-11-05",
+    "effectiveDate": "2026-11-05",
+    "officialSource": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
+    "publishedBy": "trade90-verified-correction (missed by the automatic parser)",
+    "recordedAt": "2026-11-22T11:00:00.000Z"
+  },
+  {
+    "code": "NZD",
+    "previousRatePct": 2.75,
+    "ratePct": 2.75,
+    "benchmark": "Official Cash Rate",
+    "decisionDate": "2026-10-28",
+    "effectiveDate": "2026-09-02",
+    "officialSource": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
+    "publishedBy": "trade90-verified-correction (missed by the automatic parser)",
+    "recordedAt": "2026-11-22T11:00:00.000Z"
+  },
+  {
+    "code": "EUR",
+    "previousRatePct": 2.5,
+    "ratePct": 2.5,
+    "benchmark": "Deposit facility rate",
+    "decisionDate": "2026-10-29",
+    "effectiveDate": "2026-09-16",
+    "officialSource": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+    "publishedBy": "trade90-verified-correction (missed by the automatic parser)",
+    "recordedAt": "2026-11-22T11:00:00.000Z"
+  },
+  {
+    "code": "JPY",
+    "previousRatePct": 1.25,
+    "ratePct": 1.25,
+    "benchmark": "Complementary deposit facility interest rate",
+    "decisionDate": "2026-10-30",
+    "effectiveDate": "2026-09-24",
+    "officialSource": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k261030a.pdf",
+    "publishedBy": "trade90-verified-correction (missed by the automatic parser)",
+    "recordedAt": "2026-11-22T11:00:00.000Z"
   }
 ]

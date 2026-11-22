@@ -1,5 +1,11 @@
 ---
 import "../styles/trade90-reading.css";
+import policySnapshot from "../data/trade90-policy-snapshot.json";
+import { officialPolicyDecisionCalendar as decisionCalendar } from "../data/trade90-decision-calendar.js";
+import { findMissedDecisions, longDate as missedDate } from "../lib/trade90-missed-decisions.js";
+// Tell readers when a scheduled decision has passed but is not recorded yet, instead of
+// presenting an older rate as current. TRADE90_NOW pins the clock for tests.
+const missedDecisions = findMissedDecisions({ snapshot: policySnapshot, calendar: decisionCalendar, now: Number.isFinite(Date.parse(process.env.TRADE90_NOW || "")) ? Date.parse(process.env.TRADE90_NOW) : Date.now() });
 const {title="Central Bank Rate Divergence",description="Compare official central bank policy rates across 28 forex pairs. Explore current rate gaps, forward-rate data availability, policy changes, and pair details.",canonical="/",noindex=false} = Astro.props;
 const url = new URL(canonical,"https://tradeninety.com").toString();
 const structuredPage={"@context":"https://schema.org","@graph":[
@@ -100,6 +106,7 @@ const structuredPage={"@context":"https://schema.org","@graph":[
       </div>
     </div>
   </header>
+  {missedDecisions.length > 0 && <div class="missed-notice" role="status"><strong>Update pending:</strong> {missedDecisions.map((m,i)=><>{i>0&&"; "}the {m.bank} decision of {missedDate(m.meetingDate)}</>)} {missedDecisions.length===1?"is":"are"} not yet recorded here. Rates and gaps involving {missedDecisions.map(m=>m.code).join(", ")} may be out of date until verified. <a href="/decisions/">Official calendars →</a></div>}
   <slot />
   <footer class="footer">
     <div class="wrap footcontent">
@@ -336,6 +343,7 @@ html[data-theme="light"] .bankdirectory .banktiles a strong{color:#0f172a}
 html[data-theme="light"] .bankdirectory .banktiles a span{color:#475569}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.missed-notice{max-width:1180px;margin:10px auto 0;padding:11px 15px;border:1px solid #b45309;background:#2a1d0b;color:#fde68a;border-radius:10px;font-size:.84rem;line-height:1.55}.missed-notice a{color:#fde68a;text-decoration:underline}
 </style>
 
 <style>

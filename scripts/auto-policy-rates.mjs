@@ -49,33 +49,79 @@ export function parseOfficialDecision(item,code,html){
   // itself is NOT evidence of the implementation effective date.
   return {code,rate,decisionDate,effectiveDate:null,range,source:item.url,reason:"fed_effective_date_unverified"};
  }
+
+ // Effective-date phrases used by the banks. A hold never needs one: an unchanged
+ // rate keeps the effective date of the last change (resolved in resolveCandidate).
+ const effectivePhrase=()=>englishDate(t.match(/(?:with effect from|effective(?: from| on)?|applies from tomorrow,?)\s+(?:[A-Za-z]+,?\s+)?\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+ const RATE="(-?\\d{1,2}(?:\\.\\d{1,3})?)";
+ let hold=false;
  if(code==="EUR"){
   m=p.match(/ecb\.mp(\d{2})(\d{2})(\d{2})~/i);
   decisionDate=m&&dateParts(2000+(+m[1]),m[2],m[3]);
-  const r=t.match(/interest rates on the deposit facility[\s\S]{0,180}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*%/i);
-  rate=pct(r?.[1]);eff=englishDate(t.match(/with effect from\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+  // Hold: "...the deposit facility, the main refinancing operations and the marginal
+  // lending facility will remain unchanged at 2.50%, 2.65% and 2.90% respectively."
+  const held=t.match(new RegExp("interest rates on the deposit facility[\\s\\S]{0,200}?\\bremain unchanged at\\s+"+RATE+"\\s*%","i"));
+  if(held){hold=true;rate=pct(held[1]);}
+  else{
+   const r=t.match(/interest rates on the deposit facility[\s\S]{0,180}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*%/i);
+   rate=pct(r?.[1]);eff=englishDate(t.match(/with effect from\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+  }
  }
  if(code==="GBP"){
-  rate=pct(t.match(/(?:maintain|reduce|increase|hold|raise|set)\s+Bank Rate\s+(?:at|to)\s+(\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);
-  decisionDate=englishDate(t.match(/(?:Monetary Policy Committee meeting on|Monetary Policy Committee meeting ending on)\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
-  eff=decisionDate;
+  // Only the Committee's own vote counts; later sentences describe dissenting members.
+  // e.g. "the Monetary Policy Committee (MPC) voted by a majority of 8–1 to increase
+  // Bank Rate by 0.25 percentage points, to 4%." / "...voted unanimously to maintain Bank Rate at 3.75%."
+  const vote=t.match(new RegExp("Monetary Policy Committee(?:\\s*\\(MPC\\))?\\s+voted(?:\\s+unanimously|\\s+by\\s+a\\s+majority\\s+of\\s+\\S+)?\\s+to\\s+(maintain|hold|keep|increase|raise|reduce|cut|lower)\\s+Bank Rate(?:\\s+by\\s+\\d+(?:\\.\\d+)?\\s+percentage points?,?)?\\s+(?:at|to)\\s+"+RATE+"\\s*%","i"));
+  if(vote){rate=pct(vote[2]);hold=/^(maintain|hold|keep)$/i.test(vote[1]);}
+  // The announcement ("Published on 05 November 2026") is the decision date TRADE90 records;
+  // the meeting itself ends the day before.
+  decisionDate=englishDate(t.match(/Published on\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"")
+   ||englishDate(t.match(/Monetary Policy Committee meeting on\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+  const monthPath=p.match(/\/(20\d{2})\/([a-z]+)-20\d{2}$/i);
+  if(decisionDate&&monthPath&&(decisionDate.slice(0,4)!==monthPath[1]||+decisionDate.slice(5,7)!==months[monthPath[2].toLowerCase()]))decisionDate=null;
+  // Bank Rate changes take effect on the announcement date.
+  eff=hold?null:decisionDate;
  }
  if(code==="AUD"){
-  decisionDate=englishDate(t.match(/\bDate\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
-  rate=pct(t.match(/cash rate target[\s\S]{0,130}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*(?:per\s*cent|percent|%)/i)?.[1]);eff=englishDate(t.match(/(?:effective|with effect)\s+(?:on|from)?\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+  decisionDate=englishDate(t.match(/\bDate:?\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+  // Hold: "the Board decided to leave the cash rate unchanged at 3.60 per cent" or, with no figure,
+  // "the Board decided to leave the cash rate target unchanged".
+  const held=t.match(new RegExp("decided to leave the cash rate(?: target)? unchanged(?: at\\s+"+RATE+"\\s*(?:per\\s*cent|percent|%))?","i"));
+  if(held){hold=true;rate=held[1]===undefined?undefined:pct(held[1]);}
+  else{
+   rate=pct(t.match(/cash rate target[\s\S]{0,130}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*(?:per\s*cent|percent|%)/i)?.[1]);
+   // RBA statements do not restate it: a new cash rate target applies from the day after the announcement.
+   eff=effectivePhrase()||(decisionDate?new Date(Date.parse(decisionDate+"T12:00:00Z")+864e5).toISOString().slice(0,10):null);
+  }
  }
  if(code==="CAD"){
   m=p.match(/fad-press-release-(20\d{2})-(\d{2})-(\d{2})/);
   decisionDate=m&&dateParts(m[1],m[2],m[3]);
   rate=pct(t.match(/target for the overnight rate\s+(?:by\s+\d+(?:\.\d+)?\s+basis points\s+)?(?:at|to)\s+(\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);eff=decisionDate;
+  hold=/\b(?:maintains?|holds?|held)\b[^.]{0,60}target for the overnight rate/i.test(t);
  }
  if(code==="CHF"){
   m=p.match(/pre_(20\d{2})(\d{2})(\d{2})/);decisionDate=m&&dateParts(m[1],m[2],m[3]);
-  rate=pct(t.match(/SNB policy rate[\s\S]{0,105}?\b(?:at|to)\s+(-?\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);eff=englishDate(t.match(/(?:effective|with effect)\s+(?:on|from)?\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+  rate=pct(t.match(/SNB policy rate[\s\S]{0,105}?\b(?:at|to)\s+(-?\d{1,2}(?:\.\d{1,3})?)\s*%/i)?.[1]);
+  // "Swiss National Bank leaves SNB policy rate unchanged at 0%"
+  hold=/SNB policy rate unchanged at/i.test(t);
+  eff=hold?null:effectivePhrase();
  }
  if(code==="NZD"){
-  rate=pct(t.match(/(?:Official Cash Rate|OCR)[\s\S]{0,80}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*(?:%|percent)/i)?.[1]);
-  decisionDate=englishDate(t.match(/(?:Wednesday|Tuesday|Monday|Thursday|Friday)\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");eff=englishDate(t.match(/(?:effective|with effect)\s+(?:on|from)?\s*\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"");
+  // Hold: "The Monetary Policy Committee today voted 4 – 3 to hold the OCR at 2.75 percent."
+  const held=t.match(new RegExp("(?:hold|keep|leave|maintain)\\s+the\\s+(?:OCR|Official Cash Rate)\\s+(?:unchanged\\s+)?at\\s+"+RATE+"\\s*(?:%|percent|per cent)","i"));
+  if(held){hold=true;rate=pct(held[1]);}
+  else{
+   rate=pct(t.match(/(?:Official Cash Rate|OCR)[\s\S]{0,80}?\bto\s+(\d{1,2}(?:\.\d{1,3})?)\s*(?:%|percent)/i)?.[1]);
+   eff=effectivePhrase();
+  }
+  decisionDate=englishDate(t.match(/(?:Wednesday|Tuesday|Monday|Thursday|Friday)\s+\d{1,2}\s+[A-Za-z]+\s+20\d{2}/i)?.[0]||"")||englishDate(t.slice(0,600));
+  const month=p.match(/\/news\/(20\d{2})\/(\d{2})\//);
+  if(decisionDate&&(!month||decisionDate.slice(0,7)!==month[1]+"-"+month[2]))decisionDate=null; // date must agree with the URL
+ }
+ if(hold){
+  if(rate===null||!decisionDate)return null;
+  return {code,rate:rate===undefined?null:rate,hold:true,decisionDate,effectiveDate:null,source:item.url,decision:"Verified official policy decision"};
  }
  return rate!==null&&rate!==undefined&&decisionDate&&eff?{code,rate,decisionDate,effectiveDate:eff,source:item.url,decision:"Verified official policy decision"}:null;
 }
@@ -95,13 +141,22 @@ export function completeFedDecision(parsed,implementationHtml){
  return {...parsed,effectiveDate:eff,reason:undefined};
 }
 
-export function decisionSafety(candidate,bank,today){
+// A hold says "unchanged": its rate is the current rate and the effective date of that rate
+// does not move. A hold that names a different figure from the one on record is a conflict.
+export function resolveCandidate(candidate,bank){
+ if(!candidate?.hold)return candidate;
+ if(candidate.rate!==null&&candidate.rate!==undefined&&Math.abs(candidate.rate-bank.rate)>.000001)return {...candidate,conflict:true};
+ return {...candidate,rate:bank.rate,effectiveDate:bank.effectiveDate};
+}
+export function decisionSafety(raw,bank,today){
+ const candidate=resolveCandidate(raw,bank);
+ if(candidate?.conflict)return "conflicting_hold";
  if(!candidate||candidate.code!==bank.code||!Number.isFinite(candidate.rate)||!candidate.decisionDate||!candidate.effectiveDate)return "not_verified";
  if(candidate.decisionDate>today||candidate.effectiveDate>today)return "future_decision";
  if(candidate.decisionDate<bank.decisionDate)return "older_decision";
  if(candidate.decisionDate===bank.decisionDate)return Math.abs(candidate.rate-bank.rate)<.000001?"unchanged":"conflicting_same_date";
  if(Math.abs(candidate.rate-bank.rate)>1.000001)return "unusually_large_change";
- if(candidate.effectiveDate<candidate.decisionDate)return "invalid_effective_date";
+ if(!candidate.hold&&candidate.effectiveDate<candidate.decisionDate)return "invalid_effective_date";
  return "publish";
 }
 // Append-only public record of accepted OFFICIAL decisions, never guesses.
@@ -124,7 +179,8 @@ export function updateSnapshot(snapshot,proposals,today){
  if(snapshot?.banks?.length!==8)throw Error("Invalid eight-bank source snapshot");
  const changed=[],verdicts=[];
  const updated=snapshot.banks.map(bank=>{
-  const c=proposals.find(p=>p.code===bank.code);if(!c)return bank;
+  const found=proposals.find(p=>p.code===bank.code);if(!found)return bank;
+  const c=resolveCandidate(found,bank);
   const reason=decisionSafety(c,bank,today);verdicts.push({code:bank.code,reason});
   if(reason!=="publish")return bank;
   changed.push(bank.code);
