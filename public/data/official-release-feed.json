@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-23T03:44:54.047Z",
-  "lastSourceScanAt": "2026-11-23T03:44:54.047Z",
+  "lastCompiledAt": "2026-11-23T14:49:42.824Z",
+  "lastSourceScanAt": "2026-11-23T14:49:42.824Z",
   "items": [
+    {
+      "code": "EUR",
+      "bank": "ECB",
+      "title": "Philip R. Lane: Climate change and monetary policy",
+      "url": "https://www.ecb.europa.eu/press/key/date/2026/html/ecb.sp261123~b5816801a0.en.pdf",
+      "firstSeenAt": "2026-11-23T14:49:42.824Z"
+    },
     {
       "code": "CAD",
       "bank": "BoC",
