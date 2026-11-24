@@ -1,9 +1,23 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-24T16:28:14.848Z",
-  "lastSourceScanAt": "2026-11-24T16:28:14.848Z",
+  "lastCompiledAt": "2026-11-24T23:04:02.864Z",
+  "lastSourceScanAt": "2026-11-24T23:04:02.864Z",
   "items": [
+    {
+      "code": "CAD",
+      "bank": "BoC",
+      "title": "Canada’s monetary policy framework: A trusted anchor in uncertain waters",
+      "url": "https://www.bankofcanada.ca/2026/11/canadas-monetary-policy-framework-a-trusted-anchor-in-uncertain-waters/",
+      "firstSeenAt": "2026-11-24T23:04:02.864Z"
+    },
+    {
+      "code": "USD",
+      "bank": "Fed",
+      "title": "Minutes of the Board's discount rate meetings on October 19 and October 28, 2026",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261124a.htm",
+      "firstSeenAt": "2026-11-24T23:04:02.864Z"
+    },
     {
       "code": "EUR",
       "bank": "ECB",

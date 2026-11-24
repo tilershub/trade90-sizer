@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "monitored",
-  "lastScanAt": "2026-11-24T16:28:14.848Z",
+  "lastScanAt": "2026-11-24T23:04:02.864Z",
   "explanation": "Auto-detected links to central-bank publications. NOT verified rate changes or current live rates.",
   "sources": [
     {
@@ -10,8 +10,12 @@
       "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
       "domain": "federalreserve.gov",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
+        {
+          "title": "Minutes of the Board's discount rate meetings on October 19 and October 28, 2026",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261124a.htm"
+        },
         {
           "title": "Minutes of the Federal Open Market Committee, October 27-28, 2026",
           "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261118a.htm"
@@ -63,10 +67,6 @@
         {
           "title": "Federal Reserve issues FOMC statement",
           "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"
-        },
-        {
-          "title": "Federal Reserve Board and Federal Open Market Committee release economic projections from the June 16-17 FOMC meeting",
-          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617b.htm"
         }
       ]
     },
@@ -76,7 +76,7 @@
       "url": "https://www.ecb.europa.eu/rss/press.html",
       "domain": "ecb.europa.eu",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
         {
           "title": "Philip R. Lane: Climate change and monetary policy",
@@ -102,7 +102,7 @@
       "url": "https://www.bankofengland.co.uk/news/latest-and-upcoming",
       "domain": "bankofengland.co.uk",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
         {
           "title": "Publication // Monetary Policy Report (MPR) 05 November 2026 Monetary Policy Report - November 2026 Monetary Policy Report - November 2026",
@@ -176,7 +176,7 @@
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "domain": "boj.or.jp",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
         {
           "title": "Speech by Board Member TAKATA at a Meeting Held by the Tokushima Association of Corporate Executives (Economic Activity, Prices, and Monetary Policy in Japan: Japan's Money and Capital Market Transformation -- Will a Par",
@@ -262,7 +262,7 @@
       "url": "https://www.rba.gov.au/media-releases/",
       "domain": "rba.gov.au",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
         {
           "title": "Statement by the Monetary Policy Board: Monetary Policy Decision",
@@ -336,7 +336,7 @@
       "url": "https://www.rbnz.govt.nz/feeds/news",
       "domain": "rbnz.govt.nz",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
         {
           "title": "Updates to the October Monetary Policy Review and November Financial Stability Report",
@@ -366,19 +366,19 @@
       "url": "https://www.bankofcanada.ca/press/press-releases/",
       "domain": "bankofcanada.ca",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
         {
           "title": "Act now or wait? How monetary policy should respond to supply shocks",
           "url": "https://www.bankofcanada.ca/2026/11/sparks-at-bank-article-2026-25/"
         },
         {
-          "title": "Setting the scenario: Monetary policy communications in uncertain times",
-          "url": "https://www.bankofcanada.ca/2026/11/setting-the-scenario-monetary-policy-communications-in-uncertain-times/"
+          "title": "Canada’s monetary policy framework: A trusted anchor in uncertain waters",
+          "url": "https://www.bankofcanada.ca/2026/11/canadas-monetary-policy-framework-a-trusted-anchor-in-uncertain-waters/"
         },
         {
-          "title": "Summary of Governing Council deliberations: Fixed announcement date of October&nbsp;28, 2026",
-          "url": "https://www.bankofcanada.ca/2026/11/summary-of-governing-council-deliberations-fixed-announcement-date-of-october-28-2026/"
+          "title": "Setting the scenario: Monetary policy communications in uncertain times",
+          "url": "https://www.bankofcanada.ca/2026/11/setting-the-scenario-monetary-policy-communications-in-uncertain-times/"
         },
         {
           "title": "Joint Statement of the Government of Canada and the Bank of Canada on the Renewal of the Monetary Policy Framework",
@@ -412,7 +412,7 @@
       "url": "https://www.snb.ch/en/news-publications/media-releases",
       "domain": "snb.ch",
       "status": "available",
-      "lastSuccessAt": "2026-11-24T16:28:14.848Z",
+      "lastSuccessAt": "2026-11-24T23:04:02.864Z",
       "items": [
         {
           "title": "24.09.2026 Monetary policy assessment of 24 September 2026 &#65279;",
