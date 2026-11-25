@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "asOf": "2026-11-24",
-  "generatedAt": "2026-11-25T01:37:08.621Z",
+  "generatedAt": "2026-11-25T16:07:52.649Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -1151,21 +1151,16 @@
     },
     "EUR": {
       "verified": true,
-      "asOf": "2026-11-23",
+      "asOf": "2026-11-24",
       "source": "https://data.ecb.europa.eu/data/datasets/YC",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
       "provider": "ECB euro-area AAA government spot curve",
       "yields": {
-        "2Y": 3.027138651,
-        "10Y": 3.3209069064
+        "2Y": 3.0167781426,
+        "10Y": 3.3120809567
       },
       "history": [
-        {
-          "date": "2025-05-05",
-          "2Y": 1.7418307971,
-          "10Y": 2.620423616
-        },
         {
           "date": "2025-05-06",
           "2Y": 1.7671821893,
@@ -3160,19 +3155,24 @@
           "date": "2026-11-23",
           "2Y": 3.027138651,
           "10Y": 3.3209069064
+        },
+        {
+          "date": "2026-11-24",
+          "2Y": 3.0167781426,
+          "10Y": 3.3120809567
         }
       ]
     },
     "GBP": {
       "verified": true,
-      "asOf": "2026-11-23",
+      "asOf": "2026-11-24",
       "source": "https://www.bankofengland.co.uk/statistics/yield-curves",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
       "provider": "Bank of England nominal gilt fitted spot curve",
       "yields": {
-        "2Y": 4.679974796030224,
-        "10Y": 5.192838901974841
+        "2Y": 4.65776494549517,
+        "10Y": 5.1795635492111085
       },
       "history": [
         {
@@ -3364,6 +3364,11 @@
           "date": "2026-11-23",
           "2Y": 4.679974796030224,
           "10Y": 5.192838901974841
+        },
+        {
+          "date": "2026-11-24",
+          "2Y": 4.65776494549517,
+          "10Y": 5.1795635492111085
         }
       ]
     },
@@ -5577,21 +5582,16 @@
     },
     "CAD": {
       "verified": true,
-      "asOf": "2026-11-23",
+      "asOf": "2026-11-24",
       "source": "https://www.bankofcanada.ca/rates/interest-rates/canadian-bonds/",
       "kind": "sovereign_benchmark_yield",
       "frequency": "daily",
       "provider": "Bank of Canada selected government bond benchmark yields",
       "yields": {
-        "2Y": 3.21,
-        "10Y": 3.68
+        "2Y": 3.24,
+        "10Y": 3.67
       },
       "history": [
-        {
-          "date": "2025-04-15",
-          "2Y": 2.53,
-          "10Y": 3.11
-        },
         {
           "date": "2025-04-16",
           "2Y": 2.52,
@@ -7586,6 +7586,11 @@
           "date": "2026-11-23",
           "2Y": 3.21,
           "10Y": 3.68
+        },
+        {
+          "date": "2026-11-24",
+          "2Y": 3.24,
+          "10Y": 3.67
         }
       ]
     },
@@ -7647,7 +7652,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-24",
       "historyPoints": 225,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7656,22 +7661,22 @@
       "source": "https://data.ecb.europa.eu/data/datasets/YC",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-23",
+      "latestObservation": "2026-11-24",
       "historyPoints": 400,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": null,
-      "observationAgeDays": 2
+      "observationAgeDays": 1
     },
     "GBP": {
       "status": "current",
       "source": "https://www.bankofengland.co.uk/statistics/yield-curves",
       "kind": "fitted_sovereign_spot",
       "frequency": "daily",
-      "latestObservation": "2026-11-23",
-      "historyPoints": 38,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "latestObservation": "2026-11-24",
+      "historyPoints": 39,
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": null,
-      "observationAgeDays": 2
+      "observationAgeDays": 1
     },
     "JPY": {
       "status": "current",
@@ -7680,7 +7685,7 @@
       "frequency": "daily",
       "latestObservation": "2026-11-24",
       "historyPoints": 36,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7691,7 +7696,7 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-18",
       "historyPoints": 400,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": null,
       "observationAgeDays": 7
     },
@@ -7702,7 +7707,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -7711,11 +7716,11 @@
       "source": "https://www.bankofcanada.ca/rates/interest-rates/canadian-bonds/",
       "kind": "sovereign_benchmark_yield",
       "frequency": "daily",
-      "latestObservation": "2026-11-23",
+      "latestObservation": "2026-11-24",
       "historyPoints": 400,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": null,
-      "observationAgeDays": 2
+      "observationAgeDays": 1
     },
     "CHF": {
       "status": "stale_or_source_failed",
@@ -7724,7 +7729,7 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-25T01:37:08.621Z",
+      "checkedAt": "2026-11-25T16:07:52.649Z",
       "error": null,
       "observationAgeDays": 512
     }
