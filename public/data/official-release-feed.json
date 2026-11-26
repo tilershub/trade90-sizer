@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-26T11:00:10.732Z",
-  "lastSourceScanAt": "2026-11-26T11:00:10.732Z",
+  "lastCompiledAt": "2026-11-26T15:49:07.785Z",
+  "lastSourceScanAt": "2026-11-26T15:49:07.785Z",
   "items": [
+    {
+      "code": "CAD",
+      "bank": "BoC",
+      "title": "How monetary policy affects Canada’s housing market",
+      "url": "https://www.bankofcanada.ca/2026/11/sparks-at-bank-article-2026-26/",
+      "firstSeenAt": "2026-11-26T15:49:07.785Z"
+    },
     {
       "code": "NZD",
       "bank": "RBNZ",
