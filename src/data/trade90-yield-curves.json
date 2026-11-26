@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "asOf": "2026-11-24",
-  "generatedAt": "2026-11-25T16:07:52.649Z",
+  "asOf": "2026-11-25",
+  "generatedAt": "2026-11-26T01:11:24.647Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -12,14 +12,14 @@
   "currencies": {
     "USD": {
       "verified": true,
-      "asOf": "2026-11-24",
+      "asOf": "2026-11-25",
       "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
       "kind": "sovereign_par_yield",
       "frequency": "daily",
       "provider": "US Treasury par yield",
       "yields": {
-        "2Y": 4.63,
-        "10Y": 4.91
+        "2Y": 4.61,
+        "10Y": 4.85
       },
       "history": [
         {
@@ -1146,6 +1146,11 @@
           "date": "2026-11-24",
           "2Y": 4.63,
           "10Y": 4.91
+        },
+        {
+          "date": "2026-11-25",
+          "2Y": 4.61,
+          "10Y": 4.85
         }
       ]
     },
@@ -3374,14 +3379,14 @@
     },
     "JPY": {
       "verified": true,
-      "asOf": "2026-11-24",
+      "asOf": "2026-11-25",
       "source": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/index.htm",
       "kind": "sovereign_constant_maturity",
       "frequency": "daily",
       "provider": "Japan Ministry of Finance constant-maturity JGB yield",
       "yields": {
-        "2Y": 1.783,
-        "10Y": 2.781
+        "2Y": 1.731,
+        "10Y": 2.713
       },
       "history": [
         {
@@ -3563,6 +3568,11 @@
           "date": "2026-11-24",
           "2Y": 1.783,
           "10Y": 2.781
+        },
+        {
+          "date": "2026-11-25",
+          "2Y": 1.731,
+          "10Y": 2.713
         }
       ]
     },
@@ -7650,9 +7660,9 @@
       "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
       "kind": "sovereign_par_yield",
       "frequency": "daily",
-      "latestObservation": "2026-11-24",
-      "historyPoints": 225,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "latestObservation": "2026-11-25",
+      "historyPoints": 226,
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7663,9 +7673,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-24",
       "historyPoints": 400,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "GBP": {
       "status": "current",
@@ -7674,18 +7684,18 @@
       "frequency": "daily",
       "latestObservation": "2026-11-24",
       "historyPoints": 39,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "JPY": {
       "status": "current",
       "source": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/index.htm",
       "kind": "sovereign_constant_maturity",
       "frequency": "daily",
-      "latestObservation": "2026-11-24",
-      "historyPoints": 36,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "latestObservation": "2026-11-25",
+      "historyPoints": 37,
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7696,9 +7706,9 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-18",
       "historyPoints": 400,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": null,
-      "observationAgeDays": 7
+      "observationAgeDays": 8
     },
     "NZD": {
       "status": "unavailable",
@@ -7707,7 +7717,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -7718,9 +7728,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-24",
       "historyPoints": 400,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "CHF": {
       "status": "stale_or_source_failed",
@@ -7729,9 +7739,9 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-25T16:07:52.649Z",
+      "checkedAt": "2026-11-26T01:11:24.647Z",
       "error": null,
-      "observationAgeDays": 512
+      "observationAgeDays": 513
     }
   }
 }
