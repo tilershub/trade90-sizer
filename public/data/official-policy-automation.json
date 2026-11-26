@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
   "status": "automated_fail_closed",
-  "lastCheckedAt": "2026-11-26T15:49:07.824Z",
+  "lastCheckedAt": "2026-11-26T20:13:43.759Z",
   "changedBanks": [],
   "coverage": [
     {
       "code": "AUD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-26T15:49:07.824Z",
+      "checkedAt": "2026-11-26T20:13:43.759Z",
       "source": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
       "decisionDate": "2026-11-03",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     },
     {
       "code": "USD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-26T15:49:07.824Z",
+      "checkedAt": "2026-11-26T20:13:43.759Z",
       "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     },
     {
       "code": "GBP",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-26T15:49:07.824Z",
+      "checkedAt": "2026-11-26T20:13:43.759Z",
       "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
       "decisionDate": "2026-11-05",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     },
     {
       "code": "NZD",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     },
     {
       "code": "EUR",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     },
     {
       "code": "CAD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-26T15:49:07.824Z",
+      "checkedAt": "2026-11-26T20:13:43.759Z",
       "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     },
     {
       "code": "JPY",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     },
     {
       "code": "CHF",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-26T15:49:07.824Z",
+      "checkedAt": "2026-11-26T20:13:43.759Z",
       "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
       "decisionDate": "2026-09-24",
-      "attemptedAt": "2026-11-26T15:49:07.824Z"
+      "attemptedAt": "2026-11-26T20:13:43.759Z"
     }
   ],
   "failures": [],
