@@ -1,9 +1,79 @@
 {
   "schemaVersion": 1,
   "kind": "official_discovered_publications",
-  "lastCompiledAt": "2026-11-26T01:49:11.218Z",
-  "lastSourceScanAt": "2026-11-26T01:49:11.218Z",
+  "lastCompiledAt": "2026-11-26T11:00:10.732Z",
+  "lastSourceScanAt": "2026-11-26T11:00:10.732Z",
   "items": [
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "RBNZ Governor Anna Breman: Monetary policy must focus on the future",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/02/monetary-policy-must-focus-on-the-future",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "Reserve Bank appointments to Financial Policy Committee",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/01/reserve-bank-appointments-to-financial-policy-committee",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "RBNZ Governor speaks on Monetary Policy",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/12/rbnz-governor-speaks-on-monetary-policy",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "Transmission currents and the flow of monetary policy to domestic financial conditions",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/10/transmission-currents-and-the-flow-of-monetary-policy-to-domestic-financial-conditions",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "Navigating the storm: lessons from monetary and fiscal policy during COVID-19",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/10/lessons-from-monetary-and-fiscal-policy-during-covid-19",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "Monetary policy decision dates and financial stability report dates 2026/27",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/10/monetary-policy-and-financial-stability-report-dates-august-2026-to-february-2027",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "RBNZ publishes Competition Assessment Guidelines for prudential policy development",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/10/rbnz-publishes-competition-assessment-guidelines-for-prudential-policy-development",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "Reserve Bank establishes new Financial Policy Committee",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/10/reserve-bank-establishes-new-financial-policy-committee",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "Strong progress made on post-COVID-19 recommendations for monetary policy",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/09/strong-progress-made-on-post-covid-19-recommendations-for-monetary-policy",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
+    {
+      "code": "NZD",
+      "bank": "RBNZ",
+      "title": "New Monetary Policy Committee member appointed",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2025/09/new-monetary-policy-committee-member-appointed",
+      "firstSeenAt": "2026-11-26T11:00:10.732Z"
+    },
     {
       "code": "JPY",
       "bank": "BoJ",
