@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "asOf": "2026-11-25",
-  "generatedAt": "2026-11-26T15:49:08.949Z",
+  "asOf": "2026-11-26",
+  "generatedAt": "2026-11-27T01:10:02.489Z",
   "coverage": {
     "total": 8,
     "current": 6,
@@ -3384,14 +3384,14 @@
     },
     "JPY": {
       "verified": true,
-      "asOf": "2026-11-25",
+      "asOf": "2026-11-26",
       "source": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/index.htm",
       "kind": "sovereign_constant_maturity",
       "frequency": "daily",
       "provider": "Japan Ministry of Finance constant-maturity JGB yield",
       "yields": {
-        "2Y": 1.731,
-        "10Y": 2.713
+        "2Y": 1.747,
+        "10Y": 2.704
       },
       "history": [
         {
@@ -3578,6 +3578,11 @@
           "date": "2026-11-25",
           "2Y": 1.731,
           "10Y": 2.713
+        },
+        {
+          "date": "2026-11-26",
+          "2Y": 1.747,
+          "10Y": 2.704
         }
       ]
     },
@@ -7667,9 +7672,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-25",
       "historyPoints": 226,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "EUR": {
       "status": "current",
@@ -7678,9 +7683,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-25",
       "historyPoints": 400,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "GBP": {
       "status": "current",
@@ -7689,18 +7694,18 @@
       "frequency": "daily",
       "latestObservation": "2026-11-25",
       "historyPoints": 40,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "JPY": {
       "status": "current",
       "source": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/index.htm",
       "kind": "sovereign_constant_maturity",
       "frequency": "daily",
-      "latestObservation": "2026-11-25",
-      "historyPoints": 37,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "latestObservation": "2026-11-26",
+      "historyPoints": 38,
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": null,
       "observationAgeDays": 1
     },
@@ -7711,9 +7716,9 @@
       "frequency": "weekly_publication",
       "latestObservation": "2026-11-18",
       "historyPoints": 400,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": null,
-      "observationAgeDays": 8
+      "observationAgeDays": 9
     },
     "NZD": {
       "status": "unavailable",
@@ -7722,7 +7727,7 @@
       "frequency": "daily",
       "latestObservation": null,
       "historyPoints": 0,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": "RBNZ B2 spreadsheet: HTTP Error 403: Forbidden; HTML: HTTP 403 at www.rbnz.govt.nz",
       "observationAgeDays": null
     },
@@ -7733,9 +7738,9 @@
       "frequency": "daily",
       "latestObservation": "2026-11-25",
       "historyPoints": 400,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": null,
-      "observationAgeDays": 1
+      "observationAgeDays": 2
     },
     "CHF": {
       "status": "stale_or_source_failed",
@@ -7744,9 +7749,9 @@
       "frequency": "monthly",
       "latestObservation": "2025-07-01",
       "historyPoints": 7,
-      "checkedAt": "2026-11-26T15:49:08.949Z",
+      "checkedAt": "2026-11-27T01:10:02.489Z",
       "error": null,
-      "observationAgeDays": 513
+      "observationAgeDays": 514
     }
   }
 }
