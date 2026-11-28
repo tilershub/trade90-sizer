@@ -5,44 +5,44 @@
     "assessedBanks": 5,
     "directlyVerifiedDecisions": 5,
     "flaggedNewOfficialDecisions": 0,
-    "checkedAt": "2026-11-28T13:11:19.059Z",
+    "checkedAt": "2026-11-28T14:33:38.084Z",
     "isEditorialReview": false
   },
-  "auditedAt": "2026-11-28T13:11:19.209Z",
+  "auditedAt": "2026-11-28T14:33:38.187Z",
   "disclaimer": "Audit time is when TRADE90 evaluated its saved datasets. It is NOT the time each source observation, benchmark or analyst note was verified.",
   "categories": {
     "macro": {
-      "checkedAt": "2026-11-28T00:42:30.599235+00:00",
+      "checkedAt": "2026-11-28T14:33:08.756081+00:00",
       "okCount": 20,
       "total": 24,
       "status": "partial"
     },
     "extra": {
-      "checkedAt": "2026-11-28T00:42:32.305919+00:00",
+      "checkedAt": "2026-11-28T14:33:10.249767+00:00",
       "okCount": 10,
       "total": 10,
       "status": "checked"
     },
     "sourceDiscovery": {
-      "checkedAt": "2026-11-28T13:11:17.403Z",
+      "checkedAt": "2026-11-28T14:33:16.480Z",
       "okCount": 8,
       "total": 8,
       "status": "checked"
     },
     "rateDecisionChecks": {
-      "checkedAt": "2026-11-28T13:11:17.543Z",
+      "checkedAt": "2026-11-28T14:33:16.514Z",
       "okCount": 5,
       "total": 8,
       "status": "partial"
     },
     "model": {
-      "generatedAt": "2026-11-28T13:11:19.059Z",
+      "generatedAt": "2026-11-28T14:33:38.084Z",
       "activePairs": 28,
       "totalPairs": 28,
       "status": "checked"
     },
     "automatedPolicyReview": {
-      "checkedAt": "2026-11-28T13:11:19.059Z",
+      "checkedAt": "2026-11-28T14:33:38.084Z",
       "okCount": 5,
       "total": 8,
       "status": "partial"
@@ -102,57 +102,57 @@
     {
       "code": "AUD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-28T13:11:17.543Z",
+      "checkedAt": "2026-11-28T14:33:16.514Z",
       "source": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
       "decisionDate": "2026-11-03",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     },
     {
       "code": "USD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-28T13:11:17.543Z",
+      "checkedAt": "2026-11-28T14:33:16.514Z",
       "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     },
     {
       "code": "GBP",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-28T13:11:17.543Z",
+      "checkedAt": "2026-11-28T14:33:16.514Z",
       "source": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
       "decisionDate": "2026-11-05",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     },
     {
       "code": "NZD",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     },
     {
       "code": "EUR",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     },
     {
       "code": "CAD",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-28T13:11:17.543Z",
+      "checkedAt": "2026-11-28T14:33:16.514Z",
       "source": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
       "decisionDate": "2026-10-28",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     },
     {
       "code": "JPY",
       "state": "No parseable decision in official feed",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     },
     {
       "code": "CHF",
       "state": "Decision matches published benchmark",
-      "checkedAt": "2026-11-28T13:11:17.543Z",
+      "checkedAt": "2026-11-28T14:33:16.514Z",
       "source": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
       "decisionDate": "2026-09-24",
-      "attemptedAt": "2026-11-28T13:11:17.543Z"
+      "attemptedAt": "2026-11-28T14:33:16.514Z"
     }
   ]
 }
