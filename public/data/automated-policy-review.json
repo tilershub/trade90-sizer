@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "model": "automated_provisional_policy_review",
   "methodVersion": "1.0.0",
-  "generatedAt": "2026-11-27T15:37:37.932Z",
+  "generatedAt": "2026-11-28T00:42:57.672Z",
   "meaning": "Eight automatically assessed macro/decision contexts. Not a statement interpretation, not market pricing or editorial review.",
   "totalBanks": 8,
-  "assessedBanks": 8,
+  "assessedBanks": 5,
   "directlyVerifiedDecisions": 5,
   "flaggedNewOfficialDecisions": 0,
   "banks": {
     "USD": {
       "currency": "USD",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -37,7 +37,7 @@
     },
     "EUR": {
       "currency": "EUR",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -63,7 +63,7 @@
     },
     "GBP": {
       "currency": "GBP",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -89,7 +89,7 @@
     },
     "JPY": {
       "currency": "JPY",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -115,7 +115,7 @@
     },
     "AUD": {
       "currency": "AUD",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -124,50 +124,46 @@
       "probability": null,
       "state": "uncertain",
       "label": "No supported automated direction",
-      "status": "assessed",
+      "status": "macro_unavailable",
       "evidence": {
-        "macro": "validated",
+        "macro": "unavailable",
         "benchmarkRate": 4.85,
         "decisionDate": "2026-11-03",
         "decisionSource": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
         "verifiedDecisionThisRun": true,
         "sourceScanCurrent": true,
         "newerOfficialDecision": null,
-        "sourceCheck": "Decision matches published benchmark",
-        "macroScore": 1,
-        "inflationPillar": 2
+        "sourceCheck": "Decision matches published benchmark"
       },
-      "reason": "Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold."
+      "reason": "Required current macroeconomic evidence is missing"
     },
     "NZD": {
       "currency": "NZD",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
       "provisional": true,
       "expectedChangeBp": null,
       "probability": null,
-      "state": "hike_hold",
-      "label": "Automated tightening-pressure scenario",
-      "status": "assessed",
+      "state": "uncertain",
+      "label": "No supported automated direction",
+      "status": "macro_unavailable",
       "evidence": {
-        "macro": "validated",
+        "macro": "unavailable",
         "benchmarkRate": 2.75,
         "decisionDate": "2026-10-28",
         "decisionSource": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
         "verifiedDecisionThisRun": false,
         "sourceScanCurrent": true,
         "newerOfficialDecision": null,
-        "sourceCheck": "No parseable decision in official feed",
-        "macroScore": 2,
-        "inflationPillar": 2
+        "sourceCheck": "No parseable decision in official feed"
       },
-      "reason": "Source-validated inflation pressure and the total macro score support a conditional tightening-versus-hold research scenario. This is NOT a verified forward-looking central-bank statement or a predicted rate increase."
+      "reason": "Required current macroeconomic evidence is missing"
     },
     "CAD": {
       "currency": "CAD",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -193,7 +189,7 @@
     },
     "CHF": {
       "currency": "CHF",
-      "checkedAt": "2026-11-27T15:37:37.932Z",
+      "checkedAt": "2026-11-28T00:42:57.672Z",
       "assessmentMethod": "deterministic_macro_plus_official_decision_context",
       "isEditorialReview": false,
       "isVerifiedStatementInterpretation": false,
@@ -202,20 +198,18 @@
       "probability": null,
       "state": "uncertain",
       "label": "No supported automated direction",
-      "status": "assessed",
+      "status": "macro_unavailable",
       "evidence": {
-        "macro": "validated",
+        "macro": "unavailable",
         "benchmarkRate": 0,
         "decisionDate": "2026-09-24",
         "decisionSource": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
         "verifiedDecisionThisRun": true,
         "sourceScanCurrent": true,
         "newerOfficialDecision": null,
-        "sourceCheck": "Decision matches published benchmark",
-        "macroScore": 1,
-        "inflationPillar": 0
+        "sourceCheck": "Decision matches published benchmark"
       },
-      "reason": "Current economic pressure is insufficient or conflicting. The latest published rate decision alone does not establish a prospective hike, cut or hold."
+      "reason": "Required current macroeconomic evidence is missing"
     }
   }
 }
